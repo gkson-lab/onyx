@@ -2,6 +2,7 @@
 //   node test/test.js
 'use strict';
 require('../host/host.js');
+require('../src/onyx-math.js');
 require('../src/onyx-data.js');
 require('../src/onyx.js');
 
@@ -63,6 +64,11 @@ const SCRIPT = [
 	['remember that my car is blue', /your car is blue/],
 	['what do you remember about me', /Sam[\s\S]*your car is blue/],
 	['what is a jwt', /three base64url parts/],
+	["what's 12 times 7", /= \*\*84\*\*/],
+	['times 3', /84 × 3 = \*\*252\*\*/],
+	['is 91 prime', /7 × 13/],
+	['how many letters in banana', /6 letters/],
+	['write 1234 in words', /one thousand, two hundred and thirty-four/],
 	['should i take the bus or walk', /Go with \*\*(take the bus|walk)\*\*/],
 	['write me a poem', /beyond me/],
 	['who won the world cup in 1998', /don't know|outside what I know|No idea/],
