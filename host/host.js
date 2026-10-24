@@ -57,6 +57,9 @@
 		random,
 		ai: { mode: async () => 'offline' },
 		offline: { plan: () => null, run: async () => '', reset() {} },
+		// The internet port, prepared but not connected: Onyx asks it only when `enabled` is true, and this host has no
+		// network code behind it. See "Internet port" in README.md for the request and reply shapes.
+		net: { enabled: false, ask: async () => null },
 		open() {},
 		setTheme() {},
 	};

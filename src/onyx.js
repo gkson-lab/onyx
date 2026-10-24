@@ -1,5 +1,6 @@
 // Onyx: Omni Agent's local engine. A small intent model (TF-IDF over example phrases, typo-tolerant), a little memory,
-// a glossary, a tool finder and OmniTool's offline commands. Runs on this device: no network, no model download.
+// a glossary and mini dictionary, a tool finder and OmniTool's offline commands. Runs on this device: no network, no
+// model download. The internet port below is prepared for a host to fill in; nothing fills it today.
 (function () {
 	'use strict';
 
@@ -161,7 +162,7 @@
 	const memory = () => Object.assign({ name: null, facts: [], met: null }, Omni.store.get(MEMORY_KEY, {}));
 	const saveMemory = (m) => Omni.store.set(MEMORY_KEY, m);
 
-	const fresh = () => ({ lastAnswer: null, pending: null, expect: null, lastIntent: null, lastReply: '', lastKind: null, lastCommand: null, why: null, recent: {}, bags: {}, misses: 0 });
+	const fresh = () => ({ lastAnswer: null, pending: null, expect: null, lastIntent: null, lastReply: '', lastKind: null, lastCommand: null, why: null, recent: {}, bags: {}, misses: 0, sentence: { word: null, n: 0, said: [] } });
 	let convo = fresh();
 
 	const part = () => {
@@ -252,15 +253,89 @@
 		return null;
 	}
 
+	/** Questions about a word that aren't its definition: other words for it, its opposite, its part of speech, a sentence with it. */
+	function wordQuery(text) {
+		const d = Omni.onyxDictionary;
+		if (!d) return null;
+		const t = text.trim().replace(/[?!.]+$/, '');
+		const unknown = (w) => `"${w.replace(/^["'“]|["'”]$/g, '')}" isn't in my dictionary. I know ${d.size} everyday words and can't look up new ones.`;
+		let m;
+		if ((m = t.match(/^(?:what(?:'s| is|s| are)? )?(?:an?(?:nother)? |some |the )?(?:synonyms?|other words?|another word|different word) (?:for|of|to|like) (.+)$/i))) return answer(d.related(m[1]) || unknown(m[1]));
+		if ((m = t.match(/^(?:what(?:'s| is|s| are)? )?(?:an? |some |the )?(?:opposite|antonyms?) (?:of|for|to) (.+)$/i))) return answer(d.related(m[1], true) || unknown(m[1]));
+		if ((m = t.match(/^(?:what|which) (?:part of speech|kind of word|type of word|word class) is (.+)$/i)) || (m = t.match(/^is (.+?) an? (?:noun|verb|adjective|adverb)$/i))) return answer(d.partOfSpeech(m[1]) || unknown(m[1]));
+		const withWord = t.match(/^(?:can you |could you |please )?(?:use|put) (?:the word )?(.+?) in (?:a|another) sentence(?: please)?$/i) || t.match(/^(?:can you |could you |please )?(?:make|write|give me|create|form|build|say|generate|tell me)(?: me)? (?:a |another |one )?(?:new )?sentence (?:with|using|about|containing|that uses|that has|for) (?:the word )?(.+)$/i);
+		if (withWord) {
+			const named = /^(it|that|that word|this word|this)$/i.test(withWord[1]) ? convo.sentence.word : withWord[1];
+			if (!named) return answer('Which word? Try "use happy in a sentence".');
+			const s = d.sentence(named);
+			if (s.missing) return answer(unknown(s.missing));
+			convo.sentence = { word: s.word, n: 1, said: [s.text] };
+			convo.lastKind = 'sentence';
+			return answer(s.text);
+		}
+		if (/^(?:can you |could you |please )?(?:make|write|give me|create|form|build|say|generate|tell me|make up)(?: me)? (?:a |another |one |some )?(?:random |new |made up )?sentences?(?: please)?$|^say something random$/i.test(t)) {
+			const same = /\banother\b/i.test(t) && convo.lastKind === 'sentence' ? convo.sentence.word : null;
+			return answer((/^(can|could) you\b/i.test(t) ? 'Sure. ' : '') + nextSentence(same));
+		}
+		return null;
+	}
+
+	/** Another sentence: for the last word asked about, or a random one. Skips the ones it has just said. */
+	function nextSentence(word) {
+		const prev = convo.sentence.word === word ? convo.sentence : { n: 0, said: [] };
+		const make = () => Omni.onyxDictionary.sentence(word, word ? prev.n : 1);
+		// A word has only a few templates, so once they're all used, settle for not repeating the last one.
+		let s = make();
+		for (let i = 0; i < 12 && prev.said.includes(s.text) && (i < 8 || s.text === prev.said[0]); i++) s = make();
+		convo.sentence = { word, n: prev.n + 1, said: [s.text, ...prev.said].slice(0, 6) };
+		convo.lastKind = 'sentence';
+		return s.only ? `That's the only sentence I have for **${word}**: ${s.text}` : s.text;
+	}
+
+	/* ---------- Internet port (prepared, not connected) ---------- */
+
+	/*
+	 * The one place Onyx would reach beyond this device. A host may set Omni.net = { enabled: true, ask(request) } where
+	 * request is { kind, query } (kind: 'weather', 'news', 'search' or 'define') and ask resolves to { text } or null.
+	 * Nothing provides one today: host.js ships it disabled and Onyx itself makes no network requests. Any failure, a
+	 * slow answer or an empty one falls back to what Onyx would have said offline.
+	 */
+	const NET_KINDS = ['weather', 'news', 'search', 'define'];
+	const NET_TIMEOUT = 8000;
+	async function online(kind, query) {
+		const net = Omni.net;
+		if (!net || net.enabled !== true || typeof net.ask !== 'function' || !NET_KINDS.includes(kind)) return null;
+		let timer;
+		try {
+			const r = await Promise.race([net.ask({ kind, query }), new Promise((done) => (timer = setTimeout(done, NET_TIMEOUT, null)))]);
+			return r && typeof r.text === 'string' && r.text.trim() ? answer(r.text.trim()) : null;
+		} catch {
+			return null;
+		} finally {
+			clearTimeout(timer);
+		}
+	}
+
 	/* ---------- Deciding the reply ---------- */
 
 	const answer = (text, extra) => Object.assign({ text }, extra || {});
 	const asksMeaning = /^(?:what(?: is| are| does)|whats|define|definition of|explain|meaning of|tell me about|what do you mean by|whats an?)\s+(?:an?\s+|the\s+)?(.+?)(?:\s+mean|\s+stand for)?\s*[?.!]*$/i;
 
-	function glossary(term) {
-		const t = term.toLowerCase().replace(/[?.!]/g, '').replace(/^(?:an?|the)\s+/, '').trim();
+	// "define X" and "what does X mean" are clearly about words; "what is X" might be about anything, so it only reaches
+	// the dictionary when no intent claims it ("what is new" is small talk, not a definition of "new").
+	const asksWord = /^(?:define|definition of|what is the definition of|whats the definition of|what does .+ mean|what is the meaning of|whats the meaning of|meaning of)\b/i;
+
+	/** A definition from the tech glossary, then (if `dictionary`) the everyday dictionary; null if neither has it. */
+	function define(term, dictionary) {
+		const t = term.toLowerCase().replace(/[?.!"“”]/g, '').replace(/^(?:the word\s+)?(?:an?|the)\s+/, '').trim();
 		const hit = Omni.onyxData.GLOSSARY.find((g) => g.terms.includes(t) || g.terms.includes(t.replace(/s$/, '')));
-		if (!hit) return null;
+		if (!hit) {
+			const entry = dictionary && Omni.onyxDictionary && Omni.onyxDictionary.define(t);
+			if (!entry) return null;
+			convo.lastKind = null;
+			convo.sentence = { word: t, n: 0, said: [] };
+			return answer(entry);
+		}
 		const text = typeof hit.text === 'function' ? hit.text() : hit.text;
 		convo.lastKind = null;
 		if (hit.tool && Omni.byId[hit.tool]) return answer(`${text}\n\n${Omni.onyxData.toolLink(hit.tool)} works with it.`, { offer: { kind: 'open', id: hit.tool, ask: 'Want me to open it?' } });
@@ -360,6 +435,8 @@ ${r.offer.ask}` : '');
 		}
 		const word = wordTrick(body);
 		if (word) return withGreet(answer(word));
+		const aboutWords = wordQuery(body);
+		if (aboutWords) return withGreet(aboutWords);
 		// Arithmetic is answered directly, and the answer is kept so "times 3" or "that squared" can follow.
 		const sum = Omni.onyxMath && Omni.onyxMath.answer(body, convo.lastAnswer);
 		if (sum) {
@@ -379,33 +456,26 @@ ${r.offer.ask}` : '');
 		const ranked = classify(body);
 		const top = ranked[0] || { id: null, score: 0 };
 		const meaning = body.match(asksMeaning);
+		const aboutWord = asksWord.test(body.trim());
 		if (meaning && !(top.score > 0.75 && ['identity', 'omnitool', 'meaning', 'date', 'time', 'weather', 'news'].includes(top.id))) {
-			const gl = glossary(meaning[1]);
+			const gl = define(meaning[1], aboutWord);
 			if (gl) return withGreet(gl);
 		}
 		if (top.score >= 0.5 || (top.score >= 0.38 && top.score - ((ranked[1] && ranked[1].score) || 0) >= 0.12)) {
 			const intent = Omni.onyxData.INTENTS.find((i) => i.id === top.id);
-			const ctx = {
-				text: normalize(body), raw: body, mem, part: part(), tools: Omni.tools.length, hasKey: (await Omni.ai.mode()) === 'claude',
-				last: convo.lastIntent, lastKind: convo.lastKind, lastReply: convo.lastReply, why: convo.why, mayAskName: !convo.askedName,
-				pick, draw,
-				again: () => {
-					if (convo.lastKind === 'command' && convo.lastCommand) return { text: '', command: convo.lastCommand };
-					if (['joke', 'tip', 'fact'].includes(convo.lastKind)) return draw(convo.lastKind, Omni.onyxData[{ joke: 'JOKES', tip: 'TIPS', fact: 'FACTS' }[convo.lastKind]]);
-					return 'Another what? I can do jokes, tips, facts, or repeat the last command.';
-				},
-			};
-			let r = typeof intent.reply === 'function' ? intent.reply(ctx) : pick(intent.id, intent.reply);
-			if (typeof r === 'string') r = answer(r);
-			if (!['again', 'repeat', 'why', 'ack'].includes(intent.id) && !['joke', 'tip', 'fact'].includes(intent.id)) convo.lastKind = null;
-			convo.lastIntent = intent.id;
-			if (r.expect === 'name') convo.askedName = true;
-			r.text = fill(r.text, mem);
-			return withGreet(r);
+			const searching = intent.id === 'limits' && /\b(web|internet|google|search|look (this|it) up|online|browse)\b/.test(normalize(body));
+			const net = ['weather', 'news'].includes(intent.id) ? await online(intent.id, body) : searching ? await online('search', body) : null;
+			if (net) return withGreet(net);
+			// "Hey hey" is one greeting, not a greeting in front of another.
+			return intent.id === 'greet' ? reply(intent, body, mem) : withGreet(await reply(intent, body, mem));
 		}
 		if (meaning) {
-			const gl = glossary(meaning[1]);
+			const gl = define(meaning[1], true);
 			if (gl) return withGreet(gl);
+			if (aboutWord && !/^(that|it|this|these|those)$/i.test(meaning[1].trim())) {
+				const word = meaning[1].replace(/[?.!"“”]/g, '').trim();
+				return withGreet((await online('define', word)) || answer(`"${word}" isn't in my dictionary or glossary. I know ${Omni.onyxDictionary ? Omni.onyxDictionary.size + ' everyday words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms, and I can't look up new ones.`));
+			}
 		}
 
 		const found = /^(who|when|where|why)\b/i.test(body.trim()) ? [] : findTools(body);
@@ -415,8 +485,13 @@ ${r.offer.ask}` : '');
 			return withGreet(answer(`That sounds like ${Omni.onyxData.toolLink(first.tool.id)}: ${first.tool.description}${more}`, { offer: { kind: 'open', id: first.tool.id, ask: 'Want me to open it?' } }));
 		}
 
+		// "Howdy partner": the greeting is the message, even when the rest of it isn't something I understand.
+		if (greet) return reply(Omni.onyxData.INTENTS.find((i) => i.id === 'greet'), g[1], mem);
+
 		convo.misses++;
 		if (/^(who|what|when|where|why|how|which|is|are|does|do|did|can|could|will|would)\b/i.test(body) || /\?\s*$/.test(body)) {
+			const net = await online('search', body);
+			if (net) return withGreet(net);
 			return withGreet(answer(pick('dunno', [
 				'I don\'t know that one. I only know about OmniTool and a few small things, and I can\'t look anything up.',
 				'That\'s outside what I know. I\'m a small local assistant: no internet, no encyclopedia.',
@@ -428,6 +503,28 @@ ${r.offer.ask}` : '');
 			'I\'m not sure what you mean. You can ask me things like "what is a JWT" or "I need to convert a timestamp".',
 			'That one went past me. Type **help** for the things I understand.',
 		])));
+	}
+
+	/** Runs an intent's reply against the conversation so far. */
+	async function reply(intent, body, mem) {
+		const ctx = {
+			text: normalize(body), raw: body, mem, part: part(), tools: Omni.tools.length, hasKey: (await Omni.ai.mode()) === 'claude',
+			last: convo.lastIntent, lastKind: convo.lastKind, lastReply: convo.lastReply, why: convo.why, mayAskName: !convo.askedName,
+			pick, draw,
+			again: () => {
+				if (convo.lastKind === 'command' && convo.lastCommand) return { text: '', command: convo.lastCommand };
+				if (['joke', 'tip', 'fact'].includes(convo.lastKind)) return draw(convo.lastKind, Omni.onyxData[{ joke: 'JOKES', tip: 'TIPS', fact: 'FACTS' }[convo.lastKind]]);
+				if (convo.lastKind === 'sentence') return nextSentence(convo.sentence.word);
+				return 'Another what? I can do jokes, tips, facts, sentences, or repeat the last command.';
+			},
+		};
+		let r = typeof intent.reply === 'function' ? intent.reply(ctx) : pick(intent.id, intent.reply);
+		if (typeof r === 'string') r = answer(r);
+		if (!['again', 'repeat', 'why', 'ack'].includes(intent.id) && !['joke', 'tip', 'fact'].includes(intent.id)) convo.lastKind = null;
+		convo.lastIntent = intent.id;
+		if (r.expect === 'name') convo.askedName = true;
+		r.text = fill(r.text, mem);
+		return r;
 	}
 
 	/* ---------- Talking in the agent panel ---------- */

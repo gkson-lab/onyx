@@ -93,6 +93,7 @@
 	</main>
 	<script src="../host/host.js"></script>
 	<script src="../src/onyx-math.js"></script>
+	<script src="../src/onyx-dictionary.js"></script>
 	<script src="../src/onyx-data.js"></script>
 	<script src="../src/onyx.js"></script>
 	<script>
@@ -102,9 +103,9 @@
 			const form = document.getElementById('form');
 			const input = document.getElementById('text');
 			const escape = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-			// Just enough Markdown for Onyx's replies: bold, code, bullet lists and line breaks.
+			// Just enough Markdown for Onyx's replies: bold, italics, code, bullet lists and line breaks.
 			function render(text) {
-				const lines = escape(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`([^`]+)`/g, '<code>$1</code>').split('\n');
+				const lines = escape(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*\n]+)\*/g, '<em>$1</em>').replace(/`([^`]+)`/g, '<code>$1</code>').split('\n');
 				let html = '';
 				let list = false;
 				for (const line of lines) {
