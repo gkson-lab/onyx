@@ -14,7 +14,8 @@
 	 *   mass                        a noun with no plural ("bread")
 	 *   at=                         the preposition a place takes: at, in, on, by
 	 *   rel                         a relationship ("sister"), spoken of as "my sister"
-	 *   event=                      what an event calls for: luck (an exam), joy (a birthday), sorry (a funeral)
+	 *   event=                      what an event calls for: luck (an exam), joy (a birthday), sorry (a funeral),
+	 *                               news (a promotion: congratulations)
 	 *   obj=, act                   for verbs: what they act on in made-up sentences, or that they need nothing
 	 *   use=                        for adjectives: feel, trait, object, place, weather; for adverbs: manner, often
 	 *   mood=                       how a feeling or action sits: + good, - bad, -- heavy, 0 neither
@@ -222,7 +223,7 @@ new|adj|recently made, bought or started|I need new shoes.|fresh, recent|old
 heavy|adj|weighing a lot; hard to lift|This bag is too heavy for me.||light|use=object
 tiny|adj|very small|A tiny spider spun a web on the mirror.|minute, little|huge, enormous|use=object
 enormous|adj|very large|An enormous wave crashed over the pier.|huge, gigantic, vast|tiny|use=object
-beautiful|adj|very pleasing to look at or listen to|What a beautiful view.|lovely, gorgeous|ugly|use=object
+beautiful|adj|very pleasing to look at or listen to|What a beautiful view.|lovely, gorgeous|ugly|use=object;mood=+
 ancient|adj|very old; from long ago|They found ancient coins in the field.|old, antique|modern|use=object
 fragile|adj|easily broken or damaged|Careful, those glasses are fragile.|delicate, breakable|sturdy|use=object
 shiny|adj|reflecting light; bright and polished|He bought a shiny red bike.|glossy, gleaming|dull|use=object
@@ -237,13 +238,13 @@ crowded|adj|full of people|The train was crowded at rush hour.|packed, busy|empt
 peaceful|adj|calm and quiet, without trouble|The lake is peaceful at dawn.|tranquil, serene|noisy, chaotic|use=place
 noisy|adj|full of or making a lot of noise|The café was too noisy to talk.|loud, rowdy|quiet|use=place
 cozy|adj|warm, comfortable and relaxing|We spent the evening in a cozy little pub.|snug, comfortable||use=place;forms=cosy
-good|adj|of high quality, pleasant, or right|That was a good idea.|fine, great, excellent|bad, poor
-bad|adj|of low quality, unpleasant, or wrong|I had a bad night's sleep.|poor, awful|good
+good|adj|of high quality, pleasant, or right|That was a good idea.|fine, great, excellent|bad, poor|mood=+
+bad|adj|of low quality, unpleasant, or wrong|I had a bad night's sleep.|poor, awful|good|mood=-
 fast|adj|moving or able to move quickly|She's the fastest runner in the club.|quick, rapid, swift|slow
 slow|adj|moving or happening without much speed|The slow train stops at every station.||fast, quick
 important|adj|mattering a lot|Sleep is important for your health.|significant, vital|trivial, unimportant
-strange|adj|unusual or surprising; hard to explain|I heard a strange noise in the attic.|odd, peculiar, weird|normal, ordinary
-delicious|adj|tasting or smelling very good|The soup was delicious.|tasty, scrumptious|disgusting
+strange|adj|unusual or surprising; hard to explain|I heard a strange noise in the attic.|odd, peculiar, weird|normal, ordinary|mood=0
+delicious|adj|tasting or smelling very good|The soup was delicious.|tasty, scrumptious|disgusting|mood=+
 obvious|adj|easy to see or understand|The answer seems obvious now.|clear, plain, evident|hidden, subtle
 ubiquitous|adj|found everywhere|Smartphones have become ubiquitous.|everywhere, omnipresent, widespread|rare, scarce
 ephemeral|adj|lasting a very short time|Fame on the internet is often ephemeral.|fleeting, brief, short-lived|lasting, permanent
@@ -610,7 +611,7 @@ bitter|adj|having a strong, sharp taste that isn't sweet, like dark coffee|Black
 salty|adj|tasting of salt|The soup was a little salty.|briny
 crunchy|adj|firm and making a noise when you bite it|I like my toast crunchy.|crisp|soft, soggy
 juicy|adj|full of juice|The peaches were sweet and juicy.|succulent|dry
-tasty|adj|having a pleasant flavor|That was a tasty lunch.|delicious, flavorful|bland
+tasty|adj|having a pleasant flavor|That was a tasty lunch.|delicious, flavorful|bland|mood=+
 fresh|adj|recently made, picked or prepared; also, cool and clean|We bought fresh bread from the bakery.|new, crisp|stale
 stale|adj|no longer fresh, especially dry and hard|The bread had gone stale.||fresh
 
@@ -1061,14 +1062,14 @@ brown|adj|having the color of chocolate or earth|The dog has big brown eyes.|cho
 golden|adj|having the color of gold; also, very special|The field was golden in the evening light.|gilded||use=object
 round|adj|shaped like a circle or ball|We sat around a round table.|circular||use=object
 square|adj|having four equal sides and four right angles|She cut the bread into square pieces.|||use=object
-flat|adj|level and smooth, with no bumps|The road was long and flat.|level, even|bumpy|
+flat|adj|level and smooth, with no bumps|The road was long and flat.|level, even|bumpy
 smooth|adj|having an even surface with no rough parts|The stones were smooth from the river.|sleek, silky|rough|use=object
 rough|adj|having an uneven surface; also, difficult|The rough path was hard on our feet.|coarse, bumpy|smooth|use=object
 sharp|adj|having a fine edge or point that can cut; also, clever|Careful, that knife is sharp.|keen|blunt, dull|use=object
 sticky|adj|covered with something that makes things stick to it|My hands were sticky with honey.|tacky, gooey||use=object
 wet|adj|covered with or full of water or another liquid|My shoes are wet from the rain.|damp, soaked|dry|use=object
 dry|adj|without water or moisture|Keep the matches dry.|arid|wet|use=object
-hard|adj|firm and not easy to bend or break; also, difficult|The bread was hard as a rock.|firm, solid|soft, easy|use=object
+hard|adj|firm and not easy to bend or break; also, difficult|The bread was hard as a rock.|firm, solid|soft, easy|use=object;mood=-
 long|adj|measuring a great distance from end to end; also, lasting a lot of time|It was a long walk home.|lengthy|short|use=object
 short|adj|small in length, height or time|We took a short break.|brief|long, tall|use=object
 tall|adj|of great height|The tall trees blocked the sun.|high, towering|short|use=object
@@ -1077,18 +1078,18 @@ giant|adj|very large|A giant pumpkin won first prize.|huge, colossal|tiny|use=ob
 little|adj|small in size or amount|They live in a little house by the sea.|small, tiny|big|use=object
 thick|adj|wide from one side to the other; also, dense|She read a thick book over the holidays.|wide, dense|thin|use=object
 thin|adj|narrow from one side to the other; also, not fat|Slice the cucumber into thin rounds.|slim, slender|thick|use=object
-wide|adj|large from side to side|The river is wide here.|broad|narrow|
-narrow|adj|small from side to side|We walked down a narrow alley.|thin, tight|wide|
-deep|adj|going a long way down|The lake is very deep in the middle.|bottomless|shallow|
-shallow|adj|not deep|The kids paddled in the shallow water.||deep|
+wide|adj|large from side to side|The river is wide here.|broad|narrow
+narrow|adj|small from side to side|We walked down a narrow alley.|thin, tight|wide
+deep|adj|going a long way down|The lake is very deep in the middle.|bottomless|shallow
+shallow|adj|not deep|The kids paddled in the shallow water.||deep
 clean|adj|free from dirt|Put on a clean shirt.|spotless, fresh|dirty|use=object
 dirty|adj|covered with dirt|His boots were dirty after the hike.|muddy, filthy|clean|use=object
 broken|adj|damaged and in pieces, or not working|The vase was broken.|smashed, faulty|whole, working|use=object
-perfect|adj|completely without faults|It was a perfect day for a picnic.|flawless, ideal|flawed|use=object
+perfect|adj|completely without faults|It was a perfect day for a picnic.|flawless, ideal|flawed|use=object;mood=+
 simple|adj|easy to understand or do; also, plain|The instructions were simple.|easy, plain|complicated
 complicated|adj|made of many parts and hard to understand|The rules are too complicated.|complex, tricky|simple
-easy|adj|not difficult|The test was easier than I expected.|simple, effortless|hard, difficult
-difficult|adj|needing a lot of effort or skill|That was a difficult climb.|hard, tough|easy
+easy|adj|not difficult|The test was easier than I expected.|simple, effortless|hard, difficult|mood=+
+difficult|adj|needing a lot of effort or skill|That was a difficult climb.|hard, tough|easy|mood=-
 cheap|adj|low in price|We found a cheap hotel near the station.|inexpensive|expensive|use=object
 expensive|adj|costing a lot of money|That watch looks expensive.|costly, pricey|cheap|use=object
 modern|adj|of the present time or recent times|They live in a modern apartment.|contemporary|old-fashioned, ancient|use=object
@@ -1101,7 +1102,7 @@ useless|adj|not helpful at all|This old map is useless.|pointless|useful|use=obj
 dangerous|adj|able to cause harm|The ice on the road is dangerous.|risky, hazardous|safe
 loud|adj|making a lot of noise|The music was too loud.|noisy, booming|quiet|use=place
 hot|adj|having a high temperature|Be careful, the plate is hot.|warm, boiling|cold|use=weather
-cool|adj|a little cold; informally, also great|It's cool in the shade.|chilly|warm|use=weather
+cool|adj|a little cold; informally, also great|It's cool in the shade.|chilly|warm|use=weather;mood=+
 sunny|adj|full of sunshine|It was a sunny afternoon.|bright, clear|cloudy|use=weather
 cloudy|adj|full of clouds|It's cloudy, but it won't rain.|overcast, gray|sunny|use=weather
 rainy|adj|with a lot of rain|It was a rainy weekend.|wet, drizzly|dry|use=weather
@@ -1114,21 +1115,21 @@ neat|adj|tidy and carefully arranged; informally, also good|He has very neat han
 cute|adj|attractive in a sweet way|What a cute puppy!|adorable, sweet||use=object
 pretty|adj|attractive in a delicate way; also, informally, quite|The village is very pretty.|lovely, attractive|ugly|use=object
 ugly|adj|unpleasant to look at|It's an ugly building, but it's warm inside.|unattractive, hideous|beautiful|use=object
-lovely|adj|very pleasant or beautiful|What a lovely garden.|beautiful, delightful|horrible|use=object
-wonderful|adj|extremely good|We had a wonderful time.|marvelous, fantastic|terrible
-amazing|adj|very surprising, often in a good way|The view from the top was amazing.|incredible, astonishing|ordinary
-awesome|adj|informal: very good; also, inspiring awe|That was an awesome concert.|amazing, great|awful
-great|adj|very good; also, very large or important|We had a great time.|excellent, superb|terrible
-excellent|adj|extremely good|She gave an excellent talk.|outstanding, superb|poor
-fantastic|adj|extremely good; also, imaginary|The food was fantastic.|wonderful, terrific|awful
-terrible|adj|very bad|The traffic was terrible.|awful, dreadful|wonderful
-awful|adj|very bad or unpleasant|I had an awful cold.|terrible, dreadful|wonderful
-horrible|adj|very unpleasant|What a horrible smell.|nasty, dreadful|lovely
-nice|adj|pleasant or kind|It's a nice day.|pleasant, lovely|nasty
-fine|adj|good or acceptable; also, very thin|The weather is fine today.|okay, good
-okay|adj|all right; acceptable|The food was okay.|fine, all right||forms=ok
-weird|adj|very strange|I had a weird dream last night.|strange, odd|normal
-normal|adj|usual and ordinary|It's a normal Tuesday.|ordinary, typical|strange
+lovely|adj|very pleasant or beautiful|What a lovely garden.|beautiful, delightful|horrible|use=object;mood=+
+wonderful|adj|extremely good|We had a wonderful time.|marvelous, fantastic|terrible|mood=+
+amazing|adj|very surprising, often in a good way|The view from the top was amazing.|incredible, astonishing|ordinary|mood=+
+awesome|adj|informal: very good; also, inspiring awe|That was an awesome concert.|amazing, great|awful|mood=+
+great|adj|very good; also, very large or important|We had a great time.|excellent, superb|terrible|mood=+
+excellent|adj|extremely good|She gave an excellent talk.|outstanding, superb|poor|mood=+
+fantastic|adj|extremely good; also, imaginary|The food was fantastic.|wonderful, terrific|awful|mood=+
+terrible|adj|very bad|The traffic was terrible.|awful, dreadful|wonderful|mood=-
+awful|adj|very bad or unpleasant|I had an awful cold.|terrible, dreadful|wonderful|mood=-
+horrible|adj|very unpleasant|What a horrible smell.|nasty, dreadful|lovely|mood=-
+nice|adj|pleasant or kind|It's a nice day.|pleasant, lovely|nasty|mood=+
+fine|adj|good or acceptable; also, very thin|The weather is fine today.|okay, good||mood=0
+okay|adj|all right; acceptable|The food was okay.|fine, all right||forms=ok;mood=0
+weird|adj|very strange|I had a weird dream last night.|strange, odd|normal|mood=0
+normal|adj|usual and ordinary|It's a normal Tuesday.|ordinary, typical|strange|mood=0
 special|adj|different from and better than usual|Tonight's dinner is special.|unique, exceptional|ordinary
 real|adj|actually existing; not imaginary or fake|Is that a real diamond?|genuine, actual|fake
 fake|adj|not real, but made to look real|The flowers are fake.|false, imitation|real, genuine
@@ -1140,7 +1141,7 @@ ready|adj|prepared for something|Are you ready to go?|prepared, set
 late|adj|after the expected time|The train was late again.|delayed, overdue|early
 early|adj|before the usual or expected time|We arrived early.|premature|late
 quick|adj|fast, or done in a short time|Can I ask a quick question?|fast, speedy|slow
-young|adj|having lived for a short time|The young tree needs support.|youthful|old|
+young|adj|having lived for a short time|The young tree needs support.|youthful|old
 alive|adj|living|Is the plant still alive?|living|dead
 healthy|adj|in good physical or mental condition; also, good for you|She eats a healthy breakfast.|well, fit|unhealthy, sick
 strong|adj|having a lot of physical power; also, hard to break|He's strong enough to lift the sofa.|powerful, sturdy|weak
@@ -1371,6 +1372,1870 @@ work|n|a job or the place where you do it; also, effort|I'm at work until six.|j
 homework|n|school work you do at home|I have so much homework tonight.|assignment||kind=idea;mass
 chore|n|a routine job around the house, like washing up|Ironing is my least favorite chore.|task, job||kind=idea
 project|n|a planned piece of work with a particular aim|Our class is doing a project on volcanoes.|plan, venture||kind=idea
+
+# More feelings and character
+blissful|adj|extremely happy and peaceful|We spent a blissful week by the sea.|serene, joyous|miserable|use=feel;mood=+
+glad|adj|pleased and happy about something|I'm glad you came.|pleased, happy|sorry, sad|use=feel;mood=+
+pleased|adj|happy and satisfied|She was pleased with her new haircut.|glad, content|displeased|use=feel;mood=+
+overjoyed|adj|extremely happy|They were overjoyed at the news of the baby.|elated, ecstatic|devastated|use=feel;mood=+
+upbeat|adj|cheerful and positive|He stayed upbeat despite the rain.|positive, cheerful|downbeat|use=feel;mood=+
+comfortable|adj|physically relaxed, without pain; also, at ease|Are you comfortable in that chair?|cozy, at ease|uncomfortable|use=feel;mood=+
+uncomfortable|adj|not physically relaxed; also, uneasy|I felt uncomfortable in the stiff new shoes.|awkward, uneasy|comfortable|use=feel;mood=-
+rested|adj|refreshed after sleep or relaxation|I feel rested after the long weekend.|refreshed|tired|use=feel;mood=+
+awake|adj|not asleep|I'm wide awake now.|alert|asleep|use=feel;mood=0
+alert|adj|quick to notice things; fully awake|The coffee left me alert and ready.|attentive, awake|drowsy|use=feel;mood=+
+focused|adj|giving all your attention to one thing|I feel focused this morning.|concentrated|distracted|use=feel;mood=+;forms=focussed
+distracted|adj|unable to concentrate|I'm so distracted by the noise.|preoccupied|focused|use=feel;mood=-;tip=Closing a few tabs or putting the phone in another room can help.
+eager|adj|wanting very much to do or have something|The kids were eager to open their presents.|keen, enthusiastic|reluctant|use=feel;mood=+
+enthusiastic|adj|showing great interest and excitement|She's enthusiastic about her new job.|keen, eager|apathetic|use=feel;mood=+
+keen|adj|eager and interested|I'm keen to try the new café.|eager, enthusiastic|reluctant|use=feel;mood=+
+interested|adj|wanting to know more about something|I'm interested in learning Spanish.|curious, keen|uninterested, bored|use=feel;mood=+
+reluctant|adj|unwilling and hesitant|He was reluctant to leave the party.|unwilling, hesitant|eager|use=feel;mood=-
+hesitant|adj|unsure and slow to act or speak|She was hesitant to ask for help.|uncertain, unsure|decisive|use=feel;mood=-
+unsure|adj|not certain|I'm unsure which train to take.|uncertain, doubtful|sure, certain|use=feel;mood=-
+uncertain|adj|not sure; also, not yet known|I'm uncertain about the future.|unsure, doubtful|certain|use=feel;mood=-
+certain|adj|completely sure|I'm certain I locked the door.|sure, positive|uncertain|use=feel;mood=+
+sure|adj|confident that something is true|Are you sure about the time?|certain, confident|unsure|use=feel;mood=+
+puzzled|adj|confused because you can't understand something|He looked puzzled by the instructions.|baffled, confused||use=feel;mood=-
+baffled|adj|totally confused|I'm baffled by this crossword clue.|puzzled, perplexed||use=feel;mood=-
+tense|adj|nervous and unable to relax; also, stretched tight|I felt tense before the meeting.|stressed, uptight|relaxed|use=feel;mood=-;tip=Dropping your shoulders and breathing out slowly can loosen it a little.
+uneasy|adj|worried that something is wrong|I have an uneasy feeling about this.|anxious, troubled|calm|use=feel;mood=-
+panicked|adj|suddenly very frightened and unable to think calmly|I panicked when I couldn't find my passport.|frantic, alarmed|calm|use=feel;mood=-;tip=Slow breaths first, then one step at a time.
+desperate|adj|feeling that a situation is so bad you'll try anything|We were desperate for some shade.|frantic||use=feel;mood=-
+helpless|adj|unable to do anything to help yourself or others|I felt helpless watching the storm.|powerless|capable|use=feel;mood=-
+powerless|adj|without the ability to control or change things|I felt powerless to stop it.|helpless|powerful|use=feel;mood=-
+trapped|adj|unable to escape a place or situation|I feel trapped in this job.|stuck, confined|free|use=feel;mood=-
+lonesome|adj|lonely|The house felt lonesome after the kids left.|lonely||use=feel;mood=-
+isolated|adj|far from others, or feeling cut off from people|I feel isolated working from home.|alone, lonely|connected|use=feel;mood=-
+rejected|adj|feeling unwanted or turned down|He felt rejected when no one called back.|unwanted|accepted|use=feel;mood=-
+betrayed|adj|hurt because someone you trusted let you down|She felt betrayed by her friend.|deceived||use=feel;mood=-
+hurt|adj|upset by something someone said or did; also, injured|I was hurt that they didn't invite me.|wounded, upset||use=feel;mood=-
+offended|adj|upset because something seemed rude or disrespectful|He was offended by the joke.|insulted|pleased|use=feel;mood=-
+resentful|adj|bitter about being treated unfairly|He was resentful of the extra work.|bitter, aggrieved||use=feel;mood=-
+grouchy|adj|in a bad mood and complaining|I'm grouchy when I'm tired.|grumpy, cranky|cheerful|use=feel;mood=-
+irritable|adj|easily annoyed|The heat made everyone irritable.|cranky, testy|easygoing|use=feel;mood=-
+exasperated|adj|very annoyed and frustrated|I'm exasperated with this slow computer.|frustrated, fed up||use=feel;mood=-
+fed up|adj|annoyed and bored with something that has gone on too long|I'm fed up with the rain.|sick of, tired of||use=feel;mood=-
+drained|adj|having no energy left|I feel drained after that meeting.|exhausted, worn out|energized|use=feel;mood=-;tip=Rest when you can, even ten minutes helps.
+burnt out|adj|exhausted from too much work or stress over a long time|After the project I felt burnt out.|exhausted, spent|refreshed|use=feel;mood=--;forms=burned out,burnout
+weary|adj|very tired|We were weary after the long journey.|tired, fatigued|fresh|use=feel;mood=-
+groggy|adj|weak and confused, especially after sleep|I'm always groggy in the morning.|dazed, sleepy|alert|use=feel;mood=-;tip=Water, light and a little movement usually clear it.
+dizzy|adj|feeling as if everything is spinning|I felt dizzy after the ride.|light-headed||use=feel;mood=-;tip=Sit down and have some water, and see a doctor if it keeps happening.
+nauseous|adj|feeling like you might vomit|The boat made me nauseous.|queasy, sick||use=feel;mood=-;tip=Small sips of water and fresh air can help.
+feverish|adj|having a fever|The baby feels feverish.|hot||use=feel;mood=-;tip=Plenty of fluids and rest, and see a doctor if it gets worse.
+achy|adj|feeling dull pain all over|I feel achy after the flu shot.|sore||use=feel;mood=-
+stiff|adj|hard to bend or move; also, sore after exercise|My neck is stiff this morning.|rigid, tight|supple|use=feel;mood=-
+better|adj|less ill or upset than before; also, improved|I feel much better today.|improved, recovered|worse|use=feel;mood=+
+worse|adj|more ill or upset than before; also, of lower quality|I feel worse than yesterday.||better|use=feel;mood=-
+well|adj|in good health|I hope you're well.|healthy, fine|ill, unwell|use=feel;mood=+
+meh|adj|informal: unimpressed or indifferent|I feel kind of meh today.|indifferent, so-so||use=feel;mood=0
+indifferent|adj|not caring either way|He seemed indifferent to the result.|unconcerned, apathetic|interested|use=feel;mood=0
+fearless|adj|not afraid of anything|The fearless kid jumped straight in.|brave, bold|timid|use=trait
+bold|adj|confident and willing to take risks; also, strong in color|That was a bold decision.|daring, brave|timid|use=trait
+timid|adj|shy and easily frightened|The timid puppy hid behind the sofa.|shy, nervous|bold|use=trait
+cautious|adj|careful to avoid danger or mistakes|She's a cautious driver.|careful, wary|reckless|use=trait
+careful|adj|taking care to avoid mistakes or harm|Be careful on the stairs.|cautious, attentive|careless|use=trait
+careless|adj|not giving enough attention to avoid mistakes|It was careless of me to leave the door open.|sloppy, negligent|careful|use=trait
+reckless|adj|doing dangerous things without thinking about the results|Reckless driving causes accidents.|rash, careless|cautious|use=trait
+easygoing|adj|relaxed and not easily upset|My roommate is very easygoing.|laid-back, relaxed|uptight|use=trait;forms=easy-going
+laid-back|adj|relaxed and calm|He has a laid-back attitude to deadlines.|easygoing, relaxed|uptight|use=trait;forms=laid back
+optimist|n|a person who expects good things to happen|She's an optimist even on rainy days.||pessimist|kind=person
+pessimist|n|a person who expects bad things to happen|Don't be such a pessimist.||optimist|kind=person
+pessimistic|adj|expecting bad things to happen|He's pessimistic about the weather.|gloomy, negative|optimistic|use=feel;mood=-
+positive|adj|hopeful and confident; also, sure; also, greater than zero|Try to stay positive.|optimistic, hopeful|negative|use=feel;mood=+
+negative|adj|seeing the bad side of things; also, less than zero|Don't be so negative.|pessimistic|positive|use=feel;mood=-
+sensible|adj|having good judgment|That's a sensible plan.|wise, practical|foolish|use=trait
+foolish|adj|lacking good sense|It was foolish to go out without a coat.|silly, unwise|wise|use=trait
+clumsy|adj|moving awkwardly and often dropping or bumping into things|I'm so clumsy, I spilled it again.|awkward, bumbling|graceful|use=trait
+graceful|adj|moving in a smooth, elegant way|The dancer was graceful.|elegant, poised|clumsy|use=trait
+modest|adj|not talking much about your own achievements|She's modest about her prize.|humble|boastful|use=trait
+arrogant|adj|believing you are better than others|He's too arrogant to ask for help.|conceited, proud|humble|use=trait
+selfish|adj|caring only about yourself|It was selfish to eat the last slice.|self-centered|generous|use=trait
+considerate|adj|thinking about other people's feelings|It was considerate of you to call.|thoughtful, kind|inconsiderate|use=trait
+respectful|adj|showing respect|The students were respectful during the talk.|polite, courteous|disrespectful|use=trait
+mean|adj|unkind; also, unwilling to share|That was a mean thing to say.|unkind, nasty|kind|use=trait
+nasty|adj|very unpleasant or unkind|He has a nasty cold.|horrible, mean|nice|mood=-
+cruel|adj|causing pain or suffering on purpose|It's cruel to tease the cat.|heartless, vicious|kind|use=trait
+sincere|adj|meaning what you say|Her apology was sincere.|genuine, honest|insincere|use=trait
+trustworthy|adj|able to be trusted|He's the most trustworthy person I know.|reliable, honest|untrustworthy|use=trait
+talented|adj|having a natural ability to do something well|She's a talented painter.|gifted, skilled||use=trait
+skilled|adj|having the training and experience to do something well|He's a skilled carpenter.|expert, capable|unskilled|use=trait
+intelligent|adj|able to learn, understand and think well|Dolphins are intelligent animals.|clever, smart|stupid|use=trait
+adventurous|adj|eager to try new and exciting things|She's adventurous and loves trying new food.|daring, bold|cautious|use=trait
+lively|adj|full of energy and enthusiasm|It was a lively party.|energetic, vibrant|dull|use=trait
+talkative|adj|liking to talk a lot|Our taxi driver was very talkative.|chatty|quiet|use=trait
+chatty|adj|liking to chat in a friendly way|The baker is always chatty in the morning.|talkative|quiet|use=trait
+helpful|adj|willing to help; also, useful|The staff were very helpful.|useful, obliging|unhelpful|use=trait
+supportive|adj|giving help and encouragement|My family is very supportive.|encouraging, helpful||use=trait
+independent|adj|not needing help from others|She's very independent for her age.|self-reliant|dependent|use=trait
+responsible|adj|reliable and sensible; also, in charge of something|He's responsible for the keys.|dependable, accountable|irresponsible|use=trait
+mature|adj|behaving in a sensible, adult way; also, fully grown|She's very mature for twelve.|grown-up, sensible|childish|use=trait
+childish|adj|silly in a way that suits a child, not an adult|Stop being childish.|immature, silly|mature|use=trait
+organized|adj|neat and well planned|She's the most organized person in the office.|orderly, methodical|disorganized|use=trait;forms=organised
+punctual|adj|arriving or doing things at the expected time|He's always punctual.|on time, prompt|late|use=trait
+forgetful|adj|often forgetting things|I'm so forgetful, I left my keys again.|absent-minded|mindful|use=trait
+nosy|adj|too interested in other people's business|Our nosy neighbor watches from the window.|prying, inquisitive||use=trait;forms=nosey
+
+# Family, groups and jobs
+fiance|n|the person someone is engaged to marry|Her fiance is a chef.|betrothed||kind=person;rel;forms=fiancé,fiancee,fiancée
+spouse|n|a husband or wife|Spouses are welcome at the dinner.|husband, wife, partner||kind=person;rel
+stepmother|n|the wife of your father, who is not your mother|My stepmother taught me to drive.|stepmom||kind=person;rel;forms=stepmom
+stepfather|n|the husband of your mother, who is not your father|My stepfather loves fishing.|stepdad||kind=person;rel;forms=stepdad
+twin|n|one of two children born to the same mother at the same time|My twin and I share a birthday.|||kind=person;rel
+godmother|n|a woman who promises to help guide a child, especially in religious matters|My godmother sends me a book every birthday.|||kind=person;rel
+in-laws|n|the parents and relatives of your husband or wife|We're spending the holidays with my in-laws.|||kind=person;mass;forms=in laws
+relative|n|a member of your family|We have relatives coming for dinner.|relation, family member||kind=person
+ancestor|n|a person in your family who lived long before you|My ancestors were farmers.|forebear|descendant|kind=person
+neighbour|n|a person who lives next door or nearby|Our neighbour lent us a ladder.|||nogen
+best friend|n|your closest friend|My best friend lives across town.|bestie||kind=person;rel;forms=bff,bestie
+pal|n|informal: a friend|He's an old pal from school.|friend, buddy, mate||kind=person;rel
+acquaintance|n|a person you know a little but not well|She's more of an acquaintance than a friend.|||kind=person
+crowd|n|a large group of people together|A crowd gathered to watch the parade.|throng, mob||kind=idea
+team|n|a group of people who work or play together|Our team won the match.|squad, group||kind=idea
+group|n|a number of people or things together|A group of us went hiking.|band, set||kind=idea
+club|n|a group of people who meet for a shared interest; also, a heavy stick|I joined a book club.|society, association||kind=idea
+community|n|the people living in one place, or a group with something in common|The whole community helped clean the park.|neighborhood, society||kind=idea;plural=communities
+audience|n|the people watching or listening to a performance|The audience clapped for five minutes.|crowd, spectators||kind=idea
+volunteer|n|a person who offers to work without being paid|Volunteers cleaned the beach.|helper||kind=person
+leader|n|a person who leads a group|She's a natural leader.|head, chief|follower|kind=person
+expert|n|a person with great knowledge or skill in something|Ask an expert about the roof.|specialist, authority|beginner|kind=person
+beginner|n|a person who is just starting to learn something|This class is for beginners.|novice, learner|expert|kind=person
+champion|n|a person or team that has won a competition|She's the chess champion.|winner, victor|loser|kind=person
+winner|n|a person or team that wins|The winner gets a trophy.|victor, champion|loser|kind=person
+fan|n|a person who admires someone or something very much; also, a machine that moves air|I'm a big fan of her books.|admirer, supporter||kind=person
+genius|n|a very clever or talented person|She's a genius with numbers.|prodigy||kind=person;plural=geniuses
+celebrity|n|a famous person|A celebrity was spotted in the café.|star||kind=person;plural=celebrities
+villain|n|a bad character in a story|The villain stole the crown.|baddie|hero|kind=person
+princess|n|a daughter of a king or queen|The princess rode through the town.|||kind=person;plural=princesses;nogen
+prince|n|a son of a king or queen|The prince waved from the carriage.|||kind=person;nogen
+wizard|n|a man in stories who has magic powers|The wizard cast a spell.|sorcerer, magician||kind=person
+witch|n|a woman in stories who has magic powers|The witch flew over the moon.|sorceress||kind=person;plural=witches
+ghost|n|the spirit of a dead person that some people believe can be seen|The castle is said to have a ghost.|spirit, phantom||kind=person
+pirate|n|a person who attacks and robs ships at sea|The pirate buried his treasure.|buccaneer||kind=person
+astronaut|n|a person trained to travel into space|The astronaut floated in the space station.|cosmonaut||kind=person
+vet|n|a doctor for animals|We took the dog to the vet.|veterinarian||kind=person;forms=veterinarian
+pharmacist|n|a person trained to prepare and sell medicines|The pharmacist explained how to take the pills.|chemist||kind=person
+surgeon|n|a doctor who performs operations|The surgeon washed her hands.|||kind=person
+therapist|n|a person trained to help with mental or physical problems through talking or treatment|Talking to a therapist really helped.|counselor||kind=person
+counselor|n|a person trained to listen and give advice about problems|The school counselor was easy to talk to.|adviser, therapist||kind=person;forms=counsellor
+paramedic|n|a person trained to give emergency medical care|The paramedic checked his pulse.|||kind=person
+police officer|n|a member of the police|A police officer helped us find the station.|cop, officer||kind=person;forms=cop,policeman,policewoman
+detective|n|a person whose job is to solve crimes|The detective found a clue.|investigator||kind=person
+judge|n|a person who decides cases in a court of law, or who decides who wins a competition|The judge read the verdict.|||kind=person
+soldier|n|a member of an army|The soldier stood at the gate.|||kind=person
+sailor|n|a person who works on a ship or sails a boat|The sailor tied a knot.|seaman||kind=person
+fisherman|n|a person who catches fish, as a job or for fun|The fisherman mended his nets.|angler||kind=person;plural=fishermen
+gardener|n|a person who looks after a garden|The gardener planted roses.|||kind=person
+carpenter|n|a person who makes and repairs things made of wood|The carpenter built us a bookcase.|woodworker||kind=person
+electrician|n|a person who fits and repairs electrical wiring|The electrician fixed the lights.|||kind=person
+builder|n|a person who builds houses and other buildings|The builders finished the roof.|||kind=person
+architect|n|a person who designs buildings|The architect drew plans for the library.|designer||kind=person
+librarian|n|a person who works in a library|The librarian found the book for me.|||kind=person
+professor|n|a senior teacher at a university|The professor gave a lecture on history.|lecturer||kind=person
+principal|n|the head of a school|The principal gave a speech at assembly.|headteacher||kind=person
+tutor|n|a private teacher|My tutor helps me with math.|teacher, coach||kind=person
+babysitter|n|a person who looks after children while their parents are out|The babysitter read them a story.|sitter, nanny||kind=person
+nanny|n|a person employed to look after children in their home|The nanny took the kids to the park.|babysitter||kind=person;plural=nannies
+receptionist|n|a person who greets visitors and answers phones in an office or hotel|The receptionist gave us our room keys.|||kind=person
+secretary|n|a person who types letters, keeps records and arranges appointments|Ask the secretary for a form.|assistant||kind=person;plural=secretaries
+accountant|n|a person whose job is to keep or check financial accounts|Our accountant does the taxes.|||kind=person
+banker|n|a person who works for a bank|The banker approved the loan.|||kind=person
+salesperson|n|a person whose job is selling things|The salesperson showed us three sofas.|seller, clerk||kind=person
+shopkeeper|n|a person who owns or runs a shop|The shopkeeper knew everyone by name.|merchant||kind=person
+cook|n|a person who prepares food|My uncle is a great cook.|chef||kind=person
+butcher|n|a person who cuts and sells meat|The butcher wrapped the sausages.|||kind=person
+journalist|n|a person who writes news for newspapers, magazines, TV or websites|The journalist interviewed the mayor.|reporter||kind=person
+reporter|n|a person who reports news|A reporter stood outside in the rain.|journalist||kind=person
+photographer|n|a person who takes photographs|The photographer asked us to smile.|||kind=person
+painter|n|an artist who paints pictures; also, a person who paints walls|The painter set up her easel by the river.|artist||kind=person
+dancer|n|a person who dances|The dancer spun across the stage.|ballerina||kind=person
+poet|n|a person who writes poems|The poet read from her new book.|||kind=person
+comedian|n|a person whose job is making people laugh|The comedian had the whole room laughing.|comic||kind=person
+magician|n|a person who performs magic tricks|The magician pulled a coin from my ear.|conjurer||kind=person
+clown|n|a performer who wears funny clothes and makeup to make people laugh|The clown juggled at the party.|jester||kind=person
+captain|n|the person in charge of a ship, plane or team|The captain welcomed us aboard.|skipper, leader||kind=person
+flight attendant|n|a person who looks after passengers on a plane|The flight attendant brought us water.|steward, stewardess||kind=person
+mail carrier|n|a person who delivers letters and parcels|The mail carrier waved as she passed.|postman, mailman||kind=person;forms=postman,mailman,postwoman
+delivery driver|n|a person who delivers goods to homes and businesses|The delivery driver left the parcel at the door.|courier||kind=person;forms=courier
+cleaner|n|a person whose job is cleaning|The cleaner comes on Tuesdays.|||kind=person
+janitor|n|a person who looks after a building and keeps it clean|The janitor unlocked the gym.|caretaker||kind=person
+security guard|n|a person paid to protect a building or people|The security guard checked our bags.|guard||kind=person
+lifeguard|n|a person who watches swimmers and rescues people in danger|The lifeguard blew her whistle.|||kind=person
+intern|n|a student or trainee who works, sometimes without pay, to gain experience|The intern made great coffee.|trainee, apprentice||kind=person
+freelancer|n|a person who works for several companies rather than one employer|As a freelancer, she sets her own hours.|contractor||kind=person
+entrepreneur|n|a person who starts a business|The entrepreneur opened her third café.|founder||kind=person
+owner|n|a person who owns something|The owner of the dog came running.|||kind=person
+farmer's market|n|a market where farmers sell food directly to people|We buy eggs at the farmer's market.|||kind=place;at=at;forms=farmers market
+
+# More animals, and plants
+alpaca|n|a South American animal like a small llama, kept for its soft wool|The alpaca peered over the fence.|||kind=animal
+llama|n|a South American animal with a long neck, used for carrying loads and for wool|The llama carried our bags up the trail.|||kind=animal
+camel|n|a large desert animal with one or two humps|The camel knelt so we could climb on.|dromedary||kind=animal
+hippo|n|a hippopotamus: a huge African animal that lives near rivers|A hippo yawned in the river.|hippopotamus||kind=animal;forms=hippopotamus
+rhino|n|a rhinoceros: a large, heavy animal with one or two horns on its nose|The rhino charged across the plain.|rhinoceros||kind=animal;forms=rhinoceros
+cheetah|n|a wild cat with spots, the fastest land animal|The cheetah sprinted after the gazelle.|||kind=animal
+leopard|n|a large wild cat with spots that climbs trees|A leopard rested on a branch.|||kind=animal
+jaguar|n|a large wild cat with spots, from Central and South America|A jaguar swam across the river.|||kind=animal
+panther|n|a black leopard or jaguar|The panther slipped into the shadows.|||kind=animal
+fawn|n|a young deer|A fawn hid in the long grass.|||kind=animal
+moose|n|a very large deer with wide flat antlers|A moose stood in the middle of the road.|elk||kind=animal;plural=moose
+raccoon|n|an animal with a striped tail and dark markings around its eyes|A raccoon tipped over our bin.|||kind=animal
+skunk|n|a black and white animal that sprays a bad smell when threatened|The dog came back smelling of skunk.|||kind=animal
+badger|n|an animal with a striped face that digs burrows|A badger crossed the lane at night.|||kind=animal
+otter|n|a playful animal that swims in rivers and the sea|An otter floated on its back.|||kind=animal
+beaver|n|an animal with a flat tail that builds dams across rivers|The beaver gnawed through the branch.|||kind=animal
+mole|n|a small animal that digs tunnels underground; also, a dark spot on the skin|A mole dug up the lawn.|||kind=animal
+seal|n|a sea animal with flippers that lives partly on land|A seal barked from the rocks.|sea lion||kind=animal
+walrus|n|a large sea animal with long tusks|The walrus lay on the ice.|||kind=animal;plural=walruses
+polar bear|n|a large white bear that lives in the Arctic|A polar bear hunted on the sea ice.|||kind=animal
+jellyfish|n|a soft, see-through sea animal that can sting|A jellyfish washed up on the beach.|||kind=animal;plural=jellyfish
+starfish|n|a sea animal shaped like a star|We found a starfish in a rock pool.|sea star||kind=animal;plural=starfish
+lobster|n|a sea animal with a hard shell and large claws|The lobster was bright red when cooked.|||kind=animal
+shrimp|n|a small sea animal with a long tail, eaten as food|We had shrimp on the barbecue.|prawn||kind=animal;plural=shrimp;forms=prawn
+clam|n|a shellfish with two shells that close tightly|We dug for clams at low tide.|||kind=animal
+salmon|n|a large fish with pink flesh that swims up rivers to lay eggs|Salmon leapt up the waterfall.|||kind=animal;plural=salmon
+tuna|n|a large sea fish used as food|We had tuna sandwiches.|||kind=animal;plural=tuna
+seahorse|n|a small fish with a head shaped like a horse's|A seahorse clung to the seaweed.|||kind=animal
+hawk|n|a bird of prey with sharp claws and a hooked beak|A hawk circled over the field.|falcon||kind=animal
+falcon|n|a fast bird of prey|The falcon dived at great speed.|hawk||kind=animal
+vulture|n|a large bird that eats dead animals|Vultures circled overhead.|buzzard||kind=animal
+peacock|n|a large bird; the male has a long, colorful tail|The peacock spread its tail.|peafowl||kind=animal
+flamingo|n|a tall pink bird with long legs|A flamingo stood on one leg.|||kind=animal;plural=flamingos
+ostrich|n|a very large bird that can't fly but runs fast|The ostrich ran faster than the car.|||kind=animal;plural=ostriches
+hummingbird|n|a tiny bird that hovers and beats its wings very fast|A hummingbird hovered at the feeder.|||kind=animal
+robin|n|a small bird with a red or orange breast|A robin sang from the fence.|||kind=animal
+sparrow|n|a small brown bird, common in towns|Sparrows hopped around the café tables.|||kind=animal
+seagull|n|a large white and gray sea bird|A seagull stole my chips.|gull||kind=animal;forms=gull
+woodpecker|n|a bird that taps holes in trees with its beak|We heard a woodpecker in the forest.|||kind=animal
+turkey|n|a large bird raised for its meat|We roasted a turkey for the holiday.|||kind=animal
+rooster|n|an adult male chicken|The rooster crowed at dawn.|cockerel||kind=animal
+hen|n|a female chicken|The hen laid an egg.|chicken||kind=animal
+chick|n|a baby bird, especially a baby chicken|The chicks followed their mother.|||kind=animal
+duckling|n|a baby duck|Five ducklings swam behind their mother.|||kind=animal
+calf|n|a young cow; also, the back of the lower leg|The calf stayed close to its mother.|||kind=animal;plural=calves
+foal|n|a young horse|The foal wobbled on its long legs.|colt||kind=animal
+pony|n|a small horse|The kids took turns riding the pony.|||kind=animal;plural=ponies
+bull|n|an adult male cow|The bull stood in the middle of the field.|||kind=animal
+ox|n|a cow or bull used for pulling heavy loads|The ox pulled the cart.|||kind=animal;plural=oxen
+gerbil|n|a small rodent with long back legs, often kept as a pet|Our gerbil hides in its tunnel.|||kind=animal
+guinea pig|n|a small furry rodent with no tail, often kept as a pet|The guinea pig squeaked for lettuce.|cavy||kind=animal
+ferret|n|a small, thin, playful animal sometimes kept as a pet|The ferret stole my sock.|||kind=animal
+tortoise|n|a slow land reptile with a hard shell|The tortoise munched a strawberry.|turtle||kind=animal
+chameleon|n|a lizard that can change its color|The chameleon turned green on the leaf.|||kind=animal
+gecko|n|a small lizard that can climb walls|A gecko ran up the wall.|||kind=animal;plural=geckos
+iguana|n|a large tropical lizard|An iguana sunned itself on the rock.|||kind=animal
+toad|n|an animal like a frog with dry, bumpy skin|A toad sat by the pond.|frog||kind=animal
+tadpole|n|a young frog or toad that lives in water and has a tail|The pond was full of tadpoles.|||kind=animal
+beetle|n|an insect with hard wing covers|A beetle crawled across the path.|||kind=animal
+caterpillar|n|the young form of a butterfly or moth, like a small worm|The caterpillar munched a leaf.|||kind=animal
+moth|n|an insect like a butterfly that usually flies at night|A moth fluttered around the lamp.|||kind=animal
+dragonfly|n|an insect with a long body and two pairs of clear wings|A dragonfly hovered over the pond.|||kind=animal;plural=dragonflies
+wasp|n|a flying insect with a sting and yellow and black stripes|A wasp buzzed around the jam.|hornet||kind=animal
+grasshopper|n|a jumping insect that makes a chirping sound|A grasshopper leapt out of the grass.|cricket||kind=animal
+firefly|n|a beetle whose tail glows in the dark|Fireflies blinked in the garden.|lightning bug||kind=animal;plural=fireflies
+scorpion|n|a small creature with claws and a curved stinging tail|A scorpion hid under the rock.|||kind=animal
+unicorn|n|an imaginary horse with a single horn on its forehead|The story was about a lost unicorn.|||kind=animal
+dragon|n|an imaginary creature like a large lizard with wings that breathes fire|The dragon guarded the treasure.|||kind=animal
+rose|n|a flower with a sweet smell and thorny stems|He gave her a red rose.|||kind=thing
+tulip|n|a brightly colored cup-shaped flower that grows from a bulb|The tulips came up in April.|||kind=thing
+daisy|n|a small flower with white petals and a yellow center|She made a chain of daisies.|||kind=thing;plural=daisies
+sunflower|n|a very tall plant with a large yellow flower|The sunflower was taller than me.|||kind=thing
+lily|n|a flower with large, often trumpet-shaped petals|A lily floated on the pond.|||kind=thing;plural=lilies
+daffodil|n|a yellow flower with a trumpet shape that blooms in spring|Daffodils lined the path.|||kind=thing
+lavender|n|a plant with small purple flowers and a sweet smell|The garden smelled of lavender.|||kind=thing;mass
+cactus|n|a desert plant with a thick stem and spines instead of leaves|A cactus sits on my windowsill.|||kind=thing;plural=cacti;forms=cactuses
+fern|n|a green plant with feathery leaves and no flowers|Ferns grew in the shade.|bracken||kind=thing
+moss|n|a small, soft green plant that grows on stones and trees|Moss covered the old wall.|lichen||kind=nature;mass
+weed|n|a wild plant growing where it isn't wanted|I spent the morning pulling weeds.|||kind=thing
+bush|n|a plant like a small tree with many branches|A bird nested in the bush.|shrub, hedge||kind=nature;plural=bushes
+hedge|n|a line of bushes forming a fence|The rabbit ran into the hedge.|||kind=nature
+oak|n|a large tree that produces acorns|An old oak stands in the park.|||kind=nature
+pine|n|an evergreen tree with needle-shaped leaves|The air smelled of pine.|fir||kind=nature
+palm|n|a tropical tree with large leaves at the top of a tall trunk; also, the inside of your hand|We sat under a palm on the beach.|palm tree||kind=nature
+maple|n|a tree with leaves that have five points, some giving a sweet syrup|The maple turned bright red in autumn.|||kind=nature
+willow|n|a tree with long, thin branches that hang down, often near water|A willow trailed its branches in the river.|||kind=nature
+bamboo|n|a tall tropical grass with hard hollow stems|The panda ate bamboo all day.|||kind=nature;mass
+seed|n|a small part of a plant from which a new plant grows|We planted sunflower seeds.|pip, kernel||kind=thing
+root|n|the part of a plant that grows underground|The tree's roots cracked the path.|||kind=nature
+branch|n|a part of a tree that grows out from the trunk|A squirrel ran along the branch.|bough, limb||kind=nature;plural=branches
+petal|n|one of the colored parts of a flower|A petal fell into my tea.|||kind=thing
+thorn|n|a sharp point on a plant's stem|I pricked my finger on a thorn.|prickle, spine||kind=thing
+acorn|n|the nut of an oak tree|The squirrel buried an acorn.|||kind=thing
+pinecone|n|the hard, scaly fruit of a pine tree|The kids collected pinecones.|cone||kind=thing;forms=pine cone
+
+# More food and drink
+hot dog|n|a sausage served in a long bread roll|We had hot dogs at the game.|frankfurter||kind=food
+wrap|n|a soft flatbread rolled around a filling|I had a chicken wrap for lunch.|||kind=food
+quesadilla|n|a tortilla filled with cheese and folded, then toasted|She made quesadillas for the kids.|||kind=food
+nachos|n|tortilla chips covered with melted cheese and toppings|We shared a plate of nachos.|||kind=food;mass
+tortilla|n|a thin, flat round bread made from corn or wheat|Warm the tortillas in a pan.|flatbread||kind=food
+lasagna|n|layers of flat pasta baked with sauce and cheese|Grandma's lasagna feeds ten people.|||kind=food;mass;forms=lasagne
+ramen|n|a Japanese dish of noodles in a hot broth|We slurped ramen on a rainy night.|||kind=food;mass
+risotto|n|an Italian dish of rice cooked slowly in broth|He stirred the risotto for twenty minutes.|||kind=food;mass
+omelet|n|beaten eggs cooked flat in a pan, often folded around a filling|I had a cheese omelet for breakfast.|||kind=food;forms=omelette
+scrambled eggs|n|eggs beaten and stirred as they cook|We had scrambled eggs on toast.|||kind=food;mass
+porridge|n|oats cooked in water or milk|A bowl of porridge warms you up.|oatmeal||kind=food;mass;nogen
+granola|n|a breakfast food of baked oats, nuts and dried fruit|I sprinkled granola on my yogurt.|muesli||kind=food;mass
+syrup|n|a thick sweet liquid|Pour some syrup on your pancakes.|||kind=food;mass
+honeycomb|n|the wax structure that bees make to store honey|We ate honey straight from the honeycomb.|||kind=food
+biscuit|n|a small, flat, dry baked food, usually sweet; in American English, a soft bread roll|Have a biscuit with your tea.|cookie, cracker||kind=food
+cracker|n|a thin, crisp, dry biscuit, often eaten with cheese|She put cheese on a cracker.|biscuit||kind=food
+pretzel|n|a crisp or soft salted bread twisted into a knot|We bought a warm pretzel at the market.|||kind=food
+roll|n|a small round loaf of bread for one person|Butter the rolls while they're warm.|bun||kind=food
+bun|n|a small round bread roll, often sweet|He ate a cinnamon bun on the train.|roll||kind=food
+loaf|n|bread shaped and baked in one piece|She baked a loaf of rye bread.|||kind=food;plural=loaves
+pastry|n|dough made from flour, fat and water, baked for pies; also, a sweet baked cake|The bakery's pastries sell out early.|||kind=food;plural=pastries
+tart|n|a pastry case filled with fruit or another filling|She made a lemon tart.|pie||kind=food
+cheesecake|n|a rich cake made with soft cheese on a biscuit base|We shared a slice of cheesecake.|||kind=food
+pudding|n|a sweet, soft dessert; in British English, any dessert|We had chocolate pudding.|dessert||kind=food
+custard|n|a sweet sauce or dessert made with milk and eggs|Pour custard over the pie.|||kind=food;mass
+jelly|n|a sweet, wobbly dessert; in American English, also jam|The kids love strawberry jelly.|jello, jam||kind=food;mass
+marshmallow|n|a soft, spongy sweet|We toasted marshmallows over the fire.|||kind=food
+lollipop|n|a hard sweet on a stick|The doctor gave her a lollipop.|lolly||kind=food
+gum|n|a sweet you chew but don't swallow|He offered me a piece of gum.|chewing gum||kind=food;mass
+caramel|n|sugar heated until brown, used as a sweet or sauce|The apples were dipped in caramel.|toffee||kind=food;mass
+vanilla|n|a flavoring made from the pod of a tropical plant|I'll have vanilla ice cream.|||kind=food;mass
+cinnamon|n|a sweet brown spice made from tree bark|Sprinkle cinnamon on the toast.|||kind=food;mass
+ginger|n|a hot-tasting root used in cooking|Ginger tea is good for a cold.|||kind=food;mass
+spice|n|a dried part of a plant used to flavor food|Cumin is my favorite spice.|seasoning||kind=food
+herb|n|a plant whose leaves are used to flavor food or as medicine|Add fresh herbs at the end.|||kind=food
+basil|n|a fragrant herb used in Italian cooking|Tear some basil over the pasta.|||kind=food;mass
+mint|n|a herb with a fresh, cool taste; also, a sweet with that taste|She added mint to the lemonade.|peppermint||kind=food;mass
+parsley|n|a herb with curly or flat green leaves|Chop some parsley for the soup.|||kind=food;mass
+olive|n|a small green or black fruit eaten whole or pressed for oil|I don't like olives on pizza.|||kind=food
+oil|n|a thick liquid from plants or animals, used in cooking; also, fuel|Fry the onions in a little oil.|||kind=food;mass
+vinegar|n|a sour liquid used to flavor or preserve food|Add a splash of vinegar to the salad.|||kind=food;mass
+ketchup|n|a thick sauce made from tomatoes|He puts ketchup on everything.|tomato sauce||kind=food;mass
+mustard|n|a hot yellow or brown sauce made from seeds|I'd like mustard on my hot dog.|||kind=food;mass
+mayonnaise|n|a thick, creamy sauce made from eggs and oil|Spread mayonnaise on the bread.|mayo||kind=food;mass;forms=mayo
+gravy|n|a sauce made from the juices of cooked meat|Pour gravy over the potatoes.|sauce||kind=food;mass
+salsa|n|a spicy sauce of chopped tomatoes, onions and peppers; also, a dance|We dipped chips in salsa.|||kind=food;mass
+hummus|n|a creamy dip made from chickpeas|We had hummus with warm bread.|||kind=food;mass
+cream|n|the thick fatty part of milk|Would you like cream in your coffee?|||kind=food;mass
+cottage cheese|n|soft, lumpy white cheese|I had cottage cheese with fruit.|||kind=food;mass
+beef|n|meat from a cow|We had beef stew for dinner.|||kind=food;mass
+pork|n|meat from a pig|The pork was roasted with apples.|||kind=food;mass
+ham|n|meat from a pig's leg, salted or smoked|I made ham sandwiches.|||kind=food;mass
+meatball|n|a small ball of minced meat|We had spaghetti and meatballs.|||kind=food
+stew|n|meat or vegetables cooked slowly in liquid|A pot of stew simmered all afternoon.|casserole||kind=food;mass
+chili|n|a hot pepper; also, a spicy stew of beans and meat|She made a big pot of chili.|||kind=food;mass;forms=chilli
+kebab|n|pieces of meat or vegetables cooked on a stick|We grilled kebabs on the beach.|skewer||kind=food;forms=kabob
+fish and chips|n|fried fish served with fried potatoes|We ate fish and chips on the pier.|||kind=food;mass
+dim sum|n|small Chinese dishes, often steamed dumplings, eaten together|We had dim sum on Sunday.|||kind=food;mass
+falafel|n|fried balls of ground chickpeas, often in pita bread|I had a falafel wrap.|||kind=food
+pita|n|a flat bread that opens to make a pocket|Stuff the pita with salad.|pitta||kind=food;forms=pitta
+apricot|n|a small orange fruit like a peach|She made apricot jam.|||kind=food
+plum|n|a soft, round fruit with smooth purple or red skin and a stone|The plums are ripe.|||kind=food
+kiwi|n|a small fruit with brown hairy skin and green flesh|I cut a kiwi in half and ate it with a spoon.|kiwifruit||kind=food
+melon|n|a large round fruit with a hard skin and sweet juicy flesh|We had melon for breakfast.|cantaloupe||kind=food
+raspberry|n|a soft red berry|She picked raspberries in the garden.|||kind=food;plural=raspberries
+blackberry|n|a soft dark purple berry that grows on brambles|We picked blackberries on the walk.|bramble||kind=food;plural=blackberries
+cranberry|n|a small, sour red berry|We had cranberry sauce with the turkey.|||kind=food;plural=cranberries
+fig|n|a soft sweet fruit full of tiny seeds|Figs are lovely with cheese.|||kind=food
+pomegranate|n|a round fruit with a hard red skin and many juicy seeds|Sprinkle pomegranate seeds on the salad.|||kind=food
+papaya|n|a large tropical fruit with orange flesh and black seeds|The papaya was sweet and soft.|||kind=food
+grapefruit|n|a large sour citrus fruit|She has half a grapefruit for breakfast.|||kind=food
+tangerine|n|a small, sweet, easy-to-peel orange|He put a tangerine in my lunchbox.|mandarin, clementine||kind=food;forms=mandarin,clementine
+raisin|n|a dried grape|There are raisins in the muffins.|||kind=food
+almond|n|a flat oval nut|She snacks on almonds.|||kind=food
+walnut|n|a wrinkled nut in a hard round shell|Add walnuts to the brownies.|||kind=food
+cashew|n|a curved nut|He ate a handful of cashews.|||kind=food
+pea|n|a small round green seed eaten as a vegetable|The kids hid their peas under the potato.|||kind=food
+chickpea|n|a round, pale bean used in hummus and curries|She roasted chickpeas with spices.|garbanzo||kind=food
+lentil|n|a small flat seed cooked in soups and stews|We made lentil soup.|||kind=food
+cabbage|n|a large round vegetable with tightly packed leaves|She shredded cabbage for the slaw.|||kind=food
+cauliflower|n|a vegetable with a large white head of tight flowers|Roast the cauliflower until golden.|||kind=food
+celery|n|a vegetable with long, crisp, pale green stalks|Dip the celery in peanut butter.|||kind=food;mass
+asparagus|n|a vegetable with long green spears|We grilled asparagus with lemon.|||kind=food;mass
+zucchini|n|a long green vegetable like a small marrow|Slice the zucchini thinly.|courgette||kind=food;forms=courgette
+eggplant|n|a vegetable with smooth, dark purple skin|She baked eggplant with cheese.|aubergine||kind=food;forms=aubergine
+pumpkin|n|a large round orange vegetable with a hard skin|We carved a pumpkin for Halloween.|squash||kind=food
+sweet potato|n|a root vegetable with orange flesh and a sweet taste|She baked sweet potatoes for dinner.|yam||kind=food;plural=sweet potatoes
+beet|n|a dark red root vegetable|The beet stained my fingers purple.|beetroot||kind=food;forms=beetroot
+radish|n|a small, crisp red root with a sharp taste|She sliced radishes into the salad.|||kind=food;plural=radishes
+kale|n|a leafy green vegetable like cabbage|He blends kale into his smoothies.|||kind=food;mass
+leek|n|a long vegetable like an onion, with layers of leaves|We made leek and potato soup.|||kind=food
+seaweed|n|plants that grow in the sea, some eaten as food|Sushi is wrapped in seaweed.|kelp||kind=food;mass
+tofu|n|a soft food made from soybeans|She stir-fried tofu with vegetables.|bean curd||kind=food;mass
+rice cake|n|a light, crisp cake of puffed rice|He snacks on rice cakes.|||kind=food
+cocoa|n|a powder made from cacao beans; also, a hot chocolate drink|We drank cocoa by the fire.|hot chocolate||kind=food;mass;forms=hot chocolate
+tea bag|n|a small paper bag holding tea leaves|Leave the tea bag in for three minutes.|||kind=thing
+espresso|n|strong coffee made by forcing steam through ground beans|She ordered a double espresso.|||kind=food;mass
+latte|n|coffee made with a lot of steamed milk|I'll have an oat milk latte.|||kind=food
+cappuccino|n|coffee topped with foamy milk|He drew a heart in the cappuccino foam.|||kind=food
+milkshake|n|a cold drink of milk blended with ice cream or flavoring|We shared a chocolate milkshake.|shake||kind=food
+cola|n|a sweet, dark, fizzy drink|He ordered a cola with ice.|soda||kind=food;mass
+wine|n|an alcoholic drink made from grapes|They opened a bottle of wine.|||kind=food;mass
+beer|n|an alcoholic drink made from grain and hops|He had a beer after work.|ale, lager||kind=food;mass
+broth|n|a thin soup made by boiling meat, fish or vegetables in water|Sip some warm broth.|stock||kind=food;mass
+leftovers|n|food that wasn't eaten at a meal and is kept for later|We had leftovers for lunch.|||kind=food;mass
+takeout|n|a cooked meal bought to eat at home|Let's get takeout tonight.|takeaway||kind=food;mass;forms=takeaway,take-out
+brunch|n|a late morning meal that combines breakfast and lunch|We met for brunch on Sunday.|||kind=food;mass
+feast|n|a large, special meal for many people|The wedding feast went on for hours.|banquet||kind=event;event=joy
+barbecue|n|a meal cooked outdoors over a fire or grill; also, the grill|We're having a barbecue on Saturday.|cookout, BBQ||kind=event;event=joy;forms=bbq,barbeque
+bake sale|n|an event where people sell homemade cakes and cookies to raise money|The school bake sale raised two hundred dollars.|||kind=event;event=joy
+dinner party|n|a party where guests are invited to dinner|We're hosting a dinner party on Friday.|||kind=event;event=joy
+appetite|n|the feeling of wanting to eat|The walk gave me an appetite.|hunger||kind=idea
+hunger|n|the feeling of needing food|Hunger kept him awake.|appetite||kind=idea;mass
+flavor|n|the taste of food or drink|This soup has a lovely flavor.|taste||kind=idea;forms=flavour
+slice|n|a thin, flat piece cut from something larger|Can I have a slice of cake?|piece||kind=food;nogen
+crumb|n|a very small piece of bread or cake|There are crumbs all over the sofa.|||kind=thing
+
+# Home, clothes, tools and tech
+armchair|n|a comfortable chair with supports for your arms|Grandpa dozed in his armchair.|easy chair||kind=furniture
+bench|n|a long seat for several people|We sat on a bench in the park.|seat||kind=furniture;plural=benches
+stool|n|a seat without a back or arms|She perched on a stool at the counter.|||kind=furniture
+cupboard|n|a piece of furniture or a small space with doors and shelves for storing things|The cups are in the cupboard.|cabinet, closet||kind=furniture
+closet|n|a small room or cupboard for storing clothes or other things|Hang your coat in the closet.|wardrobe, cupboard||kind=furniture
+wardrobe|n|a tall cupboard for hanging clothes; also, all the clothes a person owns|Her wardrobe is full of dresses.|closet||kind=furniture
+bookcase|n|a piece of furniture with shelves for books|The bookcase is crammed with novels.|bookshelf||kind=furniture;forms=bookshelf
+mattress|n|the soft, thick part of a bed that you lie on|This mattress is too soft.|||kind=furniture;plural=mattresses
+carpet|n|a thick woven covering for a floor|We spilled juice on the carpet.|rug||kind=furniture
+floor|n|the surface of a room that you walk on|The toys are all over the floor.|||kind=furniture
+wall|n|one of the sides of a room or building; also, a structure of brick or stone|She hung a painting on the wall.|||kind=furniture
+ceiling|n|the top surface of a room|A spider hung from the ceiling.|||kind=furniture
+roof|n|the covering on top of a building|Rain dripped through the roof.|||kind=furniture
+stairs|n|a set of steps going from one floor to another|He ran up the stairs.|staircase, steps||kind=furniture;mass;forms=staircase
+fence|n|a barrier of wood or wire around a garden or field|The dog jumped over the fence.|railing||kind=furniture
+gate|n|a door in a fence or wall|Close the gate behind you.|||kind=furniture
+mailbox|n|a box where letters are delivered or posted|There's a parcel in the mailbox.|letterbox, postbox||kind=furniture;plural=mailboxes;forms=letterbox,postbox
+doorbell|n|a bell outside a door that visitors ring|The doorbell rang twice.|||kind=furniture
+lamp post|n|a tall post with a light at the top, beside a road|The dog stopped at every lamp post.|streetlight||kind=furniture
+sink|n|a basin with taps, for washing|The dishes are piled in the sink.|basin||kind=furniture
+tap|n|a device for controlling the flow of water from a pipe|Turn off the tap.|faucet||kind=furniture;forms=faucet
+toilet|n|a bowl with a seat, used for getting rid of body waste; also, the room with it|Where's the toilet, please?|bathroom, restroom||kind=furniture
+bathtub|n|a large container that you fill with water and sit in to wash|The bathtub is full of bubbles.|tub, bath||kind=furniture
+dishwasher|n|a machine that washes dishes|Load the dishwasher after dinner.|||kind=furniture
+washing machine|n|a machine for washing clothes|The washing machine is making a strange noise.|washer||kind=furniture
+microwave|n|an oven that cooks food very fast using electric waves|Heat the soup in the microwave.|||kind=furniture
+stove|n|a device for cooking on, with burners or hot plates|The kettle is on the stove.|cooker, hob||kind=furniture
+toaster|n|an electric machine for toasting bread|The toaster burned my bread again.|||kind=furniture
+blender|n|an electric machine for mixing food into a liquid|She made soup in the blender.|mixer||kind=thing
+freezer|n|a very cold cupboard for keeping food frozen|The ice cream is in the freezer.|||kind=furniture
+heater|n|a device for warming a room|Turn on the heater, it's freezing.|radiator||kind=furniture
+air conditioner|n|a machine that cools the air in a room or car|The air conditioner broke during the heatwave.|AC||kind=furniture
+light bulb|n|a glass object that gives light when electricity passes through it|The light bulb in the hall has gone.|bulb||kind=thing
+switch|n|a small control for turning a device on or off|The switch is by the door.|||kind=thing;plural=switches
+plug|n|a device on the end of a wire that connects it to the electricity supply; also, a stopper for a sink|Pull out the plug before you clean it.|||kind=thing
+remote|n|a small device for controlling a television from a distance|I can't find the remote.|remote control, clicker||kind=thing;forms=remote control
+vacuum|n|a vacuum cleaner: a machine that sucks up dust|The vacuum is in the closet.|hoover||kind=thing;forms=vacuum cleaner,hoover
+mop|n|a tool with a long handle and soft strings for washing floors|Get the mop, I spilled the milk.|||kind=thing
+sponge|n|a soft object with holes that soaks up water, used for cleaning|Wipe the table with a sponge.|||kind=thing
+bin|n|a container for rubbish|Put it in the bin.|trash can, garbage can||kind=thing;forms=trash can,garbage can
+trash|n|things that are thrown away|Take out the trash, please.|rubbish, garbage, litter||kind=thing;mass;forms=rubbish,garbage
+jar|n|a glass container with a wide opening and a lid|She keeps cookies in a jar.|pot||kind=thing
+can|n|a metal container for food or drink|Open a can of beans.|tin||kind=thing;forms=tin
+tissue|n|a piece of soft paper for blowing your nose|Do you have a tissue?|hanky||kind=thing
+napkin|n|a piece of cloth or paper for wiping your mouth and hands at a meal|She folded the napkins into swans.|serviette||kind=thing;forms=serviette
+tray|n|a flat board with raised edges for carrying food or drinks|He brought breakfast on a tray.|||kind=thing
+teapot|n|a container with a spout for making and pouring tea|The teapot is still warm.|||kind=thing
+thermos|n|a container that keeps drinks hot or cold|I took a thermos of coffee on the hike.|flask||kind=thing;plural=thermoses;forms=flask
+lunchbox|n|a box for carrying a packed lunch|He forgot his lunchbox at home.|||kind=thing;plural=lunchboxes
+water bottle|n|a bottle for carrying drinking water|Fill up your water bottle before we go.|||kind=thing
+cutting board|n|a flat board on which you cut food|Put the onions on the cutting board.|chopping board||kind=thing;forms=chopping board
+whisk|n|a kitchen tool of wire loops for beating eggs or cream|Beat the eggs with a whisk.|beater||kind=thing;plural=whisks
+oven glove|n|a thick glove for holding hot dishes|Use an oven glove, the tray is hot.|oven mitt||kind=thing;forms=oven mitt
+key ring|n|a ring for keeping keys together|My key ring has a tiny penguin on it.|keychain||kind=thing;forms=keychain
+lock|n|a device that keeps a door or box closed until opened with a key or code|The lock on the shed is rusty.|padlock||kind=thing
+alarm clock|n|a clock that makes a noise to wake you up|My alarm clock goes off at six.|alarm||kind=thing
+calendar|n|a chart showing the days, weeks and months of a year|I wrote her birthday on the calendar.|planner, diary||kind=thing
+diary|n|a book in which you write what happens each day, or your appointments|She writes in her diary every night.|journal||kind=thing;plural=diaries
+journal|n|a book for writing down thoughts or events; also, a magazine about a subject|He keeps a travel journal.|diary, log||kind=thing
+magazine|n|a thin printed publication with articles and pictures, published regularly|I read a magazine on the plane.|periodical||kind=media
+newspaper|n|a printed publication with news, usually daily|Dad reads the newspaper with breakfast.|paper||kind=media
+comic|n|a magazine or book that tells stories in pictures|He reads comics on the bus.|comic book, graphic novel||kind=media;forms=comic book
+envelope|n|a paper cover for a letter|Write the address on the envelope.|||kind=thing
+stamp|n|a small sticker you put on a letter to pay for posting it|I need a stamp for this letter.|postage||kind=thing
+package|n|something wrapped up to be sent or delivered|A package arrived for you.|parcel||kind=thing;forms=parcel
+crayon|n|a stick of colored wax for drawing|The kids drew with crayons.|||kind=thing
+marker|n|a pen with a thick tip|Write your name with a marker.|felt-tip, highlighter||kind=thing
+eraser|n|a small piece of rubber for removing pencil marks|Can I borrow your eraser?|rubber||kind=thing
+ruler|n|a straight strip for measuring and drawing lines; also, a person who rules|Draw the line with a ruler.|||kind=thing
+calculator|n|a small electronic device for doing math|I checked the sum on a calculator.|||kind=thing
+folder|n|a cover for keeping papers together; also, a place for files on a computer|Put the forms in the blue folder.|file||kind=thing
+sticky note|n|a small piece of paper with a sticky strip on the back|Her desk is covered in sticky notes.|post-it||kind=thing;forms=post-it
+stapler|n|a device for fastening papers together with metal staples|The stapler is out of staples.|||kind=thing
+tape|n|a long thin strip of sticky material for fixing things together|Fix the poster with tape.|sticky tape||kind=thing;mass
+string|n|thin cord for tying things|Tie the parcel with string.|cord, twine||kind=thing;mass
+needle|n|a thin pointed piece of metal with a hole for thread, used for sewing|Thread the needle with red cotton.|||kind=thing
+thread|n|a long thin strand of cotton or other material, used for sewing|I need some blue thread.|cotton, yarn||kind=thing;mass
+button|n|a small round object that fastens clothes; also, something you press to operate a machine|A button fell off my coat.|||kind=thing
+zipper|n|a fastener with two rows of teeth that lock together|The zipper on my bag is stuck.|zip||kind=thing;forms=zip
+pocket|n|a small bag sewn into clothes|I found a coin in my pocket.|||kind=thing
+belt|n|a strip of leather or cloth worn around the waist|He tightened his belt.|strap||kind=thing
+tie|n|a long, narrow piece of cloth worn around the neck under a shirt collar|He wore a blue tie to the wedding.|necktie||kind=thing
+suit|n|a jacket with matching trousers or a skirt|He bought a new suit for the interview.|||kind=thing
+uniform|n|special clothes worn by everyone in a group|The school uniform is green.|||kind=thing
+pajamas|n|loose clothes worn in bed|I'm still in my pajamas.|pyjamas, PJs||kind=thing;mass;forms=pyjamas,pjs
+hoodie|n|a sweatshirt with a hood|He pulled up the hood of his hoodie.|sweatshirt||kind=thing
+sweatshirt|n|a loose cotton top with long sleeves|I live in my old sweatshirt on weekends.|hoodie, jumper||kind=thing
+t-shirt|n|a casual top with short sleeves and no collar|He wore a faded t-shirt.|tee||kind=thing;forms=tshirt,tee
+shorts|n|short trousers that end above the knee|It's warm enough for shorts.|||kind=thing;mass
+skirt|n|a piece of clothing that hangs from the waist|She wore a long yellow skirt.|||kind=thing
+trousers|n|clothing covering each leg separately, from the waist to the ankles|These trousers are too long.|pants, slacks||kind=thing;mass;forms=pants
+leggings|n|tight stretchy trousers|She wore leggings to yoga.|||kind=thing;mass
+raincoat|n|a waterproof coat|Wear your raincoat, it's pouring.|mac||kind=thing
+swimsuit|n|clothing worn for swimming|Don't forget your swimsuit.|bathing suit, swimming costume||kind=thing;forms=swimming costume,bathing suit
+slippers|n|soft, comfortable shoes worn indoors|I put on my slippers and made tea.|||kind=thing;mass
+sandal|n|a light, open shoe with straps|She wore sandals to the beach.|flip-flop||kind=thing
+sneaker|n|a soft sports shoe|My new sneakers are bright white.|trainer, running shoe||kind=thing;forms=trainer
+mitten|n|a glove with one part for the thumb and one for the fingers|The child lost a mitten in the snow.|glove||kind=thing
+earring|n|a piece of jewelry worn on the ear|She lost an earring at the party.|||kind=thing
+bracelet|n|a piece of jewelry worn around the wrist|He gave her a silver bracelet.|bangle||kind=thing
+jewelry|n|necklaces, rings, bracelets and other decorations you wear|She keeps her jewelry in a little box.|jewels||kind=thing;mass;forms=jewellery
+makeup|n|creams and powders put on the face to change how it looks|She put on her makeup in the mirror.|cosmetics||kind=thing;mass;forms=make-up
+perfume|n|a liquid with a pleasant smell that you put on your skin|Her perfume smelled of roses.|scent, fragrance||kind=thing;mass
+shampoo|n|liquid soap for washing hair|We're out of shampoo.|||kind=thing;mass
+toothpaste|n|a paste for cleaning teeth|Squeeze the toothpaste from the bottom.|||kind=thing;mass
+comb|n|a strip of plastic or metal with teeth, for tidying hair|He pulled a comb through his hair.|||kind=thing
+hairbrush|n|a brush for tidying hair|She can never find her hairbrush.|||kind=thing;plural=hairbrushes
+razor|n|a sharp tool for shaving|He cut himself with the razor.|shaver||kind=thing
+suitcase|n|a case with a handle for carrying clothes when you travel|My suitcase is too heavy.|case, luggage||kind=thing
+luggage|n|the bags and cases you take on a journey|We collected our luggage at the airport.|baggage||kind=thing;mass;forms=baggage
+passport|n|an official document that lets you travel to other countries|Don't forget your passport.|||kind=thing
+sunscreen|n|cream that protects your skin from the sun|Put on some sunscreen before you go out.|sunblock, suncream||kind=thing;mass;forms=suncream,sunblock
+sunglasses|n|dark glasses that protect your eyes from the sun|I left my sunglasses in the car.|shades||kind=thing;mass
+binoculars|n|a device with two lenses for seeing things far away|We watched the birds through binoculars.|field glasses||kind=thing;mass
+telescope|n|a tube with lenses that makes distant things look closer|We looked at the moon through a telescope.|||kind=thing
+microscope|n|an instrument that makes tiny things look much bigger|She looked at the cells under a microscope.|||kind=thing
+compass|n|a device with a needle that points north|We used a compass to find the trail.|||kind=thing;plural=compasses
+lantern|n|a lamp in a case, often carried|We hung a lantern outside the tent.|lamp||kind=thing
+sleeping bag|n|a warm bag you sleep in when camping|My sleeping bag is too thin for winter.|||kind=thing
+hammock|n|a bed of cloth or net hung between two supports|He napped in the hammock all afternoon.|||kind=thing
+balloon|n|a small rubber bag filled with air or gas, used as a decoration or toy|The child let go of her balloon.|||kind=thing
+candlestick|n|a holder for a candle|She polished the brass candlestick.|||kind=thing
+vase|n|a container for holding flowers|Put the roses in a vase.|||kind=thing
+frame|n|a border around a picture or window; also, a structure that supports something|The photo is in a silver frame.|||kind=thing
+screwdriver|n|a tool for turning screws|Hand me the small screwdriver.|||kind=thing
+wrench|n|a tool for gripping and turning nuts and bolts|He tightened the bolt with a wrench.|spanner||kind=thing;plural=wrenches;forms=spanner
+saw|n|a tool with a sharp toothed blade for cutting wood|He cut the plank with a saw.|||kind=thing
+drill|n|a tool for making holes|We need a drill to put up the shelf.|||kind=thing
+nail|n|a thin pointed piece of metal hit into wood with a hammer; also, the hard covering on a finger or toe|Hammer the nail into the wall.|tack||kind=thing
+screw|n|a metal pin with a spiral thread, turned into wood or metal to hold things together|One screw is loose.|bolt||kind=thing
+shovel|n|a tool with a broad blade for digging or moving earth or snow|We cleared the path with a shovel.|spade||kind=thing;forms=spade
+rake|n|a garden tool with a row of teeth for gathering leaves|Rake the leaves into a pile.|||kind=thing
+hose|n|a long flexible tube for carrying water|Water the garden with the hose.|hosepipe||kind=thing;forms=hosepipe
+watering can|n|a container with a spout for watering plants|Fill the watering can at the tap.|||kind=thing
+wheelbarrow|n|a small cart with one wheel, pushed by hand|He wheeled the soil in a wheelbarrow.|barrow||kind=thing
+smartphone|n|a mobile phone that works like a small computer|She checks her smartphone constantly.|phone, mobile||kind=thing;forms=mobile,cellphone,cell phone
+keyboard|n|the set of keys used to type on a computer; also, an electronic piano|My keyboard is missing the letter J.|||kind=thing
+monitor|n|a computer screen|I work with two monitors.|screen, display||kind=thing
+printer|n|a machine that prints on paper|The printer is out of ink.|||kind=thing
+speaker|n|a device that turns electrical signals into sound; also, a person speaking|Turn up the speaker.|loudspeaker||kind=thing
+earbuds|n|small headphones that fit inside the ears|I lost one of my earbuds.|earphones||kind=thing;mass;forms=earphones
+webcam|n|a small camera connected to a computer|My webcam makes me look green.|camera||kind=thing
+router|n|a device that connects computers to the internet and to each other|Restart the router if the internet is down.|modem||kind=thing
+cable|n|a thick wire that carries electricity or signals|Plug in the cable.|wire, cord||kind=thing
+console|n|a machine for playing video games|We played on the console all evening.|games console||kind=thing
+video game|n|a game played on a screen|He finished the video game in a weekend.|||kind=media
+app|n|a program for a phone or computer|There's an app for that.|application, program||kind=media
+password|n|a secret word or phrase that lets you use something|Don't share your password.|passcode, PIN||kind=idea
+file|n|a collection of information stored on a computer; also, a folder for papers|Save the file before you close it.|document||kind=thing
+photo album|n|a book for keeping photographs|We looked through the old photo album.|||kind=thing
+podcast|n|a recorded audio show you can listen to online|I listen to a podcast on my commute.|||kind=media
+playlist|n|a list of songs to play in order|I made a playlist for the road trip.|||kind=media
+channel|n|a television station; also, a way for information to travel|What channel is the match on?|station||kind=media
+series|n|a set of TV episodes or books that continue a story|We binged the whole series.|show, season||kind=media;plural=series
+episode|n|one part of a TV series or podcast|One more episode, then bed.|installment||kind=media
+cartoon|n|a film made of drawings; also, a funny drawing|The kids watch cartoons on Saturday.|animation||kind=media
+documentary|n|a film or program about real events or facts|We watched a documentary about whales.|||kind=media;plural=documentaries
+board game|n|a game played with pieces on a board|We played a board game after dinner.|||kind=thing
+chess|n|a board game for two players with kings, queens and other pieces|My grandpa taught me chess.|||kind=idea;mass
+cards|n|a game played with a pack of playing cards|We played cards all evening.|card game||mass
+jigsaw|n|a puzzle of many interlocking pieces that make a picture|The jigsaw has a thousand pieces.|jigsaw puzzle||kind=thing
+teddy bear|n|a soft toy bear|She sleeps with her teddy bear.|teddy||kind=thing;forms=teddy
+blocks|n|toy building pieces|The toddler stacked the blocks.|||kind=thing;mass
+swing|n|a seat hung from ropes or chains that you sit on and move back and forth|The kids took turns on the swing.|||kind=thing
+slide|n|a smooth slope children slide down; also, a picture in a presentation|She went down the slide headfirst.|chute||kind=thing
+trampoline|n|a sheet of strong fabric on springs that you jump on|They bounced on the trampoline all afternoon.|||kind=thing
+
+# More places, events, sports and hobbies
+living room|n|the room in a house for relaxing and spending time together|We watched a film in the living room.|lounge, sitting room||kind=place;at=in;forms=lounge
+dining room|n|a room where meals are eaten|The dining room seats eight.|||kind=place;at=in
+hallway|n|a passage in a building with rooms leading off it|Leave your shoes in the hallway.|hall, corridor||kind=place;at=in;forms=corridor
+porch|n|a covered area at the entrance to a house|We drank lemonade on the porch.|veranda||kind=place;at=on;plural=porches
+balcony|n|a platform on the outside of a building, above the ground|We had breakfast on the balcony.|terrace||kind=place;at=on;plural=balconies
+backyard|n|the garden or yard behind a house|The kids played in the backyard.|yard, garden||kind=place;at=in;forms=back garden
+yard|n|an area of land beside a house; also, a unit of length|The dog sleeps in the yard.|garden||kind=place;at=in
+shed|n|a small building for storing tools or garden things|The bikes are in the shed.|hut||kind=place;at=in
+driveway|n|a short road from a street to a house|There's a van in the driveway.|drive||kind=place;at=in
+cottage|n|a small house, usually in the country|We rented a cottage by the sea.|cabin||kind=place;at=at
+cabin|n|a small wooden house; also, a room on a ship or the passenger area of a plane|We stayed in a cabin in the woods.|cottage, hut||kind=place;at=at
+campsite|n|a place where people camp|We found a campsite near the river.|campground||kind=place;at=at;forms=campground
+lighthouse|n|a tower with a bright light that guides ships|We climbed to the top of the lighthouse.|||kind=place;at=at
+pier|n|a long platform built out over the sea|We fished off the end of the pier.|jetty, wharf||kind=place;at=on
+port|n|a town or place where ships load and unload|The ship stayed in port for two days.|harbor||kind=place;at=in
+dock|n|a place where ships are loaded or repaired|The boat is at the dock.|wharf, pier||kind=place;at=at
+marina|n|a harbor for small boats and yachts|We walked along the marina.|harbor||kind=place;at=at
+coast|n|the land next to the sea|We drove along the coast.|shore, seaside||kind=place;at=on
+shore|n|the land along the edge of a sea or lake|We walked along the shore.|beach, coast||kind=place;at=on
+cliff|n|a high, steep rock face, often at the coast|Seabirds nest on the cliff.|bluff||kind=place;at=on
+bay|n|part of the sea that curves into the land|Boats bobbed in the bay.|cove, inlet||kind=place;at=in
+waterfall|n|a place where a river falls over rocks|We swam under the waterfall.|cascade, falls||kind=place;at=at
+stream|n|a small, narrow river|We crossed the stream on stepping stones.|brook, creek||kind=place;at=by
+pond|n|a small area of still water|Ducks swam on the pond.|pool||kind=place;at=by
+volcano|n|a mountain with an opening that can throw out hot lava|The volcano last erupted a hundred years ago.|||kind=place;at=on;plural=volcanoes
+glacier|n|a huge slow-moving mass of ice|We hiked up to the glacier.|||kind=place;at=on
+canyon|n|a deep valley with steep sides|The river carved a deep canyon.|gorge, ravine||kind=place;at=in
+meadow|n|a field of grass and wildflowers|Cows grazed in the meadow.|field||kind=place;at=in
+woods|n|an area of land covered with trees, smaller than a forest|We walked through the woods.|forest, woodland||kind=place;at=in;mass
+countryside|n|land away from towns and cities|We drove through the countryside.|country||kind=place;at=in;mass
+suburb|n|an area where people live on the edge of a city|They moved to a quiet suburb.|||kind=place;at=in
+neighborhood|n|the area around where you live|It's a friendly neighborhood.|area, district||kind=place;at=in;forms=neighbourhood
+downtown|n|the main business area of a city|We had dinner downtown.|city center||kind=place;at=in;mass;forms=city centre
+square|n|an open area in a town with buildings around it|We met in the town square.|plaza||kind=place;at=in
+plaza|n|an open public square in a town|We sat by the fountain in the plaza.|square||kind=place;at=in
+fountain|n|a structure that sends water up into the air|The kids splashed in the fountain.|||kind=place;at=by
+statue|n|a figure of a person or animal made of stone or metal|We met by the statue in the park.|sculpture||kind=thing
+monument|n|a building or statue that honors a person or event|The monument marks the old battle.|memorial||kind=place;at=at
+tower|n|a tall, narrow building or part of a building|We climbed the clock tower.|||kind=place;at=in
+skyscraper|n|a very tall building in a city|The skyscraper has a hundred floors.|tower||kind=place;at=in
+palace|n|a large, grand house where a king, queen or important person lives|We toured the palace gardens.|castle||kind=place;at=at
+temple|n|a building for worship in some religions|The temple was quiet and cool.|shrine||kind=place;at=at
+mosque|n|a building where Muslims worship|The call to prayer came from the mosque.|||kind=place;at=at
+synagogue|n|a building where Jewish people worship|We attended a wedding at the synagogue.|||kind=place;at=at
+post office|n|a place where you can send letters and parcels|I need to go to the post office.|||kind=place;at=at
+police station|n|the office of the local police|They reported the theft at the police station.|||kind=place;at=at
+fire station|n|a building where fire engines and firefighters are based|The kids visited the fire station.|||kind=place;at=at
+pharmacy|n|a shop where medicines are prepared and sold|Pick up my prescription at the pharmacy.|chemist, drugstore||kind=place;at=at;plural=pharmacies;forms=drugstore,chemist
+clinic|n|a place where people get medical advice or treatment|She works at a dental clinic.|surgery||kind=place;at=at
+salon|n|a place where people get their hair cut or beauty treatments|She's at the salon getting her hair done.|hairdresser's||kind=place;at=at
+barbershop|n|a shop where men's hair is cut|He gets a haircut at the barbershop every month.|barber's||kind=place;at=at
+laundromat|n|a place with washing machines you pay to use|We do our washing at the laundromat.|launderette||kind=place;at=at
+gas station|n|a place where you buy fuel for cars|We stopped at a gas station for snacks.|petrol station||kind=place;at=at;forms=petrol station
+parking lot|n|an area where cars are parked|I can't find the car in the parking lot.|car park||kind=place;at=in;forms=car park
+bus stop|n|a place where a bus stops for passengers|I'll wait for you at the bus stop.|||kind=place;at=at
+train station|n|a place where trains stop for passengers|Meet me at the train station.|railway station||kind=place;at=at
+bookshop|n|a shop that sells books|I could spend all day in a bookshop.|bookstore||kind=place;at=at;forms=bookstore
+toy shop|n|a shop that sells toys|The kids pressed their noses against the toy shop window.|toy store||kind=place;at=at;forms=toy store
+florist|n|a shop that sells flowers, or the person who runs it|I bought tulips at the florist.|flower shop||kind=place;at=at
+pub|n|a place where drinks, especially alcohol, are sold and drunk; also, food|We met friends at the pub.|bar, tavern||kind=place;at=at
+bar|n|a place that serves drinks; also, a long block of something|We had a drink at the bar.|pub||kind=place;at=at
+nightclub|n|a place open late at night where people dance|We danced at a nightclub until two.|club, disco||kind=place;at=at
+bowling alley|n|a place where people go bowling|We had a birthday party at the bowling alley.|||kind=place;at=at
+arcade|n|a place with video and coin-operated games|We spent our coins at the arcade.|||kind=place;at=at
+amusement park|n|a large park with rides and games|We rode the roller coaster at the amusement park.|theme park, funfair||kind=place;at=at;forms=theme park,funfair
+aquarium|n|a building where fish and sea animals are kept for people to see|We saw sharks at the aquarium.|||kind=place;at=at
+gallery|n|a building or room for showing art|There's a new exhibition at the gallery.|museum||kind=place;at=at;plural=galleries
+concert hall|n|a large building for musical performances|The orchestra played at the concert hall.|||kind=place;at=at
+studio|n|a room where an artist works, or where music, films or broadcasts are made|She paints in a studio by the sea.|workshop||kind=place;at=in
+workshop|n|a room where things are made or repaired; also, a session where people learn a skill|He built the chair in his workshop.|studio||kind=place;at=in
+factory|n|a building where goods are made by machines|The factory makes chocolate.|plant, works||kind=place;at=at;plural=factories
+warehouse|n|a large building for storing goods|The furniture is kept in a warehouse.|depot, storehouse||kind=place;at=in
+lab|n|a laboratory: a room for scientific experiments|She works in a research lab.|laboratory||kind=place;at=in;forms=laboratory
+court|n|a place where legal cases are decided; also, an area for games like tennis|We played on the tennis court.|||kind=place;at=on
+track|n|a path or a circuit for racing; also, a song on an album|She runs laps on the track.|path, trail||kind=place;at=on
+trail|n|a path through the countryside|We followed the trail to the lake.|path, track||kind=place;at=on
+path|n|a narrow way for walking|Follow the path along the river.|track, trail||kind=place;at=on
+highway|n|a main road between towns|The highway was jammed with traffic.|motorway, freeway||kind=place;at=on;forms=motorway,freeway
+tunnel|n|a passage under the ground or through a hill|The train went through a long tunnel.|underpass||kind=place;at=in
+continent|n|one of the large land masses of the earth, such as Africa or Asia|Have you visited every continent?|||kind=place;at=in
+planet|n|a large round object in space that moves around a star|Mars is the red planet.|world||kind=place;at=on
+earth|n|the planet we live on; also, soil|The earth goes around the sun.|world, globe||kind=place;at=on;forms=the earth
+universe|n|everything that exists, including all of space|The universe is unimaginably big.|cosmos||kind=place;at=in
+abroad|adv|in or to a foreign country|She's studying abroad this year.|overseas|at home
+outside|adv|not inside a building|Let's eat outside.|outdoors|inside
+inside|adv|in or into a building or room|Come inside, it's raining.|indoors|outside
+upstairs|adv|on or to a higher floor|The kids are upstairs.||downstairs
+downstairs|adv|on or to a lower floor|Breakfast is downstairs.||upstairs
+nearby|adv|not far away|There's a café nearby.|close by|far away
+everywhere|adv|in every place|There were flowers everywhere.|all over|nowhere
+somewhere|adv|in or to some place|I left my keys somewhere.
+anywhere|adv|in or to any place|Sit anywhere you like.
+housewarming|n|a party for people who have moved into a new home|We're having a housewarming on Saturday.|||kind=event;event=joy
+baby shower|n|a party with gifts for someone who is expecting a baby|We're throwing her a baby shower.|||kind=event;event=joy
+bridal shower|n|a party with gifts for a woman who is about to get married|The bridal shower was in the garden.|||kind=event;event=joy
+engagement|n|an agreement to marry; also, an arranged meeting|They announced their engagement at dinner.|||kind=event;event=news
+honeymoon|n|a holiday taken by two people just after they marry|They went to Italy on their honeymoon.|||kind=event;event=joy
+christening|n|a ceremony in which a baby is named and welcomed into a church|The christening is next Sunday.|baptism||kind=event;event=joy;forms=baptism
+retirement|n|the time when someone stops working for good|We threw a party for his retirement.|||kind=event;event=joy
+promotion|n|a move to a more important job; also, a special offer|She got a promotion at work.|advancement||kind=event;event=news
+road trip|n|a long journey by car for fun|We're going on a road trip this summer.|||kind=event;event=joy
+day trip|n|a trip to a place and back on the same day|We took a day trip to the coast.|outing||kind=event;event=joy
+cruise|n|a holiday on a large ship that visits several places|They went on a cruise around the islands.|voyage||kind=event;event=joy
+tour|n|a journey visiting several places, or a walk around a building to see it|We took a tour of the castle.|trip, visit||kind=event;event=joy
+camping trip|n|a trip where you stay in a tent|We're going on a camping trip this weekend.|||kind=event;event=joy
+playdate|n|an arranged time for children to play together|The kids have a playdate on Friday.|||kind=event;event=joy;forms=play date
+movie night|n|an evening spent watching films|We're having a movie night with popcorn.|||kind=event;event=joy
+game night|n|an evening spent playing games with friends or family|Game night is at my place.|||kind=event;event=joy
+karaoke|n|singing along to recorded music, often in front of friends|We sang karaoke until midnight.|||kind=event;event=joy;mass
+parade|n|a procession of people, bands or floats through the streets|We watched the parade from the balcony.|procession, march||kind=event;event=joy
+fair|n|an outdoor event with rides, games and stalls|We won a goldfish at the fair.|carnival, fete||kind=event;event=joy
+carnival|n|a festival with music, dancing and costumes in the streets|The carnival lasted all weekend.|festival, fair||kind=event;event=joy
+fireworks|n|small explosives that make colorful lights and noise in the sky|We watched the fireworks from the hill.|||kind=event;event=joy;mass
+gig|n|informal: a performance by a band or comedian|We're going to a gig tonight.|concert, show||kind=event;event=joy
+play|n|a story performed by actors on a stage|The school play is on Friday.|drama||kind=event;event=luck
+musical|n|a play or film with lots of singing and dancing|We saw a musical in the city.|||kind=event;event=joy
+opera|n|a play in which the words are sung|We went to the opera for her birthday.|||kind=event;event=joy
+ballet|n|a form of dance that tells a story with music, or a performance of it|My daughter has ballet on Saturday.|||kind=event;event=joy
+exhibition|n|a public show of art or objects|There's a dinosaur exhibition at the museum.|show, display||kind=event;event=joy
+conference|n|a large formal meeting for people to discuss a subject|I'm speaking at a conference next month.|convention, summit||kind=event;event=luck
+seminar|n|a class or meeting for discussion and training|I have a seminar on Thursday.|workshop||kind=event;event=luck
+lecture|n|a talk to students or an audience on a subject|The history lecture starts at nine.|talk||kind=event;event=luck
+assignment|n|a piece of work given to a student or employee|The assignment is due on Monday.|task, homework||kind=event;event=luck
+essay|n|a short piece of writing on a subject|I have an essay due tomorrow.|paper, composition||kind=event;event=luck
+report|n|a written account of something; also, a school report card|My report is due on Friday.|account, paper||kind=event;event=luck
+review|n|an assessment of something; also, a performance review at work|I have my annual review tomorrow.|appraisal||kind=event;event=luck
+final|n|the last and most important game in a competition; also, a final exam|We're in the final!|||kind=event;event=luck
+tournament|n|a series of games to find a winner|The chess tournament is this weekend.|competition, championship||kind=event;event=luck
+marathon|n|a running race of about 42 kilometers|She's running a marathon in April.|||kind=event;event=luck
+triathlon|n|a race that combines swimming, cycling and running|He's training for a triathlon.|||kind=event;event=luck
+tryout|n|a test of someone's ability before they join a team or cast|I have soccer tryouts tomorrow.|audition, trial||kind=event;event=luck;forms=tryouts
+first day|n|the day you start something new, such as a job or school|It's my first day at the new job.|||kind=event;event=luck
+operation|n|a medical treatment in which a surgeon cuts into the body; also, a planned activity|Her operation went well.|surgery||kind=event;event=luck
+check-up|n|a medical or dental examination to see that you are healthy|I have a check-up at the dentist.|examination||kind=event;event=luck;forms=checkup
+vaccination|n|an injection to protect against a disease|The kids have their vaccinations on Friday.|jab, shot||kind=event;event=luck;forms=vaccine
+haircut|n|cutting someone's hair, or the style it is cut in|I'm getting a haircut tomorrow.|trim||kind=event;event=joy
+move|n|moving to a new home|The move is next week.|relocation||kind=event;event=luck;nogen
+breakup|n|the end of a relationship|She's still sad about the breakup.|split||kind=event;event=sorry;forms=break-up
+divorce|n|the legal end of a marriage|Her parents' divorce was hard on everyone.|separation||kind=event;event=sorry
+memorial|n|a ceremony or object that remembers a person who has died|The memorial service is on Sunday.|tribute||kind=event;event=sorry
+accident|n|something bad that happens unexpectedly, often causing injury or damage|He had a small accident on his bike.|crash, mishap||kind=event;event=sorry
+loss|n|losing something or someone; also, failing to win|I'm sorry for your loss.|defeat|win, gain|kind=event;event=sorry
+emergency|n|a sudden dangerous situation that needs action at once|In an emergency, call for help.|crisis||kind=event;event=sorry;plural=emergencies
+basketball|n|a team game in which players score by throwing a ball through a high hoop|We play basketball after school.|||kind=idea;mass
+baseball|n|a game played with a bat and ball by two teams of nine|We watched a baseball game.|||kind=idea;mass
+soccer|n|football: a team game in which players kick a ball into a goal|He plays soccer on Saturdays.|football||kind=idea;mass;nogen
+tennis|n|a game in which players hit a ball over a net with rackets|We played tennis in the park.|||kind=idea;mass
+volleyball|n|a team game in which players hit a ball over a high net with their hands|We played volleyball on the beach.|||kind=idea;mass
+golf|n|a game in which players hit a small ball into holes with clubs|My dad plays golf on Sundays.|||kind=idea;mass
+hockey|n|a team game played with sticks and a ball or puck|She plays hockey for the school.|||kind=idea;mass
+rugby|n|a team game played with an oval ball that can be carried and kicked|We watched the rugby on TV.|||kind=idea;mass
+cricket|n|a game played by two teams with a bat and ball; also, a chirping insect|They played cricket on the village green.|||kind=idea;mass
+badminton|n|a game in which players hit a shuttlecock over a high net|We played badminton in the garden.|||kind=idea;mass
+boxing|n|a sport in which two people fight with their fists in padded gloves|He took up boxing to get fit.|||kind=idea;mass
+swimming|n|the sport or activity of moving through water|Swimming is great exercise.|||kind=idea;mass
+running|n|the sport or activity of running|Running clears my head.|jogging||kind=idea;mass
+cycling|n|the sport or activity of riding a bicycle|Cycling is my favorite way to get to work.|biking||kind=idea;mass
+hiking|n|walking long distances in the countryside for pleasure|We go hiking every weekend.|trekking, rambling||kind=idea;mass
+climbing|n|the sport of climbing rocks or mountains|She does climbing at the indoor wall.|bouldering||kind=idea;mass
+skiing|n|the sport of moving over snow on skis|We went skiing in the Alps.|||kind=idea;mass
+surfing|n|the sport of riding waves on a board|He learned surfing in Portugal.|||kind=idea;mass
+skating|n|moving on ice skates or roller skates|We went skating on the frozen lake.|||kind=idea;mass
+dancing|n|moving to music|She loves dancing in the kitchen.|||kind=idea;mass
+fishing|n|catching fish, for food or for sport|My grandpa took me fishing.|angling||kind=idea;mass
+camping|n|staying in a tent or caravan on holiday|We go camping every summer.|||kind=idea;mass
+knitting|n|making clothes from yarn with two needles; also, the thing being knitted|Knitting helps me relax.|||kind=idea;mass
+baking|n|making bread, cakes and other food in an oven|Baking is my weekend hobby.|||kind=idea;mass
+drawing|n|making pictures with a pencil or pen; also, a picture made this way|Drawing is how he unwinds.|sketching||kind=idea;mass
+writing|n|putting words on paper or a screen; also, written work|She does her writing in the morning.|||kind=idea;mass
+singing|n|making music with your voice|Singing in a choir makes me happy.|||kind=idea;mass
+birdwatching|n|watching wild birds as a hobby|Birdwatching needs patience and binoculars.|birding||kind=idea;mass
+gaming|n|playing video games|Gaming is how I relax after work.|||kind=idea;mass
+crafts|n|making things by hand, like pottery or sewing|We did crafts on the rainy afternoon.|handicrafts||kind=idea;mass
+pottery|n|making pots and dishes from clay, or the things made|She takes a pottery class on Tuesdays.|ceramics||kind=idea;mass
+sewing|n|joining cloth with a needle and thread|I learned sewing from my grandmother.|stitching||kind=idea;mass
+shopping|n|buying things in shops|We did some shopping in town.|||kind=idea;mass
+traveling|n|going to different places, especially far away|Traveling teaches you a lot.|travel||kind=idea;mass;forms=travelling
+volunteering|n|working without pay to help others|Volunteering at the shelter is rewarding.|||kind=idea;mass
+meditation|n|sitting quietly and focusing your mind|Meditation helps me sleep.|mindfulness||kind=idea;mass
+exercise|n|physical activity to stay healthy|A little exercise every day goes a long way.|workout, training||kind=idea;mass
+workout|n|a session of physical exercise|I had a great workout this morning.|exercise, training||kind=idea
+
+# More actions
+add|v|to put something with something else; also, to find the total of numbers|Add the sugar to the flour.|include, total|subtract, remove|obj=a pinch of salt
+mix|v|to combine things so they become one|Mix the paint until it's even.|blend, combine|separate|obj=the batter
+blend|v|to mix things together thoroughly|Blend the fruit with yogurt.|mix, combine||obj=the soup
+toast|v|to make bread brown with heat; also, to raise a glass to someone|Toast the bread lightly.|grill||obj=the bread
+steam|v|to cook food with steam from boiling water|Steam the broccoli for five minutes.|||obj=the vegetables
+microwave|v|to cook or heat food in a microwave oven|Microwave the soup for two minutes.|heat||obj=the leftovers
+serve|v|to give food or drink to someone; also, to work for someone|Serve the soup hot.|dish up||obj=dinner
+chew|v|to bite food again and again before swallowing|Chew your food properly.|munch||obj=the gum
+swallow|v|to make food or drink go down your throat|He swallowed the pill with water.|gulp||obj=the pill
+sip|v|to drink slowly in small amounts|She sipped her tea by the window.|||obj=her tea
+gulp|v|to swallow quickly|He gulped down his juice.|swig||obj=his water
+bite|v|to cut into something with your teeth|The dog bit my sandwich.|nibble, chomp||obj=the apple;past=bit;ing=biting
+lick|v|to move your tongue over something|The cat licked its paws.|||obj=the spoon
+nibble|v|to eat something in small bites|The rabbit nibbled a carrot.|munch||obj=a cookie
+munch|v|to eat steadily and noisily|We munched popcorn through the film.|chomp, crunch||obj=some popcorn
+starve|v|to suffer or die from lack of food; informally, to be very hungry|I'm starving, let's eat.|||act;mood=-
+dine|v|to eat dinner|We dined by candlelight.|eat||act
+feast|v|to eat a large meal with enjoyment|We feasted on the fish we caught.|||act
+clean up|v|to make a place tidy and clean|Let's clean up after dinner.|tidy up||past=cleaned up;ing=cleaning up
+dust|v|to remove dust from furniture|I dust the shelves every Sunday.|wipe||obj=the shelves
+wipe|v|to rub a surface to clean or dry it|Wipe the table after dinner.|clean, mop||obj=the table
+scrub|v|to clean something by rubbing hard|Scrub the pan with hot water.|scour||obj=the pan
+rinse|v|to wash something quickly in clean water|Rinse the rice before cooking.|wash||obj=the cups
+vacuum|v|to clean with a vacuum cleaner|I vacuum the stairs on Saturdays.|hoover||obj=the carpet
+mop|v|to wash a floor with a mop|Mop the kitchen floor, please.|||obj=the floor
+laundry|n|clothes that need washing, or have just been washed|I have a pile of laundry to do.|washing||kind=thing;mass
+hang|v|to attach something at the top so it hangs down|Hang your coat on the hook.|suspend||obj=the washing;past=hung
+arrange|v|to put things in order; also, to plan|She arranged the flowers in a vase.|organize, set out||obj=the flowers
+assemble|v|to put the parts of something together|We assembled the bookshelf ourselves.|build, put together|dismantle|obj=the shelf
+install|v|to put equipment or software in place so it's ready to use|I installed the new app.|set up, fit|remove|obj=the update
+update|v|to make something more modern or add the latest information|Update your phone tonight.|upgrade, refresh||obj=the app
+upload|v|to send data from your device to the internet|She uploaded the photos.||download|obj=the photos
+delete|v|to remove something, especially from a computer|I deleted the old messages.|erase, remove|save|obj=the file
+click|v|to press a button on a computer mouse; also, to make a short sharp sound|Click the link to open it.|tap, press||obj=the link
+scroll|v|to move text or pictures up or down on a screen|I scrolled through the photos.|||act
+search|v|to look carefully for something|We searched everywhere for the cat.|look, hunt||obj=the drawer
+browse|v|to look through things casually; also, to look at websites|We browsed the bookshop for an hour.|look around||act
+text|v|to send a written message by phone|I'll text you when I get there.|message||obj=her friend
+email|v|to send a message by email|Email me the details.|||obj=the teacher
+post|v|to send a letter; also, to put something online|I posted the photos online.|mail, share||obj=a letter
+reply|v|to answer|She replied to my message right away.|answer, respond||act
+revise|v|to study again before an exam; also, to change and improve|I'm revising for my exams.|study, review||act
+review|v|to look at something again carefully|Review your notes before the test.|go over, check||obj=her notes
+quiz|v|to ask someone lots of questions|My mom quizzed me on my spelling.|question, test||obj=her brother
+graduate|v|to complete a course at a school or university|She graduated last summer.|||act
+pass out|v|to faint|He passed out from the heat.|faint||past=passed out;ing=passing out;mood=-
+faint|v|to suddenly become unconscious for a short time|She fainted in the heat.|pass out||act;mood=-
+injure|v|to hurt someone or a part of the body|He injured his knee playing football.|hurt, wound|heal|obj=his knee;mood=-
+sprain|v|to injure a joint by twisting it|I sprained my ankle on the stairs.|twist||obj=her ankle;mood=-
+bleed|v|to lose blood|My finger is bleeding.|||act;past=bled;mood=-
+recover|v|to get better after an illness or difficulty|She recovered quickly from the flu.|heal, get better|worsen|act
+sleep in|v|to sleep later than usual in the morning|I slept in on Sunday.|lie in||past=slept in;ing=sleeping in
+oversleep|v|to sleep longer than you meant to|I overslept and missed the train.|||act;past=overslept;mood=-
+stay up|v|to not go to bed|We stayed up late talking.|||past=stayed up;ing=staying up
+get up|v|to rise from bed or from sitting|I get up at seven.|rise||past=got up;ing=getting up
+wake up|v|to stop sleeping|I woke up to the sound of rain.|awaken||past=woke up;ing=waking up
+fall asleep|v|to start sleeping|I fell asleep on the sofa.|nod off, drift off||past=fell asleep;ing=falling asleep
+fall|v|to drop down toward the ground by accident|I fell on the ice.|tumble, trip|rise|act;past=fell;mood=-
+trip|v|to catch your foot and almost fall|I tripped over the cat.|stumble||act;mood=-
+slip|v|to slide by accident and lose your balance|She slipped on the wet floor.|skid||act;mood=-
+crash|v|to hit something hard, especially in a vehicle|He crashed his bike into a hedge.|collide||obj=the car;mood=-
+burn|v|to be on fire, or to damage something with heat|I burned the toast again.|scorch||obj=the toast;past=burnt;mood=-
+crack|v|to break without coming apart; also, to solve|I cracked my phone screen.|split, fracture||obj=her phone screen;mood=-
+tear|v|to pull something apart; also, to rip by accident|I tore my jeans on the fence.|rip||obj=the paper;past=tore;mood=-
+ruin|v|to spoil something completely|The rain ruined our picnic.|spoil, wreck||obj=the picnic;mood=-
+waste|v|to use something carelessly or without purpose|Don't waste food.|squander|save|obj=the time;mood=-
+mess up|v|informal: to do something badly; also, to make untidy|I messed up the recipe.|botch, ruin||past=messed up;ing=messing up;mood=-
+struggle|v|to try very hard to do something difficult|I'm struggling with this assignment.|strain, labor||act;mood=-
+cope|v|to deal with something difficult|She's coping well with the new job.|manage, handle||act
+manage|v|to succeed in doing something difficult; also, to be in charge of|We managed to catch the last bus.|cope, run||obj=the team
+handle|v|to deal with something; also, to hold in your hands|She handled the problem calmly.|deal with, manage||obj=the problem
+deal with|v|to take action to solve a problem|I'll deal with the emails tomorrow.|handle, sort out||past=dealt with;ing=dealing with
+sort out|v|to solve a problem or tidy something|Let's sort out the garage.|organize, fix||past=sorted out;ing=sorting out
+figure out|v|to understand or solve something by thinking|I finally figured out the puzzle.|work out, solve||past=figured out;ing=figuring out
+give up|v|to stop trying or stop doing something|Don't give up now.|quit|persevere|past=gave up;ing=giving up;mood=-
+quit|v|to stop doing something; also, to leave a job|She quit her job to travel.|stop, leave|start|act;past=quit;ing=quitting
+succeed|v|to manage to do what you tried to do|She succeeded on her third try.|triumph, win|fail|act
+achieve|v|to succeed in doing something after effort|He achieved his goal of running a marathon.|accomplish, reach|fail|obj=her goal
+improve|v|to get better or make something better|My cooking has improved a lot.|get better, enhance|worsen|act
+cheer|v|to shout to show support or happiness|The crowd cheered for the runners.|applaud, root for|boo|act
+clap|v|to hit your hands together to show you enjoyed something|Everyone clapped at the end.|applaud||act
+joke|v|to say things to make people laugh|He's always joking around.|kid, tease||act
+tease|v|to laugh at someone in a playful or unkind way|My brother teases me about my hair.|mock, kid||obj=her brother
+cuddle|v|to hold someone or something close and warmly|The kids cuddled the puppy.|hug, snuggle||obj=the puppy
+snuggle|v|to get into a warm, comfortable position close to someone|We snuggled under the blanket.|cuddle, nestle||act
+comfort|v|to make someone feel less sad or worried|She comforted her friend after the news.|console, soothe|upset|obj=her friend
+encourage|v|to give someone confidence or hope|My teacher encouraged me to enter the contest.|support, inspire|discourage|obj=her friend
+support|v|to help someone or something; also, to hold up|Thanks for supporting me.|help, back||obj=the team
+care|v|to feel that someone or something matters; also, to look after|I really care about my friends.|mind, look after||act
+panic|v|to suddenly feel so frightened that you can't think clearly|Don't panic, we have time.|freak out||act;past=panicked;ing=panicking;mood=-
+sob|v|to cry noisily|She sobbed into her pillow.|weep, cry||act;mood=-
+yell|v|to shout loudly|He yelled for help.|shout, holler|whisper|act
+mumble|v|to speak quietly and unclearly|He mumbled an apology.|mutter|enunciate|act
+mutter|v|to speak quietly, often to complain|She muttered about the weather.|mumble, grumble||act
+rap|v|to speak words in rhythm to music; also, to knock|He raps with his friends.|||act
+perform|v|to entertain an audience by acting, singing, dancing or playing|The band performed for two hours.|play, act||act
+act|v|to do something; also, to perform in a play or film|She acts in the school play.|perform||act
+direct|v|to manage a film or play; also, to show someone the way|She directed her first film last year.|lead, manage||obj=the play
+film|v|to record moving pictures with a camera|We filmed the whole wedding.|record, shoot||obj=the wedding
+record|v|to store sound or pictures so they can be played later|I recorded a song on my phone.|tape, capture||obj=a song
+photograph|v|to take a picture with a camera|He photographed the sunset.|shoot, snap||obj=the sunset
+listen to|v|to pay attention to sounds or to what someone says|I listen to music while I work.|hear||past=listened to;ing=listening to
+binge|v|informal: to do too much of something at once, like watching a whole TV series|We binged the whole series in a weekend.|||act
+stream|v|to watch or listen to something over the internet as it arrives|We streamed the match on my laptop.|||obj=a film
+game|v|to play video games|He games every evening after work.|||act;ing=gaming
+paddle|v|to walk in shallow water; also, to move a boat with a paddle|The kids paddled at the edge of the sea.|wade||act
+row|v|to move a boat through water using oars|We rowed across the lake.|paddle||act
+sail|v|to travel on water in a ship or boat, especially with sails|We sailed to the island.|cruise||act
+dive|v|to jump into water headfirst; also, to swim underwater|She dived off the rocks.|plunge||act;past=dove
+splash|v|to make water fly around in drops|The kids splashed in the puddles.|spatter||act
+skip|v|to move along with small hops; also, to leave something out|I skipped breakfast this morning.|hop, miss||obj=breakfast
+hop|v|to jump on one foot, or jump in small steps|The rabbit hopped across the lawn.|bounce, skip||act
+jump|v|to push yourself off the ground with your legs|The kids jumped into the pool.|leap, spring||nogen
+leap|v|to jump high or a long way|The deer leapt over the fence.|jump, spring||act;past=leapt
+march|v|to walk with regular steps, like soldiers|The band marched down the street.|stride||act
+roam|v|to travel without a fixed plan|Goats roamed the hillside.|wander, rove||act
+drive|v|to control a car or other vehicle|I drive to work every day.|steer||obj=the car;past=drove
+park|v|to leave a vehicle in a place for a while|Park the car in the shade.|||obj=the car
+board|v|to get onto a plane, train or ship|We boarded the plane at noon.|embark|disembark|obj=the train
+land|v|to come down onto the ground after flying|Our plane landed early.|touch down|take off|act
+take off|v|to leave the ground and start flying; also, to remove clothes|The plane took off on time.|depart|land|past=took off;ing=taking off
+check in|v|to arrive and register at a hotel or airport|We checked in at the hotel.|register|check out|past=checked in;ing=checking in
+cancel|v|to say that something planned won't happen|They cancelled the match because of the rain.|call off|book|obj=the meeting;mood=-;forms=cancelled,cancelling
+postpone|v|to move an event to a later time|We postponed the trip until spring.|delay, put off||obj=the party
+reschedule|v|to change the time of a planned event|Can we reschedule our meeting?|move||obj=the appointment
+attend|v|to go to an event|Over a hundred people attended the wedding.|go to, be at|miss|obj=the meeting
+join|v|to become a member of a group; also, to connect|I joined a running club.|enter, sign up for|leave|obj=the club
+sign up|v|to agree to take part in something|I signed up for a cooking class.|enroll, register||past=signed up;ing=signing up
+apply|v|to ask formally for something such as a job; also, to put on|I applied for three jobs this week.|request||act
+interview|v|to ask someone questions for a job or an article|They interviewed five people for the job.|question||obj=the candidates
+hire|v|to give someone a job; also, to rent|The café hired two new waiters.|employ|fire|obj=a new assistant
+fire|v|to make someone leave their job; also, to shoot|The manager fired him for being late.|dismiss, sack|hire|obj=the cook;mood=-
+retire|v|to stop working because of age|My grandpa retired last year.|||act
+work out|v|to exercise; also, to solve|I work out three times a week.|exercise, train||past=worked out;ing=working out
+lift weights|v|to exercise by raising heavy weights|I lift weights at the gym.|||past=lifted weights;ing=lifting weights
+warm up|v|to prepare your body for exercise with gentle movement|Always warm up before a run.|limber up||past=warmed up;ing=warming up
+unwind|v|to relax after work or stress|I unwind with a good book.|relax, chill||act;past=unwound
+date|v|to go out regularly with someone you're romantically interested in|They've been dating for a year.|go out with, see||act
+marry|v|to become someone's husband or wife|They married in the spring.|wed||act
+propose|v|to ask someone to marry you; also, to suggest|He proposed on the beach at sunset.|suggest||act
+break up|v|to end a romantic relationship|They broke up last month.|split up||past=broke up;ing=breaking up;mood=-
+fight|v|to use force against someone; also, to argue|The cats fought over the fish.|battle, quarrel||act;past=fought;mood=-
+blame|v|to say someone is responsible for something bad|Don't blame yourself.|accuse||obj=the weather
+welcome|v|to greet someone in a friendly way when they arrive|They welcomed us with tea and cake.|greet, receive||obj=the guests
+host|v|to invite and look after guests at an event|We're hosting a party on Saturday.|throw, hold||obj=a party
+wrap up|v|to cover a present in paper; also, to finish something|Let's wrap up the meeting.|finish, conclude||past=wrapped up;ing=wrapping up
+gift|v|to give something as a present|She gifted me a plant.|give, present||obj=a book
+donate|v|to give money or goods to help others|We donated our old clothes.|give, contribute||obj=some books
+lend a hand|v|to help|Can you lend a hand with these boxes?|help||past=lent a hand;ing=lending a hand
+babysit|v|to look after children while their parents are out|I babysit for the neighbors.|mind||act;past=babysat
+adopt|v|to take a child or animal into your family; also, to start using an idea|We adopted a cat from the shelter.|take in||obj=a kitten
+garden|v|to work in a garden|She gardens every morning.|||act
+plant|v|to put a seed or plant into the ground to grow|We planted tulips by the fence.|sow||obj=some seeds
+pick|v|to choose; also, to pull fruit or flowers from a plant|We picked apples in the orchard.|choose, gather||obj=the apples
+harvest|v|to gather crops when they're ripe|We harvested the potatoes in September.|gather, reap|plant|obj=the potatoes
+mow|v|to cut grass with a machine|I mow the lawn on Saturdays.|cut, trim||obj=the lawn
+prune|v|to cut off parts of a tree or bush to help it grow|Prune the roses in winter.|trim, cut back||obj=the roses
+walk the dog|v|to take a dog out for exercise|I walk the dog before breakfast.|||past=walked the dog;ing=walking the dog
+fetch|v|to go and get something and bring it back|The dog fetched the stick.|retrieve, get||obj=the stick
+bark|v|to make the short loud sound a dog makes|The dog barked at the mail carrier.|woof, yap||act
+purr|v|to make the low, happy sound a cat makes|The cat purred on my lap.|||act
+meow|v|to make the crying sound a cat makes|The cat meowed at the door.|mew||act;forms=miaow
+growl|v|to make a low, rough sound, as an angry dog does|The dog growled at the stranger.|snarl||act
+tweet|v|to make the high sound a small bird makes; also, to post on a social media site|Birds tweeted in the hedge.|chirp, twitter||act
+buzz|v|to make a low humming sound, as a bee does|A bee buzzed past my ear.|hum, drone||act
+howl|v|to make a long, loud cry, as a wolf does|The wind howled all night.|wail||act
+fly away|v|to leave by flying|The bird flew away when I got close.|||past=flew away;ing=flying away
+shop around|v|to compare prices in different shops before buying|Shop around before you buy a phone.|||past=shopped around;ing=shopping around
+afford|v|to have enough money for something|I can't afford a new car.|||obj=the trip
+budget|v|to plan how to spend money|We budget for a holiday every year.|plan||act
+owe|v|to have to pay or give back something|I owe you five dollars.|||obj=her money
+invest|v|to put money into something hoping to make a profit; also, to put time or effort into something|She invested in a small bakery.|||act
+count on|v|to rely on someone|You can count on me.|rely on, depend on||past=counted on;ing=counting on
+depend|v|to need someone or something for support; also, to be decided by|It depends on the weather.|rely||act
+wonder|v|to think about something and want to know more|I wonder what time it is.|ponder||act
+pretend|v|to act as if something is true when it isn't|The kids pretended to be pirates.|make believe||act
+plan ahead|v|to make plans for the future in advance|It pays to plan ahead.|||past=planned ahead;ing=planning ahead
+expect|v|to think something will happen|I expect it will rain.|anticipate||act
+remind|v|to make someone remember something|Remind me to call mom.|prompt||obj=her brother
+realize|v|to suddenly understand or become aware of something|I realized I'd left my keys inside.|understand, notice||act;forms=realise
+compare|v|to look at how things are the same or different|Compare the two prices.|contrast||obj=the prices
+prefer|v|to like one thing more than another|I prefer tea to coffee.|favor||act;past=preferred;ing=preferring
+suggest|v|to put forward an idea|I suggest we leave early.|propose, recommend||act
+recommend|v|to suggest that something is good or right|Can you recommend a good book?|suggest, advise||obj=a good book
+promise|v|to say that you will certainly do something|I promise I'll call.|swear, vow||act
+admit|v|to agree that something is true, often unwillingly; also, to let in|He admitted he was wrong.|confess|deny|act;past=admitted;ing=admitting
+deny|v|to say something isn't true|She denied eating the last cookie.||admit|act
+confess|v|to admit you did something wrong|He confessed to breaking the vase.|admit|deny|act
+gossip|v|to talk about other people's private lives|They gossiped over coffee.|chat, chatter||act
+praise|v|to say good things about someone or something|The teacher praised her drawing.|compliment, applaud|criticize|obj=her work
+criticize|v|to say what you think is wrong with someone or something|He criticized the plan.|find fault with|praise|act;forms=criticise;mood=-
+compliment|v|to say something nice about someone|She complimented my shoes.|praise, flatter|insult|obj=her friend
+insult|v|to say something rude to someone|He insulted the referee.|offend|compliment|act;mood=-
+interrupt|v|to stop someone while they are speaking or doing something|Sorry to interrupt.|cut in||act
+hurry up|v|to move faster|Hurry up, we're late!|rush||past=hurried up;ing=hurrying up
+slow down|v|to move or do something more slowly|Slow down, you'll trip.||speed up|past=slowed down;ing=slowing down
+wait for|v|to stay until someone or something comes|I'll wait for you at the corner.|||past=waited for;ing=waiting for
+queue|v|to wait in a line|We queued for an hour.|line up||act;ing=queuing
+head|v|to go in a particular direction|We headed home after dinner.|go, make for||act
+stay over|v|to spend the night at someone's home|Can I stay over on Friday?|sleep over||past=stayed over;ing=staying over
+move in|v|to start living in a new home|We moved in last week.||move out|past=moved in;ing=moving in
+move out|v|to leave the home where you live|She moved out of her parents' house.||move in|past=moved out;ing=moving out
+settle in|v|to become comfortable in a new place|We're still settling in.|||past=settled in;ing=settling in
+grow up|v|to become an adult|I grew up by the sea.|||past=grew up;ing=growing up
+
+# More describing words
+brilliant|adj|very bright; also, very clever or very good|That was a brilliant idea.|excellent, superb|terrible|mood=+
+superb|adj|extremely good|The food was superb.|excellent, outstanding|poor|mood=+
+outstanding|adj|extremely good; also, not yet paid or done|She gave an outstanding performance.|excellent, exceptional|ordinary|mood=+
+incredible|adj|so good or surprising it's hard to believe|The view was incredible.|amazing, unbelievable|ordinary|mood=+
+marvelous|adj|extremely good|We had a marvelous time.|wonderful, splendid|awful|mood=+;forms=marvellous
+splendid|adj|very good or impressive|What a splendid garden.|magnificent, wonderful|shabby|mood=+
+magnificent|adj|very beautiful or impressive|The cathedral is magnificent.|splendid, grand|modest|mood=+
+gorgeous|adj|very beautiful or pleasant|It's a gorgeous day.|beautiful, stunning|ugly|use=object;mood=+
+stunning|adj|extremely beautiful or impressive|The sunset was stunning.|gorgeous, breathtaking||mood=+
+fabulous|adj|extremely good|You look fabulous.|fantastic, wonderful||mood=+
+terrific|adj|very good; also, very great in amount|You did a terrific job.|great, excellent|awful|mood=+
+fun|adj|enjoyable|That was a fun party.|enjoyable, entertaining|boring|mood=+
+enjoyable|adj|giving pleasure|We had an enjoyable evening.|pleasant, fun|unpleasant|mood=+
+pleasant|adj|nice and enjoyable|It was a pleasant walk.|nice, agreeable|unpleasant|mood=+
+unpleasant|adj|not nice or enjoyable|There's an unpleasant smell in here.|nasty, disagreeable|pleasant|mood=-
+exciting|adj|making you feel excited|It was an exciting match.|thrilling, gripping|boring|mood=+
+thrilling|adj|very exciting|The roller coaster was thrilling.|exciting, exhilarating|dull|mood=+
+interesting|adj|holding your attention|It's an interesting book.|fascinating, engaging|boring|mood=+
+fascinating|adj|extremely interesting|The documentary was fascinating.|captivating, gripping|dull|mood=+
+boring|adj|not interesting|The meeting was so boring.|dull, tedious|interesting|mood=-
+dull|adj|not interesting; also, not bright or shiny|It was a dull film.|boring, tedious|exciting, bright|mood=-
+tedious|adj|long, slow and boring|Filling in forms is tedious.|boring, monotonous|interesting|mood=-
+relaxing|adj|making you feel calm and rested|It was a relaxing weekend.|restful, soothing|stressful|mood=+
+stressful|adj|causing worry and pressure|It's been a stressful week.|tense, hectic|relaxing|mood=-
+exhausting|adj|making you very tired|The hike was exhausting.|tiring, draining|refreshing|mood=-
+tiring|adj|making you tired|It was a tiring day.|exhausting|restful|mood=-
+hectic|adj|very busy and full of activity|Mornings are hectic in our house.|frantic, busy|calm|mood=-
+chaotic|adj|completely confused and disorganized|The kitchen was chaotic before the party.|messy, frantic|orderly|mood=-
+tough|adj|difficult; also, strong and hard to break|It's been a tough day.|hard, difficult|easy|mood=-
+challenging|adj|difficult in an interesting way|The puzzle was challenging.|demanding, tricky|easy|mood=0
+tricky|adj|difficult to deal with|That's a tricky question.|difficult, awkward|simple|mood=-
+successful|adj|achieving what was wanted|The bake sale was very successful.|triumphant, effective|unsuccessful|mood=+
+disastrous|adj|very bad and causing a lot of harm or trouble|The first attempt was disastrous.|catastrophic|successful|mood=-
+rubbish|adj|informal, British: very bad|That film was rubbish.|awful, terrible|great|mood=-
+lame|adj|informal: boring or disappointing; also, unable to walk properly|That excuse is lame.|weak, feeble|cool|mood=-
+so-so|adj|neither very good nor very bad|The food was so-so.|okay, average|excellent|mood=0;forms=so so
+average|adj|ordinary; also, the typical amount|It was an average day.|ordinary, typical|exceptional|mood=0
+alright|adj|all right; acceptable|The hotel was alright.|okay, fine||mood=0;forms=all right
+decent|adj|good enough; also, honest and kind|We found a decent place to eat.|fair, adequate|poor|mood=+
+ordinary|adj|normal and not special|It was an ordinary Tuesday.|normal, usual|special|mood=0
+unusual|adj|not common or normal|That's an unusual name.|strange, rare|usual
+usual|adj|normal; happening most of the time|I'll have my usual coffee.|normal, typical|unusual
+typical|adj|having the usual features of a type of thing|It was a typical rainy Monday.|normal, classic|unusual
+odd|adj|strange; also, not even, like 3 or 7|That's odd, the door was locked.|strange, weird|normal, even
+crazy|adj|informal: very strange or silly; also, very enthusiastic|It was a crazy day.|wild, mad|sane
+wild|adj|living in nature, not looked after by people; also, uncontrolled|We saw wild horses on the hills.|untamed, feral|tame
+tame|adj|used to people and not dangerous|The deer were surprisingly tame.|gentle, domesticated|wild
+colorful|adj|full of bright colors|She wore a colorful dress.|vivid, vibrant|dull|use=object;forms=colourful
+vivid|adj|very bright; also, very clear and detailed|I had a vivid dream.|bright, intense|faint
+pale|adj|light in color; also, having less color in your face than usual|You look pale, are you okay?|faint, light|dark|use=object
+transparent|adj|clear enough to see through|The jar is transparent.|clear, see-through|opaque|use=object
+sparkly|adj|shining with small flashes of light|She wore sparkly shoes.|glittery|dull|use=object
+fluffy|adj|soft and light like fur or feathers|The kitten is so fluffy.|fuzzy, downy||use=object
+furry|adj|covered with fur|A furry caterpillar crawled on my arm.|hairy, fuzzy||use=object
+fuzzy|adj|covered with short soft hair; also, unclear|The peach has fuzzy skin.|fluffy, blurry|sharp|use=object
+silky|adj|soft and smooth like silk|Her hair is silky.|smooth, sleek|rough|use=object
+bumpy|adj|having an uneven surface; also, shaky|It was a bumpy ride.|uneven, rough|smooth|use=object
+slippery|adj|smooth or wet and hard to hold or stand on|The floor is slippery.|slick, greasy||use=object
+muddy|adj|covered with mud|My boots are muddy.|dirty, mucky|clean|use=object
+dusty|adj|covered with dust|The attic is dusty.|grimy|clean|use=object
+rusty|adj|covered with rust; also, out of practice|The gate is rusty.|corroded||use=object
+crispy|adj|hard and dry in a pleasant way|The bacon was crispy.|crunchy, crisp|soggy
+soggy|adj|wet and soft in an unpleasant way|The cereal went soggy.|mushy, sodden|crisp
+creamy|adj|smooth and rich like cream|The soup was creamy.|smooth, rich
+cheesy|adj|tasting of cheese; informally, also silly and overdone|That song is so cheesy.|corny
+greasy|adj|covered with or containing a lot of oil or fat|The chips were greasy.|oily
+bland|adj|without much flavor|The soup was bland.|tasteless|tasty, spicy
+mild|adj|not strong or harsh; also, gently warm|I like mild curry.|gentle|strong, harsh
+ripe|adj|ready to eat|These bananas are ripe.|mature|unripe
+rotten|adj|gone bad and soft|The apple was rotten.|bad, decayed|fresh|mood=-
+frozen|adj|turned to ice; also, kept very cold|The lake is frozen.|icy, chilled|thawed
+boiling|adj|very hot|It's boiling outside today.|scorching, sweltering|freezing|use=weather
+freezing|adj|very cold|It's freezing outside.|icy, bitter|boiling|use=weather
+chilly|adj|unpleasantly cold|It's a bit chilly this morning.|cool, nippy|warm|use=weather
+humid|adj|warm and damp|It's so humid today.|muggy, sticky|dry|use=weather
+breezy|adj|with a light wind|It was a breezy afternoon.|windy, fresh|still|use=weather
+snowy|adj|covered with or full of snow|It was a snowy morning.|||use=weather
+icy|adj|very cold; also, covered with ice|The roads are icy.|freezing, frosty|warm|use=weather
+misty|adj|with light fog|It was misty by the river.|foggy, hazy|clear|use=weather
+clear|adj|easy to see through or understand; also, without clouds|It's a clear night.|bright, plain|cloudy, unclear|use=weather
+spacious|adj|having a lot of space|The new apartment is spacious.|roomy|cramped|use=place
+cramped|adj|not having enough space|The room was cramped.|crowded, tight|spacious|use=place
+deserted|adj|empty of people|The beach was deserted.|empty, abandoned|crowded|use=place
+private|adj|for one person or group only; also, secret|This is a private beach.|personal|public
+public|adj|for everyone to use or know|There's a public library nearby.|common, shared|private
+local|adj|belonging to the area where you live|We shop at the local market.|nearby, neighborhood|foreign
+foreign|adj|from another country|She speaks three foreign languages.|international, overseas|local
+international|adj|involving more than one country|It's an international airport.|global, worldwide|national
+massive|adj|very large and heavy|They live in a massive house.|huge, enormous|tiny|use=object
+mini|adj|very small|We made mini pizzas.|small, tiny|giant|use=object
+compact|adj|small and neatly made|The camera is compact.|small, neat|bulky|use=object
+loose|adj|not tight or firmly fixed|One of the buttons is loose.|slack|tight|use=object
+tight|adj|fitting closely; also, firmly fixed|These jeans are too tight.|snug|loose|use=object
+straight|adj|without bends or curves|Draw a straight line.|direct|curved, crooked|use=object
+curly|adj|having curls|She has curly hair.|wavy|straight|use=object
+open|adj|not closed|The door is open.|ajar|closed, shut
+closed|adj|not open|The shop is closed on Sundays.|shut|open
+risky|adj|involving a chance of harm or loss|Climbing without a rope is risky.|dangerous, unsafe|safe
+necessary|adj|needed|Is it necessary to book?|essential, required|unnecessary
+possible|adj|able to happen or be done|Is it possible to change the date?|feasible|impossible
+impossible|adj|not able to happen or be done|It's impossible to sleep with this noise.|hopeless|possible
+likely|adj|probably going to happen|It's likely to rain later.|probable|unlikely
+unlikely|adj|probably not going to happen|It's unlikely we'll make it in time.|improbable|likely
+fortunate|adj|lucky|We're fortunate to live near the sea.|lucky|unfortunate
+unfortunate|adj|unlucky; also, regrettable|It was an unfortunate mistake.|unlucky|fortunate
+correct|adj|right; without mistakes|That's the correct answer.|right, accurate|wrong
+accurate|adj|correct in every detail|The forecast was accurate.|exact, precise|inaccurate
+exact|adj|completely correct in every detail|What's the exact time?|precise, accurate|approximate
+fair|adj|treating people equally and reasonably; also, light in color|That's not fair!|just, equal|unfair
+unfair|adj|not treating people equally|It's unfair that he gets more.|unjust|fair|mood=-
+whole|adj|complete; with nothing missing|She ate the whole pizza.|entire, complete|partial
+entire|adj|whole|I spent the entire day reading.|whole, complete
+extra|adj|more than usual or needed|Bring an extra jumper.|additional, spare
+spare|adj|extra and available to use|Do you have a spare pen?|extra
+main|adj|most important|The main entrance is around the corner.|chief, principal|minor
+own|adj|belonging to a particular person|I have my own room.|personal
+same|adj|not different|We have the same shoes.|identical|different
+different|adj|not the same|They have different ideas.|unlike, distinct|same
+similar|adj|almost the same|Our dogs look similar.|alike|different
+favorite|adj|liked more than others|What's your favorite color?|preferred|least favorite|forms=favourite
+precious|adj|very valuable or loved|These photos are precious to me.|treasured, valuable|worthless
+valuable|adj|worth a lot of money; also, very useful|The ring is valuable.|precious, prized|worthless
+worthless|adj|having no value|The old coin turned out to be worthless.||valuable
+handy|adj|useful and easy to use; also, nearby|A torch is handy in a power cut.|useful, convenient
+convenient|adj|easy and suitable|The station is very convenient.|handy|inconvenient
+comfy|adj|informal: comfortable|This sofa is so comfy.|comfortable, cozy|uncomfortable|use=feel;mood=+
+spotless|adj|completely clean|The kitchen was spotless.|immaculate|filthy|use=place
+filthy|adj|very dirty|His boots were filthy.|grimy|spotless|use=object
+old-fashioned|adj|no longer modern|She has old-fashioned ideas.|outdated|modern|use=object
+classic|adj|of high quality and lasting; also, typical|It's a classic film.|timeless|
+brand-new|adj|completely new|He bought a brand-new bike.|new|used|use=object;forms=brand new
+secondhand|adj|owned by someone before|I bought a secondhand bike.|used|new|use=object;forms=second-hand
+homemade|adj|made at home|She brought homemade cookies.|||forms=home-made
+handmade|adj|made by hand, not by machine|She sells handmade jewelry.|||use=object;forms=hand-made
+natural|adj|existing in nature, not made by people|The food uses only natural colors.|organic|artificial
+artificial|adj|made by people, not natural|The flowers are artificial.|fake|natural
+digital|adj|using computers or electronic signals|I prefer digital books.|electronic|analog
+electric|adj|powered by electricity|We bought an electric car.|electrical
+online|adj|connected to or available through the internet|I did an online course.|virtual|offline
+offline|adj|not connected to the internet|I work offline on the train.||online
+wireless|adj|working without wires|The headphones are wireless.
+portable|adj|light and easy to carry|It's a portable speaker.|mobile||use=object
+waterproof|adj|not letting water through|My jacket is waterproof.|water-resistant||use=object
+broken-hearted|adj|very sad, usually because of a loss|She was broken-hearted after the breakup.|heartbroken||use=feel;mood=--;forms=brokenhearted
+
+# Ideas, school, work and money
+gratitude|n|the feeling of being thankful|She wrote a note of gratitude.|thankfulness, appreciation|ingratitude|kind=idea;mass
+humor|n|the quality of being funny, or the ability to see what's funny|He has a great sense of humor.|wit, comedy||kind=idea;mass;forms=humour
+imagination|n|the ability to form pictures and ideas in your mind|The story shows great imagination.|creativity, fancy||kind=idea;mass
+creativity|n|the ability to make or think of new things|The class encourages creativity.|imagination, inventiveness||kind=idea;mass
+inspiration|n|something that gives you new ideas or makes you want to create|The sea is her inspiration.|influence, spark||kind=idea;mass
+motivation|n|the reason or wish to do something|I've lost my motivation to exercise.|drive, incentive||kind=idea;mass
+ambition|n|a strong wish to achieve something|Her ambition is to be a pilot.|aspiration, goal||kind=idea
+confidence|n|belief in yourself and your abilities|Practice gives you confidence.|self-assurance|doubt|kind=idea;mass
+anxiety|n|a feeling of worry and unease|Exams always give me anxiety.|worry, nervousness|calm|kind=idea;mass
+stress|n|worry and pressure caused by a difficult situation|Work stress is keeping me awake.|pressure, strain|relaxation|kind=idea;mass
+comfort|n|a pleasant feeling of being relaxed and free from pain; also, consolation|The blanket gave him comfort.|ease, relief|discomfort|kind=idea;mass
+relief|n|the good feeling when worry or pain stops|It was a relief to get home.|ease, comfort||kind=idea;mass
+mood|n|how you feel at a particular time|I'm in a good mood today.|temper, spirits||kind=idea
+emotion|n|a strong feeling such as joy, anger or love|She hid her emotions well.|feeling||kind=idea
+feeling|n|an emotion; also, something you sense physically|I have a good feeling about this.|emotion, sense||kind=idea
+excitement|n|the feeling of being excited|The kids couldn't hide their excitement.|thrill, eagerness|boredom|kind=idea;mass
+boredom|n|the feeling of being bored|Boredom set in by the third hour.|tedium|excitement|kind=idea;mass
+loneliness|n|the feeling of being lonely|Loneliness can be hard in a new city.|isolation||kind=idea;mass
+jealousy|n|the feeling of being jealous|Jealousy can spoil a friendship.|envy||kind=idea;mass
+shame|n|a painful feeling of having done something wrong; also, something regrettable|It's a shame you can't come.|guilt, pity|pride|kind=idea;mass
+guilt|n|the feeling of having done something wrong|He felt guilt for missing her party.|shame, remorse|innocence|kind=idea;mass
+surprise|n|something unexpected; also, the feeling it causes|We have a surprise for you.|shock, astonishment||kind=idea
+wonder|n|a feeling of amazement; also, something amazing|The kids stared at the snow in wonder.|awe, amazement||kind=idea;mass
+awe|n|a feeling of great respect and wonder|We stood in awe of the mountains.|wonder, amazement||kind=idea;mass
+compassion|n|a feeling of sympathy and wanting to help|She treats every patient with compassion.|empathy, kindness|cruelty|kind=idea;mass
+sympathy|n|the feeling of being sorry for someone's trouble|You have my sympathy.|compassion, pity||kind=idea;mass
+forgiveness|n|stopping being angry with someone for something they did|She asked for forgiveness.|pardon, mercy|blame|kind=idea;mass
+honesty|n|the quality of being honest|I appreciate your honesty.|truthfulness, sincerity|dishonesty|kind=idea;mass
+loyalty|n|being loyal to someone|The dog's loyalty was touching.|faithfulness, devotion|betrayal|kind=idea;mass
+relationship|n|the way two people or things are connected; also, a romantic partnership|They have a close relationship.|connection, bond||kind=idea
+marriage|n|the relationship between two people who are married|Their marriage has lasted forty years.|partnership||kind=idea
+childhood|n|the time when you are a child|I had a happy childhood by the sea.|youth|adulthood|kind=idea
+tradition|n|a custom or belief passed down over time|It's a family tradition to bake on Sundays.|custom, ritual||kind=idea
+culture|n|the way of life, arts and ideas of a group of people|I love learning about other cultures.|civilization, heritage||kind=idea
+religion|n|belief in a god or gods and the practices that go with it|They respect each other's religion.|faith, belief||kind=idea
+belief|n|something you think is true|It's my belief that people are mostly kind.|opinion, conviction|doubt|kind=idea
+doubt|n|a feeling of not being sure|I have my doubts about the plan.|uncertainty|certainty|kind=idea
+mystery|n|something that is hard to explain or understand|Where the cat went is a mystery.|puzzle, enigma||kind=idea;plural=mysteries
+miracle|n|a wonderful event that seems impossible|It was a miracle no one was hurt.|marvel, wonder||kind=idea
+magic|n|power in stories to make impossible things happen; also, tricks that seem impossible|The magician did some magic.|sorcery, wizardry||kind=idea;mass
+experience|n|knowledge or skill from doing something; also, something that happens to you|Swimming with dolphins was an amazing experience.|event, knowledge||kind=idea
+opportunity|n|a chance to do something|This job is a great opportunity.|chance, opening||kind=idea;plural=opportunities
+chance|n|a possibility or opportunity; also, luck|There's a chance of rain.|possibility, opportunity||kind=idea
+risk|n|the possibility of something bad happening|There's a risk of flooding.|danger, hazard|safety|kind=idea
+danger|n|the possibility of harm|The sign warns of danger.|risk, threat|safety|kind=idea
+safety|n|being safe from harm|Wear a helmet for safety.|security|danger|kind=idea;mass
+health care|n|the services that look after people's health|Health care is free here.|medical care||kind=idea;mass;forms=healthcare
+fitness|n|being healthy and strong, especially from exercise|She cycles for fitness.|health, strength||kind=idea;mass
+diet|n|the food you usually eat; also, eating less to lose weight|A balanced diet keeps you healthy.|||kind=idea
+routine|n|the usual order in which you do things|My morning routine starts with coffee.|habit, schedule||kind=idea
+schedule|n|a plan of when things will happen|My schedule is full this week.|timetable, agenda||kind=idea
+topic|n|a subject that people talk or write about|What's the topic of your essay?|subject, theme||kind=idea
+subject|n|a thing being discussed; also, an area of study at school|My favorite subject is art.|topic, course||kind=idea
+education|n|teaching and learning, especially at school|Education opens doors.|schooling, learning||kind=idea;mass
+grade|n|a mark for school work; also, a year or level at school|I got a good grade in math.|mark, score||kind=idea
+score|n|the number of points someone gets in a game or test|What's the score?|result, points||kind=idea
+result|n|what happens because of something; also, a final score|The results come out on Friday.|outcome, consequence|cause|kind=idea
+mark|n|a grade for school work; also, a small spot or stain|She got full marks on the test.|grade, score||kind=idea
+degree|n|a qualification from a university; also, a unit for measuring temperature or angles|She has a degree in biology.|qualification||kind=idea
+certificate|n|an official document that proves something|I got a certificate for finishing the course.|diploma||kind=thing
+diploma|n|a document showing you have completed a course of study|He framed his diploma.|certificate||kind=thing
+scholarship|n|money given to a student to help pay for their education|She won a scholarship to university.|grant, bursary||kind=idea
+break|n|a short rest from work or school|Let's take a five-minute break.|rest, pause||kind=idea
+recess|n|a break between lessons at school|The kids played tag at recess.|break, playtime||kind=idea;mass
+semester|n|half of a school or university year|The new semester starts in January.|term||kind=idea
+term|n|a part of the school year; also, a word with a particular meaning|The summer term ends in July.|semester, session||kind=idea
+salary|n|money paid to someone for their work, usually every month|She got a higher salary at her new job.|pay, wages||kind=idea;plural=salaries
+pay|n|money you get for working|The pay is good but the hours are long.|wages, salary||kind=idea;mass
+bill|n|a statement of money owed; also, a banknote|Can we have the bill, please?|check, invoice||kind=thing
+receipt|n|a piece of paper showing that you have paid|Keep the receipt in case it breaks.|proof of purchase||kind=thing
+price|n|the amount of money something costs|The price of coffee went up.|cost, charge||kind=idea
+cost|n|the amount of money needed to buy or do something|The cost of the trip was high.|price, expense||kind=idea
+budget|n|a plan for how to spend money|We're on a tight budget this month.|allowance||kind=idea
+savings|n|money you have saved|I spent my savings on a bike.|nest egg||kind=idea;mass
+debt|n|money that you owe|They paid off their debts.|loan||kind=idea
+loan|n|money that you borrow and must pay back|We took out a loan for the car.|credit||kind=idea
+rent|n|money paid regularly to use a house or room|The rent is due on the first.|||kind=idea;mass
+tax|n|money paid to the government|Prices include tax.|duty||kind=idea;plural=taxes
+discount|n|a reduction in the usual price|Students get a discount.|reduction, sale||kind=idea
+sale|n|selling something; also, a time when prices are lower|The shoes were on sale.|discount||kind=event;event=joy
+bargain|n|something bought for less than its usual price|The bike was a bargain.|deal, steal||kind=idea
+cash|n|money in coins or notes|Do you take cash?|money||kind=thing;mass
+credit card|n|a card you use to buy things now and pay later|Can I pay by credit card?|||kind=thing
+business|n|buying and selling things; also, a company|She runs a small business.|company, firm||kind=idea;plural=businesses
+company|n|a business; also, being with other people|He works for a tech company.|business, firm||kind=idea;plural=companies
+shift|n|a period of work, especially at a particular time; also, a change|I'm working the night shift.|stint||kind=event;event=luck
+overtime|n|extra time worked beyond normal hours|I worked overtime this week.|||kind=idea;mass
+commute|n|the regular journey between home and work|My commute takes an hour.|journey||kind=idea
+task|n|a piece of work to be done|My first task is to answer emails.|job, chore||kind=idea
+progress|n|movement toward finishing or improving something|We're making good progress.|advance, headway||kind=idea;mass
+excuse|n|a reason given to explain something you did or didn't do|What's your excuse for being late?|reason, explanation||kind=idea
+apology|n|a statement saying you are sorry|She accepted his apology.|||kind=idea;plural=apologies
+compliment|n|something nice said about someone|Thanks for the compliment.|praise, flattery|insult|kind=idea
+complaint|n|a statement that something is wrong or not good enough|We made a complaint about the noise.|grievance|praise|kind=idea
+argument|n|an angry disagreement; also, a reason given for an opinion|They had an argument about money.|quarrel, row||kind=idea
+conversation|n|a talk between two or more people|We had a long conversation.|chat, talk||kind=idea
+chat|n|a friendly, informal talk|We had a chat over coffee.|talk, conversation||kind=idea
+discussion|n|a conversation about a particular subject|The discussion went on for hours.|debate, talk||kind=idea
+speech|n|a formal talk to an audience; also, the ability to speak|She gave a speech at the wedding.|address, talk||kind=event;event=luck;plural=speeches
+rumor|n|a story passed around that may not be true|There's a rumor the café is closing.|gossip, hearsay||kind=idea;forms=rumour
+information|n|facts about something|The website has more information.|details, data||kind=idea;mass
+detail|n|a small fact or feature|She remembered every detail.|particular, point||kind=idea
+example|n|something that shows what others of its kind are like|Can you give me an example?|instance, sample||kind=idea
+instruction|n|a statement telling you how to do something|Read the instructions first.|direction, guideline||kind=idea
+warning|n|a statement that something bad might happen|There's a storm warning tonight.|alert, caution||kind=idea
+address|n|the details of where someone lives; also, a formal speech|What's your address?|||kind=idea;plural=addresses
+direction|n|the way something is going or facing; also, an instruction|Which direction is the station?|way, route||kind=idea
+distance|n|the amount of space between two places|What's the distance to the coast?|length, span||kind=idea
+traffic|n|vehicles moving on roads|The traffic was terrible this morning.|congestion||kind=idea;mass
+delay|n|a time when something happens later than expected|There's a delay on the trains.|holdup, wait||kind=idea
+queue|n|a line of people waiting|There was a long queue at the bakery.|line||kind=idea
+reservation|n|a booking for a seat, table or room|We have a reservation for eight.|booking||kind=idea
+invitation|n|a request to come to an event|Thanks for the invitation.|invite||kind=idea;forms=invite
+reminder|n|something that makes you remember|I set a reminder for her birthday.|prompt, note||kind=idea
+alarm|n|a loud warning sound; also, a clock that wakes you|My alarm goes off at six.|siren||kind=thing
+getaway|n|a short holiday; also, an escape|We booked a beach getaway.|break, trip||kind=event;event=joy
+staycation|n|a holiday spent at home or near home|We're having a staycation this year.|||kind=event;event=joy
+day off|n|a day when you don't have to work|Tomorrow's my day off.|holiday||kind=event;event=joy;plural=days off
+sick day|n|a day off work or school because you are ill|I'm taking a sick day.|||kind=event;event=sorry
+power cut|n|a time when the electricity supply stops|We had a power cut during the storm.|blackout, outage||kind=event;event=sorry;forms=power outage,blackout
+flat tire|n|a tire with no air in it|We had a flat tire on the highway.|puncture||kind=event;event=sorry;forms=flat tyre
+hangover|n|feeling ill after drinking too much alcohol|He woke up with a hangover.|||kind=idea
+jet lag|n|tiredness after flying across time zones|I still have jet lag.|||kind=idea;mass
+nightmare|n|a frightening dream; also, a very unpleasant experience|I had a nightmare about spiders.|bad dream||kind=idea
+daydream|n|pleasant thoughts that take your mind away from what you're doing|She was lost in a daydream.|reverie||kind=idea
+bucket list|n|a list of things you want to do in your life|Skydiving is on my bucket list.|||kind=idea
+challenge|n|something difficult that tests your ability|Running a marathon is a big challenge.|test, trial||kind=idea
+victory|n|winning a game, competition or fight|The team celebrated their victory.|win, triumph|defeat|kind=idea;plural=victories
+defeat|n|losing a game, competition or fight|It was a narrow defeat.|loss|victory|kind=idea
+prize|n|something given to the winner|She won first prize.|award, trophy||kind=thing
+award|n|a prize for achievement|He got an award for bravery.|prize, honor||kind=thing
+trophy|n|a cup or other object given as a prize|The trophy sits on the shelf.|cup, award||kind=thing;plural=trophies
+medal|n|a piece of metal given as a prize or honor|She won a gold medal.|||kind=thing
+record|n|the best ever result; also, a written account|He broke the world record.|||kind=idea
+skill|n|the ability to do something well|Cooking is a useful skill.|ability, talent||kind=idea
+talent|n|a natural ability to do something well|She has a talent for music.|gift, flair||kind=idea
+ability|n|the power or skill to do something|He has the ability to make anyone laugh.|skill, capacity||kind=idea;plural=abilities
+strength|n|being strong; also, a good quality|Patience is one of her strengths.|power, might|weakness|kind=idea
+weakness|n|being weak; also, a fault|Chocolate is my weakness.|flaw|strength|kind=idea
+attention|n|careful watching or listening|Pay attention to the road.|focus, notice||kind=idea;mass
+focus|n|the center of attention; also, concentration|Her focus is on her studies.|concentration||kind=idea;mass
+balance|n|being steady and not falling; also, a fair mix|It's all about balance.|equilibrium, stability||kind=idea;mass
+chaos|n|complete confusion and disorder|The kitchen was chaos.|disorder, mayhem|order|kind=idea;mass
+order|n|neat arrangement; also, a request for something|The books are in alphabetical order.|arrangement|chaos|kind=idea
+mess|n|an untidy or dirty state|Sorry about the mess.|clutter, muddle||kind=idea
+sound|n|something you hear|I love the sound of rain.|noise, tone|silence|kind=idea
+smell|n|what you notice with your nose|The smell of bread filled the house.|scent, aroma||kind=idea
+taste|n|the flavor of something; also, what you like|This has a sweet taste.|flavor||kind=idea
+touch|n|the sense of feeling with your skin; also, a small amount|A touch of salt.|feel, contact||kind=idea
+sight|n|the ability to see; also, something seen|The sunset was a beautiful sight.|vision, view||kind=idea
+view|n|what you can see from a place; also, an opinion|The view from the top is amazing.|scene, outlook||kind=idea
+shape|n|the form of the outside of something|It's in the shape of a heart.|form, outline||kind=idea
+size|n|how big or small something is|What size shoes do you wear?|dimensions||kind=idea
+color|n|red, blue, green and so on|What color is your car?|shade, hue||kind=idea;forms=colour
+weight|n|how heavy something is|What's the weight of the parcel?|heaviness||kind=idea
+height|n|how tall or high something is|What's your height?|tallness||kind=idea
+age|n|how old someone or something is|What age is your daughter?|||kind=idea
+birthday party|n|a party to celebrate someone's birthday|We're having a birthday party on Sunday.|||kind=event;event=joy
+
+# Adverbs, little words, numbers and holidays
+well|adv|in a good or satisfactory way|The interview went well.|nicely, smoothly|badly|mood=+
+badly|adv|in a bad or poor way; also, very much|The exam went badly.|poorly|well|mood=-
+brilliantly|adv|extremely well|She played brilliantly.|superbly|poorly|use=manner;mood=+
+terribly|adv|very badly; also, very|I slept terribly last night.|awfully, dreadfully|well|mood=-
+perfectly|adv|in a perfect way; also, completely|It went perfectly.|flawlessly, completely||use=manner;mood=+
+smoothly|adv|without problems|The move went smoothly.|easily||use=manner;mood=+
+easily|adv|without difficulty|She won easily.|effortlessly|with difficulty|use=manner
+fast|adv|quickly|Don't drive so fast.|quickly, rapidly|slowly
+hard|adv|with a lot of effort|She works hard.|diligently
+gladly|adv|willingly and happily|I'll gladly help.|happily, willingly|reluctantly|use=manner
+kindly|adv|in a kind way; also, please|She kindly offered me a lift.|generously|unkindly|use=manner
+angrily|adv|in an angry way|He slammed the door angrily.|furiously|calmly|use=manner
+bravely|adv|in a brave way|She bravely stepped forward.|courageously|timidly|use=manner
+carelessly|adv|without enough care|He carelessly dropped his phone.|recklessly|carefully|use=manner
+gracefully|adv|in a smooth, elegant way|The swan glided gracefully.|elegantly|clumsily|use=manner
+clumsily|adv|in an awkward way|He clumsily knocked over the vase.|awkwardly|gracefully|use=manner
+silently|adv|without any sound|The cat crept silently across the room.|quietly, noiselessly|loudly|use=manner
+quick|adv|informal: quickly|Come here quick!|fast
+slow|adv|informal: slowly|Go slow on the ice.
+early|adv|before the usual or expected time|We left early to beat the traffic.||late
+late|adv|after the expected time|I woke up late.||early
+recently|adv|not long ago|I recently started running.|lately, newly
+lately|adv|recently|Have you seen her lately?|recently
+nowadays|adv|at the present time, compared with the past|Nowadays everyone has a phone.|these days|
+someday|adv|at some time in the future|I'd love to visit Japan someday.|one day, eventually|
+eventually|adv|in the end, after a long time|We eventually found the hotel.|finally, ultimately
+immediately|adv|at once|Call me immediately if anything happens.|instantly, right away|later
+instantly|adv|at once|The pain stopped instantly.|immediately|
+once|adv|one time; also, in the past|I've been there once.|formerly
+twice|adv|two times|I've seen that film twice.
+forever|adv|for all time; informally, for a very long time|This queue is taking forever.|always, eternally|briefly
+ever|adv|at any time|Have you ever been to Paris?|at any time|never
+yet|adv|until now; also, still|Have you eaten yet?|so far, still
+just|adv|only; also, very recently; also, exactly|I just got home.|only, simply
+only|adv|no more than; also, solely|I only have five dollars.|just, merely
+even|adv|used to emphasize something surprising|Even the dog was excited.
+also|adv|in addition; too|I also bought some milk.|too, as well
+too|adv|also; also, more than enough|It's too hot.|also, excessively
+quite|adv|fairly; also, completely|It's quite cold today.|fairly, rather
+rather|adv|fairly; also, more willingly|It's rather late.|quite, fairly
+pretty|adv|informal: fairly|It's pretty good.|fairly, quite
+fairly|adv|to a moderate degree; also, in a fair way|The film was fairly good.|quite, reasonably
+extremely|adv|to a very great degree|It's extremely cold.|very, exceedingly|slightly
+totally|adv|completely|I totally forgot.|completely, entirely|partly
+completely|adv|in every way|I completely agree.|totally, fully|partly
+absolutely|adv|completely; also, used to strongly agree|Absolutely, let's go.|completely, definitely
+exactly|adv|precisely; also, used to agree|That's exactly what I meant.|precisely
+nearly|adv|almost|I'm nearly finished.|almost
+hardly|adv|almost not|I can hardly hear you.|barely, scarcely
+barely|adv|only just; almost not|I barely slept.|hardly, scarcely
+slightly|adv|a little|I'm slightly worried.|a little, somewhat|very
+especially|adv|more than usual or more than others|I love summer, especially the long evenings.|particularly
+actually|adv|in fact; really|Actually, I'm quite tired.|really, in fact
+basically|adv|in the most important ways; also, simply|It's basically a big sandwich.|essentially
+certainly|adv|without doubt|I'll certainly be there.|definitely, surely
+clearly|adv|in a clear way; also, obviously|She spoke clearly.|plainly, obviously
+obviously|adv|in a way that is easy to see|Obviously, we need more chairs.|clearly, evidently
+seriously|adv|in a serious way; also, informally, really|Seriously, that was amazing.|gravely
+luckily|adv|by good luck|Luckily, it stopped raining.|fortunately|unfortunately
+fortunately|adv|luckily|Fortunately, nobody was hurt.|luckily|unfortunately
+unfortunately|adv|sadly; by bad luck|Unfortunately, the shop was closed.|sadly|fortunately
+hopefully|adv|it is hoped that|Hopefully it'll be sunny.
+apparently|adv|it seems; according to what people say|Apparently it's going to snow.|seemingly
+anyway|adv|in any case; also, used to change the subject|It's raining, but let's go anyway.|regardless||forms=anyhow
+otherwise|adv|if not; also, in a different way|Hurry, otherwise we'll miss it.|or else
+instead|adv|in place of something else|Let's walk instead.|rather
+therefore|adv|for that reason|It's raining, therefore we'll stay in.|so, thus
+meanwhile|adv|at the same time|Meanwhile, the soup was boiling over.|at the same time
+afterward|adv|later; after something|We had dinner and went for a walk afterward.|later|beforehand|forms=afterwards
+beforehand|adv|before something else happens|Call me beforehand.|in advance|afterward
+alone|adv|without other people|She lives alone.|by yourself|together
+away|adv|to or at a distance; also, not at home|We're away next week.|gone
+back|adv|to an earlier place or state|I'll be back soon.
+home|adv|to or at the place where you live|I'm going home.
+here|adv|in or to this place|Come here.||there
+there|adv|in or to that place|Put it over there.||here
+up|adv|toward a higher place|Look up at the stars.|upward|down
+down|adv|toward a lower place|Sit down.|downward|up
+along|adv|forward; also, with someone|Come along with us.|onward
+around|adv|in a circle; also, nearby|Turn around.|about
+straight|adv|directly; also, in a straight line|Go straight home.|directly
+and|conj|used to join words or ideas|I like tea and cake.|plus
+but|conj|used to add something different or surprising|It's sunny but cold.|however, yet
+or|conj|used to give a choice|Tea or coffee?
+so|conj|for that reason; also, in order that|It was raining, so we stayed in.|therefore
+if|conj|on the condition that|We'll go if it's sunny.|provided
+unless|conj|except if|We'll go unless it rains.|except if
+while|conj|during the time that; also, although|I read while he cooked.|whilst, whereas
+when|conj|at the time that|Call me when you arrive.
+before|conj|earlier than the time that|Wash your hands before you eat.||after
+after|conj|later than the time that|We'll go after lunch.||before
+until|conj|up to the time that|Wait until the light is green.|till||forms=till
+since|conj|from a time in the past until now; also, because|I've lived here since I was five.|because
+though|conj|although; despite the fact that|It was cold, though sunny.|although
+whether|conj|used to show a choice between possibilities|I don't know whether to go.|if
+in|prep|inside; also, during|The cat is in the box.|inside|out
+on|prep|touching the top surface of something; also, about|The book is on the table.|upon|off
+under|prep|below something|The dog is under the table.|beneath, below|over
+over|prep|above or across something|A plane flew over the house.|above, across|under
+behind|prep|at the back of|The garden is behind the house.||in front of
+beside|prep|next to|Sit beside me.|next to
+near|prep|not far from|We live near the beach.|close to|far from
+through|prep|from one side to the other of|We walked through the forest.
+across|prep|from one side to the other|We swam across the lake.
+toward|prep|in the direction of|She walked toward the door.|towards||forms=towards
+without|prep|not having|I can't sleep without my pillow.||with
+with|prep|in the company of; also, using|I went with my sister.||without
+during|prep|all through a period of time|It rained during the night.|throughout
+against|prep|touching for support; also, opposed to|Lean the bike against the wall.||for
+among|prep|in the middle of a group|She was among friends.|amid||forms=amongst
+around|prep|on every side of; also, approximately|We sat around the fire.|about
+it|pron|the thing already mentioned|I bought a book and loved it.
+they|pron|the people or things already mentioned; also, one person whose gender isn't known|They said they'd be late.
+we|pron|the speaker and others|We went to the beach.
+you|pron|the person or people being spoken to|Are you coming?
+I|pron|the person speaking|I like this song.
+something|pron|a thing that isn't named|I need something to eat.
+nothing|pron|not anything|There's nothing in the fridge.|zero|everything
+everything|pron|all things|Everything is ready.|all|nothing
+anything|pron|any thing at all|Do you need anything?
+anyone|pron|any person|Is anyone home?|anybody||forms=anybody
+somebody|pron|a person, without saying who|Somebody left the door open.|someone
+everybody|pron|every person|Everybody loved the cake.|everyone
+zero|n|the number 0; nothing|The score was zero.|nought, nil||kind=idea
+one|n|the number 1|One is the loneliest number.|||kind=idea;nogen
+hundred|n|the number 100|There were a hundred people there.|||kind=idea;nogen
+thousand|n|the number 1,000|A thousand thanks.|||kind=idea;nogen
+million|n|the number 1,000,000|A million people live there.|||kind=idea;nogen
+half|n|one of two equal parts|I ate half of the pizza.|||kind=idea;plural=halves
+quarter|n|one of four equal parts; also, fifteen minutes|A quarter of the cake is left.|||kind=idea
+dozen|n|twelve|I bought a dozen eggs.|||kind=idea
+couple|n|two people in a relationship; also, two or a few|A couple of friends came over.|pair, duo||kind=idea
+pair|n|two things that go together|I need a new pair of shoes.|couple, set||kind=idea
+lot|n|a large number or amount|I have a lot of work.|plenty, heaps||kind=idea
+bit|n|a small amount|I'm a bit tired.|little, touch||kind=idea;nogen
+piece|n|a part of something|Can I have a piece of cake?|slice, bit||kind=idea
+second|n|a sixtieth of a minute; also, a very short time|Wait a second.|moment, instant||kind=idea
+minute|n|sixty seconds; also, a short time|I'll be there in a minute.|moment||kind=idea
+hour|n|sixty minutes|The film lasts two hours.|||kind=idea
+midnight|n|twelve o'clock at night|We stayed up until midnight.|||kind=time;mass
+noon|n|twelve o'clock in the middle of the day|Let's meet at noon.|midday||kind=time;mass;forms=midday
+dawn|n|the first light of day|We set off at dawn.|daybreak, sunrise|dusk|kind=time;mass
+dusk|n|the time just before it gets dark|The bats come out at dusk.|twilight, sunset|dawn|kind=time;mass
+decade|n|a period of ten years|They've lived here for a decade.|||kind=idea
+century|n|a period of a hundred years|The house is a century old.|||kind=idea;plural=centuries
+Christmas|n|the Christian festival on December 25, celebrating the birth of Jesus|We spend Christmas with my grandparents.|xmas||kind=event;event=joy;mass
+Halloween|n|the festival on October 31, when children dress up and collect sweets|What are you dressing up as for Halloween?|||kind=event;event=joy;mass
+New Year|n|the start of a calendar year, and its celebration|Happy new year!|||kind=event;event=joy;mass;forms=new year's,new years
+Thanksgiving|n|a holiday for giving thanks, in the US in November and in Canada in October|We cook a turkey at Thanksgiving.|||kind=event;event=joy;mass
+Easter|n|the Christian festival celebrating Jesus rising from the dead, in spring|We painted eggs for Easter.|||kind=event;event=joy;mass
+Valentine's Day|n|the day, February 14, when people send cards and gifts to someone they love|We had dinner out for Valentine's Day.|valentines||kind=event;event=joy;mass;forms=valentines day
+Eid|n|either of two Muslim festivals, one marking the end of Ramadan|We visited family for Eid.|||kind=event;event=joy;mass
+Diwali|n|the Hindu festival of lights, in autumn|We lit lamps for Diwali.|||kind=event;event=joy;mass
+Hanukkah|n|the eight-day Jewish festival of lights, in winter|We light candles for Hanukkah.|chanukah||kind=event;event=joy;mass;forms=chanukah
+Lunar New Year|n|the new year festival of the lunar calendar, celebrated in China and elsewhere|We had dumplings for Lunar New Year.|chinese new year||kind=event;event=joy;mass;forms=chinese new year
+
+# Weather, materials, science and the body
+breeze|n|a gentle wind|A cool breeze came off the sea.|draft, puff|gale|kind=nature
+gale|n|a very strong wind|The gale blew down the fence.|storm, gust|breeze|kind=nature
+hurricane|n|a violent storm with very strong winds|The hurricane hit the coast overnight.|cyclone, typhoon||kind=nature;forms=cyclone,typhoon
+tornado|n|a violent spinning column of wind|The tornado tore the roof off the barn.|twister||kind=nature;plural=tornadoes
+flood|n|a large amount of water covering land that is usually dry|The flood reached the doorstep.|deluge|drought|kind=nature
+drought|n|a long period with little or no rain|The drought dried up the river.|dry spell|flood|kind=nature
+earthquake|n|a sudden shaking of the ground|The earthquake rattled the windows.|tremor, quake||kind=nature
+heatwave|n|a period of unusually hot weather|We had a heatwave in August.|hot spell||kind=nature;forms=heat wave
+frost|n|a thin layer of ice on surfaces in very cold weather|There was frost on the car this morning.|ice, rime||kind=nature;mass
+fog|n|thick cloud close to the ground that is hard to see through|The fog rolled in from the sea.|mist, haze||kind=nature;mass
+mist|n|a thin fog|A mist hung over the lake.|haze, fog||kind=nature;mass
+hail|n|small balls of ice that fall like rain|Hail bounced off the car roof.|||kind=nature;mass
+drizzle|n|light, fine rain|It's only a drizzle, let's go.|spitting||kind=nature;mass
+puddle|n|a small pool of water on the ground|The kids jumped in every puddle.|pool||kind=nature
+wave|n|a moving ridge of water on the sea|A big wave knocked me over.|breaker, swell||kind=nature
+tide|n|the regular rise and fall of the sea|The tide is coming in.|current||kind=nature
+current|n|a flow of water or air in one direction; also, a flow of electricity|The current pulled the boat out to sea.|flow, stream||kind=nature
+sunshine|n|the light and warmth of the sun|We sat in the sunshine.|sunlight||kind=nature;mass
+sunlight|n|the light from the sun|Sunlight streamed through the window.|daylight, sunshine||kind=nature;mass
+shade|n|an area out of direct sunlight; also, a slight difference in color|Let's sit in the shade.|shadow||kind=nature;mass
+shadow|n|a dark shape made when something blocks light|The tree cast a long shadow.|shade||kind=nature
+darkness|n|the absence of light|We walked home in the darkness.|dark, gloom|light|kind=nature;mass
+air|n|the mixture of gases around the earth that we breathe|Let's get some fresh air.|atmosphere||kind=nature;mass
+oxygen|n|a gas in the air that people and animals need to live|Plants give off oxygen.|||kind=idea;mass
+smoke|n|the gray or black gas that rises from something burning|Smoke curled up from the chimney.|fumes||kind=nature;mass
+steam|n|the hot gas that water turns into when it boils|Steam rose from the kettle.|vapor||kind=nature;mass
+soil|n|the earth that plants grow in|The soil here is rich and dark.|earth, dirt||kind=nature;mass
+dirt|n|soil; also, anything that makes something unclean|The kids were covered in dirt.|soil, grime||kind=nature;mass
+dust|n|tiny dry particles of earth or dirt|The shelf is covered in dust.|||kind=nature;mass
+pebble|n|a small smooth stone|She skimmed a pebble across the lake.|stone||kind=thing
+crystal|n|a clear mineral like glass; also, a regular shape some substances form|She hung a crystal in the window.|||kind=thing
+diamond|n|a very hard, clear, valuable stone; also, a shape with four equal sides|Her ring has a tiny diamond.|gem||kind=thing
+gold|n|a precious yellow metal|The ring is made of gold.|||kind=thing;mass
+silver|n|a precious shiny gray metal; also, its color|She polished the silver.|||kind=thing;mass
+metal|n|a hard, shiny material such as iron, steel or gold|The gate is made of metal.|||kind=thing;mass
+iron|n|a strong metal; also, a device for smoothing clothes|The old bridge is made of iron.|||kind=thing;mass;nogen
+steel|n|a strong metal made from iron|The pan is stainless steel.|||kind=thing;mass
+wood|n|the hard material of a tree's trunk and branches|The table is made of oak wood.|timber, lumber||kind=thing;mass
+plastic|n|a light, man-made material that can be shaped|Try to use less plastic.|||kind=thing;mass
+cotton|n|a soft material made from the fibers of a plant|My shirt is made of cotton.|||kind=thing;mass
+wool|n|the soft hair of sheep, or yarn and cloth made from it|She knitted a scarf from blue wool.|yarn||kind=thing;mass
+silk|n|a smooth, shiny cloth made from threads spun by silkworms|Her scarf is made of silk.|||kind=thing;mass
+leather|n|material made from animal skin|He has a leather jacket.|hide||kind=thing;mass
+rubber|n|a stretchy material made from the sap of a tree or chemicals|The boots are made of rubber.|||kind=thing;mass
+concrete|n|a hard building material made from cement, sand and water|The path is made of concrete.|cement||kind=thing;mass
+brick|n|a block of baked clay used for building|The house is built of red brick.|||kind=thing
+clay|n|soft earth that can be shaped and baked hard|We made bowls out of clay.|||kind=thing;mass
+fabric|n|cloth|She chose a bright fabric for the curtains.|cloth, material||kind=thing
+electricity|n|the power that makes lights, heaters and machines work|The storm cut off the electricity.|power||kind=idea;mass
+fuel|n|something burned to make heat or power, like gas or petrol|The car is low on fuel.|gas, petrol||kind=thing;mass
+gas|n|a substance like air; in American English, also petrol|We need to stop for gas.|fuel, petrol||kind=thing;mass;forms=petrol,gasoline
+experiment|n|a scientific test to find something out|We did an experiment with magnets.|test, trial||kind=idea
+theory|n|an idea that explains something; also, the principles of a subject|Darwin's theory of evolution.|hypothesis, idea|practice|kind=idea;plural=theories
+discovery|n|finding something for the first time|The discovery of penicillin saved millions.|find||kind=idea;plural=discoveries
+invention|n|something new that someone has made or designed|The telephone was a great invention.|creation, innovation||kind=idea
+atom|n|the smallest part of a chemical element|Everything is made of atoms.|particle||kind=idea
+gravity|n|the force that pulls things toward the earth|Gravity keeps our feet on the ground.|||kind=idea;mass
+magnet|n|a piece of metal that pulls iron toward it|The fridge is covered in magnets.|||kind=thing
+robot|n|a machine that can do tasks by itself|The robot vacuums the floor.|android, automaton||kind=thing
+machine|n|a device with moving parts that does work|The machine makes coffee.|device, appliance||kind=thing
+engine|n|a machine that makes something move, like a car|The engine won't start.|motor||kind=thing
+wheel|n|a round object that turns to help something move|The car has a flat wheel.|||kind=thing
+tool|n|an object you hold and use to do a job|A hammer is a useful tool.|implement, device||kind=thing
+technology|n|machines and devices made using science; also, the study of them|Technology changes so fast.|tech||kind=idea;plural=technologies
+science fiction|n|stories about imagined future science and technology|She loves reading science fiction.|sci-fi||kind=idea;mass;forms=sci-fi
+fiction|n|stories about imaginary people and events|I mostly read fiction.|stories|fact, nonfiction|kind=idea;mass
+poetry|n|poems in general|She writes poetry in the evenings.|verse||kind=idea;mass
+literature|n|written works such as novels, poems and plays, especially of lasting value|She studies English literature.|writing||kind=idea;mass
+geography|n|the study of the earth's surface, countries and people|We learned about rivers in geography.|||kind=idea;mass
+biology|n|the study of living things|Biology is my favorite subject.|||kind=idea;mass
+chemistry|n|the study of substances and how they react|We mixed colors in chemistry.|||kind=idea;mass
+physics|n|the study of matter, energy, force and motion|Physics explains how bridges stand up.|||kind=idea;mass
+astronomy|n|the study of stars, planets and space|Astronomy is my hobby.|||kind=idea;mass
+economics|n|the study of how money, goods and services work in society|She studied economics at university.|||kind=idea;mass
+psychology|n|the study of the mind and behavior|Psychology helps explain why we dream.|||kind=idea;mass
+philosophy|n|the study of the nature of knowledge, reality and how to live|We argued about philosophy all night.|||kind=idea;mass
+chin|n|the part of the face below the mouth|He rested his chin on his hand.|||kind=body
+cheek|n|the side of the face below the eye|She kissed him on the cheek.|||kind=body
+forehead|n|the part of the face above the eyes|I bumped my forehead on the shelf.|brow||kind=body
+lip|n|one of the two soft edges of the mouth|My lips are chapped.|||kind=body
+eyebrow|n|the line of hair above the eye|He raised an eyebrow.|brow||kind=body
+eyelash|n|one of the small hairs on the edge of the eyelid|You have an eyelash on your cheek.|lash||kind=body
+jaw|n|the bones that hold the teeth|My jaw aches after the dentist.|||kind=body
+elbow|n|the joint in the middle of the arm|I banged my elbow on the door.|||kind=body
+wrist|n|the joint between the hand and the arm|I sprained my wrist playing tennis.|||kind=body
+thumb|n|the short thick finger at the side of the hand|I hit my thumb with the hammer.|||kind=body
+fingernail|n|the hard covering at the end of a finger|I broke a fingernail.|nail||kind=body
+chest|n|the front of the body between the neck and the stomach|My chest feels tight.|breast||kind=body;plural=chests
+belly|n|the stomach|The puppy rolled over for a belly rub.|tummy, stomach||kind=body;plural=bellies
+hip|n|the part of the body where the leg joins it|My hip aches when it's cold.|||kind=body
+ankle|n|the joint between the foot and the leg|I twisted my ankle on the stairs.|||kind=body
+heel|n|the back part of the foot|My new shoes hurt my heel.|||kind=body
+muscle|n|a part of the body that tightens to move bones|My muscles are sore after the gym.|||kind=body
+bone|n|one of the hard parts inside the body|He broke a bone in his foot.|||kind=body
+blood|n|the red liquid that moves around the body|He gave blood at the hospital.|||kind=body;mass
+lung|n|one of the two organs in the chest used for breathing|Swimming is good for your lungs.|||kind=body
+voice|n|the sound you make when you speak or sing|She has a lovely voice.|||kind=body
+body|n|the whole physical form of a person or animal|Listen to your body.|physique||kind=body;plural=bodies
+mind|n|the part of you that thinks, feels and remembers|Let me clear my mind.|brain, intellect||kind=idea
+breath|n|air going in and out of your lungs|Take a deep breath.|||kind=idea
+sneeze|n|a sudden burst of air from the nose and mouth|Bless you, that was a big sneeze.|||kind=idea
+cough|n|a noisy push of air from the throat; also, an illness with coughing|I have a bad cough.|||kind=idea
+sore throat|n|a painful throat, often from a cold|I have a sore throat.|||kind=idea
+toothache|n|a pain in a tooth|I have a toothache.|||kind=idea
+stomachache|n|a pain in the stomach|I have a stomachache after all that cake.|tummy ache||kind=idea;forms=stomach ache,tummy ache
+backache|n|a pain in the back|Gardening gives me backache.|||kind=idea
+earache|n|a pain inside the ear|The baby has an earache.|||kind=idea
+migraine|n|a very bad headache, often with feeling sick|She gets migraines when she's stressed.|headache||kind=idea
+allergy|n|a bad reaction of the body to something like pollen, food or animals|I have an allergy to cats.|||kind=idea;plural=allergies
+rash|n|an area of red spots on the skin|The baby has a rash.|||kind=idea;plural=rashes
+bruise|n|a dark mark on the skin from being hit|I have a bruise on my knee.|||kind=idea
+cut|n|a wound where the skin is broken by something sharp|I have a cut on my finger.|wound, gash||kind=idea
+scar|n|a mark left on the skin after a wound heals|He has a scar on his chin.|||kind=idea
+blister|n|a small bubble on the skin filled with liquid, often from rubbing|My new shoes gave me blisters.|||kind=idea
+sunburn|n|red, sore skin from too much sun|I got sunburn on the beach.|||kind=idea;mass
+infection|n|an illness caused by germs|She has an ear infection.|||kind=idea
+virus|n|a tiny germ that causes illness; also, a harmful computer program|There's a virus going around the office.|bug||kind=idea;plural=viruses
+germ|n|a tiny living thing that can cause illness|Wash your hands to kill germs.|bacteria, bug||kind=idea
+pill|n|a small solid piece of medicine you swallow|Take one pill with water.|tablet||kind=thing
+bandage|n|a strip of cloth for covering a wound|The nurse wrapped a bandage around my wrist.|dressing||kind=thing
+plaster|n|a small sticky bandage; in American English, a band-aid|Put a plaster on that cut.|band-aid||kind=thing;forms=band-aid,bandaid
+crutch|n|a stick you lean on when you have an injured leg|He's on crutches after the accident.|||kind=thing;plural=crutches
+wheelchair|n|a chair with wheels for someone who can't walk easily|The museum is wheelchair friendly.|||kind=thing
+prescription|n|a doctor's written instruction for medicine|I picked up my prescription.|||kind=thing
+
+# Everyday actions, places and phrases
+accept|v|to agree to take something offered; also, to agree that something is true|She accepted the job.|take, agree to|refuse, reject|obj=the offer
+refuse|v|to say you won't do or accept something|He refused to eat his peas.|decline, reject|accept|act
+allow|v|to let someone do something|Dogs aren't allowed in the shop.|let, permit|forbid|act
+let|v|to allow|Let me help you.|allow, permit|prevent|past=let;ing=letting
+prevent|v|to stop something from happening|Sunscreen prevents sunburn.|stop, avoid|allow|obj=accidents
+avoid|v|to keep away from something|I avoid the main road at rush hour.|dodge, steer clear of|seek|obj=the traffic
+warn|v|to tell someone about a possible danger|They warned us about the ice.|alert, caution||obj=the hikers
+survive|v|to stay alive through something dangerous|The plant survived the frost.|endure, outlast||act
+belong|v|to be owned by someone; also, to fit in a place or group|This book belongs to my sister.|||act
+contain|v|to have something inside|The box contains old letters.|hold, include||obj=the gifts
+include|v|to have as part of the whole|Breakfast is included.|contain, cover|exclude|act
+weigh|v|to find out how heavy something is; also, to have a particular weight|Weigh the flour first.|||obj=the parcel
+cover|v|to put something over something else|Cover the pot with a lid.|wrap, conceal|uncover|obj=the bowl
+uncover|v|to remove a cover; also, to discover|Uncover the dish and bake for ten minutes.|reveal|cover|obj=the dish
+reveal|v|to show something hidden|She revealed the surprise.|uncover, show|hide|obj=the secret
+spread|v|to cover a surface with a layer of something; also, to open out|Spread the butter thinly.|smear, extend||obj=the jam;past=spread
+squeeze|v|to press something firmly|Squeeze the lemon over the fish.|press, crush||obj=the lemon
+press|v|to push something firmly|Press the button to start.|push||obj=the button
+turn|v|to move round; also, to change direction|Turn left at the bakery.|rotate, twist||act
+turn on|v|to start a machine or light|Turn on the lights.|switch on|turn off|past=turned on;ing=turning on
+turn off|v|to stop a machine or light|Turn off the TV.|switch off|turn on|past=turned off;ing=turning off
+switch|v|to change from one thing to another|Let's switch seats.|swap, change||act
+swap|v|to exchange one thing for another|Can we swap places?|switch, trade||act
+exchange|v|to give something and get something else in return|I exchanged the shirt for a bigger one.|swap, trade||obj=the shirt
+offer|v|to say you are willing to do or give something|She offered me a lift.|propose||obj=a lift
+provide|v|to give something someone needs|The hotel provides towels.|supply, give||act
+pick up|v|to lift; also, to collect someone or something|Can you pick up the kids from school?|collect, fetch|drop off|past=picked up;ing=picking up
+drop off|v|to take someone or something to a place and leave them|I'll drop off the kids at school.|deliver|pick up|past=dropped off;ing=dropping off
+look after|v|to take care of|Can you look after the cat this weekend?|care for, mind||past=looked after;ing=looking after
+look for|v|to try to find|I'm looking for my glasses.|search for, seek||past=looked for;ing=looking for
+look forward to|v|to feel happy about something that is going to happen|I'm looking forward to the holidays.|anticipate||past=looked forward to;ing=looking forward to
+find out|v|to discover information|I found out the shop is closed.|learn, discover||past=found out;ing=finding out
+check out|v|to leave a hotel; also, informally, to look at|We checked out at noon.||check in|past=checked out;ing=checking out
+set up|v|to arrange or prepare something|We set up the tent by the lake.|arrange, assemble||past=set up;ing=setting up
+put on|v|to dress yourself in clothes|Put on your coat.|wear|take off|past=put on;ing=putting on
+try on|v|to put on clothes to see if they fit|Can I try on these shoes?|||past=tried on;ing=trying on
+dress up|v|to put on special clothes or a costume|We dressed up as pirates.|||past=dressed up;ing=dressing up
+get dressed|v|to put your clothes on|I got dressed in a hurry.|dress|undress|past=got dressed;ing=getting dressed
+shower|v|to wash under a shower|I showered after my run.|wash||act
+bathe|v|to wash in a bath; also, to swim|The kids bathed in the sea.|wash, swim||act
+shave|v|to cut hair off the skin with a razor|He shaves every morning.|||act
+style|v|to arrange hair in a particular way|She styled her hair for the party.|||obj=her hair
+glue|v|to stick things together with glue|Glue the pieces together.|stick, attach||obj=the pieces
+stick|v|to attach something with glue or tape; also, to stay in one place|Stick the stamp on the envelope.|attach, glue||obj=the stamp;past=stuck
+attach|v|to fix one thing to another|Attach the photo to the email.|fasten, connect|detach|obj=the file
+connect|v|to join things together|Connect the printer to the laptop.|link, join|disconnect|obj=the cable
+break down|v|to stop working, especially a car or machine; also, to start crying|The car broke down on the highway.|fail, stall||past=broke down;ing=breaking down;mood=-
+run out|v|to have none left|We ran out of milk.|||past=ran out;ing=running out;mood=-
+run late|v|to be behind schedule|I'm running late, sorry.|||past=ran late;ing=running late;mood=-
+catch up|v|to reach someone ahead of you; also, to talk with a friend after time apart|Let's catch up over coffee.|||past=caught up;ing=catching up
+keep up|v|to move or work at the same speed as others|I can't keep up with the class.|||past=kept up;ing=keeping up
+calm down|v|to become less upset or excited|Take a breath and calm down.|relax, settle|wind up|past=calmed down;ing=calming down
+cheer up|v|to become or make someone happier|A good walk will cheer up anyone.|brighten|upset|past=cheered up;ing=cheering up
+freak out|v|informal: to become very upset or scared|I freaked out when I saw the spider.|panic||past=freaked out;ing=freaking out;mood=-
+show up|v|to arrive, often unexpectedly|Ten people showed up early.|turn up, arrive||past=showed up;ing=showing up
+turn up|v|to arrive; also, to increase volume|Turn up the music.|show up, arrive||past=turned up;ing=turning up
+go out|v|to leave home to go somewhere social|We're going out tonight.|||past=went out;ing=going out
+eat out|v|to eat at a restaurant|Let's eat out tonight.|dine out||past=ate out;ing=eating out
+order in|v|to have food delivered to your home|We ordered in pizza.|||past=ordered in;ing=ordering in
+take care|v|to be careful; also, a way to say goodbye|Take care on the roads.|||past=took care;ing=taking care
+look up|v|to find information in a book or online; also, to look upward|Look up the word in the dictionary.|search||past=looked up;ing=looking up
+write down|v|to write something so you remember it|Write down your address.|note||past=wrote down;ing=writing down
+read aloud|v|to read so others can hear|She likes to read aloud to her kids.|||past=read aloud;ing=reading aloud
+spell|v|to say or write the letters of a word in order|How do you spell your name?|||act;past=spelled
+translate|v|to change words from one language into another|Can you translate this menu?|interpret||obj=the menu
+pronounce|v|to make the sound of a word|How do you pronounce that?|say||obj=the word
+color|v|to fill a drawing with color|The kids colored the pictures.|||obj=the picture;forms=colour
+cut out|v|to remove a shape by cutting around it|Cut out the star shapes.|||past=cut out;ing=cutting out
+lean|v|to rest against something; also, to bend|Lean the ladder against the wall.|rest, tilt||act;past=leaned
+bend|v|to make something curved; also, to lower your body|Bend your knees.|curve, flex|straighten|act;past=bent
+kneel|v|to go down on your knees|She knelt to tie his shoelace.|||act;past=knelt
+reach|v|to stretch out your arm; also, to arrive at|I can't reach the top shelf.|stretch, arrive at||obj=the shelf
+point|v|to show where something is with your finger|He pointed at the map.|indicate||act
+tap|v|to hit something lightly|Tap the screen twice.|knock, pat||obj=the screen
+knock|v|to hit a door to show you're there|Someone knocked at the door.|rap, tap||act
+ring|v|to make a bell sound; also, to phone|The phone rang twice.|chime, call||act;past=rang
+beep|v|to make a short high sound|The microwave beeped.|||act
+honk|v|to sound a car horn|The driver honked at the cyclist.|toot||act
+glance|v|to look quickly|She glanced at her watch.|peek, peep|stare|act
+stare|v|to look at something for a long time|Don't stare, it's rude.|gaze|glance|act
+peek|v|to look quickly and secretly|No peeking at your presents!|peep, glance||act
+watch out|v|to be careful|Watch out for the step.|look out||past=watched out;ing=watching out
+pay attention|v|to watch, listen or think carefully|Pay attention to the road.|concentrate||past=paid attention;ing=paying attention
+concentrate|v|to give all your attention to something|I can't concentrate with this noise.|focus|daydream|act
+focus|v|to give all your attention to one thing|Focus on one task at a time.|concentrate||act
+daydream|v|to think pleasant thoughts that take your mind away from what you're doing|He daydreamed through the meeting.|||act
+calculate|v|to work out a number using math|Calculate the total.|work out, compute||obj=the bill
+estimate|v|to guess the size, cost or amount of something|I estimate it'll take an hour.|guess, judge||act
+predict|v|to say what will happen in the future|They predict snow tomorrow.|forecast||act
+test|v|to try something to see if it works|Test the smoke alarm monthly.|check, try||obj=the alarm
+prove|v|to show that something is true|Can you prove it?|show, confirm|disprove|act
+beat|v|to defeat someone in a game; also, to hit repeatedly|We beat them three to one.|defeat|lose to|obj=the champions;past=beat
+score|v|to get a point or goal in a game|She scored the winning goal.|||act
+compete|v|to take part in a contest|She competes in swimming races.|contend||act
+coach|v|to train someone in a sport or skill|He coaches the kids' football team.|train, teach||obj=the team
+cheer on|v|to shout to encourage someone|We cheered on the runners.|support||past=cheered on;ing=cheering on
+raise|v|to lift up; also, to bring up children; also, to collect money|We raised money for the shelter.|lift, collect|lower|obj=some money
+keyhole|n|the hole in a lock where a key goes|I couldn't fit the key in the keyhole.|||kind=thing
+doorway|n|the opening where a door is|He stood in the doorway.|entrance||kind=place;at=in
+entrance|n|a door or way in|Meet me at the main entrance.|way in, door|exit|kind=place;at=at
+exit|n|a door or way out|Where's the exit?|way out|entrance|kind=place;at=at
+corner|n|the point where two edges or streets meet|There's a café on the corner.|||kind=place;at=on
+edge|n|the outside limit of something|Don't stand so close to the edge.|border, rim|center|kind=idea
+middle|n|the center of something|There's a tree in the middle of the field.|center|edge|kind=idea
+center|n|the middle point; also, a building for a special activity|The town center is busy on Saturdays.|middle||kind=idea;forms=centre
+side|n|a left or right part of something; also, a team|Which side are you on?|||kind=idea
+top|n|the highest part of something|We reached the top of the hill.|peak, summit|bottom|kind=idea
+bottom|n|the lowest part of something|The keys were at the bottom of my bag.|base|top|kind=idea
+front|n|the part of something that faces forward|Sit at the front of the bus.|||kind=idea
+end|n|the last part of something|I cried at the end of the film.|finish, close|beginning|kind=idea
+beginning|n|the start of something|The beginning of the book is slow.|start|end|kind=idea
+start|n|the beginning of something|We missed the start of the film.|beginning|end|kind=idea
+step|n|a movement of your foot when walking; also, one stage in a process|Take it one step at a time.|stage, pace||kind=idea
+way|n|a method of doing something; also, a route|Is this the way to the beach?|route, method||kind=idea
+kind of|adv|informal: somewhat|I'm kind of tired.|sort of, a bit
+sort of|adv|informal: somewhat|It's sort of complicated.|kind of
+a bit|adv|a little|I'm a bit cold.|slightly
+a lot|adv|very much; often|Thanks a lot.|very much
+by the way|adv|used to add something not directly related|By the way, I loved your cake.|incidentally
+of course|adv|certainly; used to agree|Of course you can come.|certainly, sure
+no problem|excl|used to say you're happy to help, or that something doesn't matter|"Thanks!" "No problem."|you're welcome
+you're welcome|excl|a polite reply when someone thanks you|"Thanks for the tea." "You're welcome."|no problem||forms=youre welcome
+excuse me|excl|a polite phrase to get attention or say sorry|Excuse me, is this seat free?|pardon me
+congratulations|excl|used to say you're pleased about someone's success|Congratulations on the new job!|well done||forms=congrats
+bless you|excl|said when someone sneezes|"Achoo!" "Bless you."
+good luck|excl|said to wish someone success|Good luck with your exam!
+happy birthday|excl|said to someone on their birthday|Happy birthday, I hope it's a great one!
+good morning|excl|a greeting used in the morning|Good morning, did you sleep well?|morning
+good night|excl|said when someone is going to bed or leaving at night|Good night, sleep well.|night||forms=goodnight
+see you|excl|informal: goodbye|See you tomorrow!|bye, later||forms=see ya,cya
+ugh|excl|a sound showing disgust or annoyance|Ugh, it's raining again.|yuck, ew
+yuck|excl|a word showing disgust|Yuck, this milk is sour.|ew, gross||forms=yuk,ew
+yay|excl|a word showing excitement or happiness|Yay, it's snowing!|hooray||nogen
+phew|excl|a word showing relief or tiredness|Phew, we made it.|whew
+hmm|excl|a sound showing you are thinking or unsure|Hmm, let me think.
+huh|excl|a sound showing surprise or confusion|Huh, I didn't know that.
+oh no|excl|a phrase showing alarm or disappointment|Oh no, I forgot my keys!
+oh well|excl|a phrase showing you accept something disappointing|Oh well, maybe next time.
+amazing|excl|informal: used to show you're impressed|"I passed!" "Amazing!"|||nogen
+whatever|pron|anything at all; informally, also shows you don't care|Eat whatever you like.|anything
+sincerely|adv|in a way that means what it says|I sincerely hope you feel better.|genuinely, truly
+secretly|adv|without others knowing|She secretly ate the last cookie.|privately|openly|use=manner
+safely|adv|without harm or danger|We arrived safely.|securely||use=manner
+harsh|adj|cruel or severe; also, unpleasantly strong|The light was too harsh.|severe, cruel|gentle
+still|adj|not moving|The lake was still and clear.|motionless, calm|moving
+silent|adj|without any sound|The house was silent.|quiet, hushed|noisy|use=place
+remote|adj|far from towns or people|They live in a remote village.|isolated, distant|central|use=place
+distant|adj|far away|We heard distant thunder.|far, faraway|near
+close|adj|near; also, emotionally connected|We live close to the school.|near, nearby|far
+far|adj|a long way away|The beach isn't far.|distant|near
+nearby|adj|not far away|There's a nearby park.|close
+central|adj|in the middle; also, most important|We stayed in a central hotel.|middle|remote
+available|adj|able to be used or bought; also, free|Is this seat available?|free|unavailable
+free time|n|time when you aren't working or busy|What do you do in your free time?|spare time, leisure||kind=idea;mass
+leisure|n|free time for relaxing|Reading is my favorite leisure activity.|free time, recreation|work|kind=idea;mass
+hometown|n|the town where you were born or grew up|I visited my hometown last summer.|||kind=place;at=in
+homeland|n|the country where someone was born|He returned to his homeland.|native land||kind=place;at=in
+holiday home|n|a house you stay in on holiday|They have a holiday home by the lake.|cottage||kind=place;at=at
+seaside|n|the area beside the sea, especially for holidays|We spent a week at the seaside.|coast, beach||kind=place;at=at;mass
+die|v|to stop living; also, of a battery or machine, to stop working|My phone died halfway through the call.|pass away|live|past=died;ing=dying;mood=--
+pass away|v|to die, said gently|Her grandfather passed away last year.|die||past=passed away;ing=passing away;mood=--
+stop working|v|of a machine, to break down|The heater stopped working last night.|break down||past=stopped working;ing=stopping working;mood=-
+
+# Countries, languages, music and shapes
+France|n|a country in western Europe, known for Paris and its food|We cycled through France last summer.|||kind=place;at=in
+Spain|n|a country in southwestern Europe|We're going to Spain in June.|||kind=place;at=in
+Italy|n|a country in southern Europe shaped like a boot|They honeymooned in Italy.|||kind=place;at=in
+Germany|n|a country in central Europe|My cousin lives in Germany.|||kind=place;at=in
+Portugal|n|a country in southwestern Europe, on the Atlantic coast|We surfed in Portugal.|||kind=place;at=in
+Greece|n|a country in southeastern Europe with many islands|We island-hopped around Greece.|||kind=place;at=in
+England|n|a country that is part of the United Kingdom|She grew up in England.|||kind=place;at=in
+Scotland|n|a country in the north of the United Kingdom|We hiked the hills of Scotland.|||kind=place;at=in
+Ireland|n|an island and country west of Great Britain|My grandparents came from Ireland.|||kind=place;at=in
+Netherlands|n|a country in northwestern Europe, known for canals and tulips|We rode bikes all over the Netherlands.|Holland||kind=place;at=in;forms=holland
+Sweden|n|a country in northern Europe|We saw the northern lights in Sweden.|||kind=place;at=in
+Norway|n|a country in northern Europe with deep fjords|The fjords of Norway are stunning.|||kind=place;at=in
+Japan|n|an island country in East Asia|I'm going to Japan next spring.|||kind=place;at=in
+China|n|a large country in East Asia|She's studying Mandarin in China.|||kind=place;at=in
+Korea|n|a peninsula in East Asia, divided into North and South Korea|We ate amazing food in Korea.|||kind=place;at=in
+India|n|a large country in South Asia|They traveled across India by train.|||kind=place;at=in
+Thailand|n|a country in Southeast Asia|We learned to cook in Thailand.|||kind=place;at=in
+Vietnam|n|a country in Southeast Asia|We took a boat trip in Vietnam.|||kind=place;at=in
+Australia|n|a country and continent in the southern hemisphere|Kangaroos live in Australia.|||kind=place;at=in
+New Zealand|n|an island country in the southwest Pacific Ocean|We went hiking in New Zealand.|||kind=place;at=in
+Canada|n|a large country in North America|It snows a lot in Canada.|||kind=place;at=in
+America|n|the United States of America; also, the continents of North and South America|My aunt lives in America.|the US, the USA||kind=place;at=in;forms=usa,us,united states
+Mexico|n|a country in North America, south of the United States|We ate tacos in Mexico.|||kind=place;at=in
+Brazil|n|a large country in South America|The carnival in Brazil is famous.|||kind=place;at=in
+Argentina|n|a country in South America|We danced tango in Argentina.|||kind=place;at=in
+Peru|n|a country in South America with the Andes mountains|We hiked to Machu Picchu in Peru.|||kind=place;at=in
+Egypt|n|a country in northeast Africa, known for its pyramids|We saw the pyramids in Egypt.|||kind=place;at=in
+Kenya|n|a country in East Africa|We went on safari in Kenya.|||kind=place;at=in
+South Africa|n|a country at the southern tip of Africa|They visited Cape Town in South Africa.|||kind=place;at=in
+Morocco|n|a country in North Africa|We wandered the markets of Morocco.|||kind=place;at=in
+Africa|n|the second-largest continent|She's backpacking across Africa.|||kind=place;at=in
+Europe|n|the continent that includes countries like France, Germany and Italy|We traveled around Europe by train.|||kind=place;at=in
+Asia|n|the largest continent|He spent a year in Asia.|||kind=place;at=in
+Paris|n|the capital city of France|We saw the Eiffel Tower in Paris.|||kind=place;at=in
+London|n|the capital city of England and the United Kingdom|We rode a red bus in London.|||kind=place;at=in
+New York|n|a large city in the United States|We saw a show in New York.|||kind=place;at=in;forms=nyc
+Tokyo|n|the capital city of Japan|Tokyo is huge and full of neon.|||kind=place;at=in
+Rome|n|the capital city of Italy|We ate gelato in Rome.|||kind=place;at=in
+English|n|the language of England, the US, Australia and many other countries|Do you speak English?|||kind=idea;mass
+Spanish|n|the language of Spain, Mexico and much of Latin America|I'm learning Spanish.|||kind=idea;mass
+French|n|the language of France and parts of Canada, Belgium, Switzerland and Africa|She speaks French at home.|||kind=idea;mass
+German|n|the language of Germany, Austria and parts of Switzerland|He's learning German for work.|||kind=idea;mass
+Italian|n|the language of Italy|She sings opera in Italian.|||kind=idea;mass
+Portuguese|n|the language of Portugal and Brazil|He speaks Portuguese.|||kind=idea;mass
+Japanese|n|the language of Japan|I'm learning Japanese before my trip.|||kind=idea;mass
+Chinese|n|the language of China, especially Mandarin|She's taking Chinese lessons.|Mandarin||kind=idea;mass;forms=mandarin
+Korean|n|the language of Korea|He learned Korean from TV shows.|||kind=idea;mass
+Hindi|n|one of the main languages of India|She speaks Hindi with her grandparents.|||kind=idea;mass
+Arabic|n|the language of many countries in the Middle East and North Africa|He's studying Arabic at university.|||kind=idea;mass
+Russian|n|the language of Russia|She reads novels in Russian.|||kind=idea;mass
+flute|n|a musical instrument you play by blowing across a hole|She plays the flute in the band.|||kind=thing
+trumpet|n|a brass instrument you blow into|He plays the trumpet loudly.|horn||kind=thing
+saxophone|n|a curved brass instrument with keys, common in jazz|He practices the saxophone at night.|sax||kind=thing;forms=sax
+clarinet|n|a woodwind instrument with a single reed|She plays clarinet in the orchestra.|||kind=thing
+cello|n|a large string instrument played sitting down with a bow|The cello has a deep, warm sound.|||kind=thing;plural=cellos
+harp|n|a large instrument with strings you pluck, played upright|The harp played softly at the wedding.|||kind=thing
+ukulele|n|a small four-stringed guitar|He strummed a ukulele on the beach.|uke||kind=thing
+banjo|n|a string instrument with a round body|Grandpa plays the banjo.|||kind=thing;plural=banjos
+harmonica|n|a small instrument you blow into, moving it along your lips|He played the harmonica by the fire.|mouth organ||kind=thing
+jazz|n|music with strong rhythms and improvised solos|We listened to jazz all evening.|||kind=idea;mass
+pop|n|popular modern music|She listens to pop on the way to work.|pop music||kind=idea;mass
+rock music|n|loud music with a strong beat, usually played on electric guitars and drums|He loves classic rock music.|rock||kind=idea;mass
+hip hop|n|music with rhythmic rapping over beats|They danced to hip hop.|rap||kind=idea;mass;forms=hip-hop
+classical music|n|serious music from the European tradition, such as Mozart or Bach|Classical music helps me study.|||kind=idea;mass
+country music|n|music from the rural southern United States, often with guitars and stories|My dad loves country music.|||kind=idea;mass
+blues|n|slow, sad music that started in African American communities|He sings the blues.|||kind=idea;mass
+folk|n|traditional music of a people, or modern music in that style|They play folk at the pub.|folk music||kind=idea;mass
+melody|n|a tune|The melody stuck in my head all day.|tune||kind=idea;plural=melodies
+rhythm|n|a regular pattern of sounds or movements|Clap along to the rhythm.|beat||kind=idea
+lyrics|n|the words of a song|I always forget the lyrics.|words||kind=idea;mass
+band|n|a group of musicians who play together|My brother plays drums in a band.|group||kind=idea
+orchestra|n|a large group of musicians playing classical instruments together|The orchestra tuned up.|||kind=idea
+choir|n|a group of people who sing together|She sings in the church choir.|chorus||kind=idea
+album|n|a collection of songs released together; also, a book for photos|Their new album is out.|record||kind=media
+circle|n|a round shape|Draw a circle.|ring, loop||kind=idea
+triangle|n|a shape with three straight sides|Cut the sandwich into triangles.|||kind=idea
+rectangle|n|a shape with four straight sides and four right angles|The table is a long rectangle.|||kind=idea
+oval|n|a shape like an egg|The mirror is an oval.|ellipse||kind=idea
+cube|n|a solid shape with six square sides|Add an ice cube to my drink.|||kind=thing
+sphere|n|a round solid shape like a ball|The earth is nearly a sphere.|globe, ball||kind=idea
+line|n|a long, thin mark; also, a row of people|Draw a straight line.|stroke, row||kind=idea
+dot|n|a small round mark|Join the dots.|spot, point||kind=idea
+pattern|n|a repeated design; also, a regular way something happens|I love the pattern on your dress.|design, motif||kind=idea
+number|n|a word or symbol for an amount, like 3 or seven|Pick a number between one and ten.|figure, digit||kind=idea
+alphabet|n|the set of letters used to write a language|The kids sang the alphabet song.|ABC||kind=idea
+spelling|n|the right way to write a word|Check your spelling.|||kind=idea;mass
+grammar|n|the rules for how words are put together|Her grammar is perfect.|syntax||kind=idea;mass
+vocabulary|n|all the words a person knows or uses|Reading builds your vocabulary.|lexicon, words||kind=idea;plural=vocabularies
+phrase|n|a small group of words|"Break a leg" is a funny phrase.|expression||kind=idea
+paragraph|n|a section of writing that starts on a new line|Read the first paragraph.|passage||kind=idea
+chapter|n|a main section of a book|I read one chapter before bed.|section||kind=idea
+page|n|one side of a sheet of paper in a book|Turn to page ten.|sheet, leaf||kind=idea
+title|n|the name of a book, film or song; also, a word like Dr or Ms|What's the title of the book?|name, heading||kind=idea
+name|n|the word someone or something is called|What's your name?|title||kind=idea
+nickname|n|an informal name used by friends|My nickname is Sunny.|||kind=idea
+gift wrap|n|decorative paper for wrapping presents|We ran out of gift wrap.|wrapping paper||kind=thing;mass
+costume|n|clothes worn to look like someone or something else|What's your costume for the party?|outfit, disguise||kind=thing
+mask|n|a covering for the face|She wore a cat mask to the party.|||kind=thing
+crown|n|a circle of gold and jewels worn by a king or queen|The queen's crown sparkled.|tiara||kind=thing
+treasure|n|a collection of gold, jewels or valuable things|The pirates buried their treasure.|riches, loot||kind=thing;mass
+
+# School, travel and life events
+kindergarten|n|a school or class for young children before primary school|My son started kindergarten this year.|preschool, nursery||kind=place;at=at;forms=preschool,nursery school
+college|n|a place of education after secondary school|She's applying to college.|university||kind=place;at=at;nogen
+textbook|n|a book used for studying a subject|Open your textbooks to page twenty.|coursebook||kind=thing
+blackboard|n|a dark board that teachers write on with chalk|The teacher wrote the date on the blackboard.|chalkboard, whiteboard||kind=furniture;forms=whiteboard,chalkboard
+chalk|n|a soft white stone used for writing on boards|The kids drew on the pavement with chalk.|||kind=thing;mass
+glue stick|n|a stick of solid glue|Can I borrow your glue stick?|||kind=thing
+pencil case|n|a small bag or box for pens and pencils|My pencil case is full of broken crayons.|||kind=thing
+locker|n|a small cupboard that can be locked, at school, work or a gym|I left my coat in my locker.|||kind=furniture
+lunch break|n|a break in the middle of the day for lunch|Let's go for a walk on our lunch break.|lunchtime||kind=idea;forms=lunchtime
+playtime|n|a time for children to play, especially at school|The kids play tag at playtime.|recess||kind=idea;mass
+bedtime|n|the time when someone usually goes to bed|It's past your bedtime.|||kind=time;mass
+weekend trip|n|a short trip over a weekend|We took a weekend trip to the mountains.|getaway||kind=event;event=joy
+sightseeing|n|visiting interesting places as a tourist|We did some sightseeing in Rome.|touring||kind=idea;mass
+souvenir|n|something you keep to remember a place or event|I bought a mug as a souvenir.|keepsake, memento||kind=thing
+postcard|n|a card with a picture on one side, sent by post|Send us a postcard from the beach.|card||kind=thing
+guidebook|n|a book of information for tourists|The guidebook recommended the café.|guide||kind=thing
+backpacking|n|traveling cheaply with a backpack|He went backpacking around Asia.|||kind=idea;mass
+hostel|n|a cheap place to stay, often with shared rooms|We stayed in a hostel in the old town.|||kind=place;at=at
+visa|n|an official document that lets you enter a country|You need a visa to visit.|permit||kind=thing
+border|n|the line between two countries or areas; also, an edge|We crossed the border at noon.|frontier, edge||kind=place;at=at
+flight|n|a journey on a plane|Our flight was delayed.|trip||kind=event;event=joy
+layover|n|a short stop between flights|We had a three-hour layover.|stopover||kind=idea
+seatbelt|n|a belt that holds you in your seat in a car or plane|Fasten your seatbelt.|safety belt||kind=thing;forms=seat belt
+helmet|n|a hard hat that protects your head|Always wear a helmet on your bike.|||kind=thing
+traffic light|n|a set of colored lights that control traffic|Turn left at the traffic light.|stoplight||kind=furniture
+crosswalk|n|a marked place where people can cross a road|Cross at the crosswalk.|zebra crossing||kind=place;at=at;forms=zebra crossing
+sidewalk|n|a path beside a road for people to walk on|Stay on the sidewalk.|pavement||kind=place;at=on;forms=pavement
+roundabout|n|a circular junction where roads meet|Take the second exit at the roundabout.|traffic circle||kind=place;at=at
+rush hour|n|the busy time when people travel to and from work|The trains are packed at rush hour.|||kind=time;mass
+house party|n|a party held in someone's home|We're having a house party on Friday.|||kind=event;event=joy
+pool party|n|a party held around a swimming pool|The kids had a pool party for her birthday.|||kind=event;event=joy
+surprise party|n|a party organized secretly for someone|We're planning a surprise party for Dad.|||kind=event;event=joy
+farewell|n|a goodbye, or a party to say goodbye|We had a farewell dinner for her.|goodbye, send-off||kind=event;event=joy
+welcome party|n|a party to greet someone who has arrived|We threw a welcome party for the new neighbors.|||kind=event;event=joy
+job offer|n|an offer of a job|I got a job offer today!|||kind=event;event=news
+first date|n|the first romantic meeting between two people|I have a first date on Friday.|||kind=event;event=luck
+blind date|n|a date with someone you haven't met before|My friend set me up on a blind date.|||kind=event;event=luck
+parent-teacher meeting|n|a meeting between a teacher and a pupil's parents|We have a parent-teacher meeting tonight.|parents' evening||kind=event;event=luck;forms=parents evening
+job hunt|n|the search for a new job|The job hunt is exhausting.|job search||kind=idea
+cover letter|n|a letter sent with a job application|I'm writing a cover letter tonight.|||kind=thing
+resume|n|a short document listing your education and work experience|I updated my resume.|CV||kind=thing;forms=cv,résumé
+portfolio|n|a collection of someone's work, shown to others|She brought her portfolio to the interview.|||kind=thing;plural=portfolios
 `;
 
 	const POS = { n: 'noun', v: 'verb', adj: 'adjective', adv: 'adverb', conj: 'conjunction', prep: 'preposition', excl: 'exclamation', pron: 'pronoun' };

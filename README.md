@@ -1,6 +1,6 @@
 # Onyx 1
 
-**Omni Agent - Onyx** is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool). It runs entirely on your device: no internet, no account, no model download: about 1,900 lines of JavaScript and a 1,289-word dictionary.
+**Omni Agent - Onyx** is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool). It runs entirely on your device: no internet, no account, no model download: about 1,900 lines of JavaScript and a 3,035-word dictionary.
 
 This repository is the raw engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool.
 
@@ -18,15 +18,29 @@ Onyx is not a large language model, and not a neural network. It is a deliberate
   - Percentages: "15% of 80", "15% off 80", "20% tip on 45", "increase 50 by 10%", "percent change from 50 to 75", "3/4 as a percent", "0.75 as a fraction".
   - Number facts and statistics: primes, prime factorization, factors, GCD, LCM, perfect squares, leap years, combinations ("10 choose 3"), permutations, and the average, median, mode, range and standard deviation of a list.
 - **Word tricks.** Count letters or words, reverse, spell out, change case, palindromes, numbers in words.
-- **A glossary and a mini dictionary.** 76 short definitions of things developers run into (UUID, JWT, cron, base64, hashing, contrast ratio...), plus a dictionary of 1,289 everyday English words: feelings, people, animals, food, things, places, events, actions, describing words, time, nature and the body. Each word has its part of speech, a plain definition, an example sentence, and similar and opposite words. It knows word forms, so "ran" finds *run*, "children" finds *child* and "happier" finds *happy*. Ask "define serendipity", "what does ephemeral mean", "another word for happy", "opposite of brave" or "is quickly an adverb".
+- **A glossary and a mini dictionary.** 76 short definitions of things developers run into (UUID, JWT, cron, base64, hashing, contrast ratio...), plus a dictionary of 3,035 everyday English words: feelings and character, family, people and jobs, animals and plants, food and drink, home, clothes, tools and tech, places and countries, events, holidays, sports and hobbies, actions, describing words, school, work and money, weather, materials, science, music, the body and health, and the small words that hold sentences together. Each word has its part of speech, a plain definition, an example sentence, and similar and opposite words. It knows word forms, so "ran" finds *run*, "children" finds *child* and "happier" finds *happy*. Ask "define serendipity", "what does ephemeral mean", "another word for happy", "opposite of brave" or "is quickly an adverb".
 - **Sentences.** "Use curious in a sentence" gives the dictionary example; "another one" makes up new sentences with the same word. "Make a sentence" picks a word at random. The sentences come from templates sorted by kind of word (a person, a place, a feeling, an action that takes an object...), so they come out grammatical, with the right "a" or "an", plural and past tense.
 - **Replies built from what you say.** When no fixed reply fits, Onyx reads the message with the dictionary and answers the specific thing in it:
   - a feeling, including negation and whose it is: "I feel nostalgic", "I'm not happy", "my dog is sick";
   - an event, with its timing: "I have an exam tomorrow" gets "Good luck with the exam tomorrow!", "I had a test yesterday" gets "How did the test go?", "my sister's wedding is on Saturday", and a funeral gets sympathy;
   - an activity in the right tense: "I'm going to bake a cake", "I baked bread yesterday" ("How did the bread turn out?"), "I lost my keys", "I have to clean the kitchen";
-  - pets, food, places, family, aches and illness, and good news: "I got a new puppy", "I'm eating an apple", "I'm going to the library", "my back hurts", "I got a new job".
+  - pets, food, places, family, aches and illness, and good news: "I got a new puppy", "I'm eating an apple", "I'm going to Japan next week", "my back hurts", "I got a promotion";
+  - life events and how things went: "my grandpa passed away", "my flight got cancelled", "I start my new job on Monday", "I'm moving next month", "I miss my mom", "work was stressful", "the weather is gorgeous today".
+
+  Onyx remembers what it just asked. After "How did the exam go?", an answer like "pretty well" or "not great, honestly" is read for its mood and answered about the exam; after "What's its name?", "Biscuit" gets "Biscuit is a great name for your new puppy!" A message that brings up something new is treated as new news, not as an answer.
 
   Feelings and events carry a mood or type in the dictionary (good, bad, heavy; good luck, celebration, sympathy), so the reply fits. A heavy feeling ("hopeless", "heartbroken") gets care and a gentle nudge toward someone who can help. Onyx only repeats dictionary words back, never the raw message.
+- **Settings for those replies.** Say "settings" to see them, or just ask:
+
+  | Setting | Default | Change it with |
+  |---|---|---|
+  | Tone | warm | "be brief", "be playful", "be warm" |
+  | Follow-up questions | on | "stop asking questions", "you can ask questions" |
+  | Tips ("a few slow breaths can help") | on | "no tips", "tips on" |
+  | Using your name | on | "don't use my name", "use my name" |
+  | Replies built from what you say | on | "turn off dynamic replies", "turn on dynamic replies" |
+
+  "Reset settings" restores the defaults. Brief keeps the first sentence; with questions off, "How did the test go?" becomes "I hope the test went well."; playful adds a little cheer, but never to bad news. Settings are kept on this device, next to the memory, and a host can read and change them with `Omni.onyx.settings.get()` and `.set(key, value)`.
 - **Small talk with care.** Greetings ("heya", "howdy", "hey hey"), "what's up?" and its many spellings ("sup", "what's good", "wassup"), a reply to "not much", moods, jokes, tips and facts. A message about self-harm gets a short, caring reply that points to people who can help (988 in the US, findahelpline.com elsewhere), never a joke.
 - **Inside OmniTool only:** a tool finder ("I need to pretty print some JSON" offers the JSON formatter) and commands that run OmniTool's tools ("generate 10 uuids and save them to a file", asking before anything is saved).
 
@@ -58,8 +72,8 @@ When a host sets `enabled: true`, Onyx calls `ask({ kind, query })` for four kin
 | | Result |
 |---|---|
 | Intent accuracy on held-out phrasings | 96.8% (90 of 93) |
-| Conversation checks | 68 of 68 |
-| Dictionary data checks (no duplicates; every feeling has a mood, every event a type, every example uses its word) | 1,289 words pass |
+| Conversation checks | 102 of 102 |
+| Dictionary data checks (no duplicates; every feeling has a mood, every event a type, every example uses its word) | 3,035 words pass |
 | Internet port checks (off by default, falls back offline) | 5 of 5 |
 | Network requests (in OmniTool's browser test) | 0 |
 | Time to decide a reply | under 1 ms |
@@ -111,7 +125,7 @@ The data files in `src/` are not secret and can't be: anything a web page runs c
 
 ## Version
 
-**Onyx 1.3** (2026-10-24): a dictionary five times bigger (1,289 words, up from 255), and replies built from what people tell Onyx: feelings, events, activities, pets, food, places, family, aches and good news, with tense, negation and whose it is.
+**Onyx 1.3** (2026-10-24): a dictionary of 3,035 words (up from 255); replies built from what people tell Onyx (feelings, events, activities, pets, food, places, family, aches, losses, good news and how things went, with tense, negation and whose it is); follow-ups that read an answer against the question Onyx asked; and settings for tone, questions, tips, names and the replies themselves.
 
 **Onyx 1.2** (2026-10-24): much more math (equations, trigonometry, logarithms, percentage word problems, statistics, fractions), a mini dictionary of 255 words with word forms, synonyms and opposites, sentences made from it, more greetings and "what's up" replies, and a prepared internet port that stays off (70 intents, 731 phrases).
 

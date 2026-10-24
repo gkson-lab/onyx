@@ -103,6 +103,43 @@ const SCRIPT = [
 	['I got a new job', /Congratulations on the new job/],
 	['do you like dogs', /in my dictionary, a dog is/],
 	['I feel hopeless', /talking to someone you trust/],
+	// Follow-ups: the answer to Onyx's question is read against what it asked about.
+	['I had a job interview yesterday', /How (did|was) the interview/],
+	['it went really well', /(Glad|great to hear).*interview/],
+	['I baked bread yesterday', /How did the bread turn out/],
+	['not great, honestly', /Sorry the bread didn't turn out/],
+	['I have an exam on friday', /exam on Friday/],
+	['pretty nervous', /That makes sense\..*Good luck with the exam/],
+	['I got a new puppy', /What's its name/],
+	['Biscuit', /Biscuit is a great name for your new puppy/],
+	['I had a test yesterday', /How (did|was) the test/],
+	['my dog is sick', /sorry your dog is sick/],
+	["I'm going to Japan next week", /Enjoy Japan next week/],
+	// Life events and descriptions.
+	['my grandpa passed away', /so sorry about your grandpa.*huge loss/],
+	['my phone died', /sorry about your phone/],
+	['my flight got cancelled', /sorry about your flight/],
+	['I start my new job on monday', /Good luck with the new job on Monday/],
+	['I got a promotion', /Congratulations on the promotion/],
+	['I miss my mom', /Missing your mom is hard/],
+	['I just finished my homework', /Nice work finishing your homework/],
+	['work was stressful', /Sorry work was stressful/],
+	['the weather is gorgeous today', /Glad the weather is gorgeous/],
+	['my new shoes are so comfy', /Glad your new shoes are comfy/],
+	["I'm reading a good book", /reading a good book/i],
+	["I'm so done with today", /long one/],
+	["I can't sleep", /can't sleep.*slow breaths/],
+	// Settings change how those replies sound, and are remembered.
+	['settings', /\*\*Tone\*\*: warm/],
+	['be brief', /keep my replies short/],
+	["I'm nervous about my exam tomorrow", (r) => r.text === 'Feeling nervous before your exam is completely normal.'],
+	['be warm', /usual self/],
+	['stop asking questions', /stop asking follow-up questions/],
+	['I had a test yesterday', /^I hope (the test|it) went well\.$/],
+	['you can ask questions', /ask follow-up questions again/],
+	['no tips', /No more tips/],
+	["I'm so worried", (r) => !/Writing the worry down/.test(r.text)],
+	['reset settings', /back to the defaults/],
 	["what's 12 times 7", /= \*\*84\*\*/],
 	['times 3', /84 × 3 = \*\*252\*\*/],
 	['is 91 prime', /7 × 13/],
@@ -161,11 +198,11 @@ const SCRIPT = [
 		if (!e.pos || !e.def || !e.ex) bad.push(`${e.w} is missing a part of speech, definition or example`);
 		if (e.kind && !KINDS.has(e.kind)) bad.push(`${e.w} has an unknown kind "${e.kind}"`);
 		if (e.use === 'feel' && !e.mood) bad.push(`${e.w} is a feeling without a mood`);
-		if (e.kind === 'event' && !['luck', 'joy', 'sorry'].includes(e.event)) bad.push(`${e.w} is an event without a type`);
+		if (e.kind === 'event' && !['luck', 'joy', 'sorry', 'news'].includes(e.event)) bad.push(`${e.w} is an event without a type`);
 		const forms = [e.w, e.w.replace(/(e|y)$/, ''), e.past, e.ing, e.plural, ...(e.forms || []), ...(e.variants || [])].filter(Boolean).map((f) => f.toLowerCase());
 		if (!forms.some((f) => e.ex.toLowerCase().includes(f))) bad.push(`${e.w}'s example doesn't use it`);
 	}
-	const sound = !bad.length && D.size >= 1275;
+	const sound = !bad.length && D.size >= 3000;
 	if (!sound) failed++;
 	console.log(`${sound ? 'PASS' : 'FAIL'} dictionary data: ${D.size} words, ${D.WORDS.length} entries${bad.length ? '\n     ' + bad.join('\n     ') : ''}`);
 
