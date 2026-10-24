@@ -80,7 +80,7 @@
 
 	/** Maps a misspelled word to the closest word Onyx knows ("helo" to "hello"), if one is close enough. */
 	function correct(tok) {
-		if (model.vocab.has(tok) || tok.length < 4 || /\d/.test(tok)) return tok;
+		if (model.vocab.has(tok) || tok.length < 4 || /\d/.test(tok) || (Omni.onyxDictionary && Omni.onyxDictionary.lookup(tok))) return tok;
 		const limit = tok.length >= 7 ? 2 : 1;
 		let best = tok;
 		let bestD = limit + 1;
@@ -292,6 +292,199 @@
 		return s.only ? `That's the only sentence I have for **${word}**: ${s.text}` : s.text;
 	}
 
+	/* ---------- Reading what people tell me ---------- */
+
+	/*
+	 * When no intent fits, Onyx reads a message with the dictionary: a feeling ("I'm nervous"), an event ("an exam
+	 * tomorrow"), an activity, a pet, food, a place or a person, plus negation, tense and whose it is ("my sister's
+	 * wedding"). The reply is built from those parts. Only dictionary words are echoed back, never the raw message.
+	 */
+	const LIGHT = new Set('i me my mine we us our you your he him his she her they them their it its a an the this that these those is am are was were be been being have has had do does did will would can could should may might must to of in on at by for with about from as and or but so if then than just really very too also not no yes oh well get got go going gone went want wanted need needed feel feeling felt like liked love loved hate think thought know knew make made take took give gave put see saw say said tell told come came look use try keep show let ask still now today ok okay'.split(' '));
+	const NEG = new Set(['not', 'never', 'no', 'hardly', 'dont', 'didnt', 'isnt', 'wasnt', 'arent', 'cant', 'wont', 'havent', 'aint', 'nothing']);
+	const TIMES = [
+		[/\btomorrow\b/, ' tomorrow', 'future'], [/\btonight\b/, ' tonight', 'future'], [/\bthis weekend\b/, ' this weekend', 'future'],
+		[/\bnext (week|weekend|month|year)\b/, ' next $1', 'future'], [/\blater\b/, ' later', 'future'], [/\bsoon\b/, ' soon', 'future'],
+		[/\bon (monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/, (d) => ` on ${d[0].toUpperCase()}${d.slice(1)}`, null],
+		[/\btoday\b/, ' today', 'now'], [/\bthis (morning|afternoon|evening)\b/, ' this $1', null],
+		[/\byesterday\b/, ' yesterday', 'past'], [/\blast (night|week|weekend|month|year)\b/, ' last $1', 'past'], [/\b\w+ ago\b/, '', 'past'],
+	];
+	// Verbs whose result can be asked about: "I baked a cake" -> "How did the cake turn out?"
+	const MAKING = new Set(['bake', 'cook', 'make', 'build', 'paint', 'draw', 'knit', 'sew', 'design', 'write', 'grow', 'fix', 'repair', 'decorate', 'sketch', 'invent']);
+	// Verbs too general to reply to on their own ("I keep thinking about it").
+	const VAGUE = new Set(['think', 'know', 'believe', 'hope', 'wish', 'want', 'need', 'feel', 'like', 'love', 'hate', 'say', 'tell', 'ask', 'see', 'look', 'get', 'give', 'take', 'put', 'come', 'go', 'make', 'use', 'try', 'keep', 'show', 'understand', 'decide', 'agree', 'remember', 'wait', 'stay', 'start', 'stop', 'begin', 'finish', 'change', 'move', 'have', 'eat', 'drink']);
+	const ILL = new Set(['headache', 'cold', 'flu', 'fever', 'pain']);
+	// "I'm cold" is a feeling, though "cold" usually describes a place or the weather.
+	const BODILY = { cold: 'An extra layer or a warm drink might help.', hot: 'Some cold water and a bit of shade might help.', warm: 'Some cold water might help.', freezing: 'An extra layer or a warm drink might help.' };
+	const PAST = /\b(was|were|had|did|went|got|made|took|saw|came|ate|drank|left|yesterday)\b/;
+
+	const upper = (s) => s[0].toUpperCase() + s.slice(1);
+
+	/** What a word is, as a clause: "a cat is a small, furry animal...", "to run is to move quickly...". */
+	function describe(e, d) {
+		const def = e.def;
+		if (e.pos === 'noun') return /^(an?|the) /.test(def) ? `${e.mass || e.kind === 'time' ? e.w : d.a(e.w)} is ${def}` : `"${e.w}" means ${def}`;
+		if (e.pos === 'verb') return `to ${e.w} is ${def}`;
+		return `"${e.w}" means ${def}`;
+	}
+
+	function read(raw, mem) {
+		const d = Omni.onyxDictionary;
+		if (!d) return null;
+		const t = normalize(raw).replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+		const ws = t.split(' ');
+		if (ws.length > 30) return null;
+		const hits = [];
+		for (let i = 0; i < ws.length; i++) {
+			// Two-word entries ("ice cream"), but not "an apple": lookup drops a leading article.
+			const pair = i + 1 < ws.length && !LIGHT.has(ws[i]) && d.lookup(`${ws[i]} ${ws[i + 1]}`);
+			if (pair) {
+				hits.push({ i, word: `${ws[i]} ${ws[i + 1]}`, senses: pair });
+				i++;
+			} else if (!LIGHT.has(ws[i]) && d.lookup(ws[i])) hits.push({ i, word: ws[i], senses: d.lookup(ws[i]) });
+		}
+		/** The first word with a sense that passes `test(entry, hit)`, as { i, word, e, label, senses }. */
+		const find = (test, from = 0) => {
+			for (const h of hits) {
+				if (h.i < from) continue;
+				const s = h.senses.find((x) => test(x.e, h));
+				if (s) return { i: h.i, word: h.word, e: s.e, label: s.label, senses: h.senses };
+			}
+			return null;
+		};
+		const negated = (h) => ws.slice(Math.max(0, h.i - 3), h.i).some((w) => NEG.has(w));
+		const mine = (h) => h && ws[h.i - 1] === 'my';
+		const self = /\b(i|me|my|we|our|us)\b/.test(t);
+		// Whether the person did it themselves: "I called" is, "my mom called" isn't.
+		const doer = /\b(i|we)\b/.test(t);
+		const [, when = '', tense = null] = TIMES.map(([re, say, tn]) => {
+			const m = t.match(re);
+			return m && [m, typeof say === 'function' ? say(m[1]) : say.replace('$1', m[1] || ''), tn];
+		}).find(Boolean) || [];
+		const past = tense === 'past' || PAST.test(t) || hits.some((h) => h.senses.every((x) => x.label === 'past tense'));
+		const future = tense === 'future' || /\b(will|going to|gonna|plan to|planning to|about to)\b/.test(t);
+		const must = /\b(have to|has to|need to|got to|must)\b/.test(t);
+		const name = mem.name ? `, ${mem.name}` : '';
+		const say = (key, list) => answer(pick(key, list));
+
+		// "Do you like cats?" I have no likes of my own, but I can say what the word means.
+		const asked = t.match(/^(?:do|did) you (?:like|love|enjoy|hate) (.+)$|^what do you think (?:of|about) (.+)$/);
+		if (asked) {
+			const h = find((e) => e.pos === 'noun' || e.pos === 'verb', ws.indexOf(asked[1] ? 'you' : 'think') + 2);
+			return h ? { strong: true, sure: true, reply: answer(`I don't have likes or dislikes of my own, but in my dictionary, ${describe(h.e, d)}.`) } : null;
+		}
+		if (/^(who|what|when|where|why|how|which|is|are|does|do|did|can|could|will|would)\b/.test(t)) return null;
+
+		const bodily = (e, h) => e.w in BODILY && /\b(am|feel|feeling|felt)( so| really| very| a bit| kind of)?$/.test(ws.slice(0, h.i).join(' '));
+		const feelHit = find((e, h) => e.pos === 'adjective' && (e.use === 'feel' || bodily(e, h)));
+		// "Lost" in "I lost my keys" is a verb, not a feeling: a feeling word followed by "my" or "the" is an action.
+		const acting = feelHit && feelHit.senses.some((x) => x.e.pos === 'verb') && /^(my|the|a|an|his|her|our|their)$/.test(ws[feelHit.i + 1] || '');
+		const feel = acting ? null : feelHit;
+		const ill = find((e) => (e.kind === 'body' && /\b(hurts?|hurting|aches?|aching|sore|broke|broken|injured|sprained)\b/.test(t)) || (e.pos === 'noun' && ILL.has(e.w) && /\b(have|has|got|caught|getting)\b/.test(t)));
+		const event = find((e) => e.kind === 'event');
+		const owner = event && hits.find((h) => h.i === event.i - 1 && h.senses.some((x) => x.e.rel && x.label === 'plural'));
+		const np = event && (owner ? `your ${owner.senses[0].e.w}'s ${event.e.w}` : mine(event) ? `your ${event.e.w}` : `the ${event.e.w}`);
+
+		// "Not hungry" says nothing worth answering; "not happy" does.
+		if (feel && !(feel.e.mood === '0' && negated(feel))) {
+			const w = feel.e.w;
+			const not = negated(feel);
+			const mood = not ? { '+': '-', '-': '+', '--': '+' }[feel.e.mood] : feel.e.mood || '0';
+			const tip = feel.e.tip || BODILY[w];
+			// Whose feeling: "my dog is sick" is about the dog, not the person typing.
+			const subject = hits.find((h) => h.i < feel.i && feel.i - h.i <= 4 && mine(h) && h.senses.some((x) => ['person', 'animal'].includes(x.e.kind)));
+			if (subject) {
+				const who = `your ${subject.senses.find((x) => ['person', 'animal'].includes(x.e.kind)).e.w}`;
+				const is = past ? 'was' : 'is';
+				if (mood === '+') return { strong: true, reply: answer(`That's lovely to hear about ${who}.`) };
+				if (mood === '-' || mood === '--') return { strong: true, reply: say('dyn-other', [`I'm sorry ${who} ${is} ${not ? 'not ' : ''}${w}. I hope things get better soon.`, `Oh no, I'm sorry ${who} ${is} ${not ? 'not ' : ''}${w}. Is there anything that would help?`]) };
+			} else if (self) {
+				const feeling = `${not ? 'not ' : ''}feeling ${w}`;
+				if (event && event.e.event !== 'sorry' && !past) {
+					if (mood === '-') return { strong: true, reply: answer(`Feeling ${w} before ${np} is completely normal. Good luck${when}${name}!${tip ? ' ' + tip : ''}`) };
+					if (mood === '+') return { strong: true, reply: answer(`I love that you're ${feeling} about ${np}${when}!`) };
+				}
+				if (mood === '--') return { strong: true, reply: answer(`I'm really sorry you're ${feeling}${name}. That's a heavy thing to carry. If it's been going on for a while, talking to someone you trust, or a doctor, can really help, and I'm here to listen too.`) };
+				if (mood === '-') return { strong: true, reply: answer(pick('dyn-bad', [`I'm sorry you're ${feeling}${name}. Do you want to talk about it?`, `Feeling ${not ? 'anything but ' : ''}${w} is no fun. What's going on?`, `That sounds hard. What's making you feel ${not ? 'that way' : w}?`]) + (!not && tip ? ` ${tip}` : '')) };
+				if (mood === '+') return { strong: true, reply: not ? answer(`Good, I'm glad you're not feeling ${w}.`) : say('dyn-good', [`Glad you're feeling ${w}${name}! What's behind it?`, `That's good to hear. What's got you feeling ${w}?`, `Love that. Feeling ${w} is the best.`]) };
+				if (mood === '0') return { strong: true, reply: answer(`Sounds like you're ${feeling}.${tip ? ' ' + tip : ' What\'s going on?'}`) };
+			}
+		}
+
+		if (ill && self && !negated(ill)) {
+			if (ill.e.kind === 'body') return { strong: true, reply: answer(`Ouch, sorry your ${ill.e.w} ${ill.label === 'plural' ? 'hurt' : 'hurts'}${name}. Rest it if you can, and see a doctor if it doesn't get better.`) };
+			return { strong: true, reply: answer(`Sorry to hear about the ${ill.e.w}${name}. Rest, plenty of water, and a doctor if it gets worse or doesn't go away.`) };
+		}
+
+		if (event && !negated(event)) {
+			const kind = event.e.event;
+			if (kind === 'sorry') return { strong: true, reply: answer(`I'm so sorry. ${upper(d.forms.plural(event.e))} are hard. I'm here if you want to talk.`) };
+			if (event.e.w === 'birthday' && mine(event) && !past) return { strong: true, reply: answer(tense === 'now' ? `Happy birthday${name}! I hope it's a great one.` : `Happy early birthday${name}! Any plans?`) };
+			if (past) return { strong: true, reply: say('dyn-event-past', kind === 'luck' ? [`How did ${np} go?`, `How was ${np}? I hope it went well.`] : [`How was ${np}?`, `Sounds lovely. How was ${np}?`]) };
+			const lead = upper(np) + when;
+			if (kind === 'luck') return { strong: true, reply: say('dyn-luck', [`Good luck with ${np}${when}${name}! How are you feeling about it?`, `${lead}? You've got this. Good luck!`]) };
+			return { strong: true, reply: say('dyn-joy', [`${lead}? That sounds fun!`, `Ooh, ${np}${when}. I hope it's a great one.`]) };
+		}
+
+		const fresh = doer && t.match(/\b(?:got|bought|have|found|started) (?:a|my|our) new (\w+)/);
+		const gotten = fresh && find((e) => e.pos === 'noun' && !e.mass, ws.indexOf('new') + 1);
+		if (gotten && gotten.e.kind !== 'animal') {
+			const w = gotten.label === 'spelling' ? gotten.word : gotten.e.w;
+			return { strong: false, reply: answer(['job', 'house', 'home', 'apartment', 'car', 'career'].includes(w) ? `Congratulations on the new ${w}${name}! How does it feel?` : `Ooh, a new ${w}! Enjoy it.`) };
+		}
+		if (doer && /\bgot the (job|part|place)\b/.test(t)) return { strong: true, reply: answer(`Congratulations${name}! That's great news.`) };
+
+		const verb = find((e) => e.pos === 'verb' && !VAGUE.has(e.w));
+		const thing = verb && find((x) => x.pos === 'noun' && ['food', 'thing', 'furniture', 'media'].includes(x.kind), verb.i + 1);
+		// Eating something is about the food, which the food reply below handles; making it is about the making.
+		if (verb && !negated(verb) && (doer || must) && !(thing && thing.e.kind === 'food' && !MAKING.has(verb.e.w))) {
+			const e = verb.e;
+			const ing = d.forms.ing(e);
+			const theirs = hits.find((h) => h.i > verb.i && h.i - verb.i <= 3 && mine(h));
+			const done = past || verb.label === 'past tense';
+			if (e.mood === '-' && (done || verb.label === '-ing form' || !future)) {
+				return { strong: false, reply: answer(theirs ? `Oh no, sorry to hear about your ${theirs.word}. I hope it gets sorted out soon.` : 'Oh no, sorry to hear that. I hope it gets better from here.') };
+			}
+			if (must) return { strong: false, reply: say('dyn-must', [`Good luck with the ${ing}. You've got this.`, `Hope the ${ing} goes quickly.`]) };
+			if (done) return { strong: false, reply: thing && MAKING.has(e.w) ? answer(`How did the ${thing.e.w} turn out?`) : say('dyn-did', [`${upper(ing)}, nice. How did it go?`, `Sounds good. How was the ${ing}?`]) };
+			if (future) return { strong: false, reply: answer((thing ? `${upper(thing.e.mass ? thing.e.w : d.a(thing.e.w))}? ` : '') + pick('dyn-will', [`${upper(ing)} sounds like a good plan.`, `Enjoy the ${ing}${when}!`])) };
+			if (verb.label === '-ing form') return { strong: false, reply: say('dyn-doing', [`${upper(ing)}, nice. How's it going?`, `Ooh, ${ing}. Enjoy it!`]) };
+		}
+
+		const animal = find((e) => e.kind === 'animal' && !e.nogen);
+		if (animal && self) {
+			const w = animal.e.w;
+			if (mine(animal)) return { strong: false, reply: answer(`What's your ${w}'s name?`) };
+			if (/\b(got|new|adopted|adopt|getting)\b/.test(t)) return { strong: false, reply: answer(`${upper(d.a(w))}! What's its name?`) };
+			if (/\b(love|like|adore)\b/.test(t)) return { strong: false, reply: answer(`${upper(d.forms.plural(animal.e))} are wonderful. In my dictionary, ${describe(animal.e, d)}.`) };
+		}
+
+		const food = find((e) => e.kind === 'food' && !e.nogen);
+		if (food && self && /\b(eat|eating|ate|having|had|have|made|making|cooking|cooked|baking|baked|love|like|for (breakfast|lunch|dinner))\b/.test(t)) {
+			const many = food.label === 'plural';
+			const dish = food.e.mass ? food.e.w : many ? d.forms.plural(food.e) : /^(a|an)$/.test(ws[food.i - 1]) ? d.a(food.e.w) : food.e.w;
+			if (/\b(love|like)\b/.test(t)) return { strong: false, reply: answer(`${upper(dish)}? Good choice.`) };
+			if (past) return { strong: false, reply: answer(`Mm, ${dish}. Was it good?`) };
+			return { strong: false, reply: say('dyn-food', [`${upper(dish)} ${many ? 'sound' : 'sounds'} good right now.`, `Mm, ${dish}. Enjoy!`]) };
+		}
+
+		const place = find((e) => e.kind === 'place' && !e.mass);
+		if (place && doer && (/\b(at|in|to|on|visiting|visit|went|going|heading|back)\b/.test(t) || place.e.w === 'home')) {
+			const w = place.e.w;
+			if (w === 'home') return { strong: false, reply: answer(past ? 'Nice to be home.' : future ? 'Enjoy being home.' : `Welcome home${name}.`) };
+			if (past) return { strong: false, reply: answer(`How was the ${w}?`) };
+			if (future) return { strong: false, reply: answer(`Enjoy the ${w}${when}!`) };
+			return { strong: false, reply: say('dyn-place', [`The ${w} sounds nice. What are you up to there?`, `Ooh, the ${w}. Enjoy it!`]) };
+		}
+
+		const person = find((e) => e.rel);
+		if (person && mine(person)) return { strong: false, reply: answer(`Tell me more about your ${person.e.w}.`) };
+
+		// A word worth talking about, like "serendipity": offer to define it.
+		const notable = ws.length <= 12 && find((e) => e.pos === 'noun' && ['idea', 'media'].includes(e.kind) && e.w.length >= 6 && !ILL.has(e.w));
+		if (notable) return { strong: false, reply: answer(`You mentioned **${notable.e.w}**.`, { offer: { kind: 'define', word: notable.e.w, ask: 'Want me to define it?' } }) };
+		return null;
+	}
+
 	/* ---------- Internet port (prepared, not connected) ---------- */
 
 	/*
@@ -357,6 +550,7 @@
 			return answer(`Let's go with ${Omni.onyxData.toolLink(id)}.`, { action: 'open:' + id });
 		}
 		if (offer.kind === 'joke') return answer(draw('joke', Omni.onyxData.JOKES));
+		if (offer.kind === 'define') return define(offer.word, true) || answer('I seem to have lost that one.');
 		if (offer.kind === 'command') {
 			convo.lastCommand = offer.command;
 			convo.lastKind = 'command';
@@ -456,6 +650,10 @@ ${r.offer.ask}` : '');
 		const ranked = classify(body);
 		const top = ranked[0] || { id: null, score: 0 };
 		const meaning = body.match(asksMeaning);
+		const reading = meaning ? null : read(body, mem);
+		// A reading beats a weak intent match: "I'm going to bake a cake" isn't "going to bed".
+		// "Do you like dogs" reads to the intent model like "do you like me"; the dictionary knows better.
+		if (reading && ((reading.sure && top.id === 'love') || top.score < (reading.strong ? 0.7 : 0.6))) return withGreet(reading.reply);
 		const aboutWord = asksWord.test(body.trim());
 		if (meaning && !(top.score > 0.75 && ['identity', 'omnitool', 'meaning', 'date', 'time', 'weather', 'news'].includes(top.id))) {
 			const gl = define(meaning[1], aboutWord);
@@ -484,6 +682,8 @@ ${r.offer.ask}` : '');
 			const more = second && second.score > first.score * 0.6 ? ` ${Omni.onyxData.toolLink(second.tool.id)} is close too.` : '';
 			return withGreet(answer(`That sounds like ${Omni.onyxData.toolLink(first.tool.id)}: ${first.tool.description}${more}`, { offer: { kind: 'open', id: first.tool.id, ask: 'Want me to open it?' } }));
 		}
+
+		if (reading) return withGreet(reading.reply);
 
 		// "Howdy partner": the greeting is the message, even when the rest of it isn't something I understand.
 		if (greet) return reply(Omni.onyxData.INTENTS.find((i) => i.id === 'greet'), g[1], mem);

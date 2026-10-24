@@ -201,7 +201,7 @@
 		{ id: 'help', examples: ['help', 'what can you do', 'what do you do', 'what are your abilities', 'how can you help me', 'what can i ask you', 'commands', 'what do you know', 'show me what you can do', 'what are you good at', 'how do i use you', 'what can you help with', 'options', 'menu', 'features', 'help me', 'i need some help', 'can you help', 'help please', 'i am stuck', 'how does this work'], reply: (ctx) => [
 			'Here\'s what I can do, all on this device:',
 			'',
-			'- **Talk**: greetings, "what\'s up", how you\'re doing, jokes, tips, a few facts. I remember your name if you tell me.',
+			'- **Talk**: greetings, "what\'s up", how you\'re doing, jokes, tips, a few facts. Tell me about your day ("I have an exam tomorrow", "my dog is sick") and I\'ll answer what you said. I remember your name if you tell me.',
 			`- **Words**: a mini dictionary of ${Omni.onyxDictionary ? Omni.onyxDictionary.size + ' ' : ''}everyday words. "define serendipity", "another word for happy", "opposite of big", "use brave in a sentence", "make a sentence".`,
 			'- **Math**: "12 times 7", "15% off 80", "solve 2x + 3 = 11", "median of 3, 8, 1", "10 choose 3", "sin 30", "0.75 as a fraction".',
 			'- **OmniTool help**: "what is a JWT", "how do I add an API key", "is my data private", "keyboard shortcuts".',

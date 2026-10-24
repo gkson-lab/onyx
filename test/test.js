@@ -83,6 +83,26 @@ const SCRIPT = [
 	['make a sentence', /^[A-Z].+[.?]$/],
 	['define flibber', /isn't in my dictionary/],
 	['what is new', /\?$/],
+	// Reading what people tell it, from the dictionary.
+	['I feel nostalgic', /feeling nostalgic/],
+	["I'm not happy", /happy|that way/],
+	["I'm nervous about my exam tomorrow", /nervous before your exam .*Good luck tomorrow/],
+	['I have a job interview on friday', /Good luck with the interview on Friday|The interview on Friday\? You've got this/],
+	["my sister's wedding is on saturday", /your sister's wedding on Saturday/i],
+	['my grandpa\'s funeral is next week', /so sorry\. Funerals are hard/],
+	['I had a test yesterday', /How (did|was) the test/],
+	['my dog is sick', /sorry your dog is sick/],
+	["I'm going to bake a cake", /A cake\? (Baking sounds like a good plan|Enjoy the baking)/],
+	['I baked bread yesterday', /How did the bread turn out/],
+	['I lost my keys', /sorry to hear about your keys/],
+	['I got a new puppy', /A puppy! What's its name/],
+	["I'm eating an apple", /an apple/i],
+	["I'm going to the library tomorrow", /Enjoy the library tomorrow/],
+	['my back hurts', /sorry your back hurts/],
+	["I'm cold", /extra layer/],
+	['I got a new job', /Congratulations on the new job/],
+	['do you like dogs', /in my dictionary, a dog is/],
+	['I feel hopeless', /talking to someone you trust/],
 	["what's 12 times 7", /= \*\*84\*\*/],
 	['times 3', /84 × 3 = \*\*252\*\*/],
 	['is 91 prime', /7 × 13/],
@@ -129,6 +149,26 @@ const SCRIPT = [
 		if (!ok) failed++;
 		console.log(`${ok ? 'PASS' : 'FAIL'} "${say}" -> ${r ? JSON.stringify(r.text).slice(0, 100) : 'no reply'}`);
 	}
+	// The dictionary's own data: every entry well formed, so a hand edit can't quietly break a reply.
+	const D = Omni.onyxDictionary;
+	const KINDS = new Set(['person', 'animal', 'thing', 'food', 'place', 'idea', 'event', 'vehicle', 'body', 'furniture', 'nature', 'media', 'time']);
+	const seen = new Set();
+	const bad = [];
+	for (const e of D.WORDS) {
+		const key = `${e.w.toLowerCase()}|${e.pos}`;
+		if (seen.has(key)) bad.push(`${key} appears twice`);
+		seen.add(key);
+		if (!e.pos || !e.def || !e.ex) bad.push(`${e.w} is missing a part of speech, definition or example`);
+		if (e.kind && !KINDS.has(e.kind)) bad.push(`${e.w} has an unknown kind "${e.kind}"`);
+		if (e.use === 'feel' && !e.mood) bad.push(`${e.w} is a feeling without a mood`);
+		if (e.kind === 'event' && !['luck', 'joy', 'sorry'].includes(e.event)) bad.push(`${e.w} is an event without a type`);
+		const forms = [e.w, e.w.replace(/(e|y)$/, ''), e.past, e.ing, e.plural, ...(e.forms || []), ...(e.variants || [])].filter(Boolean).map((f) => f.toLowerCase());
+		if (!forms.some((f) => e.ex.toLowerCase().includes(f))) bad.push(`${e.w}'s example doesn't use it`);
+	}
+	const sound = !bad.length && D.size >= 1275;
+	if (!sound) failed++;
+	console.log(`${sound ? 'PASS' : 'FAIL'} dictionary data: ${D.size} words, ${D.WORDS.length} entries${bad.length ? '\n     ' + bad.join('\n     ') : ''}`);
+
 	// The internet port: off by default, consulted only when a host turns it on, and never trusted to answer.
 	const offline = await Omni.onyx.respond('what is the weather');
 	const portOff = /don't use the internet/.test(offline.text);
