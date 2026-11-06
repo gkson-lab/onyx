@@ -495,7 +495,7 @@ frog|n|a small animal with smooth skin and long back legs for jumping, living ne
 turtle|n|a reptile with a hard shell that lives in water or on land|The turtle pulled its head into its shell.|tortoise||kind=animal;forms=tortoise
 snake|n|a long reptile with no legs|A snake slid under the rock.|serpent||kind=animal
 lizard|n|a small reptile with four legs and a long tail|A lizard warmed itself on the wall.|||kind=animal
-crocodile|n|a large reptile with a long body and powerful jaws that lives in rivers|The crocodile lay perfectly still in the mud.|alligator||kind=animal;forms=alligator
+crocodile|n|a large reptile with a long body and powerful jaws that lives in rivers|The crocodile lay perfectly still in the mud.|||kind=animal
 shark|n|a large fish with sharp teeth|A shark's fin cut through the water.|||kind=animal
 dolphin|n|a clever sea mammal with a curved fin, known for being playful|A dolphin leapt beside the boat.|porpoise||kind=animal
 octopus|n|a sea animal with a soft body and eight arms|The octopus changed color to match the rock.|||kind=animal;plural=octopuses
@@ -3236,24 +3236,434 @@ job hunt|n|the search for a new job|The job hunt is exhausting.|job search||kind
 cover letter|n|a letter sent with a job application|I'm writing a cover letter tonight.|||kind=thing
 resume|n|a short document listing your education and work experience|I updated my resume.|CV||kind=thing;forms=cv,résumé
 portfolio|n|a collection of someone's work, shown to others|She brought her portfolio to the interview.|||kind=thing;plural=portfolios
+# Onyx 2: the little words that hold sentences together
+a|det|one; used before a singular noun when you don't mean a particular one|I saw a fox in the garden.|an|the|nogen
+an|det|the form of "a" used before a vowel sound|She ate an apple and an orange.|a|the|nogen
+the|det|used before a noun when you mean a particular one, or one already known|The cat is asleep on the sofa.||a|nogen
+this|det|the one here, or the one just mentioned|This coffee is perfect.|||nogen;forms=dis
+that|det|the one there, or the one already mentioned|Can you pass me that book?|||nogen
+these|det|the plural of "this": the ones here|These shoes are too small.|||nogen
+those|det|the plural of "that": the ones over there|Those clouds look like rain.|||nogen
+my|det|belonging to me|My bike is in the garage.|||nogen
+your|det|belonging to you|Is this your umbrella?|||nogen;variants=ur,yer
+his|det|belonging to him|His sister is a nurse.|||nogen
+its|det|belonging to it|The dog wagged its tail.|||nogen
+our|det|belonging to us|Our house is the blue one.|||nogen
+their|det|belonging to them|Their garden is full of roses.|||nogen
+all|det|the whole amount or number of|All the cookies are gone.|every, each|none|nogen
+any|det|one, some or every, it doesn't matter which|Do you have any questions?|||nogen
+both|det|the two together|Both my brothers play football.|||nogen
+each|det|every one of two or more, taken separately|Each child got a balloon.|every||nogen
+either|det|one or the other of two|You can sit on either side.||neither|nogen
+every|det|all of a group, taken one at a time|I walk the dog every morning.|each|no|nogen
+few|det|a small number of; "a few" means some|A few friends came over.|several|many|nogen
+many|det|a large number of|Many people came to the party.|numerous, lots of|few|nogen
+more|det|a greater amount or number of|We need more chairs.||less, fewer|nogen
+most|det|the greatest amount or number of; also, nearly all|Most shops close at six.||least|nogen
+much|det|a large amount of|There isn't much milk left.|a lot of|little|nogen
+neither|det|not one and not the other of two|Neither answer is right.||either|nogen
+other|det|different from the one already mentioned; also, the second of two|I'll wear my other shoes.|different|same|nogen
+another|det|one more; also, a different one|Can I have another cookie?|||nogen
+several|det|more than two, but not many|I've read that book several times.|a few, some||nogen
+some|det|an amount or number of, without saying exactly how much|I bought some bread.||none|nogen
+such|det|of the kind already mentioned; also, so great|I've never seen such a mess.|||nogen
+enough|det|as much or as many as needed|We have enough food for everyone.|sufficient|too little|nogen
+less|det|a smaller amount of|I'm trying to eat less sugar.|fewer|more|nogen
+least|det|the smallest amount of|She did the least work of all.||most|nogen
+mine|pron|the one that belongs to me|That coat is mine.|||nogen
+mine|n|a place where coal, metal or stones are dug out of the ground|My great-grandfather worked in a coal mine.|pit||kind=place;at=in;nogen
+yours|pron|the one that belongs to you|Is this pen yours?|||nogen
+hers|pron|the one that belongs to her|The red car is hers.|||nogen
+ours|pron|the one that belongs to us|The house on the corner is ours.|||nogen
+theirs|pron|the one that belongs to them|The decision is theirs.|||nogen
+he|pron|a man, boy or male animal already mentioned|He said he'd be late.||she|nogen
+she|pron|a woman, girl or female animal already mentioned|She runs every morning.||he|nogen
+me|pron|the form of "I" used after a verb or preposition|Can you help me?|||nogen
+him|pron|the form of "he" used after a verb or preposition|I called him yesterday.|||nogen
+her|pron|the form of "she" used after a verb or preposition; also, belonging to her|I gave her my number.|||nogen
+them|pron|the form of "they" used after a verb or preposition|I'll ask them tomorrow.|||nogen
+myself|pron|me, when I am also the one doing it; also, used for emphasis|I made it myself.|||nogen
+yourself|pron|you, when you are also the one doing it|Help yourself to a drink.|||nogen;forms=yourselves
+himself|pron|him, when he is also the one doing it|He taught himself to play the guitar.|||nogen
+herself|pron|her, when she is also the one doing it|She bought herself a new phone.|||nogen
+itself|pron|it, when it is also the one doing it|The door closed by itself.|||nogen
+ourselves|pron|us, when we are also the ones doing it|We built the shed ourselves.|||nogen
+themselves|pron|them, when they are also the ones doing it|The kids cleaned up after themselves.|||nogen
+who|pron|which person or people; also, used to say which person you mean|Who left the lights on?|||nogen
+whom|pron|a formal form of "who", used after a verb or preposition|To whom should I address the letter?|||nogen
+whose|pron|belonging to which person|Whose jacket is this?|||nogen
+which|pron|what one or ones, out of a known set|Which flavor do you want?|||nogen
+what|pron|asks for information about something; also, the thing that|What time does the film start?|||nogen
+whoever|pron|any person who; it doesn't matter who|Whoever finishes first wins.|||nogen
+whichever|pron|any one that; it doesn't matter which|Take whichever seat you like.|||nogen
+none|pron|not one; not any|None of the keys fit the lock.||all|nogen
+where|adv|in or to what place|Where did you park the car?|||nogen
+why|adv|for what reason|Why is the sky blue?|||nogen
+how|adv|in what way; also, to what degree|How do you make pancakes?|||nogen
+about|prep|on the subject of; also, approximately|It's a film about a lost dog.|regarding, concerning||nogen
+above|prep|higher than|The picture hangs above the fireplace.|over|below|nogen
+ahead|adv|in front; also, in the future|The road ahead is closed.|forward|behind|nogen
+alongside|prep|next to; along the side of|The boat pulled up alongside the pier.|beside||nogen
+amid|prep|in the middle of|We found a little café amid the noise of the city.|amidst, among||nogen;forms=amidst
+as|conj|in the way that; also, while; also, because|Do as I say.|like||nogen
+at|prep|used to show a place, a time or a point|Meet me at the station at six.|||nogen
+below|prep|lower than|The temperature fell below zero.|beneath, under|above|nogen
+beneath|prep|under; lower than|The cat slept beneath the porch.|below, under|above|nogen
+besides|prep|in addition to; apart from|Who's coming besides your sister?|apart from||nogen
+beyond|prep|on the far side of; also, more than|The village is just beyond the hill.|||nogen
+by|prep|beside; also, through the action of; also, not later than|The book was written by my aunt.|||nogen
+despite|prep|without being stopped by|We went out despite the rain.|in spite of||nogen
+except|prep|not including|Everyone came except Tom.|apart from, but||nogen
+for|prep|meant to be given to; also, for the purpose of; also, during|This gift is for you.|||nogen
+from|prep|showing where something starts or comes from|I got a letter from my cousin.||to|nogen
+into|prep|to the inside of|She jumped into the pool.||out of|nogen
+of|prep|belonging to; also, made from; also, containing|I'd love a cup of tea.|||nogen
+off|prep|away from; not on|Take your feet off the table.||on|nogen
+onto|prep|to a position on|The cat jumped onto the counter.|||nogen
+opposite|prep|facing; on the other side from|The bakery is opposite the station.|across from||nogen
+opposite|adj|completely different|They walked off in opposite directions.|contrary, reverse|same|nogen
+out|adv|away from the inside; also, away from home|She went out for a walk.||in|nogen
+per|prep|for each|The tickets cost ten dollars per person.|each||nogen
+plus|prep|added to; also, as well as|Two plus two is four.|and|minus|nogen
+regarding|prep|about; on the subject of|I'm calling regarding your order.|concerning, about||nogen
+than|conj|used to compare two things|My brother is taller than me.|||nogen
+throughout|prep|in every part of; also, all the way through|It rained throughout the night.|||nogen
+to|prep|in the direction of; also, used before a verb|We drove to the coast.||from|nogen
+underneath|prep|directly under|I found my keys underneath the sofa.|under, beneath||nogen
+unlike|prep|different from|Unlike her brother, she loves spicy food.||like|nogen
+upon|prep|a formal word for "on"|Once upon a time, there was a dragon.|on||nogen
+versus|prep|against, in a game or a contest|It's the Lions versus the Bears tonight.|against||nogen;forms=vs
+via|prep|by way of; also, by means of|We flew to Rome via Paris.|through||nogen
+within|prep|inside; also, in no more than|The parcel will arrive within three days.|inside||nogen
+nor|conj|and not; used after "neither" or "not"|I like neither tea nor coffee.|||nogen
+whereas|conj|while, on the other hand|I love the city, whereas my brother prefers the country.|while||nogen
+whenever|conj|at any time that; every time that|Call me whenever you like.|||nogen
+wherever|conj|in or to any place that|Sit wherever you like.|||nogen
+be|v|to exist; also, to have a quality, a job or a place|I want to be a pilot.|exist||third=is;past=was;pp=been;ing=being;inflect=am,are,were;nogen
+have|v|to own or hold; also, to experience; also, used to make some tenses|I have two sisters.|own, possess||third=has;past=had;nogen
+do|v|to carry out an action; also, used to ask questions and make negatives|What did you do this weekend?|perform||third=does;past=did;pp=done;nogen
+dare|v|to be brave enough to do something; also, to challenge someone to do something|I didn't dare look down.|||nogen
+will|aux|used to talk about the future|I will call you tomorrow.|shall||nogen
+will|n|a legal document saying who should get someone's things after they die; also, determination|She left the house to her niece in her will.|willpower||kind=thing;nogen
+would|aux|used to talk about what might happen, or to ask politely|Would you like some tea?|||nogen
+shall|aux|a formal way of saying "will"; also, used to make an offer|Shall I open the window?|||nogen
+should|aux|used to say what is right or sensible|You should drink more water.|ought to||nogen
+could|aux|was able to; also, might; also, used to ask politely|Could you pass the salt?|||nogen
+might|aux|used to say something is possible|It might rain later.|may||nogen
+might|n|great strength or power|She pushed with all her might.|strength, power|weakness|nogen
+must|aux|used to say something is necessary, or very likely|You must wear a helmet.|have to||nogen
+ought|aux|should; used with "to"|You ought to call your mother.|should||nogen
+not|adv|used to make a word or a sentence negative|I'm not hungry.|||nogen
+then|adv|at that time; also, next; also, in that case|We had dinner, then we watched a film.|next||nogen
+ago|adv|before now|We met ten years ago.|back||nogen
+perhaps|adv|possibly; maybe|Perhaps it will stop raining soon.|maybe, possibly|certainly|nogen
+indeed|adv|used to agree, or to make a statement stronger|It was a very good meal indeed.|truly||nogen
+thus|adv|in this way; also, as a result|The bridge was closed, and thus we took the ferry.|therefore, so||nogen
+anymore|adv|any longer; now, as before|I don't drink coffee anymore.|any longer||nogen;forms=any more
+somewhat|adv|a little; to some degree|I was somewhat surprised.|slightly, rather||nogen
+literally|adv|in an exact way; informally, used for emphasis|The house is literally next door.|exactly|figuratively|nogen
+mostly|adv|mainly; most of the time|The audience was mostly teenagers.|mainly, largely||nogen
+mainly|adv|more than anything else|I mainly eat vegetables.|mostly, chiefly||nogen
+simply|adv|in a simple way; also, just, only|Simply add water and stir.|just, merely||nogen
+truly|adv|honestly; really|I'm truly sorry.|really, sincerely||nogen
+fully|adv|completely|The hotel is fully booked.|completely, entirely|partly|nogen
+highly|adv|very; also, with great respect|She's a highly skilled surgeon.|very, extremely||nogen
+particularly|adv|especially; more than usually|I'm not particularly hungry.|especially||nogen
+generally|adv|usually; also, by most people|I generally go to bed around eleven.|usually|rarely|nogen
+currently|adv|at the present time|She's currently living in Madrid.|now, presently||nogen
+previously|adv|before; earlier|I had previously worked as a waiter.|before, earlier|later|nogen
+directly|adv|straight, without stopping or anyone in between|The bus goes directly to the airport.|straight||nogen
+else|adv|other; different; also, in addition|Would you like anything else?|other||nogen
+hence|adv|for this reason|The road was icy, hence the delay.|therefore, thus||nogen
+oh|excl|used to show surprise, interest or disappointment|Oh, I didn't see you there!|||nogen
+two|num|the number 2, one more than one|We have two cats.|pair||nogen
+three|num|the number 3|The three of us went camping.|||nogen
+four|num|the number 4|A table has four legs.|||nogen
+five|num|the number 5|I'll be there in five minutes.|||nogen
+six|num|the number 6|The shop opens at six.|||nogen
+seven|num|the number 7|There are seven days in a week.|||nogen
+eight|num|the number 8|A spider has eight legs.|||nogen
+nine|num|the number 9|The film starts at nine.|||nogen
+ten|num|the number 10|I can count to ten in Spanish.|||nogen
+eleven|num|the number 11|A football team has eleven players.|||nogen
+twelve|num|the number 12|A dozen eggs is twelve eggs.|dozen||nogen
+thirteen|num|the number 13|She turns thirteen next week.|||nogen
+fourteen|num|the number 14|The bus ride takes fourteen minutes.|||nogen
+fifteen|num|the number 15|We'll leave in fifteen minutes.|||nogen
+sixteen|num|the number 16|He got his first job at sixteen.|||nogen
+seventeen|num|the number 17|There are seventeen students in my class.|||nogen
+eighteen|num|the number 18|You can vote at eighteen.|||nogen
+nineteen|num|the number 19|The museum has nineteen rooms.|||nogen
+twenty|num|the number 20|I've read twenty pages tonight.|score||nogen
+thirty|num|the number 30|There are thirty days in June.|||nogen
+forty|num|the number 40|My dad turns forty this year.|||nogen
+fifty|num|the number 50|The jacket cost fifty dollars.|||nogen
+sixty|num|the number 60|There are sixty minutes in an hour.|||nogen
+seventy|num|the number 70|My grandmother is seventy.|||nogen
+eighty|num|the number 80|The train was going eighty miles an hour.|||nogen
+ninety|num|the number 90|He lived to be ninety.|||nogen
+billion|num|a thousand million: 1,000,000,000|There are about eight billion people on Earth.|||nogen
+trillion|num|a million million: 1,000,000,000,000|The national debt runs into the trillions.|||nogen
+first|adj|coming before all others|She was the first to arrive.|earliest|last|nogen
+third|adj|coming after the second; number 3 in order|We live on the third floor.|||nogen
+fourth|adj|number 4 in order|It's my fourth cup of coffee today.|||nogen
+fifth|adj|number 5 in order|He finished fifth in the race.|||nogen
+sixth|adj|number 6 in order|It's her sixth birthday.|||nogen
+seventh|adj|number 7 in order|I'm on the seventh chapter.|||nogen
+eighth|adj|number 8 in order|They live on the eighth floor.|||nogen
+ninth|adj|number 9 in order|The game went into the ninth inning.|||nogen
+tenth|adj|number 10 in order|It's our tenth anniversary.|||nogen
+last|adj|coming after all others; also, the one before this|December is the last month of the year.|final|first|nogen
+next|adj|coming straight after this one|I'll see you next week.|following|previous|nogen
+double|adj|twice as much or as many; also, made for two|I'll have a double espresso.||single|nogen
+# Onyx 2: everyday words written by hand, where WordNet's first sense isn't the one people mean
+president|n|the elected head of a country; also, the head of a company, club or college|The president gave a speech on television.|leader, head||kind=person
+police|n|the people whose job is to keep order, prevent crime and catch criminals|We called the police when we heard the alarm.|||kind=person;mass
+position|n|the place where something is; also, a job; also, an opinion about something|Can you hold that position for a photo?|place, post, stance||kind=idea
+player|n|a person who takes part in a game or sport; also, a person who plays a musical instrument|Each player gets five cards.|competitor, musician||kind=person
+capital|n|the city where a country's or a state's government is; also, a large letter, like A; also, money used to start a business|Paris is the capital of France.|||kind=place;at=in
+holy|adj|connected with God or religion and treated with great respect|They visited a holy site in Jerusalem.|sacred, blessed|unholy
+van|n|a box-shaped vehicle for carrying goods or a group of people|The movers loaded everything into the van.|||kind=vehicle
+tech|n|informal: technology; also, a technician|She works in tech.|technology||kind=idea;mass
+sub|n|informal: a substitute player; also, a submarine; also, a long sandwich|The coach sent on a sub in the second half.|substitute||kind=person
+founder|n|a person who starts an organization, a company or a town|The founder of the company still works there.|creator||kind=person
+gear|n|equipment for a particular activity; also, one of the toothed wheels that make a machine or a bicycle go faster or slower|Pack your camping gear the night before.|equipment, kit||kind=thing;mass
+server|n|a computer that stores data or runs programs for other computers; also, a person who serves food in a restaurant|The website is down because the server crashed.|waiter||kind=thing
+bonus|n|an extra payment or reward, on top of what you expected|Everyone got a bonus at the end of the year.|reward, extra||kind=thing
+android|n|a robot that looks and moves like a human|The film is about an android that wants to be human.|robot||kind=thing
+trailer|n|an unpowered vehicle pulled by a car or truck; also, a short preview of a film|We watched the trailer for the new film.|preview||kind=vehicle
+chip|n|a small piece broken off something; also, a thin slice of fried potato; also, a tiny piece of electronics inside a computer|There's a chip in the rim of this mug.|fragment, crisp||kind=thing
+sec|n|informal: a second, a very short time|Give me a sec, I'm nearly ready.|moment, second||kind=time
+hardware|n|tools and metal parts for building and fixing things; also, the physical parts of a computer|The printer is a hardware problem, not a software one.|equipment||kind=thing;mass
+auction|n|a public sale where each thing goes to whoever offers the most money|They bought the painting at an auction.|sale||kind=event;event=luck
+completion|n|the act of finishing something|The bridge is due for completion next year.|finish, end|start|kind=idea;mass
+hood|n|a covering for the head, attached to a coat; also, the cover over a car's engine|Pull your hood up, it's raining.|cowl||kind=thing
+phoenix|n|a bird in old stories that burns itself and is born again from the ashes|The city rose like a phoenix after the fire.|||kind=animal;plural=phoenixes;nogen
+beta|n|the second letter of the Greek alphabet; also, an early version of software, released for testing|I'm testing the beta of the new app.|||kind=thing
+laser|n|a device that makes a narrow, very strong beam of light|The cat chased the red dot from the laser.|||kind=thing
+punk|n|a loud, fast style of rock music from the 1970s; also, a rude young person|He was into punk as a teenager.|||kind=media;mass
+transit|n|the moving of people or goods from one place to another; also, public transport|Most people here use public transit.|transport||kind=idea;mass
+pic|n|informal: a picture or photo|Send me a pic of the puppy!|photo, picture||kind=thing
+anime|n|a style of animated films and shows from Japan|My son watches anime every weekend.|||kind=media;mass
+gender|n|being male, female or something else, especially as a social identity|The form asks for your name, age and gender.|||kind=idea
+labour|n|work, especially hard physical work; also, the process of giving birth|The repairs cost more in labour than in parts.|work, effort|rest|kind=idea;mass;forms=labor
+defence|n|protecting someone or something from attack or criticism; also, the players in a team who try to stop the other side scoring|The team's defence was solid all game.|protection|attack|kind=idea;forms=defense
+tank|n|a large container for liquid or gas; also, a heavy armored military vehicle with a big gun|Fill the tank before the long drive.|container||kind=thing
+index|n|an alphabetical list of names and subjects at the back of a book; also, a number that shows a level, like prices|Look up the topic in the index at the back of the book.|list||kind=thing;plural=indexes
+arc|n|a curved line, like part of a circle|The ball flew in a high arc.|curve||kind=thing
+outfit|n|a set of clothes worn together|She wore a new outfit to the party.|costume, ensemble||kind=thing
+suspension|n|the springs and parts that let a vehicle ride smoothly over bumps; also, being banned for a while, from school or a team|He got a two-game suspension for the foul.|ban||kind=thing
+execution|n|the carrying out of a plan or a task; also, the killing of someone as a legal punishment|The idea was good, but the execution was poor.|performance||kind=idea
+originally|adv|at first; in the beginning|The house was originally a barn.|initially, at first|
+input|n|ideas or information that you add to something; also, data put into a computer|We'd love your input on the new design.|contribution, advice|output|kind=idea;mass
+contribute|v|to give something, along with others, to help achieve something|Everyone contributed something to the picnic.|donate, give||obj=a dish to the picnic
+arena|n|a large building with seats around a central space, for sports or concerts|The concert is at the new arena downtown.|stadium||kind=place;at=at
+feedback|n|comments about how well someone has done something, to help them improve|Thanks for the feedback on my essay.|comments, response||kind=idea;mass
+favour|n|something kind that you do to help someone|Could you do me a favour and feed the cat?|kindness||kind=idea;forms=favor
+concentration|n|giving all your attention to something|The noise made concentration impossible.|focus, attention|distraction|kind=idea;mass
+idiot|n|informal: a foolish or stupid person|I felt like an idiot when I locked my keys in the car.|fool||kind=person;nogen
+semi|n|informal: a semifinal; also, a big truck that pulls a trailer|Our team made it to the semis.|semifinal||kind=event;event=luck
+rep|n|informal: a representative; also, one time doing an exercise|Do three sets of ten reps.|representative, repetition||kind=person
+suite|n|a set of rooms, especially in a hotel; also, a piece of music in several parts|They booked the honeymoon suite.|||kind=place;at=in
+aviation|n|the flying, building and running of aircraft|She has worked in aviation for twenty years.|flying||kind=idea;mass
+barrel|n|a large round container with flat ends, for liquids like wine or oil; also, the tube of a gun|The wine is aged in oak barrels.|cask, keg||kind=thing
+tattoo|n|a picture or design made on the skin with ink and a needle|She has a small tattoo of a bird on her wrist.|||kind=thing
+arrow|n|a thin stick with a point, shot from a bow; also, a sign that shows a direction|Follow the arrows to the exit.|||kind=thing
+iconic|adj|very famous, and seen as a symbol of something|The Eiffel Tower is an iconic landmark.|famous, legendary||use=object;mood=+
+valve|n|a part that opens and closes to control the flow of liquid or gas|Turn the valve to shut off the water.|tap||kind=thing
+victorian|adj|from the time of Queen Victoria, 1837 to 1901|They live in a Victorian house with high ceilings.|||nogen;forms=Victorian
+ace|n|a playing card with one symbol on it; also, a person who is excellent at something; also, a serve the other player can't return|She's an ace at math.|expert, champion||kind=person
+defender|n|a person who protects someone or something; also, a player whose job is to stop the other team scoring|The defender blocked the shot.|protector|attacker|kind=person
+booth|n|a small enclosed space, such as for voting or selling things; also, a table with high-backed benches in a restaurant|We sat in a booth by the window.|stall, kiosk||kind=furniture
+derby|n|a horse race; also, a match between two local teams|The city is buzzing before the derby.|||kind=event;event=luck
+facial|n|a beauty treatment that cleans and softens the skin of the face|She booked a facial at the spa.|||kind=event;event=joy
+purely|adv|only; completely|We met purely by chance.|only, entirely|partly
+hull|n|the main body of a ship or a boat|The hull of the boat needs painting.|||kind=thing
+interactive|adj|reacting to what you do, so you can take part|The museum has an interactive science exhibit.|hands-on|passive|use=object
+pulse|n|the regular beat of blood through your arteries, which you can feel at your wrist|The nurse took my pulse.|heartbeat||kind=body
+comeback|n|a return to success after a time of failure; also, a quick, clever reply|The team made an amazing comeback in the second half.|return, recovery||kind=event;event=joy
+foul|v|to break the rules in a sport, especially by touching another player unfairly|He was sent off for fouling the goalkeeper.|||nogen
+hack|n|a clever trick or shortcut; also, an act of breaking into a computer system|Here's a hack for peeling eggs quickly.|trick, shortcut||kind=idea
+airline|n|a company that flies passengers or goods by plane|Which airline are you flying with?|carrier||kind=thing
+mansion|n|a very large, grand house|They live in a mansion on the hill.|manor||kind=place;at=in
+upside|n|the good part of a situation that is mostly bad|The upside of the rain is that the garden is green.|advantage, benefit|downside|kind=idea
+drone|n|a small aircraft flown by remote control; also, a male bee|We filmed the wedding with a drone.|||kind=thing
+indie|adj|made by a small, independent company, especially music, films and games|She listens to a lot of indie music.|independent|mainstream|use=object
+vinyl|n|a strong, bendable plastic; also, records made of it|My dad still listens to his old vinyl.|records||kind=thing;mass
+fossil|n|the remains or shape of a plant or animal from long ago, preserved in rock|We found a fossil of a shell on the beach.|||kind=thing
+roller|n|a cylinder that rolls, for flattening, painting or moving things|Paint the wall with a roller.|||kind=thing
+acoustic|adj|played without electric amplification; also, to do with sound|He played an acoustic set at the café.|unplugged|electric|use=object
+kitty|n|informal: a cat or a kitten; also, a pool of money shared by a group|Here, kitty, kitty!|cat, kitten||kind=animal;plural=kitties
+autism|n|a lifelong difference in how a person's brain develops, which affects how they communicate and experience the world|Her son has autism and loves trains.|||kind=idea;mass;nogen
+licence|n|an official document that gives you permission to do something, like drive a car|She passed her test and got her licence.|permit||kind=thing;forms=license
+madness|n|very foolish behavior; also, a serious mental illness, in older use|Driving in this snow is madness.|insanity, folly|sanity|kind=idea;mass
+poker|n|a card game in which players bet money on the cards they hold; also, a metal rod for stirring a fire|They play poker every Friday night.|||kind=media;mass
+fraction|n|a part of a whole number, like 1/2 or 3/4; also, a small part of something|Only a fraction of the guests stayed late.|part, portion|whole|kind=idea
+trek|n|a long, hard walk or journey|We went on a trek through the mountains.|hike, journey||kind=event;event=joy
+wit|n|the ability to say clever and funny things|Her wit makes every dinner party fun.|humor, cleverness||kind=idea;mass
+fare|n|the money you pay to travel on a bus, train or plane|The bus fare went up again.|price, fee||kind=thing
+trio|n|a group of three people or things|The jazz trio played until midnight.|threesome||kind=person
+conjunction|n|a word that joins words or parts of a sentence, like "and", "but" or "because"|"And" is the most common conjunction in English.|||kind=idea
+desktop|n|the top of a desk; also, the main screen of a computer, with its icons|Save the file to your desktop.|||kind=thing
+runway|n|a long strip of hard ground where planes take off and land; also, a long stage for fashion shows|The plane taxied to the end of the runway.|airstrip||kind=place;at=on
+aerial|adj|in or from the air|The aerial photos show the whole city.|airborne||use=object
+transgender|adj|having a gender identity that is different from the sex assigned at birth|The charity supports transgender teenagers.|trans||nogen
+shepherd|n|a person who looks after sheep|The shepherd led his flock down the hill.|herder||kind=person
+transparency|n|being open and honest, with nothing hidden; also, being clear enough to see through|Voters want more transparency from the council.|openness|secrecy|kind=idea;mass
+cod|n|a large sea fish with white flesh, often eaten|We had cod and chips by the sea.|||kind=food
+browser|n|a program for finding and viewing pages on the web|Open the link in your browser.|||kind=thing
+module|n|one of the separate parts of a course or a system|The course has six modules.|unit, part||kind=idea
+bunny|n|informal: a rabbit, especially a young one|The kids fed the bunny some carrots.|rabbit||kind=animal;plural=bunnies
+processor|n|the main chip in a computer, which carries out its instructions; also, a machine for chopping food|This laptop has a fast processor.|chip, CPU||kind=thing
+trademark|n|a name or symbol that a company has the legal right to use for its products; also, something someone is known for|His big smile is his trademark.|brand||kind=thing
+coral|n|a hard, colorful material made by tiny sea animals, which builds up into reefs|The coral was bright pink and orange.|||kind=nature;mass
+judgement|n|the ability to make good decisions; also, an opinion; also, a court's decision|I trust your judgement.|judgment, wisdom||kind=idea;forms=judgment
+censorship|n|the banning or cutting of books, films, news or speech that people in power object to|The writers protested against censorship.|||kind=idea;mass
+renewal|n|making something valid again for a new period; also, a fresh start|My passport is due for renewal.|||kind=idea
+reactor|n|a machine that makes energy from nuclear reactions|The power station has two reactors.|||kind=thing
+accidental|adj|happening by chance, not on purpose|It was an accidental discovery.|chance, unintentional|deliberate|use=object
+assassination|n|the murder of an important person, such as a leader|The assassination shocked the world.|killing||kind=event;event=sorry
+bot|n|a computer program that does tasks automatically, such as answering messages|I'm a bot, but a friendly one.|robot, program||kind=thing
+confined|adj|kept within a small space or limits|The cat hated being confined to the house.|restricted, cramped|free|use=place
+metabolism|n|the chemical processes in your body that turn food into energy|Exercise speeds up your metabolism.|||kind=body;mass
+parole|n|being let out of prison early, on condition of good behavior|He was released on parole after five years.|||kind=idea;mass
+bravo|excl|well done! said to praise a performance|Bravo! What a performance!|well done||nogen
+alignment|n|an arrangement in a straight line, or in the right position|The car's wheels are out of alignment.|||kind=idea
+fertility|n|the ability to have babies or young; also, the ability of soil to grow plants|The doctor gave them advice about fertility.|fruitfulness|infertility|kind=idea;mass
+invalid|adj|not legally or officially acceptable; also, not true or based on good reasons|My passport is invalid without a signature.|void|valid|use=object
+pathway|n|a path; also, a route to reaching something|A pathway leads down to the beach.|path, trail||kind=place;at=on
+pyramid|n|a large stone building with a square base and four sloping sides; also, a shape like it|We climbed one of the pyramids in Mexico.|||kind=place;at=at
+vault|n|a strong room for keeping money and valuables safe|The jewels are locked in a vault.|strongroom||kind=place;at=in
+hut|n|a small, simple house or shelter|We stayed in a wooden hut in the mountains.|cabin, shack||kind=place;at=in
+yen|n|the money of Japan; also, a strong wish for something|The ticket cost three thousand yen.|||kind=thing;plural=yen
+homosexual|adj|attracted to people of the same sex|The film follows a homosexual couple in the 1950s.|gay|heterosexual|nogen
+bisexual|adj|attracted to people of more than one gender|She has been openly bisexual for years.|bi||nogen
+fin|n|a thin, flat part that sticks out of a fish's body and helps it swim|We saw a shark's fin above the water.|||kind=body
+coaster|n|a small mat you put under a glass or a cup; also, a roller coaster|Use a coaster so the table doesn't get marked.|||kind=thing
+stigma|n|a feeling of shame or disgrace that people attach to something|There's still a stigma around mental illness.|shame, disgrace||kind=idea
+gill|n|the part of a fish that it breathes through|Fish breathe through their gills.|||kind=body
+pedal|n|a part you push with your foot to work a machine, like a bicycle or a piano|My foot slipped off the pedal.|||kind=thing
+dummy|n|a model of a person, used to show clothes or in crash tests; also, informal: a foolish person|The dummy in the shop window wore a red coat.|mannequin||kind=thing
+nerd|n|informal: a person who is very interested in one subject, often a technical one|He's a total computer nerd.|geek||kind=person
+pike|n|a large, fierce freshwater fish; also, a long spear|He caught a pike in the lake.|||kind=animal;plural=pike
+flock|n|a group of sheep, goats or birds|A flock of geese flew overhead.|herd||kind=animal
+gala|n|a special public celebration or performance|The school holds a gala every summer.|celebration, festival||kind=event;event=joy
+protagonist|n|the main character in a story, film or play|The protagonist of the novel is a young detective.|hero, lead||kind=person
+proprietary|adj|owned by one company and protected by law; also, behaving as if you own something|The app uses a proprietary file format.|private|open|use=object
+plaque|n|a flat piece of metal or stone with writing on it, fixed to a wall; also, a sticky film on teeth|A blue plaque marks the house where she was born.|||kind=thing
+solicitor|n|a lawyer, in Britain and some other countries, who gives legal advice and prepares documents|Their solicitor handled the sale of the house.|lawyer, attorney||kind=person
+takeover|n|the buying of one company by another; also, taking control of something by force|The takeover was announced this morning.|buyout, acquisition||kind=event;event=news
+mutation|n|a change in the genes of a living thing|The mutation makes the flowers white.|change||kind=idea
+safari|n|a trip to watch or photograph wild animals, especially in Africa|We went on a safari in Kenya.|expedition||kind=event;event=joy
+chord|n|three or more musical notes played together|She strummed a few chords on the guitar.|||kind=media
+graffiti|n|words or pictures painted or scratched on walls in public places|The underpass was covered in graffiti.|||kind=thing;mass
+aurora|n|bands of colored light in the night sky near the poles, also called the northern or southern lights|We watched the aurora dance over the lake.|northern lights||kind=nature
+analog|adj|working with signals or numbers that change smoothly, not in digital steps; also, using hands on a dial|My grandfather prefers an analog watch.|analogue|digital|use=object;forms=analogue
+sticker|n|a small piece of paper or plastic with a picture or words on one side and glue on the other|The kids put stickers all over their notebooks.|label||kind=thing
+resonance|n|a deep, full sound that continues; also, a special meaning or feeling something has for you|The song has a special resonance for me.|echo, significance||kind=idea
+knockout|n|a punch or a blow that knocks a fighter out; also, a competition in which the loser of each round leaves|He won the fight by a knockout.|||kind=event;event=luck
+geek|n|informal: a person who is very interested in technology or one particular subject|He's a computer geek who builds his own machines.|nerd||kind=person
+internship|n|a period of work, often unpaid, done to get experience in a job|She did a summer internship at a newspaper.|placement||kind=event;event=luck
+adapter|n|a device that connects two things that wouldn't otherwise fit together|I need a travel adapter for the plug.|||kind=thing;forms=adaptor
+calculus|n|a branch of mathematics that studies how things change, using limits, derivatives and integrals|She's taking calculus this year.|||kind=idea;mass
+segregation|n|keeping groups of people apart, especially by race, by law or custom|The film is about the fight against segregation.|separation|integration|kind=idea;mass
+yarn|n|thread used for knitting; also, a long story, often not quite true|She bought red yarn to knit a scarf.|wool, thread||kind=thing;mass
+dungeon|n|a dark prison underground, especially in a castle|The prisoners were kept in the dungeon.|cell||kind=place;at=in
+spirituality|n|being concerned with the spirit or the soul, rather than with material things|She finds her spirituality in nature.|||kind=idea;mass
+spoiler|n|information that gives away what happens in a story before you've seen it|No spoilers, please! I haven't seen the ending yet.|||kind=idea
+compassionate|adj|feeling or showing sympathy and care for others|The nurse was kind and compassionate.|caring, kind|cruel|use=trait;mood=+
+giveaway|n|something given free, as a gift or a prize; also, something that reveals a secret|The shop had a giveaway of free T-shirts.|freebie||kind=thing
+chassis|n|the frame of a vehicle that the body and engine are fixed to|The car's chassis was damaged in the crash.|frame||kind=thing;plural=chassis
+empowerment|n|giving people the power and confidence to control their own lives|The program focuses on the empowerment of women.|||kind=idea;mass
+skipper|n|the captain of a ship or a team|The skipper steered the boat into the harbor.|captain||kind=person
+brawl|n|a rough, noisy fight|A brawl broke out outside the bar.|fight, scuffle||kind=event;event=sorry
+pawn|n|the smallest piece in chess; also, a person used by others for their own purposes|She moved her pawn forward two squares.|||kind=thing
+spooky|adj|strange and frightening, as if there are ghosts|The old house is spooky at night.|creepy, eerie||use=place;mood=-
+canopy|n|a cover held up over something, like a bed or a stall; also, the top layer of branches in a forest|Monkeys swung through the canopy of the rainforest.|awning||kind=thing
+subscriber|n|a person who pays to receive something regularly, like a magazine or a service|The channel has a million subscribers.|member||kind=person
+viola|n|a stringed instrument like a violin, but a little larger and lower in sound|She plays the viola in the school orchestra.|||kind=thing
+denim|n|a strong cotton cloth, usually blue, used for jeans|He wore a denim jacket.|||kind=thing;mass
+roach|n|a cockroach, an insect that lives in dirty places|We saw a roach in the kitchen of the hotel.|cockroach||kind=animal;plural=roaches
+torpedo|n|a long underwater missile fired from a ship or a submarine|The submarine fired a torpedo.|||kind=thing;plural=torpedoes
+canary|n|a small yellow songbird, often kept as a pet|Our canary sings every morning.|||kind=animal
+commuter|n|a person who travels some distance to work every day|The train was packed with commuters.|||kind=person
+cleanup|n|an act of cleaning a place up|After the party, the cleanup took hours.|tidy-up||kind=idea
+berth|n|a bed on a ship or train; also, a place where a ship ties up|We booked a berth on the night train.|bunk||kind=furniture
+bunk|n|a narrow bed fixed to a wall, often one of two stacked on top of each other|The kids sleep in bunk beds.|berth||kind=furniture
+voucher|n|a printed piece of paper that you can use instead of money for something|I got a voucher for a free coffee.|coupon||kind=thing
+imitation|n|a copy of something, especially one not as good as the real thing; also, copying the way someone behaves|The bag is a cheap imitation of a designer one.|copy, fake|original|kind=thing
+stalker|n|a person who follows and watches someone in a frightening way|The singer called the police about a stalker.|||kind=person
+mixer|n|a machine for mixing, like for baking; also, a drink you add to alcohol|She whisked the eggs with an electric mixer.|blender||kind=thing
+hive|n|a box or a nest where bees live; also, a busy place|The hive was buzzing with bees.|beehive||kind=thing
+cub|n|a young bear, lion, fox or wolf|The bear watched her cubs play.|||kind=animal
+siren|n|a device that makes a loud warning sound, like on an ambulance; also, a creature in Greek stories who lured sailors|We heard a siren in the distance.|alarm||kind=thing
+relegation|n|being moved down to a lower division in a sports league|The team is fighting relegation.|demotion|promotion|kind=idea;mass
+mayhem|n|great confusion and disorder|The kids' party was total mayhem.|chaos|order|kind=idea;mass
+auditor|n|a person whose job is to check a company's accounts|The auditor found a mistake in the books.|||kind=person
+negativity|n|a tendency to be gloomy and to see the bad side of things|Her negativity brings everyone down.|pessimism|positivity|kind=idea;mass
+blockbuster|n|a book or a film that is very popular and successful|The film was the summer's biggest blockbuster.|hit||kind=media
+cameo|n|a small part in a film or play, played by a famous person|The author makes a cameo in the film.|||kind=media
+grit|n|tiny pieces of stone or sand; also, courage and determination|It takes grit to finish a marathon.|courage, determination||kind=idea;mass
+advert|n|informal: an advertisement|I saw an advert for the job online.|ad, advertisement||kind=media
+hospice|n|a place that cares for people who are dying|She worked as a nurse at a hospice.|||kind=place;at=at
+novice|n|a person who is new to an activity and doesn't have much experience|I'm a complete novice at golf.|beginner|expert|kind=person
+moderator|n|a person who keeps a discussion or debate fair and in order|The moderator gave each candidate two minutes.|chair||kind=person
+thrift|n|being careful with money and not wasting it; also, a secondhand shop|She bought the jacket at a thrift store.|frugality|waste|kind=idea;mass
+turnaround|n|a sudden change from a bad situation to a good one|The team's turnaround this season has been amazing.|reversal||kind=idea
+# Onyx 2: kinds of living thing, for "is a whale a mammal" and "name some reptiles"
+alligator|n|a large reptile like a crocodile, with a wider, rounder snout, found in the Americas and China|An alligator slid into the swamp.|||kind=animal
+mammal|n|a warm-blooded animal with hair or fur that feeds its young on milk|Whales and bats are both mammals.|||kind=animal;nogen
+reptile|n|a cold-blooded animal with dry, scaly skin that usually lays eggs, such as a snake or a lizard|The zoo has a house full of reptiles.|||kind=animal;nogen
+amphibian|n|a cold-blooded animal, such as a frog or a newt, that lives both in water and on land|Frogs are amphibians that start life as tadpoles.|||kind=animal;nogen
+insect|n|a small animal with six legs and a body in three parts, such as an ant or a bee|An insect landed on my sandwich.|bug||kind=animal;nogen
+rodent|n|a small mammal with sharp front teeth for gnawing, such as a mouse or a squirrel|Squirrels and hamsters are rodents.|||kind=animal;nogen
+primate|n|a mammal of the group that includes monkeys, apes and humans|Gorillas are the largest primates.|||kind=animal;nogen
+vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all vertebrates.|||kind=animal;nogen
 `;
 
-	const POS = { n: 'noun', v: 'verb', adj: 'adjective', adv: 'adverb', conj: 'conjunction', prep: 'preposition', excl: 'exclamation', pron: 'pronoun' };
+	const POS = { n: 'noun', v: 'verb', adj: 'adjective', adv: 'adverb', conj: 'conjunction', prep: 'preposition', excl: 'exclamation', pron: 'pronoun', det: 'determiner', num: 'number', aux: 'auxiliary verb' };
 	const list = (s) => (s ? s.split(',').map((x) => x.trim()).filter(Boolean) : undefined);
 
+	const LISTS = new Set(['forms', 'variants', 'isa', 'has', 'partof', 'inflect']);
 	function parse(text) {
 		return text.split('\n').filter((line) => line.trim() && !line.startsWith('#')).map((line) => {
 			const [w, pos, def, ex, syn, ant, hints] = line.split('|');
 			const e = { w, pos: POS[pos], def, ex, syn: list(syn), ant: list(ant) };
 			for (const hint of hints ? hints.split(';') : []) {
 				const [k, v] = hint.split('=');
-				e[k] = v === undefined ? true : k === 'forms' || k === 'variants' ? list(v) : v;
+				e[k] = v === undefined ? true : LISTS.has(k) ? list(v) : v;
 			}
 			return e;
 		});
 	}
 
-	const WORDS = parse(DATA);
+	// The hand-written core, then the generated lexicon (onyx-lexicon.js, from WordNet), when it is loaded.
+	const CORE = parse(DATA);
+	const LEX = Omni.onyxLexicon || null;
+	const GENERATED = LEX ? parse(LEX.words) : [];
+	GENERATED.forEach((e) => (e.src = 'wordnet'));
+	if (LEX) {
+		const byKey = new Map(CORE.map((e) => [e.w + '|' + e.pos, e]));
+		for (const line of LEX.core.split('\n')) {
+			const [w, pos, isa, has, partof, forms] = line.split('|');
+			const e = byKey.get(w + '|' + POS[pos]);
+			if (!e) continue;
+			if (isa) e.isa = list(isa);
+			if (has) e.has = list(has);
+			if (partof) e.partof = list(partof);
+			// A participle from WordNet ("begun"), unless the core already spells it out.
+			if (forms && forms.startsWith('pp=') && !e.pp && forms.slice(3) !== e.past) e.pp = forms.slice(3);
+		}
+	}
+	const WORDS = CORE.concat(GENERATED);
+	if (LEX) {
+		const byWord = new Map();
+		WORDS.forEach((e) => (byWord.get(e.w) || byWord.set(e.w, []).get(e.w)).push(e));
+		for (const line of LEX.pron.split('\n')) {
+			const [w, ipa] = line.split('|');
+			(byWord.get(w) || []).forEach((e) => (e.ipa = ipa));
+		}
+	}
 
 	/* ---------- Word forms ---------- */
 
@@ -3274,7 +3684,8 @@ portfolio|n|a collection of someone's work, shown to others|She brought her port
 		const [w, ...rest] = e.w.split(' ');
 		return [fn(w), ...rest].join(' ');
 	};
-	const third = verbForm((w) => {
+	const third = (e) => e.third || regularThird(e);
+	const regularThird = verbForm((w) => {
 		if (w === 'go') return 'goes';
 		if (/(s|x|z|ch|sh)$/.test(w)) return w + 'es';
 		if (/[^aeiou]y$/.test(w)) return w.slice(0, -1) + 'ies';
@@ -3323,8 +3734,10 @@ portfolio|n|a collection of someone's work, shown to others|She brought her port
 		if (e.pos === 'verb') {
 			add(third(e), e, 'present');
 			add(past(e), e, 'past tense');
+			if (e.pp) add(e.pp, e, 'past participle');
 			add(ing(e), e, '-ing form');
 		}
+		(e.inflect || []).forEach((f) => add(f, e, 'form'));
 		if (e.pos === 'adjective') {
 			const [er, est] = compare(e);
 			if (er) {
@@ -3342,7 +3755,7 @@ portfolio|n|a collection of someone's work, shown to others|She brought her port
 		return index.get(w) || null;
 	}
 
-	const FORM_NAMES = { plural: 'the plural of', present: 'a present-tense form of', 'past tense': 'the past tense of', '-ing form': 'the -ing form of', comparative: 'the comparative of', superlative: 'the superlative of', spelling: 'another spelling of', variant: 'an informal form of' };
+	const FORM_NAMES = { form: 'a form of', 'past participle': 'the past participle of', plural: 'the plural of', present: 'a present-tense form of', 'past tense': 'the past tense of', '-ing form': 'the -ing form of', comparative: 'the comparative of', superlative: 'the superlative of', spelling: 'another spelling of', variant: 'an informal form of' };
 
 	/** "ran" -> "**Ran** is the past tense of **run**.\n\n", so the definition that follows makes sense. */
 	function formNote(word, hits) {
@@ -3354,14 +3767,27 @@ portfolio|n|a collection of someone's work, shown to others|She brought her port
 
 	const also = (e) => [e.syn && e.syn.length ? `Similar: ${e.syn.join(', ')}.` : '', e.ant && e.ant.length ? `Opposite: ${e.ant.join(', ')}.` : ''].filter(Boolean).join(' ');
 
-	/** A dictionary entry for a word, as Markdown; null if the word isn't in it. */
+	const KIND_LINE = (e) => (e.isa && e.isa.length ? `\nA kind of ${e.isa.slice(0, 3).join(', ')}.` : '');
+	const sayIpa = (e) => (e.ipa ? ` /${e.ipa}/` : '');
+
+	/** A dictionary entry for a word, as Markdown: pronunciation, part of speech, definition, example, related words. */
 	function define(word) {
 		const hits = lookup(word);
 		if (!hits) return null;
 		const entries = hits.filter((x) => !x.label).length ? hits.filter((x) => !x.label).map((x) => x.e) : hits.map((x) => x.e);
-		const sense = (e) => `${e.def[0].toUpperCase()}${e.def.slice(1)}.\n*"${e.ex}"*${also(e) ? '\n' + also(e) : ''}`;
-		const body = entries.length === 1 ? `**${entries[0].w}** *(${entries[0].pos})*\n${sense(entries[0])}` : `**${entries[0].w}**\n\n${entries.map((e, i) => `${i + 1}. *(${e.pos})* ${sense(e)}`).join('\n\n')}`;
-		return formNote(word, hits) + body;
+		// A short example is a phrase ("some paper"); a full one is a sentence.
+		const quote = (ex) => (/[.!?]["']?$/.test(ex) ? `*"${ex}"*` : `*"${ex}"* (as in)`);
+		const sense = (e) => `${e.def[0].toUpperCase()}${e.def.slice(1)}.\n${quote(e.ex)}${also(e) ? '\n' + also(e) : ''}${KIND_LINE(e)}`;
+		// Several words can share a spelling ("analyses": analysis and analyse): each gets its own heading.
+		const groups = [];
+		for (const e of entries) {
+			const g = groups.find((x) => x.w === e.w);
+			if (g) g.list.push(e);
+			else groups.push({ w: e.w, list: [e] });
+		}
+		const block = (g) => (g.list.length === 1 ? `**${g.w}** *(${g.list[0].pos})*${sayIpa(g.list[0])}\n${sense(g.list[0])}` : `**${g.w}**${sayIpa(g.list[0])}\n\n${g.list.map((e, i) => `${i + 1}. *(${e.pos})* ${sense(e)}`).join('\n\n')}`);
+		const note = groups.length > 1 && !groups.some((g) => g.w.toLowerCase() === clean(word)) ? `**${clean(word)}** is a form of ${groups.map((g) => `**${g.w}**`).join(' and of ')}.\n\n` : formNote(word, hits);
+		return note + groups.map(block).join('\n\n');
 	}
 
 	/** "Some words like **happy**: glad, cheerful." or the opposites; null if the word is unknown. */
@@ -3461,5 +3887,130 @@ portfolio|n|a collection of someone's work, shown to others|She brought her port
 		return { text: s, word: e.w };
 	}
 
-	Omni.onyxDictionary = { WORDS, lookup, define, related, partOfSpeech, sentence, forms: { plural, third, past, ing }, a, size: new Set(WORDS.map((e) => e.w.toLowerCase())).size };
+	/* ---------- Thinking with the dictionary ---------- */
+
+	const nounsOf = (word) => (lookup(word) || []).map((x) => x.e).filter((e) => e.pos === 'noun');
+	const same = (a, b) => a.toLowerCase() === b.toLowerCase();
+	/** The base noun a word names: "mammals" -> "mammal", "Fish" -> "fish". */
+	const baseNoun = (word) => {
+		const n = nounsOf(word)[0];
+		if (n) return n.w;
+		const w = clean(word);
+		return w.replace(/ies$/, 'y').replace(/(ch|sh|x|ss)es$/, '$1').replace(/([^s])s$/, '$1');
+	};
+
+	/**
+	 * Whether `x` is a kind of `y` ("whale", "mammal"). Returns { yes, e, path } where path runs from x up to y, or
+	 * { yes: false, e } when x is known but y isn't among the things it is a kind of; null when x has no such data.
+	 */
+	function isA(x, y) {
+		const ys = new Set([clean(y), baseNoun(y)].map((w) => w.toLowerCase()));
+		const xs = nounsOf(x).filter((e) => e.isa && e.isa.length);
+		for (const e of xs) {
+			const i = e.isa.findIndex((k) => ys.has(k.toLowerCase()) || ys.has(baseNoun(k).toLowerCase()));
+			if (i >= 0) return { yes: true, e, path: [e.w, ...e.isa.slice(0, i + 1)] };
+			// The definition may say it outright: "a very large sea mammal".
+			if ([...ys].some((w) => new RegExp(`\\b${w}s?\\b`, 'i').test(e.def))) return { yes: true, e, path: [e.w, [...ys][0]] };
+		}
+		return xs.length ? { yes: false, e: xs[0] } : null;
+	}
+
+	let hypo = null;
+	/** Dictionary nouns that are a kind of `y` ("birds": robin, eagle...), the everyday ones first. */
+	function kinds(y, limit = 10) {
+		if (!hypo) {
+			hypo = new Map();
+			for (const e of WORDS) {
+				if (e.pos !== 'noun' || !e.isa || /^[A-Z]/.test(e.w)) continue;
+				e.isa.forEach((k, depth) => {
+					const key = k.toLowerCase();
+					if (!hypo.has(key)) hypo.set(key, []);
+					hypo.get(key).push({ w: e.w, depth: Math.min(depth, 3) });
+				});
+			}
+		}
+		// The most direct kinds first (an apple is a fruit; corn only by way of seeds), the everyday words first within that.
+		// "Fruits" means the ones you eat: WordNet's "edible fruit", where there is one, comes first.
+		const key = hypo.has(baseNoun(y).toLowerCase()) ? baseNoun(y).toLowerCase() : clean(y).toLowerCase();
+		const found = [...(hypo.get('edible ' + key) || []), ...(hypo.get(key) || [])];
+		const list = [...new Set(found.map((x, i) => [x, i]).sort((a, b) => a[0].depth - b[0].depth || a[1] - b[1]).map(([x]) => x.w))];
+		return { words: list.slice(0, limit), total: list.length };
+	}
+
+	/** The nearest thing two nouns are both a kind of: "crocodile" and "alligator" -> "crocodilian reptile". */
+	function common(a, b) {
+		const ea = nounsOf(a).find((e) => e.isa);
+		const eb = nounsOf(b).find((e) => e.isa);
+		if (!ea || !eb) return null;
+		const up = new Set(eb.isa.map((k) => k.toLowerCase()));
+		const shared = ea.isa.find((k) => up.has(k.toLowerCase()));
+		return shared ? { a: ea, b: eb, shared } : { a: ea, b: eb, shared: null };
+	}
+
+	// Pronunciations give syllables and rhymes: the rhyme is everything from the last stressed vowel on.
+	const IPA_VOWEL = /(?:aɪ|aʊ|eɪ|oʊ|ɔɪ|[aeiouæɑɔəɛɪʊʌɝɚ])/g;
+	function syllableCount(word) {
+		const e = (lookup(word) || []).map((x) => x.e).find((x) => x.ipa);
+		if (e) return { n: (e.ipa.match(IPA_VOWEL) || []).length, ipa: e.ipa, w: e.w };
+		const w = clean(word);
+		const n = (w.replace(/e$/, '').match(/[aeiouy]+/g) || []).length || 1;
+		return { n, ipa: null, w };
+	}
+	const rhymeKey = (ipa) => {
+		const word = ipa.split(' ').pop();
+		const at = word.lastIndexOf('ˈ');
+		const tail = at >= 0 ? word.slice(at + 1) : word;
+		const m = tail.match(/(?:aɪ|aʊ|eɪ|oʊ|ɔɪ|[aeiouæɑɔəɛɪʊʌɝɚ]).*$/);
+		return m ? m[0] : null;
+	};
+	let rhymeIndex = null;
+	/** Dictionary words that rhyme with `word`, the everyday ones first. */
+	function rhymes(word, limit = 12) {
+		if (!rhymeIndex) {
+			rhymeIndex = new Map();
+			for (const e of WORDS) {
+				if (!e.ipa || /^[A-Z]/.test(e.w) || e.w.includes(' ')) continue;
+				const k = rhymeKey(e.ipa);
+				if (!k) continue;
+				if (!rhymeIndex.has(k)) rhymeIndex.set(k, []);
+				if (!rhymeIndex.get(k).includes(e.w)) rhymeIndex.get(k).push(e.w);
+			}
+		}
+		const e = (lookup(word) || []).map((x) => x.e).find((x) => x.ipa);
+		if (!e) return null;
+		const list = (rhymeIndex.get(rhymeKey(e.ipa)) || []).filter((w) => w !== e.w);
+		return { w: e.w, words: list.slice(0, limit), total: list.length };
+	}
+
+	/** Dictionary words that start (or end) with some letters, the everyday ones first. */
+	function affix(letters, end, limit = 12) {
+		const l = letters.toLowerCase();
+		const list = [...new Set(WORDS.filter((e) => !/^[A-Z]/.test(e.w) && !e.w.includes(' ') && (end ? e.w.endsWith(l) : e.w.startsWith(l)) && e.w !== l).map((e) => e.w))];
+		return { words: list.slice(0, limit), total: list.length };
+	}
+
+	let anagramIndex = null;
+	const sortLetters = (w) => [...w.toLowerCase().replace(/[^a-z]/g, '')].sort().join('');
+	/** Dictionary words made of exactly the same letters: "listen" -> silent, enlist, tinsel. */
+	function anagrams(word) {
+		if (!anagramIndex) {
+			anagramIndex = new Map();
+			for (const e of WORDS) {
+				if (/^[A-Z]/.test(e.w) || e.w.includes(' ') || e.w.length < 3) continue;
+				const k = sortLetters(e.w);
+				if (!anagramIndex.has(k)) anagramIndex.set(k, new Set());
+				anagramIndex.get(k).add(e.w);
+			}
+		}
+		return [...(anagramIndex.get(sortLetters(word)) || [])].filter((w) => w !== clean(word));
+	}
+
+	/** A word worth learning, the same one all day: from the generated part, with a full example sentence. */
+	function wordOfTheDay(date = new Date()) {
+		const pool = WORDS.filter((e) => e.src && e.w.length >= 6 && /[.!?]$/.test(e.ex) && !/^[A-Z]/.test(e.w) && e.pos !== 'adverb');
+		const day = Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000);
+		return pool[(day * 7919) % pool.length];
+	}
+
+	Omni.onyxDictionary = { WORDS, CORE, lookup, define, related, partOfSpeech, sentence, isA, kinds, common, syllables: syllableCount, rhymes, affix, anagrams, wordOfTheDay, baseNoun, forms: { plural, third, past, ing }, a, size: new Set(WORDS.map((e) => e.w.toLowerCase())).size };
 })();

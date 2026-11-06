@@ -1,0 +1,2612 @@
+# Example sentences written for Onyx, for common words whose WordNet entry has none. Used by tools/build-lexicon.py.
+# word|pos|example        an example for the WordNet definition
+# word|-                  leave the word out (mostly names and abbreviations that WordNet defines oddly)
+# Words whose WordNet definition was wrong or obscure aren't here: they have full, hand-written entries in onyx-dictionary.js.
+non|-
+west|n|The sun sets in the west.
+east|adj|We stayed on the east side of the island.
+director|n|The director approved the new budget.
+league|n|Our team finished second in the league.
+hell|-
+lord|n|The lord of the manor owned all the land around the village.
+code|n|The building has to meet the fire code.
+financial|adj|She asked her bank for financial advice.
+army|n|My grandfather served in the army for six years.
+sir|n|Excuse me, sir, you dropped your wallet.
+district|n|They live in the business district downtown.
+percent|n|Only ten percent of the tickets are left.
+anti|-
+income|n|Rent takes almost half of her income.
+justice|n|The protesters demanded justice for the victims.
+collection|n|He has a huge collection of old coins.
+gun|n|The officer keeps her gun locked in a safe.
+insurance|n|Our insurance covered the damage from the storm.
+cancer|n|My aunt is recovering from cancer.
+trump|-
+analysis|n|The analysis showed that sales had doubled.
+congress|n|Congress voted on the new bill today.
+disease|n|Washing your hands helps stop the spread of disease.
+smith|-
+christian|adj|They run a Christian charity for the homeless.
+equipment|n|We packed all our camping equipment into the car.
+drug|n|The doctor prescribed a new drug for his asthma.
+executive|n|She's a senior executive at a software company.
+murder|n|The detective solved the murder in the last chapter.
+prior|adj|No prior experience is needed for the job.
+cent|n|The candy costs fifty cents.
+tom|-
+twitter|-
+fund|n|We set up a fund to repair the school roof.
+rise|v|Prices rise every year.
+chairman|n|The chairman opened the meeting at nine.
+method|n|This is the easiest method for peeling garlic.
+mike|-
+prison|n|He spent three years in prison.
+senate|n|The senate passed the law by two votes.
+christ|-
+spirit|n|The team never lost its fighting spirit.
+concept|n|The concept of time is hard to explain to a child.
+criminal|n|The police caught the criminal at the airport.
+investigation|n|The investigation took over a year.
+henry|-
+injury|n|She missed the game with a knee injury.
+martin|-
+parliament|n|Parliament will debate the bill next week.
+strategy|n|We need a better strategy to win the game.
+lee|-
+zone|n|You can't park in a loading zone.
+governor|n|The governor visited the flooded towns.
+crew|n|The crew worked through the night to finish the set.
+attorney|n|Her attorney advised her not to sign.
+ray|-
+user|n|Every user gets their own password.
+combined|adj|Their combined income is enough for a mortgage.
+transport|v|The trucks transport fruit across the country.
+drama|n|She's starring in a new drama on television.
+entry|n|I wrote a long entry in my diary last night.
+era|n|The smartphone started a new era.
+relations|n|Relations between the two countries have improved.
+route|n|We took the scenic route along the coast.
+squad|n|The squad patrolled the village at night.
+candidate|n|Each candidate gave a short speech.
+jersey|n|He wore his lucky jersey to every match.
+max|-
+payment|n|The last payment on the car is due in May.
+maintain|v|It's hard to maintain a garden in this heat.
+aircraft|n|The aircraft landed safely in the fog.
+debate|n|The debate went on until midnight.
+revenue|n|The company's revenue grew by ten percent.
+secure|v|She secured a place at a top university.
+temperature|n|The temperature dropped below freezing last night.
+troops|n|The troops returned home in the spring.
+elected|adj|The elected members met for the first time.
+iii|-
+editor|n|The editor cut two pages from my article.
+jail|n|He spent a night in jail for drunk driving.
+mayor|n|The mayor opened the new library.
+assembly|n|The engine assembly was shipped from Germany.
+solo|n|The guitarist played a long solo.
+wing|n|The bird spread its wings and flew off.
+entertainment|n|The band provided the entertainment for the wedding.
+info|n|Send me the info about the trip when you get it.
+statistics|n|She's taking a course in statistics.
+corporation|n|He works for a large corporation in Chicago.
+kinda|adv|I'm kinda tired, to be honest.
+heaven|n|This beach is heaven on a hot day.
+senator|n|The senator answered questions from voters.
+academy|n|She trained at a dance academy in London.
+category|n|Which category does this book belong in?
+lane|n|We drove down a narrow lane between the fields.
+navy|n|His brother joined the navy after school.
+normally|adv|I normally walk to work.
+programme|n|Check the programme to see when the band plays.
+scheme|n|The council started a recycling scheme.
+storage|n|We rent a unit for extra storage.
+transportation|n|The city needs better public transportation.
+weekly|n|She writes a column for the local weekly.
+assets|n|The company sold its assets to pay its debts.
+consumer|n|The new law protects the consumer.
+depression|n|She got help for her depression and is doing much better.
+personnel|n|Only authorized personnel may enter this room.
+perspective|n|Living abroad gave me a new perspective.
+premier|n|The premier announced new elections.
+victim|n|The victim of the robbery gave a statement.
+amazon|-
+carbon|n|Diamonds are made of pure carbon.
+deputy|n|The deputy took over while the sheriff was away.
+interior|n|The interior of the car smelled brand new.
+legislation|n|New legislation bans plastic bags.
+maintenance|n|The pool is closed for maintenance.
+matt|-
+panel|n|A glass panel in the door was cracked.
+advertising|n|They spend a lot of money on advertising.
+bible|n|This cookbook is my kitchen bible.
+championship|n|They won the championship three years in a row.
+client|n|The lawyer met her client at the courthouse.
+soviet|-
+sample|n|The shop gave out free samples of cheese.
+introduction|n|The introduction of the new rules caused confusion.
+campus|n|The library is in the middle of the campus.
+comedy|n|We watched a romantic comedy last night.
+commander|n|The commander gave the order to retreat.
+democracy|n|In a democracy, people vote for their leaders.
+fee|n|There's a small fee for using the gym.
+ford|n|We crossed the stream at the ford.
+miller|n|The miller ground the wheat into flour.
+monthly|n|She subscribes to a monthly about gardening.
+roman|-
+cabinet|n|The glasses are in the cabinet above the sink.
+coal|n|They burned coal to heat the house.
+inch|n|The snail moved an inch in a minute.
+initially|adv|Initially I didn't like the city, but now I love it.
+jury|n|The jury found him not guilty.
+monster|n|My little brother thinks there's a monster under his bed.
+repeat|v|Could you repeat the question?
+settlement|n|The first settlement was built near the river.
+auto|n|He works at an auto repair shop.
+percentage|n|What percentage of students passed the exam?
+bullshit|-
+clothing|n|Bring warm clothing for the trip.
+defend|v|She defended her friend when the others teased him.
+technique|n|The coach showed us a new breathing technique.
+accused|n|The accused stood up as the judge entered.
+infrastructure|n|The country is investing in roads and other infrastructure.
+poverty|n|Too many children grow up in poverty.
+railway|n|The railway runs along the coast.
+transition|n|The transition to the new school was easy.
+acid|n|Lemon juice contains citric acid.
+administrative|adj|She handles the administrative side of the business.
+angel|n|The card had a little angel painted on it.
+charity|n|She gives part of her salary to charity.
+duke|n|The duke lived in a castle by the sea.
+enforcement|n|Enforcement of the speed limit is strict here.
+formula|n|Write down the formula for the area of a circle.
+fort|n|The soldiers defended the fort for weeks.
+mac|-
+publication|n|The magazine is a monthly publication.
+legend|n|Legend says a dragon once lived in these hills.
+lieutenant|n|The lieutenant led his platoon across the river.
+passion|n|Cooking is her real passion.
+commissioner|n|The police commissioner held a press conference.
+output|n|The factory doubled its output this year.
+participate|v|Everyone is welcome to participate in the race.
+racist|n|He was called out as a racist after the comments.
+walker|n|The trail is popular with walkers and cyclists.
+aspect|n|Cost is just one aspect of the decision.
+colonel|n|The colonel inspected the troops.
+deck|n|We sat on the deck and watched the sunset.
+illness|n|He missed a week of school because of illness.
+saint|n|The church is named after a saint.
+steal|v|Someone stole my bike from outside the shop.
+elite|n|Only the elite could afford to travel back then.
+ownership|n|The ownership of the house passed to her son.
+broadcast|n|We watched the live broadcast of the concert.
+citizen|n|She became a citizen last year.
+lifetime|n|It was the trip of a lifetime.
+mortgage|n|They took out a mortgage to buy the house.
+reduction|n|There's a big reduction in price this week.
+amendment|n|The committee proposed an amendment to the law.
+angle|n|A square has four right angles.
+berlin|-
+bishop|n|The bishop led the service at the cathedral.
+commonly|adv|This mistake is commonly made by beginners.
+forum|n|I asked my question on an online forum.
+jay|n|A blue jay landed on the bird feeder.
+mill|n|The old mill by the river is now a museum.
+oxford|-
+pope|n|The pope spoke to the crowd in the square.
+possession|n|The police found the stolen goods in his possession.
+agriculture|n|Agriculture is the main industry in the region.
+anna|-
+commerce|n|The city grew into a center of commerce.
+fraud|n|He was arrested for credit card fraud.
+honour|n|It's an honour to meet you.
+hook|v|She hooked the trailer to the back of the car.
+legacy|n|She left a small legacy to each of her grandchildren.
+ratio|n|The ratio of boys to girls in the class is two to one.
+sin|n|Wasting good food feels like a sin.
+survival|n|Clean water is essential for survival.
+sword|n|The knight drew his sword.
+achievement|n|Finishing the marathon was a huge achievement.
+behaviour|n|The teacher praised the children's good behaviour.
+destruction|n|The storm left a path of destruction.
+initiative|n|She showed initiative by starting the project herself.
+jean|-
+objective|n|Our main objective is to finish by Friday.
+organisation|n|She works for a charity organisation.
+privacy|n|Close the curtains for some privacy.
+regard|v|Many people regard her as the best singer of her generation.
+script|n|The actors read through the script together.
+tube|n|Squeeze the last of the toothpaste out of the tube.
+cant|-
+carter|-
+concluded|adj|The concluded agreement was signed by both sides.
+josh|-
+luxury|n|A long bath is my favorite luxury.
+outcome|n|We're waiting for the outcome of the vote.
+poll|n|A new poll shows the race is very close.
+sept|-
+terrorist|n|The terrorist was arrested before the attack.
+virgin|-
+commonwealth|n|Massachusetts is officially a commonwealth.
+fame|n|She found fame after her first album.
+instant|n|For an instant, I thought I'd lost my phone.
+maria|-
+punishment|n|The punishment for being late was extra homework.
+rapidly|adv|The water level rose rapidly.
+reader|n|She's a fast reader.
+representation|n|The painting is a representation of the city at night.
+billy|-
+compensation|n|She received compensation for the delayed flight.
+conservation|n|The group works on the conservation of forests.
+density|n|The population density is very high in the city.
+guidance|n|She thanked her teacher for his guidance.
+participation|n|Participation in the survey is voluntary.
+pregnancy|n|She felt great throughout her pregnancy.
+priest|n|The priest married them in a small chapel.
+satellite|n|The satellite sends back weather images.
+transmission|n|The storm interrupted the radio transmission.
+wildlife|n|The park is full of wildlife.
+faculty|n|She has a remarkable faculty for languages.
+fighter|n|She's a real fighter and never gives up.
+humanity|n|She treated the prisoners with humanity.
+innovation|n|The company is known for innovation.
+manual|n|Check the manual before you set up the printer.
+registration|n|Registration for the course closes on Friday.
+rick|-
+romance|n|Their romance began on a summer holiday.
+arsenal|n|She has an arsenal of kitchen gadgets.
+database|n|All the orders are stored in a database.
+discrimination|n|The law forbids discrimination at work.
+distributed|adj|The team works in a distributed way, from five cities.
+stability|n|The ladder needs more stability.
+treaty|n|The two countries signed a peace treaty.
+agenda|n|The first item on the agenda is the budget.
+cape|n|The lighthouse stands at the tip of the cape.
+equity|n|They have a lot of equity in their house.
+graham|-
+petition|n|Over a thousand people signed the petition.
+regime|n|The old regime was overthrown in the revolution.
+shield|n|The knight raised his shield.
+wisdom|n|My grandmother is full of wisdom.
+beast|n|The beast in the story turns out to be a prince.
+dec|-
+disabled|adj|The building has a ramp for disabled visitors.
+followers|n|The singer has millions of followers online.
+fool|n|I felt like a fool for believing him.
+franchise|n|He owns a pizza franchise downtown.
+interaction|n|The app is designed for easy interaction.
+jet|n|The jet took off with a roar.
+lifestyle|n|Moving to the country changed our whole lifestyle.
+sole|n|There's a hole in the sole of my shoe.
+tale|n|She told us a tale about a ghost in the attic.
+ton|n|The truck can carry ten tons.
+bass|n|He sings bass in the choir.
+con|n|Let's list the pros and cons.
+globe|n|The teacher spun the globe and pointed to Peru.
+knight|n|The knight rode off to fight the dragon.
+logo|n|The company changed its logo last year.
+revenge|n|The movie is about a man seeking revenge.
+specialist|n|My doctor sent me to a specialist.
+copper|n|The pipes are made of copper.
+corp|-
+passage|n|The passage of time healed the wound.
+vessel|n|The heart pumps blood through the vessels.
+conspiracy|n|He believes the moon landing was a conspiracy.
+controversy|n|The decision caused a lot of controversy.
+cooper|-
+equality|n|They marched for equality.
+federation|n|The football federation chose a new coach.
+guardian|n|Her uncle became her legal guardian.
+lover|n|He's a lover of jazz.
+offense|n|No offense, but your music is too loud.
+spectrum|n|A rainbow shows the whole spectrum of colors.
+warren|n|The rabbits disappeared into their warren.
+emperor|n|The emperor ruled for forty years.
+inspector|n|The inspector questioned the suspect.
+khan|-
+pipe|n|My grandfather smoked a pipe.
+powder|n|She dusted the cake with powder sugar.
+racism|n|The school runs workshops against racism.
+shelter|n|We took shelter from the rain under a tree.
+signature|n|Please put your signature at the bottom.
+tribute|n|The concert was a tribute to the late singer.
+venue|n|The venue for the wedding is a barn by the lake.
+abortion|n|Abortion is a divisive issue in many countries.
+bullet|n|The bullet hit the target.
+consistently|adv|She consistently gets top grades.
+copyright|n|The author holds the copyright to the book.
+democrat|n|He has been a lifelong democrat.
+formerly|adv|The café was formerly a bank.
+mama|n|The baby cried for her mama.
+marshall|-
+nelson|-
+terrorism|n|The government passed new laws against terrorism.
+terry|-
+treasury|n|The treasury announced new coins.
+asset|n|Her calm voice is a real asset in a crisis.
+charter|n|The city's charter was signed in 1820.
+coalition|n|A coalition of parties formed the government.
+maker|n|She is a maker of fine furniture.
+affordable|adj|We found an affordable flat near the station.
+batman|-
+bobby|-
+charlotte|-
+departure|n|Our departure was delayed by fog.
+employer|n|My employer pays for my bus pass.
+fluid|n|Drink plenty of fluids when you have a cold.
+integration|n|School integration was a key goal of the civil rights movement.
+pension|n|My grandfather lives on his pension.
+perry|-
+slight|n|She took his comment as a slight.
+socialist|n|He was a socialist all his life.
+sue|v|She sued the company for damages.
+viewers|n|Millions of viewers watched the final.
+creator|n|The creator of the show answered fans' questions.
+evaluation|n|Every employee gets a yearly evaluation.
+franklin|-
+manufacturer|n|The manufacturer recalled the faulty phones.
+nonsense|n|Don't talk nonsense.
+slavery|n|The museum tells the history of slavery.
+transformation|n|The old warehouse went through a complete transformation.
+bronze|n|She won a bronze medal in the relay.
+bug|n|There's a bug crawling on the window.
+developer|n|The developer built fifty new homes.
+diagnosis|n|The doctor confirmed the diagnosis.
+dismissed|adj|The dismissed workers protested outside the factory.
+dose|n|Take one dose of the medicine every morning.
+marijuana|n|Marijuana is legal in some states.
+opponent|n|She shook hands with her opponent after the match.
+pollution|n|Air pollution is bad in the city today.
+prisoner|n|The prisoner was released after ten years.
+privilege|n|It's a privilege to work with such a talented team.
+radar|n|The ship showed up on the radar.
+villa|n|We rented a villa with a pool.
+wright|-
+bacteria|n|Wash your hands to get rid of bacteria.
+cargo|n|The ship was carrying a cargo of bananas.
+census|n|The census counts everyone in the country every ten years.
+commentary|n|He gave a live commentary on the match.
+electronics|n|He studied electronics at college.
+emerging|adj|She works with emerging artists.
+ethics|n|The class discussed the ethics of eating meat.
+insight|n|Her book offers real insight into family life.
+nerve|n|The dentist hit a nerve.
+sandy|adj|The boy has sandy hair and freckles.
+sustainable|adj|They're looking for more sustainable ways to farm.
+tobacco|n|Tobacco smoke fills the old room.
+turner|-
+animation|n|There was a lot of animation in her voice.
+bias|n|The judge must not show any bias.
+classification|n|The classification of animals into groups is called taxonomy.
+clue|n|The detective found a clue under the rug.
+cole|-
+compound|v|The rain compounded our problems.
+consecutive|adj|It rained for five consecutive days.
+dominated|adj|The dominated team never got the ball.
+earl|n|The earl invited them to his country house.
+grid|n|The streets are laid out in a grid.
+nominated|adj|The nominated films were shown at the festival.
+patent|n|She holds a patent for her new design.
+physician|n|Ask your physician before changing your medication.
+proceedings|n|The proceedings against him were dropped.
+unnecessary|adj|Don't take any unnecessary risks.
+verse|n|She writes her plays in verse.
+victor|n|The victor was cheered by the crowd.
+vintage|n|This is an excellent vintage from a small vineyard.
+beloved|adj|She returned to her beloved hometown.
+compliance|n|The factory is in compliance with safety rules.
+dam|n|The dam holds back the river.
+diabetes|n|My uncle manages his diabetes with diet and exercise.
+genre|n|Science fiction is my favorite genre.
+propaganda|n|The posters were wartime propaganda.
+scandal|n|The scandal forced the minister to resign.
+surveillance|n|The bank is under constant video surveillance.
+tactics|n|The coach changed tactics at half time.
+ash|n|Brush the ash out of the fireplace.
+benjamin|-
+casino|n|They lost a lot of money at the casino.
+creature|n|The pond is full of tiny creatures.
+gentleman|n|He's a real gentleman and always holds the door.
+icon|n|Click the printer icon to print the page.
+inter|v|He was interred in the family grave.
+legislature|n|The state legislature meets in January.
+liability|n|The company accepted liability for the accident.
+manhattan|-
+paradise|n|The island is a paradise for divers.
+politician|n|The politician promised lower taxes.
+premiere|n|The stars walked the red carpet at the premiere.
+sheriff|n|The sheriff rode into town.
+thou|-
+warrior|n|The warriors painted their faces before the battle.
+collins|-
+costa|-
+ion|n|An ion has an electric charge.
+lesbian|n|She came out as a lesbian in college.
+medication|n|Take your medication with food.
+productivity|n|Working from home improved her productivity.
+southeast|adv|The storm is moving southeast.
+timeline|n|The museum has a timeline of the city's history.
+torture|v|The memory of the mistake tortured him for years.
+welsh|-
+binding|-
+buffalo|n|A herd of buffalo grazed on the plain.
+curve|n|The road follows the curve of the river.
+horn|n|The driver honked his horn.
+mason|n|The mason repaired the old stone wall.
+migration|n|The migration of birds south begins in autumn.
+missile|n|The missile was shot down over the sea.
+patrol|n|A patrol checked the border every night.
+pearl|n|She wore a single pearl on a chain.
+rod|n|He fixed the curtain rod above the window.
+tragedy|n|The fire was a terrible tragedy.
+trauma|n|The doctors treated him for head trauma.
+activist|n|The activist organized a march for clean air.
+availability|n|Check the availability of rooms before you book.
+boundary|n|The river forms the boundary between the two countries.
+breach|v|The company breached the contract by delivering late.
+cage|n|The parrot sat in its cage and whistled.
+chancellor|n|The chancellor met with world leaders.
+consultant|n|They hired a consultant to fix the system.
+courtesy|n|It's a simple courtesy to reply to an invitation.
+disc|n|The album was released on a single disc.
+embassy|n|She went to the embassy to renew her passport.
+goodness|n|She helped out of the goodness of her heart.
+haven|n|The library is a haven of peace and quiet.
+infected|adj|Clean the infected cut twice a day.
+murphy|-
+phenomenon|n|The northern lights are a natural phenomenon.
+playoff|n|They lost in the first round of the playoffs.
+publisher|n|The publisher loved her first novel.
+rookie|n|The rookie scored in his first game.
+sterling|adj|She did a sterling job organizing the event.
+theft|n|He reported the theft of his bike.
+banner|n|A banner across the street read "Welcome Home".
+brad|-
+curriculum|n|Coding is now part of the school curriculum.
+entity|n|The two companies merged into a single entity.
+feminist|n|She has been a feminist all her life.
+journalism|n|He studied journalism at university.
+prof|n|Our prof gave us an extra week for the essay.
+ridge|n|We hiked along the ridge at sunrise.
+tribe|n|The tribe has lived in the valley for centuries.
+harmony|n|The neighbors live together in harmony.
+parish|n|The whole parish came to the summer fair.
+potter|n|The potter shaped the clay on her wheel.
+sergeant|n|The sergeant shouted orders at the recruits.
+voter|n|Every voter got a leaflet about the election.
+warner|-
+cam|-
+nutrition|n|Good nutrition is important for growing kids.
+ore|n|The mine produces iron ore.
+provider|n|We switched to a cheaper internet provider.
+rental|n|We stayed in a beach rental for a week.
+southwest|n|The wind is blowing from the southwest.
+dairy|n|We buy our milk from a dairy down the road.
+darling|n|Come here, darling, and give me a hug.
+euro|n|The coffee cost three euros.
+forecast|v|They forecast heavy rain for the weekend.
+lawsuit|n|The neighbors filed a lawsuit over the fence.
+meter|n|The pool is twenty-five meters long.
+passionate|adj|She's passionate about animal rights.
+receiver|n|He turned up the volume on the receiver.
+riot|n|The police broke up the riot.
+roster|n|Check the roster to see who's working on Sunday.
+skull|n|The skull protects the brain.
+wont|n|He went for a long walk after dinner, as was his wont.
+anticipated|adj|The anticipated crowds never arrived.
+bride|n|The bride wore her grandmother's veil.
+butler|n|The butler answered the door.
+coke|n|The old furnace burned coke.
+comparable|adj|The two phones are comparable in price.
+contractor|n|The contractor finished the kitchen in a month.
+diameter|n|The pizza is thirty centimeters in diameter.
+duo|n|The comedy duo has been performing for years.
+fairy|n|The story is about a fairy who lives in a flower.
+layout|n|I love the layout of your new apartment.
+merchant|n|The merchant sold silk and spices.
+micro|-
+myth|n|The film is based on a Greek myth.
+pastor|n|The pastor welcomed everyone to the service.
+rebel|v|Teenagers often rebel against their parents.
+separately|adv|Please wash the dark clothes separately.
+unbelievable|adj|The view from the top was unbelievable.
+widow|n|She has been a widow for ten years.
+administrator|n|Ask the system administrator to reset your password.
+beard|n|He grew a beard over the winter.
+computing|n|She has a degree in computing.
+flame|n|The flame of the candle flickered.
+hint|v|She hinted that she might quit.
+ink|n|My pen ran out of ink.
+inn|n|We stayed at a little inn by the harbor.
+matrix|n|The matrix has three rows and three columns.
+outlook|n|She has a positive outlook on life.
+penny|n|I found a penny on the sidewalk.
+quantum|n|Energy comes in tiny packets called quanta.
+scare|v|The loud bang scared the dog.
+adorable|adj|Your puppy is adorable!
+ambulance|n|The ambulance arrived within minutes.
+bailey|-
+ballot|n|Put your ballot in the box.
+cemetery|n|My grandparents are buried in the old cemetery.
+chile|-
+cigarette|n|He finally gave up cigarettes.
+demo|n|The salesman gave us a demo of the vacuum cleaner.
+elder|n|The village elders met to settle the dispute.
+expertise|n|We need someone with expertise in tax law.
+fiber|n|Cotton is a natural fiber.
+guinea|-
+northeast|n|The storm came in from the northeast.
+prosecution|n|The prosecution called its first witness.
+sierra|-
+tolerance|n|I have a low tolerance for spicy food.
+accomplish|v|We accomplished a lot today.
+brass|n|The door handles are made of brass.
+diesel|n|The truck runs on a diesel engine.
+effectiveness|n|They tested the effectiveness of the new vaccine.
+frankly|adv|Frankly, I don't care what they think.
+graph|n|The graph shows sales rising every month.
+hatred|n|The film is about hatred between two families.
+majesty|n|We were struck by the majesty of the mountains.
+mobility|n|The new wheelchair gave him more mobility.
+ruth|-
+spam|n|My inbox is full of spam.
+stack|n|There's a stack of plates by the sink.
+stance|n|She took a wide stance and swung the bat.
+thesis|n|He's writing his thesis on climate change.
+withdraw|v|She withdrew her hand from the hot pan.
+anyways|adv|Anyways, I should get going.
+backwards|adv|She took a step backwards.
+blonde|n|The blonde in the red coat is my sister.
+finale|n|The fireworks were the grand finale.
+harper|-
+hart|-
+ignorance|n|His ignorance of the rules cost the team a point.
+immigrant|n|Her grandparents were immigrants from Italy.
+lineup|n|The coach announced the starting lineup.
+meantime|n|Dinner is almost ready; in the meantime, set the table.
+nonetheless|adv|It was raining; nonetheless, we went for a walk.
+shitty|-
+spite|n|He did it out of spite.
+workplace|n|Safety in the workplace is everyone's job.
+analyst|n|The analyst predicted that prices would fall.
+arctic|-
+buyer|n|They found a buyer for the house in a week.
+cannabis|n|Cannabis is grown legally in some countries.
+cease|v|The noise ceased at midnight.
+container|n|Put the leftovers in a container in the fridge.
+essence|n|The essence of good teaching is patience.
+fur|n|The cat's fur is soft and thick.
+headline|n|The headline was about the election.
+hype|n|The film didn't live up to the hype.
+junk|n|The garage is full of junk.
+lobby|n|Let's meet in the hotel lobby.
+marc|-
+mineral|n|Quartz is a common mineral.
+mob|n|An angry mob gathered outside the gates.
+mph|-
+peninsula|n|Italy is a long peninsula.
+ranch|n|They raise cattle on a ranch in Texas.
+sentiment|n|There's no room for sentiment in business.
+vampire|n|The vampire only came out at night.
+verdict|n|The jury reached a verdict after two days.
+algorithm|n|The app uses an algorithm to suggest songs.
+axis|n|The earth spins on its axis.
+cannon|n|The cannon fired at dawn.
+carol|n|The children sang carols in the snow.
+dimension|n|Measure all three dimensions of the box.
+ego|n|Winning the award went straight to his ego.
+equation|n|Solve the equation for x.
+ferry|v|A boat ferries tourists across the bay.
+fisher|-
+fusion|n|Their music is a fusion of jazz and rock.
+gut|n|The pain was deep in his gut.
+ideology|n|The party's ideology has changed over the years.
+instructor|n|My driving instructor is very patient.
+isolation|n|Some people feel isolation when they work from home.
+liar|n|Don't believe him; he's a liar.
+namely|adv|Only one student passed, namely Sara.
+platinum|n|Her ring is made of platinum.
+rider|n|The rider fell off but wasn't hurt.
+ritual|n|Making coffee is my morning ritual.
+starter|n|Pick a starter and a main course.
+superman|n|He thinks he's a superman, but he needs sleep like anyone.
+voltage|n|Check the voltage before you plug it in.
+width|n|Measure the width of the window.
+aluminum|n|The cans are made of aluminum.
+bail|v|His family bailed him out of jail.
+den|n|The fox returned to its den.
+goddess|n|Athena was the Greek goddess of wisdom.
+loser|n|Don't be a sore loser.
+pad|n|She wrote the number on a pad by the phone.
+preservation|n|The society works for the preservation of old buildings.
+seller|n|The seller agreed to lower the price.
+sen|-
+tan|n|She came back from holiday with a tan.
+timber|n|The cabin was built from local timber.
+vitamin|n|Oranges are full of vitamin C.
+wheat|n|Fields of wheat stretched to the horizon.
+admiral|n|The admiral commanded the fleet.
+capitol|n|The march ended at the steps of the capitol.
+clerk|n|The clerk stamped my form.
+coup|n|The army took power in a coup.
+disclosure|n|The disclosure of the documents caused an uproar.
+donation|n|They made a donation to the hospital.
+geneva|-
+java|-
+recruitment|n|The company is running a recruitment drive.
+silicon|n|Computer chips are made from silicon.
+telegraph|n|News of the war arrived by telegraph.
+asylum|n|She asked for asylum when she arrived.
+barn|n|The cows sleep in the barn in winter.
+cathedral|n|The cathedral took a hundred years to build.
+clause|n|Check the clause about cancellations in the contract.
+cylinder|n|A can of soup is a cylinder.
+expectation|n|The hotel exceeded our expectations.
+infant|n|The infant slept through the night.
+injection|n|The nurse gave him an injection.
+perfection|n|The steak was cooked to perfection.
+prohibited|adj|Smoking is prohibited in the building.
+rehabilitation|n|After the surgery, she needed months of rehabilitation.
+straw|n|The horses sleep on straw.
+archive|n|The newspaper keeps an archive of every issue.
+cart|n|The donkey pulled a cart full of hay.
+cocaine|n|He was arrested for selling cocaine.
+dale|n|The village lies in a quiet dale.
+defendant|n|The defendant pleaded not guilty.
+doctrine|n|The church teaches its doctrine in classes.
+freshman|n|She's a freshman at the state university.
+hydrogen|n|Water is made of hydrogen and oxygen.
+intake|n|Try to cut down your sugar intake.
+lawn|n|He mows the lawn every Saturday.
+porter|n|The porter carried our bags to the room.
+prophet|n|The prophet warned of a great flood.
+referendum|n|The country held a referendum on the new constitution.
+refugee|n|The refugee family found a new home in Canada.
+ruby|n|The crown is set with rubies.
+satisfy|v|Nothing seems to satisfy my boss.
+sequel|n|The sequel was better than the first film.
+township|n|The township has its own fire station.
+amber|adj|Wait for the amber light to turn green.
+armor|n|The knight's armor shone in the sun.
+bachelor|n|He stayed a bachelor until he was fifty.
+berry|n|We picked berries along the path.
+capitalism|n|The book is a history of capitalism.
+certification|n|The course leads to a teaching certification.
+clan|n|The whole clan gathered for the reunion.
+frustrating|adj|The long wait was frustrating.
+grasp|v|She grasped the rope with both hands.
+hardcore|adj|He's a hardcore fan who never misses a game.
+incentive|n|The bonus is an incentive to work harder.
+mandate|n|The new government has a mandate for change.
+memorable|adj|It was a memorable evening.
+merger|n|The merger created the biggest bank in the country.
+robbery|n|The robbery happened in broad daylight.
+scout|v|They scouted the area for a place to camp.
+sexuality|n|The book explores identity and sexuality.
+superintendent|n|The superintendent visited every school in the district.
+tumor|n|The surgeon removed the tumor.
+artillery|n|The artillery fired all night.
+dame|-
+dedication|n|Her dedication to the team is inspiring.
+drake|n|A drake with a green head swam across the pond.
+enforce|v|The police enforce the speed limit here.
+infantry|n|The infantry marched across the bridge.
+investor|n|An investor put money into the start-up.
+marble|n|The floor is made of white marble.
+nominee|n|Each nominee gave a short speech.
+pee|-
+prediction|n|My prediction is that it will rain tomorrow.
+preview|n|We saw a preview of the new film.
+rapper|n|The rapper released a new album.
+reconstruction|n|The reconstruction of the bridge took two years.
+revelation|n|The news came as a revelation to everyone.
+scholar|n|She's a respected scholar of Chinese history.
+spa|n|They spent the weekend at a spa.
+sprint|v|He sprinted for the bus.
+supposedly|adv|The restaurant is supposedly the best in town.
+touchdown|n|He scored the winning touchdown.
+underwear|n|Pack enough underwear for a week.
+waist|n|The belt is too big for my waist.
+wreck|v|The storm wrecked the boats in the harbor.
+brake|n|She hit the brake just in time.
+businessman|n|The businessman flew to Tokyo for a meeting.
+chi|-
+col|-
+correction|n|The teacher marked every correction in red.
+critic|n|The critic loved the new play.
+depot|n|The buses return to the depot at night.
+elevator|n|Take the elevator to the fifth floor.
+herald|v|The first warm days herald the arrival of spring.
+mainland|n|The ferry takes an hour to reach the mainland.
+messenger|n|A messenger brought the letter to the door.
+plea|n|She made a plea for help.
+quarterback|n|The quarterback threw a long pass.
+ref|n|The ref blew his whistle.
+supervisor|n|My supervisor approved my holiday.
+troy|-
+vegan|n|She's been a vegan for five years.
+automobile|n|The automobile changed how people lived.
+composite|n|The photo is a composite of several images.
+cox|-
+grove|n|We had a picnic in an olive grove.
+idol|n|The singer was her teenage idol.
+junction|n|Turn left at the next junction.
+lance|n|The knight lowered his lance and charged.
+newton|n|A newton is the force needed to speed up one kilogram by one meter per second, every second.
+prep|n|The kids do their prep after dinner.
+prosecutor|n|The prosecutor asked for a long sentence.
+recipient|n|The recipient of the award thanked her family.
+refund|n|I asked for a refund for the broken toaster.
+scam|n|The email about the prize was a scam.
+supervision|n|Children must swim under adult supervision.
+virtue|n|Patience is a virtue.
+workforce|n|Half the workforce is under thirty.
+zombie|n|The movie is about a town full of zombies.
+acre|n|The farm covers two hundred acres.
+arise|v|Problems arose when the power went out.
+bundle|n|She tied the letters in a bundle.
+chad|-
+descent|n|The plane began its descent.
+directory|n|Look up the number in the phone directory.
+elimination|n|The team faced elimination after the loss.
+guild|n|He joined the writers' guild.
+inability|n|His inability to cook is legendary.
+litigation|n|The case is still in litigation.
+mentor|n|My first boss was a great mentor.
+monk|n|The monk lived in a monastery in the mountains.
+pistol|n|The officer drew his pistol.
+regiment|n|Her grandfather served in a Scottish regiment.
+sanctuary|n|The garden is my sanctuary.
+siege|n|The city survived a long siege.
+sleeve|n|He rolled up his sleeves and got to work.
+soundtrack|n|The soundtrack of the film is beautiful.
+tenure|n|During her tenure as mayor, the city grew.
+treasurer|n|The treasurer reported on the club's money.
+boo|v|The crowd booed the referee.
+debris|n|Debris from the storm covered the street.
+delegation|n|A delegation from Japan visited the factory.
+demographic|n|The show is popular with a young demographic.
+donor|n|An anonymous donor paid for the new library.
+enrollment|n|Enrollment for the course opens in May.
+heroin|n|He has been free of heroin for two years.
+illustration|n|The book has a beautiful illustration on every page.
+indicator|n|Rising prices are an indicator of inflation.
+manuscript|n|She sent her manuscript to three publishers.
+nova|n|A nova suddenly brightened in the night sky.
+randy|-
+reliability|n|The car is known for its reliability.
+researcher|n|The researcher published her results in a journal.
+sculpture|n|A bronze sculpture stands in the town square.
+sensor|n|The light turns on when the sensor detects movement.
+subsidiary|n|The company opened a subsidiary in Brazil.
+underwater|adj|We took underwater photos of the reef.
+velocity|n|The rocket reached a velocity of eight kilometers per second.
+accountability|n|Voters want more accountability from the government.
+anthem|n|The crowd stood for the national anthem.
+collector|n|He's a collector of rare stamps.
+coordinator|n|The event coordinator sent everyone a schedule.
+danish|-
+deployment|n|The deployment of troops began at dawn.
+exterior|n|We painted the exterior of the house blue.
+fury|n|She stormed out in a fury.
+genocide|n|The museum remembers the victims of the genocide.
+hay|n|The farmer stacked the hay in the barn.
+likelihood|n|There's a strong likelihood of rain tomorrow.
+mod|-
+nationalist|n|He was a fierce nationalist.
+observer|n|An observer would have thought we were arguing.
+optional|adj|The extra tour is optional.
+papa|n|Papa read us a story before bed.
+prosperity|n|The new factory brought prosperity to the town.
+sack|n|He carried a sack of potatoes on his back.
+shortage|n|There's a shortage of nurses at the hospital.
+thriller|n|I stayed up all night reading a thriller.
+advocacy|n|The group does advocacy for children's rights.
+aggression|n|The dog showed no aggression toward strangers.
+brigade|n|The brigade moved north at night.
+burial|n|The burial took place in the village churchyard.
+champ|n|The champ defended her title.
+champagne|n|They opened a bottle of champagne to celebrate.
+chrome|n|The old car has shiny chrome bumpers.
+coordination|n|Juggling takes a lot of coordination.
+ditch|n|The car slid into a ditch.
+dome|n|The church has a golden dome.
+gilbert|-
+griffin|n|A griffin guards the treasure in the story.
+historian|n|The historian wrote a book about the war.
+hospitality|n|Thank you for your hospitality.
+hostage|n|The hostages were freed after two days.
+inevitably|adv|Inevitably, the meeting ran late.
+lad|n|He's a good lad who helps his mother.
+literacy|n|The charity teaches literacy to adults.
+moisture|n|The cream keeps moisture in your skin.
+mortality|n|Infant mortality has fallen sharply.
+obsession|n|Football is his obsession.
+particle|n|A particle of dust floated in the sunlight.
+petroleum|n|Plastic is made from petroleum.
+progression|n|The song has a simple chord progression.
+shuttle|v|A bus shuttles guests between the hotel and the airport.
+spotlight|n|The singer stepped into the spotlight.
+trinity|-
+wagon|n|The pioneers crossed the plains in covered wagons.
+ana|-
+biography|n|I'm reading a biography of Marie Curie.
+cocktail|n|She ordered a cocktail with lime and mint.
+fist|n|He banged his fist on the table.
+heir|n|The prince is heir to the throne.
+homer|n|He hit a homer in the ninth inning.
+jenny|-
+landlord|n|Our landlord fixed the heating right away.
+nursery|n|We painted the nursery yellow before the baby came.
+plague|v|Money problems plagued the project from the start.
+rogue|n|The charming rogue stole her heart and her purse.
+solidarity|n|The workers went on strike in solidarity.
+specialty|n|Fish soup is the chef's specialty.
+tomb|n|The pharaoh's tomb was full of treasure.
+voyage|n|The voyage across the ocean took six weeks.
+abbey|n|We visited a ruined abbey in the hills.
+adjustment|n|Moving to a new country takes some adjustment.
+attachment|n|The child has a strong attachment to his blanket.
+blah|n|The speech was all blah about synergy.
+bomber|n|The bomber flew low over the city.
+confession|n|The suspect made a full confession.
+credibility|n|The scandal damaged his credibility.
+geometry|n|We're learning about triangles in geometry.
+header|n|Put your name in the header of each page.
+heather|n|The hills were purple with heather.
+holly|n|We decorated the door with holly at Christmas.
+karma|n|He believes that good karma comes back to you.
+manila|-
+node|n|Each node in the network passes the message along.
+proximity|n|The hotel's proximity to the beach is its best feature.
+ranger|n|The park ranger warned us about bears.
+socialism|n|The professor lectured on the history of socialism.
+thief|n|The thief climbed in through the window.
+tribunal|n|The case went to a tribunal.
+yearly|-
+alley|n|The cat ran down the alley.
+beth|-
+billboard|n|A huge billboard advertised the new phone.
+bully|n|The bully took his lunch money.
+dynasty|n|The Ming dynasty ruled China for nearly three hundred years.
+economist|n|The economist predicted a slow recovery.
+glen|n|A stream runs through the glen.
+maturity|n|She showed great maturity for her age.
+molly|-
+ninja|n|The film is about a ninja in old Japan.
+repeal|v|The government repealed the old tax.
+saga|n|The saga of the family spans three generations.
+sodium|n|Table salt contains sodium.
+autonomy|n|The region was granted more autonomy.
+commodity|n|Coffee is one of the most traded commodities.
+congressman|n|The congressman visited the flooded town.
+correspondent|n|She's the paper's foreign correspondent in Paris.
+coupon|n|I used a coupon to get ten percent off.
+dough|n|Knead the dough for ten minutes.
+fulfill|v|She finally fulfilled her dream of visiting Japan.
+handbook|n|Every new employee gets a handbook.
+judiciary|n|The judiciary must be independent of the government.
+logistics|n|The logistics of moving house are exhausting.
+maid|n|The maid made the beds every morning.
+mindset|n|Winning starts with the right mindset.
+mistress|-
+morality|n|The novel deals with questions of morality.
+nonprofit|n|She works for a nonprofit that plants trees.
+referee|n|The referee showed him a red card.
+sovereignty|n|The treaty respected the sovereignty of both nations.
+stunt|n|The actor did all his own stunts.
+sync|v|Sync your phone with your computer.
+taxpayer|n|The new stadium was paid for by the taxpayer.
+trilogy|n|I've read the whole trilogy twice.
+yahoo|-
+atm|-
+bait|v|They baited him until he lost his temper.
+blogger|n|The food blogger reviewed our café.
+bra|n|She bought a new bra and some socks.
+brotherhood|n|There's a strong sense of brotherhood in the team.
+carriage|n|We sat in the last carriage of the train.
+compilation|n|The album is a compilation of their greatest hits.
+composer|n|Mozart was a brilliant composer.
+cowboy|n|The cowboy rounded up the cattle.
+diagram|n|The diagram shows how the engine works.
+explorer|n|The explorer reached the South Pole.
+feminism|n|She wrote her thesis on feminism.
+genesis|n|The genesis of the idea was a conversation at lunch.
+geographical|adj|The geographical center of the country is a small town.
+grandson|n|Her grandson visits every Sunday.
+ivory|n|The trade in ivory is banned.
+kirk|-
+para|-
+proposition|n|The proposition seemed true at first glance.
+recession|n|Many people lost their jobs in the recession.
+secondly|adv|Firstly, it's too expensive; secondly, it's too big.
+spinal|-
+spiral|n|The staircase winds up in a spiral.
+spit|v|Don't spit on the pavement.
+successive|adj|They won three successive titles.
+undergraduate|n|She's an undergraduate studying law.
+uranium|n|Uranium is used in nuclear power stations.
+advertisement|n|I saw an advertisement for the job in the paper.
+bracket|n|They're in a higher tax bracket now.
+creep|v|The cat crept toward the bird.
+daylight|n|Let's set off while it's still daylight.
+doe|n|A doe and her fawn stood at the edge of the woods.
+donna|-
+envy|v|I envy your patience.
+gel|n|She uses gel to style her hair.
+genetics|n|Genetics explains why you have your mother's eyes.
+ira|-
+outrage|n|The decision caused public outrage.
+paperwork|n|I spent the morning doing paperwork.
+supplier|n|We found a new supplier for the café's coffee.
+synthesis|n|Plants use sunlight for the synthesis of sugars.
+treason|n|He was tried for treason.
+vii|-
+violet|n|Violets grew under the hedge.
+activation|n|Activation of the alarm takes thirty seconds.
+afghan|-
+applause|n|The applause lasted for five minutes.
+borough|n|Brooklyn is one of the five boroughs of New York.
+breakthrough|n|The scientists made a breakthrough in cancer research.
+calif|-
+cone|n|The road was blocked with orange cones.
+critique|n|She wrote a sharp critique of the film.
+differential|-
+discourse|n|The book is a discourse on modern art.
+freeman|-
+gateway|n|The old stone gateway leads into the garden.
+humidity|n|The humidity makes it feel hotter than it is.
+imagery|n|The poem is full of vivid imagery.
+imply|v|Are you implying that I'm lying?
+inland|adj|We drove to an inland lake.
+inning|n|The score was tied in the eighth inning.
+investigator|n|The investigator examined the scene of the fire.
+ivy|n|Ivy covers the walls of the old house.
+livestock|n|The farm keeps livestock and grows vegetables.
+mafia|n|The film is about the mafia in New York.
+missionary|n|Her parents were missionaries in Africa.
+obey|v|The dog obeys every command.
+overly|adv|Don't be overly worried about the test.
+oversight|n|The missing name was just an oversight.
+ramp|n|There's a ramp for wheelchairs at the side door.
+rand|n|The taxi cost two hundred rand.
+reef|n|We went snorkeling over the reef.
+refusal|n|Her refusal to apologize made things worse.
+sage|n|People traveled for miles to ask the old sage for advice.
+statute|n|The statute was passed in 1972.
+superstar|n|The superstar signed autographs for an hour.
+vodka|n|He ordered a vodka and tonic.
+zoom|v|The motorbike zoomed past us.
+archbishop|n|The archbishop led the coronation.
+athletics|n|She competes in athletics for her school.
+bibliography|n|List every source in the bibliography.
+calcium|n|Milk is a good source of calcium.
+collectively|adv|The team is collectively responsible for the result.
+compression|n|The compression of the file made it much smaller.
+decoration|n|We put up the decorations for the party.
+decree|n|The king issued a decree.
+dividend|n|The company paid a dividend to its shareholders.
+electron|n|An electron carries a negative charge.
+enzyme|n|Enzymes help the body digest food.
+hormone|n|Growth hormone is released during sleep.
+infinity|n|The road seemed to stretch to infinity.
+maiden|n|The story tells of a maiden locked in a tower.
+membrane|n|A thin membrane surrounds each cell.
+methodology|n|The study's methodology was sound.
+murderer|n|The murderer was caught a week later.
+predecessor|n|She's much friendlier than her predecessor.
+premise|n|The film's premise is simple but clever.
+rainfall|n|The region gets very little rainfall.
+redemption|n|The story is about loss and redemption.
+scent|n|The scent of roses filled the garden.
+stimulus|n|The baby turned toward every new stimulus.
+timothy|-
+yacht|n|They sailed around the islands on a yacht.
+accord|v|His story accords with the facts.
+archer|n|The archer hit the center of the target.
+barber|n|I go to the barber once a month.
+boycott|v|They boycotted the shop after the scandal.
+competitor|n|Our biggest competitor lowered its prices.
+cuisine|n|I love Thai cuisine.
+dioxide|n|Carbon dioxide traps heat in the atmosphere.
+enjoyment|n|Reading is my greatest enjoyment.
+injustice|n|She spent her life fighting injustice.
+insulin|n|He takes insulin for his diabetes.
+intro|n|The song has a long guitar intro.
+manor|n|The old manor is now a hotel.
+masterpiece|n|The painting is considered her masterpiece.
+memo|n|The boss sent a memo about the new rules.
+narrator|n|The narrator of the story is a dog.
+obesity|n|Obesity is linked to heart disease.
+partisan|n|The partisans fought in the mountains.
+pupil|n|The school has four hundred pupils.
+retention|n|The company is working on staff retention.
+shotgun|n|The farmer kept a shotgun by the door.
+submarine|n|The submarine dived beneath the waves.
+taxation|n|The party promised lower taxation.
+altar|n|They lit candles on the altar.
+atlas|n|I found the island in the atlas.
+cavalry|n|The cavalry charged across the field.
+coffin|n|The coffin was carried into the church.
+combo|n|The jazz combo played in the corner.
+communism|n|The book explores the rise and fall of communism.
+conductor|n|The conductor raised her baton.
+eternity|n|The wait felt like an eternity.
+font|n|Use a bigger font for the title.
+freestyle|n|She won the hundred meters freestyle.
+homicide|n|Police are treating the death as a homicide.
+madame|n|Madame Dubois will see you now.
+ounce|n|Add an ounce of butter.
+performer|n|Each performer had five minutes on stage.
+psychologist|n|She sees a psychologist once a week.
+puppet|n|The children put on a puppet show.
+rivalry|n|There's a fierce rivalry between the two teams.
+sting|v|The smoke stung my eyes.
+tutorial|n|I watched a tutorial on how to tie a tie.
+twentieth|adj|It's their twentieth wedding anniversary.
+unrelated|adj|The two crimes are unrelated.
+axe|n|He split the logs with an axe.
+bulletin|n|The news bulletin is at six.
+constable|n|The constable took down our names.
+cooperate|v|The witnesses cooperated with the police.
+dong|-
+encouragement|n|Thanks for all your encouragement.
+faction|n|The party split into two factions.
+goalkeeper|n|The goalkeeper saved the penalty.
+imprisoned|adj|The imprisoned journalist was finally released.
+northwestern|adj|They live in the northwestern part of the state.
+patriotic|adj|They sang patriotic songs on Independence Day.
+prejudice|n|We must fight prejudice wherever we see it.
+projection|n|The projection shows sales rising next year.
+receptor|n|The drug binds to receptors in the brain.
+spokesman|n|A spokesman for the company declined to comment.
+strap|n|The strap on my bag broke.
+surroundings|n|It took a few days to get used to my new surroundings.
+tucker|-
+vendor|n|We bought hot dogs from a street vendor.
+bliss|n|A day at the beach is pure bliss.
+chapman|-
+disco|n|They danced to disco all night.
+ecosystem|n|The coral reef is a fragile ecosystem.
+greenhouse|n|She grows tomatoes in a greenhouse.
+jade|n|She wore a necklace of green jade.
+lightweight|n|He fought as a lightweight before moving up a division.
+parody|n|The show is a parody of a talent contest.
+participant|n|Each participant got a T-shirt.
+phantom|n|A phantom is said to haunt the old theater.
+precedent|n|The ruling set a precedent for future cases.
+prevalent|adj|The disease is prevalent in tropical areas.
+prom|n|She wore a blue dress to the prom.
+python|n|The python wrapped itself around the branch.
+sociology|n|He's studying sociology at college.
+somerset|-
+stab|v|She stabbed a piece of meat with her fork.
+trout|n|We had grilled trout for dinner.
+turnover|n|The shop has a high staff turnover.
+vegetarian|n|She has been a vegetarian since she was ten.
+whiskey|n|He sipped a glass of whiskey by the fire.
+algebra|n|In algebra, letters stand for numbers.
+continuity|n|The new coach gives the team continuity.
+depicted|adj|The depicted scene is a market in old Venice.
+drainage|n|The field has poor drainage.
+felony|n|Robbery is a felony.
+flint|n|Early humans made tools from flint.
+fortress|n|The fortress sits high on the cliff.
+fundamentally|adv|The two ideas are fundamentally different.
+immortal|adj|In the story, the gods are immortal.
+insider|n|An insider leaked the news to the press.
+interval|n|The buses run at ten-minute intervals.
+maxwell|-
+memoir|n|She wrote a memoir about growing up on a farm.
+napoleon|-
+objection|n|I have no objection to the plan.
+obliged|adj|I felt obliged to help.
+packet|n|He opened a packet of crisps.
+polo|n|They watched a polo match on horseback.
+presenter|n|The presenter welcomed the guests to the show.
+registry|n|They signed the registry after the wedding.
+remarkably|adv|She stayed remarkably calm.
+scripture|n|The monk reads scripture every morning.
+silva|-
+stereo|n|Turn down the stereo, please.
+surrey|-
+sustainability|n|The company is committed to sustainability.
+tesla|-
+trader|n|The trader sold silk at the market.
+velvet|n|She wore a velvet dress.
+wheeler|-
+billionaire|n|The billionaire gave money to the hospital.
+calculation|n|My calculation shows we'll arrive at noon.
+cancellation|n|The cancellation of the flight ruined our plans.
+cane|n|My grandfather walks with a cane.
+cedar|n|The chest is made of cedar.
+cruelty|n|The law protects animals from cruelty.
+dementia|n|Her grandfather has dementia and sometimes forgets her name.
+designation|n|The area has the designation of national park.
+dice|n|Roll the dice to start the game.
+duchess|n|The duchess opened the new hospital.
+geology|n|She studied geology and now works in mining.
+gram|n|A paper clip weighs about a gram.
+heath|n|Heath grows on the open hillside.
+horrific|adj|There was a horrific accident on the highway.
+insect|n|An insect has six legs.
+iris|n|Purple irises grew by the pond.
+mentality|n|He has a winning mentality.
+metre|n|The pool is fifty metres long.
+newsletter|n|The school sends out a weekly newsletter.
+nineteenth|adj|The house was built in the nineteenth century.
+nitrogen|n|Most of the air we breathe is nitrogen.
+predictable|adj|The ending of the film was predictable.
+reckon|v|I reckon it'll rain later.
+recycling|n|Put the bottles out for recycling.
+rover|-
+shipment|n|The shipment of books arrived this morning.
+stainless|n|The sink is made of stainless.
+ark|n|Noah built an ark for the animals.
+armour|-
+chandler|-
+conception|n|They had no conception of how hard it would be.
+congo|-
+cue|n|The actor missed his cue.
+finite|adj|The planet's resources are finite.
+gallon|n|The tank holds twelve gallons.
+glucose|n|The body turns food into glucose.
+inspirational|adj|She gave an inspirational speech.
+limestone|n|The cliffs are made of limestone.
+mesh|v|The gears mesh smoothly.
+migrant|n|Migrants crossed the border in search of work.
+moron|-
+relevance|n|I don't see the relevance of that question.
+retailer|n|The retailer cut prices before the holidays.
+spacecraft|n|The spacecraft landed on Mars.
+specification|n|The house was built to a high specification.
+temp|n|She worked as a temp for a year.
+textile|n|The town was once famous for its textiles.
+veterinary|adj|The dog needs veterinary care.
+allocation|n|Each team gets an allocation of tickets.
+amusement|n|To everyone's amusement, the dog stole the cake.
+auxiliary|n|The hospital auxiliary raises money for new equipment.
+beacon|n|The lighthouse is a beacon for ships.
+bounty|n|There's a bounty on the outlaw's head.
+boxer|n|The boxer trained every morning.
+brook|n|A little brook runs behind the cottage.
+challenger|n|The challenger knocked out the champion in the third round.
+clergy|n|Members of the clergy led the funeral.
+coma|n|He was in a coma for two weeks after the crash.
+credentials|n|The guard checked our credentials at the gate.
+evacuation|n|The evacuation of the town began at dawn.
+expenditure|n|The council cut its expenditure on roads.
+groove|n|The wheel ran along a groove in the track.
+homosexuality|n|The book is a history of attitudes toward homosexuality.
+mil|-
+overweight|adj|The vet said our cat is overweight.
+palette|n|The artist used a palette of soft blues and greens.
+pneumonia|n|She was in the hospital with pneumonia.
+preceding|adj|See the chart on the preceding page.
+psycho|-
+reverend|n|The reverend gave a moving sermon.
+scrutiny|n|The plan came under close scrutiny.
+serum|n|The doctors injected a serum against snake venom.
+storyline|n|The storyline of the game is surprisingly deep.
+tempo|n|The band played the song at a faster tempo.
+understandable|adj|Her anger is understandable.
+uprising|n|The uprising was crushed within a week.
+aerospace|n|He works in the aerospace industry.
+aluminium|n|The frame is made of aluminium.
+anticipate|v|We anticipate a big crowd on Saturday.
+asthma|n|She carries an inhaler for her asthma.
+bankrupt|v|The long strike bankrupted the company.
+covenant|n|The two tribes made a covenant of peace.
+dilemma|n|I'm in a dilemma about which job to take.
+disgrace|v|He disgraced the family with his behavior.
+firstly|adv|Firstly, thank you all for coming.
+greed|n|The bank collapsed because of greed.
+hank|-
+lambert|-
+lava|n|Lava poured down the side of the volcano.
+millionaire|n|He became a millionaire by thirty.
+negro|-
+notify|v|Please notify us if your address changes.
+pact|n|The two countries signed a trade pact.
+paramount|adj|Safety is of paramount importance.
+paranoid|adj|He's paranoid that someone is reading his messages.
+patriot|n|He was a patriot who loved his country.
+patron|n|The café has many loyal patrons.
+proxy|n|She voted by proxy while she was abroad.
+retro|n|The café is decorated in seventies retro.
+revolt|n|The peasants rose in revolt.
+saddle|n|She swung herself up into the saddle.
+sherlock|-
+shrine|n|Pilgrims visit the shrine every year.
+sniper|n|A sniper was hiding on the roof.
+stoke|v|He stoked the fire until it roared.
+termination|n|The contract allows termination with a month's notice.
+thigh|n|She pulled a muscle in her thigh.
+undertake|v|They undertook the long journey on foot.
+unsuccessful|adj|The first attempt was unsuccessful.
+vine|n|Grapes grow on a vine.
+warranty|n|The phone comes with a two-year warranty.
+xxx|-
+aisle|n|The rice is in the third aisle.
+almighty|adj|There was an almighty crash in the kitchen.
+amino|-
+cholesterol|n|Too much cholesterol is bad for your heart.
+contributor|n|She is a regular contributor to the magazine.
+dismissal|n|The judge ordered the dismissal of the case.
+feasible|adj|Is it feasible to finish by Friday?
+grease|n|Wipe the grease off the pan.
+hulk|n|The big hulk of a man ducked through the door.
+insanity|n|He pleaded insanity at his trial.
+jeep|n|We drove a jeep across the desert.
+lecturer|n|She's a lecturer in history.
+lust|-
+microphone|n|Speak into the microphone, please.
+miniature|n|The museum has a collection of medieval miniatures.
+motto|n|Our school motto is "Learn and serve."
+persecution|n|They fled persecution in their home country.
+philosopher|n|Socrates was a Greek philosopher.
+plantation|n|They visited a tea plantation in Sri Lanka.
+prose|n|Her prose is clear and simple.
+slogan|n|The campaign slogan was printed on every poster.
+sponsorship|n|The team lost its sponsorship after the scandal.
+strive|v|We strive to answer every email within a day.
+tile|n|A tile fell off the roof in the storm.
+viii|-
+apex|n|The climbers reached the apex of the mountain.
+apocalypse|n|The film imagines life after the apocalypse.
+beck|-
+bingo|n|My grandmother plays bingo every Thursday.
+boiler|n|The boiler broke and we had no hot water.
+boulder|n|A huge boulder blocked the path.
+clarence|-
+continuation|n|The second book is a continuation of the story.
+convoy|n|A convoy of trucks carried food to the town.
+cork|n|He pulled the cork out of the bottle.
+cubic|adj|The tank holds two cubic meters of water.
+descendants|n|Her descendants still live on the farm.
+detector|n|The smoke detector went off when I burned the toast.
+diplomacy|n|The crisis was solved through diplomacy.
+disadvantage|n|The biggest disadvantage of the flat is the noise.
+disruption|n|The strike caused disruption to train services.
+friction|n|There's some friction between the two brothers.
+greatness|n|Everyone could see her greatness from the start.
+instability|n|Political instability scared off investors.
+litter|n|Our cat had a litter of five kittens.
+macro|n|I wrote a macro to format the report automatically.
+mag|-
+magistrate|n|The magistrate fined him for speeding.
+milestone|n|Walking is a big milestone for a baby.
+municipality|n|Each municipality runs its own schools.
+observatory|n|We looked at Saturn through the telescope at the observatory.
+outdoors|adv|The kids played outdoors all afternoon.
+pedestrian|n|The car stopped to let a pedestrian cross.
+pod|n|Peas grow in a pod.
+predator|n|The lion is a top predator.
+prophecy|n|The prophecy came true.
+recorder|n|The pilot's words were caught on the flight recorder.
+recurring|adj|I have a recurring dream about flying.
+scum|-
+tactic|n|Delaying was a clever tactic.
+template|n|Use this template for your letter.
+theorem|n|We proved the theorem in class.
+tract|n|They bought a large tract of forest.
+tribune|-
+unexpectedly|adv|My cousin turned up unexpectedly.
+vista|n|The window looks out on a vista of hills.
+apprentice|n|He worked as an apprentice to a carpenter.
+benedict|-
+bikini|n|She packed a bikini for the beach.
+boulevard|n|We strolled down the wide boulevard.
+capsule|n|Take one capsule with water.
+captive|n|The captives were set free.
+chronicle|v|The book chronicles the history of the town.
+confederate|n|The thief and his confederate were both arrested.
+contamination|n|The contamination of the river killed the fish.
+counterpart|n|The minister met her French counterpart.
+creed|n|People of every creed are welcome.
+crust|n|The earth's crust is thinner under the oceans.
+cutter|-
+delegate|v|A good manager knows how to delegate tasks.
+dissertation|n|She's writing her dissertation on bird song.
+domination|n|The team's domination of the league lasted ten years.
+emission|n|The new cars have lower emissions.
+gamma|n|Gamma is the third letter of the Greek alphabet.
+gravel|n|The car crunched over the gravel.
+haired|adj|A red-haired girl waved from the window.
+highland|n|They raise sheep in the highlands.
+mack|-
+millennium|n|The church was built nearly a millennium ago.
+offender|n|First-time offenders often get a warning.
+oracle|n|The ancient Greeks asked the oracle at Delphi about the future.
+pentagon|n|A pentagon has five sides.
+prairie|n|Wild flowers covered the prairie.
+prank|n|The kids played a prank on their teacher.
+psychiatrist|n|The psychiatrist prescribed a new medicine.
+quad|-
+quartz|n|The watch keeps time with a quartz crystal.
+residency|n|She's doing her medical residency in Boston.
+rot|v|The fruit was left to rot.
+songwriter|n|The songwriter wrote the hit in an afternoon.
+stimulation|n|Babies need plenty of stimulation.
+technician|n|A technician came to fix the internet.
+trench|n|The soldiers waited in the trenches.
+validity|n|The lawyer questioned the validity of the contract.
+varsity|n|He plays on the varsity basketball team.
+verification|n|Enter the verification code we sent you.
+wrath|n|He feared the wrath of his father.
+yuan|n|The book cost fifty yuan.
+accomplishment|n|Graduating was her proudest accomplishment.
+aide|n|The president's aide answered the phone.
+allegiance|n|They pledged allegiance to the flag.
+brent|-
+constituency|n|The minister visited her constituency.
+councillor|n|The councillor promised to fix the potholes.
+diplomat|n|The diplomat flew home for talks.
+eldest|adj|My eldest brother lives in Canada.
+exodus|n|The war caused an exodus from the city.
+footballer|n|The footballer signed for a new club.
+forestry|n|He studied forestry and now works in a national park.
+hemisphere|n|It's summer in the southern hemisphere.
+inconvenience|n|We apologize for any inconvenience.
+irrigation|n|The farm uses irrigation from the river.
+lastly|adv|Lastly, I'd like to thank my parents.
+lipstick|n|She put on some red lipstick.
+mart|n|We stopped at the mart for snacks.
+midway|adj|We stopped at a midway point for lunch.
+monarch|n|The monarch waved from the balcony.
+monte|-
+persona|n|His stage persona is very different from the real man.
+purity|n|The water is tested for purity.
+rabbi|n|The rabbi led the prayers.
+realism|n|The film is praised for its realism.
+scotch|-
+shale|n|The cliffs are made of shale.
+shin|n|I bruised my shin on the coffee table.
+sol|-
+sophomore|n|She's a sophomore in high school.
+squadron|n|The squadron flew over the parade.
+tinder|n|We gathered dry grass as tinder for the fire.
+titan|n|He is a titan of the industry.
+trait|n|Kindness is her best trait.
+traitor|n|He was branded a traitor.
+wallpaper|n|We put up new wallpaper in the hall.
+watt|n|Use a sixty-watt bulb in this lamp.
+ale|n|He ordered a pint of ale.
+betrayal|n|She saw his lie as a betrayal.
+clone|n|He's a clone of his father.
+consortium|n|A consortium of banks funded the project.
+countdown|n|The countdown to the new year began.
+drummer|n|The drummer counted the band in.
+exclusion|n|The new rule led to the exclusion of three players.
+freelance|adj|She's a freelance photographer.
+gin|n|He ordered a gin and tonic.
+ignition|n|Turn the key in the ignition.
+jewel|n|The crown is covered in jewels.
+obese|adj|The vet said the dog was obese.
+perimeter|n|Guards patrolled the perimeter of the camp.
+piper|n|A piper played at the wedding.
+preacher|n|The preacher spoke for an hour.
+protector|n|The big dog is the family's protector.
+ransom|n|The kidnappers demanded a ransom.
+reel|n|He wound the fishing line back onto the reel.
+restart|v|Restart your computer to finish the update.
+timer|n|Set a timer for ten minutes.
+trustee|n|The trustees approved the new budget.
+validation|n|The website needs validation of your email address.
+activism|n|Her activism led to a new recycling law.
+airborne|adj|The plane was airborne within seconds.
+believer|n|She's a great believer in early nights.
+caffeine|n|Too much caffeine keeps me awake.
+commentator|n|The commentator shouted when the goal went in.
+coward|n|Don't be a coward; tell her the truth.
+dell|n|Bluebells grew in the shady dell.
+disappoint|v|The film didn't disappoint.
+enlightenment|n|He traveled to India in search of enlightenment.
+fibre|n|Eat more fibre for a healthy gut.
+frightening|adj|The storm was frightening.
+fucker|-
+garrison|n|The garrison held the town for a year.
+goodwill|n|The gift was a gesture of goodwill.
+honourable|adj|He did the honourable thing and resigned.
+molecule|n|A molecule of water has three atoms.
+monarchy|n|The country is a constitutional monarchy.
+neutrality|n|Switzerland is known for its neutrality.
+partition|n|A glass partition divides the office.
+prostate|n|The doctor checked his prostate.
+rant|n|He went on a long rant about the traffic.
+replica|n|The museum has a replica of the ship.
+riverside|n|We had lunch at a café on the riverside.
+sac|n|The spider's eggs are in a silk sac.
+savior|n|The goalkeeper was the team's savior.
+strangely|adv|The house was strangely quiet.
+toby|-
+translator|n|She works as a translator for the United Nations.
+unsafe|adj|The bridge is unsafe to cross.
+yeast|n|Add the yeast to warm water.
+acne|n|She used a cream to clear up her acne.
+bonnie|adj|What a bonnie baby!
+brewery|n|We toured a brewery in the old town.
+cardboard|n|The kids built a castle out of cardboard.
+demise|n|The demise of the local shop was sad.
+dependence|n|The country is reducing its dependence on oil.
+dime|n|A dime is worth ten cents.
+disagreement|n|We had a small disagreement about money.
+downhill|n|The cyclist raced down the downhill.
+hare|n|A hare raced across the field.
+maternity|n|She's on maternity leave until June.
+misconduct|n|The officer was fired for misconduct.
+morale|n|The win boosted the team's morale.
+novelty|n|The novelty of the new phone soon wore off.
+optimism|n|There's a feeling of optimism in the town.
+oxide|n|Rust is a kind of iron oxide.
+pint|n|I'll have a pint of milk.
+poop|-
+repay|v|I'll repay you next week.
+rouge|n|She put a little rouge on her cheeks.
+softball|n|We play softball in the park on Sundays.
+southeastern|adj|They live in a southeastern suburb.
+stupidity|n|I can't believe my own stupidity.
+anthropology|n|She's studying anthropology.
+artery|n|The surgeon repaired the damaged artery.
+booze|n|They bought snacks and booze for the party.
+corporal|n|The corporal saluted the officer.
+courtyard|n|The hotel has a quiet courtyard with a fountain.
+crest|n|We reached the crest of the hill at noon.
+deception|n|The magician's trick was a clever deception.
+decor|n|The restaurant has a stylish decor.
+discomfort|n|The injection caused only slight discomfort.
+drastically|adv|Prices have risen drastically.
+duel|n|The two men fought a duel at dawn.
+elf|n|The elf in the story makes shoes at night.
+grenade|n|The soldier threw a grenade.
+hamlet|n|We stayed in a tiny hamlet in the hills.
+hugely|adv|The show was hugely popular.
+hypocrisy|n|The voters were angry at the hypocrisy of the politicians.
+inception|n|She has run the club since its inception.
+incompetent|n|The project was ruined by a team of incompetents.
+kris|-
+malaria|n|Mosquitoes spread malaria.
+manifesto|n|The party published its manifesto.
+maze|n|We got lost in the hedge maze.
+monastery|n|The monks of the monastery make cheese.
+negligence|n|The fire was caused by negligence.
+nexus|n|The city is the nexus of the region's trade.
+preseason|n|The team trained hard in the preseason.
+salvage|v|They salvaged what they could from the flood.
+samurai|n|The film is about a samurai in old Japan.
+seafood|n|The town is famous for its seafood.
+standpoint|n|From a cost standpoint, the train is cheaper.
+stein|n|He raised his stein of beer.
+torque|n|The engine has a lot of torque.
+unconstitutional|adj|The court ruled the law unconstitutional.
+undermine|v|The rumors undermined her confidence.
+vacancy|n|The hotel has no vacancies.
+var|-
+veto|n|The president used his veto.
+woodland|n|We walked through the woodland.
+zinc|n|The roof is made of zinc.
+applicant|n|Every applicant must fill in the form.
+bam|n|There was a loud bam, and the lights went out.
+baton|n|The runner passed the baton.
+coca|n|Coca grows in the Andes.
+comet|n|A comet streaked across the sky.
+compartment|n|The battery is in a small compartment at the back.
+cove|n|We swam in a sheltered cove.
+dictatorship|n|The country was a dictatorship for thirty years.
+dread|v|I dread going to the dentist.
+dub|v|The fans dubbed him "the Wall".
+electorate|n|The electorate voted for change.
+expo|n|We went to a car expo.
+lender|n|The lender approved the loan.
+leone|-
+lever|n|Pull the lever to open the gate.
+mileage|n|The car has low mileage.
+mutant|n|The comic is about a team of mutants.
+mythology|n|She loves Greek mythology.
+neon|n|The sign glowed in red neon.
+northeastern|adj|They live in a northeastern state.
+nun|n|The nun taught at the convent school.
+polymer|n|Plastic is a polymer.
+pup|n|The seal pup lay on the rocks.
+quarantine|n|The dog spent a month in quarantine.
+query|v|She queried the bill.
+salesman|n|The salesman showed us three cars.
+scarlet|n|She wore a dress of bright scarlet.
+sonny|-
+southwestern|adj|They hiked in the southwestern desert.
+stitch|n|She needed five stitches in her hand.
+sultan|n|The sultan lived in a great palace.
+supremacy|n|The two teams battled for supremacy.
+symptom|n|A fever is a common symptom of flu.
+wig|n|The actor wore a gray wig.
+accessory|n|A scarf is a good accessory for that coat.
+aggressively|adv|The dog barked aggressively.
+amnesty|n|The government declared an amnesty for prisoners.
+assertion|n|There's no evidence for his assertion.
+atop|adv|A flag flew atop the castle.
+autobiography|n|She wrote her autobiography at eighty.
+await|v|We await your reply.
+broadcaster|n|The broadcaster showed the match live.
+cache|n|The police found a cache of weapons.
+condo|n|They bought a condo by the beach.
+ding|n|The microwave went ding.
+displacement|n|The war caused the displacement of millions.
+disrespect|n|He meant no disrespect.
+edible|n|They sold edibles at the fair.
+enhancement|n|The update includes several enhancements.
+fax|n|Send me a fax of the contract.
+fiat|n|The new rule was imposed by fiat.
+fowler|-
+gee|-
+guitarist|n|The guitarist played a long solo.
+halftime|n|The score was tied at halftime.
+hash|n|We had corned beef hash for breakfast.
+hogan|-
+laurel|n|The winner was crowned with laurel.
+leftist|n|He was a leftist in his youth.
+legitimacy|n|The legitimacy of the election was questioned.
+podium|n|The winner stood on the podium.
+practitioner|n|She's a medical practitioner.
+puck|n|He slapped the puck into the net.
+refrain|n|Everyone joined in the refrain.
+rum|n|The cocktail is made with rum.
+scorer|n|She was the top scorer of the season.
+shareholder|n|The shareholders voted on the merger.
+soy|n|Soy is a good source of protein.
+squash|v|I squashed the tomatoes at the bottom of the bag.
+subdivision|n|They live in a new subdivision outside town.
+tar|n|They covered the road with tar.
+tracker|n|The tracker followed the deer's footprints.
+turbine|n|The wind turbine turned slowly.
+warden|n|The prison warden refused to comment.
+warp|v|The heat warped the plastic.
+whisky|n|He poured a glass of whisky.
+womb|n|The baby grows in its mother's womb.
+argentine|-
+atheist|n|He's an atheist who loves church music.
+bandwidth|n|Video calls use a lot of bandwidth.
+bladder|n|Drinking water keeps your bladder healthy.
+debit|n|The bank listed the debit on my statement.
+demolition|n|The demolition of the old factory took a week.
+downstream|adv|The boat drifted downstream.
+feud|n|The two families have a long feud.
+filmmaker|n|The filmmaker won an award at Cannes.
+furnace|n|The furnace heats the whole house.
+generosity|n|Thank you for your generosity.
+gluten|n|She avoids gluten, so she eats rice instead of bread.
+heavyweight|n|The heavyweight won by a knockout.
+lotus|n|A pink lotus floated on the pond.
+mascot|n|The team's mascot is a bear.
+midfield|n|He controlled the ball in midfield.
+ottoman|n|She rested her feet on the ottoman.
+paddy|n|Farmers planted rice in the paddy.
+paperback|n|I bought the paperback because it was cheaper.
+paved|adj|The paved road ends at the village.
+pavilion|n|The wedding party ate in a pavilion on the lawn.
+peasant|n|The peasants worked the land for the lord.
+pointer|n|The teacher used a pointer to show the map.
+regulator|n|The regulator controls the flow of gas.
+sabotage|n|The fire was an act of sabotage.
+savannah|n|Lions roam the African savannah.
+sexist|n|He was called a sexist after his comments.
+shutdown|n|The factory shutdown lasted a week.
+sic|adv|The sign said "Lemmon juice" (sic).
+vale|n|The farm lies in a green vale.
+wedge|n|He put a wedge under the door to keep it open.
+apartheid|n|Apartheid ended in South Africa in the 1990s.
+arthritis|n|My grandmother has arthritis in her hands.
+authorised|adj|Only authorised staff may enter.
+bale|n|Bales of hay were stacked in the field.
+casualty|n|There were no casualties in the accident.
+cavity|n|The dentist filled a cavity in my tooth.
+courthouse|n|Reporters waited outside the courthouse.
+dissolution|n|The dissolution of the band shocked their fans.
+enclosure|n|The goats live in a large enclosure.
+famine|n|Millions died in the famine.
+gazette|n|The notice was printed in the local gazette.
+homage|n|The film pays homage to old westerns.
+hymn|n|The choir sang a hymn.
+informative|adj|The talk was very informative.
+infringement|n|Copying the song was an infringement of copyright.
+jasmine|n|The scent of jasmine filled the garden.
+linen|n|The tablecloth is made of linen.
+lookout|n|The lookout spotted a ship on the horizon.
+motel|n|We stopped at a motel for the night.
+novelist|n|The novelist is working on her fifth book.
+onwards|adv|The shop is open from nine o'clock onwards.
+payday|n|I'll pay you back on payday.
+physiology|n|She studied the physiology of the heart.
+plateau|n|The town sits on a high plateau.
+precinct|n|He works at the police precinct downtown.
+premiership|n|The team won the premiership last year.
+regeneration|n|Lizards are capable of tail regeneration.
+remembrance|n|They planted a tree in remembrance of their friend.
+reminiscent|adj|The smell is reminiscent of my grandmother's kitchen.
+resentment|n|She felt resentment toward her brother.
+resin|n|Pine trees produce a sticky resin.
+simulator|n|Pilots train in a flight simulator.
+storey|n|They live in a three-storey house.
+symposium|n|She spoke at a symposium on climate change.
+trajectory|n|The trajectory of the ball was perfect.
+unseen|adj|The thief slipped away unseen.
+accusation|n|He denied the accusation.
+adulthood|n|The book follows her from childhood to adulthood.
+attain|v|She attained her goal of running a marathon.
+attendant|n|The parking attendant gave us a ticket.
+authenticity|n|Experts doubted the authenticity of the painting.
+backstage|n|The fans waited backstage to meet the band.
+benny|-
+bloc|n|The trade bloc includes six countries.
+bourbon|n|He ordered a bourbon on ice.
+breaker|-
+brutality|n|The film shows the brutality of war.
+brit|-
+cellar|n|We keep the wine in the cellar.
+cinematic|adj|The game has a cinematic feel.
+cockpit|n|The pilot climbed into the cockpit.
+colon|n|The doctor checked his colon.
+communion|n|They felt a deep communion with nature.
+consul|n|The consul helped us get new passports.
+contender|n|She's a serious contender for the title.
+degradation|n|The degradation of the soil worries farmers.
+dexter|-
+emerald|n|Her ring has a green emerald in the middle.
+equilibrium|n|The two forces are in equilibrium.
+fetus|n|The scan showed the fetus moving.
+grad|-
+granddaughter|n|Her granddaughter is learning to walk.
+gymnastics|n|She has done gymnastics since she was four.
+hale|-
+indoors|adv|We stayed indoors because of the rain.
+intercourse|-
+mare|n|The mare had a foal in the spring.
+motivate|v|The coach knows how to motivate the players.
+ness|-
+ordinance|n|A city ordinance bans fireworks.
+sap|v|The heat sapped our energy.
+sarcastic|adj|"Great job," he said in a sarcastic voice.
+sheikh|n|The sheikh welcomed his guests.
+strait|n|Ships sail through the narrow strait.
+testosterone|n|Testosterone levels rise during puberty.
+weaver|n|The weaver made a rug on her loom.
+weber|-
+abide|v|She abode in the little cottage for years.
+accumulation|n|There's been a big accumulation of snow overnight.
+attacker|n|The attacker ran off when the dog barked.
+barker|-
+bravery|n|The firefighter was praised for his bravery.
+brutally|adv|She was brutally honest about my cooking.
+calorie|n|A banana has about a hundred calories.
+chamberlain|-
+claw|n|The cat sharpened its claws on the sofa.
+commence|v|The ceremony will commence at noon.
+compatibility|n|Their compatibility is clear; they never argue.
+congratulate|v|I called to congratulate her on the new job.
+cortex|n|The cortex is the outer layer of the brain.
+crusade|n|She led a crusade against plastic waste.
+cynical|adj|He's cynical about politicians.
+dynamite|n|They used dynamite to blast the tunnel.
+fart|-
+fundraiser|n|The school held a fundraiser for new computers.
+gaga|-
+heap|n|There's a heap of laundry on the bed.
+impeachment|n|The impeachment of the president began in March.
+inventor|n|The inventor of the telephone was Alexander Graham Bell.
+jasper|-
+lumber|n|We bought lumber to build a fence.
+madam|n|Can I help you, madam?
+nucleus|n|The nucleus controls the cell.
+periodically|adv|Check the oil periodically.
+plumbing|n|The old house needs new plumbing.
+poppy|n|Red poppies grew in the field.
+resemblance|n|There's a strong family resemblance.
+rib|n|He broke a rib when he fell.
+sermon|n|The priest gave a short sermon.
+spec|n|The laptop has an impressive spec.
+sucker|n|I'm a sucker for a good love story.
+titanic|adj|It was a titanic struggle between the two teams.
+wartime|n|My grandparents met in wartime.
+wicket|n|The bowler knocked over the wicket.
+announcer|n|The announcer read out the winners.
+baba|-
+backdrop|n|The mountains made a stunning backdrop for the photos.
+beau|n|She brought her new beau to the party.
+cartel|n|The oil cartel raised prices.
+caucus|v|The party will caucus tonight to choose a leader.
+charcoal|n|We grilled the fish over charcoal.
+citrus|n|Citrus fruits are full of vitamin C.
+columnist|n|The columnist writes about money.
+competence|n|Nobody doubts her competence.
+cyclist|n|A cyclist rode past us on the hill.
+dorm|n|He shares a dorm room with two other students.
+emblem|n|The eagle is the national emblem.
+fascism|n|The film is set in Italy under fascism.
+influx|n|The town sees an influx of tourists in summer.
+installment|n|They paid for the car in monthly installments.
+miner|n|The miners came up after a long shift.
+mosaic|n|The floor is covered in a Roman mosaic.
+mustang|n|Wild mustangs galloped across the plain.
+needy|adj|The charity gives food to needy families.
+orphan|n|The orphan was raised by her aunt.
+patty|n|He put a burger patty on the grill.
+potassium|n|Bananas are rich in potassium.
+priceless|adj|The look on his face was priceless.
+prostitute|-
+resilience|n|The children showed great resilience after the flood.
+similarity|n|There's a strong similarity between the two songs.
+swipe|v|Swipe your card to open the door.
+tang|n|The sauce has a tang of lemon.
+tango|n|They danced the tango.
+telecom|n|He works for a telecom company.
+toxicity|n|The toxicity of the chemical is low.
+tuberculosis|n|Tuberculosis can be cured with antibiotics.
+youthful|adj|She has a youthful face.
+archaeology|n|He studied archaeology and now digs in Egypt.
+autopsy|n|The autopsy showed he died of a heart attack.
+blockade|n|The navy set up a blockade of the port.
+brightness|n|Turn down the brightness of your screen at night.
+cigar|n|He smoked a cigar after dinner.
+cloak|n|The wizard wore a long black cloak.
+cologne|n|He wears too much cologne.
+colt|n|The colt stayed close to its mother.
+crescent|n|A thin crescent moon hung in the sky.
+dumbass|-
+flux|n|The industry is in a state of flux.
+hassle|n|Moving house is such a hassle.
+hector|v|He hectored the waiter about the bill.
+hog|v|Stop hogging the remote!
+jockey|v|The candidates jockeyed for position.
+lea|-
+libertarian|n|He's a libertarian who wants less government.
+metropolis|n|Tokyo is a huge metropolis.
+orchard|n|We picked apples in the orchard.
+parameter|n|We have to work within the parameters of the budget.
+pathology|n|She works in the hospital's pathology lab.
+relocation|n|The company paid for our relocation.
+rosemary|n|Roast the potatoes with rosemary.
+sandstone|n|The church is built of red sandstone.
+sanitation|n|Good sanitation prevents disease.
+secrecy|n|The plan was made in great secrecy.
+springer|-
+sweetie|n|Thanks, sweetie!
+tor|-
+traveler|n|The traveler asked for directions to the station.
+venom|n|The snake's venom is deadly.
+wellness|n|The company runs a wellness program for staff.
+winger|n|The winger crossed the ball into the box.
+abdomen|n|The doctor pressed gently on his abdomen.
+abruptly|adv|The music stopped abruptly.
+asteroid|n|An asteroid passed close to the earth.
+batter|v|Waves battered the coast all night.
+booster|n|He's a big booster of the local team.
+chemotherapy|n|She lost her hair during chemotherapy.
+concussion|n|He got a concussion playing rugby.
+connectivity|n|The village has poor internet connectivity.
+consulate|n|You can renew your passport at the consulate.
+culinary|adj|She went to culinary school in Paris.
+din|n|We couldn't hear over the din of the traffic.
+disturb|v|The news disturbed me deeply.
+encryption|n|The app uses encryption to keep your messages private.
+erica|-
+follower|n|She's a follower of Buddhism.
+glitter|v|The lake glittered in the sunlight.
+graveyard|n|The church graveyard is very old.
+insecurity|n|He hides his insecurity behind jokes.
+lithium|n|Phone batteries use lithium.
+lucrative|adj|He left for a more lucrative job.
+managerial|adj|She has a lot of managerial experience.
+milo|-
+multimedia|n|The museum uses multimedia to tell the story.
+oasis|n|The travelers rested at an oasis.
+oddly|adv|He was oddly quiet at dinner.
+pagan|n|The festival began as a pagan celebration.
+playboy|n|He was a rich playboy in his youth.
+porcelain|n|She collects old porcelain.
+promoter|n|The concert promoter sold out the arena.
+psalm|n|They read a psalm at the funeral.
+psychiatry|n|She works in child psychiatry.
+rhyme|n|"Cat" and "hat" are a rhyme.
+savvy|-
+schizophrenia|n|Schizophrenia can be treated with medicine and therapy.
+spree|n|She went on a shopping spree.
+upstream|adv|Salmon swim upstream to lay their eggs.
+vapor|n|Vapor rose from the hot spring.
+veronica|-
+waterfront|n|We had dinner on the waterfront.
+ambush|n|The soldiers walked into an ambush.
+amelia|-
+arrogance|n|His arrogance annoyed everyone.
+boogie|n|The band played a fast boogie.
+booker|-
+bowel|n|The doctor checked his bowel.
+bureaucracy|n|Getting a visa means a lot of bureaucracy.
+canton|-
+cater|v|The hotel caters for families.
+chimney|n|Smoke rose from the chimney.
+convertible|n|They drove along the coast in a convertible.
+crater|n|The meteor left a huge crater.
+curator|n|The curator chose the paintings for the show.
+deity|n|The temple honors an ancient deity.
+detrimental|adj|Smoking is detrimental to your health.
+diarrhea|n|Drink plenty of water if you have diarrhea.
+educator|n|She's an educator with thirty years of experience.
+finch|n|A finch sang on the fence.
+fulfil|v|He fulfilled his promise.
+gangster|n|The film is about a gangster in Chicago.
+garner|v|The film garnered great reviews.
+gypsy|-
+karate|n|He has a black belt in karate.
+meg|-
+messiah|n|The people waited for a messiah.
+meteor|n|We saw a meteor streak across the sky.
+odyssey|n|The trip across the country was a real odyssey.
+outsider|n|He always felt like an outsider at school.
+phi|-
+plaintiff|n|The plaintiff asked for damages.
+plural|adj|"Mice" is the plural form of "mouse".
+portrayal|n|Her portrayal of the queen won an award.
+rag|n|Wipe the table with a rag.
+raj|-
+retaliation|n|The attack was in retaliation for the bombing.
+rooftop|n|We had drinks on the rooftop.
+safeguard|v|The law safeguards your privacy.
+sedan|n|He drives a gray sedan.
+sewage|n|Sewage was leaking into the river.
+sitcom|n|We watched an old sitcom on TV.
+slang|-
+tavern|n|They stopped at a tavern for a drink.
+telegram|n|She received a telegram with the news.
+titanium|n|The bike frame is made of titanium.
+ulster|-
+ware|n|The market sells pottery and other ware.
+wonderfully|adv|The garden grew wonderfully this year.
+academia|n|She left academia to start a company.
+admittedly|adv|Admittedly, I was late.
+algae|n|Green algae covered the pond.
+apache|-
+asbestos|n|Asbestos was removed from the old school.
+avoidance|n|Avoidance won't solve the problem.
+boutique|n|She owns a little boutique in the old town.
+brewer|n|The brewer explained how the beer is made.
+cringe|v|I cringe when I hear my old songs.
+dagger|n|The pirate drew a dagger.
+dolly|n|The camera moved forward on a dolly.
+downfall|n|Greed was his downfall.
+hazel|adj|She has hazel eyes.
+headset|n|Put on your headset for the call.
+homecoming|n|The town held a homecoming for the soldiers.
+inmate|n|The inmate was moved to another prison.
+inscription|n|The inscription on the ring says "Forever."
+invaluable|adj|Her advice was invaluable.
+kylie|-
+methane|n|Cows produce a lot of methane.
+nausea|n|The medicine can cause nausea.
+oyster|n|They ate oysters by the sea.
+poultry|n|The farm raises poultry.
+reboot|v|Reboot the router if the internet stops working.
+sawyer|-
+screenplay|n|She wrote the screenplay for the film.
+sect|n|He joined a religious sect.
+seismic|adj|Scientists recorded seismic activity under the volcano.
+seminary|n|He studied at a seminary to become a priest.
+smuggling|n|He was arrested for smuggling.
+stash|n|She has a secret stash of chocolate.
+transcription|n|A transcription of the interview is on the website.
+vat|n|The grapes are crushed in a big vat.
+vineyard|n|We toured a vineyard in France.
+yummy|adj|This cake is yummy!
+adobe|n|The house is built of adobe.
+amenities|n|The hotel has good amenities, including a pool.
+asphalt|n|The asphalt was hot under our feet.
+bach|-
+backbone|n|Volunteers are the backbone of the charity.
+bolivia|-
+booklet|n|The booklet explains how to use the machine.
+burgess|-
+chevy|-
+conform|v|The building conforms to safety rules.
+countess|n|The countess lived in a castle.
+favourable|adj|The reviews were favourable.
+flourish|v|The plants flourished in the warm weather.
+fragrance|n|The fragrance of the flowers filled the room.
+fungus|n|A fungus is growing on the tree.
+heroine|n|The heroine of the story saves her village.
+hoax|n|The bomb threat turned out to be a hoax.
+insurer|n|The insurer paid for the repairs.
+jonah|-
+lingerie|n|The shop sells lingerie and swimwear.
+marrow|n|The dog chewed the marrow out of the bone.
+mono|-
+planner|n|The wedding planner thought of everything.
+reap|v|You reap what you sow.
+rebound|v|The ball rebounded off the wall.
+redeem|v|He felt redeemed after confessing.
+reformation|n|The new boss started a reformation of the company.
+residue|n|The glue left a sticky residue.
+robotics|n|She works in robotics.
+runoff|n|Runoff from the farms polluted the river.
+semiconductor|n|Silicon is a semiconductor.
+simultaneous|adj|The two events were simultaneous.
+stealth|n|The cat crept up on the bird with stealth.
+subset|n|Squares are a subset of rectangles.
+syntax|n|English syntax puts the verb after the subject.
+tandem|n|They rode a bicycle built in tandem.
+tertiary|adj|She works in tertiary education.
+thyroid|n|The doctor checked her thyroid.
+vanguard|n|The company is in the vanguard of green energy.
+waiver|n|You have to sign a waiver before the climb.
+weave|v|She weaves baskets from reeds.
+adrenaline|n|I felt a rush of adrenaline before the race.
+alleviate|v|The medicine alleviated the pain.
+anarchy|n|After the government fell, there was anarchy.
+ballroom|n|The wedding was held in a grand ballroom.
+cherish|v|I cherish every moment with my kids.
+chuckle|v|He chuckled at the joke.
+cruiser|n|A police cruiser pulled up outside.
+demolished|adj|The demolished building left a big gap in the street.
+dependency|n|The country wants to end its dependency on imports.
+dosage|n|Check the dosage on the label.
+encyclopedia|n|Look it up in the encyclopedia.
+enrichment|n|The museum offers enrichment classes for kids.
+erection|-
+eruption|n|The eruption of the volcano covered the town in ash.
+fidelity|n|The recording has high fidelity.
+fluent|adj|She's a fluent speaker of three languages.
+fore|n|The captain stood at the fore of the ship.
+freshwater|n|Trout live in freshwater.
+hepatitis|n|He was vaccinated against hepatitis.
+jeopardy|n|The strike put the whole project in jeopardy.
+listener|n|She's a good listener.
+lockdown|n|The prison was in lockdown after the fight.
+mast|n|The flag flew from the mast.
+matte|-
+nicotine|n|Nicotine is what makes cigarettes addictive.
+nordic|adj|They love Nordic design.
+robe|n|She put on her robe and made coffee.
+rye|n|The bread is made from rye.
+sexism|n|She spoke out against sexism in sport.
+socket|n|The ball of the hip fits into a socket.
+stricken|adj|The stricken ship sent out a call for help.
+truce|n|The two sides agreed to a truce.
+turmoil|n|The country is in turmoil.
+tyranny|n|The people rose up against tyranny.
+uphold|v|The court upheld the ruling.
+weir|n|The river tumbles over a weir.
+wellbeing|n|Exercise is good for your wellbeing.
+wonderland|n|After the snow, the garden was a winter wonderland.
+wrestler|n|The wrestler pinned his opponent to the mat.
+accessibility|n|The museum improved its accessibility for wheelchair users.
+anterior|adj|The anterior part of the brain controls planning.
+appendix|n|The tables are in an appendix at the back of the report.
+auditorium|n|The auditorium seats two thousand people.
+boast|v|He boasted about his new car.
+brandy|n|He warmed the brandy in his hands.
+coastline|n|The coastline is dotted with fishing villages.
+cobra|n|The cobra raised its head and hissed.
+comparatively|adv|The test was comparatively easy.
+cosmos|n|The film explores our place in the cosmos.
+cuff|n|There's a stain on the cuff of my shirt.
+delusional|adj|He's delusional if he thinks he'll win.
+deposition|n|The deposition of silt built up the riverbank.
+empower|v|The course empowers women to start businesses.
+fandom|n|The show has a huge fandom.
+glamour|n|She loved the glamour of Hollywood.
+inflated|adj|The prices are inflated for tourists.
+interviewer|n|The interviewer asked about my last job.
+ling|-
+loft|n|They turned the loft into a bedroom.
+mediation|n|The dispute was settled through mediation.
+nutrient|n|Plants take nutrients from the soil.
+outlaw|v|The town outlawed fireworks.
+pageant|n|The children put on a pageant about the town's history.
+parachute|n|The parachute opened just in time.
+parasite|n|The dog was treated for parasites.
+persistence|n|Her persistence finally paid off.
+postage|n|How much is the postage for this parcel?
+profoundly|adv|The trip changed her profoundly.
+prohibit|v|The rules prohibit smoking inside.
+ridiculously|adv|The tickets were ridiculously expensive.
+shootout|n|The film ends with a shootout.
+sigma|n|Sigma is the eighteenth letter of the Greek alphabet.
+symmetry|n|The building is famous for its perfect symmetry.
+syndicate|n|The police broke up a crime syndicate.
+twelfth|adj|It's my twelfth day in a row at work.
+tyre|n|We got a flat tyre on the motorway.
+ultrasound|n|The ultrasound showed a healthy baby.
+ancestry|n|She traced her ancestry back to Ireland.
+antibiotic|adj|The doctor prescribed an antibiotic cream.
+barge|n|A barge carried coal down the river.
+bartender|n|The bartender made us two cocktails.
+bohemian|n|She lived like a bohemian in Paris.
+bong|-
+bribe|n|He was arrested for taking a bribe.
+canoe|n|We paddled a canoe across the lake.
+cider|n|We drank cider in the orchard.
+clueless|adj|I'm clueless about cars.
+crappy|-
+decency|n|Have the decency to say sorry.
+diocese|n|The bishop visited every church in the diocese.
+doorstep|n|A parcel was waiting on the doorstep.
+havoc|n|The storm caused havoc on the roads.
+hind|-
+homophobic|adj|The club banned fans for homophobic chants.
+imam|n|The imam led the prayers.
+inexperienced|adj|The team is young and inexperienced.
+jackpot|n|She won the jackpot in the lottery.
+knowingly|adv|He knowingly broke the rules.
+liberalism|n|The book traces the history of liberalism.
+litre|n|Buy a litre of milk.
+locomotive|n|The steam locomotive pulled six carriages.
+marcel|-
+nuisance|n|The noise from next door is a real nuisance.
+paycheck|n|Most of my paycheck goes on rent.
+pilgrimage|n|They made a pilgrimage to Mecca.
+pivot|v|The door pivots on a hinge.
+primer|n|She read a primer on economics.
+profitability|n|The shop's profitability improved this year.
+rad|-
+reconcile|v|It's hard to reconcile his words with his actions.
+regression|n|The therapist noticed a regression in the child's speech.
+skinner|-
+surname|n|What's your surname?
+synonymous|adj|"Big" and "large" are synonymous.
+astronomical|adj|She has an astronomical telescope in her garden.
+autograph|n|He asked the singer for her autograph.
+axle|n|The cart's axle broke.
+barley|n|The farmer grows barley for beer.
+botanical|-
+brag|v|He brags about his grades.
+ceremonial|n|The ceremonial was held at the palace.
+cheque|n|She paid by cheque.
+choreography|n|The choreography of the show was stunning.
+cisco|-
+coco|-
+concurrent|adj|He's serving two concurrent sentences.
+derrick|n|A derrick stood over the oil well.
+diaper|n|She changed the baby's diaper.
+ecclesiastical|adj|The museum has ecclesiastical treasures from the cathedral.
+elk|n|A herd of elk crossed the river.
+exhaustion|n|He collapsed from exhaustion after the race.
+fella|n|He's a nice fella.
+folklore|n|The story is part of local folklore.
+glee|n|The children shouted with glee.
+gravitational|adj|The moon's gravitational pull causes the tides.
+grazing|n|The land is used for grazing.
+gunshot|n|We heard a gunshot in the distance.
+hiatus|n|The band is on hiatus.
+homestead|n|They built a homestead on the prairie.
+horribly|adv|The plan went horribly wrong.
+horsepower|n|The car has three hundred horsepower.
+hue|n|The sky turned a pinkish hue.
+jihad|-
+knob|n|Turn the knob to open the door.
+laundering|n|He was arrested for money laundering.
+ledger|n|The shop keeps all its sales in a ledger.
+loot|n|The thieves hid the loot in the woods.
+magnesium|n|Nuts are a good source of magnesium.
+mimic|n|The parrot is a great mimic.
+mural|n|A huge mural covers the side of the building.
+musk|n|The perfume has a hint of musk.
+odor|n|There's a strange odor in the fridge.
+peg|n|Hang your coat on the peg.
+refinery|n|The oil refinery employs thousands.
+remorse|n|He showed no remorse for what he did.
+rpm|-
+sanity|n|Walking keeps me sane; it saves my sanity.
+showdown|n|The two leaders had a showdown at the meeting.
+skyline|n|The city skyline glowed at night.
+slab|n|A slab of concrete covered the well.
+supplemental|adj|The course has supplemental reading.
+tariff|n|The government raised the tariff on imported steel.
+techno|n|They danced to techno all night.
+teller|n|The teller counted the votes.
+trance|n|She stared out of the window as if in a trance.
+traveller|n|The traveller asked the way to the station.
+unforgettable|adj|Our trip to Iceland was unforgettable.
+wen|-
+ammo|n|The soldiers ran low on ammo.
+anthology|n|Her poem was published in an anthology.
+ape|n|Gorillas are the largest apes.
+banter|n|The friends enjoyed some friendly banter.
+bidder|n|The house went to the highest bidder.
+bowler|n|The bowler took three wickets.
+chromosome|n|Humans have forty-six chromosomes.
+commencement|n|The commencement of the course is in September.
+contestant|n|Each contestant had a minute to answer.
+convent|n|The nuns live in a convent on the hill.
+converse|v|We conversed in French.
+corrosion|n|Salt causes corrosion on cars.
+crib|n|The baby slept in her crib.
+defiance|n|He stayed out late in defiance of his parents.
+deter|v|The cameras are meant to deter thieves.
+diner|n|The diners at the next table were celebrating.
+ecstasy|n|She was in ecstasy when she heard the news.
+eighteenth|adj|She's celebrating her eighteenth birthday.
+eleventh|adj|He scored in the eleventh minute.
+envoy|n|The envoy carried a message from the king.
+expiration|n|Check the expiration date on the milk.
+fir|n|The cabin is built of fir.
+foreigner|n|As a foreigner, I found the language hard at first.
+goalie|n|The goalie made a great save.
+herring|n|We had pickled herring for lunch.
+lama|n|The lama taught meditation at the temple.
+motivational|adj|She gave a motivational talk to the team.
+notwithstanding|adv|The weather notwithstanding, the match went ahead.
+paralysis|n|The accident left him with paralysis in both legs.
+paw|n|The dog put its paw on my knee.
+pianist|n|The pianist played without any music.
+placebo|n|Half the group were given a placebo.
+progressively|adv|The pain got progressively worse.
+repetition|n|Learning a language takes a lot of repetition.
+retrospective|n|The gallery is holding a retrospective of her work.
+righteousness|n|The sermon was about righteousness.
+shutter|n|The camera's shutter clicked.
+tequila|n|They ordered a round of tequila.
+thug|n|A thug smashed the shop window.
+virginity|-
+wharf|n|The boats are tied up at the wharf.
+alto|n|She sings alto in the choir.
+analyse|v|We analysed the results together.
+anomaly|n|The cold summer was an anomaly.
+aperture|n|Use a wide aperture for portraits.
+apprenticeship|n|He did an apprenticeship as an electrician.
+aspire|v|She aspires to be a doctor.
+cascade|v|Water cascaded down the rocks.
+crate|n|They packed the apples in a wooden crate.
+crave|v|I crave chocolate when I'm tired.
+eddy|v|Leaves eddied in the wind.
+espionage|n|He was arrested for espionage.
+flashback|n|The film tells her childhood in a flashback.
+funnel|n|Use a funnel to pour the oil.
+graft|n|The surgeon used a skin graft.
+immersion|n|Immersion in cold water slows the heart.
+memorandum|n|The two countries signed a memorandum of understanding.
+mercer|-
+mermaid|n|The story is about a mermaid who wants to walk on land.
+nobility|n|Only the nobility could hunt in the forest.
+onstage|adj|The band's onstage energy was amazing.
+ordeal|n|Getting lost in the mountains was a terrible ordeal.
+piston|n|The piston moves up and down inside the engine.
+pollen|n|Bees carry pollen from flower to flower.
+puberty|n|Children grow fast during puberty.
+reggae|n|They played reggae on the beach.
+rethink|v|We need to rethink our plans.
+reviewer|n|The reviewer gave the book five stars.
+rewrite|v|I had to rewrite the whole essay.
+rodeo|n|We watched cowboys ride bulls at the rodeo.
+shire|n|The village is in the old shire of Derby.
+slit|n|Light came through a slit in the curtains.
+teaser|-
+thatcher|-
+throttle|n|He opened the throttle and the boat sped away.
+trivia|n|We went to a trivia night at the pub.
+unbearable|adj|The heat was unbearable.
+underage|adj|The shop was fined for selling alcohol to underage customers.
+vortex|n|The water swirled down the drain in a vortex.
+alias|n|The spy traveled under an alias.
+annoy|v|It annoys me when people talk during films.
+antibody|n|The vaccine helps the body make antibodies.
+baptized|adj|The baptized baby slept through the whole service.
+bowman|-
+burgundy|n|She wore a dress of deep burgundy.
+convergence|n|The convergence of the two rivers forms a lake.
+criterion|n|Price is the main criterion for our choice.
+deduction|n|There's a deduction from my pay for the pension.
+detachment|n|She watched the argument with detachment.
+diminish|v|The pain diminished after a few days.
+disclaimer|n|The website has a disclaimer at the bottom.
+disconnect|v|Disconnect the charger when the battery is full.
+enthusiast|n|He's a railway enthusiast.
+epilepsy|n|She has epilepsy and takes medicine every day.
+ethanol|n|Some cars run on ethanol.
+extremist|n|The extremists were arrested before the attack.
+grail|n|For collectors, the first edition is the holy grail.
+graphical|adj|The program has a simple graphical interface.
+groundbreaking|n|The mayor attended the groundbreaking for the new school.
+holiness|n|The pilgrims felt the holiness of the place.
+humiliating|adj|It was a humiliating defeat.
+illustrator|n|The illustrator drew the pictures for the book.
+instrumentation|n|The plane's instrumentation failed in the storm.
+kappa|-
+leukemia|n|He was treated for leukemia as a child.
+liter|n|The bottle holds a liter.
+manpower|n|We don't have the manpower to finish on time.
+martyr|n|He died a martyr for his beliefs.
+mitigation|n|The council spent money on flood mitigation.
+opium|n|Opium is made from poppies.
+peck|v|The chickens pecked at the grain.
+plank|n|We laid a plank across the stream.
+privy|-
+propulsion|n|The rocket uses jet propulsion.
+raft|n|They floated down the river on a raft.
+rejoice|v|The whole town rejoiced at the news.
+serpent|n|A serpent tempted Eve in the story.
+sesame|n|The buns are sprinkled with sesame.
+slater|-
+smear|n|The story was a smear on her good name.
+statesman|n|He was a respected statesman.
+subcommittee|n|A subcommittee will study the proposal.
+swat|n|She gave the fly a swat.
+swine|n|The farmer raises swine.
+symbolism|n|The painting is full of symbolism.
+underwood|-
+underworld|n|He has links to the criminal underworld.
+alcoholism|n|He has been in recovery from alcoholism for ten years.
+amplifier|n|Plug the guitar into the amplifier.
+atheism|n|The book argues for atheism.
+bitterness|n|She felt no bitterness about the past.
+brat|n|The spoiled brat threw his toys on the floor.
+checklist|n|Go through the checklist before you leave.
+competitiveness|n|Her competitiveness makes her a great athlete.
+confederation|n|The tribes formed a confederation.
+coronation|n|Crowds gathered for the coronation.
+depiction|n|The film's depiction of war is realistic.
+diabetic|n|As a diabetic, he checks his blood sugar every day.
+diaspora|n|The Irish diaspora is spread around the world.
+discord|n|The decision caused discord in the family.
+empress|n|The empress ruled for forty years.
+endeavour|n|Climbing the mountain was a dangerous endeavour.
+enroll|v|She enrolled in a cooking class.
+entertainer|n|The entertainer kept the kids busy for an hour.
+finalist|n|She was a finalist in the competition.
+gadget|n|He loves kitchen gadgets.
+glitch|n|A glitch in the app deleted my photos.
+gong|n|The gong sounded for dinner.
+homepage|n|Go to the homepage and click "Sign in."
+inlet|n|The boat anchored in a quiet inlet.
+kudos|n|Kudos to the team for a great job.
+liquidity|n|The bank had a liquidity crisis.
+loch|n|We took a boat trip on the loch.
+mara|-
+marquis|n|The marquis lived in a grand house.
+mould|v|She moulded the clay into a bowl.
+neuroscience|n|She studies neuroscience at university.
+nipple|-
+patronage|n|Thank you for your patronage.
+prosper|v|The business prospered under her leadership.
+psi|-
+quake|n|The quake shook the whole city.
+racer|n|The racer crossed the finish line first.
+recap|n|Here's a quick recap of last week's episode.
+regent|n|The prince ruled as regent while the king was ill.
+reluctantly|adv|He reluctantly agreed to help.
+roadside|n|We stopped at a roadside café.
+secretariat|n|The secretariat organizes the annual meeting.
+sham|n|The trial was a sham.
+slayer|n|The hero is a dragon slayer.
+specialised|adj|The hospital has a specialised burns unit.
+statistic|n|One statistic stood out in the report.
+steward|n|The steward showed us to our cabin.
+stump|n|We sat on a tree stump to rest.
+subordinate|n|She was kind to her subordinates.
+variance|n|There's a big variance in the results.
+wally|-
+workload|n|My workload has doubled this month.
+xii|-
+admiralty|n|The admiralty ordered the fleet home.
+blackmail|v|He tried to blackmail his boss.
+blindness|n|The disease can cause blindness.
+brightly|adv|The sun shone brightly.
+burglary|n|There was a burglary next door last night.
+cafeteria|n|We ate lunch in the school cafeteria.
+contingency|n|We have a plan for every contingency.
+daft|adj|Don't be daft; of course you can come.
+enchanted|adj|The children wandered through an enchanted forest.
+episcopal|adj|They were married in an episcopal church.
+feasibility|n|They studied the feasibility of a new bridge.
+frenzy|n|The sale caused a buying frenzy.
+fulfillment|n|She finds fulfillment in teaching.
+godfather|n|My uncle is my godfather.
+gran|n|We're visiting my gran on Sunday.
+inadvertently|adv|I inadvertently deleted the file.
+invariably|adv|He invariably arrives late.
+jubilee|n|The town celebrated the queen's jubilee.
+lam|-
+mania|n|The city was gripped by football mania.
+mule|n|The mule carried our bags up the mountain.
+neutron|n|A neutron has no electric charge.
+outset|n|I made it clear from the outset.
+paralyzed|adj|He was paralyzed from the waist down.
+parry|v|She parried the blow with her sword.
+patio|n|We had breakfast on the patio.
+powerhouse|n|She's a powerhouse of energy.
+precursor|n|The typewriter was a precursor of the computer.
+prism|n|A prism splits light into a rainbow.
+proclamation|n|The king issued a proclamation.
+purposely|adv|He purposely ignored her.
+questionnaire|n|Please fill in the questionnaire.
+redevelopment|n|The redevelopment of the docks took ten years.
+reflex|n|The doctor tapped my knee to test my reflexes.
+rematch|n|The champion demanded a rematch.
+renal|adj|He was treated for renal failure.
+repayment|n|The repayment of the loan took five years.
+roe|n|The chef served the fish with its roe.
+rubble|n|Rescuers searched the rubble for survivors.
+seam|n|The seam of my jeans split.
+squid|n|We had fried squid as a starter.
+tanker|n|An oil tanker passed the harbor.
+timetable|n|Check the bus timetable.
+trolley|n|She pushed the trolley around the supermarket.
+viability|n|They questioned the viability of the plan.
+wolverine|n|The wolverine is fierce for its size.
+xiii|-
+yearbook|n|Everyone signed my yearbook.
+abbot|n|The abbot welcomed the visitors to the monastery.
+abduction|n|The police are investigating the abduction.
+antiquity|n|The statue dates from antiquity.
+apocalyptic|adj|The film shows an apocalyptic future.
+appraisal|n|I have my annual appraisal next week.
+aqua|n|The pool tiles are a bright aqua.
+aspen|n|The aspens turned gold in autumn.
+bogus|adj|The email was bogus.
+centric|adj|The design is user centric.
+chaplain|n|The hospital chaplain sat with the family.
+chlorine|n|The pool smells of chlorine.
+chow|n|Let's get some chow.
+collusion|n|The two companies were fined for collusion.
+coroner|n|The coroner will report on the cause of death.
+deterioration|n|There's been a deterioration in his health.
+dirk|-
+disbelief|n|She stared at the letter in disbelief.
+duet|n|They sang a duet at the wedding.
+fiddle|n|He plays the fiddle in a folk band.
+homelessness|n|The charity works to end homelessness.
+horrified|adj|I was horrified by the news.
+hound|n|The hounds chased the fox.
+incompetence|n|The project failed because of incompetence.
+insomnia|n|She suffers from insomnia.
+lagoon|n|We swam in a calm lagoon.
+linguistics|n|She studied linguistics at university.
+lucifer|-
+lunatic|-
+mead|n|They drank mead at the medieval fair.
+miraculous|adj|She made a miraculous recovery.
+nutshell|n|In a nutshell, we need more money.
+obsessive|n|He's an obsessive about clean shoes.
+pendant|n|She wore a silver pendant.
+pharma|n|She works for a big pharma company.
+pol|-
+pouch|n|The kangaroo carries its baby in a pouch.
+psychotic|adj|He had a psychotic episode and was treated in hospital.
+repertoire|n|The band has a huge repertoire of songs.
+repository|n|The library is a repository of local history.
+saloon|n|The cowboys drank in the saloon.
+editorial|n|The newspaper's editorial criticized the new law.
+gal|-
+protestant|-
+pornography|-
+handicap|-
+spectacle|n|The fireworks were quite a spectacle.
+shack|n|They lived in a tin shack by the beach.
+sire|-
+sulfur|n|The hot spring smelled of sulfur.
+trainee|n|The trainee shadowed a senior nurse.
+trey|-
+trough|n|The horses drank from the trough.
+upbringing|n|She had a strict upbringing.
+wager|n|They made a wager on the game.
+accelerator|n|He pressed the accelerator and the car shot forward.
+acrylic|n|She paints in acrylic.
+ascent|n|The ascent to the summit took six hours.
+ballad|n|She sang a sad ballad about the sea.
+bigotry|n|The school takes a stand against bigotry.
+blanc|-
+brute|n|The brute kicked the dog.
+chiefly|adv|The town is known chiefly for its cheese.
+childbirth|n|She took classes to prepare for childbirth.
+conservatism|n|The voters swung toward conservatism.
+continuum|n|Colors blend along a continuum.
+corona|n|The sun's corona is visible during an eclipse.
+dealership|n|He bought the car from a local dealership.
+disparity|n|There's a huge disparity between rich and poor.
+diva|n|The opera diva sang the final aria.
+divert|v|Police diverted traffic around the crash.
+facade|n|The facade of the building is covered in marble.
+farmhouse|n|They live in an old farmhouse.
+fertilizer|n|Put some fertilizer on the tomatoes.
+filler|n|Use filler to fix the hole in the wall.
+flea|n|The dog has fleas.
+footwear|n|Wear sturdy footwear for the hike.
+handbag|n|She keeps her keys in her handbag.
+haze|n|A haze hung over the city.
+helium|n|The balloons are filled with helium.
+hemp|n|The rope is made of hemp.
+hitch|v|He hitched the horse to the cart.
+intrusion|n|Sorry for the intrusion; I'll be quick.
+medic|-
+merlin|n|A merlin hunted low over the moor.
+midland|n|The midland is mostly farmland.
+nylon|n|The tent is made of nylon.
+ozone|n|The ozone layer protects us from the sun's rays.
+paranoia|n|His paranoia made him trust no one.
+phosphate|n|Phosphate is used in fertilizers.
+physicist|n|Einstein was a physicist.
+proton|n|A proton has a positive charge.
+psyche|n|The war left a mark on the nation's psyche.
+redesign|v|They redesigned the website.
+replication|n|Scientists need replication of the results.
+sediment|n|Sediment settled at the bottom of the river.
+solitude|n|She enjoys the solitude of the mountains.
+standby|n|Keep a flashlight as a standby in case the power goes out.
+stronghold|n|The castle was the rebels' last stronghold.
+trooper|n|The state trooper pulled us over.
+turret|n|The castle has a turret on each corner.
+visionary|n|She was a visionary who saw the future of computing.
+voodoo|n|The film is full of voodoo and magic.
+witchcraft|n|The old woman was accused of witchcraft.
+artifact|n|The museum displays artifacts from ancient Egypt.
+austerity|n|The government cut spending in a time of austerity.
+awfully|adv|It's awfully cold today.
+bouquet|n|The bride carried a bouquet of roses.
+bullock|n|The bullock pulled the plow.
+cad|n|He behaved like a cad.
+candidacy|n|She announced her candidacy for mayor.
+compute|v|The program computes the total for you.
+converter|n|I need a converter for my laptop charger.
+coop|n|The chickens are in the coop.
+coronary|n|He had a coronary at fifty.
+cps|-
+deco|n|The hotel is a fine example of art deco.
+diagnose|v|The doctor diagnosed a broken wrist.
+directorate|n|The directorate approved the plan.
+diver|n|The diver explored the wreck.
+embarrass|v|My dad always embarrasses me in front of my friends.
+enquiry|n|We received an enquiry about the flat.
+evergreen|n|Pine trees are evergreens.
+eviction|n|They faced eviction for not paying the rent.
+filth|n|The kitchen was covered in filth.
+foliage|n|The autumn foliage was beautiful.
+foreclosure|n|The bank began foreclosure on the house.
+genie|n|The genie granted him three wishes.
+goo|n|The baby was covered in sticky goo.
+helper|n|My little sister is my helper in the kitchen.
+hubby|n|My hubby made dinner tonight.
+hurdle|v|She hurdled the fence.
+hypertension|n|He takes medicine for hypertension.
+immortality|n|The legend promises immortality to anyone who drinks the water.
+irrespective|adv|Anyone can join, irrespective of age.
+kicker|n|The kicker scored the winning field goal.
+ledge|n|A bird sat on the window ledge.
+mindfulness|n|She practices mindfulness every morning.
+momma|n|The baby reached for her momma.
+morphology|n|The scientist studies the morphology of insects.
+obituary|n|His obituary appeared in the paper.
+pew|n|We sat in the front pew.
+populous|adj|China is a very populous country.
+projector|n|Turn on the projector for the slides.
+ratified|adj|The ratified treaty came into force in May.
+reliant|adj|The town is reliant on tourism.
+revolver|n|The detective carried a revolver.
+rink|n|We went skating at the ice rink.
+ripple|n|A ripple spread across the pond.
+sentinel|n|A sentinel stood at the gate.
+torso|n|The statue has no arms, just a torso.
+tremendously|adv|The show was tremendously popular.
+windshield|n|Rain streamed down the windshield.
+zodiac|n|There are twelve signs of the zodiac.
+abyss|n|He stared into the dark abyss.
+amir|-
+arithmetic|n|She did the arithmetic in her head.
+batsman|n|The batsman hit the ball for six.
+bribery|n|He was charged with bribery.
+brunette|n|The brunette at the desk is my sister.
+buzzer|n|Press the buzzer and someone will let you in.
+cassette|n|He still plays music on a cassette.
+childcare|n|Childcare is expensive in the city.
+cohort|n|The cohort of students graduated together.
+culprit|n|The dog was the culprit who ate the cake.
+daunting|adj|Starting a new job can be daunting.
+distrust|v|She distrusts anyone who's too charming.
+ether|n|The radio signal drifted through the ether.
+etiquette|n|Table etiquette is important at a formal dinner.
+familiarity|n|His familiarity with the city made him a great guide.
+gorge|v|We gorged on cake at the party.
+housewife|n|She was a housewife before she went back to work.
+hypocrite|n|He's a hypocrite who tells others to recycle but never does.
+incorporation|n|The company celebrated ten years since its incorporation.
+lacrosse|n|She plays lacrosse for her school.
+latex|n|The gloves are made of latex.
+leftover|n|We had leftovers for lunch.
+legalization|n|The vote led to the legalization of same-sex marriage.
+modem|n|Restart the modem if the internet is slow.
+motif|n|The dress has a flower motif.
+oversized|adj|She wore an oversized sweater.
+peril|n|The sailors were in great peril.
+principally|adv|The course is principally for beginners.
+professionalism|n|We were impressed by the professionalism of the staff.
+rampage|n|The bull went on a rampage.
+rebirth|n|Spring is a time of rebirth.
+reliably|adv|The old car runs reliably.
+retina|n|Light hits the retina at the back of the eye.
+riff|-
+sherry|n|My grandmother likes a glass of sherry.
+silicone|n|The baking mat is made of silicone.
+skepticism|n|The claim was met with skepticism.
+smiley|n|She ended her text with a smiley.
+snoop|v|Don't snoop through my messages.
+strife|n|The country was torn by strife.
+stylist|n|My stylist cut my hair short.
+thrift|-
+turnaround|-
+uterus|n|The baby grows in the uterus.
+vocalist|n|The band's vocalist has a powerful voice.
+xvi|-
+anesthesia|n|The surgery was done under anesthesia.
+anonymity|n|The donor asked for anonymity.
+aria|n|The soprano sang a beautiful aria.
+bartlett|-
+centenary|adj|The school held centenary celebrations.
+checkpoint|n|The soldiers checked our papers at the checkpoint.
+chloride|n|Sodium chloride is table salt.
+coefficient|n|In 3x, the coefficient of x is 3.
+conglomerate|n|The cliffs are made of conglomerate.
+cornerstone|n|Trust is the cornerstone of any friendship.
+correctness|n|Check the correctness of your answers.
+counterfeit|n|The bill turned out to be a counterfeit.
+deacon|n|The deacon read from the Bible.
+dentistry|n|She studied dentistry for five years.
+edgy|adj|I'm a bit edgy before an exam.
+encore|n|The crowd shouted for an encore.
+err|v|To err is human.
+fab|adj|You look fab!
+gritty|adj|The salad was gritty with sand.
+heartbreak|n|The film is a story of love and heartbreak.
+heist|v|The gang heisted a jewelry store.
+heterosexual|n|The study included both heterosexuals and gay people.
+hobbit|-
+horseback|n|They explored the valley on horseback.
+hospice|-
+intimidation|n|The witness faced intimidation.
+kremlin|-
+langley|-
+liv|-
+magnum|n|They opened a magnum of champagne.
+maxim|n|"Less is more" is his favorite maxim.
+mei|-
+outpost|n|The fort was the last outpost before the desert.
+overflow|v|The bath overflowed.
+oxidation|n|Rust is caused by oxidation.
+panorama|n|The tower offers a panorama of the city.
+pascal|-
+pickle|n|She put a pickle on her sandwich.
+pinky|n|She hurt her pinky in the door.
+playwright|n|Shakespeare was a playwright.
+preface|n|The author thanks her family in the preface.
+prescribe|v|The doctor prescribed antibiotics.
+rainforest|n|The rainforest is home to many species.
+reborn|adj|After the holiday, I felt reborn.
+reddish|adj|The sky had a reddish glow.
+reprint|n|The book sold out and needed a reprint.
+restroom|n|Where's the restroom?
+robber|n|The robber ran off with the cash.
+roulette|-
+satin|n|She wore a satin dress.
+showtime|n|It's almost showtime!
+sinner|n|The preacher said we are all sinners.
+spruce|n|The guitar's top is made of spruce.
+stamina|n|Running builds stamina.
+subconscious|adj|She had a subconscious fear of water.
+thinker|n|He was one of the great thinkers of his time.
+tumour|n|The doctors removed the tumour.
+twain|-
+utopia|n|The town was meant to be a utopia.
+xiv|-
+acronym|n|NASA is an acronym.
+advertiser|n|The advertiser paid for the billboard.
+affidavit|n|She signed an affidavit.
+astrology|n|She reads her horoscope, but she doesn't believe in astrology.
+baroness|n|The baroness opened the garden to visitors.
+barrow|n|He pushed a barrow full of bricks.
+biomass|n|The power station burns biomass.
+blouse|n|She wore a white blouse.
+bodyguard|n|The singer arrived with two bodyguards.
+bulldog|-
+cleric|n|The cleric led the prayers.
+compressor|n|The fridge's compressor stopped working.
+conn|-
+cougar|n|A cougar was spotted in the hills.
+cutler|-
+defamation|n|He sued the paper for defamation.
+disciple|n|The teacher had many disciples.
+ditto|n|Put a ditto under the word to repeat it.

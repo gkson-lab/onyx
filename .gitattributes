@@ -1,1 +1,4 @@
 * text=auto eol=lf
+# Generated: rebuilt by tools/build-lexicon.py and tools/train.js, not edited by hand.
+src/onyx-lexicon.js linguist-generated=true -diff
+src/onyx-weights.js linguist-generated=true -diff
