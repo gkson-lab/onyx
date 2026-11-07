@@ -10,7 +10,10 @@ require('../src/onyx-languages.js');
 require('../src/onyx-data.js');
 require('../src/onyx-model.js');
 require('../src/onyx-weights.js');
+require('../src/onyx-write.js');
 require('../src/onyx.js');
+const fs = require('fs');
+const path = require('path');
 
 // Phrasings that are not in onyx-data.js, with the intent each should land on.
 const HELD_OUT = [
@@ -170,7 +173,8 @@ const SCRIPT = [
 	['how many letters in banana', /6 letters/],
 	['write 1234 in words', /one thousand, two hundred and thirty-four/],
 	['should i take the bus or walk', /Go with \*\*(take the bus|walk)\*\*/],
-	['write me a poem', /beyond me/],
+	['write me a poem', (r) => /^\*\*.+\*\*\n\n/.test(r.text) && r.text.split('\n').length >= 6],
+	['write an essay about the war', /beyond me|short things/],
 	['who won the world cup in 1998', /don't know|outside what I know|No idea/],
 	['I forgot my password', /can't recover passwords/],
 	['helo', /Hi|Hello|Hey|Good/],
@@ -322,21 +326,109 @@ const SCRIPT_2 = [
 	if (!listOk) failed++;
 	console.log(`${listOk ? 'PASS' : 'FAIL'} Spanish and French word list: ${L.size.toLocaleString('en-US')} words${strays.length ? ', not in the dictionary: ' + strays.join(', ') : ''}${halves.length ? ', missing a language: ' + halves.join(', ') : ''}`);
 
-	// The internet port: off by default, consulted only when a host turns it on, and never trusted to answer.
+	// The internet port: off unless a host connects one, used only with the person's permission, never trusted to answer.
+	Omni.onyx.reset();
+	Omni.onyx.settings.reset();
 	const offline = await Omni.onyx.respond('what is the weather');
-	const portOff = /don't use the internet/.test(offline.text);
+	const portOff = /no internet connection/.test(offline.text);
 	const asked = [];
 	Omni.net = { enabled: true, ask: async (req) => (asked.push(req), req.kind === 'weather' ? { text: 'Sunny, 21°C.' } : null) };
-	const portOn = (await Omni.onyx.respond('what is the weather')).text === 'Sunny, 21°C.' && asked[0].kind === 'weather';
-	const fellBack = /don't know|outside what I know|No idea/.test((await Omni.onyx.respond('who won the world cup in 1998')).text) && asked[1].kind === 'search';
+	const offer = await Omni.onyx.respond('what is the weather in Paris');
+	const waits = !!offer.offer && offer.offer.kind === 'online' && /send "Paris" to/.test(offer.text) && asked.length === 0;
+	const portOn = (await Omni.onyx.respond('yes')).text === 'Sunny, 21°C.' && asked[0].kind === 'weather' && asked[0].place === 'Paris';
+	const declined = /stay offline/.test((await Omni.onyx.respond('what is the weather in Lyon', 0)).text + (await Omni.onyx.respond('no')).text) && asked.length === 1;
+	const always = await Omni.onyx.respond('who painted the Mona Lisa?');
+	const fellBack = !!always.offer && /couldn't reach/.test((await Omni.onyx.respond('always')).text) && asked[1].kind === 'search' && Omni.onyx.settings.get().internet === 'on';
 	Omni.net = { enabled: true, ask: async () => { throw new Error('offline'); } };
-	const survived = /don't use the internet/.test((await Omni.onyx.respond('what is the weather')).text);
-	Omni.net = { enabled: false, ask: async () => ({ text: 'should not be used' }) };
-	const stayedOff = /don't use the internet/.test((await Omni.onyx.respond('what is the weather')).text);
-	for (const [ok, what] of [[portOff, 'internet port is off by default'], [portOn, 'an enabled port answers weather'], [fellBack, 'an empty port answer falls back to offline'], [survived, 'a failing port falls back to offline'], [stayedOff, 'a disabled port is never asked']]) {
+	const survived = /couldn't reach/.test((await Omni.onyx.respond('what is the weather in Rome')).text);
+	Omni.net = { enabled: true, ask: async (req) => (asked.push(req), { text: 'Rome: clear, 18°C.' }) };
+	const retried = (await Omni.onyx.respond('try again')).text === 'Rome: clear, 18°C.' && asked[2].place === 'Rome';
+	asked.length = 2;
+	await Omni.onyx.respond('stay offline');
+	Omni.net = { enabled: true, ask: async (req) => (asked.push(req), { text: 'should not be used' }) };
+	const respected = /stay offline/.test((await Omni.onyx.respond('what is the weather in Oslo')).text) && asked.length === 2;
+	Omni.onyx.settings.reset();
+	Omni.net = { enabled: false, ask: async (req) => (asked.push(req), { text: 'should not be used' }) };
+	const stayedOff = /no internet connection/.test((await Omni.onyx.respond('what is the weather')).text) && asked.length === 2;
+	for (const [ok, what] of [[portOff, 'internet port is off by default'], [waits, 'Onyx asks before going online, and says what it would send where'], [portOn, 'after a yes, the port answers'], [declined, 'after a no, nothing is sent'], [fellBack, 'after "always" it looks things up without asking; an empty answer is reported'], [survived, 'a failing port is reported, not thrown'], [retried, '"try again" after a failed lookup goes back online'], [respected, '"stay offline" stops all lookups'], [stayedOff, 'a disabled port is never asked']]) {
 		if (!ok) failed++;
 		console.log(`${ok ? 'PASS' : 'FAIL'} ${what}`);
 	}
+
+	// The real connector (host/net.js), fed responses recorded from Wikipedia, Open-Meteo and the Free Dictionary API.
+	const FIX = path.join(__dirname, 'fixtures');
+	const ROUTES = [
+		[/fr\.wikipedia\.org\/w\/rest\.php\/v1\/search/, 'wiki-search-tour-eiffel-fr.json'], [/fr\.wikipedia\.org\/api\/rest_v1\/page\/summary\/Tour_Eiffel/, 'wiki-summary-tour-eiffel-fr.json'],
+		[/rest\.php\/v1\/search\/page\?q=[^&]*ada/i, 'wiki-search-ada-lovelace.json'], [/page\/summary\/Ada_Lovelace/, 'wiki-summary-ada-lovelace.json'],
+		[/prop=extracts.*Ada%20Lovelace/, 'wiki-article-ada-lovelace.json'], [/feed\/featured/, 'wiki-feed-2026-11-07.json'],
+		[/geocoding-api\.open-meteo\.com.*name=Paris/, 'meteo-geocode-paris.json'], [/api\.open-meteo\.com\/v1\/forecast/, 'meteo-forecast-paris.json'],
+		[/dictionaryapi\.dev.*\/petrichor$/, 'dictionary-petrichor.json'],
+	];
+	const fetched = [];
+	require('../host/net.js');
+	Omni.net.fetch = async (url, init) => {
+		fetched.push({ url, init });
+		const route = ROUTES.find(([re]) => re.test(url));
+		const body = route ? JSON.parse(fs.readFileSync(path.join(FIX, route[1]), 'utf8')) : { title: 'Not found' };
+		return { ok: !!route, status: route ? 200 : 404, json: async () => body };
+	};
+	Omni.onyx.reset();
+	Omni.onyx.settings.reset();
+	const ONLINE = [
+		['who was Ada Lovelace?', (r) => r.offer && r.offer.kind === 'online' && /send "who was Ada Lovelace" to Wikipedia/.test(r.text) && !fetched.length],
+		['yes', (r) => /^\*\*Ada Lovelace\*\* \(English mathematician/.test(r.text) && /Source: Wikipedia, https:\/\/en\.wikipedia\.org\/wiki\/Ada_Lovelace/.test(r.text)],
+		['tell me more', (r) => /^\*\*Ada Lovelace\*\*\n- /.test(r.text) && (r.text.match(/\n- /g) || []).length >= 3],
+		['write a haiku about it', (r) => /^\*\*Haiku: Ada Lovelace\*\*/.test(r.text) && r.text.split('\n\n')[1].split('\n').map((l) => Omni.onyxWrite.syllables(l)).join() === '5,7,5'],
+		['summarize it', /Ada Lovelace, in short\*\*\n- /],
+		['research Ada Lovelace', (r) => r.offer && r.offer.kind === 'online'],
+		['always', (r) => /^\*\*Research: Ada Lovelace\*\*/.test(r.text) && /\*\*Key points\*\*/.test(r.text) && /\*\*Related:\*\* Ada Lovelace \(microarchitecture\)/.test(r.text)],
+		['what is the weather in Paris?', /\*\*Paris, Île-de-France Region, France\*\*: 5°C \(40°F\), fog\.[\s\S]*Today: 5–12°C, fog, 3% chance of rain\.[\s\S]*Source: Open-Meteo/],
+		['what is the weather?', /\*\*Paris/],
+		['define petrichor', /^\*\*petrichor\*\* \/ˈpɛtɹɪkɚ\/\n\*\(noun\)\* The distinctive scent/],
+		['define flibberjab', /couldn't find "flibberjab" online either/],
+		["what's in the news?", (r) => /^\*\*In the news\*\*/.test(r.text) && (r.text.match(/\n- /g) || []).length === 5],
+		['define serendipity', (r) => /\*\*serendipity\*\* \*\(noun\)\*/.test(r.text) && !fetched.some((f) => /serendipity/.test(f.url))],
+		['recherche la tour Eiffel', /^\*\*Recherche: Tour Eiffel\*\* \(tour de fer puddlé[\s\S]*Source: Wikipedia, https:\/\/fr\.wikipedia\.org\/wiki\/Tour_Eiffel/],
+		['cherche la tour Eiffel', /^\*\*Tour Eiffel\*\* \(tour de fer puddlé[\s\S]*dis-m'en plus/],
+		['stay offline', /stay offline/],
+		['who was Grace Hopper?', (r) => !r.offer && /don't know|outside what I know|No idea|stay offline/.test(r.text)],
+	];
+	for (const [say, expect] of ONLINE) {
+		const r = await Omni.onyx.respond(say);
+		const ok = !!r && (expect instanceof RegExp ? expect.test(r.text) : expect(r));
+		if (!ok) failed++;
+		console.log(`${ok ? 'PASS' : 'FAIL'} online: "${say}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
+	}
+	const polite = fetched.filter((f) => /wikipedia/.test(f.url)).every((f) => /^Onyx\/2/.test(f.init.headers['User-Agent'] || ''));
+	const hosts = [...new Set(fetched.map((f) => new URL(f.url).hostname))].sort();
+	const onlyThese = hosts.every((h) => /^(en|es|fr)\.wikipedia\.org$|^(geocoding-)?api\.open-meteo\.com$|^api\.dictionaryapi\.dev$/.test(h));
+	if (!polite || !onlyThese) failed++;
+	console.log(`${polite && onlyThese ? 'PASS' : 'FAIL'} the connector only contacts its four services, and names itself to Wikipedia: ${hosts.join(', ')}`);
+	Omni.net = { enabled: false, ask: async () => null };
+	Omni.onyx.settings.reset();
+
+	// Writing: short pieces from the dictionary, always well formed.
+	Omni.onyx.reset();
+	const WRITE = [
+		['write a haiku about the ocean', (r) => r.text.split('\n\n')[1].split('\n').map((l) => Omni.onyxWrite.syllables(l)).join() === '5,7,5' && /ocean/.test(r.text)],
+		['write me a short poem about the moon', (r) => /^\*\*Moon\*\*/.test(r.text) && r.text.split('\n\n')[1].split('\n').length === 4 && /moon/i.test(r.text.split('\n\n')[1].split('\n')[0])],
+		['another one', (r) => /^\*\*Moon\*\*/.test(r.text)],
+		['write an acrostic for SAM', (r) => /\*\*S\*\*.*\n\*\*A\*\*.*\n\*\*M\*\*/.test(r.text)],
+		['tell me a story about a dragon', (r) => /^\*\*Dragon\*\*\n\nOnce upon a time, an? \w+ dragon lived/.test(r.text) && r.text.split(/[.!?] /).length >= 5],
+		['write a birthday message for my mom', /^Happy birthday, Mom!/],
+		['write a thank you note to Ana for the lovely dinner', /^(Thank you|Just a note to say thank you), Ana, for the lovely dinner/],
+		['write a congratulations card for my sister on her promotion', /^To the best sister anyone could ask for:\n\n(Huge c|C)ongratulations on your promotion!/],
+		['write a good luck message for my brother for his exam', /luck with your exam/],
+		['describe a whale', /^A whale is a very large sea mammal.*It is a kind of cetacean, which makes it a mammal\./],
+		["summarize: Honeybees live in colonies with a single queen. The queen lays all the eggs in the hive. Worker bees are female and do most of the work. They collect nectar and pollen from flowers. Drones are male bees whose main job is to mate with a queen. A healthy hive can hold tens of thousands of bees. Bees communicate the location of flowers with a dance. Beekeepers harvest honey in late summer.", (r) => /^\*\*Summary\*\*\n- /.test(r.text) && (r.text.match(/\n- /g) || []).length === 3],
+	];
+	for (const [say, expect] of WRITE) {
+		const r = await Omni.onyx.respond(say);
+		const ok = !!r && (expect instanceof RegExp ? expect.test(r.text) : expect(r));
+		if (!ok) failed++;
+		console.log(`${ok ? 'PASS' : 'FAIL'} writing: "${say.slice(0, 50)}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
+	}
+
 	// Speed: deciding a reply, averaged over the held-out phrasings and the conversation, after the first.
 	Omni.onyx.reset();
 	const timed = HELD_OUT.map(([t]) => t).concat(SCRIPT.map(([t]) => t), SCRIPT_2.map(([t]) => t)).filter((t) => !/forget|reset|settings|be |stop|you can|no tips|tips/.test(t));

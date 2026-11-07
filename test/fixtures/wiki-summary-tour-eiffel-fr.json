@@ -1,0 +1,21 @@
+{
+ "type": "standard",
+ "title": "Tour Eiffel",
+ "description": "tour de fer puddlé de 330 mètres à Paris, France",
+ "extract": "La tour Eiffel [tuʁɛfɛl] est une tour autoportante de fer puddlé de 330 m de hauteur située à Paris, à l’extrémité nord-ouest du parc du Champ-de-Mars en bordure de la Seine dans le 7e arrondissement. Son adresse officielle est 5, avenue Anatole-France.",
+ "content_urls": {
+  "desktop": {
+   "page": "https://fr.wikipedia.org/wiki/Tour_Eiffel",
+   "revisions": "https://fr.wikipedia.org/wiki/Tour_Eiffel?action=history",
+   "edit": "https://fr.wikipedia.org/wiki/Tour_Eiffel?action=edit",
+   "talk": "https://fr.wikipedia.org/wiki/Discussion:Tour_Eiffel"
+  },
+  "mobile": {
+   "page": "https://fr.wikipedia.org/wiki/Tour_Eiffel",
+   "revisions": "https://fr.wikipedia.org/wiki/Special:History/Tour_Eiffel",
+   "edit": "https://fr.wikipedia.org/wiki/Tour_Eiffel?action=edit",
+   "talk": "https://fr.wikipedia.org/wiki/Discussion:Tour_Eiffel"
+  }
+ },
+ "lang": "fr"
+}

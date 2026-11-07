@@ -1,0 +1,92 @@
+{
+ "news": [
+  {
+   "story": "<!--Nov 3-->In the United States, the <a rel=\"mw:WikiLink\" href=\"./Democratic_Party_(United_States)\" title=\"Democratic Party (United States)\" id=\"mwBg\">Democratic Party</a> wins a majority in both the <a rel=\"mw:WikiLink\" href=\"./United_States_House_of_Representatives\" title=\"United States House of Representatives\" id=\"mwBw\">House of Representatives</a> and the <a rel=\"mw:WikiLink\" href=\"./United_States_Senate\" title=\"United States Senate\" id=\"mwCA\">Senate</a> in <b id=\"mwCQ\"><a rel=\"mw:WikiLink\" href=\"./2026_United_States_elections\" title=\"2026 United States elections\" id=\"mwCg\">the midterm elections</a></b>.",
+   "links": [
+    {
+     "titles": {
+      "canonical": "2026_United_States_elections",
+      "normalized": "2026 United States elections",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2026 United States elections</span></span>"
+     }
+    },
+    {
+     "titles": {
+      "canonical": "Democratic_Party_(United_States)",
+      "normalized": "Democratic Party (United States)",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Democratic Party (United States)</span></span>"
+     }
+    }
+   ]
+  },
+  {
+   "story": "<!--Nov 1-->In <a rel=\"mw:WikiLink\" href=\"./Motorsport\" title=\"Motorsport\" id=\"mwDA\">motorsport</a>, <a rel=\"mw:WikiLink\" href=\"./Kimi_Antonelli\" title=\"Kimi Antonelli\" id=\"mwDQ\">Kimi Antonelli</a> <i id=\"mwDg\"></i> becomes the youngest winner of <b id=\"mwDw\"><a rel=\"mw:WikiLink\" href=\"./2026_Formula_One_World_Championship\" title=\"2026 Formula One World Championship\" id=\"mwEA\">the Formula One World Championship.</a></b>",
+   "links": [
+    {
+     "titles": {
+      "canonical": "2026_Formula_One_World_Championship",
+      "normalized": "2026 Formula One World Championship",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2026 Formula One World Championship</span></span>"
+     }
+    },
+    {
+     "titles": {
+      "canonical": "Motorsport",
+      "normalized": "Motorsport",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Motorsport</span></span>"
+     }
+    }
+   ]
+  },
+  {
+   "story": "<!--Oct 31-->The <a rel=\"mw:WikiLink\" href=\"./Constitutional_Tribunal_(Poland)#Polish_Constitutional_Tribunal_crisis\" title=\"Constitutional Tribunal (Poland)\" id=\"mwEg\">Polish Constitutional Tribunal crisis</a> escalates with <a rel=\"mw:WikiLink\" href=\"./2026_Polish_Constitutional_Tribunal_crisis\" title=\"2026 Polish Constitutional Tribunal crisis\" id=\"mwEw\"><b id=\"mwFA\">the suspension</b></a> of tribunal head <a rel=\"mw:WikiLink\" href=\"./Bogdan_Święczkowski\" title=\"Bogdan Święczkowski\" id=\"mwFQ\">Bogdan Święczkowski</a><span typeof=\"mw:Entity\" id=\"mwFg\">&nbsp;</span> and deputy head <a rel=\"mw:WikiLink\" href=\"./Bartłomiej_Sochański\" title=\"Bartłomiej Sochański\" id=\"mwFw\">Bartłomiej Sochański</a> by judge <a rel=\"mw:WikiLink\" href=\"./Anna_Korwin-Piotrowska\" title=\"Anna Korwin-Piotrowska\" id=\"mwGA\">Anna Korwin-Piotrowska</a>.",
+   "links": [
+    {
+     "titles": {
+      "canonical": "Constitutional_Tribunal_(Poland)",
+      "normalized": "Constitutional Tribunal (Poland)",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Constitutional Tribunal (Poland)</span></span>"
+     }
+    },
+    {
+     "titles": {
+      "canonical": "2026_Polish_Constitutional_Tribunal_crisis",
+      "normalized": "2026 Polish Constitutional Tribunal crisis",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2026 Polish Constitutional Tribunal crisis</span></span>"
+     }
+    }
+   ]
+  },
+  {
+   "story": "<!--Oct 30--><a rel=\"mw:WikiLink\" href=\"./Digital_currency\" title=\"Digital currency\" id=\"mwGg\">Digital currency</a> worth US$6.3 billion <b id=\"mwGw\"><a rel=\"mw:WikiLink\" href=\"./2026_Binance_hack\" title=\"2026 Binance hack\" id=\"mwHA\">is stolen</a></b> from <a rel=\"mw:WikiLink\" href=\"./Cryptocurrency\" title=\"Cryptocurrency\" id=\"mwHQ\">cryptocurrency</a> exchange <a rel=\"mw:WikiLink\" href=\"./Binance\" title=\"Binance\" id=\"mwHg\">Binance</a>.",
+   "links": [
+    {
+     "titles": {
+      "canonical": "2026_Binance_hack",
+      "normalized": "2026 Binance hack",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2026 Binance hack</span></span>"
+     }
+    },
+    {
+     "titles": {
+      "canonical": "Digital_currency",
+      "normalized": "Digital currency",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Digital currency</span></span>"
+     }
+    }
+   ]
+  },
+  {
+   "story": "<!--Oct 28-->American labor activist <b id=\"mwIA\"><a rel=\"mw:WikiLink\" href=\"./Dolores_Huerta\" title=\"Dolores Huerta\" id=\"mwIQ\">Dolores Huerta</a></b> dies at the <span class=\"nowrap\" about=\"#mwt3\" typeof=\"mw:Transclusion\" id=\"mwIg\" data-mw=\"{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;nowrap&quot;,&quot;href&quot;:&quot;./Template:Nowrap&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;age of 96&quot;}},&quot;i&quot;:0}}]}\">age of 96</span>.",
+   "links": [
+    {
+     "titles": {
+      "canonical": "Dolores_Huerta",
+      "normalized": "Dolores Huerta",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Dolores Huerta</span></span>"
+     }
+    }
+   ]
+  }
+ ]
+}

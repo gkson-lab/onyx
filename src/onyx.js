@@ -1,7 +1,8 @@
-// Onyx 2: Omni Agent's local engine. Two intent models that vote (a TF-IDF phrase matcher and a small neural network
+// Onyx 2.1: Omni Agent's local engine. Two intent models that vote (a TF-IDF phrase matcher and a small neural network
 // with open weights), a 14,000-word dictionary it reasons with, English, Spanish and French, a memory of the whole
-// conversation, a glossary, a tool finder and OmniTool's offline commands. Runs on this device: no network, no model
-// download. The internet port below is prepared for a host to fill in; nothing fills it today.
+// conversation, short pieces of writing, a glossary, a tool finder and OmniTool's offline commands. Runs on this
+// device, with no model download. The engine has no network code: it goes online only through a host's internet port
+// (host/net.js is one), and only with the person's permission.
 (function () {
 	'use strict';
 
@@ -230,11 +231,13 @@
 	// How Onyx answers what people tell it. People change these by asking ("be brief", "stop asking questions"); a
 	// host can use Omni.onyx.settings. Stored next to the memory, on this device only.
 	const SETTINGS_KEY = 'onyx.settings';
-	const DEFAULTS = { tone: 'warm', questions: true, tips: true, useName: true, reader: true };
+	const DEFAULTS = { tone: 'warm', questions: true, tips: true, useName: true, reader: true, internet: 'ask' };
 	const TONES = ['warm', 'brief', 'playful'];
+	// Going online: ask first (the default), allowed without asking, or never.
+	const INTERNET = ['ask', 'on', 'off'];
 	const settings = () => Object.assign({}, DEFAULTS, Omni.store.get(SETTINGS_KEY, {}));
 	function setSetting(key, value) {
-		if (!(key in DEFAULTS) || (key === 'tone' ? !TONES.includes(value) : typeof value !== 'boolean')) return false;
+		if (!(key in DEFAULTS) || (key === 'tone' ? !TONES.includes(value) : key === 'internet' ? !INTERNET.includes(value) : typeof value !== 'boolean')) return false;
 		Omni.store.set(SETTINGS_KEY, Object.assign(settings(), { [key]: value }));
 		return true;
 	}
@@ -252,6 +255,9 @@
 		[/\b(?:use|say) my name\b/, ['useName', true], 'I\'ll use your name again.'],
 		[/\b(?:turn off|disable|stop|no)\s+(?:dynamic|smart|personal)\s+(?:replies|responses|answers)\b/, ['reader', false], 'I\'ll stick to my fixed replies.'],
 		[/\b(?:turn on|enable|start)\s+(?:dynamic|smart|personal)\s+(?:replies|responses|answers)\b/, ['reader', true], 'I\'ll reply to what you tell me again.'],
+		[/\b(?:stay|go|work|remain|be) offline\b|\b(?:turn off|disable|no more|stop using(?: the)?|don ?t use(?: the)?|do not use(?: the)?|never use(?: the)?)\s+(?:the\s+)?(?:internet|web|online lookups?|lookups?)\b|\binternet off\b|\bno internet\b/, ['internet', 'off'], 'I\'ll stay offline and won\'t offer to look things up.'],
+		[/\bask (?:me )?(?:first|before (?:going online|using the internet|looking (?:things|anything|it) up|you look (?:things|anything|it) up))\b/, ['internet', 'ask'], 'I\'ll ask before every lookup.'],
+		[/\b(?:you (?:can|may)|feel free to|go ahead and|i allow you to|you have (?:my )?permission to)\s+(?:go online|use the internet|look (?:things|stuff|anything) up(?: online)?|search (?:the web|online|the internet))\b|\b(?:turn on|enable|allow)\s+(?:the\s+)?(?:internet|web|online)(?: access| lookups?| search)?\b|\binternet on\b|^go online$/, ['internet', 'on'], 'Okay, I\'ll look things up online when it helps, without asking each time.'],
 	];
 
 	function describeSettings() {
@@ -265,6 +271,7 @@
 			`- **Tips**: ${onOff(s.tips)} (${s.tips ? '"no tips"' : '"tips on"'})`,
 			`- **Using your name**: ${onOff(s.useName)} (${s.useName ? '"don\'t use my name"' : '"use my name"'})`,
 			`- **Replies built from what you say**: ${onOff(s.reader)} (${s.reader ? '"turn off dynamic replies"' : '"turn on dynamic replies"'})`,
+			`- **Going online**: ${{ ask: 'ask first', on: 'allowed', off: 'never' }[s.internet]} (${s.internet === 'on' ? '"ask first" or "stay offline"' : s.internet === 'off' ? '"you can go online" or "ask first"' : '"you can go online" or "stay offline"'})${netReady() ? '' : '. This copy of Onyx has no internet connection.'}`,
 			'',
 			'Say "reset settings" to go back to the defaults.',
 		].join('\n');
@@ -275,7 +282,7 @@
 		if (/^(?:show |open |my |your |onyx )?settings$|^what are (?:my|your) settings$|^(?:how do i )?change (?:your |the |my )?settings$/.test(norm)) return answer(describeSettings());
 		if (/^reset (?:my |your |the )?settings$/.test(norm)) {
 			Omni.store.remove(SETTINGS_KEY);
-			return answer('Settings are back to the defaults: a warm tone, follow-up questions, tips, your name, and replies built from what you say.');
+			return answer('Settings are back to the defaults: a warm tone, follow-up questions, tips, your name, replies built from what you say, and asking before going online.');
 		}
 		for (const [re, [key, value], said] of SETTING_COMMANDS) if (re.test(norm) && setSetting(key, value)) return answer(`${said} Say "settings" to see or change the rest.`);
 		return null;
@@ -336,6 +343,7 @@
 
 	const YES = /^(y|yes|yeah|yep|yup|sure|ok|okay|please|yes please|go ahead|do it|please do|definitely|absolutely|of course|sounds good|why not|alright|sure thing|go for it)\b[\s!.]*$/i;
 	const NO = /^(n|no|nope|nah|no thanks|no thank you|not now|maybe later|never mind|nevermind|cancel|stop|don't|dont)\b[\s!.]*$/i;
+	const ALWAYS = /^(?:always|yes,? always|always allow|allow always|don'?t ask again|do not ask again|you can always|siempre|s[ií],? siempre|toujours|oui,? toujours)\b/i;
 	const CRISIS = /\b(kill myself|killing myself|suicid|end my life|want to die|wanna die|don'?t want to live|hurt myself|self[- ]harm)\b/i;
 	// Languages Onyx doesn't speak (Spanish and French it does).
 	const FOREIGN = /^(hallo|guten (?:tag|morgen)|ciao|buongiorno|grazie|ol[aá]|obrigad[oa]|konnichiwa|arigato|namaste|privet|danke|hej|tack)\b|[Ѐ-ӿ֐-ۿऀ-ॿ぀-ヿ一-鿿가-힯]/i;
@@ -1110,11 +1118,28 @@
 	}
 
 	/** Answers a message in Spanish or French: crisis, names, translation, feelings, math, then small talk. */
-	async function foreign(lang, text, mem, expect) {
+	async function foreign(lang, text, mem, expect, pending) {
 		const L = Omni.onyxLanguages;
 		const P = L.LANGS[lang];
 		const name = mem.name && settings().useName ? `, ${mem.name}` : '';
 		if (CRISIS.test(text) || L.CRISIS[lang].test(text)) return answer(P.crisis);
+		if (pending && pending.kind === 'online') {
+			if (ALWAYS.test(text)) {
+				setSetting('internet', 'on');
+				return accept(pending);
+			}
+			if (/^(?:s[ií]|claro|vale|venga|dale|por favor|b[uú]scalo|oui|ouais|d'accord|bien s[uû]r|vas-y|allez|cherche|int[eé]ntalo|otra vez|de nuevo|r[ée]essaie|encore)\b/i.test(text.trim())) return accept(pending);
+			if (/^(?:no|non|nah|ahora no|pas maintenant|laisse tomber|d[ée]j[aà] pas)\b/i.test(text.trim())) return answer(netWords(lang).declined);
+		}
+		// Permission to go online, in Spanish or French.
+		if (/^(?:puedes (?:usar|buscar en) internet|usa internet|permito internet)|^(?:tu peux (?:aller sur|utiliser) internet|utilise internet)/i.test(text.trim())) {
+			setSetting('internet', 'on');
+			return answer(lang === 'es' ? 'De acuerdo: buscaré en internet cuando ayude, sin preguntar cada vez.' : 'D\'accord : je chercherai sur internet quand ça aide, sans demander à chaque fois.');
+		}
+		if (/^(?:no uses internet|sin internet|qu[eé]date sin conexi[oó]n)|^(?:n'utilise pas internet|reste hors ligne|sans internet)/i.test(text.trim())) {
+			setSetting('internet', 'off');
+			return answer(lang === 'es' ? 'De acuerdo, me quedo sin conexión.' : 'D\'accord, je reste hors ligne.');
+		}
 		if (convo.switched) {
 			convo.switched = false;
 			return answer(lang === 'es' ? '¡Claro! Desde ahora te respondo en español. Escribe **ayuda** para ver lo que sé hacer.' : 'Bien sûr ! Je te réponds en français maintenant. Écris **aide** pour voir ce que je sais faire.');
@@ -1126,6 +1151,13 @@
 		}
 		const q = L.translateQuery(text);
 		if (q) return translateReply(q, lang);
+		const wanted = lookupRequest(text);
+		if (wanted && wanted.kind === 'again' && netReady()) return answer(netWords(lang).whatTopic);
+		if (wanted && wanted.kind !== 'again') {
+			const r = await lookOnline(Object.assign(wanted, { lang }));
+			if (r) return r;
+			return answer(netReady() ? netWords(lang).off : lang === 'es' ? 'Desde aquí no puedo conectarme a internet.' : 'Je ne peux pas aller sur internet d\'ici.');
+		}
 		const felt = L.feeling(lang, text);
 		if (felt) {
 			const d = Omni.onyxDictionary;
@@ -1143,6 +1175,17 @@
 		const top = ranked[0] || { score: 0 };
 		if (top.score >= 0.45 || (top.score >= 0.32 && top.score - ((ranked[1] && ranked[1].score) || 0) >= 0.12)) {
 			const intent = P.intents.find((i) => i.id === top.id);
+			if (intent.id === 'weather' && netReady() && settings().internet !== 'off') {
+				const place = placeOf(text) || convo.place;
+				if (!place) return answer(netWords(lang).whichCity);
+				const r = await lookOnline({ kind: 'weather', place, query: place, lang });
+				if (r) return r;
+			}
+			// "¿Qué noticias hay?", "quelles sont les nouvelles ?": the news, online, with permission.
+			if (intent.id === 'limits' && /\b(?:noticias|nouvelles|actualit[eé]s?|titulares)\b/i.test(text)) {
+				const r = await lookOnline({ kind: 'news', query: 'news', lang });
+				if (r) return r;
+			}
 			const r = typeof intent.reply === 'function' ? intent.reply({ mem, draw, pick, lang }) : pick(`${lang}-${intent.id}`, intent.reply);
 			if (intent.switchTo) convo.lang = intent.switchTo;
 			return answer(fill(r, mem), { intent: intent.id, expect: intent.id === 'name_get' && !mem.name ? 'name' : null });
@@ -1150,6 +1193,12 @@
 		// One word on its own: say what it is in English.
 		if (text.trim().split(/\s+/).length <= 2 && L.findForeign(lang, text).length) return translateReply({ word: text }, lang);
 		const asking = /\?\s*$|^\s*¿/.test(text) || /^(?:qu[eé]|c[oó]mo|cu[aá]ndo|d[oó]nde|por qu[eé]|qui[eé]n|cu[aá]l|quel|quelle|comment|pourquoi|o[uù]|quand|qui|combien)\b/i.test(text.trim());
+		if (asking) {
+			const question = text.trim().replace(/^[¿¡]+|[?!.]+$/g, '');
+			const topic = question.replace(/^(?:qu[eé]|qui[eé]n(?:es)?|cu[aá]ndo|d[oó]nde|c[oó]mo|qui|quoi|quand|o[uù]|comment)\s+(?:es|era|fue|son|est|[ée]tait|sont|est-ce que|est-ce qui|a|ha)?\s*/i, '').replace(/^(?:el|la|los|las|le|les|l')\s*/i, '');
+			const r = await lookOnline({ kind: 'search', query: question, topic, lang }, { lead: P.dunno[0].split('.')[0] + '.' });
+			if (r) return r;
+		}
 		return answer(pick(`${lang}-miss`, asking ? P.dunno : P.miss), { miss: true });
 	}
 
@@ -1189,28 +1238,348 @@
 		return Object.assign({}, last, { text: texts.join(texts.some((x) => x.includes('\n')) ? '\n\n' : ' '), offer: offer || undefined, several: answered.length });
 	}
 
-	/* ---------- Internet port (prepared, not connected) ---------- */
+	/* ---------- The internet, with permission ---------- */
 
 	/*
-	 * The one place Onyx would reach beyond this device. A host may set Omni.net = { enabled: true, ask(request) } where
-	 * request is { kind, query } (kind: 'weather', 'news', 'search' or 'define') and ask resolves to { text } or null.
-	 * Nothing provides one today: host.js ships it disabled and Onyx itself makes no network requests. Any failure, a
-	 * slow answer or an empty one falls back to what Onyx would have said offline.
+	 * Onyx goes online only through a host's internet port, Omni.net = { enabled: true, ask(request) }, and only with
+	 * the person's permission. host/net.js is a port that talks to Wikipedia, Open-Meteo and the Free Dictionary API;
+	 * host.js ships without one. A request is { kind, query, topic?, place?, lang } (kind: 'search', 'research',
+	 * 'weather', 'news' or 'define'), and ask resolves to { data } (see host/net.js), { text } (shown as it is) or null.
+	 *
+	 * The "internet" setting decides: "ask" (the default) offers each lookup and waits for a yes, "on" looks things up
+	 * without asking, "off" never goes online. Any failure, a slow answer or an empty one falls back to what Onyx would
+	 * have said offline.
 	 */
-	const NET_KINDS = ['weather', 'news', 'search', 'define'];
-	const NET_TIMEOUT = 8000;
-	async function online(kind, query) {
-		const net = Omni.net;
-		if (!net || net.enabled !== true || typeof net.ask !== 'function' || !NET_KINDS.includes(kind)) return null;
+	const NET_KINDS = ['weather', 'news', 'search', 'research', 'define'];
+	const NET_TIMEOUT = 25000;
+	const netReady = () => !!(Omni.net && Omni.net.enabled === true && typeof Omni.net.ask === 'function');
+	const sourceOf = (kind) => (Omni.net && Omni.net.sources && Omni.net.sources[kind]) || 'the internet';
+
+	/** The host's answer to a request, once the person has agreed: { text } or { data }, or null. */
+	async function fetchOnline(request) {
 		let timer;
 		try {
-			const r = await Promise.race([net.ask({ kind, query }), new Promise((done) => (timer = setTimeout(done, NET_TIMEOUT, null)))]);
-			return r && typeof r.text === 'string' && r.text.trim() ? answer(r.text.trim()) : null;
+			const r = await Promise.race([Omni.net.ask(request), new Promise((done) => (timer = setTimeout(done, NET_TIMEOUT, null)))]);
+			if (r && typeof r.text === 'string' && r.text.trim()) return r;
+			return r && r.data && typeof r.data === 'object' ? r : null;
 		} catch {
 			return null;
 		} finally {
 			clearTimeout(timer);
 		}
+	}
+
+	// What Onyx says, in the person's language, when it asks to go online, when it can't, and around what it found.
+	const NET_WORDS = {
+		en: {
+			offer: (what, q, src) => `I can ${what} online: I'd send "${q}" to ${src}.`,
+			offerNews: (src) => `I can get today's headlines from ${src}'s "In the news" page.`,
+			ask: 'Want me to? (yes, no, or "always" so I stop asking)',
+			failed: (src) => `I couldn't reach ${src} just now (no connection, or it's busy).`,
+			retry: 'Want me to try again?',
+			off: 'I\'m set to stay offline, so I can\'t look that up. Say "you can go online" to let me.',
+			declined: 'Okay, I\'ll stay offline for that.',
+			source: 'Source', research: 'Research', key: 'Key points', related: 'Related', more: 'Say "tell me more" for the key points, or "write a poem about it".',
+			partial: '(Wikipedia didn\'t send the whole article just now, so this is from its summary.)',
+			moreDone: (url) => `That's the gist. The full article is at ${url}`,
+			notFoundPlace: (p) => `I couldn't find a place called "${p}". Try a nearby city.`,
+			notFoundWord: (w) => `I couldn't find "${w}" online either.`,
+			nothing: (q) => `I looked on Wikipedia, but found nothing on "${q}". Try fewer or different words.`,
+			whichCity: 'Which city? Say something like "weather in Paris".',
+			whatTopic: 'What should I look up? Say something like "look up Ada Lovelace".',
+			today: 'Today', tomorrow: 'Tomorrow', feels: 'feels like', humidity: 'humidity', wind: 'wind', rain: 'chance of rain', news: 'In the news',
+		},
+		es: {
+			offer: (what, q, src) => `Puedo ${what} en internet: enviaría «${q}» a ${src}.`,
+			offerNews: (src) => `Puedo ver los titulares de hoy en la página «In the news» de ${src} (en inglés).`,
+			ask: '¿Quieres? (sí, no, o «siempre» para no volver a preguntar)',
+			failed: (src) => `No he podido conectar con ${src} ahora mismo.`,
+			retry: '¿Lo intento otra vez?',
+			off: 'Estoy configurado para no usar internet. Di «puedes usar internet» para permitírmelo.',
+			declined: 'De acuerdo, sin internet.',
+			source: 'Fuente', research: 'Investigación', key: 'Puntos clave', related: 'Relacionado', more: 'Di «cuéntame más» para los puntos clave.',
+			partial: '(Wikipedia no ha enviado el artículo completo, así que esto viene de su resumen.)',
+			moreDone: (url) => `Eso es lo esencial. El artículo completo está en ${url}`,
+			notFoundPlace: (p) => `No encuentro ningún lugar llamado «${p}».`,
+			notFoundWord: (w) => `Tampoco encuentro «${w}» en internet.`,
+			nothing: (q) => `He buscado en Wikipedia, pero no hay nada sobre «${q}».`,
+			whichCity: '¿En qué ciudad? Por ejemplo: «tiempo en Madrid».',
+			whatTopic: '¿Qué busco? Por ejemplo: «busca Frida Kahlo».',
+			today: 'Hoy', tomorrow: 'Mañana', feels: 'sensación de', humidity: 'humedad', wind: 'viento', rain: 'probabilidad de lluvia', news: 'Noticias',
+		},
+		fr: {
+			offer: (what, q, src) => `Je peux ${what} sur internet : j'enverrais « ${q} » à ${src}.`,
+			offerNews: (src) => `Je peux voir les titres du jour sur la page « In the news » de ${src} (en anglais).`,
+			ask: 'Tu veux ? (oui, non, ou « toujours » pour ne plus demander)',
+			failed: (src) => `Je n'arrive pas à joindre ${src} pour l'instant.`,
+			retry: 'Je réessaie ?',
+			off: 'Je suis réglé pour rester hors ligne. Dis « tu peux aller sur internet » pour me le permettre.',
+			declined: 'D\'accord, je reste hors ligne.',
+			source: 'Source', research: 'Recherche', key: 'Points clés', related: 'Voir aussi', more: 'Dis « dis-m\'en plus » pour les points clés.',
+			partial: '(Wikipédia n\'a pas envoyé tout l\'article, donc ceci vient de son résumé.)',
+			moreDone: (url) => `C'est l'essentiel. L'article complet est sur ${url}`,
+			notFoundPlace: (p) => `Je ne trouve aucun lieu appelé « ${p} ».`,
+			notFoundWord: (w) => `Je ne trouve pas « ${w} » sur internet non plus.`,
+			nothing: (q) => `J'ai cherché sur Wikipédia, mais rien sur « ${q} ».`,
+			whichCity: 'Quelle ville ? Par exemple : « météo à Lyon ».',
+			whatTopic: 'Je cherche quoi ? Par exemple : « cherche Marie Curie ».',
+			today: 'Aujourd\'hui', tomorrow: 'Demain', feels: 'ressenti', humidity: 'humidité', wind: 'vent', rain: 'risque de pluie', news: 'Actualités',
+		},
+	};
+	const netWords = (lang) => NET_WORDS[lang] || NET_WORDS.en;
+	const WHAT = {
+		en: { weather: (r) => `check the weather in ${r.place}`, news: () => 'get today\'s headlines', define: (r) => `look up "${r.query}"`, search: () => 'look that up', research: (r) => `research ${r.topic || 'that'}` },
+		es: { weather: (r) => `consultar el tiempo en ${r.place}`, news: () => 'ver las noticias de hoy', define: (r) => `buscar «${r.query}»`, search: () => 'buscarlo', research: (r) => `investigar ${r.topic || 'eso'}` },
+		fr: { weather: (r) => `consulter la météo à ${r.place}`, news: () => 'voir les actualités du jour', define: (r) => `chercher « ${r.query} »`, search: () => 'le chercher', research: (r) => `faire des recherches sur ${r.topic || 'ça'}` },
+	};
+
+	/**
+	 * Goes online for a request if the person allows it, and returns the reply; null to answer offline instead. With
+	 * the setting on "ask", it returns an offer to look it up (after `lead`, what Onyx knows without it); `granted`
+	 * means they already said yes to this one.
+	 */
+	async function lookOnline(request, { granted = false, lead = '' } = {}) {
+		if (!netReady() || !NET_KINDS.includes(request.kind)) return null;
+		const lang = request.lang || 'en';
+		const mode = settings().internet;
+		if (mode === 'off') return null;
+		if (mode !== 'on' && !granted) {
+			const what = (WHAT[lang] || WHAT.en)[request.kind](request);
+			const q = request.kind === 'weather' ? request.place : request.query;
+			const said = request.kind === 'news' ? netWords(lang).offerNews(sourceOf('news')) : netWords(lang).offer(what, q, sourceOf(request.kind));
+			return answer(`${lead ? lead + ' ' : ''}${said}`, { offer: { kind: 'online', request, ask: netWords(lang).ask } });
+		}
+		const r = await fetchOnline(request);
+		// A failed lookup offers to try again, so "try again", "yes" or "tell me more" goes straight back online.
+		if (!r) return answer(netWords(lang).failed(sourceOf(request.kind)), { miss: true, offer: { kind: 'online', request, ask: netWords(lang).retry, retry: true } });
+		if (typeof r.text === 'string') return answer(r.text.trim());
+		return showOnline(r.data, request);
+	}
+
+	/* What Onyx found, as a reply. */
+
+	const WMO = {
+		en: { 0: 'clear sky', 1: 'mainly clear', 2: 'partly cloudy', 3: 'overcast', 45: 'fog', 48: 'freezing fog', 51: 'light drizzle', 53: 'drizzle', 55: 'heavy drizzle', 56: 'freezing drizzle', 57: 'freezing drizzle', 61: 'light rain', 63: 'rain', 65: 'heavy rain', 66: 'freezing rain', 67: 'freezing rain', 71: 'light snow', 73: 'snow', 75: 'heavy snow', 77: 'snow grains', 80: 'light showers', 81: 'showers', 82: 'heavy showers', 85: 'snow showers', 86: 'heavy snow showers', 95: 'thunderstorms', 96: 'thunderstorms with hail', 99: 'thunderstorms with hail' },
+		es: { 0: 'despejado', 1: 'casi despejado', 2: 'parcialmente nublado', 3: 'cubierto', 45: 'niebla', 48: 'niebla helada', 51: 'llovizna débil', 53: 'llovizna', 55: 'llovizna intensa', 56: 'llovizna helada', 57: 'llovizna helada', 61: 'lluvia débil', 63: 'lluvia', 65: 'lluvia intensa', 66: 'lluvia helada', 67: 'lluvia helada', 71: 'nevada débil', 73: 'nieve', 75: 'nevada intensa', 77: 'granos de nieve', 80: 'chubascos débiles', 81: 'chubascos', 82: 'chubascos fuertes', 85: 'chubascos de nieve', 86: 'chubascos de nieve fuertes', 95: 'tormentas', 96: 'tormentas con granizo', 99: 'tormentas con granizo' },
+		fr: { 0: 'ciel dégagé', 1: 'plutôt dégagé', 2: 'partiellement nuageux', 3: 'couvert', 45: 'brouillard', 48: 'brouillard givrant', 51: 'bruine légère', 53: 'bruine', 55: 'forte bruine', 56: 'bruine verglaçante', 57: 'bruine verglaçante', 61: 'pluie faible', 63: 'pluie', 65: 'forte pluie', 66: 'pluie verglaçante', 67: 'pluie verglaçante', 71: 'neige faible', 73: 'neige', 75: 'forte neige', 77: 'grains de neige', 80: 'averses faibles', 81: 'averses', 82: 'fortes averses', 85: 'averses de neige', 86: 'fortes averses de neige', 95: 'orages', 96: 'orages avec grêle', 99: 'orages avec grêle' },
+	};
+	const DAY_NAMES = { en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], es: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'], fr: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'] };
+
+	function showOnline(data, request) {
+		const lang = request.lang || 'en';
+		if (data.kind === 'article') return showArticle(data, request.kind === 'research', lang);
+		if (data.kind === 'weather') return showWeather(data, lang);
+		if (data.kind === 'news') return showNews(data, lang);
+		if (data.kind === 'definition') return showDefinition(data, lang);
+		return null;
+	}
+
+	const leading = (text, n) => {
+		const W = Omni.onyxWrite;
+		const list = W ? W.sentencesOf(text) : String(text).split(/(?<=[.!?])\s+/);
+		return list.slice(0, n).join(' ') || String(text).slice(0, 400);
+	};
+
+	/** A quick answer (the article's first sentences) or a research brief (summary, key points, related, source). */
+	function showArticle(d, brief, lang) {
+		const w = netWords(lang);
+		if (d.found === false) return answer(w.nothing(d.query));
+		const summary = leading(d.extract, brief ? 3 : 2);
+		const points = brief && d.text && Omni.onyxWrite ? Omni.onyxWrite.summarize(d.text, 5, Omni.onyxWrite.sentencesOf(d.extract)) : [];
+		convo.research = { title: d.title, url: d.url, lang, extract: d.extract, text: d.text || null, related: d.related || [], shown: [...points] };
+		convo.subject = d.title;
+		convo.lastKind = 'research';
+		mention(d.title);
+		const desc = d.description ? ` (${d.description})` : '';
+		const source = `${w.source}: Wikipedia, ${d.url}`;
+		if (!brief) return answer(`**${d.title}**${desc}\n${summary}\n\n${source}\n${w.more}`);
+		const parts = [`**${w.research}: ${d.title}**${desc}`, summary];
+		if (points.length) parts.push(`**${w.key}**\n${points.map((p) => `- ${p}`).join('\n')}`);
+		else parts.push(w.partial);
+		if (d.related && d.related.length) parts.push(`**${w.related}:** ${d.related.join(', ')}`);
+		parts.push(source);
+		return answer(parts.join('\n\n'));
+	}
+
+	/** "Tell me more" after a lookup: the next key points of the article, fetching it if only the summary came. */
+	async function moreResearch() {
+		const r = convo.research;
+		const w = netWords(r.lang);
+		if (!r.text && netReady() && settings().internet !== 'off') {
+			// The person already agreed to look this topic up; the full article is the same lookup.
+			const full = await fetchOnline({ kind: 'research', query: r.title, topic: r.title, lang: r.lang });
+			if (full && full.data && full.data.text) r.text = full.data.text;
+		}
+		const next = r.text && Omni.onyxWrite ? Omni.onyxWrite.summarize(r.text, 4, [...Omni.onyxWrite.sentencesOf(r.extract), ...r.shown]) : [];
+		convo.lastKind = 'research';
+		if (!next.length) return answer(w.moreDone(r.url));
+		r.shown.push(...next);
+		return answer(`**${r.title}**\n${next.map((p) => `- ${p}`).join('\n')}\n\n${w.source}: Wikipedia, ${r.url}`);
+	}
+
+	function showWeather(d, lang) {
+		const w = netWords(lang);
+		if (!d.found) return answer(w.notFoundPlace(d.place));
+		convo.place = d.place.name;
+		const desc = (code) => (WMO[lang] || WMO.en)[code] || '';
+		const c = d.current;
+		const f = (x) => Math.round((x * 9) / 5 + 32);
+		const where = [d.place.name, d.place.region, d.place.country].filter((x, i, a) => x && a.indexOf(x) === i).join(', ');
+		const lines = [`**${where}**: ${Math.round(c.temperature_2m)}°C (${f(c.temperature_2m)}°F), ${desc(c.weather_code)}. ${cap(w.feels)} ${Math.round(c.apparent_temperature)}°C, ${w.humidity} ${c.relative_humidity_2m}%, ${w.wind} ${Math.round(c.wind_speed_10m)} km/h.`];
+		const days = d.daily && d.daily.time ? d.daily.time.slice(0, 3) : [];
+		days.forEach((day, i) => {
+			const name = i === 0 ? w.today : i === 1 ? w.tomorrow : cap(DAY_NAMES[lang] ? DAY_NAMES[lang][new Date(day + 'T12:00:00Z').getUTCDay()] : day);
+			const p = d.daily.precipitation_probability_max ? d.daily.precipitation_probability_max[i] : null;
+			lines.push(`${name}: ${Math.round(d.daily.temperature_2m_min[i])}–${Math.round(d.daily.temperature_2m_max[i])}°C, ${desc(d.daily.weather_code[i])}${p != null ? `, ${p}% ${w.rain}` : ''}.`);
+		});
+		return answer(`${lines.join('\n')}\n\n${w.source}: Open-Meteo`);
+	}
+
+	function showNews(d, lang) {
+		const w = netWords(lang);
+		if (!d.items || !d.items.length) return null;
+		return answer(`**${w.news}** (Wikipedia, ${lang === 'en' ? 'in English' : lang === 'es' ? 'en inglés' : 'en anglais'}):\n${d.items.map((n) => `- ${n.date ? `*${n.date}*: ` : ''}${n.text}`).join('\n')}\n\n${w.source}: ${d.url}`);
+	}
+
+	function showDefinition(d, lang) {
+		const w = netWords(lang);
+		if (!d.found) return answer(w.notFoundWord(d.word));
+		convo.subject = d.word;
+		const senses = d.meanings.map((m) => m.definitions.map((x) => `*(${m.pos})* ${x.definition}${x.example ? `\n*"${x.example}"*` : ''}`).join('\n')).join('\n');
+		const syn = [...new Set(d.meanings.flatMap((m) => m.synonyms))].slice(0, 5);
+		return answer(`**${d.word}**${d.phonetic ? ` ${d.phonetic}` : ''}\n${senses}${syn.length ? `\nSimilar: ${syn.join(', ')}.` : ''}\n\n${w.source}: Wiktionary, via the Free Dictionary API (${d.url})`);
+	}
+
+	/* Recognizing lookups. */
+
+	/** The topic of a question, for when Wikipedia's search is unavailable: "who invented the telephone" -> "telephone". */
+	function topicOf(question) {
+		let t = String(question).trim().replace(/[?!.]+$/, '');
+		t = t.replace(/^(?:who|what|when|where|why|how|which)(?:'s|\s+(?:is|are|was|were|did|does|do|has|have|can|could|will))?\s+/i, '');
+		t = t.replace(/^(?:tell me (?:more )?about|the|a|an)\s+/i, '').replace(/^(?:invented|discovered|wrote|founded|built|made|created)\s+(?:the\s+)?/i, '');
+		return t.trim();
+	}
+
+	// "research black holes", "look up Ada Lovelace", "busca información sobre Frida Kahlo", "recherche la tour Eiffel".
+	const LOOKUPS = [
+		[/^(?:please |can you |could you |would you )?(research|investigate|read up on|look into|learn about|find out about|find information (?:on|about)|find info (?:on|about)|look up|lookup|search (?:the web |the internet |online |wikipedia )?for|search for|search|google)\s+(.+?)(?:\s+(?:online|on the internet|on wikipedia|for me))?\s*[?.!]*$/i, 'en'],
+		[/^(?:por favor )?(investiga|investigar|b[uú]scame|busca|buscar)(?: informaci[oó]n)?(?: sobre| de| acerca de)?\s+(.+?)(?: en internet)?\s*[?.!]*$/i, 'es'],
+		[/^(?:s'il te pla[iî]t )?(recherche|rechercher|cherche|trouve-moi|trouve)(?: des informations| des infos)?(?: sur| à propos de)?\s+(.+?)(?: sur internet)?\s*[?.!]*$/i, 'fr'],
+	];
+
+	/** { kind, query, topic, lang } for an explicit request to look something up, or null. */
+	function lookupRequest(text) {
+		for (const [re, lang] of LOOKUPS) {
+			const m = String(text).trim().match(re);
+			if (!m) continue;
+			const query = m[2].replace(/^(?:about|on|for|information about|info about)\s+/i, '').trim();
+			// "busca en google", "search online", "cherche sur internet": where, but not what.
+			if (!query || /^(it|that|this|eso|esto|lo|ça|cela)$/i.test(query) || /^(?:(?:en|sur|on|in)\s+)?(?:the\s+|la\s+|le\s+)?(?:google|internet|online|web|wikipedia|line)$/i.test(query)) return { kind: 'again', lang };
+			const deep = /^(research|investigate|read up|look into|learn about|find out|investiga|recherche)/i.test(m[1]);
+			return { kind: deep ? 'research' : 'search', query, topic: topicOf(query), lang };
+		}
+		return null;
+	}
+
+	/** The place a weather question names: "weather in New York tomorrow" -> "New York". */
+	function placeOf(text) {
+		const m = String(text).match(/\b(?:in|for|at|near|en|à|a|pour)\s+([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ.'-]*(?:\s+[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ.'-]*){0,3}?)(?:\s+(?:today|tomorrow|tonight|now|right now|this week|this weekend|hoy|mañana|aujourd'hui|demain|ce soir))?\s*[?.!]*$/i);
+		if (!m || /^(the|my|a|an|it|this|that|el|la|le|les|los|las)$/i.test(m[1])) return null;
+		return m[1].replace(/\b\w/g, (c) => c.toUpperCase());
+	}
+
+	/* ---------- Writing ---------- */
+
+	/** Words from what Onyx last looked up, so "write a poem about it" has something to say. */
+	function researchWords() {
+		const r = convo.research;
+		const d = Omni.onyxDictionary;
+		if (!r || !d) return [];
+		const out = [];
+		for (const w of (r.extract.toLowerCase().match(/[a-z]+/g) || [])) {
+			const hit = (d.lookup(w) || []).map((x) => x.e).find((e) => e.pos === 'noun' && !e.src && ['nature', 'animal', 'thing', 'food', 'time'].includes(e.kind));
+			if (hit && !out.includes(hit.w) && hit.w.length > 3) out.push(hit.w);
+		}
+		return out.slice(0, 8);
+	}
+
+	/** Makes a piece of writing; { text } or null. `job` is { kind, topic, ... } as writeQuery found it. */
+	function compose(job) {
+		const W = Omni.onyxWrite;
+		const extra = convo.research && job.topic === convo.research.title ? researchWords() : [];
+		const titled = (r, label) => r && answer(`**${label ? label + ': ' : ''}${r.title}**\n\n${r.text}`);
+		if (job.kind === 'haiku') return titled(W.haiku(job.topic, Math.random, extra), 'Haiku');
+		if (job.kind === 'poem') return titled(W.poem(job.topic, Math.random, extra));
+		if (job.kind === 'acrostic') return titled(W.acrostic(job.topic));
+		if (job.kind === 'story') return titled(W.story(job.topic));
+		if (job.kind === 'message') {
+			const r = W.message(job.occasion, { to: job.to, from: memory().name || '', about: job.about, holiday: job.holiday });
+			return r && answer(r.text);
+		}
+		if (job.kind === 'describe') {
+			const r = W.describe(job.topic);
+			if (r) return answer(r.text);
+			if (convo.research && job.topic === convo.research.title) return answer(leading(convo.research.extract, 4));
+			return null;
+		}
+		if (job.kind === 'summary') {
+			const text = job.text || (convo.research && (convo.research.text || convo.research.extract));
+			if (!text) return answer('Paste the text after "summarize:" and I\'ll pick out its key sentences. Or look something up first, then say "summarize it".');
+			const points = W.summarize(text, job.text ? 3 : 4);
+			if (!points.length) return answer('That\'s too short to summarize: it\'s already the gist.');
+			return answer(`${job.text ? '**Summary**' : `**${convo.research.title}, in short**`}\n${points.map((p) => `- ${p}`).join('\n')}`);
+		}
+		return null;
+	}
+
+	/**
+	 * A request for a short piece of writing: a haiku, a poem, an acrostic, a story, a message for a card, a description
+	 * or a summary. "About it" means what the conversation is about. Null when it isn't one.
+	 */
+	function writeQuery(body) {
+		if (!Omni.onyxWrite || !Omni.onyxDictionary) return null;
+		const t = String(body).trim();
+		const lower = t.toLowerCase().replace(/[’]/g, "'");
+		const about = (s) => {
+			const x = (s || '').trim().replace(/[?!.]+$/, '').replace(/^(?:about|on|for|of|with|featuring|called|named|using|the word)\s+/i, '').trim();
+			if (!x || /^(it|that|this|them|him|her)$/i.test(x)) return convo.subject || (convo.research && convo.research.title) || null;
+			return x;
+		};
+		const ask = '(?:please |can you |could you |would you |will you |i want |i need |i would like )?(?:write|compose|make|give|create|generate|tell|make up|send|draft|do|help me write)(?: me| us)?\\s+(?:a |an |another |one |some |my )?(?:short |little |quick |tiny |small |nice |sweet |funny |cute |simple |rhyming |bedtime |new )*';
+		let m;
+		// Long pieces are beyond Onyx: essays, articles, songs, code.
+		if (new RegExp(`^${ask}(?:essays?|reports?|articles?|thesis|papers?|code|programs?|scripts?|functions?|songs?|lyrics|novels?|books?|speech(?:es)?|cover letters?|resumes?|blog posts?|chapters?)\\b`).test(lower)) return { kind: 'long' };
+		if ((m = t.match(/^(?:please )?(?:summarize|summarise|sum up|tl;?dr|give me (?:a |the )?summary of|make a summary of|summary of)\b[:\s]*([\s\S]*)$/i))) {
+			const rest = m[1].trim();
+			if (/^(?:our |the |this )?(?:conversation|chat|talk)\b|^what we/i.test(rest)) return null;
+			const own = rest.split(/\s+/).length >= 25 ? rest : null;
+			return { kind: 'summary', text: own };
+		}
+		if ((m = lower.match(new RegExp(`^${ask}haikus?\\b\\s*(.*)$`))) || (m = lower.match(/^haiku (?:about|on|for) (.+)$/))) return { kind: 'haiku', topic: about(m[1]) || pickTopic() };
+		if ((m = lower.match(new RegExp(`^${ask}acrostic(?: poem)?\\b\\s*(.*)$`)))) return about(m[1]) ? { kind: 'acrostic', topic: about(m[1]) } : null;
+		if ((m = lower.match(new RegExp(`^${ask}(?:poem|rhyme|verse|limerick|ditty)s?\\b\\s*(.*)$`)))) return { kind: 'poem', topic: about(m[1]) || pickTopic() };
+		if ((m = lower.match(new RegExp(`^${ask}(?:story|tale|fable)\\b\\s*(.*)$`)))) return { kind: 'story', topic: about(m[1]) || pickTopic() };
+		if ((m = lower.match(new RegExp(`^${ask}(.+?)\\s+(?:message|note|card|text|wish(?:es)?|letter|email|toast)\\b\\s*(.*)$`)))) {
+			const occasion = Omni.onyxWrite.occasionOf(m[1]);
+			if (!occasion) return null;
+			const rest = m[2];
+			const to = (rest.match(/\b(?:for|to)\s+((?:my |our )?[a-z][a-z' -]*?)(?=\s+(?:for|on|with|about|from)\b|$)/i) || [])[1] || '';
+			const without = to ? rest.replace(new RegExp(`\\b(?:for|to)\\s+${to.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'), '') : rest;
+			const what = (without.match(/\b(?:for|on|with|about)\s+((?:her|his|their|my|your|the|our|a|an)\s+.+?)$/i) || [])[1] || '';
+			const holiday = (m[1].match(/christmas|new year|hanukkah|diwali|eid|easter/) || [])[0] || '';
+			return { kind: 'message', occasion, to: to.trim(), about: what.trim(), holiday: holiday.replace(/\b\w/g, (c) => c.toUpperCase()) };
+		}
+		if ((m = lower.match(/^(?:describe|write (?:a |me a )?(?:short )?(?:paragraph|description|few sentences|something) (?:about|on|of|describing))\s+(.+)$/))) return { kind: 'describe', topic: about(m[1]) };
+		return null;
+	}
+
+	const WRITE_LIMITS = 'Long writing like essays, songs or code is beyond me. I can write short things: a haiku, a rhyming poem, an acrostic, a short story, a message for a card, a description of something, or a summary of a text.';
+
+	/** Something to write about when no one said: what the conversation is about, else something from the sky or the sea. */
+	function pickTopic() {
+		if (convo.subject) return convo.subject;
+		const list = ['the moon', 'the sea', 'autumn', 'rain', 'a fox', 'the morning', 'snow', 'a lighthouse', 'the city', 'a garden'];
+		return list[Math.floor(Math.random() * list.length)];
 	}
 
 	/* ---------- Deciding the reply ---------- */
@@ -1260,6 +1629,7 @@
 		}
 		if (offer.kind === 'joke') return answer(draw('joke', Omni.onyxData.JOKES));
 		if (offer.kind === 'define') return define(offer.word, true) || answer('I seem to have lost that one.');
+		if (offer.kind === 'online') return (await lookOnline(offer.request, { granted: true })) || answer(netWords(offer.request.lang).failed(sourceOf(offer.request.kind)));
 		if (offer.kind === 'command') {
 			convo.lastCommand = offer.command;
 			convo.lastKind = 'command';
@@ -1317,10 +1687,18 @@ ${r.offer.ask}` : '');
 			convo.lang = 'en';
 			return translateReply(translation, 'en');
 		}
-		const lang = translation ? (convo.lang = translation.lang) : languageOf(text, expect === 'name' || (convo.topic && convo.topic.kind === 'name'));
+		// So is a request to look something up: "busca Frida Kahlo" is answered in Spanish, "search online" in English.
+		const lookup = !translation && lookupRequest(text);
+		const lang = translation ? (convo.lang = translation.lang) : lookup ? (convo.lang = lookup.lang) : languageOf(text, expect === 'name' || (convo.topic && convo.topic.kind === 'name'));
 		const asked = convo.topic;
 		convo.topic = null;
-		if (lang !== 'en') return foreign(lang, text, mem, expect);
+		// Settings are asked for in English ("stay offline"), whatever language the conversation was in.
+		const early = settingsCommand(norm);
+		if (early) {
+			convo.lang = 'en';
+			return early;
+		}
+		if (lang !== 'en') return foreign(lang, text, mem, expect, pending);
 		if (convo.switched) {
 			convo.switched = false;
 			return answer('Sure, English it is. Write to me in Spanish or French whenever you like, and I\'ll switch back.');
@@ -1329,8 +1707,19 @@ ${r.offer.ask}` : '');
 		if (setting) return setting;
 
 		if (pending) {
+			if (pending.kind === 'online' && ALWAYS.test(text)) {
+				setSetting('internet', 'on');
+				return accept(pending);
+			}
+			if (pending.kind === 'online' && /^(?:look it up|search (?:for )?it|google it|check online|go ahead and look)\b/i.test(text)) return accept(pending);
+			if (pending.kind === 'online' && pending.retry && /^(?:try again|again|retry|try (?:it|that) again|one more time|tell me more|more|go on)\b[\s!.?]*$/i.test(text)) return accept(pending);
 			if (YES.test(text)) return accept(pending);
-			if (NO.test(text)) return answer(pending.kind === 'forget' ? 'Okay, I\'ll keep it.' : 'Okay.');
+			if (NO.test(text)) return answer(pending.kind === 'forget' ? 'Okay, I\'ll keep it.' : pending.kind === 'online' ? netWords(pending.request.lang).declined : 'Okay.');
+		}
+		// A city, after "which city?".
+		if (expect === 'place' && text.split(/\s+/).length <= 4 && !/\?$/.test(text)) {
+			const r = await lookOnline({ kind: 'weather', place: text.replace(/[.!]+$/, '').replace(/\b\w/g, (c) => c.toUpperCase()), query: text, lang: 'en' });
+			if (r) return r;
 		}
 
 		const name = nameFrom(text, expect === 'name');
@@ -1352,6 +1741,26 @@ ${r.offer.ask}` : '');
 		if (followed) return shape(followed);
 		const recalled = recallQuery(norm);
 		if (recalled) return recalled;
+
+		// After a lookup: more of the article, its source, or the full brief.
+		if (convo.research && convo.lastKind === 'research') {
+			if (/^(?:tell me more|more|go on|keep going|what else|and|more please|continue|more about (?:it|that|this))[.!?]*$/i.test(text.trim())) return moreResearch();
+			if (/^(?:source|sources|link|where did you (?:get|find) (?:that|this|it)|what s (?:the|your) source|whats your source)[?.!]*$/i.test(norm)) return answer(`Wikipedia: ${convo.research.url}`);
+			if (/^research it[.!]*$/i.test(text.trim())) return (await lookOnline({ kind: 'research', query: convo.research.title, topic: convo.research.title, lang: convo.research.lang }, { granted: true })) || answer(netWords('en').failed('Wikipedia'));
+		}
+		// "Look up Ada Lovelace", "research black holes": a word in the dictionary is answered from it, offline.
+		const wanted = lookupRequest(text);
+		if (wanted && wanted.kind !== 'again' && wanted.lang === 'en') {
+			const known = wanted.kind === 'search' && /^[a-z-]+$/i.test(wanted.query) && define(wanted.query, true);
+			if (known) return known;
+			const r = await lookOnline(wanted);
+			if (r) return r;
+			return answer(netReady() ? netWords('en').off : 'I can\'t go online from here: this copy of Onyx has no internet connection. In a browser or in OmniTool with one, I can look things up once you say so.');
+		}
+		if (wanted && wanted.kind === 'again' && convo.lastQuestion) {
+			const r = await lookOnline({ kind: 'search', query: convo.lastQuestion, topic: topicOf(convo.lastQuestion), lang: 'en' });
+			if (r) return r;
+		} else if (wanted && wanted.kind === 'again' && netReady() && !(convo.research && /\b(?:it|that|this)\b/i.test(text))) return answer(netWords('en').whatTopic);
 
 		// "Hi Onyx, what can you do?" gets a short greeting in front of the real answer.
 		let greet = '';
@@ -1375,6 +1784,16 @@ ${r.offer.ask}` : '');
 		if (word) return withGreet(answer(word));
 		const aboutWords = wordQuery(body);
 		if (aboutWords) return withGreet(aboutWords);
+		const job = writeQuery(body);
+		if (job) {
+			const written = compose(job);
+			if (written) {
+				convo.writing = job;
+				convo.lastKind = 'writing';
+				return withGreet(written);
+			}
+			if (job.kind !== 'summary') return withGreet(answer(job.kind === 'long' ? WRITE_LIMITS : 'I couldn\'t make that one fit. Try another topic, or another kind of piece.'));
+		}
 		const thought = think(body);
 		if (thought) return withGreet(thought);
 		// Arithmetic is answered directly, and the answer is kept so "times 3" or "that squared" can follow.
@@ -1422,14 +1841,22 @@ ${r.offer.ask}` : '');
 				// Not English, but maybe Spanish or French: "what does gato mean?"
 				const L = Omni.onyxLanguages;
 				if (L && (L.findForeign('es', unknown).length || L.findForeign('fr', unknown).length)) return withGreet(translateReply({ word: unknown, to: 'en' }, 'en'));
-				return withGreet((await online('define', unknown)) || answer(`"${unknown}" isn't in my dictionary or glossary. I know ${Omni.onyxDictionary ? Omni.onyxDictionary.size.toLocaleString('en-US') + ' words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms, and I can't look up new ones.`));
+				const missing = `"${unknown}" isn't in my dictionary or glossary.`;
+				return withGreet((await lookOnline({ kind: 'define', query: unknown, lang: 'en' }, { lead: missing })) || answer(`${missing} I know ${Omni.onyxDictionary ? Omni.onyxDictionary.size.toLocaleString('en-US') + ' words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms${netReady() ? '' : ', and I can\'t look up new ones here'}.`));
 			}
 		}
 		if (top.score >= 0.5 || (top.score >= 0.38 && top.score - ((ranked[1] && ranked[1].score) || 0) >= 0.12)) {
 			const intent = Omni.onyxData.INTENTS.find((i) => i.id === top.id);
 			const searching = intent.id === 'limits' && /\b(web|internet|google|search|look (this|it) up|online|browse)\b/.test(normalize(body));
-			const net = ['weather', 'news'].includes(intent.id) ? await online(intent.id, body) : searching ? await online('search', body) : null;
-			if (net) return withGreet(net);
+			if (searching && netReady()) return withGreet(answer(settings().internet === 'off' ? netWords('en').off : 'I can, with your permission: tell me what to look up, like "look up Ada Lovelace" or "research black holes", and I\'ll check Wikipedia.'));
+			// Prices and scores are "news" to the intent models, but no service here has them: the reply says so.
+			if (['weather', 'news'].includes(intent.id) && netReady() && !(intent.id === 'news' && /\b(stock|bitcoin|price|scores?|won the game)\b/.test(normalize(body)))) {
+				if (settings().internet === 'off') return withGreet(answer(netWords('en').off));
+				const place = intent.id === 'weather' ? placeOf(body) || convo.place : null;
+				if (intent.id === 'weather' && !place) return withGreet(answer(netWords('en').whichCity, { expect: 'place' }));
+				const net = await lookOnline(intent.id === 'weather' ? { kind: 'weather', place, query: place, lang: 'en' } : { kind: 'news', query: 'today\'s headlines', lang: 'en' });
+				if (net) return withGreet(net);
+			}
 			// "Hey hey" is one greeting, not a greeting in front of another.
 			return intent.id === 'greet' ? reply(intent, body, mem) : withGreet(await reply(intent, body, mem));
 		}
@@ -1438,7 +1865,8 @@ ${r.offer.ask}` : '');
 			if (gl) return withGreet(gl);
 			if (aboutWord && !/^(that|it|this|these|those)$/i.test(meaning[1].trim())) {
 				const word = meaning[1].replace(/[?.!"“”]/g, '').trim();
-				return withGreet((await online('define', word)) || answer(`"${word}" isn't in my dictionary or glossary. I know ${Omni.onyxDictionary ? Omni.onyxDictionary.size + ' everyday words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms, and I can't look up new ones.`));
+				const missing = `"${word}" isn't in my dictionary or glossary.`;
+				return withGreet((await lookOnline({ kind: 'define', query: word, lang: 'en' }, { lead: missing })) || answer(`${missing} I know ${Omni.onyxDictionary ? Omni.onyxDictionary.size.toLocaleString('en-US') + ' words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms${netReady() ? '' : ', and I can\'t look up new ones here'}.`));
 			}
 		}
 
@@ -1455,8 +1883,10 @@ ${r.offer.ask}` : '');
 		if (greet) return reply(Omni.onyxData.INTENTS.find((i) => i.id === 'greet'), g[1], mem);
 
 		convo.misses++;
-		if (/^(who|what|when|where|why|how|which|is|are|does|do|did|can|could|will|would)\b/i.test(body) || /\?\s*$/.test(body)) {
-			const net = await online('search', body);
+		if (/^(who|what|when|where|why|how|which|is|are|does|do|did|can|could|will|would)\b/i.test(body) || /\?\s*$/.test(body) || /^tell me (?:more )?about\b/i.test(body)) {
+			// Questions Onyx can't answer offline can be looked up, with permission.
+			convo.lastQuestion = body;
+			const net = await lookOnline({ kind: 'search', query: body.replace(/[?!.]+$/, ''), topic: topicOf(body), lang: 'en' }, { lead: 'I don\'t know that offline.' });
 			if (net) return withGreet(net);
 			return withGreet(answer2(pick('dunno', [
 				'I don\'t know that one. I only know about OmniTool and a few small things, and I can\'t look anything up.',
@@ -1475,6 +1905,8 @@ ${r.offer.ask}` : '');
 	async function reply(intent, body, mem) {
 		const ctx = {
 			text: normalize(body), raw: body, mem, part: part(), tools: Omni.tools.length, hasKey: (await Omni.ai.mode()) === 'claude',
+			// Whether this copy of Onyx can go online (a connector is loaded), and whether the person allows it.
+			net: netReady(), online: netReady() && settings().internet !== 'off',
 			notes: convo.notes.map((n) => `${n[0].toUpperCase()}${n.slice(1)}.`), topics: convo.topics, lang: convo.lang,
 			last: convo.lastIntent, lastKind: convo.lastKind, lastReply: convo.lastReply, why: convo.why, mayAskName: !convo.askedName,
 			pick, draw,
@@ -1482,6 +1914,7 @@ ${r.offer.ask}` : '');
 				if (convo.lastKind === 'command' && convo.lastCommand) return { text: '', command: convo.lastCommand };
 				if (['joke', 'tip', 'fact'].includes(convo.lastKind)) return draw(convo.lastKind, Omni.onyxData[{ joke: 'JOKES', tip: 'TIPS', fact: 'FACTS' }[convo.lastKind]]);
 				if (convo.lastKind === 'sentence') return nextSentence(convo.sentence.word);
+				if (convo.lastKind === 'writing' && convo.writing) return compose(convo.writing) || 'I\'m out of ideas for that one.';
 				return 'Another what? I can do jokes, tips, facts, sentences, or repeat the last command.';
 			},
 		};

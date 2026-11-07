@@ -57,8 +57,9 @@
 		random,
 		ai: { mode: async () => 'offline' },
 		offline: { plan: () => null, run: async () => '', reset() {} },
-		// The internet port, prepared but not connected: Onyx asks it only when `enabled` is true, and this host has no
-		// network code behind it. See "Internet port" in README.md for the request and reply shapes.
+		// The internet port, off: this host has no network code. Load host/net.js after this file to connect it to
+		// Wikipedia, Open-Meteo and the Free Dictionary API; Onyx still asks the person before every lookup. See
+		// "The internet, with your permission" in README.md for the request and reply shapes.
 		net: { enabled: false, ask: async () => null },
 		open() {},
 		setTheme() {},

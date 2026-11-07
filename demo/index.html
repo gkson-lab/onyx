@@ -5,7 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Onyx 2</title>
 	<style>
-		/* After the Onyx II trailer: black, silver, quiet. System fonts only, so the page makes no network requests. */
+		/* After the Onyx II trailer: black, silver, quiet. System fonts only: the page goes online only for a lookup the
+		   person has allowed, to Wikipedia, Open-Meteo or the Free Dictionary API (see host/net.js). */
 		:root {
 			--bg: #000;
 			--panel: #0d0d10;
@@ -79,6 +80,8 @@
 		.body code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.88em; }
 		.body ul { margin: 6px 0; padding-left: 20px; }
 		.body strong { font-weight: 650; }
+		.body a { color: var(--fg); text-decoration-color: var(--mute); text-underline-offset: 2px; }
+		.wait { color: var(--mute); }
 		form { display: flex; gap: 8px; padding: 12px 0 18px; border-top: 1px solid var(--line); }
 		input {
 			flex: 1;
@@ -114,7 +117,7 @@
 			<span class="lang" id="lang" aria-live="polite">English</span>
 		</header>
 		<div>
-			<p class="intro">Thinks deeper. Answers faster. Sees the whole picture. Everything happens in this page, with no network: a 14,000-word dictionary, English, Spanish and French, and a small open-weights model.</p>
+			<p class="intro">Thinks deeper. Answers faster. Sees the whole picture. Onyx runs in this page: a 14,000-word dictionary, English, Spanish and French, a small open-weights model, and short pieces of writing. It can look things up on Wikipedia, Open-Meteo and the Free Dictionary API, but only after you say yes.</p>
 			<div class="chips" id="chips" aria-label="Things to try"></div>
 		</div>
 		<div id="log" role="log" aria-live="polite" aria-label="Conversation"></div>
@@ -124,6 +127,7 @@
 		</form>
 	</main>
 	<script src="../host/host.js"></script>
+	<script src="../host/net.js"></script>
 	<script src="../src/onyx-math.js"></script>
 	<script src="../src/onyx-lexicon.js"></script>
 	<script src="../src/onyx-dictionary.js"></script>
@@ -131,6 +135,7 @@
 	<script src="../src/onyx-data.js"></script>
 	<script src="../src/onyx-model.js"></script>
 	<script src="../src/onyx-weights.js"></script>
+	<script src="../src/onyx-write.js"></script>
 	<script src="../src/onyx.js"></script>
 	<script>
 		(function () {
@@ -140,11 +145,13 @@
 			const input = document.getElementById('text');
 			const langEl = document.getElementById('lang');
 			const NAMES = { en: 'English', es: 'Español', fr: 'Français' };
-			const TRY = ["Hi! I'm Sam. I have an exam on Friday and I'm nervous.", 'when is my exam?', 'is a whale a mammal?', 'name some birds', 'what rhymes with moon?', 'how do you say happy in French?', '¿qué significa gato?', 'je suis fatiguée', 'what have I told you?', 'word of the day', "what's the difference between a frog and a toad?", 'what is 15% off 80'];
+			const TRY = ["Hi! I'm Sam. I have an exam on Friday and I'm nervous.", 'research Ada Lovelace', 'write a haiku about the sea', "what's the weather in Austin?", 'write a birthday message for my mom', 'tell me a story about a dragon', 'is a whale a mammal?', 'what rhymes with moon?', 'how do you say happy in French?', '¿qué significa gato?', 'je suis fatiguée', "what's in the news?", 'word of the day', 'what is 15% off 80'];
 			const escape = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-			// Just enough Markdown for Onyx's replies: bold, italics, code, bullet lists and line breaks.
+			// Just enough Markdown for Onyx's replies: bold, italics, code, links, bullet lists and line breaks.
 			function render(text) {
-				const lines = escape(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*\n]+)\*/g, '<em>$1</em>').replace(/`([^`]+)`/g, '<code>$1</code>').split('\n');
+				const links = [];
+				const marked = escape(text).replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)]/g, (url) => `\u0000${links.push(url) - 1}\u0000`);
+				const lines = marked.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*\n]+)\*/g, '<em>$1</em>').replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\u0000(\d+)\u0000/g, (m, i) => `<a href="${links[i]}" target="_blank" rel="noopener">${links[i]}</a>`).split('\n');
 				let html = '';
 				let list = false;
 				for (const line of lines) {
@@ -166,10 +173,19 @@
 				el.innerHTML = '<div class="who">' + who + '</div><div class="body">' + (mine ? escape(text) : render(text)) + '</div>';
 				log.appendChild(el);
 				log.scrollTop = log.scrollHeight;
+				return el;
 			}
 			async function send(text) {
 				add('You', text, true);
+				// Most replies take a millisecond; a lookup online takes a second or two, so say so while it runs.
+				let wait = null;
+				const timer = setTimeout(() => {
+					wait = add('Onyx', 'Looking it up…');
+					wait.querySelector('.body').classList.add('wait');
+				}, 150);
 				const r = await Omni.onyx.respond(text);
+				clearTimeout(timer);
+				if (wait) wait.remove();
 				if (!r) return;
 				const reply = r.command ? 'That is a command for OmniTool\'s tools, which only run inside OmniTool.' : r.text + (r.offer ? '\n\n' + r.offer.ask : '');
 				add('Onyx', reply || 'Okay.');
@@ -195,7 +211,7 @@
 				});
 				chips.appendChild(b);
 			}
-			add('Onyx', 'Hi, I\'m **Onyx 2**. Talk to me in English, Spanish or French, or tap something above to try.');
+			add('Onyx', 'Hi, I\'m **Onyx 2.1**. Talk to me in English, Spanish or French, or tap something above to try. I\'ll ask before I go online.');
 			input.focus();
 		})();
 	</script>

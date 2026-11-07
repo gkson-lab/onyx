@@ -3686,20 +3686,22 @@ turnaround|el cambio de rumbo|le revirement
 		const words = strip(raw).replace(/[^a-z]+/g, ' ').split(/\s+/).filter(Boolean);
 		const score = { en: 0, es: 0, fr: 0 };
 		for (const w of words) for (const lang of ['en', 'es', 'fr']) if (SETS[lang].has(w)) score[lang] += 1;
-		// Words Onyx knows in each language count too, a little: "ayudar" is Spanish, "papillon" French, "help" English.
+		if (/[ñ¿¡]/i.test(raw)) score.es += 3;
+		if (/[çœæèêëàâîïôûù]/i.test(raw)) score.fr += 3;
+		if (/[áíóú]/i.test(raw)) score.es += 1.5;
+		if (/\b(?:qu'|c'est|j'|l'|d'|n'|m'|t'|s')/i.test(raw)) score.fr += 2;
+		// A common word or a telling letter is needed to decide ("no" alone is no one's); the words Onyx knows in each
+		// language ("ayudar", "papillon", "help") only tip a close call.
+		const sure = { ...score };
 		const english = root.Omni && root.Omni.onyxDictionary;
 		for (const w of words) {
 			if (BACK.es.has(w)) score.es += 0.5;
 			if (BACK.fr.has(w)) score.fr += 0.5;
 			if (english && w.length > 2 && english.lookup(w)) score.en += 0.5;
 		}
-		if (/[ñ¿¡]/i.test(raw)) score.es += 3;
-		if (/[çœæèêëàâîïôûù]/i.test(raw)) score.fr += 3;
-		if (/[áíóú]/i.test(raw)) score.es += 1.5;
-		if (/\b(?:qu'|c'est|j'|l'|d'|n'|m'|t'|s')/i.test(raw)) score.fr += 2;
 		const best = ['es', 'fr', 'en'].sort((a, b) => score[b] - score[a])[0];
 		const [first, second] = Object.values(score).sort((a, b) => b - a);
-		if (first === 0 || first === second) return null;
+		if (first === 0 || first === second || !sure[best]) return null;
 		return best;
 	}
 
@@ -3745,7 +3747,7 @@ turnaround|el cambio de rumbo|le revirement
 			},
 			crisis: 'Siento mucho que te sientas así. Soy solo un programa pequeño, así que por favor habla ahora con una persona que pueda ayudarte: en España llama al **024**, en Estados Unidos llama o escribe al **988**, y en cualquier otro lugar tu número de emergencias o una línea de **findahelpline.com** te pondrá en contacto con alguien. Si estás en peligro, llama a emergencias. No tienes que pasar por esto a solas.',
 			named: (n) => `Encantado de conocerte, ${n}. Recordaré tu nombre en este dispositivo.`,
-			dunno: ['No lo sé. Soy un asistente pequeño y local: sin internet ni enciclopedia.', 'Eso se me escapa. Puedo charlar, traducir palabras, hacer cuentas o contarte un chiste.'],
+			dunno: ['No lo sé. Soy un asistente pequeño y local, sin enciclopedia.', 'Eso se me escapa. Puedo charlar, traducir palabras, hacer cuentas o contarte un chiste.'],
 			miss: ['No te he entendido. Prueba con otras palabras, o escribe **ayuda**.', 'Perdona, no sé qué quieres decir. Escribe **ayuda** para ver lo que sé hacer.'],
 			intents: [
 				{ id: 'greet', examples: ['hola', 'buenas', 'buenos dias', 'buenas tardes', 'buenas noches', 'hola que tal', 'hola onyx', 'saludos', 'ey', 'holi', 'que onda', 'hola buenas'], reply: ['¡Hola{name}! ¿Qué tal?', '¡Buenas{name}! ¿En qué te ayudo?', '¡Hola{name}! ¿Cómo va el día?'] },
@@ -3754,7 +3756,7 @@ turnaround|el cambio de rumbo|le revirement
 				{ id: 'user_good', examples: ['bien', 'muy bien', 'estoy bien', 'todo bien gracias', 'genial', 'bien y tu', 'muy bien gracias'], reply: ['¡Me alegro{name}!', 'Qué bien. ¿En qué te puedo ayudar?'] },
 				{ id: 'thanks', examples: ['gracias', 'muchas gracias', 'mil gracias', 'te lo agradezco', 'gracias onyx', 'muy amable'], reply: ['¡De nada{name}!', 'Un placer.', 'Para eso estoy.'] },
 				{ id: 'bye', examples: ['adios', 'hasta luego', 'nos vemos', 'chao', 'hasta manana', 'me voy', 'hasta pronto', 'buenas noches me voy a dormir'], reply: ['¡Hasta luego{name}!', '¡Nos vemos!', '¡Adiós! Que te vaya bien.'] },
-				{ id: 'identity', examples: ['quien eres', 'como te llamas', 'cual es tu nombre', 'que eres', 'presentate'], reply: ['Soy Onyx 2, un pequeño asistente que funciona en tu dispositivo, sin internet. Hablo inglés, español y francés.'] },
+				{ id: 'identity', examples: ['quien eres', 'como te llamas', 'cual es tu nombre', 'que eres', 'presentate'], reply: ['Soy Onyx 2, un pequeño asistente que funciona en tu dispositivo y solo se conecta a internet si me lo permites. Hablo inglés, español y francés.'] },
 				{ id: 'creator', examples: ['quien te creo', 'quien te hizo', 'quien te programo', 'de donde vienes'], reply: ['Me hizo GK Labs, en Austin (Texas). Mi código es abierto: cualquiera puede leerlo y mejorarlo.'] },
 				{ id: 'is_ai', examples: ['eres un robot', 'eres una inteligencia artificial', 'eres humano', 'eres real', 'eres una ia', 'eres chatgpt'], reply: ['Soy un programa, no una persona: un modelo pequeño y abierto que funciona en tu dispositivo. No soy un modelo de lenguaje grande.'] },
 				{ id: 'languages', examples: ['hablas espanol', 'que idiomas hablas', 'hablas ingles', 'hablas frances', 'cuantos idiomas hablas', 'en que idiomas hablas'], reply: ['Hablo inglés, español y francés. Escríbeme en el que prefieras y te respondo en el mismo.'] },
@@ -3771,7 +3773,7 @@ turnaround|el cambio de rumbo|le revirement
 				{ id: 'user_tired', examples: ['estoy cansado', 'tengo sueno', 'estoy agotado', 'necesito dormir', 'que cansancio'], reply: ['Descansa un poco{name}. Un vaso de agua y unos minutos lejos de la pantalla ayudan.'] },
 				{ id: 'user_bored', examples: ['estoy aburrido', 'me aburro', 'que aburrimiento', 'no tengo nada que hacer'], reply: (ctx) => `¿Un chiste para empezar? ${ctx.draw('es-joke', LANGS.es.jokes)}` },
 				{ id: 'weather', examples: ['que tiempo hace', 'va a llover', 'hace frio', 'el tiempo hoy', 'pronostico del tiempo'], reply: ['No uso internet, así que no puedo ver el tiempo. Una ventana o una app del tiempo te lo dirán mejor que yo.'] },
-				{ id: 'limits', examples: ['escribe un poema', 'escribe un ensayo', 'busca en google', 'escribe codigo', 'cuentame una historia', 'que noticias hay'], reply: ['Eso está fuera de mi alcance: soy un asistente pequeño y local, sin internet y sin capacidad para escribir textos largos.'] },
+				{ id: 'limits', examples: ['escribe un poema', 'escribe un ensayo', 'busca en google', 'escribe codigo', 'cuentame una historia', 'que noticias hay'], reply: ['Por ahora solo escribo en inglés: haikus, poemas, cuentos cortos y mensajes (prueba «write a haiku about the sea»). Los textos largos, como ensayos o código, están fuera de mi alcance.'] },
 				{ id: 'ack', examples: ['vale', 'ok', 'de acuerdo', 'entendido', 'jaja', 'claro', 'genial', 'perfecto', 'ya veo', 'guay'], reply: ['😊', 'Perfecto.', '¡Genial!'] },
 				{ id: 'yes', examples: ['si', 'claro que si', 'por supuesto', 'si por favor', 'venga'], reply: ['¡Vale!'] },
 				{ id: 'no', examples: ['no', 'no gracias', 'para nada', 'ahora no'], reply: ['De acuerdo.'] },
@@ -3815,7 +3817,7 @@ turnaround|el cambio de rumbo|le revirement
 			},
 			crisis: 'Je suis vraiment désolé que tu te sentes comme ça. Je ne suis qu\'un petit programme, alors parle maintenant à quelqu\'un qui peut t\'aider : en France, appelle le **3114**, aux États-Unis le **988**, et ailleurs ton numéro d\'urgence ou une ligne sur **findahelpline.com** te mettra en contact avec quelqu\'un. Si tu es en danger, appelle les secours. Tu n\'as pas à traverser ça seul.',
 			named: (n) => `Enchanté, ${n}. Je retiendrai ton prénom sur cet appareil.`,
-			dunno: ['Je ne sais pas. Je suis un petit assistant local : pas d\'internet, pas d\'encyclopédie.', 'Ça me dépasse. Je peux discuter, traduire des mots, faire des calculs ou te raconter une blague.'],
+			dunno: ['Je ne sais pas. Je suis un petit assistant local, sans encyclopédie.', 'Ça me dépasse. Je peux discuter, traduire des mots, faire des calculs ou te raconter une blague.'],
 			miss: ['Je n\'ai pas compris. Essaie autrement, ou écris **aide**.', 'Pardon, je ne vois pas ce que tu veux dire. Écris **aide** pour voir ce que je sais faire.'],
 			intents: [
 				{ id: 'greet', examples: ['bonjour', 'salut', 'bonsoir', 'coucou', 'salut onyx', 'bonjour onyx', 'hello', 'salut toi', 'bonjour a tous', 'yo salut'], reply: ['Bonjour{name} ! Comment ça va ?', 'Salut{name} ! Je peux t\'aider ?', 'Coucou{name} ! Quoi de neuf ?'] },
@@ -3824,7 +3826,7 @@ turnaround|el cambio de rumbo|le revirement
 				{ id: 'user_good', examples: ['ca va bien', 'tres bien', 'bien merci', 'super', 'je vais bien', 'ca va et toi', 'tres bien merci'], reply: ['Tant mieux{name} !', 'Super. Je peux t\'aider avec quelque chose ?'] },
 				{ id: 'thanks', examples: ['merci', 'merci beaucoup', 'merci bien', 'je te remercie', 'merci onyx', 'c est gentil'], reply: ['De rien{name} !', 'Avec plaisir.', 'Je t\'en prie.'] },
 				{ id: 'bye', examples: ['au revoir', 'a plus', 'a bientot', 'salut a plus tard', 'bonne nuit', 'a demain', 'ciao', 'je dois y aller', 'bye'], reply: ['Au revoir{name} !', 'À bientôt !', 'Bonne journée !'] },
-				{ id: 'identity', examples: ['qui es tu', 'comment tu t appelles', 'quel est ton nom', 'tu es quoi', 'presente toi'], reply: ['Je suis Onyx 2, un petit assistant qui fonctionne sur ton appareil, sans internet. Je parle anglais, espagnol et français.'] },
+				{ id: 'identity', examples: ['qui es tu', 'comment tu t appelles', 'quel est ton nom', 'tu es quoi', 'presente toi'], reply: ['Je suis Onyx 2, un petit assistant qui fonctionne sur ton appareil et ne va sur internet que si tu me le permets. Je parle anglais, espagnol et français.'] },
 				{ id: 'creator', examples: ['qui t a cree', 'qui t a fait', 'qui t a programme', 'tu viens d ou'], reply: ['C\'est GK Labs, à Austin (Texas), qui m\'a créé. Mon code est ouvert : tout le monde peut le lire et l\'améliorer.'] },
 				{ id: 'is_ai', examples: ['tu es un robot', 'tu es une intelligence artificielle', 'tu es humain', 'es tu reel', 'tu es une ia', 'tu es chatgpt'], reply: ['Je suis un programme, pas une personne : un petit modèle ouvert qui fonctionne sur ton appareil. Je ne suis pas un grand modèle de langage.'] },
 				{ id: 'languages', examples: ['tu parles francais', 'quelles langues parles tu', 'tu parles anglais', 'tu parles espagnol', 'combien de langues parles tu'], reply: ['Je parle anglais, espagnol et français. Écris-moi dans la langue de ton choix et je te réponds dans la même.'] },
@@ -3841,7 +3843,7 @@ turnaround|el cambio de rumbo|le revirement
 				{ id: 'user_tired', examples: ['je suis fatigue', 'je suis epuise', 'j ai sommeil', 'je suis creve', 'besoin de dormir'], reply: ['Repose-toi un peu{name}. Un verre d\'eau et quelques minutes loin de l\'écran, ça aide.'] },
 				{ id: 'user_bored', examples: ['je m ennuie', 'je m ennuie trop', 'c est ennuyeux', 'rien a faire'], reply: (ctx) => `Une blague pour commencer ? ${ctx.draw('fr-joke', LANGS.fr.jokes)}` },
 				{ id: 'weather', examples: ['quel temps fait il', 'il va pleuvoir', 'il fait froid', 'la meteo', 'meteo du jour'], reply: ['Je n\'utilise pas internet, donc je ne vois pas la météo. Une fenêtre ou une appli météo te le diront mieux que moi.'] },
-				{ id: 'limits', examples: ['ecris un poeme', 'ecris une dissertation', 'cherche sur google', 'ecris du code', 'raconte moi une histoire', 'quelles sont les nouvelles'], reply: ['C\'est au-delà de mes capacités : je suis un petit assistant local, sans internet, et je n\'écris pas de longs textes.'] },
+				{ id: 'limits', examples: ['ecris un poeme', 'ecris une dissertation', 'cherche sur google', 'ecris du code', 'raconte moi une histoire', 'quelles sont les nouvelles'], reply: ['Pour l\'instant, je n\'écris qu\'en anglais : haïkus, poèmes, petites histoires et messages (essaie « write a haiku about the sea »). Les longs textes, comme les dissertations ou le code, me dépassent.'] },
 				{ id: 'ack', examples: ['ok', 'd accord', 'daccord', 'ca marche', 'mdr', 'lol', 'cool', 'parfait', 'je vois', 'top'], reply: ['😊', 'Parfait.', 'Super !'] },
 				{ id: 'yes', examples: ['oui', 'oui merci', 'bien sur', 'oui s il te plait', 'carrement', 'ouais'], reply: ['D\'accord !'] },
 				{ id: 'no', examples: ['non', 'non merci', 'pas maintenant', 'pas du tout'], reply: ['D\'accord.'] },

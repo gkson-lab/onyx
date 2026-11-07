@@ -2,9 +2,15 @@
 
 **Thinks deeper. Answers faster. Sees the whole picture. And it's still free.**
 
-Onyx is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool), and Onyx 2 is its second generation. It runs entirely on your device: no internet, no account, no model download. Open weights, open source: yours to run, study and build on.
+Onyx is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool), and Onyx 2 is its second generation. It runs on your device: no account, no model download, and nothing leaves it unless you say so. Open weights, open source: yours to run, study and build on.
 
-This repository is the engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool. Earlier versions live on their own branches: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1), [`onyx-1.2`](../../tree/onyx-1.2) and [`onyx-1.3`](../../tree/onyx-1.3).
+This repository is the engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool. Earlier versions live on their own branches: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1), [`onyx-1.2`](../../tree/onyx-1.2), [`onyx-1.3`](../../tree/onyx-1.3) and [`onyx-2.0`](../../tree/onyx-2.0).
+
+## What's new in Onyx 2.1
+
+- **The internet, with your permission.** Ask something Onyx doesn't know, or say "research black holes", "what's the weather in Austin?" or "what's in the news?", and it offers to look it up. It says exactly what it would send and where, then waits for a yes. Say "always" to stop being asked, or "stay offline" to never go online. It uses Wikipedia (in English, Spanish or French), Open-Meteo and the Free Dictionary API: no account, no key, nothing stored. [More below.](#the-internet-with-your-permission)
+- **Research briefs.** "research Ada Lovelace" gets Wikipedia's summary, key points picked from the whole article, related articles and the link. "tell me more" gives more points.
+- **Short pieces of writing.** Haiku of exactly 5, 7 and 5 syllables, rhyming poems, acrostics, short stories, messages for cards, descriptions and summaries, all built from the dictionary. After a lookup, "write a poem about it" uses what Onyx just read. [More below.](#writing)
 
 ## What's new in Onyx 2
 
@@ -24,7 +30,7 @@ This repository is the engine on its own, the same source files OmniTool ships, 
 
 Onyx is not a large language model. It is a deliberately small assistant built from plain, inspectable parts:
 
-- **Two models that vote.** A phrase matcher compares your message with 1,095 example phrases (756 English, 171 Spanish, 168 French), using word and word-pair features weighted by how rare each word is (TF-IDF), and counts a match only for as much of your sentence as it explains. A small neural network reads the same message as words, word pairs and three-letter pieces of words, so "helo" still looks like "hello". It has two layers and 200,380 parameters. Its weights are in [`src/onyx-weights.js`](src/onyx-weights.js) and [`tools/train.js`](tools/train.js) retrains them in a minute and a half, deterministically. Each scores every intent; Onyx blends the two (65% phrases, 35% network).
+- **Two models that vote.** A phrase matcher compares your message with 1,100 example phrases (761 English, 171 Spanish, 168 French), using word and word-pair features weighted by how rare each word is (TF-IDF), and counts a match only for as much of your sentence as it explains. A small neural network reads the same message as words, word pairs and three-letter pieces of words, so "helo" still looks like "hello". It has two layers and 200,380 parameters. Its weights are in [`src/onyx-weights.js`](src/onyx-weights.js) and [`tools/train.js`](tools/train.js) retrains them in a minute and a half, deterministically. Each scores every intent; Onyx blends the two (65% phrases, 35% network).
 - **A dictionary it reasons with.** See below. When no fixed reply fits, Onyx reads your message with it and answers the specific thing you said.
 - **A memory of the conversation.** What you've told it, the names of your pets and people, what you're talking about, and the language you're writing in.
 - **Typo tolerance**, **math of its own**, **word tricks**, **settings** and a **memory** that stays on your device, as in Onyx 1.
@@ -87,26 +93,68 @@ Say "settings" to see them, or just ask:
 - **Small talk with care**, jokes, tips and facts, and **memory** of your name and anything you ask it to remember, on this device only.
 - **Inside OmniTool only:** a tool finder and commands that run OmniTool's tools, asking before anything is saved.
 
-What Onyx can't do, by design: write essays, stories or code, look anything up online, or answer general knowledge questions. It says so plainly instead of guessing.
+What Onyx can't do, by design: write long pieces (essays, songs, code), or answer general knowledge questions on its own. It says so plainly instead of guessing, and with your permission it looks the question up.
 
-## Internet port (prepared, not connected)
+## The internet, with your permission
 
-Onyx has one place where a host *could* let it reach the internet, and nothing uses it yet. `host/host.js` ships it switched off:
+The engine itself has no network code. It goes online only through a host's internet port, and [`host/net.js`](host/net.js) is a ready-made one: load it after `host/host.js` (the demo page does) and Onyx can look things up. Without it, Onyx stays offline and says so.
+
+**It asks first, every time**, until you say otherwise:
+
+> **You:** who was Ada Lovelace?
+> **Onyx:** I don't know that offline. I can look that up online: I'd send "who was Ada Lovelace" to Wikipedia.
+> Want me to? (yes, no, or "always" so I stop asking)
+
+| You say | Onyx |
+|---|---|
+| "yes" | looks up this one thing |
+| "no" | stays offline for it |
+| "always", or "you can go online" | looks things up without asking from now on |
+| "ask first" | goes back to asking every time (the default) |
+| "stay offline" | never goes online, and stops offering |
+
+This choice is the `internet` setting (`ask`, `on` or `off`), kept on your device with the other settings. In Spanish and French, answer "sí", "siempre", "no" or "oui", "toujours", "non"; "sin internet" and "reste hors ligne" turn it off. If a service can't be reached, Onyx says so and offers to try again.
+
+**What it looks up, and where:**
+
+| Ask | Service | What is sent |
+|---|---|---|
+| a question Onyx can't answer; "look up X", "search for X", "busca X", "cherche X" | Wikipedia, in your language | the question or topic |
+| "research X"; then "tell me more" | Wikipedia | the topic, then the article's title |
+| "what's the weather in Austin?", "¿qué tiempo hace en Madrid?" | Open-Meteo | the place name, then its coordinates |
+| "what's in the news?" | Wikipedia's "In the news" (English) | today's date |
+| "define X" for a word not in Onyx's dictionary | Free Dictionary API (from Wiktionary) | the word |
+
+Words in Onyx's own dictionary are always answered offline, even when you say "look up". Nothing else is sent: no account, no key, no cookies, nothing from the conversation but the words being looked up. Requests to Wikipedia name Onyx in a User-Agent header (`Api-User-Agent` in a browser), as Wikimedia asks of every client. Each request gets 6 seconds and one retry if the connection drops; a whole lookup gets 25 seconds. Wikipedia limits how often one network may ask, so on a busy shared connection it can sometimes answer "too many requests"; Onyx then offers to try again.
+
+**The port, for your own host** (OmniTool, a server, a test):
 
 ```js
-Omni.net = { enabled: false, ask: async () => null };
+Omni.net = {
+  enabled: true,
+  sources: { search: 'Wikipedia', research: 'Wikipedia', news: 'Wikipedia', weather: 'Open-Meteo', define: 'the Free Dictionary API' },
+  ask: async ({ kind, query, topic, place, lang }) => ({ data }),  // or { text }, or null
+};
 ```
 
-When a host sets `enabled: true`, Onyx calls `ask({ kind, query })` for four kinds of question and nothing else:
+`kind` is `search`, `research`, `weather`, `news` or `define`, and `lang` is `en`, `es` or `fr`. `ask` is called only after the person agrees, and resolves to `{ text }` (Markdown, shown as Onyx's reply), `{ data }` in the shapes `host/net.js` documents (Onyx words them in the person's language), or `null` when the service can't be reached. `sources` names the services in Onyx's question. `host/net.js` takes a `fetch` of your choice in `Omni.net.fetch`; the tests use that to replay recorded answers from [`test/fixtures`](test/fixtures).
 
-| `kind` | When | `query` |
-|---|---|---|
-| `weather` | "what's the weather" | the message |
-| `news` | "latest headlines" | the message |
-| `search` | "search the web for...", or a question Onyx can't answer | the message |
-| `define` | "define X" for a word not in the dictionary | the word |
+**In Node**, `host/net.js` uses the built-in `fetch` (Node 18 and later). Behind an HTTP proxy, recent versions of Node use the `HTTPS_PROXY` variable when `NODE_USE_ENV_PROXY=1` is set.
 
-`ask` should resolve to `{ text }` (Markdown, shown as Onyx's reply) or `null`. If it returns nothing, throws, or takes longer than 8 seconds, Onyx gives the same offline answer it gives today. The engine itself contains no network code.
+## Writing
+
+Onyx writes short pieces from its dictionary, using templates, the dictionary's pronunciations and what it knows about each word. It is not a language model: the pieces are short and simple, and different every time ("another one").
+
+- **Haiku**: "write a haiku about the ocean". Exactly 5, 7 and 5 syllables, counted from real pronunciations.
+- **Rhyming poems**: "write a poem about the moon". Two rhyming couplets.
+- **Acrostics**: "write an acrostic for SAM".
+- **Short stories**: "tell me a story about a dragon".
+- **Messages for cards**: "write a birthday message for my mom", "a thank you note to Ana for the lovely dinner", "a congratulations card for my sister on her promotion". There are 17 occasions, including get well, good luck, sympathy, wedding, new baby, graduation, retirement and missing someone.
+- **Descriptions**: "describe a whale", from what the dictionary knows about it.
+- **Summaries**: "summarize: …" followed by your text keeps the sentences that carry it.
+- **After a lookup**: "write a poem about it" borrows words from the article, and "summarize it" gives its key points.
+
+Long writing (essays, songs, code) is beyond Onyx, and it says so. Writing is in English for now; in Spanish and French, Onyx says so and suggests the English request.
 
 ## Measured
 
@@ -114,25 +162,30 @@ When a host sets `enabled: true`, Onyx calls `ask({ kind, query })` for four kin
 
 | | Result |
 |---|---|
-| English intent accuracy on 93 held-out phrasings | 98.9% (92 of 93); Onyx 1.3: 96.8% |
+| English intent accuracy on 93 held-out phrasings | 96.8% (90 of 93); Onyx 2: 98.9% |
 | Spanish, 20 held-out phrasings | intent 100%, language recognized 100% |
-| French, 20 held-out phrasings | intent 95%, language recognized 100% |
+| French, 20 held-out phrasings | intent 90%, language recognized 100%; Onyx 2: 95% |
 | English phrasings taken for Spanish or French | 0 of 93 |
-| The neural network on its own | 91 of 93 held-out phrasings |
-| Conversation checks | 155 of 155 (Onyx 1.3's 102, all still passing, and 53 new) |
+| The neural network on its own | 89 of 93 held-out phrasings; Onyx 2: 91 |
+| Conversation checks | 158 of 158 |
 | Dictionary data checks (no duplicates; every feeling has a mood, every event a type, every example uses its word) | 14,730 entries pass |
 | Spanish and French word list (every word in the dictionary, both languages present) | 3,536 words pass |
-| Internet port checks (off by default, falls back offline) | 5 of 5 |
-| Deciding a reply, on average over 239 messages | about 0.3 ms |
-| Network requests (demo page in a browser) | 0 |
+| Internet permission checks (off without a connector; asks first; yes, no, "always", "try again", "stay offline") | 9 of 9 |
+| Lookups through `host/net.js`, replaying recorded answers from Wikipedia, Open-Meteo and the Free Dictionary API, in three languages | 17 of 17 |
+| The connector contacts only its four services | yes |
+| Writing checks (haiku syllables, rhymes, acrostics, stories, messages, descriptions, summaries) | 11 of 11 |
+| Deciding a reply, on average over 240 messages | about 0.3 ms |
+| Network requests from the demo page before you say yes | 0 |
 
 On the same machine and messages, choosing an intent takes 0.11 ms (Onyx 1.3: 0.24 ms) and a whole reply 0.25 ms (0.38 ms). Loading takes longer than before, about 0.2 seconds instead of 0.04, because the dictionary is almost five times bigger.
 
-The misses are listed by the test itself, so you can see exactly where it is wrong.
+Onyx 2.1 is a little less accurate on the held-out phrasings than Onyx 2: the network was retrained with the new news and writing phrases, and now misses "tell me who you are", "i need some rest" and "work is overwhelming". These are reported as they are, not tuned away. The misses are listed by the test itself, so you can see exactly where it is wrong.
+
+The recorded answers in `test/fixtures` keep the tests offline and repeatable. Live, with this connector, research, weather, definitions and the news were each checked against the real services on 2026-11-07.
 
 ## Run it
 
-**In a browser:** open `demo/index.html`. Everything runs in the page.
+**In a browser:** open `demo/index.html`. Everything runs in the page, and it goes online only for a lookup you allow.
 
 **In Node:**
 
@@ -144,6 +197,7 @@ node test/test.js
 
 ```html
 <script src="host/host.js"></script>
+<script src="host/net.js"></script>          <!-- optional: lookups online, with permission -->
 <script src="src/onyx-math.js"></script>
 <script src="src/onyx-lexicon.js"></script>
 <script src="src/onyx-dictionary.js"></script>
@@ -151,13 +205,14 @@ node test/test.js
 <script src="src/onyx-data.js"></script>
 <script src="src/onyx-model.js"></script>
 <script src="src/onyx-weights.js"></script>
+<script src="src/onyx-write.js"></script>    <!-- optional: haiku, poems, stories, messages -->
 <script src="src/onyx.js"></script>
 <script>
   Omni.onyx.respond('hi').then((reply) => console.log(reply.text));
 </script>
 ```
 
-The lexicon, languages and weights are optional: without them Onyx falls back to the hand-written dictionary, English, and its phrase matcher alone.
+The lexicon, languages, weights, writer and connector are optional: without them Onyx falls back to the hand-written dictionary, English, its phrase matcher alone, no writing, and no internet.
 
 `respond(text)` returns `{ text, offer?, expect?, action?, command? }`. `offer` is a yes/no question Onyx is waiting on, `action` is something the host should do (open a tool, switch the theme), and `command` is a request for OmniTool's tools, which only exist inside OmniTool. `Omni.onyx.context()` shows what Onyx has gathered from the conversation, and `Omni.onyx.detect(text)` the language of a message.
 
@@ -194,9 +249,13 @@ src/onyx-lexicon.js    the generated part of the dictionary: WordNet, pronunciat
 src/onyx-languages.js  Spanish and French: the word list, what Onyx understands and says, their grammar and numbers
 src/onyx-math.js       math: number words, a safe parser, equations, percentages, statistics, number facts
 src/onyx-data.js       English intents and replies, jokes, tips, facts, glossary
+src/onyx-write.js      writing: haiku, rhyming poems, acrostics, stories, messages, descriptions, summaries
 host/host.js           a minimal host (storage, randomness) so Onyx runs outside OmniTool
+host/net.js            the internet connector: Wikipedia, Open-Meteo, the Free Dictionary API
 demo/index.html        a standalone chat page
-test/test.js           held-out accuracy in three languages, the network, two conversations, data checks, speed
+test/test.js           held-out accuracy in three languages, the network, conversations, the internet port, the
+                       connector, writing, data checks, speed
+test/fixtures/         answers recorded from the three services, so the connector's tests run offline
 tools/train.js         trains the neural network
 tools/build-lexicon.py builds the lexicon from WordNet and CMUdict
 tools/examples.txt     example sentences written for Onyx, for common words WordNet has none for
@@ -204,7 +263,7 @@ tools/examples.txt     example sentences written for Onyx, for common words Word
 
 ## Privacy
 
-Onyx has no network code at all. The internet port above is an empty socket: it is off, and turning it on does nothing until a host writes its own `ask`. The only things it stores are your name, the facts you ask it to keep and your reply settings, in your browser's local storage (or in memory under Node). What you tell it during a conversation stays in memory and is gone when the page closes. Nothing is sent anywhere.
+The engine has no network code. Without `host/net.js` (or a host's own connector), nothing is sent anywhere. With it, Onyx sends only the words being looked up, only to the services in the table above, and only after you agree, or after you've said "always". The connector stores nothing and sends no account, key or cookie. The only things Onyx stores are your name, the facts you ask it to keep and your settings (including your choice about going online), in your browser's local storage (or in memory under Node). What you tell it during a conversation stays in memory and is gone when the page closes.
 
 The data files in `src/` are not secret and can't be: anything a web page runs can be read by whoever opens it. That is fine, because they contain no personal data, keys or passwords. Anything private belongs in a `private/` folder, which `.gitignore` keeps out of this repository.
 
@@ -212,7 +271,11 @@ The data files in `src/` are not secret and can't be: anything a web page runs c
 
 Onyx is MIT licensed (see [LICENSE](LICENSE)). The generated lexicon includes data from **Princeton WordNet 3.0** (WordNet 3.0 Copyright 2006 by Princeton University, all rights reserved; see [LICENSE-WORDNET](LICENSE-WORDNET)) and the **CMU Pronouncing Dictionary** (Copyright (C) 1993-2008 Carnegie Mellon University, all rights reserved; see [LICENSE-CMUDICT](LICENSE-CMUDICT)). [wordfreq](https://github.com/rspeer/wordfreq) was used to choose which words to include; none of its data is in this repository. The Spanish and French translations, the Spanish and French conversation, and 2,346 example sentences were written for Onyx.
 
+What Onyx looks up online comes from [Wikipedia](https://www.wikipedia.org/) (text under CC BY-SA 4.0), [Open-Meteo](https://open-meteo.com/) (weather data under CC BY 4.0) and the [Free Dictionary API](https://dictionaryapi.dev/) (Wiktionary text under CC BY-SA 3.0). Onyx names the source and links to it in every reply that uses them. The recorded answers in `test/fixtures` are test data from the same services, under the same licenses.
+
 ## Version
+
+**Onyx 2.1** (2026-11-07): the internet, with permission: research briefs, answers and the news from Wikipedia in English, Spanish and French, weather from Open-Meteo, and definitions from the Free Dictionary API, through the new `host/net.js` connector. Onyx asks before every lookup until you say "always", and "stay offline" keeps it offline. Also new: short pieces of writing (haiku, rhyming poems, acrostics, stories, messages for 17 occasions, descriptions and summaries). Held-out accuracy is 96.8% (Onyx 2: 98.9%). Onyx 2 is on the [`onyx-2.0`](../../tree/onyx-2.0) branch.
 
 **Onyx 2** (2026-11-06): a dictionary of 14,390 words (up from 3,035), with pronunciations, rhymes, and what kind of thing each noun is, which Onyx reasons with ("is a whale a mammal?"); Spanish and French, with 3,536 words translated; a small neural network with open weights that votes with the phrase matcher (held-out accuracy 98.9%, up from 96.8%); replies to several things in one message; a memory of the whole conversation; faster replies; and fixes to replies built from what people say. Onyx 1.3 is on the [`onyx-1.3`](../../tree/onyx-1.3) branch.
 
