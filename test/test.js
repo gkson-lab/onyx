@@ -15,6 +15,7 @@ require('../src/onyx-write.js');
 require('../src/translations/onyx-translations-es.js');
 require('../src/translations/onyx-translations-fr.js');
 require('../src/onyx-translate.js');
+require('../src/onyx-code.js');
 require('../src/onyx.js');
 const fs = require('fs');
 const path = require('path');
@@ -524,6 +525,57 @@ const SCRIPT_2 = [
 		const ok = !!r && expect.test(r.text);
 		if (!ok) failed++;
 		console.log(`${ok ? 'PASS' : 'FAIL'} translation: "${say}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
+	}
+
+	// Code: every task in every language it supports is written; requests are read right; follow-ups change the
+	// language. (tools/check-code.js compiles and runs them all.)
+	const CO = Omni.onyxCode;
+	let written = 0;
+	const broken = [];
+	for (const { task, languages } of CO.catalog()) {
+		for (const lang of languages) {
+			const w = CO.write({ task, lang, params: Object.assign({}, CO.TASKS[task].defaults, task === 'cls' || task === 'post' || task === 'table' || task === 'form' ? { fields: CO.parse('write a class Thing with name, age and price in python').params.fields } : {}) });
+			if (w && w.code && w.code.length > 20) written++;
+			else broken.push(`${task}/${lang}`);
+		}
+	}
+	const codeOk = !broken.length && written === CO.catalog().reduce((n, t) => n + t.languages.length, 0);
+	if (!codeOk) failed++;
+	console.log(`${codeOk ? 'PASS' : 'FAIL'} code: ${CO.catalog().length} tasks, ${written} programs across ${CO.ORDER.length} languages${broken.length ? '; broken: ' + broken.join(', ') : ''}`);
+	const READS = [
+		['fizzbuzz in rust', 'fizzbuzz', 'rust'], ['write hello world in c#', 'hello', 'csharp'], ['print the numbers 1 to 20 in c', 'count', 'c'],
+		['write a python function that adds two numbers', 'func', 'python'], ['write a function called area that takes w and h and returns w * h in rust', 'func', 'rust'],
+		['write a class Book with title, author and price in c++', 'cls', 'cpp'], ['make a GET request to https://api.github.com in javascript', 'get', 'javascript'],
+		['http post to https://api.example.com/books with title and pages', 'post', 'http'], ['an html form with name, email and message', 'form', 'html'],
+		['sort 5 2 9 1 in descending order in c#', 'sort', 'csharp'], ['reverse a string in c', 'reverse', 'c'], ['write a number guessing game in c++', 'guess', 'cpp'],
+		['write a web server in python', 'server', 'python'], ['write fizzbuzz', 'fizzbuzz', 'python'], ['is 17 prime in javascript', 'prime', 'javascript'],
+		['what is a class', null], ['what is rust', null], ['is 29 prime', null], ['write a poem about python', null], ['write a blog post', null], ['python is a snake', null],
+	];
+	const codeMisread = [];
+	for (const [say, task, lang] of READS) {
+		const j = CO.parse(say);
+		if (task === null ? j !== null : !j || j.task !== task || j.lang !== lang) codeMisread.push(`${say} -> ${JSON.stringify(j && { task: j.task, lang: j.lang })}`);
+	}
+	const readsOk = !codeMisread.length;
+	if (!readsOk) failed++;
+	console.log(`${readsOk ? 'PASS' : 'FAIL'} code requests: ${READS.length - codeMisread.length} of ${READS.length} read right${codeMisread.length ? '\n     ' + codeMisread.join('\n     ') : ''}`);
+	Omni.onyx.reset();
+	const CODE_CHAT = [
+		['fizzbuzz in rust', /^\*\*FizzBuzz in Rust\*\*[\s\S]*```rust\nfn main\(\) \{[\s\S]*rustc main\.rs/],
+		['now in python', /^\*\*FizzBuzz in Python\*\*[\s\S]*```python\nfor i in range\(1, 101\):/],
+		['what about C#?', /^\*\*FizzBuzz in C#\*\*[\s\S]*static void Main\(\)/],
+		['in java', /^I don't write that language yet/],
+		['an html form with name, email and message', /^\*\*An HTML form\*\*: it shows a form with name, email and message\.[\s\S]*<input id="email" name="email" type="email" required>/],
+		['now in rust', /^I write an HTML form in HTML, not Rust\./],
+		['can you code?', /^I can write small programs in Python, JavaScript, Rust, C, C#, C\+\+/],
+		['is 29 prime?', /^Yes, 29 is prime\./],
+		['write an essay', /beyond me/],
+	];
+	for (const [say, expect] of CODE_CHAT) {
+		const r = await Omni.onyx.respond(say);
+		const ok = !!r && expect.test(r.text);
+		if (!ok) failed++;
+		console.log(`${ok ? 'PASS' : 'FAIL'} code: "${say}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
 	}
 
 	// Speed: deciding a reply, averaged over the held-out phrasings and the conversation, after the first.

@@ -1704,7 +1704,52 @@
 		return null;
 	}
 
-	const WRITE_LIMITS = 'Long writing like essays, songs or code is beyond me. I can write short things: a haiku, a rhyming poem, an acrostic, a short story, a message for a card, a description of something, or a summary of a text.';
+	const WRITE_LIMITS = 'Long writing like essays or songs, and big programs, are beyond me. I can write short things: a haiku, a rhyming poem, an acrostic, a short story, a message for a card, a description of something, a summary of a text, or a small program in Python, JavaScript, Rust, C, C#, C++, HTML or HTTP.';
+
+	/* ---------- Code ---------- */
+
+	const CODE_MENU = 'I can write small programs in Python, JavaScript, Rust, C, C#, C++, and HTML or raw HTTP: hello world, counting, FizzBuzz, a function (add, multiply, square... or your own, like "a function called area that takes w and h and returns w * h"), reversing a string, palindromes, factorials, Fibonacci numbers, primes, sorting a list, sum and average, looping over a list, reading and writing files, counting words, a class or struct with the fields you name, HTTP GET and POST requests, a tiny web server, asking for a name, a number guessing game, temperature conversion, and web pages, tables, forms and buttons. Try "fizzbuzz in rust" or "a class Book with title, author and price in C#".';
+
+	/** A program as a reply: what it does, the code, and how to run it. */
+	function showCode(job) {
+		const C = Omni.onyxCode;
+		const w = C.write(job);
+		if (!w) return null;
+		const L = C.LANGS;
+		if (w.missing) {
+			const kind = C.TASKS[job.task].title.replace(/^[A-Z](?![A-Z])/, (c) => c.toLowerCase());
+			return answer(w.missing.length ? `I write ${kind} in ${listOf(w.missing.map((l) => L[l].name))}, not ${L[job.lang].name}.` : `I can't write that in ${L[job.lang].name}.`);
+		}
+		convo.code = job;
+		convo.lastKind = 'code';
+		const others = C.languagesFor(job.task).filter((l) => l !== job.lang).map((l) => L[l].name);
+		const run = w.project || (/^save|^send/.test(w.run) ? `To use it, ${w.run}.` : `Save it as \`${w.file}\`, then run \`${w.run}\`.`) + (w.deps ? ' It needs the crates named at the top, in Cargo.toml.' : '');
+		const title = w.title.includes(w.name) ? w.title : `${w.title} in ${w.name}`;
+		return answer([
+			`**${title}**: it ${w.about}.`,
+			'```' + w.fence + '\n' + w.code.replace(/\r\n/g, '\n').replace(/\n$/, '') + '\n```',
+			run + (w.note ? `\n${w.note}` : ''),
+			job.defaulted && others.length ? `(Say "in ${others[0]}" or another language for a different one.)` : others.length ? `I can also write it in ${listOf(others)}.` : '',
+		].filter(Boolean).join('\n\n'), { code: { lang: job.lang, text: w.code } });
+	}
+
+	/** Code requests and follow-ups ("now in Rust"); null when the message isn't about code. */
+	function codeReply(body) {
+		const C = Omni.onyxCode;
+		if (!C) return null;
+		const t = body.trim();
+		// "Now in Rust", "same in C#", "what about JavaScript?", "translate it to C++".
+		if (convo.code && convo.lastKind === 'code') {
+			const m = t.match(/^(?:ok(?:ay)?,? |and |now |great,? |thanks,? |cool,? )?(?:now |also )?(?:what about|how about|same(?: thing| one)?|do (?:it|that)|write (?:it|that)|show (?:it|me)|translate (?:it|that)|convert (?:it|that)|port (?:it|that)|rewrite (?:it|that)|can you do (?:it|that)|and)?\s*(?:in|to|into|using|for)?\s*(.+?)(?:\s+(?:version|please|instead|too|now))?[.?!]*$/i);
+			const lang = m && m[1].split(/\s+/).length <= 3 && C.langOf(`in ${m[1]}`);
+			if (lang && !/\b(?:spanish|french|english)\b/i.test(t)) return showCode(Object.assign({}, convo.code, { lang, defaulted: false }));
+			if (/^(?:java|go|golang|kotlin|swift|ruby|php|typescript|perl|scala|haskell|lua|r|matlab|bash|shell|sql)\b/i.test(t.replace(/^(?:now |what about |how about |same in |in |and )+/i, ''))) return answer(`I don't write that language yet. I can write it in ${listOf(C.languagesFor(convo.code.task).map((l) => C.LANGS[l].name))}.`);
+		}
+		const job = C.parse(t);
+		if (!job) return null;
+		if (!job.task) return answer(CODE_MENU);
+		return showCode(job);
+	}
 
 	/** Something to write about when no one said: what the conversation is about, else something from the sky or the sea. */
 	function pickTopic() {
@@ -1915,6 +1960,9 @@ ${r.offer.ask}` : '');
 			const choice = options[Math.floor(Math.random() * options.length)];
 			return withGreet(answer(`Go with **${choice}**. I picked at random, so if your stomach disagrees, listen to it.`));
 		}
+		// Code: "fizzbuzz in rust", "a class Book with title and price in C#", then "now in Python".
+		const coded = codeReply(body);
+		if (coded) return withGreet(coded);
 		const asksTranslation = Omni.onyxLanguages && Omni.onyxLanguages.translateQuery(body);
 		if (asksTranslation) return withGreet(translateReply(asksTranslation, 'en'));
 		const word = wordTrick(body);
