@@ -16,6 +16,8 @@ require('../src/translations/onyx-translations-es.js');
 require('../src/translations/onyx-translations-fr.js');
 require('../src/onyx-translate.js');
 require('../src/onyx-code.js');
+require('../src/onyx-predict-weights.js');
+require('../src/onyx-predict.js');
 require('../src/onyx.js');
 const fs = require('fs');
 const path = require('path');
@@ -577,6 +579,47 @@ const SCRIPT_2 = [
 		if (!ok) failed++;
 		console.log(`${ok ? 'PASS' : 'FAIL'} code: "${say}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
 	}
+
+	// The prediction network: the JavaScript gives exactly the trainer's numbers on its random sample of held-out
+	// sentences, beats counting, and its guesses make sense.
+	const PR = Omni.onyxPredict;
+	const rep = PR.report;
+	let p1 = 0;
+	let p3 = 0;
+	let pn = 0;
+	for (const line of fs.readFileSync(path.join(__dirname, 'fixtures', 'predict-heldout.txt'), 'utf8').trim().split('\n')) {
+		const w = line.split(' ');
+		for (let i = 0; i < w.length; i++) {
+			const got = PR.next(w.slice(0, i).join(' ') + ' ', 3).map((x) => x.word.toLowerCase());
+			pn++;
+			if (got[0] === w[i]) p1++;
+			if (got.includes(w[i])) p3++;
+		}
+	}
+	const sameAsTrainer = Math.abs(p1 / pn - rep.sample_top1) < 0.0006 && Math.abs(p3 / pn - rep.sample_top3) < 0.0006;
+	const beatsCounting = rep.top1 > rep.count_top1 && rep.top3 > rep.count_top3;
+	const pOk = sameAsTrainer && beatsCounting;
+	if (!pOk) failed++;
+	console.log(`${pOk ? 'PASS' : 'FAIL'} prediction network: ${PR.size.toLocaleString('en-US')} words; on ${rep.held_out_sentences.toLocaleString('en-US')} held-out sentences the next word is its first guess ${(rep.top1 * 100).toFixed(1)}% of the time and in its first three ${(rep.top3 * 100).toFixed(1)}% (counting: ${(rep.count_top1 * 100).toFixed(1)}% and ${(rep.count_top3 * 100).toFixed(1)}%); in JavaScript, ${(p1 / pn * 100).toFixed(2)}% and ${(p3 / pn * 100).toFixed(2)}% on the sample, as trained`);
+	const GUESSES = [
+		['fizzbuzz in ', (g) => g.some((w) => /^(?:python|javascript|rust|c|c#|c\+\+|js)$/i.test(w))],
+		['is a whale a ', (g) => g.includes('mammal')],
+		['i have an exam on ', (g) => g.some((w) => /day$/i.test(w))],
+		['tell me a ', (g) => g.includes('joke') || g.includes('story')],
+		['write a hai', (g) => g[0] === 'haiku'],
+		['how do you say happy in ', (g) => g.includes('French') || g.includes('Spanish')],
+	];
+	const badGuess = GUESSES.filter(([t, ok]) => !ok(PR.next(t, 3).map((x) => x.word))).map(([t]) => `"${t}" -> ${PR.next(t, 3).map((x) => x.word).join(', ')}`);
+	const t0 = performance.now();
+	for (let i = 0; i < 50; i++) PR.next('what is the weather in ', 5);
+	const perGuess = (performance.now() - t0) / 50;
+	const guessOk = !badGuess.length && perGuess < 10;
+	if (!guessOk) failed++;
+	console.log(`${guessOk ? 'PASS' : 'FAIL'} predictions make sense (${GUESSES.length - badGuess.length} of ${GUESSES.length}), ${perGuess.toFixed(2)} ms each${badGuess.length ? '\n     ' + badGuess.join('\n     ') : ''}`);
+	const fin = await Omni.onyx.respond('finish this sentence: I have an exam on');
+	const finOk = /^\*\*I have an exam on\*\* \*\w+day\b/.test(fin.text) && /My guesses for the next word/.test(fin.text);
+	if (!finOk) failed++;
+	console.log(`${finOk ? 'PASS' : 'FAIL'} "finish this sentence: I have an exam on" -> ${JSON.stringify(fin.text).slice(0, 80)}`);
 
 	// Speed: deciding a reply, averaged over the held-out phrasings and the conversation, after the first.
 	Omni.onyx.reset();

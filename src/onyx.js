@@ -1706,6 +1706,22 @@
 
 	const WRITE_LIMITS = 'Long writing like essays or songs, and big programs, are beyond me. I can write short things: a haiku, a rhyming poem, an acrostic, a short story, a message for a card, a description of something, a summary of a text, or a small program in Python, JavaScript, Rust, C, C#, C++, HTML or HTTP.';
 
+	/* ---------- Predicting what people say ---------- */
+
+	/** "Finish this sentence: I have an exam on", "what comes after 'how do you say'": the network's guesses. */
+	function predictReply(body) {
+		const P = Omni.onyxPredict;
+		if (!P) return null;
+		const m = body.trim().match(/^(?:(?:can you |please )?(?:finish|complete|continue|end) (?:this|my|the)(?: (?:sentence|phrase|thought)|(?=\s*:))|predict(?: the next words?| what comes next)?|what comes (?:next|after)|guess (?:the )?next words?|what(?:'s| is| would| will)? (?:i |come |be )?(?:say |next )?(?:after|next after))\s*[:,-]?\s*["'“]?(.+?)["'”]?\s*$/i);
+		if (!m || !P.tokens(m[1]).length) return null;
+		const text = m[1].replace(/[.!?]+$/, '');
+		const rest = P.complete(text + ' ');
+		const guesses = P.next(text + ' ', 3).map((x) => `${x.word} (${Math.round(x.p * 100)}%)`);
+		convo.lastKind = null;
+		if (!rest && !guesses.length) return answer(`I can't guess what comes after "${text}".`);
+		return answer(`**${text}** ${rest ? `*${rest}*` : '…'}\nMy guesses for the next word: ${listOf(guesses)}. They come from a small neural network trained on what people say to me; it gets the next word in its first three guesses about a third of the time.`);
+	}
+
 	/* ---------- Code ---------- */
 
 	const CODE_MENU = 'I can write small programs in Python, JavaScript, Rust, C, C#, C++, and HTML or raw HTTP: hello world, counting, FizzBuzz, a function (add, multiply, square... or your own, like "a function called area that takes w and h and returns w * h"), reversing a string, palindromes, factorials, Fibonacci numbers, primes, sorting a list, sum and average, looping over a list, reading and writing files, counting words, a class or struct with the fields you name, HTTP GET and POST requests, a tiny web server, asking for a name, a number guessing game, temperature conversion, and web pages, tables, forms and buttons. Try "fizzbuzz in rust" or "a class Book with title, author and price in C#".';
@@ -1960,6 +1976,9 @@ ${r.offer.ask}` : '');
 			const choice = options[Math.floor(Math.random() * options.length)];
 			return withGreet(answer(`Go with **${choice}**. I picked at random, so if your stomach disagrees, listen to it.`));
 		}
+		// "Finish this sentence: I have an exam on": the prediction network.
+		const predicted = predictReply(body);
+		if (predicted) return withGreet(predicted);
 		// Code: "fizzbuzz in rust", "a class Book with title and price in C#", then "now in Python".
 		const coded = codeReply(body);
 		if (coded) return withGreet(coded);
@@ -2174,8 +2193,12 @@ ${r.offer.ask}` : '');
 	Omni.onyx = {
 		respond,
 		handle,
-		version: '2.0',
+		version: '2.5',
 		classify: (text, lang) => classify(text, lang),
+		/** The likeliest next words (or the end of the word being typed), from the prediction network: [{ word, p }]. */
+		predict: (text, k = 5) => (Omni.onyxPredict ? Omni.onyxPredict.next(text, k) : []),
+		/** A few likely endings for what's typed so far, for suggestions under the text box. */
+		suggest: (text, n = 3) => (Omni.onyxPredict ? Omni.onyxPredict.suggest(text, n) : []),
 		detect: (text) => (Omni.onyxLanguages ? Omni.onyxLanguages.detect(text) : 'en'),
 		context: () => ({ lang: convo.lang, notes: [...convo.notes], topics: [...convo.topics], names: Object.assign({}, convo.names), subject: convo.subject }),
 		findTools,

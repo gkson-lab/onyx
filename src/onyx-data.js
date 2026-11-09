@@ -205,6 +205,7 @@
 			`- **Words**: a dictionary of ${Omni.onyxDictionary ? Omni.onyxDictionary.total.toLocaleString('en-US') + ' ' : ''}words with pronunciations. "define serendipity", "another word for happy", "what rhymes with moon", "how many syllables in banana", "use brave in a sentence".`,
 			'- **Thinking with words**: "is a whale a mammal", "what kind of animal is a salmon", "name some fruits", "what\'s the difference between a crocodile and an alligator", "what are the parts of a flower".',
 			'- **Writing**: "write a haiku about the sea", "write a poem about autumn", "tell me a story about a fox", "write a birthday message for my mom", "write an acrostic for SAM", "summarize: ..." and your text.',
+			...(Omni.onyxPredict ? ['- **Predicting what you\'ll say**: suggestions as you type, or "finish this sentence: I have an exam on".'] : []),
 			...(Omni.onyxCode ? ['- **Code**: small programs in Python, JavaScript, Rust, C, C#, C++, HTML and HTTP: "fizzbuzz in rust", "a class Book with title, author and price in C#", "a GET request in JavaScript", "an HTML form with name and email", then "now in Python". Say "can you code?" for the whole list.'] : []),
 			...(ctx.net ? ['- **Looking things up**, only if you say yes: "research black holes", "who was Ada Lovelace?", "what\'s the weather in Austin?", "what\'s in the news?". Say "always" to stop me asking, or "stay offline".'] : []),
 			'- **Spanish and French**: write to me in either and I\'ll answer in it. "how do you say happy in French", "what does gato mean", "¿cómo se dice perro en inglés?".',
