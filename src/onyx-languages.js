@@ -3894,15 +3894,21 @@ turnaround|el cambio de rumbo|le revirement
 
 	/* ---------- Translation questions ---------- */
 
+	// Every language Onyx has a dictionary for (onyx-tongues.js), by any of its names; English, Spanish and French alone
+	// without it.
+	const TONGUES = (typeof root !== 'undefined' && root.Omni && root.Omni.onyxTongues) || null;
 	const LANG_WORD = { english: 'en', ingles: 'en', anglais: 'en', spanish: 'es', espanol: 'es', espagnol: 'es', castellano: 'es', french: 'fr', frances: 'fr', francais: 'fr' };
-	const L = '(english|spanish|french|ingl[eé]s|espa[nñ]ol|castellano|franc[eé]s|fran[cç]ais|anglais|espagnol)';
+	const langCode = (name) => LANG_WORD[strip(name)] || (TONGUES && TONGUES.codeOf(name)) || null;
+	const L = TONGUES ? `(${TONGUES.PATTERN}|ingl[eé]s|espa[nñ]ol|franc[eé]s|fran[cç]ais)` : '(english|spanish|french|ingl[eé]s|espa[nñ]ol|castellano|franc[eé]s|fran[cç]ais|anglais|espagnol)';
 	const Q = '["\'«“]?\\s*(.+?)\\s*["\'»”]?';
 	const TRANSLATE = [
 		// English
+		['en', new RegExp(`^what does\\s+${Q}\\s+mean in\\s+${L}$`, 'i'), 'word', 'from'],
+		['en', new RegExp(`^(?:translate|say)\\s+${Q}\\s+from\\s+${L}\\s+(?:to|into)\\s+${L}$`, 'i'), 'word', 'from', 'to'],
+		['en', new RegExp(`^what(?:'s| is)\\s+(?:the\\s+)?${L}\\s+(?:word\\s+)?${Q}\\s+in\\s+${L}$`, 'i'), 'from', 'word', 'to'],
 		['en', new RegExp(`^(?:how (?:do|would) (?:you|i|we) say|how is|what(?:'s| is) the (?:word for)?|translate|say)\\s+${Q}\\s+(?:in|into|to)\\s+${L}\\b`, 'i'), 'word', 'to'],
 		['en', new RegExp(`^(?:what(?:'s| is| are)?|whats)\\s+(?:the\\s+)?${L}\\s+(?:word\\s+)?for\\s+${Q}$`, 'i'), 'to', 'word'],
 		['en', new RegExp(`^(?:what(?:'s| is)?|whats)\\s+${Q}\\s+in\\s+${L}$`, 'i'), 'word', 'to'],
-		['en', new RegExp(`^what does\\s+${Q}\\s+mean in\\s+${L}$`, 'i'), 'word', 'to'],
 		['en', new RegExp(`^translate\\s+${Q}(?:\\s+from\\s+${L})?$`, 'i'), 'word', 'from'],
 		['en', new RegExp(`^${Q}\\s+in\\s+${L}\\??$`, 'i'), 'word', 'to'],
 		// Spanish
@@ -3924,7 +3930,7 @@ turnaround|el cambio de rumbo|le revirement
 			slots.forEach((slot, i) => {
 				const v = m[i + 1];
 				if (v == null) return;
-				out[slot] = slot === 'word' ? v.trim() : LANG_WORD[strip(v)];
+				out[slot] = slot === 'word' ? v.trim() : langCode(v);
 			});
 			// A word, a phrase or a short sentence: "how do you say 'where is the station' in French".
 			if (out.word && out.word.split(/\s+/).length <= 14) return out;

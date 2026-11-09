@@ -256,13 +256,16 @@ What?|¿Qué?|Quoi ?
 			}
 			return Object.assign(readHand(lang, row[lang]), { src: 'hand', pos: pos || null });
 		}
+		// Everyday words written for Onyx for this language, where it has them (onyx-tongues.js).
+		const core = Omni.onyxTongues && Omni.onyxTongues.core[lang];
+		if (core && core.from.has(en.toLowerCase())) return { word: core.from.get(en.toLowerCase()), said: core.from.get(en.toLowerCase()), src: 'hand', pos: pos || null };
 		const big = lists(lang);
 		const rows = (big && big.from.get(en.toLowerCase())) || [];
 		const row = pos ? rows.find((r) => r.pos === pos) : rows[0];
 		if (!row) return null;
 		const word = row.said[0];
 		const out = { word, said: word, src: 'list', pos: row.pos, alts: row.said.slice(1) };
-		if (row.pos === 'noun') {
+		if (row.pos === 'noun' && (lang === 'es' || lang === 'fr')) {
 			out.gender = guessGender(lang, word.split(' ')[0]);
 			if (!out.gender) {
 				out.gender = 'm';
@@ -297,6 +300,14 @@ What?|¿Qué?|Quoi ?
 		const w = String(word).trim().replace(/^[¿¡"'«“]+|[?!.,"'»”]+$/g, '');
 		if (!w) return null;
 		const sw = strip(w);
+		// The other languages have a dictionary but no grammar of Onyx's: the word as written, or without its accents.
+		if (lang !== 'es' && lang !== 'fr') {
+			const core = Omni.onyxTongues && Omni.onyxTongues.core[lang];
+			if (core && core.to.has(w.toLowerCase())) return { en: [core.to.get(w.toLowerCase())], base: w, src: 'hand', plural: false };
+			const b = lists(lang);
+			const en = b && (b.to.get(w.toLowerCase()) || b.to.get(sw));
+			return en ? { en, base: w, src: 'list', plural: false } : null;
+		}
 		// "blanche" is the feminine of "blanc" (white), not WOLF's half note.
 		const masc = FEM_BACK()[lang][sw] || FEM_BACK()[lang][sw.replace(/s$/, '')];
 		let hand = Lx ? Lx.findForeign(lang, masc || w) : [];
@@ -1164,9 +1175,72 @@ What?|¿Qué?|Quoi ?
 	 * Translates `text` from one language to another: { text, how, unknown, guessed } where how is "phrasebook",
 	 * "grammar" (a sentence pattern) or "words" (word by word, rough). From Spanish to French, through English.
 	 */
+	const GRAMMAR = new Set(['en', 'es', 'fr']);
+	const UNSPACED = new Set(['zh', 'ja', 'th']);
+
+	/** Splits text into words; Chinese, Japanese and Thai, which don't space them, by the longest words the dictionary has. */
+	function wordsOf(text, lang) {
+		if (!UNSPACED.has(lang)) return String(text).toLowerCase().replace(/[’‘]/g, "'").replace(/[¿¡"“”«».!?,;:()。、！？]+/g, ' ').split(/\s+/).filter(Boolean);
+		const b = lists(lang);
+		const out = [];
+		const s = String(text).replace(/[\s。、！？.!?,]+/g, '');
+		for (let i = 0; i < s.length;) {
+			let n = Math.min(8, s.length - i);
+			while (n > 1 && !(b && b.to.has(s.slice(i, i + n)))) n--;
+			out.push(s.slice(i, i + n));
+			i += n;
+		}
+		return out;
+	}
+
+	/** Between any two of Onyx's languages, when one has only a dictionary: the ten basic phrases, or word by word. */
+	function textOther(raw, from, to) {
+		const G = Omni.onyxTongues;
+		const flat = (s) => strip(String(s).replace(/[¿¡.!?,;:。！？]+/g, ' ')).replace(/\s+/g, ' ').trim();
+		const row = G && G.PHRASES.find((r) => r[from] && flat(r[from]) === flat(raw));
+		if (row && row[to]) return { text: row[to], how: 'phrasebook', unknown: [] };
+		const out = [];
+		const unknown = [];
+		for (const w of wordsOf(raw, from)) {
+			let en = [w];
+			if (from === 'en') {
+				if (/^(?:the|a|an)$/.test(w)) continue;
+				const f = englishForms(w)[0];
+				en = [f ? f.base : w];
+			} else {
+				const e = toEnglish(w, from);
+				if (!e) {
+					out.push(w);
+					unknown.push(w);
+					continue;
+				}
+				en = e.en;
+			}
+			if (to === 'en') out.push(en[0]);
+			else {
+				const t = en.map((x) => toForeign(x, to)).find(Boolean);
+				if (t) out.push(t.word);
+				else {
+					out.push(w);
+					unknown.push(w);
+				}
+			}
+		}
+		return { text: out.join(UNSPACED.has(to) ? '' : ' '), how: 'words', unknown };
+	}
+
+	/** Loads a language's dictionary if it isn't here yet (through the host); resolves to whether Onyx has it. */
+	async function need(lang) {
+		if (lang === 'en') return true;
+		if (Omni.onyxTranslations && Omni.onyxTranslations[lang]) return true;
+		if (Omni.languages && Omni.languages.load) return !!(await Omni.languages.load(lang));
+		return false;
+	}
+
 	function text(input, from, to) {
 		const raw = String(input).trim();
 		if (!raw || from === to) return null;
+		if (!GRAMMAR.has(from) || !GRAMMAR.has(to)) return textOther(raw, from, to);
 		const key = norm(raw, from);
 		const row = BOOK[from].get(key) || BOOK[from].get(key.replace(/ please$/, ''));
 		if (row) {
@@ -1233,13 +1307,13 @@ What?|¿Qué?|Quoi ?
 
 	/** How many English words each large list covers, and where it comes from. */
 	function coverage() {
-		const out = {};
-		for (const lang of ['es', 'fr']) {
+		const out = { es: null, fr: null };
+		for (const lang of Object.keys(Omni.onyxTranslations || {})) {
 			const b = lists(lang);
 			out[lang] = b ? { words: b.from.size, back: b.back, source: b.source } : null;
 		}
 		return out;
 	}
 
-	Omni.onyxTranslate = { text, word, toForeign, toEnglish, conjugate, agree, pluralOf, guessGender, parseNP, renderNP, coverage, PHRASES: ROWS };
+	Omni.onyxTranslate = { text, word, need, sourceOf: (lang) => (lists(lang) || {}).source || null, toForeign, toEnglish, conjugate, agree, pluralOf, guessGender, parseNP, renderNP, coverage, PHRASES: ROWS };
 })(typeof window !== 'undefined' ? window : globalThis);

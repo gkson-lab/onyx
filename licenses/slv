@@ -1,0 +1,31 @@
+The Slovenian (sloWNet) dictionary in src/translations/ is derived from this wordnet, as distributed in the Open
+Multilingual Wordnet 1.4 (https://omwn.org/). Onyx changed it: for each English word it chose the wordnet's commonest
+words, and for each of the wordnet's words the commonest English ones. The derived file is distributed under the
+same license as the wordnet.
+
+The data file's own header: # sloWNet	slv	http://lojze.lugos.si/darja/slownet.html	CC BY SA 3.0
+
+----- Citation -----
+
+Citation for slvWN
+
+@inProceedings{Fiser:Novak:Eejavec:2012,
+  author =	 "Fi\v{s}er, Darja and Novak, Jernej, and Toma\v{z}",
+ 
+  title =	 "{sloWNet 3.0}: development, extension and cleaning",
+  booktitle =   "Proceedings of 6th International Global Wordnet Conference (GWC 2012)",
+  year =	 2012,
+  Publisher =   "The Global WordNet Association"
+  pages =	 "113-117"
+}
+
+----- License -----
+
+sloWNet --- a wordnet for Slovene
+
+This data is released under the Attribution-ShareAlike 3.0 Unported 
+     (CC BY-SA 3.0)  license. You can find it at 
+     http://creativecommons.org/licenses/by-sa/3.0/
+
+Contact: darja.fiser@guest.arnes.si
+URL:     http://lojze.lugos.si/darja/slownet.html

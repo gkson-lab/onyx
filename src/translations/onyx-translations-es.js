@@ -1,8 +1,7 @@
-// Onyx 2.5's large Spanish word list. Built by tools/build-translations.py from the Open Multilingual Wordnet 1.4:
-// Multilingual Central Repository 3.0, linked to Princeton WordNet 3.0, ranked with wordfreq. Built automatically, so less reliable than the
-// hand-written list in onyx-languages.js, which comes first. Don't edit by hand.
+// Onyx 3's Spanish dictionary. Built by tools/build-translations.py from Multilingual Central Repository 3.0, linked to Princeton
+// WordNet 3.0, ranked with wordfreq. Built automatically, so less reliable than a hand-written list. Don't edit by hand.
 //
-// This file contains data from the Multilingual Central Repository 3.0, distributed under CC BY 3.0; see LICENSE-MCR. WordNet 3.0
+// This file contains data from Multilingual Central Repository 3.0, distributed under CC BY 3.0; see licenses/MCR. WordNet 3.0
 // Copyright 2006 by Princeton University; see LICENSE-WORDNET.
 (function (root) {
 	'use strict';
@@ -20,8 +19,6 @@ a good deal|adv|mucho;muchisimo
 a great deal|adv|mucho;muchisimo
 a hundred times|adv|cien veces;por cien
 a lot|adv|mucho;muchisimo
-a-list|n|lista preferente
-a-one|adj|gran;grande;excelente
 aaron|n|Hank Aaron
 aaron burr|n|Aaron Burr
 aaron montgomery ward|n|Montgomery Ward
@@ -54,7 +51,6 @@ ability|n|aptitud;capacidad
 abject|adj|bajo;miserable
 ablaze|adj|caliente
 able|adj|capaz
-able-bodied|adj|capaz;hábil
 abnormal|adj|anormal
 abnormal psychology|n|psicopatología
 abnormality|n|anomalía
@@ -203,7 +199,6 @@ acid|n|ácido
 acid|adj|ácido;amargo;áspero
 acid head|n|cabeza ácida
 acid test|n|prueba de fuego
-acid-wash|v|lavar al ácido;lavar con ácido
 acidic|adj|ácido
 acknowledge|v|reconocer;admitir
 acknowledged|adj|reconocido
@@ -224,12 +219,10 @@ acquisition agreement|n|contrato de fusión
 acquit|v|descargar
 acquittal|n|absolución
 acre|n|acre
-acre-foot|n|acre-pie
 acres|n|tierra;terreno;hacienda
 acrobatics|n|acrobacias;volteretas
 acronym|n|sigla
 across|adv|a través;transversalmente
-across-the-board|adj|general;completo;global
 acrylic|n|acrílico
 acrylic fiber|n|acrílico;fibra acrílica
 act|n|ley;acta;acto
@@ -271,7 +264,6 @@ acute leukemia|n|leucemia aguda
 ad|n|anuncio
 ad blitz|n|campaña de publicidad;campaña publicitaria;bombardeo publicitario
 ad campaign|n|campaña de publicidad;campaña publicitaria;bombardeo publicitario
-ad-lib|v|improvisar
 adage|n|sentencia;adagio
 adagio|adv|adagio
 adam|n|x;Cristal;Adam
@@ -286,8 +278,6 @@ adaptor|n|ladrón
 add|v|añadir
 add together|v|sumar
 add up|v|sumar
-add-in|n|tarjeta;tarjeta de expansión
-add-on|n|complemento
 addendum|n|apéndice
 addicted|adj|adicto
 addiction|n|dependencia
@@ -461,7 +451,6 @@ african tea|n|catha edulis
 african wild ass|n|asno salvaje africano;Equus Asinus
 afro|n|afro
 afro hairdo|n|afro
-afro-wig|n|peluca afro
 afterlife|n|más allá
 aftermath|n|consecuencia;repercusión
 afternoon|n|tarde
@@ -476,7 +465,6 @@ agape|n|ágape;amor cristiano;agape
 agatha christie|n|Agatha Christie
 age|n|edad
 age|v|envejecer
-age-old|adj|antiguo
 aged|adj|mayor
 ageless|adj|eterno;interminable;perpetuo
 agency|n|agencia
@@ -524,7 +512,6 @@ ai|n|inteligencia artificial
 aid|v|ayudar
 aid|n|ayuda
 aide|n|ayudante
-aide-de-camp|n|ayudante;aide-de-camp
 aids|n|sida
 aiken|n|Aiken
 ailing|adj|malo;enfermo
@@ -582,8 +569,7 @@ akira kurosawa|n|Akira Kurosawa
 al|n|al;aluminio
 al capone|n|Al Capone;Capone;Alphonse Capone
 al gore|n|Al Gore
-al-hakim|n|Al-hakim;al-hakim
-alan alexander milne|n|Alan Alexander Milne
+alan alexander milne|n|Alan Alexander Milne;A. A. Milne
 alan hodgkin|n|Alan Lloyd Hodgkin
 alan jay lerner|n|Alan Jay Lerner
 alan lloyd hodgkin|n|Alan Lloyd Hodgkin
@@ -617,7 +603,6 @@ alcohol|n|alcohol
 alcohol addiction|n|alcoholismo
 alcohol group|n|grupo alcohol;radical alcohol
 alcohol radical|n|grupo alcohol;radical alcohol
-alcohol-dependent|adj|alcohólico
 alcoholic|adj|alcohólico
 alcoholic beverage|n|alcohol
 alcoholic drink|n|alcohol
@@ -681,7 +666,6 @@ alibi|n|excusa
 alibi|v|presentar una coartada
 alice paul|n|Paul;Alice Paul
 alice walker|n|Alice Walker
-alice-josephine pons|n|Lily Pons
 alicia alonso|n|Alicia Alonso
 alien|adj|ajeno
 alien|n|extranjero
@@ -707,12 +691,6 @@ all the time|adv|todo el tiempo
 all the way|adv|hasta el final;hasta la meta
 all together|adv|todos juntos
 all too|adv|de sobras;sobradamente
-all-day sucker|n|piruleta;pirulí
-all-embracing|adj|general;completo;global
-all-encompassing|adj|general;completo;global
-all-important|adj|esencial;crucial
-all-inclusive|adj|general;completo;global
-all-purpose|adj|universal
 allah|n|Alá
 allay|v|aliviar;calmar;apaciguar
 allegation|n|demanda;querella
@@ -756,7 +734,6 @@ ally with|v|asociarse;aliarse
 almond|n|almendra;prunus dulcis
 almond extract|n|extracto de almendras
 alms|n|limosna
-alms-giving|n|limosna
 aloe|n|aloe
 aloha|n|aloha
 alone|adj|único;solos;incomparable
@@ -801,7 +778,7 @@ alumnus|n|alumno
 alveolar|n|dental
 alveolar consonant|n|dental;consonante dental;consonante alveolar
 always|adv|siempre;constantemente
-am|n|AM;A.M.
+am|n|AM
 amalgamation|n|fusión
 amass|v|recoger;juntar;acumular
 amateur|n|aficionado
@@ -890,7 +867,6 @@ amplification|n|ganancia
 amplifier|n|etapa de potencia
 amplify|v|exagerar;ampliar;ensanchar
 amplitude|n|amplitud
-amplitude modulation|n|A.M.
 amply|adv|ampliamente;generosamente
 amputation|n|amputación
 amuse|v|entretener;divertir
@@ -953,8 +929,8 @@ andrew huxley|n|Andrew Huxley;Andrew Fielding Huxley
 andrew jackson|n|Andrew Jackson
 andrew johnson|n|Andrew Johnson
 andrew lloyd webber|n|Andrew Lloyd Webber
-andrew mellon|n|Andrew Mellon;Andrew W. Mellon;Andrew William Mellon
-andrew william mellon|n|Andrew Mellon;Andrew W. Mellon;Andrew William Mellon
+andrew mellon|n|Andrew Mellon;Andrew William Mellon;Mellon
+andrew william mellon|n|Andrew Mellon;Andrew William Mellon;Mellon
 andrew wyeth|n|Andrew Wyeth
 andrews|n|Andrews;Roy Chapman Andrews
 android|n|androide;humanoide;hombre mecánico
@@ -980,10 +956,7 @@ angle bracket|n|paréntesis
 angle iron|n|codo
 angle of dip|n|inclinación;inclinación magnética;buzamiento
 angle of inclination|n|inclinación
-angle-park|v|aparcar en ángulo
 anglia|n|Anglia
-anglo-jewish|adj|anglo-judío
-anglo-saxon deity|n|deidad anglosajona
 angolan monetary unit|n|unidad monetaria angoleña
 angrily|adv|furiosamente
 angry|adj|violento;furioso
@@ -1069,14 +1042,6 @@ anthony hopkins|n|Anthony Hopkins
 anthony wayne|n|Anthony Wayne
 anthropologist|n|antropólogo
 anthropology department|n|Facultad de Antropología
-anti-drug law|n|ley sobre drogas
-anti-dumping duty|n|impuestos proteccionistas;impuesto proteccionista
-anti-inflammatory|n|antiinflamatorio
-anti-inflammatory drug|n|antiinflamatorio
-anti-semite|n|antisemita;perseguidor de judíos
-anti-semite|adj|racista
-anti-semitism|n|antisemitismo
-anti-virus program|n|antivirus
 antibacterial|n|bactericida
 antibacterial drug|n|bactericida
 antibiotic|adj|antibiótico
@@ -1115,7 +1080,6 @@ antony tudor|n|Antony Tudor
 antsy|adj|nervioso;inquieto
 anus|n|ano
 anvil|n|yunque
-anwar el-sadat|n|Anwar Sadat;Anwar el-Sadat
 anwar sadat|n|Anwar Sadat;Anwar el-Sadat
 anxiety|n|ansiedad
 anxious|adj|ansioso
@@ -1300,7 +1264,6 @@ argue|v|razonar;discutir
 arguing|n|discusión
 argument|n|argumento
 argumentation|n|debate;discusión
-argus-eyed|adj|atento
 argyll|n|argyll
 aria|n|aria
 ariadne|n|Ariadna
@@ -1335,7 +1298,6 @@ armor|n|armadura
 armor|v|armar
 armor plate|n|blindaje
 armor plating|n|blindaje
-armor-bearer|n|portador de armas
 armored combat vehicle|n|tanque
 armory|n|arsenal
 armour|n|armadura;caparazón
@@ -1345,7 +1307,6 @@ armoured combat vehicle|n|tanque
 armoury|n|arsenal
 arms|n|armamento
 arms control|n|control de armas
-arms-runner|n|traficante de armas
 armstrong|n|Neil Armstrong;Armstrong
 army|n|ejército
 army corps|n|cuerpo;cuerpo de ejército
@@ -1399,7 +1360,7 @@ arterial road|n|vía principal;vía arterial
 artery|n|arteria
 artful|adj|astuto;falsa
 arthritis|n|artritis
-arthur|n|Chester A. Arthur;Chester Alan Arthur
+arthur|n|Chester Alan Arthur
 arthur ashe|n|Arthur Ashe
 arthur compton|n|Arthur Compton;Arthur Holly Compton
 arthur conan doyle|n|Arthur Conan Doyle
@@ -1505,16 +1466,14 @@ aspiration|n|aspiración
 aspire|v|aspirar
 aspirin|n|aspirina
 ass|n|culo;fin;tras
-ass-kisser|n|pelota
 assailant|n|atacante
-assam fever|n|fiebre assam;fiebre dum-dum;leishmaniasis visceral
+assam fever|n|fiebre assam;leishmaniasis visceral;fiebre dum-dum
 assassinate|v|asesinar
 assassination|n|magnicidio
 assault|n|asalto;violación
 assault|v|atacar
 assay|n|prueba;informe;ensayo
 assay|v|ensayar
-assay-mark|n|contraste;autenticación
 assemblage|n|colectividad
 assemble|v|juntar;montar;armar
 assembler|n|ensamblador;programa ensamblador
@@ -1652,7 +1611,6 @@ attendant|adj|consiguiente;resultante;consecuente
 attendee|n|asistente
 attending|n|atención
 attention|n|atención
-attention-getting|adj|llamativo
 attentive|adj|atento
 attest|v|demostrar;manifestar
 attested|adj|certificado;autentificado
@@ -1679,7 +1637,7 @@ atypical|adj|insólito
 au|n|oro
 audacious|adj|audaz;valiente
 audacity|n|audacia
-auden|n|W. H. Auden;Wystan Hugh Auden
+auden|n|Wystan Hugh Auden;W. H. Auden
 audible|adj|audible
 audience|n|audiencia
 audio|n|audio
@@ -1743,8 +1701,6 @@ auto accessory|n|accesorio para automóvil
 auto loan|n|crédito automotriz
 auto mechanics|n|mecánica de coches
 auto racing|n|carrera de autos
-auto-da-fe|n|auto de fe
-auto-suggestion|n|autosugestión
 autobiography|n|autobiografía
 autocracy|n|autocracia;autarquía
 autofocus|n|autofoco
@@ -1775,7 +1731,6 @@ auxiliary verb|n|verbo auxiliar
 avail|n|ayuda;asistencia
 availability|n|disponibilidad;accesibilidad;manejabilidad
 available|adj|disponible
-avant-garde|n|vanguardia;vanguardismo
 avarice|n|codicia;avaricia;concupiscencia
 avatar|n|encarnación
 ave maria|n|Ave María
@@ -1807,7 +1762,6 @@ aware|adj|considerado;consciente;atento
 awareness|n|conocimiento;conciencia
 awe|n|miedo;terror;temor
 awe|v|aterrorizar
-awe-inspiring|adj|increíble;impresionante;sorprendente
 awesome|adj|increíble;impresionante;sorprendente
 awful|adj|horrible;terrible;tremendo
 awkward|adj|incómodo
@@ -1822,13 +1776,10 @@ axis of rotation|n|eje
 axle|n|eje
 axon|n|axón
 ayatollah|n|ayatolá
-aye-aye|n|daubentonia madagascariensis
 ayn rand|n|Ayn Rand
 azerbaijani monetary unit|n|unidad monetaria azerbaiyana
 azores|n|Azores
 azure|n|cerúleo
-b-flat clarinet|n|clarinete B bemol
-b-girl|n|compañera
 baa|v|balar;gimotear
 babble|v|cantar;murmurar
 babble out|v|cantar
@@ -1840,7 +1791,6 @@ baby doc|n|Jean-Claude Duvalier
 baby doctor|n|pediatra
 baby oil|n|aceite para bebé
 baby's room|n|habitación de bebé
-baby-sit|v|hacerse cargo
 babylonian captivity|n|cautiverio;cautividad de Babilonia
 baccalaureate|n|discurso de graduación
 bach|n|Johann Sebastian Bach
@@ -1869,9 +1819,6 @@ back porch|n|porche trasero
 back saw|n|serrucho de costilla
 back talk|n|boca;réplica;insolencia
 back up|v|apoyar;respaldar
-back-channel|adj|secundario;alternativo;no oficial
-back-number|n|reliquia
-back-to-back|adj|consecutivo
 backboard|n|tablero
 backbone|n|valor;coraje;nervio
 backdoor|n|puerta trasera
@@ -1930,7 +1877,6 @@ bail|n|fianza
 bail bond|n|fianza
 bailey|n|Bailey;Pearl Bailey;Pearl Mae Bailey
 bailiff|n|alguacil;esbirro
-bain-marie|n|baño maría
 bait|v|molestar;burlarse;tomar el pelo
 baja california|n|Baja California
 bake|v|cocer
@@ -1946,8 +1892,6 @@ balance wheel|n|volante
 balanced|adj|equilibrado
 balcony|n|balcón
 bald|adj|calvo;descubierto;desnudo
-bald-faced hornet|n|avispa cara blanca
-bald-headed|adj|calvo
 baldness|n|alopecia
 baldwin|n|James Baldwin
 bale|n|bala
@@ -1964,7 +1908,6 @@ ball field|n|campo de béisbol;cancha de béisbol;diamante
 ball of fire|n|emprendedor
 ball over|v|chocar;aturdir
 ball up|v|arruinar
-ball-shaped|adj|global
 ballad|n|balada
 ballast|v|lastrar
 ballerina|n|bailarina;ballerina
@@ -1981,7 +1924,6 @@ ballot box|n|urna
 balloting|n|voto
 ballpark|n|aproximado;ámbito aproximado
 ballroom|n|salón de baile
-balls-up|n|lío
 bally|adj|maldito
 balm of gilead|n|bálsamo de Galaad
 balmoral|n|bota con cordones
@@ -2014,7 +1956,6 @@ bang|v|golpear violentamente;cerrar ruidosamente;golpear
 bang|n|golpe;leche;cinturón
 bang|adv|directamente;directo;de cabeza
 bang up|v|quebrar;destrozar
-bang-up|adj|genial;brutal;bárbaro
 banging|adj|enorme;colosal
 bangladeshi monetary unit|n|unidad monetaria bangladesí
 bangle|n|dije
@@ -2097,11 +2038,10 @@ bark|v|ladrar
 barkley|n|Barkley
 barley|n|cebada;grano de cebada
 barley candy|n|azucar candi;azucar cande;azúcar cande
-barley-sugar|n|azucar candi;azucar cande;azúcar cande
 barman|n|camarero;barman
 barn|n|galpón;b
 barn dance|n|fiesta del pueblo;baile del pueblo
-barnum|n|Barnum;P. T. Barnum;Phineas Taylor Barnum
+barnum|n|Barnum;Phineas Taylor Barnum
 baron|n|magnate
 baron adrian|n|Edgar Douglas Adrian
 baron clive|n|Robert Clive
@@ -2117,7 +2057,7 @@ barreled|adj|metido en barril;metido en barriles;puesto en barriles
 barren|adj|estéril
 barricade|n|barricada;control de carreteras
 barricade|v|bloquear
-barrie|n|J. M. Barrie;James Matthew Barrie
+barrie|n|James Matthew Barrie;J. M. Barrie
 barrier|n|barrera
 barrier reef|n|arrecife de coral;barrera coralina
 barrow|n|túmulo;carretilla
@@ -2202,7 +2142,6 @@ batten|v|asegurar;asegurar con tablas
 batten down|v|asegurar;asegurar con tablas
 batter|v|batir a golpes;maltratar
 battery|n|batería
-battery-acid|n|ilusión;ácido;dosis
 batting coach|n|instructor de bateo
 batting order|n|formación
 battle|n|lucha;batalla
@@ -2217,8 +2156,6 @@ battle of the little bighorn|n|Batalla de Little Big Horn
 battle of the marne|n|Río Marne
 battle of the somme|n|Somme;batalla del Somme;río Somme
 battle royal|n|batalla campal;escaramuza;refriega
-battle-ax|n|bruja;arpía
-battle-axe|n|bruja;arpía
 battlefront|n|frente
 baudelaire|n|Charles Baudelaire
 bavarian blue|n|azul tipo bávaro
@@ -2322,7 +2259,6 @@ bed down|v|acostarse;encamarse
 bed linen|n|ropa de cama
 bed of flowers|n|terraza
 bed sheet|n|sábana
-bed-hop|v|acostarse con cualquiera;ser promiscuo
 bedding|n|lecho
 bedding material|n|lecho
 bedlam|n|confusión;desconcierto
@@ -2375,7 +2311,6 @@ behemoth|n|gigante
 behest|n|petición
 behind|adv|detrás
 behind|n|fin;tras;fondo
-behind-the-scenes|adj|secreto
 beholder|n|observador
 being|n|existencia
 bel canto|n|bel canto
@@ -2403,8 +2338,6 @@ bell ringer|n|diana;acierto
 bell ringing|n|solicitud de votos;propaganda electoral
 bell shape|n|campana;forma de campana
 bell tent|n|carpa tipo campana
-bell-like call|n|canto de campana
-bell-shaped curve|n|curva normal;curva de campana
 belle|n|belleza
 belligerent|adj|agresivo
 belligerent|n|guerrero;beligerante
@@ -2508,7 +2441,6 @@ best|v|ganar;superar;vencer
 best and greatest|n|óptimo y máximo;Jupiter Optimus Maximus
 best man|n|padrino de boda
 best seller|n|superventas
-best-loved|adj|favorito
 bestow|v|otorgar;conceder
 bestseller|n|superventas
 bet|v|apostar
@@ -2531,7 +2463,6 @@ better|adj|mejor
 better|adv|lo mejor
 better|v|mejorar
 better|n|jugador;apostador
-better-looking|adj|guapo;apuesto
 bettering|adj|mejorado
 betterment|n|mejora
 betting odds|n|cuota
@@ -2548,10 +2479,8 @@ beyond doubt|adj|indudable
 bezel|n|bisel;chaflán
 bhakti|n|bhakti
 bhutan|n|Bután;Bhutan;Reino de Bután
-bi-fold door|n|puerta biplegable
 bias|n|prejuicio;predisposición;parcialidad
 bias|adj|inclinado
-bib-and-tucker|n|buena prenda
 bible|n|Libro;Biblia;biblia
 bible belt|n|Bible Belt
 biblical|adj|bíblico
@@ -2732,8 +2661,6 @@ black rock desert|n|desierto Black Rock
 black sea bass|n|lubina negra;Centropistes Striata
 black sheep|n|oveja negra;canalla;granuja
 black vomit|n|fiebre amarilla
-black-crowned night heron|n|martinete común;Nycticorax Nycticorax
-black-haired|adj|moreno
 blackberry|v|buscar moras
 blackboard|n|tablero;pizarra;pizarrón
 blackfish|n|tautoga onitis
@@ -2842,7 +2769,6 @@ blood relation|n|pariente;pariente sanguíneo;parentezco sanguíneo
 blood relative|n|pariente;pariente sanguíneo;parentezco sanguíneo
 blood sugar|n|glucemia
 blood transfusion|n|transfusión;transfusión de sangre
-blood-red|adj|rojo;rojizo
 bloodbath|n|matanza;carnicería;baño de sangre
 bloodline|n|línea;sangre;origen
 bloodshed|n|matanza;carnicería;baño de sangre
@@ -2889,9 +2815,6 @@ blue ridge|n|Cordillera Azul;Blue Ridge
 blue ridge mountains|n|Cordillera Azul
 blue sky|n|azul del cielo;cielo azul
 blue story|n|chiste verde;chiste cochino
-blue-collar|adj|obrero
-blue-eyed|adj|favorito
-blue-pencil|v|borrar;editar;censurar
 blueprint|n|diseño;dibujo;esquema
 blueprint|v|esquematizar;hacer un borrador
 bluff|n|farol
@@ -2970,8 +2893,6 @@ body suit|n|leotardo
 body type|n|tipo
 body waste|n|excremento;excreción;hez
 body weight|n|peso
-body-build|n|constitución;físico
-body-surf|v|hacer bodysurf
 bodybuilding|n|culturismo
 bodyguard|n|escolta
 bog|n|pantano
@@ -3027,11 +2948,8 @@ bond certificate|n|obligación;bono
 bond issue|n|empréstito de obligaciones
 bond servant|n|siervo
 bond trading|n|comercio de bonos;operaciones con bonos
-bond-trading activity|n|comercio de bonos;operaciones con bonos
 bonding|n|soldadura
 bone|n|hueso
-bone-idle|adj|vago
-bone-lazy|adj|vago
 boner|n|caída;cagada;cante
 boney|adj|enjuto
 bong|v|tocar;doblar
@@ -3041,7 +2959,6 @@ bonnie|adj|lindo;hermoso
 bonny|adj|lindo;hermoso
 bonsai|n|bonsái
 bony|adj|seco;enjuto
-boo-boo|n|caída;cagada;cante
 boob|v|pecar;meter la pata
 boob tube|n|televisión;tele;televisor
 booby|n|sula
@@ -3112,14 +3029,11 @@ bottle collection|n|colección de botellas
 bottle cork|n|corcho;corcho de botella
 bottle gourd|n|lagenaria siceraria
 bottle up|v|reprimir;refrenar
-bottle-fed|adj|criado con biberón
 bottom|n|fin;tras;fondo
 bottom|v|poner asiento
 bottom|adj|inferior
 bottom feeder|n|oportunista;carroñero;aprovechador
 bottom line|n|balance final
-bottom-dweller|n|pez de fondo;organismo bentónico
-bottom-feeder|n|pez de fondo;organismo bentónico
 boudoir|n|gabinete;tocador
 bouillon|n|caldo
 bouillon cube|n|cubo de caldo
@@ -3131,7 +3045,7 @@ bounce back|v|ponerse bien;superar;recuperarse
 bouncer|n|gorila
 bouncing|n|rebote
 bouncing|adj|vital;enérgico
-bouncing betty|n|mina-S;mina saltarina
+bouncing betty|n|mina saltarina;Bouncing Betty
 bouncy|adj|flexible
 bound|v|saltar;limitar
 bound|n|límite
@@ -3154,8 +3068,6 @@ bow|v|acceder
 bow|n|arco
 bow out|v|retirarse;retirarse dignamente
 bow tie|n|corbatín
-bow-tie|n|corbatín
-bow-wow|n|guau guau
 bowel|n|tripa
 bowel movement|n|movimiento;movimiento intestinal
 bower|n|pérgola
@@ -3218,8 +3130,6 @@ brain stem|n|tronco del encéfalo
 brain sugar|n|galactosa
 brain tumor|n|tumor cerebral
 brain tumour|n|tumor cerebral
-brain-stem|n|tronco del encéfalo
-brain-teaser|n|misterio;rompecabezas;enigma
 brainchild|n|idea;inspiración;idea original
 brainiac|n|cerebro;genio;crack
 brainless|adj|corto;tonto;estúpido
@@ -3267,7 +3177,6 @@ bread board|n|placa de pruebas
 bread maker|n|fabricante de pan;panadero
 bread mold|n|rhizopus nigricans
 bread sauce|n|salsa de pan
-bread-bin|n|panera
 breadth|n|amplitud;anchura
 breadth index|n|índice de amplitud;índice craneal;índice cefálico
 break|v|romper;interrumpir
@@ -3304,7 +3213,6 @@ bream|n|besugo
 breast|n|pecho;seno
 breast|v|enfrentarse;afrontar;desafiar
 breast feeding|n|dar el pecho
-breast-fed|adj|amamantado
 breastfeed|v|amamantar;lactar;dar de mamar
 breaststroke|n|estilo braza
 breath|n|aliento;respiración;respiro
@@ -3368,7 +3276,6 @@ brim|v|rebosar
 brimming|adj|lleno
 brine|n|salmuera;agua de mar
 brine|v|salar;conservar en salmuera
-brine-cured|adj|salado
 bring|v|traer;llevar
 bring about|v|producir;causar;ocasionar
 bring around|v|reavivar;curar;volver en sí
@@ -3447,7 +3354,6 @@ brooks|n|Brooks;brooks
 broom|v|barrer
 brothel|n|burdel
 brother|n|hermano
-brother-in-law|n|cuñado
 brotherhood|n|sindicato
 brotherly love|n|comprensión;caridad;compasión
 brow|n|frente
@@ -3459,7 +3365,6 @@ brown onion sauce|n|salsa lionesa
 brown sauce|n|salsa española;salsa marrón
 brown soft scale|n|escama suave café;Coccus Hesperidum
 brown university|n|Universidad de Brown
-brown-haired|adj|moreno
 brownie|n|alita;niña exploradora
 browning|n|John Moses Browning
 brownish|adj|marrón
@@ -3487,7 +3392,6 @@ brush fire|n|incendio forestal
 brush off|v|descartar;excluir
 brush on|v|pintar;untar
 brush up|v|arreglar;completar
-brush-off|n|desdén
 brussels biscuit|n|rusk
 brutal|adj|brutal;cruel;salvaje
 brutality|n|brutalidad
@@ -3526,8 +3430,8 @@ buenos aires|n|Buenos Aires
 buff|n|amigo;amiga;amante
 buff|v|pulir;abrillantar
 buffalo|v|infundir temor
-buffalo bill|n|Cody;William F. Cody;William Frederick Cody
-buffalo bill cody|n|Cody;William F. Cody;William Frederick Cody
+buffalo bill|n|Cody;William Frederick Cody;Buffalo Bill
+buffalo bill cody|n|Cody;William Frederick Cody;Bufalo Bill
 buffalo clover|n|azulejo;trifolium reflexum;trifolium stoloniferum
 buffer|n|memoria intermedia
 buffer|v|neutralizar
@@ -3550,7 +3454,6 @@ building complex|n|complejo
 building permit|n|licencia de construcción
 building site|n|obra
 buildup|n|concentración
-built-in|adj|inherente;intrínseco
 bulb|n|bulbo
 bulgarian monetary unit|n|unidad monetaria búlgara
 bulge|n|bulto
@@ -3613,7 +3516,6 @@ buoy up|v|flotar
 buoyancy|n|optimismo
 buoyant|adj|alegre
 bur grass|n|zacate cadillo
-bur-reed family|n|familia sparganiáceas
 burbank|n|Luther Burbank
 burberry|n|Burberry
 burden|n|carga
@@ -3623,7 +3525,7 @@ bureaucracy|n|burocracia
 bureaucrat|n|burócrata
 bureaucratic|adj|burocrático
 bureaucratic procedure|n|burocracia;procedimiento burocrático
-burger|n|Warren Burger;Warren E. Burger;Warren Earl Burger
+burger|n|Warren Burger;Warren Earl Burger
 burgess|n|Anthony Burgess
 burgh|n|burgh
 burial|n|entierro
@@ -3691,7 +3593,6 @@ buss|n|beso
 bust|v|romper
 bust|n|fiasco;descalabro
 bust up|v|destruir;arruinar;destrozar
-bust-up|n|bronca
 buster|n|tío
 buster keaton|n|Buster Keaton
 bustle|n|movimiento;ruido;agitación
@@ -3711,7 +3612,6 @@ butt end|n|extremo
 butt hinge|n|bisagra plana
 butt in|v|tomar parte;cortar;unirse
 butt on|v|bordear
-butt-weld|v|soldar a tope
 butter|n|mantequilla
 butterfly|n|mariposa
 butterfly|v|aletear como mariposa
@@ -3720,8 +3620,6 @@ buttermilk|n|suero de mantequilla
 buttocks|n|fin;tras;fondo
 button|n|botón
 button up|v|callar
-button-down|adj|conservador
-buttoned-down|adj|conservador
 buttress|v|reforzar;afianzar
 butyl|n|butilo
 butyl rubber|n|caucho butílico
@@ -3752,10 +3650,7 @@ by the day|adv|al día
 by the piece|adv|uno a uno;por piezas
 by the way|adv|de paso;por cierto;a propósito
 by word of mouth|adv|de viva voz;oralmente
-by-line|n|afición
-by-product|n|subproducto;producto derivado
 bye|n|adiós;chao;hasta más ver
-bye-bye|n|adiós;chao;hasta más ver
 bylaw|n|reglamento;estatuto
 bypass|v|evitar;esquivar;atajar
 byproduct|n|subproducto;producto derivado
@@ -3846,9 +3741,6 @@ call option|n|opción de compra
 call out|v|exclamar
 call up|v|poner en consideración;evocar
 call up|n|llamada;llamamiento
-call-board|n|tablero de llamadas
-call-in|n|llamada en directo
-call-out|n|reto;convocatoria
 callback|n|retiro;llamado de retiro;llamada de seguimiento
 caller|n|visita
 calligraphy|n|caligrafía
@@ -4055,7 +3947,6 @@ car loan|n|crédito automotriz
 car racing|n|carrera de autos
 car train|n|tren para coches
 car transporter|n|transporte de vehículos;camión transporte
-car-ferry|n|transbordador de coches
 caramel|n|caramelo
 carapace|n|concha;caparazón
 caravan|n|caravana;autocaravana
@@ -4072,7 +3963,6 @@ card shark|n|tahúr
 card sharp|n|tahúr
 card sharper|n|tahúr
 card table|n|mesa de cartas
-card-house|n|casa de naipes;castillo de naipes
 cardboard|n|cartón
 cardiac|adj|cardíaco
 cardiac arrest|n|asistolia
@@ -4146,7 +4036,6 @@ carry out|v|completar
 carry over|v|trasladar;reservar;aplazar
 carry through|v|completar
 carry to term|v|llevar a término
-carry-over|n|transferencia;generalización
 carrying charge|n|cargos de mantenimiento;costo de mantenimiento;costos de mantenimiento
 carrying cost|n|cargos de mantenimiento;costo de mantenimiento;costos de mantenimiento
 carrying into action|n|ejecución;cumplimiento;realización
@@ -4181,7 +4070,6 @@ cascade|n|lluvia;ducha;chorro
 case|n|caso
 case|v|revolver
 case in point|n|precedente
-case-by-case|adj|individual
 casey jones|n|Casey Jones
 cash|n|dinero en efectivo
 cash|v|cambiar;cobrar
@@ -4194,7 +4082,6 @@ cashier|v|despedirse
 cashmere|n|cachemira
 casing|n|caja;cubierta
 casino|n|casino
-casino-hotel|n|hotel-casino
 cask|n|cuba
 casket|n|caja
 cass gilbert|n|Cass Gilbert
@@ -4317,11 +4204,8 @@ cayenne pepper|n|chile
 cc|n|mililitro
 cd|n|disco compacto
 cd burner|n|quemador de CD
-cd-r|n|CD-R
-cd-wo|n|CD-R
 cease|v|terminar;parar;cesar
 cease and desist order|n|medida cautelar
-cease-fire|n|alto el fuego
 ceaseless|adj|constante;continuo;perpetuo
 cebu|n|Cebú
 cebu city|n|Cebú
@@ -4343,7 +4227,6 @@ celebrity|n|fama
 celery|n|apium graveolens
 celery salt|n|sal de apio
 celery top pine|n|pino de apio
-celery-topped pine|n|pino de apio
 celestial|adj|celeste
 celestial horizon|n|horizonte
 celestial latitude|n|declinación
@@ -4445,9 +4328,7 @@ cessation|n|término;detención;cese
 ceylon|n|Sri Lanka
 ceylon cinnamon|n|cinnamomum verum
 ceylon cinnamon tree|n|cinnamomum verum
-cf|adv|cf.
 cfc|n|cfc
-cha-cha|v|bailar chachachá
 chad|n|Chad;lago Chad
 chaff|v|bromear
 chaff|n|paja;gluma
@@ -4461,7 +4342,6 @@ chain of mountains|n|sierra;cordillera
 chain store|n|sucursal
 chain up|v|encadenar
 chain wrench|n|llave de cadena
-chain-smoke|v|fumar sin parar
 chair|n|silla
 chair|v|dirigir
 chairman|n|presidente
@@ -4503,7 +4383,6 @@ chancellor|n|primer ministro
 chandelier|n|lámpara de araña
 chandler|n|Raymond Chandler
 chang kuo|n|Chang Kuo;Chang Kuo-Lao
-chang kuo-lao|n|Chang Kuo;Chang Kuo-Lao
 change|v|cambiar
 change|n|cambio
 change by reversal|v|invertir;revertir;trastocar
@@ -4515,7 +4394,6 @@ changeable|adj|variable
 changeover|n|transición;conversión
 channel|n|canal
 channel|v|transmitir;transportar;canalizar
-channel-surf|v|hacer zaping
 chant|v|cantar;entonar
 chant|n|canto
 chaos|n|confusión;desconcierto
@@ -4531,7 +4409,6 @@ chapman|n|John Chapman;Johnny Appleseed
 chapter|n|capítulo
 character|n|calidad;característica;papel
 character printer|n|impresora de impacto;impresora en serie
-character-at-a-time printer|n|impresora de impacto;impresora en serie
 characterisation|n|imagen;representación;descripción
 characterise|v|caracterizar
 characteristic|n|característica
@@ -4545,7 +4422,6 @@ chardonnay|n|chardonnay;uva chardonnay
 chardonnay grape|n|chardonnay;uva chardonnay
 charge|v|cargar
 charge|n|carga
-charge d'affaires|n|encargado de negocios
 charge per unit|n|tipo;tarifa
 charge up|v|revolver;excitar
 chariot|n|carro
@@ -4578,7 +4454,6 @@ charles ii|n|Carlos;Carlos II
 charles james fox|n|Charles James Fox
 charles joseph clark|n|Joe Clark
 charles kay ogden|n|Charles Kay Ogden
-charles l'enfant|n|Pierre Charles L'Enfant
 charles lamb|n|Charles Lamb
 charles lindbergh|n|Charles Lindbergh
 charles liston|n|Sonny Liston
@@ -4595,7 +4470,6 @@ charles schulz|n|Charles M. Schulz
 charles stewart parnell|n|Charles Stewart Parnell
 charles stuart|n|Charles Stuart
 charles thomson rees wilson|n|Wilson;Charles Thomson Rees Wilson
-charles watson-wentworth|n|Charles Watson-Wentworth
 charles wesley|n|Charles Wesley
 charles wilkes|n|Charles Wilkes;Wilkes
 charleston|n|Charleston
@@ -4623,7 +4497,6 @@ chat|v|charlar
 chat|n|charla;plática;confabulación
 chat room|n|chat
 chateau|n|chateau
-chateau-thierry|n|Río Marne
 chatroom|n|chat
 chatter|v|chasquear;charlar
 chatter|n|cháchara;parloteo;cotorreo
@@ -4648,7 +4521,6 @@ check over|v|revisar;comprobar;repasar
 check overdraft credit|n|crédito de sobregiro
 check stub|n|matriz
 check up on|v|revisar;comprobar;repasar
-check-in|n|check-in
 checker|n|inspector;revisor
 checkers|n|damas
 checking account|n|cuenta corriente
@@ -4677,7 +4549,6 @@ cheeseburger|n|hamburguesa de queso
 cheesecake|n|pastel de queso
 cheetah|n|acinonyx jubatus
 chef|n|cocinero
-chef-d'oeuvre|n|magnum opus
 chem lab|n|laboratorio de química
 chemical|adj|químico
 chemical|n|sustancia química;producto químico
@@ -4700,14 +4571,13 @@ cheque|n|talón
 cheque|v|girar
 cherish|v|apreciar;valorar
 cherry|adj|rojo;rojizo
-cherry-red|adj|rojo;rojizo
 chesapeake bay|n|Bahía de Chesapeake
 chess move|n|movimiento;movida
 chest|n|arca;pecho;seno
 chest pain|n|dolor torácico
-chester alan arthur|n|Chester A. Arthur;Chester Alan Arthur
+chester alan arthur|n|Chester Alan Arthur
 chesterfield|n|chesterfield
-chesterton|n|Chesterton;G. K. Chesterton;Gilbert Keith Chesterton
+chesterton|n|Chesterton;Gilbert Keith Chesterton
 chestnut|n|castaño
 chestnut tree|n|castaño
 chevalier|n|caballero;Maurice Chevalier;galán
@@ -4720,8 +4590,6 @@ chew up|v|tener unas palabras;poner verde;llamar la atención
 chewing|n|masticación
 chewing gum|n|chicle
 chewing out|n|bronca;tirón de orejas;golpiza
-chiang chung-cheng|n|Chiang Kai-shek
-chiang kai-shek|n|Chiang Kai-shek
 chic|adj|elegante
 chic|n|estilo;elegancia;modernidad
 chick|n|pollo;polluelo
@@ -4774,7 +4642,6 @@ chimp|n|pan
 chimpanzee|n|pan
 chin|n|barba;barbilla;mentón
 chin music|n|disparate;conversación vana;conversación insustancial
-chin-up|n|dominada
 china|n|China;RPC;República Popular China
 china grass|n|boehmeria nivea
 chinchilla|n|piel de chinchilla;chinchilla
@@ -4804,7 +4671,6 @@ chisel|v|estafar
 chisel in|v|tomar parte;cortar;unirse
 chiseled|adj|claro;preciso
 chit|n|cuenta;nota
-chit-chat|v|charlar
 chivalry|n|caballería;nobleza;generosidad
 chloride|n|cloruro
 chock up|v|apretar
@@ -4817,7 +4683,6 @@ chocolate ice cream|n|helado de chocolate
 chocolate milk|n|leche con chocolate;leche chocolatada
 chocolate mousse|n|mousse de chocolate
 chocolate truffle|n|trufa;trufa de chocolate
-chocolate-brown|adj|marrón
 choice|n|elección;selección
 choice|adj|superior;excelente
 choir|n|coro
@@ -4845,7 +4710,6 @@ chorizo|n|chorizo
 chorus|n|coro
 chorus|v|cantar en coro
 chosen|n|Chosen;los elegidos
-chou en-lai|n|Zhou-en-lai;Zhou-Enlai
 chow|n|chow chow
 chow chow|n|chow chow
 chowder|n|chowder
@@ -4874,7 +4738,6 @@ christopher columbus|n|Cristóbal Colón
 christopher fry|n|Christopher Fry
 christopher marlowe|n|Christopher Marlowe
 chroma|n|intensidad
-chrome-tungsten steel|n|acero al cromo-tungsteno
 chromium steel|n|acero inoxidable
 chromosomal|adj|cromosómico
 chromosomal mutation|n|mutación
@@ -4907,13 +4770,11 @@ church|n|cristianismo;iglesia cristiana;iglesia
 church building|n|iglesia
 church doctrine|n|evangelio
 church of christ scientist|n|Iglesia de Cristo Científico;Ciencia Cristiana
-church of jesus christ of latter-day saints|n|mormones;Iglesia Mormona
 churchill|n|John Churchill
 churchill downs|n|Churchill Downs
 churchyard|n|cementerio
 churn|v|agitar
 chute|n|paracaídas
-chute-the-chute|n|montaña rusa
 chutney|n|chutney
 ci|n|curio
 cia|n|CIA;Agencia Central de Inteligencia
@@ -5044,7 +4905,6 @@ class fellow|n|compañero;compañero de clase;compañero de colegio
 class struggle|n|lucha de clases
 class war|n|lucha de clases
 class warfare|n|lucha de clases
-class-conscious|adj|clasista
 classic|adj|clásico
 classical|adj|clásico
 classicism|n|clasicismo
@@ -5056,9 +4916,9 @@ classifying adjective|n|adjetivo relacional;adjetivo clasificador
 classmate|n|compañero;compañera;compañero de clase
 classroom|n|clase
 claude bernard|n|Claude Bernard
-claude elwood shannon|n|Claude E. Shannon;Claude Shannon;Shannon
+claude elwood shannon|n|Claude Shannon;Shannon;Claude Elwood Shannon
 claude monet|n|Claude Monet
-claude shannon|n|Claude E. Shannon;Claude Shannon;Shannon
+claude shannon|n|Claude Shannon;Shannon;Claude Elwood Shannon
 clause|n|cláusula
 clavicle|n|clavícula
 claw|v|trepar;arañar
@@ -5069,7 +4929,6 @@ clean|adj|limpio
 clean house|v|limpiar;limpiar la corrupción;hacer el aseo
 clean out|v|limpiar
 clean up|v|limpiar;arreglar
-clean-handed|adj|inocente
 cleaner|n|lavandero
 cleaning|n|limpieza
 cleanliness|n|limpieza;aseo
@@ -5082,7 +4941,6 @@ clear away|v|despejar;quitar los estorbos
 clear off|v|despejar;quitar los estorbos
 clear out|v|sacar;despejar;limpiar
 clear up|v|aclarar
-clear-cut|v|vaciar
 clearance|n|autorización
 clearing|n|limpieza
 cleavage|n|segmentación;división celular
@@ -5109,7 +4967,6 @@ cli|n|CLI
 cliche|n|cliché;lugar común;banalidad
 click|v|chasquear
 click|n|clic
-click-clack|n|clic clac
 client|n|cliente
 clientele|n|negocio;parroquia;clientela
 cliff dwelling|n|vivienda en acantilado;palacio Anasazi;vivienda Anasazi
@@ -5145,10 +5002,9 @@ clit|n|clitoris
 clitoris|n|clitoris
 clive|n|Robert Clive
 clive sinclair|n|Clive Sinclair
-clive staples lewis|n|C. S. Lewis;Clive Staples Lewis
+clive staples lewis|n|Clive Staples Lewis;C. S. Lewis
 cloak|n|capa;manto;mantón
 cloak|v|enmascarar
-cloak-and-dagger|adj|secreto;oculto
 clock|n|reloj
 clock dial|n|esfera
 clock face|n|esfera
@@ -5171,13 +5027,10 @@ close out|v|impedir;ignorar;prohibir
 close shave|n|por los;por los pelos
 close together|adj|aproximado
 close up|v|cerrar;clausurar
-close-minded|adj|cerrado
-close-order drill|n|formación tipo
 closed|adj|cerrado
 closed book|n|misterio
 closed corporation|n|sociedad limitada
 closed in|adj|cerrado
-closed-minded|adj|cerrado
 closeness|n|cercanía;proximidad;intimidad
 closet|n|armario
 closeup|n|acercamiento
@@ -5196,7 +5049,6 @@ clothing|n|ropa;vestuario;vestimenta
 cloud|n|nube
 cloud|v|nublar
 cloud nine|n|transporte;gloria
-cloud-covered|adj|cubierto
 clouded|adj|cubierto
 cloudy|adj|turbio
 clout|n|fuerza
@@ -5236,15 +5088,6 @@ cm|n|centímetro
 cmv|n|citomegalovirus
 cn tower|n|Torre CN
 cns|n|sistema nervioso central
-co-occur|v|coincidir;concurrir
-co-occur with|v|concurrir
-co-occurrence|n|coincidencia;concurrencia;conjunción
-co-op|n|cooperativa
-co-operative republic of guyana|n|Guyana;Guyana Británica;República Cooperativa de Guyana
-co-opt|v|cooptar
-co-option|n|cooptación
-co-pilot|n|co-piloto;copiloto
-co-worker|n|compañero;compañera;colega
 coach|n|director;técnico;entrenador
 coach|v|preparar;entrenar
 coaching|n|entrenamiento;coaching;trabajo de entrenamiento
@@ -5261,7 +5104,6 @@ coal shovel|n|pala de carbón
 coalesce|v|mezclar;combinar
 coalition|n|coalición
 coarse|adj|ordinario;común
-coarse-grained|adj|arenoso;granuloso
 coast|n|costa;playa
 coast|v|deslizarse;dejarse llevar
 coast lily|n|lilium ramitimum
@@ -5275,7 +5117,6 @@ coat of arms|n|escudo
 coat of mail|n|armadura
 coated|adj|cubierto
 coating|n|mano;baño;capa
-coauthor|n|co-autor
 coax|n|coaxial;cable coaxial
 coax cable|n|cable coaxial;coaxial
 coaxial cable|n|cable coaxial;coaxial
@@ -5291,7 +5132,6 @@ cochlear|adj|coclear
 cochran|n|Jacqueline Cochran
 cock|n|pilila
 cock sucking|n|mamada;chupada
-cock-a-hoop|adj|jactancioso
 cockatoo parrot|n|nymphicus hollandicus
 cockney|n|cockney
 cockney|adj|cockney
@@ -5317,12 +5157,11 @@ codex|n|códice
 coding|n|cifra;codificación;esteganografía
 coding dna|n|exón
 coding system|n|código
-cody|n|Cody;William F. Cody;William Frederick Cody
+cody|n|Cody;William Frederick Cody
 coefficient|n|coeficiente
 coefficient of correlation|n|correlación
 coefficient of reflection|n|reflectividad
 coerce|v|forzar
-coeur d'alene|n|Coeur d'Alene
 coexist|v|coexistir
 coexistence|n|convivencia
 coffee|n|café
@@ -5387,8 +5226,6 @@ cold storage|n|frigorífico
 cold turkey|n|cara de palo
 cold war|n|Guerra Fría
 cold wave|n|ola de frío
-cold-blooded|adj|frío
-cold-water flat|n|vivienda básica
 coldness|n|frío
 cole|n|col
 cole albert porter|n|Cole Albert Porter;Cole Porter
@@ -5477,7 +5314,6 @@ combat boot|n|coturno
 combat injury|n|herida
 combat mission|n|misión de combate
 combat ship|n|buque de guerra
-combat-ready|adj|activo
 combatant|n|guerrero;beligerante
 combative|adj|contencioso
 combination|n|combinación
@@ -5514,11 +5350,9 @@ come up|v|sacar a relucir
 come up to|v|llamar
 come upon|v|encontrarse;dar con
 come with|v|acompañar
-come-on|n|encanto;atractivo
 comeback|n|réplica
 comedian|n|cómico
 comedy|n|comedia
-comedy ballet|n|comedia-ballet
 comer|n|promesa
 comer vann woodward|n|Woodward;C. Vann Woodward
 comfort|n|tranquilidad;consuelo;bienestar
@@ -5572,7 +5406,6 @@ commercial law|n|derecho mercantil
 commercial message|n|anuncio
 commercial traveler|n|representante comercial;representante de ventas;corredor
 commercial traveller|n|representante comercial;representante de ventas;corredor
-commercial-grade|adj|comercial
 commie|n|rojo;comunista
 commission|n|comisión
 commission|v|armar
@@ -5641,9 +5474,7 @@ compact|adj|compacto;fuerte
 compact|n|acuerdo;trato;pacto
 compact|v|comprimir
 compact disc|n|disco compacto
-compact disc write-once|n|CD-R
 compact disk|n|disco compacto
-compact-disk burner|n|quemador de CD
 companion|n|compañero;compañera;acompañante
 companion|v|acompañar
 company|n|compañía
@@ -5767,7 +5598,6 @@ computer simulation|n|simulación;simulación por ordenador
 computer software|n|software
 computer storage|n|memoria;tarjeta de memoria;almacenamiento
 computer virus|n|virus;virus informático
-computer-aided design|n|CAD
 computing|n|informática
 computing device|n|computadora;ordenador;procesador
 computing machine|n|computadora;ordenador;procesador
@@ -6058,7 +5888,6 @@ context|n|contexto
 context of use|n|contexto
 contiguous|adj|inmediato
 continent|n|continente
-continent-wide|adj|continental
 continental|adj|continental
 continental divide|n|divisoria continental
 continental quilt|n|edredón
@@ -6102,8 +5931,8 @@ contribution|n|contribución;aportación
 contributor|n|contribuyente;suscriptor
 contributory|adj|propicio
 contrived|adj|previsible
-control|n|control
 control|v|controlar
+control|n|control
 control board|n|tablero
 control circuit|n|circuito de control
 control key|n|control
@@ -6192,7 +6021,6 @@ copolymer|n|copolímero
 copper|n|cobre
 copper color|n|cobre;color de cobre
 copper oxide|n|óxido de cobre
-copper-bottom|v|enfondar con cobre
 coppola|n|Francis Ford Coppola
 copy|n|copia
 copy|v|copiar
@@ -6336,7 +6164,6 @@ counsel|n|abogado defensor
 counsel|v|aconsejar;dar consejos
 counsellor|n|consejero
 counselor|n|consejero
-counselor-at-law|n|abogado defensor
 count|v|contar
 count|n|cuenta
 count on|v|calcular;estimar;prever
@@ -6364,7 +6191,6 @@ country|n|nación;estado;país
 country club|n|country club;club campestre
 country house|n|casa de campo
 country of origin|n|madre patria;patria
-country-bred|adj|campesino
 countryman|n|campesino
 countryside|n|campo
 county|n|condado
@@ -6395,14 +6221,12 @@ court favour|v|hacer la pelota
 court of justice|n|tribunal;tribunal de justicia
 court of law|n|tribunal;tribunal de justicia
 court order|n|auto judicial
-court-martial|n|consejo de guerra
 courtesy|n|cortesía
 courthouse|n|palacio de justicia
 courtly|adj|formal;elegante;solemne
 courtyard|n|patio
 couscous|n|cuscús
 cousin|n|primo
-cousin-german|n|primo
 cove|n|ensenada
 coven|n|aquelarre
 covenant|n|acuerdo;trato;pacto
@@ -6435,8 +6259,6 @@ cpu board|n|tarjeta CPU;tarjeta de CPU
 crab|n|gruñón;persona malhumorada
 crab|v|gritar;quejarse;disputar
 crab louse|n|cangrejo;ladilla;piojo púbico
-crab-eating raccoon|n|mapache cangrejero;Procyon cancrivorus
-crab-eating seal|n|foca cangrejera
 crabs|n|ladillas
 crack|v|romper
 crack|n|resquicio;rendija;chasquido
@@ -6445,7 +6267,6 @@ crack addict|n|adicto al crack
 crack shot|n|francotirador;tirador;pistolero
 crack up|v|morirse de risa;partirse de risa
 cracker|n|pirata
-cracker-barrel|adj|sencillo;llano
 cracking|n|chasquido;crujido
 cracking|adj|genial;brutal;bárbaro
 crackle|v|crujir;rechinar;crepitar
@@ -6477,11 +6298,10 @@ crank call|n|broma telefónica
 crank out|v|reproducir
 crank up|v|encender con manivela
 crap|n|mierda
-crash|v|caer;derrumbarse;chocar
 crash|n|estrépito;choque
+crash|v|caer;derrumbarse;chocar
 crash dive|n|inmersión rápida
 crash land|v|aterrizar de emergencia
-crash-dive|v|sumergirse rápidamente
 crashing|adj|maldito
 crass|adj|grosero
 crater|n|Crater
@@ -6601,11 +6421,6 @@ cross|adj|transversal;oblicuo
 cross|n|cruz;marca
 cross off|v|borrar
 cross out|v|borrar
-cross-file|v|registrar;inscribir
-cross-link|n|reticulación
-cross-linkage|n|reticulación
-cross-purpose|n|propósito contrario;objetivo opuesto
-cross-refer|v|remitir
 crossbar|n|travesaño
 crossing|n|cruce
 crossover|n|cruce
@@ -6781,15 +6596,10 @@ cushy|adj|suave
 cuss|n|plaga;tipo
 cuss|v|jurar;maldecir
 custard|n|natillas;natilla
-custard-like|adj|como natilla
 custer|n|George Armstrong Custer
 custody|n|custodia
 custom|n|costumbre
 custom|adj|hecho a medida;hecho de encargo
-custom-built|n|a la medida
-custom-made|n|a la medida
-custom-made|adj|hecho a medida;hecho de encargo
-custom-make|v|customizar
 customary|adj|habitual
 customer|n|cliente
 customize|v|customizar
@@ -6811,9 +6621,6 @@ cut short|v|suspender
 cut through|v|cruzar;atravesar
 cut to ribbons|v|hacer pedazos
 cut up|v|destrozar;dar el hacha
-cut-and-thrust|n|puñal;pelea con cuchillos;toma y daca
-cut-in|n|anexo;anuncio local
-cut-up|n|embustero
 cutaneous senses|n|sentido del tacto;tacto
 cute|adj|rico
 cuticle|n|concha;caparazón
@@ -6831,8 +6638,6 @@ cutting off|n|escisión;corte
 cv|n|cv;curriculum
 cy young|n|Cy Young;Danton True Young
 cyanide|n|cianuro;nitrilo
-cyber-terrorism|n|ciberguerra;terrorismo cibernético
-cyber-terrorist|n|cyberpunk
 cybercrime|n|delito informático
 cybernetic|adj|cibernético
 cyberpunk|n|cyberpunk
@@ -6867,7 +6672,6 @@ dad|n|papa;papá
 dada|n|papa;papá
 daddy|n|papa;papá
 daemon|n|diablo;demonio
-dag|n|dag.
 dah|n|raya
 dahlia|n|dahlia
 daily|adv|diariamente;día a día
@@ -6878,7 +6682,6 @@ dainty|adj|delicado
 dairy farmer|n|lechero
 dairy product|n|producto lácteo
 dais|n|podio;púlpito
-daisy-leaved grape fern|n|botrychium matricariifolium
 dalai lama|n|Dalai Lama
 dale carnegie|n|Dale Carnegie
 dali|n|Salvador Dalí
@@ -6918,7 +6721,6 @@ dance master|n|maestro de baile;maestro de danza
 dance palace|n|salón de baile
 dancer|n|bailarín;terpsícore;bailarín profesional
 dancing|n|baile;danza
-dancing-master|n|maestro de baile;maestro de danza
 dandy|adj|genial;brutal;bárbaro
 danger|n|peligro
 dangerous|adj|peligroso
@@ -6941,7 +6743,6 @@ dank|adj|húmedo
 dante|n|Dante Alighieri
 dante gabriel rossetti|n|Dante Gabriel Rossetti
 dapper|adj|elegante
-dar al-islam|n|Dar al-Islam
 dare|v|atreverse;desafiar;osar
 dare|n|reto
 daredevil|n|calavera
@@ -6953,10 +6754,6 @@ dark|adj|oscuro
 dark|n|oscuridad
 dark ages|n|Edad Media
 dark blue|n|azul marino
-dark-brown|adj|marrón
-dark-green|adj|verde
-dark-haired|adj|moreno
-dark-skinned|adj|moreno
 darken|v|oscurecer
 darkness|n|oscuridad
 darkroom|n|cuarto oscuro
@@ -6980,7 +6777,6 @@ data input device|n|dispositivo de entrada
 data point|n|dato
 data processor|n|computadora;ordenador;procesador
 data structure|n|estructura de datos
-data-based|adj|experimental
 database|n|base de datos;banco de datos
 date|n|fecha;cita
 date|v|salir
@@ -6988,7 +6784,6 @@ date stamp|v|datar;fechar
 dating|n|cita
 datum|n|dato
 daughter|n|hija
-daughter-in-law|n|nuera
 dauntless|adj|valiente;audaz
 david|n|David;San David
 david bruce|n|David Bruce
@@ -6996,7 +6791,7 @@ david bushnell|n|David Bushnell
 david crockett|n|Crockett;David Crockett;Davy Crockett
 david garrick|n|David Garrick
 david hartley|n|David Hartley
-david herbert lawrence|n|D. H. Lawrence;David Herbert Lawrence
+david herbert lawrence|n|David Herbert Lawrence
 david hilbert|n|David Hilbert
 david hume|n|David Hume
 david livingstone|n|David Livingstone
@@ -7023,9 +6818,6 @@ day of reckoning|n|fin del mundo;condena
 day of remembrance|n|aniversario
 day of the month|n|fecha
 day school|n|escuela diurna
-day-after-day|adj|diario
-day-by-day|adj|diario
-day-to-day|adj|diario
 daybreak|n|orto
 daydream|v|soñar
 daydream|n|sueño;ilusión;utopía
@@ -7058,7 +6850,6 @@ dead reckoning|n|navegación de estima
 dead set|adj|decidido
 dead soul|n|muerto
 dead weight|n|peso muerto
-dead-on|adj|preciso
 deadbeat|n|deudor;moroso
 deadlock|n|punto muerto;bloqueo mutuo
 deadly|adj|mortal
@@ -7080,7 +6871,6 @@ dear|n|amor;corazón;sol
 dear|adv|cariñosamente;afectuosamente
 dearest|n|amor;corazón;sol
 dearly|adv|cariñosamente;afectuosamente
-dearly-won|adj|costoso
 dearth|n|hambre;escasez;hambruna
 death|n|muerte
 death chair|n|silla;silla eléctrica;silla mortal
@@ -7103,6 +6893,7 @@ debilitating|adj|debilitante
 debit|n|salida
 debit entry|n|salida
 debriefing|n|parte;informe
+debs|n|Eugene V. Debs
 debt|n|deuda
 debt instrument|n|título de crédito;obligación;instrumento de deuda
 debtor|n|deudor
@@ -7191,8 +6982,6 @@ deep|n|profundidad;zanja;abismo
 deep down|adv|por dentro;de corazón;en el fondo
 deep freeze|v|congelar
 deep south|n|Deep South
-deep-dye|v|teñir;teñir en profundidad
-deep-six|v|tirar
 deepen|v|profundizar
 deer|n|ciervo;venado
 deer hunt|n|caza de ciervos;cazar ciervos
@@ -7549,7 +7338,6 @@ detour|n|desviación
 detract|v|quitar;llevarse
 detriment|n|daño;perjuicio;detrimento
 deuce|n|adiós;demonio
-deuce-ace|n|terceto
 deus ex machina|n|deus ex machina
 deuterium|n|deuterio
 deuterium oxide|n|agua pesada
@@ -7568,7 +7356,6 @@ devices|n|medios
 devil|n|demonio;diablo
 devil|v|provocar;molestar;fastidiar
 devil's milk|n|euphorbia peplus
-devil-worship|n|veneración de demonios
 devious|adj|indirecto
 devise|v|inventar;formular;idear
 devise|n|disposiciones testamentarias
@@ -7590,9 +7377,7 @@ dewar|n|aislante;frasco aislante
 dewar flask|n|aislante;frasco aislante
 dewey|n|Dewey
 dewitt clinton|n|DeWitt Clinton
-dewy-eyed|adj|infantil;inocente;ingenuo
 dexterity|n|habilidad;destreza;pericia
-dg|n|dg.
 dia|n|Agencia de Inteligencia de la Defensa
 diagnostic|adj|sintomático
 diagnostic program|n|programa de diagnóstico
@@ -7634,7 +7419,6 @@ dictionary|n|diccionario;léxico
 die|v|morir
 die away|v|ceder
 die hard|v|persistir
-die-sinker|n|fresador
 diego rivera|n|Diego Rivera;Rivera
 dielectric|n|aislante;dieléctrico;aislador
 diesel|n|Rudolf Diesel
@@ -7689,7 +7473,6 @@ dilute|v|reducir;cortar;aclarar
 dilution|n|dilución
 dim|adj|sombrío;débil;vago
 dim|v|bajar;atenuar
-dim-witted|adj|simple;tonto
 dimaggio|n|Joe DiMaggio
 dimension|n|dimensión
 diminish|v|disminuir
@@ -7702,14 +7485,11 @@ dine|v|cenar
 diner|n|comensal
 ding|n|corte
 ding|v|sonar
-ding-dong|n|talán talán
 dingo|n|dingo;Canis Dingo
 dingy|adj|sucio
 dining|n|cena
 dining companion|n|compañero de mesa
 dining room|n|comedor
-dining-room|n|comedor
-dining-room attendant|n|encargado de restaurante;encargado de comedor
 dinka|n|dinka
 dinner|n|cena
 dinner bucket|n|palangana
@@ -7781,7 +7561,6 @@ disbursement|n|gasto
 disc|n|disco
 disc drive|n|unidad de disco;disquetera
 disc space|n|espacio de disco
-disc-jockey|v|pinchar
 discard|v|olvidar;echar;tirar
 discard|n|descarte;rechazo
 discern|v|sentir;reconocer;distinguir
@@ -7871,7 +7650,6 @@ disk error|n|error de disco
 disk file|n|archivo de disco
 disk operating system|n|DOS
 disk space|n|espacio de disco
-disk-jockey|v|pinchar
 dislike|v|detestar;desagradar
 dislike|n|desagrado
 dislocation|n|alteración;dislocación
@@ -7993,7 +7771,6 @@ diva|n|diva;prima dona;prima donna
 divan|n|diván;diwan
 dive|n|garito
 dive|v|desplomarse;caer en picado
-dive-bomb|v|bombardear en picado
 diver|n|buzo;hombre rana;buzo submarino
 diverge|v|divergir;separar
 divergence|n|divergencia
@@ -8040,8 +7817,7 @@ do in|v|liquidar
 do it|v|joder
 do justice|v|hacer justicia
 do work|v|trabajar
-do-nothing|n|vago;holgazán;gandul
-doc|n|Dr.;doctor;médico
+doc|n|doctor;médico;doc
 docile|adj|dócil
 dock|n|muelle
 dock|v|atracar;reducir
@@ -8221,15 +7997,6 @@ double talk|n|ambigüedad;ambigüedades
 double time|n|doble salario
 double up|v|doblar
 double vision|n|diplopía
-double-breasted suit|n|traje cruzado
-double-date|v|salir en parejas
-double-dealing|n|doble juego
-double-dealing|adj|falso
-double-decker|n|autobús
-double-entry bookkeeping|n|partida doble
-double-faced|adj|falso
-double-tongued|adj|falso
-double-u|n|W
 doubled|adj|doble
 doubly transitive verb|n|doble verbo transitivo
 doubly transitive verb form|n|doble verbo transitivo
@@ -8241,7 +8008,6 @@ doubting thomas|n|Santo Tomás
 doubtless|adv|indudablemente
 dough|n|pasta
 doughnut|n|anillo
-doughnut-shaped|adj|circular
 douglas|n|Stephen A. Douglas
 douglas elton fairbanks|n|Douglas Fairbanks
 douglas fairbanks|n|Douglas Fairbanks
@@ -8251,11 +8017,9 @@ dour|adj|tenaz;duro
 douse|v|apagar
 dove|n|paloma;Columba
 dow jones|n|Dow Jones
-dow-jones industrial average|n|Dow Jones
 down|v|meterse;servirse;acabarse
 down in the mouth|adj|bajo
 down payment|n|entrada;señal;adelanto
-down-bow|n|arco abajo
 downer|n|sedante
 downfall|n|caída;ruina
 downfield|adv|campo defensor
@@ -8362,7 +8126,6 @@ dribble|v|llevar;alcanzar
 dribble|n|baba;saliva
 dried|adj|seco
 dried milk|n|leche en polvo;polvo de leche;leche seca
-dried-up|adj|seco
 drier|n|desecante
 drift|v|flotar
 drift off|v|dormirse
@@ -8391,7 +8154,6 @@ drive in|v|llegar en coche
 drive off|v|alejar
 drive out|v|alejar
 drive up|v|rodar
-drive-in|n|drive-in
 drivel|n|chorradas;sandeces
 driven|adj|decidido
 driver|n|conductor
@@ -8424,8 +8186,6 @@ drop off|v|caer;disminuir
 drop out|v|dejar;abandonar;retirarse
 drop scone|n|torta delgada
 drop the ball|v|meter la pata;pecar
-drop-off|n|caída
-drop-seed|n|pasto alambre
 droplet|n|chispa;gotita
 droppings|n|estiércol
 drosophila|n|drosophila
@@ -8461,13 +8221,11 @@ dry out|v|secar
 dry run|n|ensayo
 dry up|v|secarse
 dry wall|n|horma
-dry-nurse|v|cuidar un bebé
-dry-stone wall|n|horma
 dryden|n|Dryden;John Dryden
 drying agent|n|desecante
 drying up|n|deshidratación
 dryness|n|sequedad
-du bois|n|Du Bois;W. E. B. Du Bois;William Edward Burghardt Du Bois
+du bois|n|Du Bois;William Edward Burghardt Du Bois;W. E. B. Du Bois
 dual|adj|doble
 duality|n|dicotomía
 dub|v|doblar
@@ -8482,7 +8240,6 @@ duck|n|pato
 duck hunter|n|cazador de patos
 duck hunting|n|cacería de patos;caza de patos
 duck pate|n|paté de pato
-duck-billed platypus|n|ornithorhynchus anatinus
 ducking|n|cacería de patos;caza de patos
 duct|n|canal;vía
 duct gland|n|glándula exocrina
@@ -8572,9 +8329,9 @@ dwell on|v|insistir;tardar;alargar
 dweller|n|vecino;vecina;habitante
 dwelling|n|casa;piso;vivienda
 dwelling house|n|casa;piso;vivienda
-dwight david eisenhower|n|Dwight D. Eisenhower;Dwight David Eisenhower;Dwight Eisenhower
+dwight david eisenhower|n|Dwight David Eisenhower;Dwight Eisenhower;Dwight D. Eisenhower
 dwight davis|n|Davis;Dwight Davis
-dwight eisenhower|n|Dwight D. Eisenhower;Dwight David Eisenhower;Dwight Eisenhower
+dwight eisenhower|n|Dwight David Eisenhower;Dwight Eisenhower;Dwight D. Eisenhower
 dwight lyman moody|n|Dwight Lyman Moody
 dwindle|v|menguar
 dwindle away|v|menguar
@@ -8603,8 +8360,6 @@ dysplasia|n|displasia
 dystopian|adj|fatal
 dystrophy|n|distrofia muscular
 e|n|vitamina e;este
-e'en|adv|incluso
-e-commerce|n|comercio electrónico
 each week|adv|cada semana;semanalmente
 eager|adj|ansioso
 eager beaver|n|rayo;abeja
@@ -8613,7 +8368,6 @@ eagle|n|águila
 eames|n|Charles Eames
 ear|n|oído
 ear canal|n|canal del oído;canal acústico externo;canal auditivo
-ear-nose-and-throat doctor|n|otorrinolaringólogo
 earache|n|dolor de oído
 earhart|n|Amelia Earhart
 earl|n|conde
@@ -8634,8 +8388,6 @@ earth|n|tierra
 earth goddess|n|Pacha Mama
 earth tremor|n|temblor
 earth's surface|n|superficie
-earth-goddess|n|Pacha Mama
-earth-tongue|n|lengua de tierra
 earthbound|adj|terrestre
 earthenware|n|olla de barro
 earthenware jar|n|cacharro de greda
@@ -8787,7 +8539,7 @@ edward calvin kendall|n|Edward Calvin Kendall
 edward everett hale|n|Hale;Edward Everett Hale
 edward fitzgerald|n|Edward Fitzgerald
 edward gibbon|n|Edward Gibbon
-edward henry harriman|n|E. H. Harriman;Edward Henry Harriman;Harriman
+edward henry harriman|n|Edward Henry Harriman;Harriman;E. H. Harriman
 edward i|n|Eduardo;Eduardo I
 edward james hughes|n|Ted Hughes
 edward jenner|n|Edward Jenner
@@ -8795,7 +8547,7 @@ edward kendall|n|Edward Calvin Kendall
 edward kennedy ellington|n|Duke Ellington;Edward Kennedy Ellington;Ellington
 edward lawrie tatum|n|Edward Lawrie Tatum
 edward lear|n|Edward Lear
-edward morley|n|E. W. Morley;Edward Morley;Edward Williams Morley
+edward morley|n|Edward Morley;Edward Williams Morley;Morley
 edward osborne wilson|n|Edward Osborne Wilson
 edward teach|n|Edward Teach
 edward teller|n|Edward Teller
@@ -8803,7 +8555,7 @@ edward vi|n|Eduardo;Eduardo VI;Edward
 edward vincent sullivan|n|Ed Sullivan;Edward Vincent Sullivan;Sullivan
 edward weston|n|Edward Weston;Weston
 edward white|n|Edward White
-edward williams morley|n|E. W. Morley;Edward Morley;Edward Williams Morley
+edward williams morley|n|Edward Morley;Edward Williams Morley;Morley
 edward young|n|Edward Young
 edwards|n|Jonathan Edwards
 edwin arlington robinson|n|Robinson;Edwin Arlington Robinson
@@ -8832,7 +8584,6 @@ egg cream|n|crema de huevo
 egg on|v|incitar
 egg roll|n|rollo de huevo;arrollado primavera
 egg white|n|clara
-egg-shaped|adj|oblongo
 eggs|n|huevo
 egotistical|adj|narcisista
 egregious|adj|grave;tremendo;atroz
@@ -8849,7 +8600,7 @@ eighteenth amendment|n|Decimoctava enmienda
 eighth|adj|octavo
 eileen farrell|n|Eileen Farrell
 einstein|n|Albert Einstein;cerebro;genio
-eisenhower|n|Dwight D. Eisenhower;Dwight David Eisenhower;Dwight Eisenhower
+eisenhower|n|Dwight David Eisenhower;Dwight Eisenhower;Dwight D. Eisenhower
 ejaculation|n|interjección
 eject|v|echar;expulsar
 ejection|n|expulsión
@@ -8904,7 +8655,6 @@ electric potential|n|potencial;tensión
 electric power|n|energía eléctrica;voltaje
 electric resistance|n|resistividad
 electric shock|n|choque
-electric-light bulb|n|bombilla
 electrical|adj|eléctrico
 electrical cable|n|cable eléctrico
 electrical capacity|n|capacidad
@@ -8974,7 +8724,7 @@ elijah muhammad|n|Muhammad;Elijah Muhammad
 eliminate|v|eliminar
 elimination|n|liberación
 elinor morton hoyt wylie|n|Elinor Morton Hoyt Wylie;Wylie
-eliot|n|T. S. Eliot;Thomas Stearns Eliot
+eliot|n|Thomas Stearns Eliot;T. S. Eliot
 elisha graves otis|n|Elisha Graves Otis
 elite|n|elite
 elite group|n|elite
@@ -9088,8 +8838,6 @@ employ|v|emplear;usar
 employ|n|trabajo;empleo;ocupación
 employee|n|trabajador;empleado
 employee ownership|n|cooperativa
-employee-owned business|n|cooperativa
-employee-owned enterprise|n|cooperativa
 employer|n|patrón;empresario;empleador
 employment|n|trabajo;empleo
 employment agreement|n|contrato de trabajo
@@ -9100,7 +8848,6 @@ emptiness|n|vacuidad;vaciedad;vacío
 empty|adj|vacío
 empty|v|vaciar
 empty|n|casco
-empty-headed|adj|tonto
 emulate|v|copiar
 emulation|n|emulación
 emulsion|n|emulsión
@@ -9146,7 +8893,6 @@ end|v|terminar;acabar;concluir
 end of the world|n|fin del mundo;condena
 end product|n|producción
 end up|v|terminar;acabar
-end-all|n|culminación;objetivo último
 endanger|v|amenazar;poner en peligro;exponer al peligro
 endangerment|n|riesgo;peligro
 endearing|adj|simpático
@@ -9380,8 +9126,8 @@ ernst boris chain|n|Ernst Boris Chain
 ernst heinrich weber|n|Ernst Heinrich Weber
 ernst ludwig kirchner|n|Ernst Ludwig Kirchner
 ernst mach|n|Ernst Mach;Mach
-ernst theodor amadeus hoffmann|n|E. T. A. Hoffmann;Ernst Theodor Amadeus Hoffmann
-ernst theodor wilhelm hoffmann|n|E. T. A. Hoffmann;Ernst Theodor Amadeus Hoffmann
+ernst theodor amadeus hoffmann|n|Ernst Theodor Amadeus Hoffmann;E. T. A. Hoffmann
+ernst theodor wilhelm hoffmann|n|Ernst Theodor Amadeus Hoffmann;E. T. A. Hoffmann
 eroding|n|erosión
 eros|n|calentura;eros;concupiscencia
 erosion|n|erosión
@@ -9393,7 +9139,6 @@ erratic|adj|imprevisible
 erroneous|adj|erróneo
 erroneous belief|n|error
 error|n|error
-error-prone|adj|humano
 erskine caldwell|n|Erskine Caldwell
 erskine preston caldwell|n|Erskine Caldwell
 erstwhile|adj|antiguo
@@ -9489,6 +9234,7 @@ eugene curran kelly|n|Gene Kelly
 eugene gladstone o'neill|n|Eugene O'Neill
 eugene luther vidal|n|Gore Vidal
 eugene o'neill|n|Eugene O'Neill
+eugene victor debs|n|Eugene V. Debs
 euler|n|Leonhard Euler
 eulogy|n|apología;elogio;eulogio
 euphoria|n|euforia
@@ -9497,7 +9243,6 @@ euro|n|euro
 europe|n|CEE;Mercado Común;Comunidad Económica Europea
 european|adj|europeo
 european|n|europeo
-european beggar-ticks|n|rosa de muerto;corona de rey;maravilla
 european community|n|Mercado Común;Comunidad Económica Europea;CEE
 european economic community|n|Mercado Común;Comunidad Económica Europea;CEE
 european elk|n|alces
@@ -9524,7 +9269,6 @@ even|adj|uniforme;par
 even|n|noche
 even as|adv|incluso mientras;justo mientras
 even up|v|cuadrar
-even-tempered|adj|apacible
 evening|n|noche
 event|n|evento
 eventful|adj|consiguiente;resultante
@@ -9559,10 +9303,6 @@ ewe|n|oveja
 ex|n|ex
 ex tempore|adv|así de pronto;así de improviso
 ex vivo|adj|in vitro
-ex-gambler|n|ex-jugador
-ex-husband|n|ex
-ex-mayor|n|ex-alcalde
-ex-wife|n|ex
 exacerbate|v|agravar;exacerbar;exasperar
 exact|adj|exacto
 exact|v|exigir;reclamar;demandar
@@ -9801,8 +9541,6 @@ eye opener|n|sorpresa;revelación
 eye rhyme|n|rima visual
 eye socket|n|cuenca;órbita
 eye tooth|n|canino
-eye-catching|adj|llamativo
-eye-drop|n|colirio
 eyeball|v|mirar;ojear
 eyebrow|n|ceja
 eyelash|n|pestaña
@@ -9830,8 +9568,6 @@ face lifting|n|reforma;renovación;modernización
 face off|v|sacar
 face soap|n|gel
 face up|v|afrontar
-face-harden|v|templar por cementación
-face-off|n|encuentro;conflicto;enfrentamiento
 faceless|adj|anónimo
 facelift|n|reforma;renovación;modernización
 facet|n|faceta
@@ -9849,8 +9585,6 @@ fact|n|hecho;evidencia
 faction|n|facción
 factor|n|factor
 factor|v|contabilizar;factorizar;descomponer en factores
-factor analytic|adj|factor-analítico
-factor analytical|adj|factor-analítico
 factor in|v|contabilizar;descomponer en factores;factorizar
 factor iv|n|factor iv;ion calcio;ion de calcio
 factor out|v|contabilizar;descomponer en factores;factorizar
@@ -9877,7 +9611,6 @@ faggot|n|puto;pluma;mariposa
 fahrenheit|adj|Fahrenheit
 fahrenheit thermometer|n|termómetro Fahrenheit
 fail|v|fallar;abandonar
-fail-safe|n|sistema infalible
 failing|n|error;fallo;falla
 failure|n|fracaso
 faint|adj|débil
@@ -9887,8 +9620,7 @@ fair|adv|justamente;con justicia;imparcialmente
 fair chance|n|bastantes posibilidades;bastantes probabilidades
 fair deal|n|trato justo
 fair to middling|adj|aceptable
-fair-haired|adj|favorito
-fairbanks|n|Douglas Fairbanks Jr.
+fairbanks|n|Douglas Fairbanks Jr.;Douglas Fairbanks
 fairly|adv|justamente;con justicia;imparcialmente
 fairness|n|encanto
 fairway|n|calle
@@ -9907,7 +9639,6 @@ fake|v|manipular;fingir;falsificar
 faker|n|impostor;embaucador
 fal la|n|tralará
 falcon|v|cazar con halcón;cazar con halcones
-falcon-gentle|n|halcón hembra
 fall|v|caer
 fall|n|caída;otoño
 fall apart|v|desmoronarse
@@ -9965,7 +9696,6 @@ fan|n|abanico;aficionado;aventador
 fan|v|congelarse;animar
 fan blade|n|hoja de ventilador
 fan out|v|difundir;esparcir;desplegarse
-fan-jet|n|motor a chorro
 fanatic|adj|fanático
 fanatical|adj|fanático
 fanaticism|n|fanatismo
@@ -9976,7 +9706,6 @@ fancy|v|ver
 fancy|adj|producido;elaborado;sofisticado
 fancy|n|ilusión;fantasía
 fancy woman|n|amiga;amante
-fancy-free|adj|libre
 fandango|n|fandango
 fandom|n|fan;fanático;admirador
 fanfare|n|fanfarria
@@ -9994,10 +9723,6 @@ faq|n|preguntas frecuentes
 far|adj|lejano;remoto;distante
 far and away|adv|con mucho;de lejos;por mucha diferencia
 far cry|n|a años luz
-far-famed|adj|famoso;célebre
-far-flung|adj|extenso
-far-off|adj|lejano;alejado;remoto
-far-out|adj|original
 faraday|n|Michael Faraday
 faraway|adj|lejano;alejado;remoto
 farce|n|farsa
@@ -10040,7 +9765,6 @@ fast|adv|rápidamente
 fast of ab|n|Tisha b'Av
 fast of av|n|Tisha b'Av
 fast one|n|astucia
-fast-growing|adj|agresivo
 fasten|v|fijar
 fastener|n|cierre;ligadura
 fastening|n|cierre;ligadura
@@ -10059,7 +9783,6 @@ father|n|padre
 father|v|engendrar
 father christmas|n|Santa Claus
 father of the submarine|n|David Bushnell
-father-in-law|n|suegro
 fatherhood|n|paternidad
 fatherland|n|patria;madre patria
 fathom|v|profundizar;penetrar;llegar al fondo
@@ -10259,10 +9982,8 @@ fiat|n|auto;decreto;sentencia
 fib|n|historia;cuento;mentira
 fib|v|decir mentirijillas
 fiber|n|fibra
-fiber-optic|adj|de fibra óptica
 fiberglass|n|fibra de vidrio
 fibre|n|fibra
-fibre-optic|adj|de fibra óptica
 fibreglass|n|fibra de vidrio
 fibrosis|n|fibrosis
 fibrous|adj|duro
@@ -10293,9 +10014,8 @@ field of honor|n|campo del honor;campo de batalla
 field of study|n|tema;estudio;campo
 field officer|n|OS;oficial superior
 field thistle|n|cardo cundidor
-field-crop|adj|de cultivo;del cultivo
-field-grade officer|n|OS;oficial superior
 fielding|n|Henry Fielding
+fields|n|W. C. Fields
 fiend|n|diablo;demonio
 fierce|adj|violento
 fiery|adj|ardiente
@@ -10306,7 +10026,6 @@ fifth avenue|n|Quinta Avenida
 fiftieth|adj|quincuagésimo
 fifty|n|cincuenta
 fifty dollar bill|n|cincuenta
-fifty-cent piece|n|medio dólar;cincuenta centavos
 fig|n|figura
 fight|v|luchar
 fight|n|lucha
@@ -10354,7 +10073,6 @@ film writer|n|escritor de cine;guionista
 filmmaker|n|productor;productor de cine
 filter|v|colar
 filter out|v|colar
-filter-tipped cigarette|n|cigarro con filtro
 filth|n|suciedad;grunge;mugriento
 filthy|adj|verde;grosero
 fin|n|aleta
@@ -10391,8 +10109,6 @@ fine|n|multa
 fine|v|multar
 fine art|n|arte;bellas artes
 fine arts|n|bellas artes
-fine-looking|adj|guapo;apuesto
-fine-tune|v|pulir;afinar;refinar
 finesse|n|discreción;delicadeza
 finger|n|dedo
 finger|v|palpar
@@ -10422,7 +10138,6 @@ fire department|n|Departamento de Incendios
 fire escape|n|salida de emergencia
 fire up|v|encender
 fire warden|n|guardabosque
-fire-eater|n|exaltado;mala leche
 firearm|n|arma;arma de fuego
 fireball|n|bola de fuego
 firebird|n|ave fénix;turpial de Baltimore;bolsero de Baltimore
@@ -10474,8 +10189,6 @@ first sergeant|n|sargento primero
 first state|n|DE;Primer Estado
 first step|n|iniciativa
 first water|n|gran pureza
-first-class|adj|excelente;magnífico
-first-rate|adj|gran;grande;excelente
 firstborn|adj|mayor
 firth|n|firth
 fiscal|adj|fiscal
@@ -10514,13 +10227,10 @@ five|n|cinco
 five dollar bill|n|billete de cinco
 five iron|n|hierro cinco
 five spice powder|n|polvo cinco especias
-five-spot|n|billete de cinco
-five-star admiral|n|almirante de flota
 fiver|n|billete de cinco
 fix|v|arreglar;atender;reparar
 fix|n|lío
 fix up|v|arreglar
-fix-it shop|n|taller
 fixation|n|regresión
 fixed|adj|fijo
 fixed disk|n|disco duro
@@ -10548,14 +10258,12 @@ flaky|adj|escamoso;extraño;raro
 flamboyant|adj|llamativo
 flame|n|llama;fuego
 flame|v|arder
-flame-out|n|descalabro;caída abrupta
 flaming|n|llama;fuego
 flaming|adj|maldito
 flange|n|oreja;pestaña;brida
 flank|n|falda
 flannel|n|toalla;paño
 flannel cake|n|torta
-flannel-cake|n|torta
 flannery o'connor|n|Flannery O'Connor
 flap|v|agitar
 flap|n|agitación;aleteo;revoloteo
@@ -10564,7 +10272,6 @@ flapping|n|agitación;aleteo;revoloteo
 flare|n|vuelo
 flare|v|arder;estallar
 flare up|v|estallar
-flare-up|n|estallido
 flash|v|titilar;brillar intermitentemente
 flash|n|destello
 flash|adj|llamativo
@@ -10609,7 +10316,6 @@ flesh|n|carne;forma;cuerpo
 flesh out|v|cebar;exponer
 fleshy|adj|carnoso
 fletcher|n|John Fletcher
-fleur-de-lis|n|lirio
 flex|v|flexionar
 flexible|adj|flexible
 flexor|n|flexor;músculo flexor
@@ -10635,9 +10341,6 @@ fling|n|vuelta;prueba;pase
 flip|v|tirar;lanzar;arrojar
 flip|n|salto mortal
 flip|adj|fresco
-flip-flap|adv|toc-toc
-flip-flop|n|salto mortal
-flip-flop|v|alternar
 flippant|adj|ligero
 flipper|n|aleta
 flirt|n|mujer fatal
@@ -10645,7 +10348,6 @@ float|v|flotar
 float|n|helado con soda
 floating fern|n|helecho de agua;floating fern;ceratopteris thalictroides
 floating policy|n|póliza abierta;póliza flotante
-floating-moss|n|salvinia auriculata;salvinia rotundifolia
 flock|n|banda
 flock|v|ir en procesión;andar en tropel;ir en tropel
 flogging|n|flagelación
@@ -10738,7 +10440,6 @@ fly in the face of|v|desafiar
 fly in the teeth of|v|desafiar
 fly on|v|continuar en vuelo;seguir volando
 fly tent|n|tienda de campaña
-fly-by-night|adj|sospechoso;dudoso;turbio
 flyer|n|piloto;aviador;aeronauta
 flying|adj|rápido;superficial
 flying|n|vuelo
@@ -10790,7 +10491,6 @@ follow|v|seguir
 follow out|v|realizar;ejecutar
 follow through|v|realizar;ejecutar
 follow up|v|realizar;ejecutar
-follow-up|n|revisión;seguimiento
 follower|n|partidario;seguidor
 following|adj|siguiente
 following|n|caza;persecución
@@ -10826,8 +10526,6 @@ foot|v|pagar;cancelar;costear
 foot brake|n|freno de pies;pedal de freno
 foot race|n|carrera
 foot soldier|n|infante;peón
-foot-and-mouth disease|n|fiebre aftosa
-foot-ton|n|tonelada-pie
 footage|n|metraje
 football|n|fútbol
 football coach|n|entrenador de fútbol
@@ -10845,9 +10543,9 @@ footwear|n|calzado
 for all intents and purposes|adv|a nivel practico;a efectos practicos
 for all practical purposes|adv|a nivel practico;a efectos practicos
 for certain|adv|seguro;con seguridad;con bastante seguridad
-for example|adv|por ejemplo;p. ej.
+for example|adv|por ejemplo
 for free|adv|sin cargo;gratis
-for instance|adv|por ejemplo;p. ej.
+for instance|adv|por ejemplo
 for short|adv|para abreviar
 for sure|adv|seguro;con seguridad;con bastante seguridad
 for sure|adj|seguro
@@ -10859,8 +10557,8 @@ foray into|v|asaltar
 forbearance|n|paciencia;tolerancia;resignación
 forbid|v|negar;prohibir;rechazar
 forbidding|adj|duro;severo
-force|n|fuerza
 force|v|forzar
+force|n|fuerza
 force field|n|campo
 force out|v|poder;dar aviso;echar
 force per unit area|n|presión
@@ -10950,10 +10648,8 @@ fort myers|n|Fort Myers
 fort smith|n|Fort Smith
 fort wayne|n|Fort Wayne
 fort worth|n|Fort Worth
-fort-lamy|n|Yamena
 forte|n|fuerte;oficio;especialidad
 forte|adj|alto
-forte-piano|n|piano
 forthcoming|adj|abierto
 forthright|adj|directo;firme;franco
 fortification|n|fortificación
@@ -10968,12 +10664,10 @@ fortuna|n|Fortuna
 fortunately|adv|afortunadamente;por suerte
 fortune|n|fortuna
 forty winks|n|siesta;siesta liviana;cabezada
-forty-five|n|cuarenta y cinco
 forward|adv|adelante;hacia adelante;para adelante
 forward|adj|delantero
 forward motion|n|evolución;progreso;avance
 forward pass|n|elevado;pase adelantado
-forward-looking|adj|moderno;avanzado;progresista
 forwarding|n|evolución;promoción;avance
 forwards|adv|adelante;hacia adelante;para adelante
 fossa fossa|n|Fossa Fossa;civeta malgache
@@ -10981,14 +10675,12 @@ fossil fuel|n|petróleo
 fossil oil|n|petróleo
 foster|v|promover
 foster child|n|hijo adoptivo
-foster-child|n|hijo adoptivo
 fostering|n|educación
 foul|adj|desagradable
 foul|v|batear de foul;ensuciar;contaminar
 foul ball|n|personal
 foul shot|n|tiro libre
 foul up|v|arruinar
-foul-up|n|caída;cagada;cante
 found|v|establecer;fundar
 found|adj|encontrado
 foundation|n|fundamento
@@ -11002,9 +10694,6 @@ four|n|cuatro
 four flush|n|farol
 four horsemen|n|Jinetes del Apocalipsis
 four times|adv|cuatro veces;por cuatro
-four-wheel|adj|de cuatro ruedas
-four-wheel drive|n|tracción total
-four-wheeled|adj|de cuatro ruedas
 fourier|n|Jean Baptiste Joseph Fourier
 foursome|n|cuatro
 foursquare|n|cuadrado
@@ -11019,7 +10708,6 @@ fox|n|gato;pájaro
 fox|v|engañar;embaucar;jugar una broma
 fox river|n|Riu Fox
 fox talbot|n|William Henry Fox Talbot
-fox-trot|n|foxtrot
 foxtrot|n|foxtrot
 foxtrot|v|bailar foxtrot
 foxy|adj|astuto
@@ -11042,7 +10730,6 @@ frame|n|forma;cuerpo;carne
 frame|v|enmarcar
 frame in|v|enmarcar;bordear
 frame of mind|n|condición mental;disposición mental;estado mental
-frame-up|n|trampa;trama;montaje
 framed|adj|enmarcado
 framework|n|modelo;marco
 franc|n|franco
@@ -11063,7 +10750,7 @@ francis ii|n|Francisco II;Emperador Francisco II
 francis of assisi|n|San Francisco de Assís
 francis richard stockton|n|Francis Richard Stockton;Frank Stockton;Stockton
 francis scott key|n|Francis Scott Key
-francis scott key fitzgerald|n|F. Scott Fitzgerald;Fitzgerald;Francis Scott Key Fitzgerald
+francis scott key fitzgerald|n|Fitzgerald;Francis Scott Key Fitzgerald
 francisco de goya|n|Francisco Goya
 francisco franco|n|Francisco Franco
 francisco goya|n|Francisco Goya
@@ -11143,10 +10830,6 @@ free thought|n|deísmo
 free throw|n|tiro libre
 free will|n|discreción
 free zone|n|zona franca
-free-for-all|n|riña;todo vale
-free-lance|n|autónomo;freelance
-free-lance|adj|independiente
-free-spoken|adj|directo;firme;franco
 freedom|n|libertad
 freedom fighter|n|rebelde
 freedom from discrimination|n|libertad de discriminación
@@ -11168,7 +10851,6 @@ freeze|n|solidificación
 freeze down|v|congelar;helar
 freeze off|v|rechazar
 freeze out|v|congelar;helar
-freeze-drying|n|liofilización
 freezing|n|solidificación
 freight|n|carga;partida;carga de pago
 freight|v|transportar;fletar
@@ -11316,12 +10998,7 @@ full skirt|n|falda larga
 full stop|n|punto
 full term|n|término
 full treatment|n|todo;equipo completo;tratamiento completo
-full-blooded|adj|fuerte
-full-dress|adj|formal
-full-length|adj|completo
-full-strength|adj|solo
-full-term|adj|de término
-fuller|n|Melville W. Fuller;Melville Weston Fuller;Fuller
+fuller|n|Melville Weston Fuller;Fuller;Melville W. Fuller
 fullness|n|plenitud
 fully|adv|ampliamente;generosamente
 fumble|v|arruinar
@@ -11396,15 +11073,12 @@ fuzz|n|romano;borrón
 fuzzy|adj|confuso
 fyodor dostoevsky|n|Fyodor Dostoevsky
 g|n|gramo
-g-force|n|fuerza g
-g-jo|n|acupresión
 gable|n|Clark Gable
 gabor|n|Dennis Gabor
 gad|n|espuelas
 gad|v|vagar;ir de fiesta
 gadget|n|ingenio;gadget
 gael|n|gaélico
-gaff-headed sail|n|cangreja;vela cangreja
 gaffer|n|viejo;anciano;veterano
 gag|n|gracia;broma;chiste
 gag|v|censurar;amordazar
@@ -11487,7 +11161,7 @@ gardener|n|jardinero
 gardening|n|jardinería;horticultura
 gardiner|n|Samuel Rawson Gardiner
 gardner|n|Gardner
-garfield|n|James A. Garfield;James Garfield
+garfield|n|James Garfield
 gargantuan|adj|enorme;gigante;gigantesco
 garibaldi|n|Giuseppe Garibaldi
 garish|adj|llamativo
@@ -11563,7 +11237,6 @@ gee|n|fuerza g
 geek|n|geek
 geiger|n|Hans Geiger
 geiger counter|n|contador Geiger;contador de Geiger
-geiger-muller counter|n|contador Geiger;contador de Geiger
 gel|n|gel
 gelding|n|capón;caballo capón
 gem|n|tesoro;joya
@@ -11581,7 +11254,6 @@ general franco|n|Francisco Franco
 general medicine|n|medicina interna
 general security services|n|Shin Bet
 general verdict|n|sentencia general
-general-purpose|adj|universal
 generality|n|generalidad
 generalization|n|generalización;generalidad
 generalize|v|generalizar
@@ -11617,7 +11289,7 @@ genoa|n|Génova
 genome|n|genoma
 genre|n|género
 gens|n|gens
-gent|n|gent.;tipo;tío
+gent|n|tipo;tío
 genteel|adj|fino
 gentile|n|infiel
 gentle|adj|suave;ligero
@@ -11755,7 +11427,7 @@ george stevens|n|George Stevens;Stevens
 george town|n|George Town
 george vancouver|n|George Vancouver
 george vi|n|Jorge;Jorge VI
-george walker bush|n|George Bush;George W. Bush;George Walker Bush
+george walker bush|n|George Bush;George Walker Bush
 george washington|n|Washington;George Washington
 george washington bridge|n|George Washington Bridge
 george washington carver|n|George Washington Carver
@@ -11770,8 +11442,8 @@ georgian monetary unit|n|unidad monetaria georgiana
 georgiana barrymore|n|Barrymore;Georgiana Barrymore;Georgiana Emma Barrymore
 georgiana emma barrymore|n|Barrymore;Georgiana Barrymore;Georgiana Emma Barrymore
 geraint|n|Geraint;Sir Geraint
-gerald ford|n|Ford;Gerald Ford;Gerald R. Ford
-gerald rudolph ford|n|Ford;Gerald Ford;Gerald R. Ford
+gerald ford|n|Ford;Gerald Ford;Gerald Rudolph Ford
+gerald rudolph ford|n|Ford;Gerald Ford;Gerald Rudolph Ford
 geranium family|n|familia geraniáceas
 gerard manley hopkins|n|Gerard Manley Hopkins
 germ|n|fuente;semilla
@@ -11844,8 +11516,6 @@ get wind|v|ver;descubrir;enterarse
 get wise|v|comprender
 get word|v|ver;descubrir;enterarse
 get worse|v|recaer
-get-go|n|principio;inicio;comienzo
-get-up-and-go|n|energía;brío
 getaway|n|fuga;escape;huida
 getting|n|adquisición
 getting even|n|revancha;contraataque
@@ -11875,7 +11545,6 @@ gibson|n|Mel Gibson;Althea Gibson
 giddy|adj|tonto
 gift|n|regalo;presente
 gift|v|dotar;dar
-gift-wrap|v|envolver para regalo
 gifted|adj|dotado;privilegiado;talentoso
 gigabit|n|Gb;gigabit
 gigabyte|n|gigabyte
@@ -11883,7 +11552,7 @@ giggle|v|reírse tontamente
 giggle|n|risita;risa nerviosa
 gilbert|n|William Gilbert
 gilbert charles stuart|n|Stuart;Gilbert Charles Stuart;Gilbert Stuart
-gilbert keith chesterton|n|Chesterton;G. K. Chesterton;Gilbert Keith Chesterton
+gilbert keith chesterton|n|Chesterton;Gilbert Keith Chesterton;G. K. Chesterton
 gilbert stuart|n|Stuart;Gilbert Charles Stuart;Gilbert Stuart
 gilded|adj|dorado
 gill|n|lámina
@@ -11915,7 +11584,6 @@ giro|n|giro
 girth|n|contorno
 gist|n|esencia;núcleo
 git|n|perro
-giulio de' medici|n|Clemente VII
 giuseppe garibaldi|n|Giuseppe Garibaldi
 giuseppe verdi|n|Giuseppe Verdi
 give|v|dar
@@ -11949,8 +11617,6 @@ give up|v|perder;renunciar;prescindir
 give vent|v|descargar
 give voice|v|formular
 give way|v|retirar;apartar;ceder
-give-and-take|n|intercambio;palabra;debate
-give-up the ghost|v|perder la vida;morir;caer muerto
 giveaway|n|concurso;revelación involuntaria
 given|adj|supuesto
 given|n|presupuesto;precondición
@@ -12003,7 +11669,6 @@ glenn miller|n|Glenn Miller
 glib|adj|superficial
 glide|v|deslizarse
 glide by|v|pasar;seguir;transcurrir
-glide-bomb|v|bombardear en planeo
 glimmer|n|destello
 glimpse|n|vistazo
 glimpse|v|entrever;vislumbrar
@@ -12093,21 +11758,15 @@ go under|v|ir abajo;establecerse;hundirse
 go up|v|subir
 go with|v|acompañar
 go wrong|v|fracasar
-go-ahead|n|luz verde;iniciativa
-go-around|n|vuelta;rodeo
-go-cart|n|carretilla
-go-getter|n|emprendedor
 goad|v|pinchar;provocar;fastidiar
 goad|n|aguijón
 goal|n|fin;objetivo;propósito
-goal-kick|n|tiro a gol
 goalie|n|portero;arquero
 goalkeeper|n|portero;arquero
 goaltender|n|portero;arquero
 goat|n|risa;pelele;capra aegagrus hircus
 goat cheese|n|queso de cabra
 goatee|n|pera
-goats' milk|n|leche de cabra
 gob|n|pico
 gobble|v|tragar
 goblet|n|copa
@@ -12127,7 +11786,6 @@ goebbels|n|Joseph Goebbels
 gogol|n|Gogol
 going|n|partida
 going away|n|salida;partida
-going-over|n|revisión
 gold|n|oro
 gold|adj|dorado
 gold braid|n|trenza
@@ -12136,7 +11794,6 @@ gold fever|n|fiebre del oro
 gold foil|n|hoja de oro;lámina de oro;laminilla de oro
 gold plate|v|bañar en oro;dorar
 gold standard|n|regla de oro
-gold-plate|v|dorar;bañar en oro
 golden|adj|dorado
 golden delicious|n|Golden Delicious
 golden fleece|n|vellocino de oro
@@ -12158,7 +11815,6 @@ golf|n|golf
 golf cap|n|gorra de béisbol;gorra de golf;gorra de jockey
 golf club|n|palo
 golf game|n|golf
-golf-club|n|palo
 goliath|n|gigante
 gondola|n|góndola;barquilla
 gone|adj|difunto
@@ -12186,11 +11842,6 @@ good story|n|buena historia;comentario divertido;broma
 good temper|n|buen humor;amabilidad
 good turn|n|favor;buena acción
 good will|n|buena voluntad
-good-by|n|adiós;chao;hasta más ver
-good-bye|n|adiós;chao;hasta más ver
-good-looking|adj|guapo;apuesto
-good-tempered|adj|apacible
-good-time|adj|cordial
 goodall|n|Jane Goodall
 goodbye|n|adiós;chao;hasta más ver
 goodly|adj|importante;grande;considerable
@@ -12344,7 +11995,6 @@ granted|adj|supuesto
 granular|adj|arenoso;granuloso
 granville stanley hall|n|Granville Stanley Hall
 granville wilt|n|marchitez del tabaco
-granville-barker|n|Harley Granville-Barker
 grape|n|uva
 grape juice|n|zumo de uva
 grape vine|n|uva;vid
@@ -12402,8 +12052,6 @@ gray|v|hacer gris
 gray flounder|n|lenguado sombreado;Etropus Rimosus
 gray hen|n|gallina;gallina lira
 gray sole|n|lenguado gris
-gray-haired|adj|gris
-gray-headed|adj|gris
 grayish|adj|gris
 graze|v|apacentar;pastar
 grazing land|n|pasto;pastizal;pastura
@@ -12432,17 +12080,12 @@ great seal of the united states|n|Escudo de los Estados Unidos
 great slave lake|n|Gran Lago del Esclavo
 great toe|n|hallux
 great white shark|n|carcharodon carcharias
-great-aunt|n|tía abuela
-great-nephew|n|sobrino nieto
-great-niece|n|sobrina nieta
-great-uncle|n|tío abuelo
 greater|adj|mayor
 greater london|n|Gran Londres
 greater new york|n|Nueva York
 greatest|adj|superior
 greatness|n|grandeza
 greco|n|El Greco
-greco-roman deity|n|deidad grecorromana
 greed|n|codicia;avaricia;concupiscencia
 greedy|adj|ansioso
 greek|adj|griego
@@ -12469,7 +12112,6 @@ green party|n|partido verde
 green river|n|Green River
 green snake|n|serpiente verde
 green turtle soup|n|sopa de tortuga
-green-eyed|adj|celoso
 greenback|n|billete
 greenberg|n|Joseph Greenberg
 greene|n|Graham Greene
@@ -12506,8 +12148,6 @@ grey|v|hacer gris
 grey flounder|n|lenguado sombreado;Etropus Rimosus
 grey hen|n|gallina;gallina lira
 grey sole|n|lenguado gris
-grey-haired|adj|gris
-grey-headed|adj|gris
 greyhound|n|galgo inglés
 greyhound racing|n|carrera de galgos
 greyish|adj|gris
@@ -12566,8 +12206,6 @@ ground forces|n|ejército;fuerzas armadas
 ground level|n|bajo;planta baja
 ground substance|n|matriz
 ground swell|n|mar de fondo
-ground-effect machine|n|aerodeslizador
-ground-service crew|n|personal de tierra;personal de mantenimiento
 groundhog|n|marmota canadiense;mamorta del bosque
 groundhog day|n|Día de la Marmota
 grounds|n|base;evidencia;fundamento
@@ -12635,7 +12273,6 @@ guilt trip|n|culpabilidad
 guilty|adj|culpable
 guilty conscience|n|culpabilidad
 guinea hen|n|gallina de Guinea
-guinea-bissau monetary unit|n|unidad monetaria guineana
 guinean monetary unit|n|unidad monetaria guineana
 guinness|n|Alec Guinness
 guise|n|apariencia;pretexto;semejanza
@@ -12658,7 +12295,6 @@ gun barrel|n|cañón
 gun dog|n|perro de caza;perro cazador
 gun down|v|derribar;abatir
 gun trigger|n|gatillo
-gun-sight|n|alza
 gunfire|n|disparo
 gunner|n|servidor;artillero;cañonero
 gunnery|n|armamento
@@ -12721,8 +12357,6 @@ hair cell|n|célula de pelo
 hair gel|n|fijador
 hair mousse|n|fijador
 hair style|n|peinado
-hair-shirt|adj|mortificante
-hair-tailed mole|n|Parascalops Breweri
 haircut|n|corte
 hairdo|n|peinado
 haired|adj|peludo;piloso;hirsuto
@@ -12749,13 +12383,6 @@ half dollar|n|medio dólar;cincuenta centavos
 half eagle|n|media águila
 half life|n|periodo de semidesintegración
 half pound|n|media libra
-half-brother|n|hermanastro
-half-hearted|adj|indiferente
-half-intensity|n|intensidad media
-half-life|n|periodo de semidesintegración
-half-light|n|penumbra
-half-slip|n|combinación;viso
-half-wit|n|simple;imbécil;bobo
 halfway|adj|intermedio
 halfway|adv|a medio camino
 hall|n|vestíbulo
@@ -12773,8 +12400,6 @@ halter|v|ahogar;ahorcar
 halve|v|dividir por dos
 ham|n|jamón
 ham actor|n|actor aficionado;aficionado
-ham-fisted|adj|torpe
-ham-handed|adj|torpe
 hamilton|n|Hamilton
 hamlet|n|pueblo;Hamlet;aldea
 hammer|n|martillo
@@ -12797,10 +12422,6 @@ hand job|n|paja;echarse una mano
 hand out|v|pasar;entregar;distribuir
 hand over|v|entregar;librar
 hand to hand|adv|mano a mano
-hand-build|v|hacer a mano;enrollar
-hand-crafted|adj|artesanal
-hand-held computer|n|computadora de mano;ordenador de mano
-hand-to-hand struggle|n|lucha libre;confrontación
 handbag|n|bolso
 handful|n|puñado
 handgun|n|pistola
@@ -12816,6 +12437,7 @@ handmade|adj|artesanal
 handsome|adj|guapo;apuesto
 handwriting|n|letra;escritura
 handy|adj|práctico
+handy|n|W. C. Handy
 hang|v|colgar
 hang|n|tino;caída
 hang glide|v|surcar los cielos
@@ -12823,7 +12445,6 @@ hang glider|n|ala delta
 hang gliding|n|vuelo sin motor;ala delta
 hang on|v|añadir
 hang up|v|colgar
-hang-up|n|complejo;cuelgue
 hanger|n|colgador
 hanging|n|suspensión
 hank|n|madeja
@@ -12875,11 +12496,6 @@ hard time|n|trago;infortunio
 hard up|adj|pobre
 hard wheat|n|triticum durum
 hard worker|n|esclavo
-hard-and-fast|adj|estricto;rígido
-hard-bitten|adj|tenaz
-hard-boiled|adj|tenaz
-hard-hitting|adj|enérgico
-hard-nosed|adj|práctico
 harden|v|preparar;endurecer;aderezar
 hardening|n|dureza;endurecimiento
 hardiness|n|resistencia
@@ -12897,7 +12513,6 @@ harlan fiske stone|n|Harlan Fiske Stone
 harlem renaissance|n|Renacimiento de Harlem
 harlem river|n|Río Harlem
 harlequin|n|arlequin
-harley granville-barker|n|Harley Granville-Barker
 harley street|n|Harley Street
 harlow|n|Jean Harlow
 harm|n|daño
@@ -12949,7 +12564,6 @@ harvester|n|segador;cosechador
 harvesting|n|cosecha;recogida
 harvey|n|William Harvey
 harvey cushing|n|Harvey Cushing
-has-been|n|reliquia
 hash|n|chocolate
 hash|v|picar
 hash head|n|fumador de hachís
@@ -12994,8 +12608,6 @@ have on|v|llevar;vestir
 have sex|v|joder
 have words|v|tener unas palabras;poner verde;llamar la atención
 have young|v|parir;parir un ternero;parir terneros
-have-not|n|pobre
-have-to doe with|v|referirse;tratarse;referir
 haven|n|puerto
 havoc|n|caos;vandalismo
 hawaiian dancing|n|hula
@@ -13016,7 +12628,6 @@ hazard|v|aventurar;adivinar;especular
 haze|n|bruma
 hazy|adj|confuso
 he|n|helio
-he-man|n|macho
 head|n|cabeza
 head|v|encabezar
 head and shoulders above|adv|muy por encima
@@ -13034,8 +12645,6 @@ head teacher|n|director
 head trip|n|viaje
 head up|v|encabezar
 head word|n|núcleo
-head-on|adv|de frente
-head-to-head|adv|juntos;empatados;a la par
 headache|n|preocupación
 headboard|n|cabecera
 headdress|n|sombrero
@@ -13047,7 +12656,6 @@ headline|n|cabecera
 headline|v|subrayar;remarcar;titular
 headmaster|n|director;director de escuela
 headquarters|n|administración
-heads-up|n|señal de alerta
 headstone|n|losa
 heady|adj|prudente;sensato
 heal|v|curar;mejorar;arreglar
@@ -13081,9 +12689,6 @@ heart|n|corazón
 heart and soul|n|centro;corazón;esencia
 heart attack|n|infarto
 heart rate|n|pulso
-heart-to-heart|n|charla íntima
-heart-to-heart|adj|abierto;franco
-heart-whole|adj|total;absoluto
 heartache|n|congoja
 heartbeat|n|pulso;latido;pulsación
 heartbreak|n|congoja
@@ -13113,7 +12718,6 @@ heathen|n|infiel
 heave|v|echar;tirar
 heave|n|elevación;tirón;empujón
 heaven|n|cielo
-heaven-sent|adj|milagroso
 heavenly|adj|celeste;celestial
 heavens|n|cielo
 heaviness|n|pesadumbre
@@ -13123,7 +12727,6 @@ heavy lifting|n|trabajo sucio
 heavy swell|n|mar de fondo
 heavy water|n|agua pesada
 heavy weapon|n|arma
-heavy-handed|adj|torpe
 heavyweight|n|peso pesado;gigante
 hebei|n|Hebei;provincia de Hebei
 hebei province|n|Hebei;provincia de Hebei
@@ -13148,7 +12751,7 @@ hegel|n|Georg Wilhelm Friedrich Hegel
 hegemony|n|hegemonía
 heidegger|n|Martin Heidegger
 height|n|altura
-heinlein|n|Heinlein;Robert A. Heinlein
+heinlein|n|Heinlein
 heinrich hertz|n|Heinrich Hertz
 heinrich himmler|n|Heinrich Himmler
 heinrich rudolph hertz|n|Heinrich Hertz
@@ -13228,7 +12831,7 @@ henry laurens|n|Henry Laurens
 henry lee|n|Lee;Henry Lee
 henry louis aaron|n|Hank Aaron
 henry luce|n|Henry Luce;Luce;Henry Robinson Luce
-henry martyn robert|n|Robert;Henry M. Robert;Henry Martyn Robert
+henry martyn robert|n|Robert;Henry Martyn Robert
 henry miller|n|Henry Miller
 henry moore|n|Henry Moore
 henry morgan|n|Henry Morgan
@@ -13257,7 +12860,7 @@ herbert|n|Victor Herbert
 herbert alexander simon|n|Herbert Alexander Simon
 herbert blythe|n|Barrymore;Maurice Barrymore;herbert blythe
 herbert clark hoover|n|Herbert Hoover
-herbert george wells|n|H. G. Wells;Herbert George Wells
+herbert george wells|n|Herbert George Wells
 herbert hoover|n|Herbert Hoover
 herbert kitchener|n|Herbert Kitchener
 herbert spencer|n|Herbert Spencer
@@ -13280,7 +12883,6 @@ hermann joseph muller|n|Hermann Joseph Muller
 hermit|n|solitario;ermitaño;recluso
 hermitage|n|hermita
 hero|n|héroe
-hero-worship|v|venerar;idolatrar;reverenciar
 heroic|adj|heroico
 heroic|n|heróico;metro heróico;verso heróico
 heroic meter|n|heróico;metro heróico;verso heróico
@@ -13305,9 +12907,7 @@ hexagon|n|hexágono
 heyday|n|auge
 heyward|n|Heyward;Edwin Dubois Hayward
 hf|n|alta frecuencia
-hg|n|hg.
 hi|n|hola;qué tal;buenos días
-hi-fi|n|alta fidelidad
 hiatus|n|suspensión;respiro
 hibernate|v|invernar;hibernar
 hibiscus|n|hibiscus
@@ -13352,19 +12952,6 @@ high street|n|calle mayor
 high style|n|alta costura
 high temperature|n|calor
 high treason|n|traición
-high-flown|adj|exagerado
-high-handedness|n|orgullo;pretensión;suficiencia
-high-level|adj|superior
-high-minded|adj|noble;elevado
-high-pitched|adj|agudo
-high-priced|adj|caro;costoso
-high-ranking|adj|superior
-high-risk|adj|malo;inseguro
-high-sounding|adj|exagerado
-high-strength brass|n|bronce de magnesio
-high-strung|adj|nervioso;inquieto
-high-up|n|personalidad;dignidad
-high-yield bond|n|bono basura
 higher|adj|superior
 higher education|n|educación superior
 higher rank|n|rango superior;antigüedad;estatus de antigüedad
@@ -13403,7 +12990,6 @@ hindu deity|n|deidad hindú
 hindu kush|n|Hindu Kush
 hindu kush mountains|n|Hindu Kush
 hindu numeral|n|número indio;número arábigo
-hindu-arabic numeral|n|número indio;número arábigo
 hinge|n|eje
 hinge on|v|depender;recaer
 hinge upon|v|depender;recaer
@@ -13416,11 +13002,11 @@ hippo|n|Hippo Regius
 hippocampus|n|hipocampo
 hippopotamus|n|hippopotamus amphibius
 hiram king williams|n|Hank Williams
+hiram ulysses grant|n|Ulysses S. Grant
 hiram williams|n|Hank Williams
 hire|v|contratar;emplear;alquilar
 hire|n|contratación
 hire out|v|alquilar
-hire-purchase|n|compra a plazos
 hired hand|n|mano de obra;hombre contratado
 hired help|n|contrata
 hired man|n|mano de obra;hombre contratado
@@ -13453,7 +13039,6 @@ hive away|v|almacenar;acumular
 hive up|v|acumular;amontonar
 ho chi minh|n|Ho Chi Minh
 ho chi minh city|n|Ciudad Ho Chi Minh
-ho-hum|adj|gris
 hoard|v|acumular
 hoarded wealth|n|tesoro
 hoarse|adj|áspero;ronco
@@ -13465,7 +13050,6 @@ hobby|n|afición
 hobo|n|mendigo;vagabundo;indigente
 hock|v|empeñar
 hock|n|corvejón
-hock-joint|n|corvejón
 hockey coach|n|entrenador de hockey
 hockey league|n|liga de hockey
 hodgkin|n|Thomas Hodgkin
@@ -13478,7 +13062,6 @@ hog badger|n|tejón cerdo;tejón porcino;Arctonyx Collaris
 hog molly|n|Hypentelium nigricans
 hog snapper|n|lachnolaimus maximus
 hog sucker|n|Hypentelium nigricans
-hog-nosed badger|n|tejón cerdo;tejón porcino;Arctonyx Collaris
 hogan|n|Ben Hogan
 hogarth|n|William Hogarth
 hogg|n|Hogg
@@ -13505,10 +13088,8 @@ holding|n|propiedad;pertenencia
 hole|n|agujero;hueco;cavidad
 hole|v|agujerear
 hole up|v|invernar;hibernar
-hole-and-corner|adj|secreto;oculto
 holiday|n|vacaciones
 holiday|v|vacacionar;pasar las vacaciones
-holier-than-thou|adj|falso;hipócrita
 holistic theory|n|holismo
 holland gin|n|gin holandés
 hollander|n|holandés
@@ -13516,9 +13097,7 @@ holler|v|gritar
 holler out|v|gritar;vocear
 hollow|n|hueco
 hollow|adj|vacío;vano
-hollow-back|n|lordosis
 holly|n|ilex;Holly
-holly-leaved oak|n|encina
 hollywood|n|Hollywood
 hollywood|adj|hollywoodense
 holm oak|n|encina
@@ -13597,15 +13176,12 @@ honored|adj|prestigioso
 honour|n|honor
 honour|v|honrar
 honourable|adj|justo;recto
-hoo-ha|n|ruido;confusión;ruptura
-hoo-hah|n|ruido;confusión;ruptura
 hooch|n|licor ilícito
 hooded cloak|n|capote;abrigo encapuchado
 hooded skunk|n|mofeta de capucha;mofeta encapuchada;Mephitis Macroura
 hoof|n|casco;uña
 hoof|v|ir a pie;andar a pie
 hoof it|v|ir a pie;andar a pie
-hoof-and-mouth disease|n|fiebre aftosa
 hook|v|enganchar;robar
 hook|n|gancho
 hook up with|v|casarse;llevar al altar;contraer nupcias
@@ -13623,7 +13199,6 @@ hoover|v|pasar la aspiradora
 hop|v|saltar;tomar
 hop on|v|montar
 hop out|v|saltar fuera;bajarse
-hop-picker|n|hopper
 hope|v|esperar;confiar
 hope|n|esperanza
 hopeful|n|candidato;aspirante;solicitante
@@ -13696,7 +13271,6 @@ hot springs|n|Hot Springs
 hot up|v|calentar
 hot water|n|aguas movedizas
 hot weather|n|ola de calor
-hot-tempered|adj|iracundo
 hotdog|n|frankfurt
 hotel|n|hotel
 hotel clerk|n|recepcionista;recepcionista de hotel
@@ -13705,7 +13279,6 @@ hotel detective|n|guardia de seguridad
 hotel manager|n|administrador de hotel;hotelero;hostelero
 hotel occupancy|n|ocupación hotelera
 hotel room|n|habitación de hotel
-hotel-casino|n|hotel-casino
 hotness|n|calor
 hotshot|n|estrella;genio;crack
 hotspot|n|centro de actividades
@@ -13741,8 +13314,6 @@ housing development|n|urbanización
 houston|n|Houston;Sam Houston;Samuel Houston
 hover|v|dudar
 hovercraft|n|aerodeslizador
-how-d'ye-do|n|pollo;lío;follón
-how-do-you-do|n|pollo;lío;follón
 howard|n|Leslie Howard
 howard carter|n|Howard Carter
 howard hughes|n|Howard Hughes
@@ -13762,9 +13333,8 @@ hp|n|caballo
 hq|n|cuartel;cuartel general
 hr|n|hora;h
 huang he|n|Huang He
-hubbard|n|Hubbard;L. Ron Hubbard
+hubbard|n|Hubbard
 hubble|n|Edwin Hubble;Edwin Powell Hubble
-hubble-bubble|n|chicha
 hubby|n|hombre;marido;esposo
 huck finn|n|Huck Finn;Huckleberry Finn
 huckleberry finn|n|Huck Finn;Huckleberry Finn
@@ -13784,7 +13354,6 @@ hughes|n|Ted Hughes;Hughes;Hugues
 hugo|n|Victor Hugo
 hugo wolf|n|Hugo Wolf;Wolf
 hula|n|hula
-hula-hula|n|hula
 hulk|n|gigante
 hulking|adj|grueso
 hull|n|casco
@@ -13802,8 +13371,6 @@ human knee|n|rodilla
 human race|n|mundo;hombre;humanidad
 human relationship|n|relación
 human right|n|derechos humanos
-human-centered|adj|humano;humanitario
-human-centred|adj|humano;humanitario
 humane|adj|humano;humanitario
 humanist|n|humanista;humanitario
 humanist|adj|humano;humanitario
@@ -13851,7 +13418,6 @@ hunger|n|hambre
 hunger strike|n|huelga de hambre
 hungry|adj|hambriento
 hunk|n|pedazo
-hunky-dory|adj|bien;correcto
 hunt|v|cazar
 hunt|n|Hunt
 hunt club|n|club de caza;partida de caza;grupo de cazadores
@@ -13859,7 +13425,6 @@ hunt down|v|cazar
 hunted person|n|presa
 hunter|n|cazador
 hunter's sauce|n|salsa cazador
-hunter-gatherer|n|cazador-recolector
 hunting|n|caza
 hunting expedition|n|expedición;expedición de casa;safari
 hunting licence|n|licencia de caza
@@ -13889,7 +13454,6 @@ husbandry|n|agricultura;explotación
 hush|v|callar
 hush|n|silencio;calma;tranquilidad
 hush up|v|cubrir;tapar;disimular
-hush-hush|adj|secreto;oculto
 husk|n|paja;gluma
 husky|adj|fuerte
 husky|n|husky;perro siberiano;perro esquimal
@@ -13950,11 +13514,6 @@ ice lolly|n|polo
 ice rink|n|hielo;cancha de hielo
 ice skating|n|patinaje sobre hielo
 ice wagon|n|carreta de hielo;carretón de hielo
-ice-cream cone|n|cucurucho de helado
-ice-cream float|n|helado con soda
-ice-cream soda|n|helado con soda
-ice-skating rink|n|hielo;cancha de hielo
-ice-wagon|n|carreta de hielo;carretón de hielo
 iceland|n|Islandia
 icelandic monetary unit|n|unidad monetaria islandesa
 iceman|n|sicario
@@ -14006,7 +13565,7 @@ iguana|n|iguana
 iguana iguana|n|iguana
 ii samuel|n|II Samuel
 iii|n|terceto
-ike|n|Dwight D. Eisenhower;Dwight David Eisenhower;Dwight Eisenhower
+ike|n|Dwight David Eisenhower;Dwight Eisenhower;Dwight D. Eisenhower
 il duce|n|Benito Mussolini
 ilk|n|clase;índole
 ill|adj|enfermo
@@ -14016,15 +13575,6 @@ ill humor|n|malhumor
 ill humour|n|malhumor
 ill luck|n|desgracia
 ill temper|n|mala leche;mal humor;genio
-ill-advised|adj|imprudente;desaconsejado
-ill-affected|adj|rebelde
-ill-bred|adj|grosero
-ill-sorted|adj|incompatible
-ill-treat|v|abusar;maltratar
-ill-treated|adj|abusado;maltratado
-ill-treatment|n|abuso;maltrato
-ill-usage|n|abuso;maltrato
-ill-use|v|abusar;maltratar
 illegal|adj|ilegal
 illegal possession|n|posesión ilegal
 illegality|n|ilegalidad
@@ -14208,9 +13758,6 @@ in utero|adv|dentro del útero;en el útero
 in vitro|adj|in vitro
 in writing|adv|sobre el papel;por escrito
 in writing|adj|escrito;gráfico
-in-between|adj|medio;intermedio
-in-law|n|pariente político
-in-migration|n|inmigración
 inability|n|incapacidad
 inaccurate|adj|impreciso;inexacto
 inactivation|n|desactivación;neutralización
@@ -14349,9 +13896,6 @@ individual|adj|individual
 individualism|n|personalidad;individualidad
 individuality|n|individualidad;personalidad
 individually|adv|individualmente;uno a uno;separadamente
-indo-aryan|n|índico
-indo-european|adj|indoeuropeo
-indo-germanic|adj|indoeuropeo
 indoctrination|n|adoctrinamiento
 indonesian monetary unit|n|unidad monetaria indonesa
 indoor|adj|interior
@@ -14508,7 +14052,6 @@ injustice|n|injusticia
 ink|n|tinta
 ink|v|firmar
 ink bottle|n|botella de tinta;frasco de tinta
-ink-jet printer|n|impresora de inyección
 inland|adj|interior
 inlet|n|bahía;seno;abra
 inlet manifold|n|colector de admisión
@@ -14674,8 +14217,6 @@ intensive|adj|intensivo
 intent|n|intención
 intention|n|intención
 inter|v|enterrar
-inter-group communication|n|contacto;conexión;coordinación
-inter-services intelligence|n|Inter-Services Intelligence
 interaction|n|interacción
 interbank loan|n|préstamo interbancario
 intercede|v|mediar;arbitrar
@@ -14897,6 +14438,7 @@ isaac newton|n|Isaac Newton
 isaac stern|n|Isaac Stern
 isaac watts|n|Isaac Watts
 ischemia|n|isquemia
+isi|n|Inter-Services Intelligence
 isis|n|Isis
 islamic|adj|islámico;musulmán
 islamic law|n|ley musulmana;sharia;sharía
@@ -14929,13 +14471,12 @@ itch|n|sarna
 itching|n|prurito
 itchy|adj|nervioso;inquieto
 item|n|punto
-item-by-item|adj|individual
 iterate|v|repetir;reiterar
 itinerary|n|ruta;camino;recorrido
 iv|n|cuatro
 ivan pavlov|n|Ivan Pavlov;Pavlov;Ivan Petrovich Pavlov
 ivanov|n|Ivanov;Lev Ivanov
-ivor armstrong richards|n|I. A. Richards;Ivor Armstrong Richards
+ivor armstrong richards|n|Ivor Armstrong Richards;I. A. Richards
 ivory|n|hueso;perla;marfil
 ivy|n|hiedra
 ivy league|n|Ivy League
@@ -14958,8 +14499,6 @@ jack mackerel|n|jurel;jurel español;Trachurus Symmetricus
 jack nicklaus|n|Jack Nicklaus
 jack roosevelt robinson|n|Jackie Robinson
 jack salmon|n|lucioperca americana;Stizostedion Vitreum;sander vitreus
-jack-in-the-pulpit|n|aro
-jack-o'-lantern|n|jack-o'-lantern
 jackass|n|burro
 jacket|n|chaqueta
 jackie robinson|n|Jackie Robinson
@@ -14969,7 +14508,7 @@ jacks|n|taba
 jackson|n|Glenda Jackson;Michael Jackson
 jackson pollock|n|Jackson Pollock
 jacob epstein|n|Jacob Epstein
-jacobs|n|W. W. Jacobs
+jacobs|n|W. W. Jacobs;Jane Jacobs
 jacquard|n|Joseph Marie Jacquard
 jacqueline cochran|n|Jacqueline Cochran
 jacques alexandre cesar charles|n|Jacques Charles
@@ -14996,16 +14535,15 @@ jalapeno|n|chile
 jam|v|llenar
 jam|n|lío;turba;muchedumbre
 jam session|n|jam session
-jam-packed|adj|lleno
 jamboree|n|gala
 james|n|Jesse James
 james abbott mcneill whistler|n|James Abbott Mcneill Whistler
-james abraham garfield|n|James A. Garfield;James Garfield
+james abraham garfield|n|James Garfield
 james arthur baldwin|n|James Baldwin
 james augustus henry murray|n|James Murray
 james augustus murray|n|James Murray
 james baldwin|n|James Baldwin
-james barrie|n|J. M. Barrie;James Matthew Barrie
+james barrie|n|James Matthew Barrie;J. M. Barrie
 james bond|n|James Bond
 james boswell|n|James Boswell
 james bowie|n|James Bowie;Jim Bowie
@@ -15023,7 +14561,7 @@ james earl carter|n|Jimmy Carter;Presidente Carter;James Earl Carter
 james edmund scripps|n|James Edmund Scripps
 james francis thorpe|n|Jim Thorpe;Thorpe;James Frnacis Thorpe
 james franck|n|James Franck
-james garfield|n|James A. Garfield;James Garfield
+james garfield|n|James Garfield
 james george frazer|n|James George Frazer
 james hargreaves|n|James Hargreaves
 james harold doolittle|n|Jimmy Doolittle
@@ -15034,13 +14572,13 @@ james hutton|n|James Hutton
 james jerome hill|n|James Jerome Hill
 james john corbett|n|Corbett;James John corbett;Jim Corbett
 james joyce|n|James Joyce
-james knox polk|n|James K. Polk;James Knox Polk
+james knox polk|n|James Knox Polk;James K. Polk
 james langston hughes|n|Hughes;Hugues;James Langston Hughes
 james madison|n|James Madison
 james maitland stewart|n|Jimmy Stewart
 james marshall hendrix|n|Jimi Hendrix
 james mason|n|James Mason
-james matthew barrie|n|J. M. Barrie;James Matthew Barrie
+james matthew barrie|n|James Matthew Barrie;J. M. Barrie
 james meredith|n|James Meredith
 james mill|n|James MIll;James Mill
 james monroe|n|James Monroe;Monroe;Presidente Monroe
@@ -15048,7 +14586,7 @@ james murray|n|James Murray
 james naismith|n|James Naismith
 james neville mason|n|James Mason
 james parkinson|n|James Parkinson
-james polk|n|James K. Polk;James Knox Polk
+james polk|n|James Knox Polk;James K. Polk
 james riddle hoffa|n|Jimmy Hoffa
 james thomas harris|n|Frank Harris
 james tobin|n|James Tobin;Tobin
@@ -15073,7 +14611,6 @@ janis joplin|n|Janis Joplin
 janitor|n|casero
 jansen|n|Jansen
 january|n|enero
-janus-faced|adj|falso
 japanese|adj|japonés
 japanese|n|japonés
 japanese chess|n|pasto japonés;bromus japonicus
@@ -15111,9 +14648,6 @@ jean baptiste joseph fourier|n|Jean Baptiste Joseph Fourier
 jean baptiste racine|n|Jean Racine
 jean harlow|n|Jean Harlow
 jean racine|n|Jean Racine
-jean-jacques rousseau|n|Jean-Jacques Rousseau
-jean-paul sartre|n|Jean-Paul Sartre
-jeanne d'arc|n|Jeanne d'Arc
 jeannette rankin|n|Jeannette Rankin
 jeffers|n|Jeffers;John Robinson Jeffers;Robinson Jeffers
 jefferson|n|Thomas Jefferson
@@ -15140,7 +14674,7 @@ jerking|n|tirón
 jerking off|n|paja;echarse una mano
 jerky|adj|tonto;ridículo;estúpido
 jerome david kern|n|Jerome David Kern;Jerome Kern;Kern
-jerome david salinger|n|J. D. Salinger;Jerome David Salinger
+jerome david salinger|n|Jerome David Salinger;J. D. Salinger
 jerome kern|n|Jerome David Kern;Jerome Kern;Kern
 jerome robbins|n|Jerome Robbins
 jerry lee lewis|n|Jerry Lee Lewis
@@ -15235,7 +14769,7 @@ john constable|n|John Constable
 john cowper powys|n|John Cowper Powys
 john dalton|n|John Dalton
 john davis|n|John Davis
-john davison rockefeller|n|John D. Rockefeller;John Davison Rockefeller
+john davison rockefeller|n|John Davison Rockefeller;John D. Rockefeller
 john deere|n|John Deere
 john dewey|n|Dewey;John Dewey
 john doe|n|John Doe
@@ -15326,7 +14860,6 @@ joining|n|unión;conexión;enlace
 joint|adj|conjunto
 joint|n|articulación
 joint|v|acoplar;juntar;articular
-joint author|n|co-autor
 joint return|n|declaración conjunta
 jointed rush|n|junco de Australia;juncus articulatus
 jointly|adv|juntamente;juntos
@@ -15352,7 +14885,7 @@ jorge luis borges|n|Jorge Luis Borges
 jose julian marti|n|José Julián Martí;Martí
 josef hoffmann|n|Josef Hoffmann
 joseph|n|Joseph;Jefe Joseph
-joseph banks rhine|n|Joseph Banks Rhine
+joseph banks rhine|n|Joseph Banks Rhine;J. B. Rhine
 joseph black|n|Joseph Black
 joseph campbell|n|Campbell;Joseph Campbell
 joseph conrad|n|Joseph Conrad
@@ -15445,7 +14978,6 @@ jump on|v|montar
 jump out|v|destacar
 jump rope|n|comba
 jump suit|n|mono
-jump-start|v|arrancar;acelerar
 jumper|n|jersey
 jumping|n|salto
 jumpstart|v|arrancar;acelerar
@@ -15459,10 +14991,8 @@ juneau|n|Juneau;capital de Alaska
 jung|n|Jung;Carl Jung;Carl Gustav Jung
 jungle|n|selva
 jungle hen|n|gallina
-junior-grade|adj|inferior
 juniper|n|juniperus
 junk bond|n|bono basura
-junk e-mail|n|correo no deseado
 junk heap|n|basura
 junk pile|n|basura
 junkie|n|drogadicto;toxicómano
@@ -15507,6 +15037,8 @@ kamehameha i|n|Kamehameha I
 kamehameha the great|n|Kamehameha I
 kamikaze|n|kamikaze
 kan river|n|Gan Jiang
+kanawha|n|río Kanawha
+kanawha river|n|río Kanawha
 kangaroo bear|n|phascolarctos cinereus
 kansas city|n|Kansas City
 kant|n|Immanuel Kant
@@ -15608,7 +15140,6 @@ kick out|v|expulsar
 kick the bucket|v|perder la vida;morir;caer muerto
 kick up|v|provocar;inspirar;ocasionar
 kick upstairs|v|ascender
-kick-start|v|dar un impulso
 kickoff|n|principio;inicio;comienzo
 kid|n|niño;chico;nene
 kid|v|bromear
@@ -15705,7 +15236,6 @@ knee|n|rodilla
 knee bend|n|flexión de rodilla
 knee joint|n|rodilla
 knee piece|n|rodillera
-knee-length|adj|hasta la rodilla
 kneecap|n|rótula
 knell|n|doble
 knell|v|tocar;sonar
@@ -15733,8 +15263,6 @@ knock off|v|liquidar
 knock out|v|destruir
 knock over|v|invertir;revolver;volcar
 knock up|v|dejar embarazada;embarazar;fertilizar
-knock-down|adj|poderoso;potente
-knock-knee|n|tibia vaga
 knocking|n|llamada
 knockout|n|belleza
 knockout|adj|duro;severo
@@ -15745,7 +15273,6 @@ knotty|adj|espinoso
 know|v|saber;conocer
 know|n|en la onda;al corriente
 know apart|v|diferenciar;discriminar
-know-how|n|habilidad
 knowing|adj|listo;inteligente;astuto
 knowledge|n|conocimiento;cognición
 knowledge base|n|área de conocimiento
@@ -15785,7 +15312,6 @@ kuwait|n|Kuwait
 kuwait city|n|Kuwait
 kuwaiti monetary unit|n|unidad monetaria kuwaití
 l|n|l;litro
-l'enfant|n|Pierre Charles L'Enfant
 la|n|la
 la crosse|n|La Crosse
 la paz|n|La Paz
@@ -15836,8 +15362,6 @@ lady of the house|n|ama de casa
 lady peel|n|Beatrice Lillie
 lady with the lamp|n|Florence Nightingale
 lady's maid|n|doncella
-lady's-finger|n|abelmoschus esculentus
-lady-in-waiting|n|dama de compañía;dama de honor
 ladylike|adj|elegante;fino
 lag|n|ínterin
 lager|n|acantonamiento
@@ -15924,10 +15448,7 @@ large|adv|a toda vela;a todo vapor
 large intestine|n|intestino grueso
 large number|n|ejército;masa;multitud
 large order|n|mucho pedir
-large-minded|adj|liberal
-large-scale|adj|extenso
 larger|adj|mayor
-larger-than-life|adj|heroico
 largo|n|largo
 largo|adj|extenso
 largo|adv|largo
@@ -15955,7 +15476,6 @@ last in first out|n|LIFO
 last name|n|apellido
 last out|v|sobrevivir;mantenerse;aguantar
 last word|n|última palabra;estilo;elegancia
-last-place|adj|último;mínimo
 lasting|adj|permanente;fijo;estable
 latch on|v|comprender
 late|adj|tardío
@@ -15973,7 +15493,6 @@ latin cross|n|cruz latina
 latino|n|latino;latinoamericano;sudaca
 latitude|n|libertad;paralelo;latitud
 latter|adj|segundo
-latter-day|adj|actual
 lattice|n|greca
 latvian monetary unit|n|unidad monetaria letona
 laud|v|exaltar;glorificar;enaltecer
@@ -16005,15 +15524,12 @@ law merchant|n|derecho mercantil
 law of nations|n|derecho internacional
 law of nature|n|ley
 law practice|n|ejercicio del derecho
-law-breaking|n|delito;crimen
-law-makers|n|legislador;cuerpo legislativo;poder legislativo
 lawful|adj|legítimo;legal
-lawfully-begotten|adj|legítimo
 lawn|n|prado
 lawn cart|n|carretilla
 lawn mower|n|cortadora;cortadora de césped
-lawrence|n|T. E. Lawrence;Thomas Edward Lawrence;Gertrude Lawrence
-lawrence of arabia|n|T. E. Lawrence;Thomas Edward Lawrence
+lawrence|n|Thomas Edward Lawrence;Gertrude Lawrence
+lawrence of arabia|n|Thomas Edward Lawrence
 lawrence peter berra|n|Yogi Berra
 lawyer|n|abogado;jurista;letrado
 lawyer cane|n|cabellera de mary;calamus australis
@@ -16061,7 +15577,6 @@ leading off|n|perversión
 leaf|n|hoja
 leaf|v|hojear
 leaf disease|n|enfermedad foliar
-leaf-book|n|códice
 leaflet|n|hojilla
 league|n|liga
 leak|n|fuga;pipi
@@ -16102,7 +15617,6 @@ leave behind|v|dejar
 leave off|v|excluir;exceptuar
 leave office|v|dejar;renunciar
 leave out|v|excluir;exceptuar
-leave-taking|n|adiós;despedida
 leaving|n|salida;partida
 lebanese monetary unit|n|unidad monetaria libanesa
 lecture|n|charla;conferencia
@@ -16128,8 +15642,6 @@ left fielder|n|campista izquierdo
 left hand|n|izquierda
 left over|adj|restante
 left wing|n|izquierda
-left-hand|adj|izquierdo
-left-winger|n|izquierdista;colectivista
 leftist|n|izquierdista;colectivista
 leftover|adj|restante
 leftovers|n|sobras
@@ -16275,7 +15787,6 @@ level|n|nivel;grado
 level|v|dirigir
 level|adj|plano
 level best|n|límite
-level-headed|adj|inteligente;razonable;acertado
 leveling|n|demolición;derribo;derrumbamiento
 lever|n|palanca
 leverage|n|fuerza;peso;influencia
@@ -16350,10 +15861,6 @@ life history|n|biografía;carrera
 life scientist|n|biólogo
 life story|n|biografía
 life style|n|estilo de vida
-life-style|n|estilo de vida
-life-sustaining|adj|vital
-life-threatening|adj|serio;grave;terrible
-life-time|n|vida
 lifeboat|n|bote salvavidas
 lifeless|adj|muerto
 lifelike|adj|gráfico
@@ -16385,15 +15892,6 @@ light touch|n|tacto ligero;roce;pincelada
 light up|v|salir el sol;mejorar;iluminar
 light upon|v|dar con;lograr;descubrir
 light year|n|año luz
-light-colored|adj|claro;pálido
-light-duty|adj|suave
-light-green|adj|verde
-light-haired|adj|rubio
-light-headed|adj|débil
-light-hearted|adj|alegre
-light-minded|adj|ligero
-light-mindedness|n|alegría;frivolidad
-light-year|n|año luz
 lightbulb|n|bombilla
 lighten|v|flotar
 lighten up|v|flotar
@@ -16453,8 +15951,6 @@ line of latitude|n|paralelo;latitud
 line of reasoning|n|argumento;argumentación
 line of work|n|ocupación
 line up|v|encontrar;conseguir;arreglar
-line-shooter|n|fantasma;jactancioso
-line-shooting|n|fanfarronería;fanfarronada;bravuconería
 lineage|n|línea;sangre;origen
 linear|adj|lineal
 linear b|n|Lineal B
@@ -16489,14 +15985,12 @@ lino|n|linóleo
 linoleum|n|linóleo
 linux|n|linux
 lion|n|león
-lion-hunter|n|cazador de leones
 lionel barrymore|n|Barrymore;Lionel Barrymore
 lionel hampton|n|Lionel Hampton
 lioness|n|leona
 lip|n|labio
 lip balm|n|bálsamo labial
 lip rouge|n|lápiz labial
-lip-gloss|n|brillo labial
 lipid|n|lípido
 lipoprotein|n|lipoproteína
 liposuction|n|liposucción
@@ -16555,7 +16049,6 @@ litigation|n|litigación
 litre|n|l;litro
 litter|n|camada
 litter|v|ensuciar
-litter-bearer|n|camillero
 little|adj|pequeño
 little bear|n|Osa Menor
 little bighorn|n|Río Little Big Horn
@@ -16603,7 +16096,6 @@ living room|n|cuarto de estar;salón;locutorio
 living space|n|lebensraum
 living thing|n|ser vivo;organismo
 living will|n|testamento vital
-living-room|n|salón;cuarto de estar;locutorio
 livingstone|n|David Livingstone
 livy|n|Tito Livio
 lizard|n|lagarto;lagartija
@@ -16658,9 +16150,7 @@ lock out|v|cerrar la puerta
 lock ring|n|arandela de seguridad;roldana de presión
 lock up|v|cerrar
 lock washer|n|arandela de seguridad;roldana de presión
-lock-up option|n|opción de bloqueo
 locke|n|John Locke
-locker-room|adj|de vestuario
 locket|n|guardapelo
 locking|n|cierre;encierro
 locksmith|n|cerrajero
@@ -16688,7 +16178,6 @@ log off|v|salir
 log on|v|entrar
 log out|v|salir
 log z's|v|dormir
-log-in|v|entrar
 logan|n|Monte Logan
 logbook|n|cuaderno de bitácora
 logging|n|industria maderera
@@ -16729,10 +16218,6 @@ long run|n|a la larga;a largo plazo
 long suit|n|fuerte;punto fuerte;oficio
 long time|n|años;mucho tiempo;largo tiempo
 long ton|n|tonelada
-long-chain molecule|n|cadena larga
-long-distance call|n|conferencia
-long-distance runner|n|corredor de maratón
-long-suffering|n|paciencia;resignacion
 longevity|n|longevidad
 longfellow|n|Henry Wadsworth Longfellow
 longhorn|n|Longhorn;cuernos largos
@@ -16753,10 +16238,7 @@ look out|v|vigilar
 look up|v|consultar
 look up to|v|admirar
 look upon|v|considerar;estimar
-look-alike|n|imagen;doble
-look-over|n|mirada;vistazo
 looker|n|testigo;espectador
-looker-on|n|curioso;espectador;expectador
 looking|n|mirada;vistazo
 looking at|n|mirada;vistazo
 lookout|n|guardia;atalaya
@@ -16776,7 +16258,6 @@ loose|v|liberar;redimir;soltar
 loose|adv|libre;suelta
 loose off|v|disparar
 loose woman|n|adúltera
-loose-fitting|adj|ancho;suelto
 loosen|v|soltar;aflojar;relajar
 loosen up|v|soltar;aflojar
 loot|n|presa;botín
@@ -16793,7 +16274,6 @@ lord's day|n|domingo
 lord's prayer|n|padrenuestro
 lord's supper|n|eucaristía
 lord's table|n|altar
-lords-and-ladies|n|aro
 lordship|n|señoría
 lorelei|n|lorelei
 loren|n|Sophia Loren
@@ -16847,7 +16327,6 @@ love affair|n|aventura;romance
 love apple|n|solanum lycopersicum
 love lyric|n|letra romántica
 love story|n|romance
-love-token|n|recuerdo de amor;señal de amor;símbolo de amor
 loveable|adj|amable;simpático;adorable
 loved|adj|querido;amado;estimado
 lovelace|n|Richard Lovelace
@@ -16865,15 +16344,6 @@ low mass|n|misa rezada
 low quality|n|inferioridad
 low relief|n|bajorrelieve
 low temperature|n|frío
-low-carbon steel|n|acero suave
-low-cost|adj|económico;barato
-low-down|adj|bajo;miserable
-low-level formatting|n|inicialización
-low-lying|adj|bajo
-low-pitched|adj|bajo;grave
-low-priced|adj|económico;barato
-low-spirited|adj|bajo
-low-toned|adj|bajo
 lowell|n|Lowell
 lower|v|bajar
 lower california|n|Baja California
@@ -16885,9 +16355,6 @@ lower respiratory infection|n|infección respiratoria inferior
 lower respiratory tract|n|tracto respiratorio bajo
 lower saxony|n|Lower Saxony
 lower status|n|inferioridad
-lower-case letter|n|minúscula
-lower-normandy|n|Baja Normandía
-lower-ranking|adj|inferior
 lowercase|n|minúscula
 lowering|n|reducción;disminución
 lowest|adj|último;mínimo
@@ -16917,7 +16384,7 @@ lucky lindy|n|Charles Lindbergh
 lucrative|adj|productivo;rentable
 lucy|n|Lucy
 lucy in the sky with diamonds|n|ilusión;ácido;dosis
-lucy maud montgomery|n|Montgomery;Lucy Maud Montgomery;L.M. Montgomery
+lucy maud montgomery|n|Montgomery;Lucy Maud Montgomery
 lucy stone|n|Lucy Stone
 ludicrous|adj|ridículo;absurdo
 ludwig josef johan wittgenstein|n|Ludwig Wittgenstein
@@ -16971,7 +16438,6 @@ luxury|n|lujo
 lyceum|n|liceo
 lying|n|mentira
 lying under oath|n|perjurio
-lying-in|n|embarazo;gestación
 lynch|v|linchar
 lyndon baines johnson|n|Lyndon Johnson
 lyndon johnson|n|Lyndon Johnson
@@ -16984,7 +16450,6 @@ lyric|v|escribir poemas
 lyricism|n|lirismo
 m|n|metro
 ma|n|mamá;mama
-ma'am|n|dama
 mac|n|macintosh
 macabre|adj|horrible;espantoso
 macao monetary unit|n|unidad monetaria macaense
@@ -17005,14 +16470,9 @@ machine language|n|lenguaje de máquina
 machine readable dictionary|n|diccionario electrónico
 machine rifle|n|automático;fusil automático;fusil ametrallador
 machine wash|v|lavar a máquina
-machine-controlled|adj|automatizado
-machine-driven|adj|automatizado
-machine-made|adj|fabricado a máquina
-machine-wash|v|lavar a máquina
 machinery|n|maquinaria
 machinist|n|mecánico;maquinista;mecánico de taller
 macho|adj|macho
-macho-man|n|macho
 machu picchu|n|Machu Picchu
 macintosh|n|macintosh
 mack|n|macintosh
@@ -17124,7 +16584,6 @@ major|adj|principal;mayor
 major|n|comandante
 major fast day|n|d
 major planet|n|planeta
-major-domo|n|mayordomo
 majority|n|mayoría
 majority leader|n|líder mayoritario
 make|v|hacer
@@ -17146,8 +16605,6 @@ make relaxed|v|relajar
 make up|v|ser;representar;constituir
 make up one's mind|v|decidir;determinar
 make water|v|hacer un río;hacer aguas menores;evacuar
-make-believe|n|imaginación;fantasía
-make-up|n|constitución;composición
 makeover|n|restauración
 maker|n|casa
 makeup|n|constitución;composición
@@ -17196,10 +16653,6 @@ man|n|hombre
 man and wife|n|matrimonio
 man of affairs|n|empresario
 man of the cloth|n|pastor;clérigo
-man-eater|n|carcharodon carcharias
-man-eating shark|n|carcharodon carcharias
-man-made|adj|sintético
-man-to-man|adv|hombre a hombre
 manage|v|lograr;manejar
 management|n|dirección
 manager|n|director
@@ -17271,7 +16724,6 @@ manure|n|estiércol
 manure|v|abonar
 manus|n|mano;palma;zarpa
 manuscript|n|manuscrito
-many-sided|adj|interesante
 mao|n|Mao
 mao zedong|n|Mao;Mao Tse Tung;Mao Zedong
 maoist|n|maoísta
@@ -17280,7 +16732,6 @@ maori|n|maorí
 maori hen|n|gallirallus australis
 map|n|mapa;plano
 map|v|hacer un mapa;dibujar el mapa
-maple-leaf|n|hoja de arce
 mapping|n|función;correspondencia
 mar|v|arruinar;manchar;estropear
 mar|n|marzo
@@ -17292,8 +16743,8 @@ marble|n|mármol
 marbles|n|canica
 marcel duchamp|n|Marcel Duchamp
 marcel proust|n|Marcel Proust
-march|v|marchar
 march|n|marcha;marzo
+march|v|marchar
 march equinox|n|equinoccio de marzo;equinoccio de primavera
 march king|n|Rey de la marcha;John Philip Sousa;Sousa
 marchand de vin|n|marchand de vin
@@ -17405,7 +16856,7 @@ marsh hare|n|conejo de pantano;conejo de ciénaga
 marsh hen|n|focha americana;focha cenicienta;Fulica Americana
 marshal|n|marshal
 marshal|v|ordenar;convocar;dirigir
-marshall|n|Marshall;E. G. Marshall
+marshall|n|Marshall
 marshals|n|Cuerpo de Alguaciles de Estados Unidos
 marshmallow|n|nube;malvavisco
 mart|n|plaza de mercado
@@ -17605,11 +17056,10 @@ maze|n|laberinto
 mb|n|diplomado en medicina;diplomatura en medicina
 mccarthy|n|McCarthy;Mary McCarthy
 mccartney|n|Paul McCartney
-mcg|n|mcg.
 mcgraw|n|McGraw;John Joseph McGraw;John McGraw
 mckinley|n|William McKinley
 mcpherson|n|Aimee Semple McPherson
-md|n|doctor;médico;Dr.
+md|n|doctor;médico
 mea culpa|n|mea culpa
 mead|n|Margaret Mead;Mead
 meade|n|George Gordon Meade
@@ -17733,7 +17183,7 @@ melatonin|n|melatonina
 meld|n|canasta
 meld|v|cantar;mezclar
 melee|n|escaramuza;refriega;batalla campal
-mellon|n|Mellon;Andrew Mellon;Andrew W. Mellon
+mellon|n|Mellon;Andrew Mellon;Andrew William Mellon
 mellow|v|envejecer;suavizar;sazonar
 mellow|adj|tranquilo;sereno;maduro
 melodic|adj|melódico
@@ -17750,7 +17200,7 @@ melted|adj|líquido;licuado;derretido
 melting|n|fusión
 melville|n|Melville;Herman Melville
 melville bell|n|Bell;Alexander Melville Bell;Melville Bell
-melville weston fuller|n|Melville W. Fuller;Melville Weston Fuller
+melville weston fuller|n|Melville Weston Fuller;Melville W. Fuller
 melvin calvin|n|Melvin Calvin
 mem|n|mem
 member|n|miembro
@@ -17858,7 +17308,6 @@ mesquite|n|mezquita
 mess|n|desorden
 mess|v|comer el rancho
 mess up|v|arruinar
-mess-up|n|lío
 message|n|mensaje
 message|v|enviar un mensaje
 messianic|adj|mesiánico
@@ -17935,21 +17384,7 @@ microbiology|n|microbiología
 microcosm|n|microcosmos
 micron|n|micrómetro
 microphone|n|micrófono
-microsoft disk operating system|n|MS-DOS
 microwave radar|n|radar
-mid-april|n|mediados de abril
-mid-august|n|mediados de agosto
-mid-calf|n|media pantorrilla
-mid-december|n|mediados de diciembre
-mid-february|n|mediados de febrero
-mid-january|n|mediados de enero
-mid-july|n|mediados de julio
-mid-june|n|mediados de junio
-mid-march|n|mediados de marzo
-mid-may|n|mediados de mayo
-mid-november|n|mediados de noviembre
-mid-october|n|mediados de octubre
-mid-september|n|mediados de septiembre
 midair|n|en el aire
 midday|n|mediodía
 middle|n|medio;centro
@@ -17963,7 +17398,6 @@ middle high german|n|alemán alto medio
 middle irish|n|irlandés medio
 middle low german|n|alemán bajo medio
 middle school|n|instituto;liceo
-middle-of-the-road|adj|moderado
 middleman|n|contacto
 middleton|n|Thomas Middleton
 middleweight|n|peso mediano;peso medio
@@ -18053,8 +17487,6 @@ milky way galaxy|n|Vía Láctea
 milky way system|n|Vía Láctea
 mill|n|planta;fábrica;fabrica
 mill|v|moler
-mill-girl|n|molinera
-mill-hand|n|operario
 millard fillmore|n|Millard Fillmore
 millennial|adj|milenario
 millennium|n|milenio
@@ -18066,6 +17498,7 @@ milling|n|aserrado
 million|n|millón
 millisecond|n|milisegundo
 millstone|n|escollo;rémora
+milne|n|A. A. Milne
 milton|n|John Milton
 milton friedman|n|Milton Friedman
 mime|n|mimo
@@ -18187,7 +17620,7 @@ misunderstood|adj|malentendido
 misuse|v|abusar
 misuse|n|abuso
 mit|n|MIT;Instituto de Tecnología de Massachusetts
-mitchell|n|R. J. Mitchell;Reginald Joseph Mitchell
+mitchell|n|Reginald Joseph Mitchell;R. J. Mitchell
 mite|n|pizca
 mitigate|v|atenuar
 mitre|n|mitra
@@ -18198,7 +17631,6 @@ mix|v|mezclar
 mix|n|preparado
 mix in|v|añadir;incorporar
 mix up|v|confundir;mezclar;desconcertar
-mix-up|n|confusión
 mixed|adj|mixto;diverso
 mixed bag|n|variedad;surtido
 mixer|n|tertulia
@@ -18225,7 +17657,6 @@ mobilize|v|convocar
 mobster|n|gánster
 mocha|n|moca
 mock|v|burlarse;mofarse
-mock-up|n|boceto
 mockery|n|burla;parodia;imitación
 mocking|adj|burlón
 mod|adj|moderno;progresista
@@ -18245,7 +17676,6 @@ modern dance|n|danza moderna
 modern english|n|Modern English
 modern era|n|era moderna
 modern greek|n|griego moderno
-modern-day|adj|contemporáneo
 modernisation|n|modernización
 modernise|v|revisar;repasar;modernizar
 modernism|n|modernismo
@@ -18354,19 +17784,16 @@ monthly|adv|mensualmente
 monument|n|monumento
 monumental|adj|monumental
 moo goo gai pan|n|chapsui de pollo
-moo-cow|n|vaca;vaquita
 mood|n|humor
 moody|n|Moody;Dwight Lyman Moody
 moody|adj|sombrío;agrio
 moon|n|luna
 moon ray|n|rayo de luna
 moon shot|n|lanzamiento lunar
-moon-ray|n|rayo de luna
 moonlight|n|claro de luna
 moonshine|n|claro de luna;chicha
 moor|n|moro
 moor|v|amarrar;atracar;fondear
-moor-bird|n|Lagopus Scoticus;lagópodo escocés
 moore|n|Moore;Dudley Moore;George Edward Moore
 mooring mast|n|torre de amarre
 mooring tower|n|torre de amarre
@@ -18392,7 +17819,7 @@ morbid|adj|enfermo;patológico
 moreover|adv|además;adicionalmente;más aún
 morgan|n|Lewis Henry Morgan
 morgan city|n|Morgan City
-morley|n|Morley;E. W. Morley;Edward Morley
+morley|n|Morley;Edward Morley;Edward Williams Morley
 mormon church|n|mormones;Iglesia Mormona
 mormon tabernacle|n|tabernáculo;tabernáculo mormón
 mormons|n|mormones;Iglesia Mormona
@@ -18416,7 +17843,6 @@ mortality rate|n|mortalidad
 mortar|n|mortero
 mortar fire|n|fuego de mortero
 mortgage application|n|solicitud de hipoteca
-mortgage-backed security|n|título hipotecario
 morton|n|Morton
 mortuary|adj|mortuorio
 mosaic|n|mosaico
@@ -18433,7 +17859,6 @@ mot|n|dicho;proverbio;agudeza
 mote|n|pizca;partícula;miaja
 motel|n|motel
 motel room|n|habitación de motel
-moth-eaten|adj|viejo
 mother|n|madre
 mother|v|mimar;mimar en exceso
 mother board|n|tarjeta CPU;tarjeta de CPU
@@ -18447,8 +17872,6 @@ mother jones|n|Mary Harris Jones;Mother Jones
 mother lode|n|veta madre
 mother tongue|n|lengua materna
 mother's day|n|Día de la Madre
-mother-in-law|n|suegra;madre politica
-mother-of-pearl|n|nácar
 motherfucker|n|cerdo
 motherland|n|patria;madre patria
 motherwell|n|Motherwell
@@ -18456,7 +17879,6 @@ motif|n|motivo
 motility|n|movimiento
 motion|n|movimiento;gesto
 motion picture|n|película;producción
-motion-picture show|n|película;producción
 motionless|adj|quieto;inmóvil
 motivate|v|motivar;incitar
 motivation|n|necesidad;motivo;motivación
@@ -18496,6 +17918,7 @@ mount logan|n|Monte Logan
 mount mckinley|n|Monte McKinley
 mount rushmore|n|Monte Rushmore
 mount rushmore state|n|Dakota del Sur
+mount saint helens|n|Monte St. Helens
 mount shasta|n|Monte Shasta
 mount up|v|montar
 mount vernon|n|Monte Vernon;Mount Vernon
@@ -18525,14 +17948,12 @@ mourning|n|luto
 mouse|n|mus
 mouse button|n|botón del ratón
 mouse click|n|clic
-mouse-eared bat|n|murciélago ratonero
 mousse|n|fijador
 moustache|n|bigote
 moustache cup|n|vaso para bigotes
 mouth|n|boca
 mouth|v|decir;hablar
 mouth off|v|charlar
-mouth-watering|adj|agradable
 mouthpiece|n|representante;portavoz
 move|v|ir;viajar;moverse
 move|n|paso
@@ -18554,7 +17975,6 @@ moving expense|n|gastos de mudanza
 moving in|n|ocupación
 moving picture|n|película;producción
 moving ridge|n|ola
-moving-picture show|n|película;producción
 mow|v|cortar;segar
 mower|n|cortadora;cortadora de césped
 moxie|n|valor;coraje;nervio
@@ -18564,7 +17984,6 @@ mozart|n|Wolfgang Amadeus Mozart
 mozzarella|n|mozzarella
 mr|n|señor
 ms|n|manuscrito
-ms-dos|n|MS-DOS
 mt|n|tonelada
 mt etna|n|Monte Etna
 mubarak|n|Hosni Mubarak
@@ -18584,7 +18003,6 @@ mud hen|n|focha americana;focha cenicienta;Fulica Americana
 mud puddle|n|charco de lodo
 mud puppy|n|cryptobranchus alleganiensis
 mud turtle|n|tortuga del fango
-mud-wrestle|v|luchar en lodo
 muddle|n|confusión;mezcolanza
 muddle|v|enredar
 muddy|adj|turbio
@@ -18734,7 +18152,6 @@ mythical creature|n|monstruo mítico;criatura mítica
 mythical monster|n|monstruo mítico;criatura mítica
 mythological|adj|mítico
 n|n|nitrógeno;norte
-n-th|adj|enésimo
 naan|n|naan
 nab|v|prender;pillar;detener
 nabokov|n|Vladimir Nabokov
@@ -18758,7 +18175,6 @@ nance|n|puto;pluma;mariposa
 nanda devi|n|Nanda Devi
 nanna|n|abuela;nana;abuelita
 nanny|n|cabra
-nanny-goat|n|cabra
 nanotechnology|n|nanotecnología
 nap|n|siesta;sueño;cabezada
 nap|v|sestear;dormir una siesta;echar una siesta
@@ -18795,7 +18211,7 @@ nast|n|Thomas Nast
 nastiness|n|resentimiento;rencor
 nasty|adj|horrible
 nat turner|n|Nat Turner
-natal|n|Natal;Kwazulu-Natal
+natal|n|Natal
 natal day|n|cumpleaños;aniversario
 natalie wood|n|Natalie Wood
 nathan hale|n|Nathan Hale
@@ -19005,8 +18421,6 @@ neutralize|v|neutralizar
 neutrino|n|neutrino
 neutron|n|neutrón
 never|adv|nunca
-never-ending|adj|constante;continuo;perpetuo
-never-never|n|compra a plazos
 neville chamberlain|n|Neville Chamberlain
 new|adj|nuevo
 new amsterdam|n|Nueva Ámsterdam
@@ -19052,7 +18466,6 @@ new zealand|n|Nueva Zealand
 new zealand islands|n|Nueva Zelanda;Nueva Zealand
 new zealand mountain pine|n|pino de plata
 new zealander|n|kiwi;neozelandés
-new-sprung|adj|reciente
 newborn|adj|reciente
 newborn|n|neonato;bebe recien nacido;recien nacido
 newborn baby|n|bebe recien nacido;recien nacido;neonato
@@ -19087,9 +18500,7 @@ newsstand operator|n|quiosquero
 newton|n|Isaac Newton
 newtonian|n|newtoniano
 next|adj|siguiente
-next-to-last|adj|penúltimo
 ney|n|Michel Ney
-ng|n|ng.
 nh|n|Nuevo Hampshire
 ni|n|níquel
 niagara|n|Cataratas del Niágara
@@ -19125,7 +18536,6 @@ night raven|n|martinete
 night shift|n|turno de noche
 night snake|n|culebra nocturna
 night watchman|n|vigilante nocturno;sereno
-night-stop|n|parada nocturna
 nightcrawler|n|gusano;lombriz
 nightfall|n|crepúsculo
 nighthawk|n|chotacabras;chotacabras yanqui
@@ -19159,7 +18569,6 @@ nipping|adj|fresco
 nirvana|n|nirvana;cielo
 nitric bacteria|n|bacteria nitrificante
 nitrogen|n|nitrógeno
-nitty-gritty|n|centro;corazón;esencia
 nix|n|nada;cero
 nix|v|negar;prohibir;rechazar
 nixon|n|Richard Nixon
@@ -19171,15 +18580,12 @@ no doubt|adv|desde luego;puedes estar seguro;sin duda
 no end|adv|sin fin;sin parar
 no man's land|n|tierra de nadie
 no matter|adv|no obstante;independientemente
-no-goal|n|ausencia de metas;objetivo inexistente
-no-show|n|ausente;campanero
 noah webster|n|Noah Webster
 noam chomsky|n|Noam Chomsky
 nobel|n|Alfred Nobel
 nobility|n|nobleza
 noble|adj|noble
 noble|n|señor
-noble-minded|adj|noble;elevado
 nobleman|n|señor;noble
 nocturnal|adj|nocturno
 nocturnal emission|n|emisión nocturna
@@ -19202,11 +18608,6 @@ nominating address|n|nominación
 nominating speech|n|nominación
 nomination|n|nominación
 nominee|n|candidato
-non-christian priest|n|sacerdote
-non-finite|adj|infinito
-non-jew|n|gentil;goy;no judío
-non-u|adj|coloquial
-non-volatile storage|n|memoria no volátil
 none|adv|en ningún modo
 nonsense|n|disparate;nonsense
 nonsense verse|n|verso ilógico;poema banal
@@ -19219,9 +18620,6 @@ nook|n|rincón
 noon|n|mediodía
 noose|n|lazo
 noose|v|lazar
-nor'-east|adv|nordeste
-nor'-west|n|noroeste
-nor'-west|adv|noroeste
 norbert wiener|n|Norbert Wiener
 nordic|adj|nórdico
 norepinephrine|n|noradrenalina
@@ -19258,9 +18656,6 @@ north sea|n|Mar del Norte
 north star|n|estrella polar
 north wind|n|tramontana
 north yorkshire|n|Yorkshire del Norte
-north-east|adv|nordeste
-north-polar|adj|ártico
-north-west|adv|noroeste
 northeast|adv|nordeste
 northerly|adj|septentrional
 northerly|n|tramontana
@@ -19516,7 +18911,6 @@ odd|adj|raro
 odd fellow|n|tipo raro;pájaro raro;bicho raro
 odd fish|n|tipo raro;pájaro raro;bicho raro
 odd man out|n|tipo raro;pájaro raro;bicho raro
-odd-job|adj|temporal
 oddball|n|geek
 oddity|n|peculiaridad;singularidad;rareza
 odds|n|cuota
@@ -19533,11 +18927,6 @@ off|v|eliminar;borrar;asesinar
 off and on|adv|alguna vez
 off the cuff|adv|de improviso
 off the record|adv|confidencialmente
-off-color|adj|verde
-off-hand|adv|así de pronto;así de improviso
-off-putting|adj|desagradable
-off-the-wall|adj|extraño;raro
-off-white|n|hueso;perla;marfil
 offbeat|adj|original
 offence|n|ataque
 offend|v|ofender;herir
@@ -19551,7 +18940,6 @@ offer|n|oferta;vuelta;prueba
 offering|n|oferta
 office|n|oficina
 office of naval intelligence|n|Oficina de Inteligencia Naval;ONI
-office-bearer|n|titular encargado
 officer|n|oficial
 officer|v|capitanear
 official|n|funcionario
@@ -19579,7 +18967,6 @@ oil geologist|n|geólogo petrolero
 oil industry|n|industria petrolera
 oil meal|n|harina
 oil refinery|n|refinería de petróleo;refineria petrolifera
-oil-industry analyst|n|analista petrolero
 ointment|n|ungüento;emoliente
 ok|n|vale;ok;okey
 ok|adj|bien;correcto
@@ -19609,10 +18996,7 @@ old nick|n|diablo;demonio
 old north state|n|Carolina del Norte
 old saxon|n|sajón antiguo
 old style calendar|n|calendario juliano
-old wives' tale|n|cuento de viejas
 old world porcupine|n|puerco espín europeo
-old-time|adj|curioso
-old-timer|n|viejo;anciano;veterano
 olden|adj|antiguo
 older|adj|mayor
 olfactory|adj|olfativo;olfatorio
@@ -19681,12 +19065,10 @@ on the qui vive|n|diligencia;viveza
 on the spot|adv|en el acto
 on the spur of the moment|adv|repentinamente
 on your guard|adj|atento
-on-key|adj|buen
 once|adv|una vez
 once again|adv|una vez más;otra vez;de nuevo
 once and for all|adv|concluyentemente
 once more|adv|una vez más;otra vez;de nuevo
-once-over|n|mirada;vistazo
 oncologist|n|oncólogo
 oncoming|adj|inmediato
 one|adj|entero;unitario
@@ -19699,18 +19081,6 @@ one million million|n|billón
 one thousand|n|mil
 one thousand million|n|billón
 one thousand thousand|n|millón
-one-dimensional|adj|lineal;unidimensional
-one-fourth|n|cuarto
-one-half|n|mitad
-one-horse|adj|diminuto;minúsculo
-one-man rule|n|dictadura;tiranía;autoritarismo
-one-quarter|n|cuarto
-one-step|v|bailar un paso
-one-third|n|tercio
-one-time|adj|antiguo
-one-twelfth|n|sistema duodecimal
-one-way street|n|unilateral
-one-year|adj|anual
 oneness|n|unidad
 onetime|adj|antiguo
 oni|n|ONI;Oficina de Inteligencia Naval
@@ -19746,11 +19116,6 @@ open frame|n|cuadro abierto;fallo
 open letter|n|carta abierta
 open university|n|Open University
 open up|v|abrir
-open-air market|n|mercado
-open-air marketplace|n|mercado
-open-ended|adj|abierto
-open-eyed|adj|atento
-open-minded|adj|abierto
 opened|adj|abierto
 opening|n|apertura
 opening move|n|iniciativa
@@ -19833,8 +19198,6 @@ oratory|n|oración
 orb|n|bola
 orb|v|girar;orbitar;dar vueltas
 orb web|n|telaraña orbital
-orb-weaver|n|familia Argiopidae
-orb-weaving spider|n|araña argiope;araña tejedora argiope
 orbit|n|órbita
 orbit|v|girar;orbitar;dar vueltas
 orbital|adj|orbital
@@ -19847,8 +19210,8 @@ orchestrate|v|orquestar;organizar;dirigir
 orchestration|n|orquestación
 ordain|v|ordenar
 ordeal|n|sufrimiento
-order|n|orden
 order|v|ordenar;encargar;mandar
+order|n|orden
 order code|n|código de operación
 order lepidoptera|n|Lepidoptera
 order of magnitude|n|magnitud
@@ -19881,7 +19244,6 @@ organise|v|organizar
 organism|n|organismo
 organization|n|organización
 organization of american states|n|Organización de Estados Americanos;OEA
-organization of petroleum-exporting countries|n|OPEP
 organizational|adj|organizativo
 organize|v|organizar
 organized|adj|organizado
@@ -19966,10 +19328,6 @@ out of thin air|adv|de la nada
 out of use|adj|cerrado
 out or keeping|adj|incompatible
 out to|adj|decidido
-out-and-out|adj|evidente
-out-migration|n|emigración
-out-of-date|adj|viejo;antiguo
-out-of-door|adj|exterior
 outback|n|outback
 outback|adj|alejado;remoto;distante
 outboard|n|barco fuera borda;barco fueraborda
@@ -20015,7 +19373,6 @@ output device|n|dispositivo de salida
 output file|n|archivo de salida;fichero de salida
 output program|n|programa de salida;programa salida
 output routine|n|rutina de salida
-output-to-input ratio|n|razón salida/entrada
 outrage|n|indignación
 outrage|v|ofender;chocar;impactar
 outrageous|adj|terrible;atroz
@@ -20032,7 +19389,6 @@ outward|adj|exterior
 outwardly|adv|exteriormente
 oval|adj|oval;oblongo
 oval|n|óvalo
-oval-shaped|adj|oblongo
 ovarian cyst|n|quiste ovárico
 ovarian pregnancy|n|embarazo ovárico
 ovate|adj|oblongo
@@ -20042,8 +19398,6 @@ over and over|adv|repetidamente;incansablemente
 over and over again|adv|repetidamente;incansablemente
 over the counter security|n|valor no cotizado
 over the counter stock|n|acción no cotizada
-over-crowding|n|congestión;apiñamiento
-over-the-counter|adj|de venta libre;sin receta médica;sin prescripción
 overall|adj|total;global
 overall|n|mono;overol
 overcast|adj|cubierto
@@ -20112,7 +19466,6 @@ oxford|n|oxford;Universidad de Oxford;universidad de oxford
 oxford english dictionary|n|Oxford English Dictionary
 oxford university|n|Universidad de Oxford;oxford;universidad de oxford
 oxidase|n|oxidasa
-oxidation-reduction|n|reducción-oxidación
 oxygen|n|oxígeno
 oxymoron|n|oxímoron
 oxytocin|n|oxitocina
@@ -20158,7 +19511,6 @@ paganism|n|paganismo
 page|n|página
 page|v|ser mensajero
 page printer|n|impresora de páginas
-page-at-a-time printer|n|impresora de páginas
 pager|n|buscapersonas
 paid|adj|pagado
 pail|n|cubo
@@ -20216,7 +19568,6 @@ pampering|n|mimo
 pan|n|pan
 pan gravy|n|salsa
 pan roast|v|asar en sartén
-pan-fry|v|freír en sartén
 panacea|n|Panacea
 panache|n|estilo;encanto;elegancia
 panama|n|Panamá;República de Panamá
@@ -20264,7 +19615,6 @@ paper money|n|papel moneda
 paper plate|n|plato de papel
 paper profit|n|beneficio no real
 paper route|n|reparto de periódicos
-paper-back book|n|encuadernación en rústica
 paperback|n|encuadernación en rústica
 paperback book|n|encuadernación en rústica
 papers|n|documento;documentación
@@ -20327,7 +19677,7 @@ paris green|n|verde loro;verde amarillento;chartreuse
 parish|n|parroquia
 park|n|reserva;parque natural
 park|v|aparcar
-park avenue|n|Park Ave.;Park Avenue
+park avenue|n|Park Avenue
 parka|n|anorak
 parker|n|Charlie Parker
 parking|n|aparcamiento
@@ -20546,8 +19896,6 @@ pay for|v|invitar
 pay heed|v|atender;prestar atención;prestar oído
 pay off|v|compensar
 pay up|v|pagar
-pay-phone|n|teléfono público;centralita pública
-pay-station|n|teléfono público;centralita pública
 payback|n|venganza
 paycheck|n|cheque de pago
 paying attention|n|atención
@@ -20583,7 +19931,6 @@ peanut bar|n|barra de cacahuetes
 peanut vine|n|cacahuete
 pear|n|pera
 pear tree|n|pera
-pear-shaped|adj|rotundo;sonoro
 pearl|n|perla
 pearl bailey|n|Bailey;Pearl Bailey;Pearl Mae Bailey
 pearl buck|n|Pearl Buck
@@ -20625,7 +19972,6 @@ pedigree|n|línea;sangre;origen
 pedophilia|n|pedofilia
 pee|n|orina;pis;pipí
 pee|v|evacuar;mear;orinar
-pee-pee|v|evacuar;mear;orinar
 peek|v|divisar
 peel|v|pelar
 peel|n|piel;corteza
@@ -20649,7 +19995,6 @@ pen|n|corral;parque;cárcel
 pen|v|escribir;componer
 pen name|n|nombre de pluma
 pen nib|n|punta;punta de lápiz
-pen-and-ink|n|dibujo a pluma
 penal|adj|penal
 penal code|n|código penal
 penal facility|n|prisión
@@ -20895,7 +20240,7 @@ philosophical theory|n|doctrina filosófica;teoría filosófica
 philosophically|adv|filosóficamente
 philosophy|n|filosofía
 philosophy department|n|Facultad de Filosofía
-phineas taylor barnum|n|Barnum;P. T. Barnum;Phineas Taylor Barnum
+phineas taylor barnum|n|Barnum;Phineas Taylor Barnum;P. T. Barnum
 phlegm|n|indiferencia;flema;impasibilidad
 phnom penh|n|Phnom Penh
 phoenix|n|Phoenix
@@ -20908,7 +20253,6 @@ phone line|n|línea;línea de teléfono;línea telefónica
 phone message|n|mensaje telefónico
 phone number|n|número;teléfono
 phone service|n|compañía de teléfono;compañia telefónica;servicio telefónico
-phone-in|n|programa con llamadas
 phonetic|adj|fonético
 phonetically|adv|fonéticamente;en términos fonéticos
 phonetics|n|fonética
@@ -20956,7 +20300,7 @@ physical object|n|cosa;objeto;objeto físico
 physical process|n|proceso
 physical structure|n|cuerpo;estructura física;estructura orgánica
 physical topology|n|topología física
-physician|n|Dr.;doctor;médico
+physician|n|doctor;médico;doc
 physicist|n|físico
 physics|n|física
 physics department|n|Facultad de Física
@@ -21008,7 +20352,6 @@ picturesque|adj|pintoresco
 picturing|n|representación mental;visión mental
 pie crust|n|pasta
 pie shell|n|pasta
-pie-eyed|adj|ciego;borracho
 piece|n|pedazo;trozo
 piece|v|montar;armar;juntar
 piece of ass|n|culo;echar un polvo;polvo
@@ -21028,17 +20371,15 @@ pier|n|muelle
 pierce|v|clavar;hincar
 pierce|n|Pierce;Franklin Pierce;Presidente Pierce
 piercing|adj|penetrante
-pierre charles l'enfant|n|Pierre Charles L'Enfant
 pierre curie|n|Pierre Curie
 piety|n|piedad
 pig|n|cerdo;sus
 pig|v|tragar;engullir;parir
 pig iron|n|mineral de hierro
-pig-a-back|adv|en vagones-plataforma;en un vagón-plataforma
 pigeon|n|paloma
 pigeon droppings|n|caca de palomas
 piggyback|v|transportar en vagones
-piggyback|adv|en vagones-plataforma;en un vagón-plataforma
+piggyback|adv|en un vagón-plataforma;en vagones-plataforma
 pigment|n|pigmento
 pike|n|autovía;vía expresa
 pilate|n|Poncio Pilato
@@ -21075,15 +20416,14 @@ pincus|n|Gregory Goodwin Pincus;Gregory Pincus
 pine|n|pino
 pine|v|doler
 pine bluff|n|Pine Bluff
-pine mouse|n|ratón-topo;topillo
+pine mouse|n|topillo;Pitymys pinetorum
 pine tree|n|pino;pino real;pinus
-pine vole|n|ratón-topo;topillo
+pine vole|n|topillo;Pitymys pinetorum
 pineal|adj|pineal
 pineapple|n|ananas comosus
 pineapple plant|n|ananas comosus
 ping|v|recordar;hacer presente
 ping|n|ping
-ping-pong|n|tenis de mesa
 pinion and crown wheel|n|engranaje paralelo;engranaje cónico
 pinion and ring gear|n|engranaje paralelo;engranaje cónico
 pink|adj|rosa;rosado
@@ -21125,7 +20465,6 @@ piston|n|Piston
 pit|n|pozo;brecha;hoyo
 pit|v|señalar;marcar
 pit stop|n|parada en ruta
-pit-a-pat|adv|golpeteo;pisadas ligeras;trote ligero
 pita|n|pita
 pitch|v|echar
 pitch|n|tono
@@ -21161,15 +20500,14 @@ pizarro|n|Francisco Pizarro
 placard|n|anuncio;cartel
 placard|v|anunciar con carteles;anunciar en carteles;publicitar con carteles
 placate|v|aliviar
-place|n|sitio
 place|v|poner
+place|n|sitio
 place down|v|colocar
 place kick|n|saque
 place name|n|topónimo
 place of origin|n|cuna
 place of worship|n|templo
 place setting|n|cubierto;cubierto completo
-place-kicking|n|saque
 placebo|n|sustancia placebo
 placement|n|situación;posición
 placement center|n|oficina de empleo
@@ -21197,11 +20535,9 @@ plane|n|avión;aeroplano
 plane|adj|plano;llano;liso
 plane geometry|n|geometría plana
 plane section|n|sección
-plane-tree family|n|familia platanáceas
 planet|n|planeta
 planetary|adj|terrestre;mundial;global
 plank|n|tabla;tablero
-plank-bed|n|cama de madera
 planning|n|planificación
 plant|n|planta
 plant|v|plantar
@@ -21265,7 +20601,6 @@ plea|n|petición;súplica
 plead|v|rogar;suplicar;implorar
 pleading|adj|orante;suplicante
 pleasant|adj|agradable
-pleasant-tasting|adj|delicioso;exquisito;suculento
 please|v|complacer;encantar;agradar
 pleased|adj|contento;satisfecho;a gusto
 pleaser|n|ídolo
@@ -21276,7 +20611,6 @@ pleasure ground|n|parque de atracciones
 pleasure principle|n|principio del placer
 pleasure seeker|n|pagano;hedonista;sibarita
 pleasure trip|n|salida;viaje de placer;expedición
-pleasure-pain principle|n|principio del placer
 pledge|v|prometer;jurar
 pledge|n|garantía;fianza;prenda
 plenipotentiary|n|plenipotenciario;ministro plenipotenciario
@@ -21308,7 +20642,6 @@ plug away|v|trabajar duramente
 plug fuse|n|fusible
 plug in|v|conectar;enchufar
 plug into|v|conectar;enchufar
-plug-in|n|tarjeta;tarjeta de expansión
 plum|adv|completamente
 plum sauce|n|salsa de ciruela
 plum tomato|n|tomate pera
@@ -21352,8 +20685,6 @@ pocket flap|n|solapa
 pocket flask|n|petaca;petaca de bolsillo
 pocket money|n|dinero de bolsillo;dinero para gastar
 pocket veto|n|veto de bolsillo
-pocket-size|adj|pequeño
-pocket-sized|adj|pequeño
 pocketbook|n|cartera;bolso
 pod|n|depósito separable
 podium|n|podio;púlpito
@@ -21361,7 +20692,6 @@ poe|n|Poe;Edgar Allan Poe
 poem|n|poesía;poema;verso
 poet|n|poeta
 poet laureate|n|poeta laureado
-poet-singer|n|trovador;cantante poeta;cantante folclórico
 poetic|adj|poético
 poetical|adj|poético
 poetry|n|poesía
@@ -21373,8 +20703,6 @@ point of reference|n|referencia
 point of view|n|visión;perspectiva
 point out|v|señalar
 point up|v|apuntar;enfatizar;incidir
-point-and-shoot camera|n|cámara compacta
-point-blank|adj|directo;firme;franco
 pointed arch|n|arco apuntado
 pointer|n|indicador
 pointing out|n|indicación
@@ -21452,7 +20780,7 @@ politician|n|político
 politico|n|político
 politics|n|política
 polity|n|forma de gobierno;organización política;orden civil
-polk|n|James K. Polk;James Knox Polk
+polk|n|James Knox Polk;James K. Polk
 polka|n|polca
 polka|v|bailar polca
 poll|n|loro doméstico
@@ -21498,7 +20826,6 @@ pony cart|n|calesa;cabriolé
 pony up|v|soltar;soltar pasta;escupir
 ponytail|n|coleta
 poof|n|puto;pluma;mariposa
-pooh-pooh|v|rechazar
 pool|n|estanque
 pool|v|juntar
 poop|n|mierda
@@ -21586,8 +20913,6 @@ post|n|puesto
 post|v|poner;fijar
 post hole|n|agujero para poste
 post office|n|correo
-post-impressionist|n|postimpresionista
-post-office box|n|apartado
 postage|n|porte
 postage stamp|n|porte
 postal clerk|n|empleado de correos;empleado postal
@@ -21612,7 +20937,6 @@ postulate|n|postulado
 posture|n|posición;actitud;postura
 posture|v|figurar
 pot|n|servicio;taza;inodoro
-pot-au-feu|n|pot au feu
 potable|n|bebida
 potato|n|patata
 potato peel|n|cáscara de patatas
@@ -21646,7 +20970,6 @@ pout|n|puchero;mohín;gesto irónico
 poverty|n|pobreza
 poverty level|n|línea de pobreza;nivel de pobreza
 poverty line|n|línea de pobreza;nivel de pobreza
-poverty-stricken|adj|miserable
 pow|n|prisionero de guerra
 pow camp|n|campo de prisioneros;campo de internamiento
 powder|n|polvo
@@ -21670,7 +20993,6 @@ power service|n|compañía eléctrica;servicio de electricidad;compañia de elec
 power shovel|n|pala excavadora
 power station|n|estación eléctrica;planta eléctrica;estación generadora
 power structure|n|jerarquía
-power-dive|v|realizar un picado
 powerful|adj|poderoso
 powerhouse|n|estación eléctrica;planta eléctrica;estación generadora
 powerless|adj|débil;flojo
@@ -21703,8 +21025,6 @@ prayer|n|oración;petición;comunión
 prayer beads|n|rosario
 praying mantis|n|mantis religiosa
 prc|n|China;RPC;República Popular China
-pre-existent|adj|preexistente
-pre-existing|adj|preexistente
 preach|v|predicar
 preaching|n|sermón
 preamble|n|preámbulo
@@ -21791,11 +21111,10 @@ prescribed|adj|oficial;definitivo;prescrito
 prescriptive|adj|normativo
 presence|n|presencia
 presence of mind|n|serenidad
-present|v|exhibir;presentar
 present|adj|presente
+present|v|exhibir;presentar
 present|n|presente;actualidad
 present tense|n|presente
-present-day|adj|contemporáneo
 presentation|n|presentación
 presenter|n|presentador
 presently|adv|pronto
@@ -21807,7 +21126,7 @@ president|n|presidente
 president abraham lincoln|n|Abraham Lincoln
 president adams|n|Adams;Presidente Adams
 president andrew johnson|n|Andrew Johnson
-president arthur|n|Chester A. Arthur;Chester Alan Arthur
+president arthur|n|Chester Alan Arthur
 president benjamin harrison|n|Benjamin Harrison;Harrison;President Benjamin Harrison
 president buchanan|n|Buchanan;James Buchanan;Presidente Buchanan
 president bush|n|George Bush
@@ -21815,10 +21134,11 @@ president carter|n|Jimmy Carter;Presidente Carter;James Earl Carter
 president cleveland|n|Cleveland;Presidente Cleveland;Grover Cleveland
 president clinton|n|Bill Clinton;Clinton;Presidente Clinton
 president coolidge|n|Calvin Coolidge;Coolidge;Presidente Coolidge
-president eisenhower|n|Dwight D. Eisenhower;Dwight David Eisenhower;Dwight Eisenhower
-president ford|n|Ford;Gerald Ford;Gerald R. Ford
+president eisenhower|n|Dwight David Eisenhower;Dwight Eisenhower;Dwight D. Eisenhower
+president ford|n|Ford;Gerald Ford;President Ford
 president franklin roosevelt|n|Franklin Delano Roosevelt
-president garfield|n|James A. Garfield;James Garfield
+president garfield|n|James Garfield
+president grant|n|Ulysses S. Grant
 president harding|n|Warren Gamaliel Harding
 president harrison|n|Benjamin Harrison;Harrison;President Benjamin Harrison
 president hayes|n|Rutherford B. Hayes
@@ -21836,7 +21156,7 @@ president monroe|n|James Monroe;Monroe;Presidente Monroe
 president nixon|n|Richard Nixon
 president of the united states|n|presidente
 president pierce|n|Franklin Pierce;Pierce;Presidente Pierce
-president polk|n|James K. Polk;James Knox Polk
+president polk|n|James Knox Polk;James K. Polk
 president reagan|n|Presidente Reagan;Reagan;Ronald Reagan
 president roosevelt|n|Franklin Delano Roosevelt
 president taft|n|William Howard Taft
@@ -21861,7 +21181,6 @@ press down|v|presionar;digitar
 press down on|v|versar
 press out|v|apagar;aplastar;extinguir
 press photographer|n|fotógrafo de prensa
-press-up|n|plancha
 pressing|n|prensa;presión
 pressure|n|presión
 pressure|v|forzar
@@ -21905,7 +21224,6 @@ pricey|adj|caro;costoso
 prick|v|picar
 prick|n|cerdo
 prickly|adj|espinoso
-prickly-seeded spinach|n|spinacia oleracea
 pride|n|orgullo
 priest|n|sacerdote
 priesthood|n|iglesia
@@ -21972,7 +21290,6 @@ prison chaplain|n|capellán de cárcel
 prison guard|n|guardia de prisión;funcionario de prisiones;tornillo
 prison house|n|prisión
 prison term|n|condena
-prison-breaking|n|fuga;huida
 prisoner|n|preso;prisionero
 prisoner of war|n|prisionero de guerra
 prisoner of war camp|n|campo de prisioneros;campo de internamiento
@@ -22293,7 +21610,6 @@ pucker|n|arruga
 pudding|n|budín
 pudding head|n|tonto;mastuerzo
 pudding stone|n|conglomerado
-pudding-wife|n|doncella arcoiris
 puddle|n|charco
 puddle|v|chapotear
 pueblo|n|pueblo
@@ -22304,7 +21620,6 @@ puff up|v|hinchar
 puffed rice|n|arroz inflado
 puffed wheat|n|trigo inflado
 pug|n|pug
-pug-dog|n|pug
 puget sound|n|Estrecho de Puget;Puget Sound
 puke|n|perro
 puke|v|devolver
@@ -22330,8 +21645,6 @@ pull up|v|pararse;erguirse;enderezarse
 pull up short|v|frenar en seco
 pull up stakes|v|dejar;abandonar
 pull wires|v|manipular
-pull-in|n|café de carretera
-pull-up|n|café de carretera;dominada
 pullman porter|n|mozo;mozo de ferrocarril
 pullout|n|retirada;retroceso;retiro de tropas
 pulmonary congestion|n|congestión pulmonar
@@ -22351,8 +21664,6 @@ pumpkin seed|n|semilla de calabaza
 punch|n|paliza;bofetada;puñetazo
 punch in|v|marcar;picar
 punch line|n|coronación;punto cúlmine
-punch-drunk|adj|atontado
-punch-up|n|pendencia
 punctuality|n|exactitud;puntualidad
 punctuation|n|signo de puntuación
 punctuation mark|n|signo de puntuación
@@ -22420,8 +21731,6 @@ push forward|v|irrumpir
 push out|v|sacar;echar fuera;lanzar fuera
 push through|v|salir;entrar en erupción;hacer erupción
 push up|v|empujar
-push-down list|n|LIFO
-push-down stack|n|LIFO
 pusher|n|impulsor;propulsor
 pushkin|n|Pushkin;Alexander Pushkin
 pushy|adj|agresivo
@@ -22448,8 +21757,6 @@ put to death|v|ejecutar
 put to sleep|v|hacer dormir;acostar
 put together|v|montar;armar;juntar
 put up|v|colocar;fijar;apostar
-put-down|n|derrota;golpe bajo;golpe decisivo
-put-on|n|fraude;broma;burla
 putative|adj|supuesto
 putin|n|Vladimir Putin
 putrid|adj|pútrido
@@ -22502,8 +21809,6 @@ quarter|n|cuarto
 quarter|v|dividir en cuartos
 quarter pound|n|cuarto de libra
 quarter tone|n|cuarto de tono
-quarter-circle|n|cuadrante
-quarter-tone|n|cuarto de tono
 quarterback|n|quarterback
 quarterly|adv|trimestral;trimestralmente;cada trimestre
 quarters|n|vivienda
@@ -22552,7 +21857,6 @@ quick|n|carne viva
 quick assets|n|líquido
 quick fix|n|solución temporal;remedio rápido;solución parche
 quick march|n|paso rápido
-quick-tempered|adj|iracundo
 quicken|v|acelerar
 quickie|n|solución temporal;remedio rápido;solución parche
 quickly|adv|apresuradamente;muy por encima;por encima
@@ -22594,7 +21898,6 @@ rabbit food|n|alimento para conejos;verduras crudas
 rabbit hutch|n|conejera
 rabbit on|v|charlar
 rabbit warren|n|conejera
-rabbit-eared bandicoot|n|Macrotis Lagotis;bandicut conejo
 rabble|n|turba
 rabid|adj|rabioso
 rabies|n|rabia;lisa
@@ -22682,7 +21985,6 @@ rain|v|llover;precipitar
 rain down|v|llover;precipitar
 rain forest|n|selva
 rain out|v|suspender por lluvia
-rain-giver|n|Jupiter Pluvius
 rainbow|n|arco iris;imposible;arcoiris
 rainbow perch|n|perca arcoiris;Hipsurus caryi
 rainbow trout|n|trucha arcoiris
@@ -22771,9 +22073,6 @@ raspy|adj|áspero
 rasta|n|rasta;rastafari
 rat|n|rata;rattus
 rat|v|contratar esquiroles
-rat-a-tat|n|toc toc
-rat-a-tat-tat|n|toc toc
-rat-tat|n|toc toc
 ratatouille|n|ratatouille
 rate|n|ritmo;velocidad;índice
 rate|v|clasificar
@@ -22802,7 +22101,6 @@ raunchy|adj|obsceno;sucio
 ravage|v|gastar;destrozar
 rave|n|rave
 rave|v|charlar;exaltar;enaltecer
-rave-up|n|rave
 ravel|n|carrera;Maurice Ravel;escalera
 ravel|v|develar;desenredar
 ravel out|v|develar;desenredar
@@ -22833,16 +22131,6 @@ raze|v|arrasar
 razor|n|afeitadora
 razor|v|afeitar a navaja
 rcmp|n|Policía Montada del Candá
-re-create|v|recrear
-re-echo|n|eco del eco
-re-emphasise|v|dar nuevo énfasis;hacer nuevo énfasis
-re-emphasize|v|dar nuevo énfasis;hacer nuevo énfasis
-re-entrant|adj|entrante
-re-experiencing|n|re-experimentación
-re-incorporate|v|reincorporar
-re-introduce|v|volver a presentar
-re-start|v|reiniciar
-re-uptake|n|reabsorción;recaptación
 rea silvia|n|Rea Silvia;Rhea Silvia
 reach|v|ganar;alcanzar
 reach|n|alcance
@@ -22861,7 +22149,6 @@ reading room|n|sala de lectura
 ready|adj|listo
 ready|v|preparar
 ready to hand|adj|útil;cómodo;práctico
-ready-to-wear|n|pret-a-porter
 reagan|n|Reagan;Presidente Reagan;Ronald Reagan
 real|adj|real
 real|n|número real
@@ -22892,7 +22179,6 @@ rear back|v|alzarse
 rear end|n|fin;tras;fondo
 rear of barrel|n|recámara
 rear of tube|n|recámara
-rear-end|v|dar por detrás
 rearing|n|educación
 rearrangement|n|reorganización
 reason|n|razón
@@ -22988,7 +22274,6 @@ record|v|registrar
 record album|n|álbum de discos;álbum fonográfico
 record book|n|relación;registro
 record player|n|tocadiscos
-record-keeper|n|registrador
 recorder|n|registrador
 recount|v|contar;explicar;narrar
 recounting|n|relación
@@ -23002,7 +22287,6 @@ recreation|n|entretenimiento;diversión;recreación
 recreational|adj|recreativo
 recruit|v|apuntar;inscribir
 recruiter|n|reclutador
-recruiting-sergeant|n|sargento reclutador
 rectal reflex|n|reflejo rectal;reflejo de defecación
 rectangle|n|rectángulo
 rectangular|adj|rectangular
@@ -23040,12 +22324,6 @@ red shift|n|corrimiento al rojo
 red tape|n|burocracia;procedimiento burocrático
 red wine|n|vino tinto
 red worm|n|gusano;lombriz
-red-bellied snake|n|Storeria occipitamaculata
-red-blooded|adj|fuerte
-red-faced|adj|rojo
-red-light district|n|barrio rojo;distrito rojo;barrio chino
-red-shouldered hawk|n|Buteo lineatus
-red-winged blackbird|n|Agelaius phoeniceus
 reddish|adj|rojo;rojizo
 reddish blue|n|violeta
 reddish brown|n|marrón rojizo;siena;caoba
@@ -23057,7 +22335,6 @@ redevelopment|n|renovación
 redford|n|Robert Redford
 redness|n|inflamación;rojo
 redo|v|rehacer
-redox|n|reducción-oxidación
 redress|n|daños;reparación;compensación
 redress|v|corregir;compensar;enmendar
 reduce|v|reducir;bajar;cortar
@@ -23105,7 +22382,6 @@ reflex response|n|acción refleja;respuesta refleja;acto reflejo
 reflexive|adj|reflejo;automático
 reform|n|reforma
 reform|v|reformar;cambiar de forma
-reform-minded|adj|progresista
 reformation|n|reforma;recuperación;enmienda
 reformer|n|cruzado;reformista;reformador
 reformist|n|cruzado;reformista;reformador
@@ -23139,7 +22415,7 @@ regimen|n|régimen
 regiment|n|regimiento
 regina|n|Regina
 reginald carey harrison|n|Rex Harrison
-reginald joseph mitchell|n|R. J. Mitchell;Reginald Joseph Mitchell
+reginald joseph mitchell|n|Reginald Joseph Mitchell;R. J. Mitchell
 reginald marsh|n|Reginald Marsh
 region|n|región
 regional|adj|regional
@@ -23216,7 +22492,6 @@ relative incidence|n|incidencia;incidencia relativa
 relative majority|n|pluralidad
 relative molecular mass|n|masa molecular relativa;peso molecular
 relative pronoun|n|pronombre relativo
-relative-in-law|n|pariente político
 relativistic|adj|relativismo;relativista
 relax|v|relajar
 relaxed|adj|relajado
@@ -23256,7 +22531,6 @@ relinquish|v|renunciar
 relinquishing|n|renuncia
 relish|n|gusto;entusiasmo
 relish|v|disfrutar;gustar;saborear
-reliving|n|re-experimentación
 reload|v|recargar
 relocation|n|reasentamiento;traslado
 reluctance|n|reluctancia
@@ -23322,7 +22596,6 @@ renowned|adj|famoso;célebre
 rent|v|alquilar
 rent|n|abertura;alquiler
 rent out|v|alquilar
-rent-rebate|n|devolución del alquiler
 rental|n|alquiler
 rental|adj|del alquiler
 renting|n|alquiler
@@ -23526,7 +22799,6 @@ rest|v|respirar;apoyar;descansar
 rest home|n|clínica;sanatorio
 rest on|v|descansar
 rest period|n|descanso;período de descanso;pausa
-rest-cure|n|cura de reposo
 restart|v|reiniciar
 restaurant|n|restaurante
 restaurant attendant|n|encargado de restaurante;encargado de comedor
@@ -23690,7 +22962,7 @@ richard starkey|n|Ringo Starr
 richard strauss|n|Richard Strauss
 richard wagner|n|Richard Wagner
 richard wright|n|Richard Wright
-richards|n|I. A. Richards;Ivor Armstrong Richards
+richards|n|Ivor Armstrong Richards;I. A. Richards
 richardson|n|Richardson
 riches|n|riqueza;caudal;opulencia
 richness|n|riqueza
@@ -23729,7 +23001,6 @@ rig|v|manipular;equipar
 rig|n|aparejo
 rigged|adj|equipado;aparejado
 rigging|n|aparejo
-riggs' disease|n|piorrea;piorrea alveolar
 right|n|derecho
 right|adj|correcto
 right|adv|justo
@@ -23742,12 +23013,6 @@ right of action|n|derecho de acción
 right of first publication|n|derecho de autor
 right to vote|n|derecho al voto;voto;sufragio
 right triangle|n|triángulo rectángulo
-right-angled triangle|n|triángulo rectángulo
-right-down|adj|evidente
-right-down|adv|completamente;indudablemente
-right-hand|adj|derecho
-right-handedness|n|diestro
-right-minded|adj|recto
 righteous|adj|justo;recto
 righteousness|n|rectitud
 rightful|adj|verdadero;legítimo
@@ -23760,6 +23025,7 @@ rigorous|adj|estricto;riguroso
 rigour|n|rigor
 riled|adj|molesto
 riley|n|Riley
+riley b king|n|B. B. King
 rim|n|oreja;pestaña;brida
 rim|v|bordear
 rind|n|piel
@@ -23769,8 +23035,6 @@ ring armor|n|cota de malla
 ring armour|n|cota de malla
 ring mail|n|cota de malla
 ring of color|n|areola
-ring-shaped|adj|circular
-ring-tailed cat|n|bassariscus sumichrasti
 ringed|adj|circular
 ringer|n|encaje
 ringing|n|puesta de anillos
@@ -23786,7 +23050,6 @@ riotous|adj|abundante
 rip|v|arrasar;destrozar
 rip|n|corriente;abertura
 rip off|v|estafar
-rip-off|n|robo
 ripe|adj|maduro
 ripen|v|madurar
 ripening|n|maduración
@@ -23803,7 +23066,6 @@ rising prices|n|inflación
 risk|v|arriesgar
 risk|n|riesgo;peligro
 risk taker|n|apostador
-risk-free|adj|sensato
 risky|adj|malo;inseguro
 risky venture|n|aventura;empresa peligrosa;escapada
 rite|n|rito
@@ -23851,8 +23113,7 @@ robbery conviction|n|condena por robo
 robbery suspect|n|sospechoso de robo
 robbins|n|Jerome Robbins
 robe|v|vestir
-robe-de-chambre|n|bata
-robert|n|Robert;Henry M. Robert
+robert|n|Robert
 robert abram bartlett|n|Robert Bartlett
 robert adam|n|Robert Adam
 robert alexander schumann|n|Robert Schumann
@@ -23866,9 +23127,9 @@ robert burns|n|Robert Burns
 robert burns woodward|n|Bob Woodward;Robert Burns Woodward
 robert charles venturi|n|Robert Venturi
 robert clive|n|Robert Clive
-robert curl|n|Robert Curl
+robert curl|n|Robert Curl;Robert F. Curl
 robert de niro|n|Robert De Niro
-robert edward lee|n|Robert E. Lee;Robert Edward Lee
+robert edward lee|n|Robert Edward Lee
 robert emmet sherwood|n|Sherwood;Robert Emmet Sherwood
 robert falcon scott|n|Robert Scott;Robert Falcon Scott
 robert frost|n|Robert Frost
@@ -23905,7 +23166,7 @@ robert walpole|n|Robert Walpole
 robert william service|n|Robert William Service
 robert woodrow wilson|n|Robert Woodrow Wilson
 robert woodward|n|Bob Woodward;Robert Burns Woodward
-roberts|n|Richard J. Roberts
+roberts|n|Richard J. Roberts;Oral Roberts
 robertson|n|Oscar Robertson
 robeson|n|Robeson
 robin hood|n|Robin Hood
@@ -23918,8 +23179,6 @@ robotics|n|robótica
 robustness|n|resistencia
 rock|n|piedra
 rock|v|agitar;oscilar;tambalear
-rock 'n' roll|n|música rock;rock
-rock 'n' roll musician|n|rockero
 rock and roll|n|música rock;rock;rock and roll
 rock bottom|n|esencia
 rock brake|n|cryptogramma crispa;polipodio de roca;polypodium virgianum
@@ -23931,11 +23190,8 @@ rock salt|n|sal de roca;sal gema
 rock springs|n|Rock Springs
 rock star|n|estrella de rock
 rock'n'roll|n|rock;música rock
-rock-and-roll|n|rock;música rock
-rock-bottom|adj|mínimo
-rock-ribbed|adj|rocoso
 rockabilly|n|rockabilly
-rockefeller|n|John D. Rockefeller;John Davison Rockefeller
+rockefeller|n|John Davison Rockefeller;John D. Rockefeller
 rocker|n|rockero
 rocket|n|cohete
 rocket|v|subir vertiginosamente
@@ -24012,7 +23268,6 @@ romp|n|marimacho
 ronald reagan|n|Presidente Reagan;Reagan;Ronald Reagan
 ronald wilson reagan|n|Presidente Reagan;Reagan;Ronald Reagan
 rood|n|cruz;crucifijo
-rood-tree|n|cruz;crucifijo
 roof|n|techo
 roofing|n|reparación de techos
 roofing tile|n|baldosa
@@ -24074,9 +23329,6 @@ rough|adj|áspero
 rough|adv|bruscamente;brusquedad;toscamente
 rough drawing|n|boceto;bosquejo
 rough sledding|n|trago;infortunio
-rough-and-tumble|n|disputa;refriega;agarrada
-rough-cut|adj|ordinario;basto
-rough-sand|v|lijar por encima
 roughly|adv|bruscamente;brusquedad;toscamente
 roughness|n|dureza
 roulette|n|rueda dentada;ruleta perforadora
@@ -24089,9 +23341,6 @@ round table|n|mesa redonda
 round the clock|adv|día y noche;sin parar
 round top|n|carpa de circo;carpa circense
 round up|v|reunir
-round-eyed|adj|infantil;inocente;ingenuo
-round-table conference|n|mesa redonda
-round-the-clock patrol|n|patrulla continua
 roundabout|adj|indirecto
 roundabout way|n|desviación
 roundhouse|n|golpe circular
@@ -24101,7 +23350,7 @@ roundtable|n|mesa redonda
 roundup|n|resumen;lista de novedades
 rouse|v|empujar;despertar;revolver
 rousing|adj|emocionante;apasionante
-rousseau|n|Jean-Jacques Rousseau
+rousseau|n|Jean-Jacques Rousseau;Henri Rousseau
 rout|v|expulsar
 rout|n|turba
 rout out|v|empujar;expulsar
@@ -24150,7 +23399,6 @@ rubella|n|rubéola
 rubens|n|Peter Paul Rubens
 rubinstein|n|Arthur Rubinstein;Rubinstein
 ruby|adj|rojo;rojizo
-ruby-red|adj|rojo;rojizo
 ruck|n|masa;multitud;turba
 ruck|v|fruncir
 ruck up|v|fruncir
@@ -24181,7 +23429,6 @@ rule|v|gobernar
 rule of grammar|n|regla gramatical
 rule of thumb|n|pauta
 rule out|v|impedir;ignorar;prohibir
-rule-governed|adj|legal;legítimo;lícito
 ruler|n|gobernador
 ruling|n|decisión;sentencia;fallo
 ruling|adj|dirigente;dominante
@@ -24209,11 +23456,6 @@ run out|v|vaciar;drenar
 run over|v|pasar por encima;atropellar
 run through|v|examinar;repasar
 run up|v|contraer;amontonar
-run-in|n|palabras;discusión;pelea
-run-of-the-mill|adj|común;normal;corriente
-run-of-the-mine|adj|común;normal;corriente
-run-through|n|ensayo general
-run-time|n|tiempo de ejecución
 runaway|n|fugitivo;desertor
 running|n|carrera
 running|adj|potable;que fluye
@@ -24254,7 +23496,7 @@ rut|n|celo
 ruth|n|Ruth;George Herman Ruth
 ruth benedict|n|Benedict;Ruth Benedict
 ruth fulton|n|Benedict;Ruth Benedict;Ruth Fulton
-ruth saint denis|n|Ruth Saint Denis;Ruth St. Denis;Saint Denis
+ruth saint denis|n|Ruth Saint Denis;Saint Denis
 rutherford|n|Daniel Rutherford;Ernest Rutherford
 ruthless|adj|cruel
 ruthlessness|n|crueldad
@@ -24300,7 +23542,6 @@ sadness|n|tristeza
 safari|n|expedición;safari;expedición de casa
 safe|adj|seguro
 safe|n|caja fuerte
-safe-conduct|n|salvoconducto
 safeguard|v|salvaguardar
 safeguard|n|prevención;precaución
 safekeeping|n|cuidado;responsabilidad;custodia
@@ -24332,14 +23573,14 @@ saint andrew|n|Andrés;San Andrés;San Andrés apóstol
 saint andrew the apostle|n|Andrés;San Andrés;San Andrés apóstol
 saint augustine|n|San Agustín
 saint bernard|n|San Bernardo
-saint bride|n|Bridget;Sta. Bridget;Brígida
-saint bridget|n|Bridget;Sta. Bridget;Brígida
+saint bride|n|Bridget;Brígida;Santa Brígida
+saint bridget|n|Bridget;Brígida;Santa Brígida
 saint christopher|n|Isla de San Cristóbal
 saint david|n|David;San David
-saint denis|n|Ruth Saint Denis;Ruth St. Denis;Saint Denis
+saint denis|n|Ruth Saint Denis;Saint Denis
 saint francis|n|San Francisco de Assís;Río San Francis;Saint Francis
 saint francis of assisi|n|San Francisco de Assís
-saint francis river|n|Río San Francis;Saint Francis;St. Francis
+saint francis river|n|Río San Francis;Saint Francis
 saint george|n|San Jorge
 saint james|n|Santiago;Jaime;San Jaime
 saint james the apostle|n|Santiago;Jaime;San Jaime
@@ -24348,11 +23589,12 @@ saint john|n|San Juan
 saint john river|n|Río Saint John
 saint john the apostle|n|San Juan
 saint john's|n|San Juan de Terranova;Sant Juan de Terranova;Saint John
-saint johns|n|Saint Johns
+saint johns|n|Saint Johns;St. Johns
+saint johns river|n|St. Johns
 saint joseph|n|San José
 saint kitts|n|Isla de San Cristóbal
-saint lawrence|n|Saint Lawrence;St. Lawrence
-saint lawrence river|n|Saint Lawrence;St. Lawrence
+saint lawrence|n|Saint Lawrence
+saint lawrence river|n|Saint Lawrence
 saint louis|n|San Luis
 saint lucia|n|Santa Lucía
 saint maarten|n|Isla de San Martín
@@ -24392,7 +23634,7 @@ salient|adj|sorprendente
 saline|n|solución salina;suero fisiológico
 saline|adj|salado;salino
 saline solution|n|solución salina;suero fisiológico
-salinger|n|J. D. Salinger;Jerome David Salinger
+salinger|n|Jerome David Salinger;J. D. Salinger
 salinity|n|salinidad;cualidad de salino
 salisbury steak|n|filete Salisbury
 salivary|adj|salivar
@@ -24401,6 +23643,7 @@ salman rushdie|n|Salman Rushdie
 salmon|n|Salmon;río Salmon
 salmon loaf|n|asado de salmón
 salmon pink|n|rosa salmón;rosa amarillento;melocotón
+salmon portland chase|n|Salmon P. Chase
 salmon river|n|río Salmon
 salmon trout|n|trucha marina
 salmonella|n|salmonella
@@ -24413,7 +23656,6 @@ salt away|v|almacenar;acumular
 salt ii|n|SALT II
 salt lake city|n|Salt Lake City
 salt rush|n|junco;junquillo;juncus leseurii
-salt-cured|adj|salado
 salted|adj|salado
 saltwater|n|salmuera;agua de mar
 salty|adj|salado
@@ -24590,11 +23832,10 @@ say|v|decir
 say|n|voz;opinión
 say farewell|v|decir adiós;despedirse
 say hey kid|n|Willie Mays
-say-so|n|autorización;última palabra;declaración
 sayers|n|Dorothy L. Sayers
 saying|n|expresión;locución
 sc|n|SC;Carolina del Sur
-scab|n|rompe-huelga;rompe-huelgas;esquirol
+scab|n|esquirol
 scalability|n|escalabilidad
 scalar|adj|escalar
 scale|n|escala
@@ -24673,7 +23914,6 @@ school of nursing|n|escuela de enfermería
 school of thought|n|filosofía;doctrina
 school principal|n|director
 school teacher|n|profesor;maestro;maestra
-school-age child|n|alumno;discípulo
 schoolboy|n|colegial
 schoolgirl|n|colegiala
 schoolhouse|n|escuela;colegio
@@ -24720,7 +23960,7 @@ scotch broth|n|caldo escocés
 scotch pancake|n|torta delgada
 scotch tape|n|celo
 scotland yard|n|Scotland Yard
-scott|n|George C. Scott
+scott|n|Robert Scott;George C. Scott;Robert Falcon Scott
 scott joplin|n|Scott Joplin
 scour|v|recorrer
 scourge|n|flagelo;desgracia
@@ -24820,8 +24060,6 @@ sea power|n|fuerzas marítimas
 sea scooter|n|moto de agua;moto acuática
 sea slater|n|piojo de mar;cochinilla marina
 sea trout|n|trucha marina
-sea-coast|n|costa;playa
-sea-ear|n|oreja de mar
 seabed|n|Davy Jones;relieve oceánico
 seafaring|n|navegación
 seafood sauce|n|salsa rosa;salsa para mariscos;salsa de cóctel
@@ -24873,9 +24111,6 @@ second joint|n|muslo
 second marquis of rockingham|n|Charles Watson-Wentworth
 second power|n|cuadrado
 second thought|n|dos veces
-second-guess|v|adivinar;anticipar
-second-rate|adj|pobre;mediocre
-second-stringer|n|reserva
 secondary|adj|secundario
 secondary school|n|instituto;liceo
 secrecy|n|secreto
@@ -24951,71 +24186,6 @@ selected|adj|elegido;seleccionado;escogido
 selection|n|selección
 selective|adj|exclusivo
 selective service|n|servicio militar;revista;llamada a filas
-self-adapting program|n|programa autoadaptable
-self-annihilation|n|suicidio
-self-asserting|adj|asertivo
-self-assertive|adj|asertivo
-self-assertiveness|n|asertividad
-self-assurance|n|seguridad;autoridad;convicción
-self-collected|adj|tranquilo;equilibrado;sereno
-self-complacency|n|complacencia
-self-concern|n|egocentrismo
-self-confidence|n|seguridad;autoridad;convicción
-self-consciousness|n|autoconocimiento
-self-contained|adj|independiente
-self-contradictory|adj|paradójico
-self-criticism|n|autocrítica
-self-deceit|n|autoengaño
-self-deception|n|autoengaño
-self-defence|n|defensa personal
-self-defense|n|defensa personal
-self-deprecating|adj|humilde
-self-destroy|v|autodestruirse
-self-destruct|v|autodestruirse
-self-destruction|n|suicidio
-self-determination|n|derecho de autodeterminación
-self-directed|adj|autónomo
-self-direction|n|independencia;autonomía;autosuficiencia
-self-distrust|n|inseguridad
-self-doubt|n|inseguridad
-self-employed|adj|independiente;autónomo
-self-employed person|n|autónomo;freelance
-self-evident truth|n|constatación
-self-fulfillment|n|realización personal
-self-generated|adj|espontáneo
-self-governing|adj|independiente;soberano;autónomo
-self-government|n|derecho de autodeterminación
-self-gratification|n|descontrol;auto-gratificación;disipación
-self-important|adj|orgulloso;altivo
-self-indulgence|n|indulgencia
-self-interest|n|conveniencia;oportunismo;interés propio
-self-justification|n|excusa
-self-knowledge|n|autoconocimiento
-self-loader|n|automática
-self-love|n|viento
-self-loving|adj|narcisista
-self-organisation|n|autoorganización
-self-organization|n|autoorganización
-self-portrait|n|autorretrato
-self-possessed|adj|tranquilo;equilibrado;sereno
-self-protection|n|defensa personal
-self-realisation|n|realización personal
-self-realization|n|realización personal
-self-regard|n|dignidad
-self-reliance|n|independencia;autonomía;autosuficiencia
-self-reliant|adj|autónomo
-self-respect|n|dignidad
-self-respectful|adj|digno
-self-respecting|adj|digno
-self-righteous|adj|falso;hipócrita
-self-rule|n|derecho de autodeterminación
-self-satisfaction|n|complacencia
-self-seeking|n|conveniencia;oportunismo;interés propio
-self-starter|n|motor de arranque
-self-sufficiency|n|independencia;autonomía;autosuficiencia
-self-suggestion|n|autosugestión
-self-worship|n|presunción;egolatría
-self-worth|n|dignidad
 sell|v|vender
 sell out|v|liquidar;vender;cantar
 sell up|v|liquidar
@@ -25046,7 +24216,6 @@ send off|v|enviar;remitir;enviar fuera
 send out|v|enviar;mandar;remitir
 send packing|v|echar;largar
 send word|v|participar;informar;avisar
-send-off|n|buen viaje;lanzamiento;partida
 sender|n|transmisor;remitente
 seneca|n|Lucio Anneo Séneca
 senegal gum|n|goma del Senegal;goma arábiga;goma kordofán
@@ -25141,8 +24310,6 @@ serial printer|n|impresora de impacto;impresora en serie
 series|n|serie
 serif|n|gracia
 serious|adj|serio
-serious-minded|adj|sensato
-serious-mindedness|n|seriedad
 seriousness|n|seriedad;gravedad
 sermon|n|sermón
 serotonin|n|serotonina
@@ -25186,8 +24353,6 @@ set out|v|empezar;comenzar;iniciar
 set phrase|n|modismo
 set up|v|establecer;lanzar;fundar
 set upon|v|acosar
-set-apart|adj|separado;aislado
-set-to|n|bronca;movida
 setback|n|revés
 seth thomas|n|Thomas;Seth Thomas
 setting|n|campo;marco;ámbito
@@ -25260,15 +24425,12 @@ shaft of light|n|haz;haz de luz;rayo
 shag|n|culo;polvo;clavo
 shaggy|adj|dejado;espeso
 shaggy dog story|n|rollo
-shaggy-coated|adj|dejado;espeso
-shaggy-haired|adj|dejado;espeso
 shah|n|sha;sha de Irán
 shah of iran|n|sha;sha de Irán
 shake|v|agitar;temblar;sacudir
 shake hands|v|dar la mano
 shake off|v|tirar
 shake up|v|sacudir;conmocionar
-shake-up|n|reorganización
 shakespeare|n|William Shakespeare
 shakespearean|n|especialista en shakespeare;académico shakesperiano
 shakespearean|adj|Shakesperiano;shakesperiano
@@ -25285,10 +24447,9 @@ shamed|adj|culpable
 shameless|adj|fresco
 shamelessly|adv|desvergonzadamente;a cara descubierta
 shamrock|n|shamrock
-shangri-la|n|cielo;paraíso;edén
 shank|n|pierna
 shankar|n|Ravi Shankar
-shannon|n|Shannon;Claude E. Shannon;Claude Shannon
+shannon|n|Shannon;Claude Shannon
 shanty|n|chabola
 shape|n|forma
 shape|v|determinar;formar
@@ -25298,7 +24459,6 @@ shaping|adj|formativo
 shard|n|fragmento
 share|v|compartir
 share|n|parte
-share-out|n|reparto;partición;repartición
 sharia|n|sharia;sharía;ley musulmana
 sharia law|n|ley musulmana;sharia;sharía
 shariah|n|sharia;sharía;ley musulmana
@@ -25319,7 +24479,6 @@ shave|v|recortar
 shaver|n|niño;chico;nene
 shaw|n|Artie Shaw;Shaw
 shawn|n|Shawn;Ted Shawn
-she-goat|n|cabra
 sheaf|n|lío;bulto;fajo
 shear|v|recortar;podar
 sheath|n|vaina
@@ -25424,8 +24583,6 @@ shoot a line|v|presumir;ostentar;alardear
 shoot down|v|cargar;disparar;arrancar
 shoot for|v|aspirar
 shoot the breeze|v|charlar
-shoot-'em-up|n|película de tiros
-shoot-down|n|matar a tiros
 shooter|n|tirador
 shooting|n|tiro;disparo
 shooting brake|n|berlina
@@ -25450,11 +24607,6 @@ short pants|n|pantalón corto
 short sleep|n|siesta;siesta liviana;cabezada
 short story|n|cuento
 short ton|n|tonelada
-short-change|v|engañar;defraudar;estafar
-short-circuit|v|bloquear
-short-lived|adj|pasajero;fugaz;transitorio
-short-tailed shrew|n|Blarina Brevicauda
-short-tempered|adj|iracundo
 shortage|n|hambre;escasez;hambruna
 shortcoming|n|falta;defecto;deficiencia
 shorten|v|encoger
@@ -25471,7 +24623,6 @@ shoulder blade|n|paletilla
 shoulder bone|n|paletilla
 shoulder flash|n|pala
 shoulder joint|n|hombro
-shoulder-to-shoulder|adv|juntos
 shout|v|gritar
 shout|n|protesta;grito
 shout down|v|callar a gritos
@@ -25531,7 +24682,6 @@ shut in|v|encerrar;rodear
 shut off|v|cerrar;cortar
 shut out|v|excluir;privar
 shut up|v|callar
-shut-in|adj|cerrado
 shutdown|n|fin;cierre;conclusión
 shutting|n|cierre;cerradura;cerramiento
 shuttle|n|volante
@@ -25567,9 +24717,6 @@ side by side|adj|inmediato
 side judge|n|juez de línea
 side pocket|n|tronera lateral
 side view|n|perfil
-side-glance|n|mirada de reojo;mirada de soslayo
-side-look|n|mirada de reojo;mirada de soslayo
-side-whiskers|n|patilla
 sideboard|n|aparador
 sidecar|n|Sidecar
 sidekick|n|hermano;hermana;compañero
@@ -25592,7 +24739,6 @@ sigh|v|suspirar
 sigh|n|suspiro
 sight|n|visión
 sight|v|divisar
-sight-read|v|leer
 sighting|n|observación
 sigmund freud|n|Freud;Sigmund Freud
 sign|v|firmar
@@ -25605,8 +24751,6 @@ sign up|v|contratar
 signal|n|señal;signo;señalización
 signal|v|indicar
 signal flag|n|bandera
-signal-to-noise|n|s/n;señal/ruido
-signal-to-noise ratio|n|s/n;relación señal/ruido;señal/ruido
 signaling|n|señal;signo;señalización
 signals intelligence|n|inteligencia de señales
 signature|n|firma
@@ -25625,7 +24769,6 @@ silicon|n|silicio
 silicon valley|n|Silicon Valley
 silk|n|seda
 silk hat|n|galera
-silk-cotton tree|n|ceiba pentandra
 silken|adj|brillante
 silky|adj|brillante
 silliness|n|ridiculez;desatino;majadería
@@ -25646,9 +24789,6 @@ silver screen|n|gran pantalla
 silver star|n|Estrella de Plata
 silver star medal|n|Estrella de Plata
 silver wedding anniversary|n|bodas de plata
-silver-plate|v|bañar en plata
-silver-tongued|adj|expresivo
-silver-worker|n|platero
 silverware|n|plata;platería
 silvery|adj|argentino
 silvia|n|Silvia;género Silvia
@@ -25666,7 +24806,6 @@ simple leaf|n|hoja simple
 simple machine|n|máquina
 simple pendulum|n|péndulo simple
 simple phobia|n|fobia
-simple-minded|adj|simple
 simplex|adj|simple
 simplicity|n|simplicidad;sencillez;facilidad
 simplification|n|simplificación;reducción
@@ -25706,10 +24845,6 @@ single crochet|n|punto de cadeneta
 single dwelling|n|torre
 single out|v|seleccionar
 single stitch|n|punto de cadeneta
-single-breasted|adj|recto
-single-handed|adv|sin ayuda;en solitario
-single-handedly|adv|sin ayuda;en solitario
-single-valued function|n|función;correspondencia
 singlet|n|camiseta
 singly|adv|individualmente
 singular|adj|original;extraño;raro
@@ -25757,7 +24892,7 @@ sir james augustus henry murray|n|James Murray
 sir james augustus murray|n|James Murray
 sir james clark ross|n|James Clark Ross
 sir james george frazer|n|James George Frazer
-sir james matthew barrie|n|J. M. Barrie;James Matthew Barrie
+sir james matthew barrie|n|James Matthew Barrie;J. M. Barrie
 sir james murray|n|James Murray
 sir james paul mccartney|n|Paul McCartney
 sir john carew eccles|n|John Eccles
@@ -25792,13 +24927,10 @@ sirius|n|Sirius;Estrella Perro;Canícula
 sirloin tip|n|lomo
 sis|n|hermana
 sister|n|hermana
-sister-in-law|n|cuñada
 sit|v|sentar
 sit down|v|sentarse;sentar
 sit in|v|asistir de oyente
 sit up|v|quedarse levantado;velar;trasnochar
-sit-down|n|encierro
-sit-down strike|n|encierro
 sitcom|n|sitcom;comedia de situación
 site|n|situación
 sitting|n|postura
@@ -25809,8 +24941,6 @@ sitting room|n|cuarto de estar;salón;locutorio
 situation|n|situación
 situation comedy|n|comedia de situación
 six times|adv|por seis;seis veces
-six-gun|n|revólver
-six-shooter|n|revólver
 sixteenth|adj|decimosexto
 sixth|adj|sexto
 sixth sense|n|sexto sentido
@@ -25863,14 +24993,8 @@ skin flick|n|película verde
 skin rash|n|grano
 skin senses|n|sentido del tacto;tacto
 skin tumor|n|tumor dérmico
-skin-deep|adj|superficial
-skin-dive|n|buceo
-skin-dive|v|bucear
 skinner|n|Otis Skinner
 skinny|adj|enjuto
-skinny-dip|n|bañarse en cueros
-skinny-dip|v|bañarse en cueros
-skinny-dipper|n|nadador desnudo
 skip|v|saltar;saltarse;circunvalar
 skip|n|descuido
 skip over|v|saltar;saltarse;circunvalar
@@ -25892,7 +25016,6 @@ skunk bear|n|glotón;gulo gulo;Gulo Luscus
 sky|n|cielo
 sky|v|echar
 sky pilot|n|padre;capellán militar
-sky-blue|n|cerúleo
 skylight|n|lumbre;tragaluz;claraboya
 skyline|n|horizonte
 skyrocket|n|cohete
@@ -25911,7 +25034,6 @@ slam|n|burla
 slam dance|v|bailar slam;bailar estilo mosh
 slam dunk|n|mate
 slam on|v|echar;tirar;embadurnar
-slam-dunk|v|barrer
 slang|n|slang
 slang|v|engañar;confundir;defraudar
 slant|n|enfoque;ángulo;sesgo
@@ -25920,8 +25042,6 @@ slanted|adj|inclinado
 slap|n|torta
 slap|adv|directamente;directo;de cabeza
 slap on|v|echar;tirar;embadurnar
-slap-bang|adv|de lleno
-slap-up|adj|genial;brutal;bárbaro
 slapstick|n|payasada;bufonada;slapstick
 slash|v|cortar;acuchillar
 slash|n|corte;tajada;cuchillada
@@ -26003,12 +25123,10 @@ slip by|v|pasar;seguir;transcurrir
 slip in|v|incluir;meterse;insertar
 slip noose|n|lazo
 slip up|v|cometer un error;equivocarse;colarse
-slip-up|n|lapsus
 slippery|adj|astuto
 slipstream|n|estela;rebufo
 slit|n|coño;conejo;patata
 slither|v|deslizarse;deslizar;resbalar
-slo-bid|n|teofilina
 slob|n|cerdo
 slog|v|trabajar duramente
 slop|v|derramar
@@ -26027,7 +25145,6 @@ slow|v|demorar
 slow|adv|retrasado;atrasado
 slow down|v|demorar
 slow up|v|demorar
-slow-moving|adj|lento
 slowness|n|torpeza;calma
 sludge|n|fango
 slug|v|holgazanear
@@ -26058,11 +25175,6 @@ small indefinite amount|n|pedazo;trozo;pizca
 small indefinite quantity|n|pedazo;trozo;pizca
 small letter|n|minúscula
 small town|n|pueblo
-small-arm|n|arma;arma de fuego
-small-cap|adj|de pequeña capitalización
-small-capitalization|adj|de pequeña capitalización
-small-minded|adj|cerrado
-small-scale|adj|pequeño
 smaller|adj|menor
 smart|adj|listo
 smart|v|doler
@@ -26071,7 +25183,6 @@ smart set|n|gente bien;sociedad;alta sociedad
 smash|v|aplastar;romper
 smash|n|golpe;leche;cinturón
 smash up|v|quebrar;destrozar
-smash-up|n|choque
 smashed|adj|ciego;borracho
 smashing|adj|genial;brutal;bárbaro
 smattering|n|puñado
@@ -26103,7 +25214,6 @@ smoking room|n|fumadero
 smooth|adj|liso;suave;llano
 smooth|v|arreglar
 smooth out|v|arreglar
-smooth-spoken|adj|expresivo
 smoothed|adj|llano
 smoothie|n|pelota;smoothie
 smoothing iron|n|plancha
@@ -26197,8 +25307,6 @@ so|adv|tan;tanto
 so|n|sol
 so long|n|hasta más ver;hasta otra;hasta la vista
 so to speak|adv|es decir;como solemos decir
-so-and-so|n|perro
-so-called|adj|supuesto;presunto
 so-so|adj|indiferente
 soak|v|robar;lavar;absorber
 soak|n|remojo
@@ -26211,7 +25319,6 @@ soap|n|jabón
 soap dish|n|jabonera
 soap dispenser|n|dispensador de jabón
 soap tree|n|árbol jabón;yucca elata
-soap-weed|n|árbol jabón;yucca elata
 soapbox|n|caja de jabón;podio;púlpito
 soar|v|remontar
 soar up|v|remontar
@@ -26270,7 +25377,6 @@ socializing|n|socialización
 socially|adv|socialmente
 societal|adj|social
 society|n|sociedad
-socio-economic class|n|clase
 sociological|adj|sociológico
 sociologist|n|sociólogo
 sociology|n|sociología
@@ -26295,11 +25401,6 @@ soft palate|n|velo
 soft solder|n|soldadura blanda
 soft spot|n|debilidad
 soft touch|n|primo
-soft-boiled|adj|sensible;pasado por agua;compasivo
-soft-cast steel|n|acero suave
-soft-cover|n|encuadernación en rústica
-soft-cover book|n|encuadernación en rústica
-soft-pedal|v|suavizar;ablandar
 soften|v|acceder;atenuar;ceder
 softened|adj|moderado
 software|n|software
@@ -26378,7 +25479,6 @@ somme|n|Somme;batalla del Somme;río Somme
 somme river|n|Somme;batalla del Somme;río Somme
 son|n|hijo
 son of a bitch|n|cerdo
-son-in-law|n|yerno
 sondheim|n|Stephen Sondheim
 song|n|canción
 song and dance|n|musical
@@ -26425,16 +25525,10 @@ sortie|n|salida
 sorting|n|clasificación
 sorting program|n|programa de ordenación
 sot|n|borracho;ebrio;alcohólico
-sou'-east|n|sudeste
-sou'-east|adv|sudeste
-sou'-sou'-east|adv|sur-sudeste
-sou'-sou'-west|adv|sur-sudoeste
-sou'-west|n|suroeste;sudoeste
 soul|n|alma
 soul brother|n|hermano;amigo del alma
 soul food|n|comida espiritual
 soul mate|n|alma gemela
-soul-stirring|adj|emocionante
 sound|n|sonido
 sound|v|sonar
 sound|adj|inteligente;razonable;bien
@@ -26452,7 +25546,6 @@ soundness|n|firmeza
 soundtrack|n|banda sonora
 soup|n|sopa
 soup|v|drogar
-soup-strainer|n|cepillo;mostacho
 sour|v|amargar
 sour|adj|agrio;rancio;ácido
 sour|n|sour
@@ -26479,10 +25572,6 @@ south korean monetary unit|n|unidad monetaria sudcoreana
 south pacific|n|Pacífico del Sur
 south platte|n|South Platte;río South Platte
 south platte river|n|río South Platte
-south-east|adv|sudeste
-south-polar|adj|antártico
-south-southeast|adv|sur-sudeste
-south-southwest|adv|sur-sudoeste
 southeast|n|sudeste
 southeast|adv|sudeste
 southeastern pocket gopher|n|tuza del sureste;Geomys Pinetis
@@ -26546,7 +25635,6 @@ spanner|n|llave
 spar|v|discutir;poner vergas
 spare|v|ahorrar
 spare|adj|enjuto;excesivo;libre
-spare-time activity|n|afición
 sparing|adj|económico
 spark|n|chispa
 spark|v|provocar;desencadenar
@@ -26581,7 +25669,6 @@ spear carrier|n|extra;supernumerario;figurante
 special|adj|especial
 special|n|especial
 special air service|n|Servicio Aéreo Especial
-special court-martial|n|tribunal militar especial
 special forces|n|Fuerzas Especiales
 special k|n|K;súper C;súper ácido
 special olympics|n|Special Olympics
@@ -26669,7 +25756,6 @@ spiller|n|derramador de sangre
 spin|v|girar
 spin|n|giro
 spin around|v|girar
-spin-off|n|spin-off
 spinach|n|spinacia oleracea
 spinach plant|n|spinacia oleracea
 spinal|adj|espinal
@@ -26773,8 +25859,6 @@ sportsmanship|n|juego limpio
 sporty|adj|limpio
 spot|n|sitio
 spot|v|discernir;ver
-spot-check|v|controlar por muestreo
-spot-weld|v|soldar por puntos
 spotless|adj|inmaculado
 spotlight|v|destacar
 spotted black bass|n|perca Kentucky;Micropterus Pseudoplites
@@ -26853,9 +25937,6 @@ square meter|n|metro cuadrado
 square metre|n|metro cuadrado
 square off|v|decidir;determinar;acordar
 square up|v|cuadrar
-square-bashing|n|juego de guerra
-square-built|adj|cuadrado
-square-toed|adj|mojigato
 squarely|adv|en medio;de lleno
 squash|v|aplastar
 squat|v|ocupar
@@ -26917,13 +25998,11 @@ stagnate|v|estancarse;paralizarse
 staid|adj|serio;formal
 stain|v|teñir
 stain|n|mancha
-stained-glass window|n|vidriera
 staining|n|tinción
 stainless|n|acero inoxidable
 stainless|adj|inmaculado
 stainless steel|n|acero inoxidable
 stair|n|escalón
-stair-carpet|n|alfombra de escalera
 staircase|n|escalera
 stairway|n|escalera
 stake|v|invertir;arriesgar;aventurar
@@ -26935,7 +26014,6 @@ stalin|n|Joseph Stalin
 stalinist|n|estalinista;estalinismo
 stalk|v|acechar
 stalk|n|paja;gluma
-stalking-horse|n|ardid;treta;cubierta
 stall|n|puesto;cabina;quiosco
 stall|v|aplazar
 stalls|n|cuadra;establo;caballeriza
@@ -26964,13 +26042,11 @@ stand out|v|destacar
 stand sentinel|v|hacer guardia;mantenerse alerta;montar guardia
 stand up|v|levantar;alzar
 stand watch|v|hacer guardia;mantenerse alerta;montar guardia
-stand-down|n|receso
 standard|n|patrón;regla;criterio
 standard|adj|estándar
 standard deviation|n|desviación estándar
 standard poodle|n|Poodle de estándar;Poodle estándar
 standard time|n|hora;hora local
-standard-bearer|n|abanderado;cabecilla
 standardisation|n|normalización
 standardization|n|normalización
 standardize|v|regularizar;estandarizar;tipificar
@@ -26997,7 +26073,6 @@ star|v|protagonizar
 star chamber|n|Cámara Estrellada
 star chart|n|carta astral
 star fruit|n|averrhoa carambola
-star-spangled banner|n|bandera estadounidense;La bandera llena de estrellas;bandera de EEUU
 starch|n|almidón
 starches|n|almidones
 starchy|adj|formal
@@ -27012,7 +26087,6 @@ start|v|empezar;comenzar;iniciar
 start|n|inicio;comienzo
 start out|v|empezar;comenzar;iniciar
 start up|v|poner en marcha;arrancar;encender
-start-off|n|lanzamiento;partida;saque
 starter|n|motor de arranque
 starter motor|n|motor de arranque
 starting|n|inicio
@@ -27045,7 +26119,6 @@ state of the vatican city|n|santa sede
 state of war|n|estado de guerra;guerra
 state socialism|n|socialismo de estado
 state treasurer|n|tesorero del estado
-state-supported|adj|estatal
 stated|adj|manifiesto
 stately|adj|noble
 statement|n|declaración;afirmación
@@ -27140,8 +26213,6 @@ step|v|andar
 step down|v|dejar;renunciar
 step in|v|sustituir;delegar;ofrecerse
 step up|v|subir de revoluciones;acelerar
-step-down|n|reducción;disminución;merma
-step-up|n|aumento;crecimiento;incremento
 stepdaughter|n|hijastra
 stepfather|n|padrastro
 stephanie graf|n|Stephanie Graf;Steffi Graf
@@ -27194,7 +26265,6 @@ stick out|v|sobresalir;destacar
 stick to|v|unirse;pegar;incorporarse
 stick up|v|asaltar
 stick with|v|seguir;continuar con;adherirse a
-stick-in-the-mud|n|parado;torpe;simplón
 sticker|n|calcomanía
 stickler|n|detallista;rigorista
 sticky|adj|difícil;duro;húmedo
@@ -27211,7 +26281,6 @@ still|adv|ya;aún;todavía
 still|adj|quieto;inmóvil
 still|n|silencio;calma;tranquilidad
 still|v|calmar;tranquilizar
-still-hunt|v|emboscar;cazar al acecho
 stillness|n|silencio;calma;tranquilidad
 stilted|adj|artificial;afectado;forzado
 stimulant|n|estímulo
@@ -27246,7 +26315,6 @@ stock market|n|bolsa
 stock power|n|representación en bolsa
 stock room|n|almacén
 stock up|v|proveer
-stock-taking|n|balance
 stocking|n|medias
 stockpile|n|reserva
 stockpile|v|llevar;acarrear
@@ -27265,7 +26333,7 @@ stone age|n|Edad de Piedra;edad de piedra
 stone breaker|n|picapedrero
 stone pit|n|cantera
 stonewall|v|contestar con evasivas
-stonewall jackson|n|Jackson;Thomas J. Jackson;Thomas Jackson
+stonewall jackson|n|Jackson;Thomas Jackson;Thomas Jonathan Jackson
 stonework|n|mampostería
 stoning|n|lapidación
 stony|adj|rocoso;pedregoso
@@ -27316,9 +26384,6 @@ straight|n|escala;escalera
 straight man|n|payaso serio
 straight sinus|n|seno superior
 straight ticket|n|papeleta única
-straight-from-the-shoulder|adj|directo;firme;franco
-straight-laced|adj|mojigato
-straight-out|adj|total;absoluto;indiscutible
 straightaway|adj|pronto
 straighten|v|levantar;limpiar;arreglar
 straighten out|v|ver la luz;enderezar;desenredar
@@ -27328,7 +26393,6 @@ strain|n|tensión;aire
 straining|n|deformación
 strait|n|estrecho
 strait|adj|estrecho
-strait-laced|adj|mojigato
 straits|n|límite;apuro
 strand|n|cadena
 stranded|adj|aislado
@@ -27388,7 +26452,6 @@ stretch|v|estirar
 stretch|n|alcance;tramo;recta
 stretch forth|v|extender
 stretch out|v|extender
-stretcher-bearer|n|camillero
 stretchy|adj|flexible
 strickland|n|William Strickland
 strict|adj|estricto
@@ -27420,7 +26483,6 @@ strip down|v|desnudar
 stripe|n|faja
 striped racer|n|Masticophis lateralis;chirrionera rayada
 stripped|adj|desnudo
-stripped-down|adj|desnudo
 strive|v|luchar;procurar;esforzarse
 striving|n|esfuerzo;afán;pugna
 stroke|n|golpe
@@ -27434,9 +26496,6 @@ strong belief|n|certeza;convicción
 strong drink|n|licor
 strong point|n|fuerte;punto fuerte;oficio
 strong suit|n|fuerte;punto fuerte;oficio
-strong-growing|adj|agresivo
-strong-minded|adj|decidido
-strong-willed|adj|decidido
 stronghold|n|fortaleza;baluarte
 structural|adj|estructural
 structural linguistics|n|estructuralismo;linguística estructuralista
@@ -27496,7 +26555,6 @@ stylus|n|estilete;aguja
 stylus printer|n|impresora de agujas
 suave|adj|apuesto
 sub rosa|adv|en confianza;en secreto
-sub-rosa|adj|secreto
 subatomic particle|n|partícula
 subconsciously|adv|inconscientemente
 subcontinent|n|subcontinente
@@ -27633,7 +26691,6 @@ sum|v|sumar
 sum of money|n|cantidad;suma
 sum total|n|total;suma;suma total
 sum up|v|resumir;condensar
-sum-up|n|resumen;síntesis
 summarise|v|resumir;condensar
 summarize|v|resumir;condensar
 summary|n|resumen;síntesis
@@ -27664,15 +26721,12 @@ sun parlour|n|solárium;solario
 sun porch|n|solárium;solario
 sun river|n|Sun River
 sun valley|n|Sun Valley
-sun yat-sen|n|Sun Yat-sen
-sun-worship|n|veneración del sol
 sunbeam|n|rayo de sol
 sundae|n|sundae
 sunday|n|domingo
 sundry|adj|mixto;diverso
 sunflower|n|helianthus;helianthus annuus
 sunflower oil|n|aceite de girasol
-sunflower-seed oil|n|aceite de girasol
 sunlight|n|sol;luz del sol
 sunnah|n|hadiz
 sunni|n|sunismo
@@ -27747,7 +26801,6 @@ sure|adv|ciertamente;con seguridad;con bastante seguridad
 sure as shooting|adv|seguro;con seguridad;con bastante seguridad
 sure enough|adv|seguro;con seguridad;con bastante seguridad
 sure thing|n|certeza
-sure-footed|adj|seguro
 surely|adv|seguro;ciertamente;con seguridad
 surety|n|garantía;seguridad
 surety bond|n|garantía del cumplimiento
@@ -27795,7 +26848,7 @@ survive|v|sobrevivir
 surviving|adj|vivo;viviente
 survivor|n|superviviente
 sus|n|Sus
-susan anthony|n|Anthony;Susan Anthony;Susan B. Anthony
+susan anthony|n|Anthony;Susan Anthony
 susceptible|adj|susceptible
 suspect|v|sospechar
 suspect|adj|extraño;raro;sospechoso
@@ -27827,8 +26880,6 @@ swain|n|pareja;compañero;novio
 swallow|v|tragar
 swallow|n|sorbo
 swallow up|v|enterrar
-swallow-tailed hawk|n|milano tijereta;Elanoides forficatus;elanio tijereta
-swallow-tailed kite|n|milano tijereta;Elanoides forficatus;elanio tijereta
 swami|n|swami
 swamp|v|mojar;empapar
 swamp fever|n|leptospirosis
@@ -27889,7 +26940,6 @@ sweet pickle|n|pickles dulces
 sweet potato|n|ocarina
 sweet talker|n|pelota
 sweet unicorn plant|n|torito;martynia fragrans;proboscidea fragans
-sweet-flavored|adj|dulce
 sweetened|adj|dulce
 sweetheart|n|belleza
 sweetness|n|dulzura;dulzor;sabor dulce
@@ -27934,7 +26984,6 @@ sword|n|espada
 sword cane|n|baston espada
 sword lily|n|lirio
 sword stick|n|baston espada
-sword-cut|n|corte de espada
 swordfish|n|emperador
 swordsman|n|espadachín;esgrimista
 sydney harbor bridge|n|Puente de la bahia de Sidney
@@ -27991,7 +27040,6 @@ systems software|n|programa del sistema
 systolic|adj|sistólico
 systolic murmur|n|soplo sistólico
 t|n|timina;T
-t-bill|n|letra del tesoro
 t-shirt|n|camiseta
 tab|n|cuenta;nota
 tab key|n|tabulador
@@ -28046,7 +27094,6 @@ tail assembly|n|cola;lado trasero;parte trasera
 tail end|n|cola
 tailor|v|coser
 tailor|n|sastre
-tailor-make|v|coser
 tailoring|n|confección;sastrería
 taint|n|infección
 taint|v|infectar
@@ -28105,7 +27152,6 @@ take to task|v|tener unas palabras;poner verde;llamar la atención
 take turns|v|alternar
 take up|v|retomar
 take up arms|v|tomar las armas
-take-up|n|absorción
 takedown|n|derrota;golpe bajo;golpe decisivo
 taken with|adj|loco
 takeoff|n|despegue
@@ -28141,7 +27187,6 @@ talks|n|gestión;negociación;tramitación
 tall|adj|alto
 tall order|n|mucho pedir
 tall tale|n|cuento chino;leyenda fantástica
-tall yellow-eye|n|Xyris operculata;xyris operculata
 tallis|n|Thomas Tallis
 tally|n|cuenta
 tally|v|parecer;coincidir;corresponder
@@ -28199,7 +27244,6 @@ tapper|n|bodeguero
 tapping|n|tapping
 tar|n|pez;alquitrán
 tar heel state|n|Carolina del Norte
-tar-wood|n|pino de plata
 tarantino|n|Quentin Tarantino
 tardy|adj|tardío
 target|n|blanco;objetivo;marca
@@ -28253,7 +27297,6 @@ tax income|n|contribución;tributos;ingresos por tributación
 tax law|n|derecho tributario
 tax return|n|declaración fiscal;renta;declaración tributaria
 tax revenue|n|contribución;tributos;ingresos por tributación
-tax write-off|n|deducción
 taxation|n|contribución;tributación
 taxi|n|taxi
 taxi|v|andar en taxi
@@ -28270,7 +27313,6 @@ tea break|n|café
 tea leaf|n|té
 tea towel|n|trapo;paño
 tea tray|n|bandeja de té
-tea-strainer|n|colador de té
 teach|v|enseñar
 teachable|adj|dócil
 teacher|n|maestro
@@ -28322,7 +27364,6 @@ teenage|adj|adolescente
 teenaged|adj|adolescente
 teenager|n|adolescente
 tel aviv|n|Tel Aviv
-tel aviv-jaffa|n|Tel Aviv
 telco|n|compañía de teléfono;TELCO;compañia telefónica
 telecast|n|programa de televisión
 telecast|v|televisar
@@ -28397,7 +27438,6 @@ ten|n|decena;diez
 ten commandments|n|Diez Mandamientos
 ten dollar bill|n|billete de diez
 ten thousand|n|miríada
-ten-spot|n|diez;carta del diez
 tenacious|adj|tenaz
 tenacity|n|perseverancia;persistencia;tenacidad
 tenancy|n|alquiler
@@ -28412,7 +27452,6 @@ tending|n|ayuda;atención;cuidado
 tenement|n|piso;vivienda
 tenement district|n|zona de pisos
 tenement house|n|piso;vivienda
-teng hsiao-ping|n|Deng Xiaoping;Teng Hsiaoping
 tenner|n|decena
 tennessee williams|n|Williams;Tennessee Williams;Thomas Lanier Williams
 tennis coach|n|entrenador de tenis
@@ -28429,7 +27468,6 @@ tent|n|tienda;tienda de campaña
 tent|v|acampar
 tent caterpillar|n|oruga de librea;lagarta rayada
 tent peg|n|clavo
-tent-caterpillar moth|n|Malacosoma disstria
 tentative|adj|temporal;provisional;eventual
 tenth|adj|décimo
 tenuous|adj|delgado;fino;leve
@@ -28531,7 +27569,6 @@ the hague|n|La Haya
 the hill|n|la colina
 the holy see|n|santa sede
 the pits|n|infierno
-the star-spangled banner|n|The Star-Spangled Banner
 the states|n|Estados Unidos
 the true|n|la verdad;verdad
 the whole way|adv|hasta el final;hasta la meta
@@ -28553,6 +27590,7 @@ theme|n|tema
 then|adv|entonces;así que;y así que
 then again|adv|pero entonces;por otro lado
 theodore dwight weld|n|Theodore Dwight Weld
+theodore harold white|n|T. H. White
 theodore roosevelt|n|Theodore Roosevelt
 theodore samuel williams|n|Ted Williams
 theologian|n|teólogo
@@ -28600,7 +27638,6 @@ thin|v|reducir
 thin|adv|diluído
 thin air|n|aire
 thin out|v|diluir;podar
-thin-skinned|adj|susceptible
 thing|n|cosa
 things|n|cosas
 think|v|creer;pensar
@@ -28619,7 +27656,6 @@ third party|n|tercera persona
 third power|n|cubo
 third stomach|n|libro
 third world|n|Tercer Mundo
-third-dimensional|adj|tridimensional
 thirst|n|sed
 thirteenth|adj|decimotercero
 thomas|n|Thomas
@@ -28633,7 +27669,7 @@ thomas crawford|n|Crawford
 thomas decker|n|Thomas Dekker
 thomas dekker|n|Thomas Dekker
 thomas edison|n|Thomas Edison;Thomas Alva Edison
-thomas edward lawrence|n|T. E. Lawrence;Thomas Edward Lawrence
+thomas edward lawrence|n|Thomas Edward Lawrence
 thomas gainsborough|n|Thomas Gainsborough
 thomas gray|n|Thomas Gray
 thomas hardy|n|Thomas Hardy
@@ -28643,9 +27679,9 @@ thomas hobbes|n|Thomas Hobbes
 thomas hodgkin|n|Thomas Hodgkin
 thomas hunt morgan|n|Thomas Hunt Morgan
 thomas huxley|n|Thomas Henry Huxley
-thomas jackson|n|Jackson;Thomas J. Jackson;Thomas Jackson
+thomas jackson|n|Jackson;Thomas Jackson;Thomas Jonathan Jackson
 thomas jefferson|n|Thomas Jefferson
-thomas jonathan jackson|n|Jackson;Thomas J. Jackson;Thomas Jackson
+thomas jonathan jackson|n|Jackson;Thomas Jackson;Thomas Jonathan Jackson
 thomas kid|n|Thomas Kyd
 thomas lanier williams|n|Williams;Thomas Lanier Williams
 thomas mann|n|Thomas Mann
@@ -28657,7 +27693,7 @@ thomas nast|n|Thomas Nast
 thomas nelson page|n|Thomas Nelson Page
 thomas paine|n|Thomas Paine
 thomas reid|n|Thomas Reid
-thomas stearns eliot|n|T. S. Eliot;Thomas Stearns Eliot
+thomas stearns eliot|n|Thomas Stearns Eliot;T. S. Eliot
 thomas sully|n|Thomas Sully
 thomas tallis|n|Thomas Tallis
 thomas the doubting apostle|n|Santo Tomás
@@ -28686,7 +27722,6 @@ thoughtful|adj|consciente;sensato;atento
 thoughtfulness|n|consideración
 thousand|n|mil
 thousand times|adv|mil veces
-thousand-fold|adv|mil veces
 thousandth|adj|milésimo
 thrall|n|esclavo
 thrash|v|reducir;agitar;sacudir
@@ -28702,14 +27737,6 @@ threatened abortion|n|amenaza de aborto;aborto inminente
 threatening|adj|siniestro
 three|n|terceto
 three times|adv|por tres;tres veces
-three-banded armadillo|n|apara;Tolypeutes Tricinctus
-three-base hit|n|triple
-three-d|adj|tridimensional
-three-day measles|n|rubéola
-three-decker|n|fragata
-three-dimensional|adj|tridimensional
-three-fold|adj|triple
-three-way calling|n|llamada a tres
 threefold|adj|triple
 threefold|adv|por tres;tres veces
 threesome|n|terceto;trío
@@ -28741,7 +27768,6 @@ throw overboard|v|perder;renunciar;prescindir
 throw stick|n|búmeran
 throw together|v|mezclar;revolver
 throw up|v|devolver
-throw-in|n|saque;saque de banda
 thrower|n|tirador
 throwing away|n|rechazo
 throwing stick|n|búmeran
@@ -28770,14 +27796,11 @@ thymus gland|n|timo
 thyroid|n|glándula tiroides
 thyroid|adj|tiroidea
 thyroid gland|n|glándula tiroides
-thyroid-stimulating hormone|n|het;hormona estimuladora tiroidea;hormona thyrotrópica
 ti|n|si
 tibetan buddhism|n|budismo tibetano
 tibia|n|tibia
-tic-tac-toe|n|tres en línea
 tick|v|revisar;comprobar
 tick off|v|revisar;comprobar
-tick-tack-toe|n|tres en línea
 ticker|n|corazón
 ticket|n|pasaje;billete
 ticket|v|multar
@@ -28801,14 +27824,12 @@ tie down|v|atar
 tie in|v|conectar;unir;ligar
 tie rod|n|barra de dirección
 tie up|v|atar
-tie-in|n|nudo
 tier|n|nivel;grado
 tiff|n|roce
 tiffany|n|Louis Comfort Tiffany
 tiffin|n|comida;almuerzo;merienda
 tiger|n|panthera tigris
 tight|adv|fuertemente;apretado
-tight-laced|adj|mojigato
 tighten|v|estirar;tensar
 tighten up|v|restringir;endurecer;constreñir
 tightness|n|escasez
@@ -28880,7 +27901,6 @@ tip|n|punta
 tip|v|volcar
 tip off|v|avisar;dar el chivatazo
 tip over|v|invertir;revolver;volcar
-tip-off|n|cante;confidencia
 tipped|adj|inclinado
 tipsy cake|n|bizcocho borracho
 tiptoe|adv|de puntillas
@@ -28896,14 +27916,12 @@ tissue|n|tejido
 tissue|v|tejer;hilar
 tissue layer|n|membrana
 tit|n|paro
-tit-tat-toe|n|tres en línea
 titan|n|figura;monstruo
 tithe|n|diezmo
 titian|n|Tiziano
 title|n|título
 title|v|titular;autorizar;facultar
 title of respect|n|título
-title-holder|n|campeón
 titular|adj|titular
 titus|n|Tito
 titus oates|n|Titus Oates
@@ -28915,7 +27933,6 @@ to date|adv|hasta ahora;hasta el momento
 to it|adv|a eso;con ello
 to order|adv|a medida
 to that|adv|a eso;con ello
-to-do|n|ruido;confusión;ruptura
 toad|n|batracio
 toad frog|n|batracio
 toast|v|beber;brindar;prometer
@@ -28951,7 +27968,7 @@ tolerance|n|tolerancia
 tolerant|adj|amable;liberal
 tolerate|v|sufrir;soportar;aguantar
 toleration|n|tolerancia
-tolkien|n|J.R.R. Tolkien;John Ronald Reuel Tolkien
+tolkien|n|John Ronald Reuel Tolkien;J.R.R. Tolkien
 toll|n|precio;coste;campana
 toll|v|doblar
 tolstoy|n|Leo Tolstoy
@@ -28985,9 +28002,6 @@ tonga|n|Tonga;Islas Amistosas;Reino de Tonga
 tongan monetary unit|n|unidad monetaria tongana
 tongue|n|lengua
 tongue|v|pasar la lengua
-tongue-in-cheek|adj|gracioso;agudo;salado
-tongue-in-cheek|adv|burlonamente;irónicamente
-tongue-lashing|n|bronca
 toni morrison|n|Toni Morrison
 tonic|n|tónico;reconstituyente
 tonic|adj|tónico
@@ -29002,7 +28016,6 @@ tool|v|equipar con herramientas
 tool cabinet|n|caja de herramientas;cinturón de herramientas
 tool case|n|caja de herramientas;cinturón de herramientas
 tool chest|n|caja de herramientas;cinturón de herramientas
-tool-and-die work|n|fabricación de herramientas
 toolbox|n|caja de herramientas;cinturón de herramientas
 toot|n|bocinazo;toque de bocina
 tooth|n|diente
@@ -29020,9 +28033,6 @@ top executive|n|magnate
 top hat|n|galera
 top lift|n|suela del tacón
 top off|v|completar;finalizar;coronar
-top-flight|adj|excelente
-top-hole|adj|excelente
-top-notch|adj|gran;grande;excelente
 topaz|n|topacio;marrón amarillento
 topic|n|tema;asunto;materia
 topographic|adj|topográfico
@@ -29080,7 +28090,6 @@ touch off|v|provocar;desencadenar
 touch on|v|tocar;aludir
 touch screen|n|pantalla táctil
 touch sensation|n|tacto
-touch-and-go|adj|peligroso
 touching|n|toque
 touchscreen|n|pantalla táctil
 touchstone|n|regla;patrón;criterio
@@ -29237,7 +28246,6 @@ transverse flute|n|flauta travesera
 trap|n|trampa
 trap|v|atrapar
 trap door|n|trampilla
-trap-and-drain auger|n|cable desatascador
 trapping|n|caparazón
 trappings|n|atavíos
 trash|n|basura
@@ -29296,7 +28304,6 @@ tree diagram|n|árbol
 tree squirrel|n|ardilla arborícola
 tree tomato|n|solanum betaceum
 tree trunk|n|tronco
-tree-living|adj|arbóreo
 trek|n|migración
 trek|v|ir de travesía
 tremble|v|temblar
@@ -29347,7 +28354,6 @@ trig|n|trigonometría
 trigger|n|gatillo
 trigger|v|desencadenar;provocar
 trigger off|v|provocar;desencadenar
-trigger-happy|adj|violento
 trigonometry|n|trigonometría
 trim|v|recortar
 trim|n|recorte;trim
@@ -29366,7 +28372,6 @@ trip out|v|colocarse;drogarse
 trip the light fantastic|v|bailar
 trip the light fantastic toe|v|bailar
 trip up|v|atrapar;pescar
-trip-up|n|tropiezo;traspié;paso en falso
 tripe|n|tripas;basura;paja
 triple|n|triple
 triple|adj|triple
@@ -29399,7 +28404,6 @@ trotter|n|mano;pie
 troubadour|n|trovador;cantante poeta;cantante folclórico
 trouble|n|problema
 trouble|v|molestar;perturbar
-trouble-shoot|v|resolver;resolver problemas;solucionar problemas
 troubleshoot|v|resolver;resolver problemas;solucionar problemas
 troubling|adj|triste;lamentable;doloroso
 trough|n|hacienda
@@ -29456,7 +28460,6 @@ try|v|ensayar;buscar;tratar
 try|n|intento;tentativa
 try for|v|intentar conseguir;intentar llegar;intentar alcanzar
 try out|v|probar
-try-on|n|prueba
 trying|adj|serio;molesto
 trying on|n|prueba
 tryout|n|prueba
@@ -29464,11 +28467,9 @@ tryptophan|n|triptófano
 tryst|n|cita
 tsunami|n|tsunami
 tub|n|baño;bañera
-tub-cart|n|calesa;cabriolé
 tubal pregnancy|n|embarazo tubárico
 tube|n|tubo
 tube|v|entubar
-tube-shaped|adj|tubular
 tubing|n|tubo;caño
 tubman|n|Harriet Tubman
 tubular|adj|tubular
@@ -29503,7 +28504,6 @@ tuna|n|Tuna
 tune|n|aire
 tune|v|acordar
 tune up|v|acordar
-tune-up|n|afinamiento
 tuner|n|afinador;radio;afinador de pianos
 tunic|n|túnica
 tunisian|adj|tunecino
@@ -29519,8 +28519,8 @@ turf out|v|echar
 turing|n|Alan Turing
 turing machine|n|máquina de Turing
 turkey stew|n|estofado de pavo
-turkic|n|turki;turki-tártaro;lengua turki
-turkic language|n|lengua turki;turki;turki-tártaro
+turkic|n|turki;lengua turki
+turkic language|n|lengua turki;turki
 turkish|adj|turco
 turkish delight|n|delicias turcas
 turkish lira|n|lira turca
@@ -29594,11 +28594,6 @@ twelve noon|n|mediodía
 twentieth|adj|vigésimo
 twenty|n|veinte
 twenty dollar bill|n|veinte
-twenty-five percent|n|cuarto
-twenty-four hour period|n|día
-twenty-four hours|n|día
-twenty-two|n|veintidós
-twice-baked bread|n|rusk
 twig|n|ramo;vástago
 twig|v|comprender
 twilight|n|crepúsculo
@@ -29621,12 +28616,6 @@ twit|n|burla
 twit|v|molestar;burlarse;tomar el pelo
 twitch|v|sacudir
 two times|adv|por dos;dos veces
-two-a-penny|adj|inútil;insignificante
-two-faced|adj|falso
-two-fold|adj|doble
-two-step|v|bailar paso doble
-two-wheel|adj|de dos ruedas
-two-wheeled|adj|de dos ruedas
 twofold|adj|doble
 twofold|adv|por dos;dos veces
 tycoon|n|magnate
@@ -29663,12 +28652,14 @@ ultraviolet radiation|n|radiación ultravioleta
 ultraviolet source|n|lámpara ultravioleta
 ultraviolet spectrum|n|espectro ultravioleta
 ulysses|n|Ulises
+ulysses grant|n|Ulysses S. Grant
+ulysses simpson grant|n|Ulysses S. Grant
 uma|n|Uma
 umbilical|adj|umbilical
 umbrella|n|paraguas
 ump|n|árbitro
 umpire|n|árbitro
-un|n|ONU;O.N.U.;Naciones Unidas
+un|n|ONU;Naciones Unidas
 unable|adj|incapaz
 unacceptable|adj|inconveniente;inaceptable;inadmisible
 unaccompanied|adj|solo
@@ -29696,7 +28687,6 @@ unborn|adj|futuro;venidero;nonato
 unbounded|adj|infinito
 unbroken|adj|sin romper;sin arar;sin labrar
 unbuttoned|adj|desabrochado
-uncalled-for|adj|innecesario
 uncanny|adj|fantástico;misterioso;sobrenatural
 uncaring|adj|frío
 uncertain|adj|incierto;inseguro;dudoso
@@ -29738,7 +28728,6 @@ under|adv|sin sentido;en la inconsciencia
 under it|adv|abajo;más abajo;debajo
 under that|adv|abajo;más abajo;debajo
 under the weather|adj|malo;enfermo
-under-the-table|adj|secreto
 underage|adj|menor
 undercarriage|n|tren de aterrizaje
 undercover|adj|secreto;oculto
@@ -29871,7 +28860,7 @@ united kingdom|n|Reino Unido
 united kingdom of great britain and northern ireland|n|Reino Unido
 united mine workers|n|Unión de Obreros Unidos
 united mine workers of america|n|Unión de Obreros Unidos
-united nations|n|Naciones Unidas;ONU;O.N.U.
+united nations|n|Naciones Unidas;ONU
 united states|n|Estados Unidos
 united states air force|n|Fuerza Aérea de los Estados Unidos
 united states army|n|Ejército de los Estados Unidos
@@ -30044,7 +29033,6 @@ up|adv|hacia mí
 up in the air|adj|provisional
 up to|adj|capaz;adecuado;conveniente
 up to now|adv|hasta ahora;hasta el momento
-up-and-coming|adj|trabajador;dinámico;enérgico
 upbeat|n|comodidad
 upbringing|n|educación
 upcoming|adj|próximo;inmediato
@@ -30064,8 +29052,6 @@ upper limit|n|límite
 upper respiratory infection|n|infección respiratoria superior
 upper respiratory tract|n|tracto respiratorio alto
 upper volta|n|Burkina Faso
-upper-level|adj|superior
-upper-normandy|n|Alta Normandía
 uppity|adj|altivo
 upright|adj|derecho;vertical
 uprising|n|revuelta;sublevación
@@ -30182,7 +29168,6 @@ vaccination|n|vacunación;inoculación
 vacuous|adj|estúpido;vacío
 vacuum|n|vacío
 vacuum|v|pasar la aspiradora
-vacuum-clean|v|pasar la aspiradora
 vagabond|v|deambular
 vaginal birth|n|parto
 vague|adj|vago
@@ -30381,12 +29366,9 @@ vibration|n|vibración
 vibrator|n|vibrador
 vicar|n|vicario
 vicar of christ|n|papa;pontífice
-vicar-general|n|vicario general
 vice|n|vicio
 vice chairman|n|vicepresidente
 vice president|n|vicepresidente
-vice-presidency|n|vicepresidencia
-vice-presidential term|n|vicepresidencia;mandato vicepresidencial
 viceroy|n|virrey
 vicinity|n|cercanía;inmediaciones;vecindad
 vicious|adj|cruel;salvaje;brutal
@@ -30396,7 +29378,6 @@ victor franz hess|n|Victor Franz Hess
 victor herbert|n|Victor Herbert
 victor hess|n|Victor Franz Hess
 victor hugo|n|Victor Hugo
-victor-marie hugo|n|Victor Hugo
 victoria|n|Victoria
 victorian|adj|mojigato
 victory|n|victoria
@@ -30429,7 +29410,6 @@ viii|n|ocho
 vila|n|Port Vila
 vile|adj|bajo;despreciable
 villa|n|Villa;Francisco Villa
-villa-lobos|n|Villalobos
 village|n|pueblo
 villainous|adj|perverso
 vim|n|energía
@@ -30482,8 +29462,6 @@ virtuous|adj|virtuoso;virgen;puro
 virulent|adj|ácido;amargo;áspero
 virus|n|virus
 vis major|n|fuerza mayor
-vis-a-vis|adv|vis a vis
-vis-a-vis|n|homólogo
 visa|v|dar una visa
 visage|n|rostro
 viscount nelson|n|Horatio Nelson
@@ -30618,7 +29596,6 @@ wage claim|n|reivindicación salarial
 wage earner|n|asalariado
 wage hike|n|aumento
 wage increase|n|aumento
-wage-earning|adj|obrero
 wager|n|apuesta
 wager|v|apostar
 wages|n|pago
@@ -30650,7 +29627,6 @@ wake|v|despertar;resucitar
 wake|n|Isla Wake
 wake island|n|Isla Wake
 wake up|v|despertar
-wake-up signal|n|diana;toque de diana
 walk|v|andar;caminar
 walk|n|andadura
 walk about|v|deambular
@@ -30658,9 +29634,6 @@ walk around|v|deambular;dar la vuelta;caminar alrededor
 walk away|v|irse;marcharse
 walk off|v|llevarse
 walk out|v|abandonar el trabajo;estar en huelga;declararse en huelga
-walk-in|n|victoria inminente
-walk-through|n|recorrido
-walk-up|n|edificio sin ascensor
 walkabout|n|paseo;caminata;excursión
 walker|n|John Walker
 walker hound|n|perro zorrero;perro raposero
@@ -30742,7 +29715,6 @@ warlord|n|caudillo
 warm|adj|cálido
 warm|v|calentar
 warm up|v|calentar
-warm-toned|adj|cálido
 warmer|n|calefactor
 warming|adj|cálido
 warmth|n|calor
@@ -30760,8 +29732,8 @@ warrant|n|orden
 warrant officer|n|oficial de autorización
 warranty|n|garantía
 warren|n|Warren
-warren burger|n|Warren Burger;Warren E. Burger;Warren Earl Burger
-warren earl burger|n|Warren Burger;Warren E. Burger;Warren Earl Burger
+warren burger|n|Warren Burger;Warren Earl Burger
+warren earl burger|n|Warren Burger;Warren Earl Burger
 warren harding|n|Warren Gamaliel Harding
 warrior|n|guerrero
 warship|n|buque de guerra
@@ -30772,7 +29744,7 @@ wash away|v|eliminar;quitar
 wash down|v|regar
 wash one's hands|v|lavarse las manos
 wash out|v|suspender por lluvia
-washington|n|Washington D.C.;Washington;capital
+washington|n|Washington;capital
 washington irving|n|Washington Irving
 washington monument|n|Monumento a Washington;monumento a Washington
 washout|n|desastre
@@ -30820,9 +29792,6 @@ water ski|v|hacer esquí acuático
 water supply|n|agua
 water system|n|agua
 water thrush|n|tordo acuático
-water-color|n|acuarela
-water-colour|n|acuarela
-water-lily family|n|familia nenúfares;familia ninfáceas
 waterborne|adj|marítimo;fluvial
 watercolor|n|acuarela
 watercolour|n|acuarela
@@ -30853,7 +29822,6 @@ wave|v|hacer señas;balancear;ondear
 wave front|n|frente de onda
 wave number|n|número de onda
 wave off|v|ignorar
-wave-off|n|vuelta;rodeo
 wavelength|n|longitud de onda;onda
 waver|v|vacilar;dudar
 waver|n|vacilación
@@ -30862,14 +29830,12 @@ wax|v|crecer;aumentar de fase;incrementar la intensidad
 wax crayon|n|crayón
 wax figure|n|figura de cera
 wax light|n|vela;candela;cerillo
-wax-myrtle family|n|Familia miricáceas
 waxing|n|encerado
 waxing|adj|creciente
 waxy|adj|flexible
 way|n|forma
 way of life|n|vida;camino;estilo de vida
 way out|n|salida
-way-out|adj|original
 wayne|n|John Wayne
 wayne gretzky|n|Wayne Gretzky
 wayside|n|cuneta;arcén
@@ -30920,7 +29886,6 @@ web log|n|blog;bitácora
 web map service|n|Web Map Service
 web page|n|página web
 web site|n|sitio web
-web-spinning mite|n|ácaro tejedor
 webb|n|Beatrice Webb
 webcam|n|webcam;cámara web
 weber|n|Max Weber;Wilhelm Eduard Weber
@@ -30941,7 +29906,6 @@ wedge|v|encajar
 wedlock|n|unión;matrimonio
 wednesday|n|miércoles
 wee|v|evacuar;mear;orinar
-wee-wee|v|evacuar;mear;orinar
 weed|n|maleza
 weed|v|desbrozar
 week|n|semana
@@ -30985,25 +29949,11 @@ well|v|brotar;manar;hincharse
 well behaved|adj|correcto
 well timed|adj|apropiado;oportuno
 well up|v|brotar
-well-adjusted|adj|equilibrado
-well-balanced|adj|equilibrado
-well-behaved|adj|correcto
-well-being|n|comodidad
-well-chosen|adj|apropiado;oportuno;acertado
-well-defined|adj|claro;preciso
-well-educated|adj|culto;sabio
-well-favored|adj|guapo;apuesto
-well-favoured|adj|guapo;apuesto
-well-formed|adj|gramatical
-well-grounded|adj|razonado
-well-informed|adj|inteligente
-well-read|adj|culto
-well-timed|adj|apropiado;oportuno
 wellbeing|n|comodidad
 welles|n|Welles;George Orson Welles;Orson Welles
 wellington|n|Arthur Wellesley
 wellness|n|salud
-wells|n|H. G. Wells;Herbert George Wells
+wells|n|Herbert George Wells
 welsh|n|galés
 welsh|v|trampear
 welterweight|n|peso welter;peso wélter
@@ -31035,7 +29985,6 @@ western hemisphere|n|Nuevo Mundo
 western holly fern|n|helecho acebo;polystichum scopulinum
 western mountain ash|n|serbal del oeste
 western poison oak|n|rhus diversiloba;toxicodendron diversilobum
-western red-backed salamander|n|tritón rojo occidental
 western samoan monetary unit|n|unidad monetaria samoana
 western sandwich|n|sándwich western
 westinghouse|n|George Westinghouse
@@ -31049,8 +29998,6 @@ wet|n|humedad
 wet blanket|n|aguafiestas;gafe;cenizo
 wet dream|n|sueño húmedo
 wet nurse|n|aya
-wet-nurse|n|aya
-wet-nurse|v|amamantar;lactar;dar de mamar
 wetland|n|humedal
 wetness|n|humedad
 wetting|n|pipi
@@ -31145,14 +30092,8 @@ white river|n|White River
 white russian|n|bielorruso
 white sauce|n|salsa blanca;bechamel;salsa bechamel
 white shark|n|carcharodon carcharias
-white silk-cotton tree|n|ceiba pentandra
 white squire|n|caballero blanco
 white thistle|n|salado
-white-collar|adj|de oficina
-white-crowned sparrow|n|Zonotrichia leucophrys;zacatero mixto
-white-faced hornet|n|avispa cara blanca
-white-haired|adj|gris
-white-throated sparrow|n|Zonotrichia albicollis;chingolo gorgiblanco
 whitehall|n|Whitehall
 whitehead|n|Alfred North Whitehead
 whiteness|n|blanco
@@ -31160,9 +30101,8 @@ whitewash|v|cubrir;tapar;disimular
 whitish|adj|blanco
 whitman|n|Walt Whitman
 whitney|n|Whitney;Eli Whitney
-whitney young|n|Whitney Moore Young Jr.;Whitney Young
+whitney young|n|Whitney Young
 whiz|n|estrella;genio;crack
-whiz-kid|n|emprendedor
 whole|adj|entero
 whole|n|todo;totalidad
 whole kit|n|todo;equipo completo;tratamiento completo
@@ -31172,7 +30112,6 @@ whole step|n|escala;escala completa;tono
 whole tone|n|escala;escala completa;tono
 whole wheat flour|n|harina Graham
 whole works|n|todo;equipo completo;tratamiento completo
-whole-wheat|adj|de trigo;de trigo integral
 wholeheartedly|adv|incondicionalmente
 wholeness|n|unidad;totalidad;integridad
 wholesale|n|venta al pormayor
@@ -31193,9 +30132,6 @@ wicker basket|n|cesta de mimbre;capacho
 wicket|n|arco
 wide|adj|amplio
 wide wale|n|pana ancha
-wide-angle|adj|ojo de pez;gran angular
-wide-cut|adj|amplio;ancho
-wide-eyed|adj|infantil;inocente;ingenuo
 widen|v|ensanchar;ampliar;extender
 widget|n|chisme
 widow|n|viuda
@@ -31221,8 +30157,6 @@ wild pink|n|boca de dragón;arethusa bulbosa
 wild plum|n|ciruelo silvestre
 wild plum tree|n|ciruelo silvestre
 wild rice|n|arroz silvestre;arroz ordinario;cizaña acuática
-wild-eyed|adj|romántico
-wild-goose chase|n|búsqueda inútil
 wildcat|n|animal;bestia
 wilde|n|Wilde;Oscar Wilde
 wilder|n|Thornton Wilder;Thornton Niven Wilder
@@ -31245,9 +30179,8 @@ will|n|voluntad
 will|v|controlar;dirigir;desear
 will durant|n|Durant;Will Durant;William James Durant
 will rogers|n|Will Rogers
-will-o'-the-wisp|n|jack-o'-lantern
 willard frank libby|n|Willard Frank Libby
-willard huntington wright|n|Wright;Willard Huntington Wright;S.S. Van Dine
+willard huntington wright|n|Wright;Willard Huntington Wright
 william and mary|n|Guillermo y María
 william ashley sunday|n|William Ashley Sunday
 william beaumont|n|William Beaumont
@@ -31255,11 +30188,12 @@ william benjamin hogan|n|Ben Hogan
 william blake|n|William Blake
 william bligh|n|William Bligh
 william bradford|n|William Bradford
-william burroughs|n|William S. Burroughs;William Seward Burroughs
+william burroughs|n|William Seward Burroughs;William S. Burroughs
 william butler yeats|n|William Butler Yeats;Yeats;W.B. Yeats
 william byrd|n|William Byrd
 william carlos williams|n|William Carlos Williams;Williams
 william chambers|n|William Chambers
+william christopher handy|n|W. C. Handy
 william clark|n|William Clark
 william clark gable|n|Clark Gable
 william cowper|n|William Cowper
@@ -31270,7 +30204,7 @@ william dudley haywood|n|William Dudley Haywood
 william faulkner|n|William Faulkner
 william felton russell|n|Bill Russell
 william franklin graham|n|Billy Graham
-william frederick cody|n|Cody;William F. Cody;William Frederick Cody
+william frederick cody|n|Cody;William Frederick Cody;Bufalo Bill
 william gilbert|n|William Gilbert
 william gladstone|n|William Gladstone;William Ewart Gladstone
 william golding|n|William Golding
@@ -31376,7 +30310,6 @@ winning|adj|atractivo
 winnings|n|lucro;ganancia
 winslow homer|n|Winslow Homer
 winston churchill|n|Winston Churchill
-winston-salem|n|Winston-Salem
 winter|n|invierno
 winter|v|pasar el invierno
 winter currant|n|grosellero de invierno;ribes sanguineum
@@ -31413,7 +30346,6 @@ wise to|adj|listo;inteligente;astuto
 wise up|v|aprender;enterarse
 wish|v|gustar;desear
 wish|n|deseo;voluntad;petición
-wish-wash|n|basura;paja;tonterías
 wishbone|n|horquilla;clavícula
 wishing bone|n|horquilla;clavícula
 wisp|n|retaco
@@ -31421,9 +30353,6 @@ wisteria|n|wisteria
 wit|n|cerebro;mentalidad;ingenio
 witch|n|bruja
 witch's brew|n|poción
-witch-hunt|n|caza de brujas
-witches' brew|n|poción
-witches' broth|n|poción
 withdraw|v|retirar
 withdrawal|n|retirada;separación;distanciamiento
 withdrawal symptom|n|mono
@@ -31476,7 +30405,7 @@ woodrow wilson|n|Thomas Woodrow Wilson;Woodrow Wilson
 woodrow wilson guthrie|n|Guthrie;Woodrow Wilson Guthrie;Woody Guthrie
 woodruff|n|woodruff
 woods|n|bosque
-woodward|n|Woodward;C. Vann Woodward
+woodward|n|Woodward
 woody|adj|arbóreo
 woody allen|n|Allen;allen;Woody Allen
 woody guthrie|n|Guthrie;Woodrow Wilson Guthrie;Woody Guthrie
@@ -31503,13 +30432,11 @@ word of god|n|Libro;el buen libro;la palabra
 word of honor|n|palabra;palabra de honor;promesa
 word picture|n|imagen;representación;descripción
 word structure|n|morfología
-word-blind|adj|alexia
-word-painting|n|imagen;representación;descripción
 wordless|adj|mudo
 words|n|letra;palabras;discusión
 wordsworth|n|William Wordsworth
-work|v|trabajar
 work|n|trabajo
+work|v|trabajar
 work bench|n|banco de trabajo
 work flow|n|flujo de trabajo
 work load|n|trabajo
@@ -31534,7 +30461,6 @@ working class|n|clase obrera;proletariado
 working man|n|obrero
 working out|n|elaboración
 working person|n|obrero
-working-class|adj|obrero
 workings|n|explotación
 workload|n|trabajo
 workman|n|obrero
@@ -31552,8 +30478,6 @@ world organization|n|organización internacional;organización mundial
 world series|n|Serie Mundial;serie
 world trade center|n|World Trade Center
 world wide web|n|World Wide Web
-world-class|adj|primero;principal
-world-wide|adj|mundial;global;universal
 worldly|adj|temporal;mundano
 worldwide|adj|mundial;global;universal
 worm|n|gusano
@@ -31626,8 +30550,6 @@ write off|v|anular
 write out|v|redactar
 write up|v|redactar
 write up|n|historia;artículo;relación
-write-down|n|pérdida
-write-off|n|pérdida
 writer|n|escritor
 writer's block|n|bloqueo del escritor
 writing|n|escritura
@@ -31690,7 +30612,7 @@ yearn|v|doler
 yearning|n|hambre;sed
 years|n|edad;vejez
 yeast|n|levadura
-yeats|n|Yeats;William Butler Yeats;W.B. Yeats
+yeats|n|Yeats;William Butler Yeats
 yell|v|llamar;gritar
 yell|n|grito
 yellow|adj|amarillo
@@ -31706,9 +30628,6 @@ yellow race|n|raza oriental;raza amarilla;raza mongola
 yellow river|n|Huang He
 yellow root|n|hydrastis canadensis
 yellow turnip|n|brassica napobrassica
-yellow-bellied|adj|temeroso
-yellow-crowned night heron|n|martinete colorado;Nyctanassa Violacea
-yellow-fever mosquito|n|Aedes Aegypti
 yellowish|adj|amarillo
 yellowish green|n|verde loro;verde amarillento;chartreuse
 yellowish pink|n|rosa salmón;rosa amarillento;melocotón
@@ -31716,7 +30635,6 @@ yelp|v|ladrar;aullar
 yemeni monetary unit|n|unidad monetaria yemení;unidad monetaria yemenita
 yen|n|ansia
 yen|v|doler
-yes-man|n|pelota
 yeshiva|n|yeshivá
 yesteryear|n|pasado
 yet|adv|ya;aún;todavía
@@ -31726,7 +30644,6 @@ yield|v|ceder
 yield|n|rendimiento
 yielding|adj|blando
 yip|v|ladrar;aullar
-yo-yo|n|yo-yo
 yogi|n|Yogi Berra
 yogi berra|n|Yogi Berra
 yoke|n|pareja
@@ -31776,11 +30693,8 @@ zero|n|cero;nada
 zero|adj|nulo
 zero coupon bond|n|bono cupón cero
 zero coupon security|n|título cupón cero
-zero-coupon bond|n|bono cupón cero
-zero-coupon security|n|título cupón cero
 zest|n|gusto;entusiasmo
 zeus|n|Zeus;género Zeus
-zhou en-lai|n|Zhou-en-lai;Zhou-Enlai
 zhu jiang|n|Río Perla
 zigzag|adv|en zigzag
 zilch|n|nada;cero
@@ -31805,13 +30719,12 @@ zoom lens|n|lente zoom;zoom
 		// Spanish word|English, best first (, between)
 		to: `
 A|a
-A.M.|amplitude modulation
 ADP|automatic data processing
 AR|right ascension,celestial longitude
 Adam|go,hug drug,ecstasy
 Aedes Aegypti|yellow-fever mosquito
 Aepyceros Melampus|impala
-Agelaius phoeniceus|red-winged blackbird,redwing
+Agelaius phoeniceus|redwing,red-winged blackbird
 Aleve|naproxen sodium
 Ambystoma talpoideum|mole salamander
 Amphiprion percula|clown anemone fish
@@ -31857,7 +30770,6 @@ Bull Shot|bullshot
 Buteo lineatus|red-shouldered hawk
 C|c,snow,blow
 CAD|computer-aided design
-CD-R|compact disc write-once,compact disc recordable
 CLI|command line interface
 CPU|central processing unit,central processor,processor
 Calamus penna|sheepshead porgy
@@ -31905,7 +30817,6 @@ Departamento del Gobierno Federal|federal department,department of the federal g
 Diceros Bicornis|black rhinoceros
 Director General de Correos|postmaster general
 Dolichotis Patagonum|mara
-Dr.|doctor,physician,doc
 E|e
 ECA|angiotensin converting enzyme,angiotensin-converting enzyme
 EPROM|erasable programmable read-only memory
@@ -31915,7 +30826,7 @@ Egretta Garzetta|little egret
 El Dorado|eldorado
 Elanoides forficatus|swallow-tailed hawk,swallow-tailed kite
 Elops Saurus|ladyfish,tenpounder
-Elvis|acid,dose,battery-acid
+Elvis|acid,dose,dot
 Epilachna Varivestis|bean beetle
 Equetus lanceolatus|jackknife-fish
 Equus Asinus|donkey
@@ -31966,7 +30877,7 @@ Guardia Costera|coastguard
 Gulo Luscus|wolverine,skunk bear,carcajou
 H|h,hell dust,nose drops
 Halicoeres radiatus|pudding-wife,puddingwife
-Haliotis Tuberculata|sea-ear,ormer
+Haliotis Tuberculata|ormer,sea-ear
 Halocarpus Bidwilli|tar-wood,tarwood
 Hemigalus Hardwickii|banded palm civet
 Hesperiphona vespertina|evening grosbeak
@@ -31990,9 +30901,9 @@ K|green,k,super acid
 Kasha|kasha
 Kismet|kismet,kismat
 Kobus Kob|kob
-LIFO|last in first out,push-down list,push-down stack
-LSD|acid,dose,battery-acid
-Lagopus Scoticus|moor-bird,red grouse,moorbird
+LIFO|last in first out,stack,push-down list
+LSD|acid,dose,dot
+Lagopus Scoticus|red grouse,moor-bird,moorbird
 Lama Guanicoe|guanaco
 Lanius borealis|northern shrike
 Lemmus Trimucronatus|brown lemming
@@ -32000,14 +30911,14 @@ Lepomis Punctatus|spotted sunfish,stumpknocker
 Lichanura trivirgata|rosy boa
 Litocranius Walleri|gerenuk
 Longhorn de Texas|longhorn
-Looney Toons|acid,dose,battery-acid
+Looney Toons|acid,dose,dot
 Lopholatilus chamaeleonticeps|tilefish
-Lucy in the sky with diamonds|acid,dose,battery-acid
+Lucy in the sky with diamonds|acid,dose,dot
 Líder de la Mayoría|floor leader
 M|m
-Macaca Irus|crab-eating macaque,croo monkey
+Macaca Irus|croo monkey,crab-eating macaque
 Macrocephalon maleo|maleo
-Macrotis Lagotis|rabbit bandicoot,rabbit-eared bandicoot,bilby
+Macrotis Lagotis|rabbit bandicoot,bilby,rabbit-eared bandicoot
 Mae West|air jacket
 Malacosoma disstria|tent-caterpillar moth
 Malinois|malinois
@@ -32028,7 +30939,7 @@ Moscatel|muscat,muscatel,muscadel
 Mugil curema|white mullet
 Mustela Putorius|fitch,polecat,foulmart
 N|n
-Nasua narica|coon cat,coati,coati-mundi
+Nasua narica|coon cat,coati,coati-mondi
 Neofiber alleni|round-tailed muskrat
 Nihil Obstat|nihil obstat
 Noche Vieja|watch night
@@ -32054,7 +30965,7 @@ Ovalipes ocellatus|lady crab,calico crab
 Ovis Musimon|mouflon,moufflon
 P|p
 Pacha Mama|earth goddess,earth-goddess
-Parascalops Breweri|hair-tailed mole,brewer's mole
+Parascalops Breweri|brewer's mole,hair-tailed mole
 Parlamento|parliament
 Parus bicolor|tufted titmouse
 Pascopyrum smithii|western wheatgrass,bluestem wheatgrass
@@ -32111,7 +31022,7 @@ Stenopterygius quadrisicissus|stenopterygius
 Stizostedion Vitreum|jack salmon,dory,walleye
 Storeria occipitamaculata|red-bellied snake
 Sturnella magna|eastern meadowlark
-Superman|acid,dose,battery-acid
+Superman|acid,dose,dot
 Sus scrofa|pig,hog,squealer
 Sylvilagus Palustris|swamp rabbit,marsh hare
 Sylvilagus aquaticus|swamp rabbit,swamp hare,canecutter
@@ -32126,7 +31037,7 @@ Tender Loving Care|tender loving care
 Thrips tobaci|onion louse,onion thrips
 Tiempo Medio de Greenwich|universal time
 Tierra|world,globe,earth
-Tolypeutes Tricinctus|three-banded armadillo,apar
+Tolypeutes Tricinctus|apar,three-banded armadillo
 Tom Collins|collins
 Trachipterus Arcticus|dealfish
 Trachurus Symmetricus|horse mackerel,jack mackerel,saurel
@@ -32142,7 +31053,6 @@ Vespula Maculata|bald-faced hornet,white-faced hornet
 Vibrio|vibrio,vibrion
 Vírgen María|bloody shame
 W|w,double-u
-W.C.|closet,water closet,loo
 WC|closet,water closet,loo
 World Trade Center|twin towers
 World Wide Web|web
@@ -32153,8 +31063,8 @@ Xyris operculata|tall yellow-eye
 Y|y,wye
 Youth Hostel|student lodging,hostel,youth hostel
 Z|z,zee,zed
-Zen|acid,dose,battery-acid
-Zonotrichia albicollis|white-throated sparrow,whitethroat
+Zen|acid,dose,dot
+Zonotrichia albicollis|whitethroat,white-throated sparrow
 Zonotrichia leucophrys|white-crowned sparrow
 a años luz|far cry
 a buena fé|on faith
@@ -32171,9 +31081,9 @@ a gusto|pleased
 a la defensiva|defensiveness
 a la inglesa|sidesaddle
 a la larga|long run,long haul
-a la medida|custom-made,custom-built
+a la medida|custom-built,custom-made
 a la orilla|inshore
-a la par|head-to-head,neck and neck,nip and tuck
+a la par|neck and neck,nip and tuck,head-to-head
 a la vez|at the same time,simultaneously,at a time
 a largo plazo|long run,long haul
 a lo grande|big
@@ -32236,7 +31146,7 @@ abeja|bee,live wire,busy bee
 abeja albañil|mason bee
 abeja reina|queen bee
 abejero|beekeeper,apiarist,apiculturist
-abelmoschus esculentus|lady's-finger,gumbo,okra
+abelmoschus esculentus|gumbo,okra,okra plant
 abertura|opening,gap,split
 abeto|spruce
 abeto alpino|subalpine fir
@@ -32315,9 +31225,9 @@ abrupto|abrupt
 absceso gingival|gumboil
 absentismo|absenteeism,truancy,hooky
 absentismo laboral|absenteeism
-absentista|no-show,truant,skulker
+absentista|truant,skulker,malingerer
 absolución|acquittal
-absolutismo|one-man rule,dictatorship,tyranny
+absolutismo|dictatorship,tyranny,authoritarianism
 absolutista|absolutist
 absoluto|absolute,full,total
 absolver|free,throw out,absolve
@@ -32325,7 +31235,7 @@ absorbancia|transmission density,optical density,photographic density
 absorber|absorb,take in,take up
 absorber el shock|decouple
 absorberse|steep,absorb,soak up
-absorción|absorption,take-up,absorption factor
+absorción|absorption,absorption factor,soaking up
 absorver|take in,absorb,suck
 abstemio|teetotaler,teetotaller,teetotalist
 abstención|abstinence,abstention,teetotalism
@@ -32350,10 +31260,10 @@ abundar|abound,abound in,teem in
 aburrido|uninspiring
 aburrimiento|tedium,tediousness,tiresomeness
 aburrir|bore,tire
-abusado|ill-treated,abused,mistreated
+abusado|abused,mistreated,maltreated
 abusador|abuser,maltreater
-abusar|abuse,step,ill-use
-abuso|abuse,ill-treatment,excess
+abusar|abuse,step,misuse
+abuso|abuse,excess,misuse
 acabamiento|end
 acabar|end,finish,terminate
 acabar con|eliminate,do away with,break down
@@ -32419,10 +31329,10 @@ acero al cromo-tungsteno|chrome-tungsten steel
 acero duro|hard steel
 acero inoxidable|stainless steel,stainless,chromium steel
 acero semiduro|medium steel
-acero suave|low-carbon steel,soft-cast steel,mild steel
+acero suave|mild steel,low-carbon steel,soft-cast steel
 acertado|right,correct,adequate
 acertar|shoot,hit,luck out
-acertijo|riddle,brain-teaser,enigma
+acertijo|riddle,enigma,conundrum
 acervo|store,fund,stock
 acetal|acetal
 acetaldehído|acetaldehyde,ethanal
@@ -32480,7 +31390,6 @@ acostarse|go to bed,go to sleep,turn in
 acostarse con cualquiera|sleep around,bed-hop,bedhop
 acostumbrar|accustom,habituate
 acre|acre
-acre-pie|acre-foot
 acrecentamiento|increase,step-up
 acrecentar|increase,run up,chalk up
 acreditación|certification,authentication
@@ -32525,7 +31434,7 @@ actualizar|post,update,carry
 actualmente|actually
 actuar|act,perform,behave
 actuarial|actuarial
-acuarela|water-color,water-colour,watercolor
+acuarela|watercolor,watercolour,water-color
 acuario|fish tank,marine museum,aquarium
 acuartelar|quarter,canton,billet
 acuchillar|cut down,slash
@@ -32606,10 +31515,10 @@ adicto al crack|crack addict,binger
 adicto al opio|opium addict,opium taker
 adiestrador|manager,coach,handler
 adiposidad|fat,blubber,fatness
-adivinanza|riddle,brain-teaser,enigma
+adivinanza|riddle,enigma,conundrum
 adivinar|guess,divine,venture
-adiós|good-by,good day,so long
-adiós muy buenas|good-by,good day,so long
+adiós|good day,so long,leave
+adiós muy buenas|good day,so long,bye
 adjetivo|adjective
 adjetivo clasificador|relational adjective,classifying adjective
 adjetivo relacional|relational adjective,classifying adjective
@@ -32677,7 +31586,7 @@ adyuvante|adjuvant
 adúltera|loose woman,jade,hussy
 adúltero|adulterer,fornicator,wencher
 aepyceros melampus|impala
-aerodeslizador|ground-effect machine,hovercraft
+aerodeslizador|hovercraft,ground-effect machine
 aerodinámica|aerodynamic
 aerolínea|airline,airline business,airway
 aeronauta|flyer,aviator,flier
@@ -32711,7 +31620,7 @@ aficionado|amateur,fan,friend
 aficionado al deporte|fan,sports fan,rooter
 aficionado al teatro|theatregoer,playgoer,theatergoer
 aficionarse|cotton
-afición|pursuit,interest,by-line
+afición|pursuit,interest,liking
 afilar|sharpen,perfect,set
 afilar con correa|strop
 afiliado|connected,attached,affiliated
@@ -32742,7 +31651,7 @@ afín|akin,allied,kindred
 agacharse|get down,get off,light
 agalla|gall
 agallas|sand,guts,backbone
-agarrada|hassle,scuffle,rough-and-tumble
+agarrada|hassle,scuffle,tussle
 agarradera|holder,handle,hold
 agarrar|clutch,grasp,seize
 agarrar a correazos|leather
@@ -32769,9 +31678,9 @@ agente federal|agent,federal agent
 agente marítimo|shipping agent
 agente solvatante|solvating agent
 agente teatral|theatrical agent,actor's agent
-agitación|agitation,stir,to-do
+agitación|agitation,stir,flutter
 agitado|agitated
-agitador|demagogue,rabble-rouser,demagog
+agitador|demagogue,demagog,rabble-rouser
 agitar|shake,flap,beat
 agitar violentamente|flail,thresh
 agitarse|shake,flick,flicker
@@ -32800,7 +31709,7 @@ agregado|attached
 agregado militar|military attache
 agregar|add,work,combine
 agresividad|aggressiveness,aggression,belligerence
-agresivo|aggressive,fast-growing,strong-growing
+agresivo|aggressive,belligerent,pushy
 agresión|aggression,hostility,aggro
 agriar|acerbate
 agricultor|farmer,field hand,farm worker
@@ -32831,7 +31740,7 @@ agua mineral|mineral water
 agua pesada|heavy water,deuterium oxide
 agua potable|drinking water
 aguacero|shower,torrent,cascade
-aguachirle|trash,wish-wash,rubbish
+aguachirle|trash,rubbish,tripe
 aguada|gouache
 aguafiestas|wet blanket,party pooper,killjoy
 aguafuerte|etching,engraving
@@ -32937,11 +31846,11 @@ albergue|inn,lodge,hostel
 albergue juvenil|student lodging,hostel,youth hostel
 albornoz|burnoose,burnous,burnouse
 alborotador|brawler
-alboroto|trouble,to-do,excitement
+alboroto|trouble,excitement,bother
 alborozo|gaiety,revel,merriment
 albóndiga|meatball
 albóndigas de bacalao|codfish ball,codfish cake
-alca torda|razor-billed auk,razorbill
+alca torda|razorbill,razor-billed auk
 alcalde|mayor,city manager,alcalde
 alcaldesa|mayoress
 alcaldía|mayoralty
@@ -32960,8 +31869,8 @@ alcohol|alcohol,alcoholic drink,alcoholic beverage
 alcohol de vino|spirits of wine
 alcohol tribromoetílico|tribromoethanol,tribromoethyl alcohol
 alcoholismo|alcoholism,alcohol addiction,drunkenness
-alcohólico|alcoholic,drunk,alcohol-dependent
-alcornoque|half-wit,cork oak,dumbass
+alcohólico|alcoholic,drunk,drunkard
+alcornoque|cork oak,dumbass,hammerhead
 alcázar|fort,fortress,citadel
 aldea|village,hamlet
 aldosterona|aldosterone
@@ -32994,7 +31903,7 @@ aletear|flutter,bat,flicker
 aletear como mariposa|butterfly
 aleteo|flap,flutter,flapping
 alevín|child,kid,minor
-alexia|word-blind,word blindness,visual aphasia
+alexia|word blindness,visual aphasia,alexia
 alfa y omega|alpha and omega
 alfabetización|literacy
 alfabetizar|alphabetize
@@ -33081,7 +31990,7 @@ almidones|starches
 almidón|starch,amylum
 alminar|minaret
 almirantazgo|admiralty
-almirante de flota|five-star admiral,fleet admiral
+almirante de flota|fleet admiral,five-star admiral
 almizcle|musk
 almohada|pillow
 almohadón|cushion
@@ -33123,19 +32032,19 @@ altavoz|speaker,speaker system,speaker unit
 altavoz de intercomunicador|intercom speaker,squawk box,squawker
 alteración|change,alteration,modification
 alterar|change,alter,vary
-altercado|run-in,words,row
+altercado|words,row,affray
 alternancia|alternation
 alternar|alternate,take turns,jump
 alternativa|alternative,choice,option
 alternativamente|instead,or else,alternatively
-alternativo|alternative,back-channel,alternate
+alternativo|alternative,alternate,substitute
 altimetría|hypsography,hypsometry
 altiplano|plateau,tableland
 altitud|altitude,height
-altivo|self-important,positive,arrogant
+altivo|positive,arrogant,overconfident
 alto|high,tall,smart
 alto comisario|high commissioner
-alto el fuego|cease-fire,truce,armistice
+alto el fuego|truce,armistice,cease-fire
 alto horno|blast furnace
 alto mando|brass hat
 altoparlante|bullhorn,loud hailer,loud-hailer
@@ -33155,7 +32064,7 @@ aluvión de barro|mudslide
 alveolar|dental,dental consonant,alveolar
 alveolitis|alveolitis
 alveolo|tooth socket,alveolus
-alza|rise,advance,gun-sight
+alza|rise,advance,ascent
 alzar|raise,stand,lift
 alzarse|rear,rise up,rear back
 alérgeno|allergen
@@ -33223,7 +32132,7 @@ amigdalitis|tonsillitis
 amigdalitis estreptocócica|throat infection,septic sore throat,strep throat
 amigo|friend,fan,lover
 amigo del alma|soul brother
-aminoración|decrease,drop-off,lessening
+aminoración|decrease,lessening,drop-off
 aminotransferasa|aminotransferase,transaminase,aminopherase
 amiodarona|amiodarone
 amiplificador de voltaje|relay link,relay station,relay transmitter
@@ -33257,8 +32166,6 @@ amoxicilina|amoxicillin
 amparar|shelter
 amparo|shelter
 amperio|ampere,international ampere
-amperio-hora|ampere-hour
-amperio-vuelta|ampere-turn
 amphibia|amphibian
 ampicilina|ampicillin
 ampliación|expansion,enlargement,magnification
@@ -33307,7 +32214,7 @@ ancho|wide,broad,full
 ancho de banda|bandwidth
 anchura|width,breadth,broadness
 anciana|beldam,beldame
-anciano|old man,antique,old-timer
+anciano|old man,antique,old geezer
 ancylostoma duodenale|hookworm,hookworm disease
 andadura|walk,walking
 andar|walk,do,step
@@ -33357,7 +32264,7 @@ aneurisma cerebral|cerebral aneurysm
 anexar|annex
 anexionista|annexational
 anexión|annexation,appropriation
-anexo|attached,connected,cut-in
+anexo|attached,connected,affiliated
 anfibios|amphibian genus
 anfibolita|amphibolite
 anfiteatro|amphitheatre,amphitheater,coliseum
@@ -33443,12 +32350,12 @@ anterior|prior,previous,anterior
 antes mencionado|hereinbefore
 antesis|flowering,blossoming,inflorescence
 anthriscus cerefolium|beaked parsley,chervil
-anthurium|tail-flower,anthurium,tailflower
+anthurium|anthurium,tail-flower,tailflower
 anthus|lark,pipit,titlark
 antialiasing|antialiasing
 antibiótico|antibiotic,antibiotic drug
 anticipación|expectation,anticipation
-anticipar|expect,anticipate,second-guess
+anticipar|expect,anticipate,advance
 anticiparse a|second-guess
 anticoagulante|anticoagulant,anticoagulant medication,anticoagulative
 anticolinérgico|anticholinergic,anticholinergic drug
@@ -33459,9 +32366,9 @@ antiemético|antiemetic,antiemetic drug
 antiepiléptico|anticonvulsant,anticonvulsant drug,antiepileptic
 antifeminismo|chauvinism,male chauvinism,antifeminism
 antifonario|antiphonal,antiphonary
-antigualla|antique,old-timer,old geezer
+antigualla|antique,old geezer,gaffer
 antiguedades|virtu
-antiguo|former,antique,one-time
+antiguo|former,antique,old
 antigénico|antigenic
 antigüedad|antiquity,rank,higher status
 antihipertensivo|antihypertensive,antihypertensive drug
@@ -33500,7 +32407,7 @@ antígeno|antigen
 antílope|antelope
 antílope de agua|kob
 antílope jirafa|gerenuk
-anual|annual,one-year,yearly
+anual|annual,yearly,yearlong
 anudar|loop,intertwine
 anulación|cancellation,annulment,invalidation
 anular|reverse,delete,cancel
@@ -33511,7 +32418,7 @@ anunciar con carteles|bill,placard
 anunciar en cartelera|bill
 anunciar en carteles|bill,placard
 anuncio|announcement,notice,sign
-anuncio local|cut-in,insert
+anuncio local|insert,cut-in
 anura|frog,toad,toad frog
 anuria|anuresis,anuria
 anuro|anuran,batrachian,salientian
@@ -33535,8 +32442,8 @@ apagar|put out,turn off,press out
 apagón|blowout
 apalancar|leverage
 apapachar|clinch
-apar|three-banded armadillo,apar
-apara|three-banded armadillo,apar
+apar|apar,three-banded armadillo
+apara|apar,three-banded armadillo
 aparador|counter,buffet,dresser
 aparato|device,apparatus,system
 aparato de golgi|dictyosome
@@ -33594,7 +32501,6 @@ apium graveolens|celery,cultivated celery
 apiñamiento|congestion,over-crowding
 apiñarse|huddle,huddle together
 aplastar|crush,beat,squeeze
-aplastar(se)|jam,crush
 aplaudir|applaud,clap,spat
 aplauso|applause,hand,clapping
 aplazar|postpone,put off,set back
@@ -33662,7 +32568,7 @@ aproximarse|approach,near,go up
 aptitud|ability,competence,aptitude
 apto|pertinent,apt,apposite
 apuesta|bet,wager,bid
-apuesto|good-looking,handsome,better-looking
+apuesto|handsome,suave,debonair
 apuntalar|shore,land,shore up
 apuntar|point,note,remark
 apurar|worry,bolt,vex
@@ -33708,7 +32614,7 @@ arboreto|botanical garden,arboretum
 arbustivo|shrubby,fruticose,fruticulose
 arbusto|bush,shrub
 arbusto enano|shrublet
-arbóreo|tree-living,woody,arboreal
+arbóreo|woody,arboreal,woodsy
 arca|chest,strongbox,deedbox
 arca de cedro|cedar chest
 arcaico|archaic,antiquated,antediluvian
@@ -33746,7 +32652,7 @@ arcón de cedro|cedar chest
 arcón de municiones|ammunition chest,caisson
 arder|burn,flame,fire
 ardia|sheep
-ardid|device,twist,stalking-horse
+ardid|device,twist,gimmick
 ardiente|fervent,on fire,fiery
 ardilla arborícola|tree squirrel
 ardilla coreana|baranduki,baronduki,barunduki
@@ -33784,7 +32690,7 @@ aritméticamente|arithmetically
 aritmético|arithmetic,arithmetical
 arlequin|harlequin
 arma|weapon,gun,artillery
-arma de fuego|gun,piece,small-arm
+arma de fuego|gun,piece,firearm
 arma liviana|light arm
 armadura|armor,coat of mail,framework
 armamento|arms,weapons system,armament
@@ -33813,7 +32719,7 @@ aromaterapia|aromatherapy
 aromatizar|incense,cense,thurify
 aromático|fragrant
 arponero|harpooner,harpooneer
-arpía|battle-axe,battle-ax
+arpía|battle-ax,battle-axe
 arpón|harpoon
 arquear|balance
 arqueología|archaeology,archeology
@@ -33830,7 +32736,7 @@ arquitrabe|architrave
 arraigar|grain,ingrain
 arraigo|rooting
 arrancar|start,charge,start up
-arranque|outburst,start-off,send-off
+arranque|outburst,explosion,kickoff
 arrasamiento|ruin,laying waste,ruining
 arrasar|take down,level,tear down
 arrastrar|pull,tug,drag
@@ -33855,7 +32761,7 @@ arrestar|arrest,pick up,nail
 arribar|get in,move in,pull in
 arriesgar|risk,take a chance,run a risk
 arriesgarse|take a chance,run a risk,chance
-arrivederci|good-by,good day,so long
+arrivederci|good day,so long,bye
 arroba|quarter,arroba
 arrojar|give,flip,toss
 arrojarse|throw,pitch,shift
@@ -34082,8 +32988,8 @@ asunto|business,matter,subject
 asunto completado|accomplished fact,fait accompli
 asunto de negocios|business,business concern,business organization
 asustar|frighten,scare,scare off
-así de improviso|off-hand,ex tempore
-así de pronto|off-hand,ex tempore
+así de improviso|ex tempore,off-hand
+así de pronto|ex tempore,off-hand
 así que|and then,then,so
 asíndeton|asyndeton
 asíntota|asymptote
@@ -34135,10 +33041,10 @@ atleta|athlete,jock
 atlético|athletic
 atmósfera|atmosphere,air,ambience
 atole|atole
-atolondramiento|light-mindedness,flippancy
+atolondramiento|flippancy,light-mindedness
 atomismo|atomism
 atomizar|spray
-atontado|silly,punch-drunk,dazed
+atontado|silly,dazed,foggy
 atontamiento|stupor,stupefaction,grogginess
 atontar|stun,stupefy,befuddle
 atormentador|tormentor,persecutor,tormenter
@@ -34152,7 +33058,7 @@ atracción alternativa|counterattraction
 atracción de feria|ride
 atracción secual|physical attraction,eros,concupiscence
 atraco|robbery
-atractivo|appeal,good,come-on
+atractivo|appeal,good,charming
 atractor|attractor,attracter
 atraer|attract,pull,engage
 atragantamiento|choking
@@ -34179,7 +33085,7 @@ aturdimiento|stupor,stupefaction,grogginess
 aturdir|stun,confuse,put off
 atómico|nuclear,atomic
 atónito|amazed,stunned,astonished
-au revoir|good-by,good day,so long
+au revoir|good day,so long,bye
 audacia|audacity,face,brass
 audaz|bold,audacious,brave
 audible|audible,hearable
@@ -34191,7 +33097,7 @@ audiofrecuencia|audio,audio frequency
 audiología|audiology,audiometry
 audiometría|audiology,audiometry
 auditor|listener,auditor,hearer
-auf wiedersehen|good-by,good day,so long
+auf wiedersehen|good day,so long,bye
 auge|peak,top,height
 augurar|augur
 aullar|bay,creak,quest
@@ -34208,7 +33114,7 @@ ausencia|absence,absence seizure
 ausencia de metas|no-goal
 ausencia de persuasión|unpersuasiveness
 ausentarse|miss
-ausente|absent,no-show,abstracted
+ausente|absent,abstracted,truant
 ausentismo|truancy,hooky
 ausentismo escolar|truancy,hooky
 auspicio|protection,aegis,auspices
@@ -34224,36 +33130,35 @@ auto|car,automobile,order
 auto de comparecencia|citation
 auto de fe|auto-da-fe
 auto judicial|court order
-auto-gratificación|self-gratification,incontinence,dissoluteness
 autobiografía|autobiography
 autobus escolar|school bus
 autobús|bus,coach,passenger vehicle
 autocaravana|van,caravan
 autocastigo|self-punishment
-autoconocimiento|self-knowledge,self-consciousness
+autoconocimiento|self-consciousness,self-knowledge
 autocracia|autocracy,autarchy
 autocrítica|self-criticism
 autodestruir|self-destroy,self-destruct
 autodestruirse|self-destroy,self-destruct
-autodirección|self-direction,self-reliance,autonomy
+autodirección|autonomy,self-reliance,self-direction
 autoengaño|self-deception,self-deceit
 autoflagelación|self-flagellation
 autofoco|autofocus
 autohipnosis|self-hypnosis
 autoincriminación|self-incrimination
-autoindulgencia|self-indulgence,indulgence
+autoindulgencia|indulgence,self-indulgence
 autolimitación|auto limitation
 automación|automation,mechanization,mechanisation
-automatizado|machine-controlled,machine-driven,automated
+automatizado|automated,machine-controlled,machine-driven
 automotor|car,railway car,railroad car
 automotrices|automotive
 automotriz|automotive
-automática|self-loader,autoloader
+automática|autoloader,self-loader
 automático|automatic,automatic rifle,machine rifle
 automóvil|car,automobile,machine
-autonomía|autonomy,liberty,self-direction
-autonómico|independent,sovereign,self-governing
-autoorganización|self-organization,self-organisation
+autonomía|autonomy,liberty,self-reliance
+autonómico|independent,sovereign,autonomous
+autoorganización|self-organisation,self-organization
 autopista|trunk road,highroad
 autor|author,writer,source
 autor de glosarios|glossarist
@@ -34261,13 +33166,13 @@ autoridad|authority,government,leader
 autoridad impositiva|taxer
 autoridad local|local authority
 autoritario|peremptory
-autoritarismo|one-man rule,dictatorship,tyranny
-autorización|authorization,authority,say-so
+autoritarismo|dictatorship,tyranny,authoritarianism
+autorización|authorization,authority,authorisation
 autorizado|qualified,authorized,certified
 autorizar|authorize,title,clear
 autorretrato|self-portrait
-autosuficiencia|self-direction,self-reliance,autonomy
-autosugestión|self-suggestion,auto-suggestion,autosuggestion
+autosuficiencia|autonomy,self-reliance,self-direction
+autosugestión|autosuggestion,auto-suggestion,self-suggestion
 autovía|freeway,state highway,pike
 auténticamente|genuinely,authentically
 auténtico|authentic,genuine,regular
@@ -34275,7 +33180,7 @@ autócrata|tyrant,despot,autocrat
 autóctono|indigenous,autochthonous,endemic
 autógeno|autogenetic
 autómata|automaton,robot,zombie
-autónomo|autonomous,independent,free-lance
+autónomo|autonomous,independent,freelance
 auxiliar|auxiliary,subsidiary,aide
 auxiliar de vuelo|flight attendant,steward
 auxiliar dental|dental assistant
@@ -34286,7 +33191,7 @@ avalancha|lot,good deal,mass
 avalar|underwrite,subvention,subvent
 avance|progress,advance,promotion
 avanzada|outpost,frontier settlement,outstation
-avanzado|advanced,modern,forward-looking
+avanzado|advanced,modern,advance
 avanzar|advance,make,proceed
 avanzar a pasitos|paddle,waddle,totter
 avanzarse|get ahead,win,advance
@@ -34343,7 +33248,7 @@ axial|axial
 axilar|axillary,alar
 axiomático|axiomatic,axiomatical,postulational
 axón|axon,axone
-aya|wet nurse,wet-nurse,amah
+aya|wet nurse,amah,wetnurse
 ayah|ayah
 ayatolá|ayatollah
 ayn|ayin
@@ -34417,7 +33322,7 @@ bacteriófago|phage,bacteriophage
 bacteriófago tifoideo|typhoid bacteriophage
 bacín|thunder mug,potty,chamberpot
 badulaque|poop,schmuck,ninny
-bagatela|trash,wish-wash,rubbish
+bagatela|trash,rubbish,tripe
 bagazo|bagasse
 bahía|bay,inlet,recess
 bailar|dance,trip the light fantastic,trip the light fantastic toe
@@ -34468,7 +33373,7 @@ bajón|dent
 bala|bullet,bullet train,slug
 balada|lay,ballad
 balaeniceps rex|shoebill,shoebird
-balance|profit and loss,stock-taking,balance
+balance|profit and loss,balance,profit and loss account
 balance final|bottom line
 balancear|swing,wave,balance
 balancearse|seesaw,teeter-totter,teetertotter
@@ -34534,7 +33439,7 @@ bandera nacional|national flag,ensign
 banderillero|banderillero
 banderola|standard,banner
 banderín|crown,pennant
-bandicut conejo|rabbit bandicoot,rabbit-eared bandicoot,bilby
+bandicut conejo|rabbit bandicoot,bilby,rabbit-eared bandicoot
 banner|banner,streamer
 banquero|banker
 banqueta|piano stool,music stool,banquette
@@ -34547,8 +33452,8 @@ bar|bar,beer hall,saloon
 baraja|pack of cards,deck,deck of cards
 baranda|balustrade,banister,bannister
 barandilla|fife rail,balustrade,banister
-baratija|trash,wish-wash,rubbish
-barato|cheap,low-cost,cut
+baratija|trash,rubbish,tripe
+barato|cheap,cut,inexpensive
 barba|beard,chin,face fungus
 barbaridad|lot,good deal,mass
 barbas de ballena|baleen,whalebone
@@ -34594,7 +33499,7 @@ barriga|bay window,corporation,belly
 barrigón|abdominousness,paunchiness
 barril de cerveza|beer barrel,beer keg
 barril de vino|wine barrel,wine cask
-barrilete|fat person,fatty,roly-poly
+barrilete|fat person,fatty,fatso
 barrilete de cerveza|beer barrel,beer keg
 barrio|city district
 barrio bajo|skid row
@@ -34608,12 +33513,12 @@ base de operaciones|base,base of operations
 base extranjera|outpost,outstation
 base naval|navy base
 basilisco|basilisk
-bassariscus sumichrasti|ring-tailed cat,raccoon fox,coon cat
+bassariscus sumichrasti|raccoon fox,coon cat,miner's cat
 bastantes posibilidades|fair chance,sporting chance
 bastantes probabilidades|fair chance,sporting chance
 bastar|do,answer,serve
 bastión|bastion
-basto|common,rough-cut,vulgar
+basto|common,vulgar,coarse
 baston espada|sword stick,sword cane
 bastonero|twirler,baton twirler
 bastón|staff,walking stick
@@ -34656,7 +33561,7 @@ bazar|fair,bazaar
 bañador|swimming costume,bathing suit,bathing costume
 bañar|dip,bath,dunk
 bañar en oro|gold plate,gold-plate,goldplate
-bañar en plata|silver-plate,silverplate
+bañar en plata|silverplate,silver-plate
 bañarse en cueros|skinny-dip
 bañera|tub,bath,bathtub
 baño|bath,bathroom,can
@@ -34742,12 +33647,12 @@ bicho|monkey,imp,rascal
 bicho raro|odd fellow,odd fish,odd man out
 bicicleta de ejercicio|exercise bike,exercycle
 bicornio|bicorne,bicorn
-bidens tripartita|trifid beggar-ticks,trifid bur marigold
+bidens tripartita|trifid bur marigold,trifid beggar-ticks
 biela|transmission shaft
 bien|good,interest,well
 bien comercial|good,trade good,commodity
 bienes|assets
-bienestar|comfort,well-being,welfare
+bienestar|comfort,welfare,ease
 bienestar económico|easy street
 bienestar social|welfare,social welfare,public assistance
 bienhechor|helper,benefactor
@@ -34762,7 +33667,7 @@ biliar|biliary
 bilingüe|bilingual,bilingualist
 bilirrubina|bilirubin,haematoidin,hematoidin
 billete|bill,note,ticket
-billete de cinco|five-spot,five dollar bill,fiver
+billete de cinco|five dollar bill,fiver,five-spot
 billete de diez|ten dollar bill,tenner
 billón|billion,one million million,one thousand million
 bimbo|bimbo
@@ -34816,7 +33721,7 @@ biónico|bionic
 bla|blah,rant,bombast
 blanca nieves|cocaine,cocain
 blanco|white,target,place
-blanco roto|off-white,bone,pearl
+blanco roto|bone,pearl,ivory
 blancura|whiteness
 blandir|wave,flourish,brandish
 blando|soft,tender,yielding
@@ -34833,7 +33738,7 @@ blenda|sphalerite,blende,zinc blende
 blindaje|armor plate,plate armor,armour plate
 blitzkrieg|blitz,blitzkrieg
 blog|blog,web log
-blooper|foul-up,boo-boo,blunder
+blooper|blunder,boner,bloomer
 bloque|block,stop,closure
 bloqueado|nondisposable
 bloquear|block,blockade,block off
@@ -34845,10 +33750,10 @@ blástula|blastula,blastosphere
 blénido anguila|bluethroat pikeblenny
 boa constrictor|boa constrictor
 boa rosada|rosy boa
-bobadas|trash,wish-wash,rubbish
+bobadas|trash,rubbish,tripe
 bobalicón|poop,schmuck,putz
 bobinado|coiled
-bobo|half-wit,lump,dumbass
+bobo|lump,dumbass,goon
 boca|mouth,entrance,back talk
 boca de dragón|wild pink,bog rose,dragon's mouth
 bocadillo|sandwich,butty
@@ -34875,7 +33780,7 @@ boiserie|paneling,pane,panelling
 bol de cereales|cereal bowl
 bola|ball,lie,story
 bola de fuego|fireball
-bola de manteca|fat person,fatty,roly-poly
+bola de manteca|fat person,fatty,fatso
 bola de melón|melon ball
 bolchevismo|collectivism,sovietism
 boleta electoral|vote,voting,ballot
@@ -34912,11 +33817,11 @@ bombilla|electric light,bulb,light bulb
 bombo|plug,hype,hoopla
 bombus|bumblebee,humblebee
 bombón|bonbon
-bon voyage|send-off,bon voyage
+bon voyage|bon voyage,send-off
 bondad|good,kindness,goodness
 bonito|beautiful,nice,pretty
 bono|bond,bond certificate,coupon
-bono basura|high-yield bond,junk bond
+bono basura|junk bond,high-yield bond
 bono con cupó|coupon bond,bearer bond
 bono convertible|convertible bond
 bono cupón cero|zero coupon bond,zero-coupon bond
@@ -34939,7 +33844,7 @@ bordear|border,frame,march
 boreal|boreal,circumboreal
 bornita|peacock ore,bornite
 borosilicato|borosilicate
-borra|trash,wish-wash,rubbish
+borra|trash,rubbish,tripe
 borrachera|tear,bout,bust
 borracho|drunk,tight,wet
 borrador|draft,draft copy
@@ -35011,7 +33916,7 @@ brasserie|brasserie
 brassica napobrassica|swede,swedish turnip,yellow turnip
 brassica oleracea gongyloides|kohlrabi
 brassica oleracea italica|broccoli
-bravuconería|line-shooting,crow,brag
+bravuconería|crow,brag,bragging
 bravura|bravura,derring-do
 braza|fathom,fthm
 brazada de perro|dog paddle
@@ -35045,23 +33950,23 @@ brindar|offer,put up,provide
 brisa|air,breeze,gentle wind
 broche|brooch,broach,breastpin
 brocheta|brochette
-broma|joke,put-on,good story
+broma|joke,good story,jest
 broma telefónica|crank call
 bromear|joke,kid,jest
 bromista|tease,teaser,annoyer
 bromo|bromine
 bromuro de ipratropio|ipratropium bromide
 bromuro de plata|silver bromide
-bronca|going-over,set-to,blowing up
+bronca|blowing up,dressing down,chewing out
 bronce|bronze
-bronce de magnesio|high-strength brass,manganese bronze
+bronce de magnesio|manganese bronze,high-strength brass
 bronceado|tanning
 broncodilatador|bronchodilator
 broncoespasmo|bronchospasm
 bronquiolitis|bronchiolitis
 brotar|come,well,well up
 brote|outbreak,eruption,irruption
-bruja|witch,dragon,battle-axe
+bruja|witch,dragon,hag
 brujo|medicine man,witch
 bruma|haze
 bruscamente|suddenly,short,abruptly
@@ -35075,13 +33980,13 @@ bruñir|buff,burnish,furbish
 bryonia|bryony,briony
 bryophyta sensu lato|bryophyte,nonvascular plant
 bryophyta sensu stricto|moss
-brío|energy,get-up-and-go,style
+brío|energy,style,vitality
 brújula|compass
 bucal|buccal
 bucanero|corsair
-bucear|skin-dive,skin diving
+bucear|skin diving,skin-dive
 bucear con esnórquel|snorkel
-buceo|skin-dive,skin diving
+buceo|skin diving,skin-dive
 buck and wing|buck-and-wing
 bucle|loop
 budorcas taxicolor|takin,gnu goat
@@ -35090,14 +33995,14 @@ budín de guisantes|pease pudding
 budín de zanahorias|carrot pudding
 buen|good,well,nice
 buen conversador|conversationalist,conversationist,schmoozer
-buen dia|good-by,good day,so long
+buen dia|good day,so long,bye
 buen estado|kilter,kelter
 buen gesto|beau geste
 buen gusto|tastefulness
 buen humor|good humor,good humour,good temper
 buen sabor|tastiness,pleasingness
 buen tipo|good egg
-buen viaje|send-off,bon voyage
+buen viaje|bon voyage,send-off
 buena acción|good turn,turn
 buena disposición|willingness
 buena fortuna|good luck,good fortune,fluke
@@ -35112,7 +34017,7 @@ buenas manos|keeping,guardianship,safekeeping
 buenas noches|good night
 buenas tardes|afternoon,good afternoon
 bueno|good,right,glad
-buenos días|how-do-you-do,morning,good morning
+buenos días|morning,good morning,hi
 buey|ox
 buey novillo|steer,bullock
 buey salvaje indonesio|banting,banteng,tsine
@@ -35133,7 +34038,7 @@ bulla|stir,flurry,hustle
 bulldog|bulldog
 bullicio|stir,flurry,hustle
 bullir|roll,seethe
-bulo|put-on,fraud,hoax
+bulo|fraud,hoax,humbug
 bultito|ball,chunk,lump
 bulto|bundle,lump,swelling
 bulón de pivote|kingpin,swivel pin,kingbolt
@@ -35156,11 +34061,11 @@ burgoo irlandés|mulligan,mulligan stew
 burguesía|middle class,bourgeoisie
 burgués|bourgeois,conservative,materialistic
 burka|burka,burqa
-burla|put-on,shot,joke
+burla|shot,joke,trick
 burlar|outsmart,beat,tease
 burlarse|ride,rally,bait
 burlete|weather strip,weather stripping,weatherstripping
-burlonamente|tongue-in-cheek,banteringly
+burlonamente|banteringly,tongue-in-cheek
 burlón|tease,mocking,teaser
 burocracia|bureaucracy,red tape,bureaucratic procedure
 burocratismo|bureaucracy,bureaucratism
@@ -35199,14 +34104,13 @@ buzamiento|angle of dip,dip,magnetic dip
 buzamiento magnético|angle of dip,dip,magnetic dip
 buzo|diver,underwater diver,frogman
 buzo submarino|diver,underwater diver,frogman
-bye bye|good-by,good day,so long
+bye bye|good day,so long,bye
 báculo|staff
 báculo pastoral|crozier,crosier
 bádminton|badminton
 bálsamo labial|lip balm
 bárbaro|wonderful,great,tremendous
 báscula puente|weighbridge
-báscula-puente|weighbridge
 básico|basic,central,key
 bélico|militant,warlike,combative
 bíblico|biblical,scriptural
@@ -35238,7 +34142,7 @@ cabaret|floor show,cabaret,floorshow
 cabaña|cottage,cabin,bungalow
 cabeceo|nutation
 cabecera|head,pillow,headline
-cabecilla|standard-bearer,fugleman
+cabecilla|fugleman,standard-bearer
 cabellera de mary|lawyer cane
 cabello|head of hair,mane
 caber|fit
@@ -35258,19 +34162,19 @@ cabezonería|persistence,perseverance,tenacity
 cabina|cab,stall,booth
 cable|cable,wire,line
 cable coaxial|coax,coax cable,coaxial cable
-cable desatascador|auger,trap-and-drain auger,plumber's snake
+cable desatascador|auger,plumber's snake,trap-and-drain auger
 cable eléctrico|electrical cable
 cable telefónico|telephone line,telephone wire,telegraph line
 cable telegráfica|telephone line,telephone wire,telegraph line
 cableado|wiring
 cablear|wire
 cabo|end,corporal,cape
-cabra|domestic goat,she-goat,nanny
+cabra|domestic goat,nanny,nanny-goat
 cabra blanca|mountain goat
 cabra montés|mountain goat
 cabra salvaje|wild goat
 cabriola|caper,capriole
-cabriolé|pony cart,donkey cart,tub-cart
+cabriolé|pony cart,donkey cart,ponycart
 caca de palomas|pigeon droppings
 caca de perro|dog do,doggy do,dog turd
 cacahuete|peanut,monkey nut,peanut vine
@@ -35327,7 +34231,7 @@ cafeína|caffeine,caffein
 caftán|kaftan,caftan
 café|coffee,coffee shop,cafe
 café de carretera|pull-in,pull-up
-cagada|foul-up,boo-boo,blunder
+cagada|blunder,boner,bloomer
 cagadero|can,pot,toilet
 cagón|dastard
 caja|box,case,car
@@ -35386,7 +34290,7 @@ calefactor|warmer,heater
 calentador de chimenea|water back
 calentar|heat,heat up,warm up
 calentura|physical attraction,eros,concupiscence
-calesa|pony cart,donkey cart,tub-cart
+calesa|pony cart,donkey cart,barouche
 calibrar incorrectamente|misgauge
 calibre|gauge,bore,caliber
 calicanto|brickwork
@@ -35394,7 +34298,7 @@ calicó|calico
 calidad|quality,character,lineament
 calidad de vida|quality of life
 calidris alba|sanderling
-calidris alpina|red-backed sandpiper,dunlin
+calidris alpina|dunlin,red-backed sandpiper
 caliente|aroused,turned on,warm
 califato|caliphate
 calificación|score,qualification,mark
@@ -35452,7 +34356,7 @@ cambio de estado|change of state
 cambio rotundo|sea change
 cambray|chambray
 camellia|camellia,camelia
-camelo|put-on,fraud,hoax
+camelo|fraud,hoax,humbug
 camelus dromedarius|dromedary
 camillero|litter-bearer,stretcher-bearer
 caminante|walker,pedestrian,footer
@@ -35482,7 +34386,7 @@ campana de barco|bell,ship's bell
 campana de incendios|fire bell
 campanas tubulares|bell,gong,chime
 campanazo|belling,charivari,shivaree
-campanero|no-show,truant,nonattender
+campanero|truant,no-show,nonattender
 campanula divaricata|southern harebell
 campaña|campaign,cause,field
 campaña de publicidad|ad campaign,advertising campaign,ad blitz
@@ -35493,7 +34397,7 @@ campeonato|contest,competition,title
 campesina|farm girl
 campesinado|peasantry
 campesino|farmer,peasant,farm boy
-campeón|champion,title-holder,champ
+campeón|champion,champ,title-holder
 campista|camper
 campista central|center fielder,centerfielder
 campista derecho|right fielder
@@ -35576,8 +34480,8 @@ cansancio|fatigue,weariness,tiredness
 cansar|tire,play out,try
 cantante|singer,vocalist,vocaliser
 cantante de lieder|lieder singer
-cantante folclórico|folk singer,poet-singer,minstrel
-cantante poeta|folk singer,poet-singer,minstrel
+cantante folclórico|folk singer,minstrel,troubadour
+cantante poeta|folk singer,minstrel,troubadour
 cantar|sing,crow,talk
 cantar al contrapunto|yodel,warble,descant
 cantar con entusiasmo|troll
@@ -35591,7 +34495,7 @@ cantar salmos|psalm
 cantar un himno|hymn
 cantar villancicos|carol
 cantarina|canary
-cante|singing,tip-off,foul-up
+cante|singing,blunder,boner
 cantera|pit,stone pit,quarry
 cantera de creta|chalk pit,chalkpit
 cantero|cutter,stonecutter
@@ -35693,7 +34597,7 @@ cara dura|face,brass,nerve
 caracal caracal|desert lynx,caracal
 caracol de agua|freshwater limpet,river limpet
 caracolillo|kiss curl,spit curl
-caracterización|picture,word picture,word-painting
+caracterización|picture,word picture,characterization
 caracterizar|be,characterize,characterise
 característica|characteristic,feature,character
 característico|characteristic
@@ -35725,10 +34629,10 @@ carbón|coal,coal black,pitch black
 carbón ardiente|hot potato
 carbón graso|cannel coal
 carcajada|belly laugh,guffaw
-carcamal|antique,old-timer,old geezer
+carcamal|antique,old geezer,gaffer
 carcasa|framework
 carcelero|prison guard,screw,jailer
-carcharodon carcharias|great white shark,man-eating shark,white shark
+carcharodon carcharias|great white shark,white shark,man-eater
 carcinoma embrionario|embryonal carcinoma
 carcinoma glandular|glandular cancer,glandular carcinoma,adenocarcinoma
 carcinoma hepatocelular|hepatocellular carcinoma,hepatoma,malignant hepatoma
@@ -35792,7 +34696,7 @@ carnicería|bloodshed,bloodbath,bloodletting
 carnosidad|obesity,fleshiness,corpulency
 carnoso|fleshy,sarcoid
 carnívoro|carnivore
-caro|expensive,dear,high-priced
+caro|expensive,dear,costly
 carpa circense|big top,top,round top
 carpa cuero|leather carp
 carpa de circo|big top,top,round top
@@ -35822,7 +34726,7 @@ carretear|drag,haul,cart
 carreteo|carting,cartage
 carretera|road,route,trunk road
 carretero|wheeler,cartwright,wagoner
-carretilla|cart,garden cart,go-cart
+carretilla|cart,garden cart,lawn cart
 carretón de hielo|ice wagon,ice-wagon
 carril|lane
 carrito de perro|dogcart
@@ -35860,7 +34764,7 @@ casa cural|glebe house
 casa de campo|country house
 casa de empeño|loan office,pawnshop,pawnbroker's shop
 casa de locos|funny house,crazy house,funny farm
-casa de naipes|card-house,house of cards,cardcastle
+casa de naipes|house of cards,card-house,cardcastle
 casa de playa|beach house
 casa del cura|glebe house
 casa del guarda|gatehouse
@@ -35879,7 +34783,7 @@ casco|hull,helmet,empty
 casco antiguo|inner city
 casero|landlord,janitor,lease giver
 caseta|box,box seat
-casi juntos|head-to-head,neck and neck,nip and tuck
+casi juntos|neck and neck,nip and tuck,head-to-head
 casilla|letter box,mailbox
 casino|casino,gambling casino
 casiterita|cassiterite
@@ -35896,7 +34800,7 @@ castidad|virtue,chastity
 castigar|punish,correct,moderate
 castigo|penalty,punishment,correction
 castillo|castle,palace
-castillo de naipes|card-house,house of cards,cardcastle
+castillo de naipes|house of cards,card-house,cardcastle
 castillo de proa|forecastle,fo'c'sle
 castor|beaver
 castración|castration,emasculation,expurgation
@@ -35972,10 +34876,9 @@ cazador de ofertas|bargain hunter
 cazador de patos|duck hunter
 cazador de ratones|mouser
 cazador de venados|deer hunter
-cazador-recolector|hunter-gatherer
 cazadora|bush jacket,bomber jacket
 cazar|grab,hunt,catch
-cazar al acecho|still-hunt,ambush
+cazar al acecho|ambush,still-hunt
 cazar aves|fowl
 cazar ballenas|whale
 cazar ciervos|deer hunt,deer hunting
@@ -35992,7 +34895,7 @@ cazar tiburones|shark
 cazar tortugas|turtle
 cazar urogallos|grouse
 cazatalentos|headhunter
-caída|fall,drop,drop-off
+caída|fall,drop,downfall
 caída abrupta|flame-out
 caída en picado|spin,tailspin
 caña|stem,shin,reed
@@ -36020,7 +34923,7 @@ ceftazidima|ceftazidime
 ceftriaxona|ceftriaxone
 cefuroxima|cefuroxime
 cegar|blind,lose sight of
-ceiba pentandra|silk-cotton tree,white silk-cotton tree,ceiba tree
+ceiba pentandra|ceiba tree,kapok,silk-cotton tree
 ceja|brow,eyebrow,supercilium
 celador|invigilator
 celda|cell,prison cell,jail cell
@@ -36035,7 +34938,7 @@ celo|zeal,heat,rut
 celoma|coelom,celom,celoma
 celos|jealousy
 celosamente|jealously
-celoso|jealous,green-eyed,envious
+celoso|jealous,envious,covetous
 celosía|jalousie,truss,louvered window
 celular|cellular
 celulitis|cellulitis
@@ -36156,7 +35059,7 @@ cerviz|nape,scruff,nucha
 cervus canadensis|elk,wapiti
 cerámica|pottery,ceramic,porcelain
 cerámico|ceramic,fictile
-cerúleo|sky-blue,sapphire,azure
+cerúleo|sapphire,azure,cerulean
 cesante|caesural
 cesar|stop,cease,end
 cese|cessation,caesura,surcease
@@ -36174,7 +35077,6 @@ cetro|scepter,sceptre,verge
 ceñir|point,belt,tack
 ceño|frown,scowl
 ceño fruncido|frown,scowl
-cf.|cf
 cfc|chlorofluorocarbon
 chabacanería|loudness,glitz,brashness
 chabola|hut,shack,hutch
@@ -36195,7 +35097,7 @@ chanclo de goma|rubber,arctic,gumshoe
 chancro|chancroid
 chancro del manzano|apple blight,apple canker
 chantre|cantor,choirmaster,precentor
-chao|good-by,good day,so long
+chao|good day,so long,bye
 chapa|plate
 chaparral|bush,scrub,chaparral
 chaparrón|shower,cascade,rainstorm
@@ -36203,7 +35105,7 @@ chapati|chapati,chapatti
 chapotear|paddle,puddle,waddle
 chapsui de pollo|moo goo gai pan
 chapucero|sad sack,butcher,bungler
-chapucería|foul-up,boo-boo,blunder
+chapucería|blunder,boner,bloomer
 chapuzas|nailer
 chaqueta|jacket
 chaquetón|smoke,pot,grass
@@ -36244,7 +35146,7 @@ chelín inglés|shilling
 cheque de pago|payroll check,paycheck
 chica|girl,young girl,young woman
 chica perfecta|poster girl
-chicha|water pipe,corn liquor,hubble-bubble
+chicha|water pipe,corn liquor,bootleg
 chicharra|roach
 chichi|slit,snatch,puss
 chicle|gum,chewing gum
@@ -36260,7 +35162,7 @@ chimenea de ventilación|air well,air shaft
 china|pebble
 chinche Lygus|lygus bug
 chinchilla|chinchilla
-chingolo gorgiblanco|white-throated sparrow,whitethroat
+chingolo gorgiblanco|whitethroat,white-throated sparrow
 chinos|chino
 chipotle|chipotle
 chiquillo|child,kid,minor
@@ -36298,7 +35200,7 @@ choque|shock,crash,smash
 chordata|chordate
 chorizo|chorizo
 chorrada|bull,blah,rant
-chorradas|trash,wish-wash,garbage
+chorradas|trash,garbage,rubbish
 chorrear|stream,jet,gush
 chorreo|outburst,sputtering,splatter
 chorro|shower,cascade
@@ -36313,7 +35215,7 @@ chucho|cur,mutt,mongrel
 chucrut|sauerkraut
 chulería|cockiness,forwardness,pushiness
 chuleta|scallop,cutlet,escallop
-chupachups|all-day sucker,sucker,lollipop
+chupachups|sucker,lollipop,all-day sucker
 chupada|blowjob
 chupar|suck,suck in,take in
 churrete|spot,blot,smear
@@ -36324,14 +35226,14 @@ chuña patinegra|chunga,seriema
 chuña patirroja|crested cariama,seriema
 cháchara|chatter,yak,cackle
 chófer|driver,chauffeur
-cianamida|calcium-cyanamide,cyanamide
+cianamida|cyanamide,calcium-cyanamide
 cianita|kyanite,cyanite
 cianuro|cyanide,nitrile,nitril
 cianógeno|cyanogen
 ciatica|sciatica
 cibercultura|cyberculture
 ciberespacio|net,internet,cyberspace
-ciberguerra|cyber-terrorism,cyberwar
+ciberguerra|cyberwar,cyber-terrorism
 cibernético|cybernetic
 ciberpunk|cyberpunk
 cibersexo|cybersex
@@ -36503,7 +35405,7 @@ clasicista|classicistic
 clasificación|classification,sorting,categorization
 clasificador de correo|mailsorter
 clasificar|classify,place,rate
-clasista|class-conscious,stratified
+clasista|stratified,class-conscious
 claudicar|give in,yield,succumb
 clausura|shutdown,closing,closure
 clausurar|close,close down,close up
@@ -36569,18 +35471,12 @@ clínica|hospital,clinic,home
 clínico|clinical
 clónico|clonal
 co|linkage
-co-autor|joint author,coauthor
-co-ocurrencia|conjunction,coincidence,co-occurrence
-co-piloto|co-pilot,copilot
-co-referencial|co-referent,coreferential
-co-referente|co-referent,coreferential
-co-relacional|correlational
 coagulasa|coagulase
 coalescencia|coalition,coalescence,concretion
 coalicion|union
 coalición|coalition,alliance,alignment
 coaseguro|coinsurance
-coatí|coon cat,coati,coati-mundi
+coatí|coon cat,coati,coati-mondi
 coaxial|coax,coax cable,coaxial cable
 cob|kob
 cobarde|craven,poltroon,recreant
@@ -36607,7 +35503,6 @@ coche de carga|freight car
 coche de policía|panda car
 coche fúnebre|hearse
 coche restaurante|diner
-coche-comedor|diner
 cochera|terminal,depot,terminus
 cochero|charioteer
 cochinera|sty,pigsty,pigpen
@@ -36688,7 +35583,7 @@ colecta|collection,appeal,solicitation
 colectivamente|together with,collectively,jointly
 colectividad|gathering,assemblage
 colectivismo|collectivism,sovietism
-colectivista|leftist,left-winger,collectivist
+colectivista|leftist,collectivist,left-winger
 colectivo|collective,group,joint
 colector de admisión|inlet manifold
 colector principal|sewer line,sewer main
@@ -36781,10 +35676,9 @@ combustión latente|smolder,smoulder
 comedero|trough,manger
 comedia|comedy
 comedia de situación|situation comedy,sitcom
-comedia-ballet|comedy ballet
 comedianta|comedienne
 comediante|actor,player,role player
-comedor|dining room,dining-room,feeder
+comedor|dining room,feeder,eater
 comensal|diner,commensal
 comensalismo|commensalism
 comentar|comment,remark,point out
@@ -36836,7 +35730,7 @@ comité ético|ethics committee,ethics panel
 como contestación|back
 como el amento|catkinate
 como el betún|bitumenoid,bituminoid
-como estás|how-do-you-do,hi,hello
+como estás|hi,hello,howdy
 como grupo|as a group,en bloc,en masse
 como la maleza|weedy
 como media|on the average,on average
@@ -36860,7 +35754,7 @@ como una margarita|daisylike
 como una muchacha|girlishly
 como una vejiga|bladderlike,bladdery
 comoda|commode,chiffonier
-comodidad|well-being,welfare,comfort
+comodidad|welfare,comfort,ease
 comodidades|comforts,amenities,creature comforts
 compactar|pack,compact,bundle
 compacto|thick,compact,unmelted
@@ -36872,7 +35766,7 @@ comparecer|appear,turn out
 comparendo|subpoena,subpoena ad testificandum
 compartimento de equipaje|trunk,automobile trunk,luggage compartment
 compartir|share,partake in
-compasivo|soft-boiled,softhearted
+compasivo|softhearted,soft-boiled
 compasión|pity,compassion,charity
 compatible|compatible,sympathetic
 compatriota|compatriot
@@ -36901,7 +35795,7 @@ competidor|competitor,competition,rival
 competir|compete,vie,contend
 competitivamente|competitively
 competitividad|fight,competitiveness
-complacencia|willingness,self-satisfaction,complacency
+complacencia|willingness,complacency,complacence
 complacer|please,satisfy,delight
 complacerse|crow,triumph,gloat
 complejidad|complexity,complication,elaboration
@@ -36910,11 +35804,11 @@ complejo hotelero|resort hotel,spa
 complementación|complementation
 complementar|supplement
 complementario|complementary,completing,supplemental
-complemento|complement,accessory,add-on
+complemento|complement,accessory,supplement
 complemento circunstancial|adverbial
 complemento directo|object
 complemento indirecto|indirect object
-completamente|right-down,plum,plumb
+completamente|plum,plumb,right-down
 completar|complete,finish,accomplish
 completitud semántica|completeness
 completo|full,complete,total
@@ -36935,7 +35829,7 @@ compositor|composer
 compositor de sinfonías|symphonist
 compost|compost
 compra|purchase,buying,marketing
-compra a plazos|never-never,hire-purchase
+compra a plazos|hire-purchase,never-never
 compra por correo|mail order
 comprador|buyer,caller,purchaser
 comprador compulsivo|shopaholic
@@ -37066,7 +35960,7 @@ concreto|concrete
 concupiscencia|physical attraction,greed,eros
 concurrencia|meeting,group meeting,conjunction
 concurrentes|meeting,group meeting
-concurrir|coincide,go with,co-occur
+concurrir|coincide,go with,concur
 concurso|contest,competition,game show
 concurso canino|dog show
 condado|county,earldom
@@ -37172,12 +36066,12 @@ confort|bonheur
 confortablemente|well,comfortably,snugly
 confortar|comfort,console,solace
 confrontacional|confrontational
-confrontación|confrontation,comparison,face-off
+confrontación|confrontation,comparison,opposition
 confrontar|face,confront,present
 confundir|take in,confuse,put on
 confundirse|mistake,slip,err
 confusamente|hazily
-confusión|confusion,chaos,to-do
+confusión|confusion,chaos,commotion
 confuso|confused,disordered,broken
 confín|confines
 conga|conga
@@ -37212,7 +36106,7 @@ conmemoración|commemoration,memorial,remembrance
 conmemorar|remember,commemorate,memorialize
 conminación|commination
 conmocionar|shake up,bump around,jar
-conmoción|to-do,blow,shock
+conmoción|blow,shock,commotion
 conmoción cerebral|concussion
 conmover|affect,move,touch
 connivencia|secret approval,tacit consent,connivance
@@ -37258,7 +36152,7 @@ conservacionista|environmentalist,conservationist
 conservación|conservation,preservation
 conservación del petróleo|oil conservation
 conservación del suelo|soil conservation
-conservador|conservative,blue,button-down
+conservador|conservative,blue,curator
 conservar|keep,maintain,preserve
 conservar en salmuera|brine
 conservatorio|conservatory,conservatoire
@@ -37299,7 +36193,7 @@ constitucional|constitutional
 constitucionalismo|constitutionalism
 constitucionalizar|constitutionalise,constitutionalize
 constitucionalmente|constitutionally
-constitución|constitution,establishment,make-up
+constitución|constitution,establishment,build
 constituir|constitute,be,form
 constitutivo|organic,constitutional,constituent
 constituyente|element,component,factor
@@ -37341,7 +36235,7 @@ contemplación|contemplation,reflection,musing
 contemplador|onlooker,looker-on
 contemplar|contemplate,stare,gaze
 contemporaneidad|currency,modernity,contemporaneity
-contemporáneo|contemporary,present-day,new
+contemporáneo|contemporary,new,modern
 contencioso|contentious,combative,litigious
 contendiente|competitor,competition,rival
 contenedor|container
@@ -37475,7 +36369,7 @@ convencional|conventional,established,stylized
 convencionalidad|conventionality
 convencionalismo|convention,conventionality,conventionalism
 convención|rule,convention,pattern
-conveniencia|self-interest,self-seeking,expedience
+conveniencia|expedience,suitability,opportunism
 conveniente|adequate,convenient,suitable
 convenio|treaty,compact,pact
 convenio colectivo|labor agreement,labor contract,collective agreement
@@ -37512,7 +36406,7 @@ convite|invite
 convivencia|coexistence,cohabitation
 convivir|live together,shack up,cohabit
 convocar|call,summon,call for
-convocatoria|call-out,calling together,convocation
+convocatoria|calling together,convocation,summons
 convolvulus|convolvulus
 convolvulus scammonia|scammony
 convoy|convoy
@@ -37523,7 +36417,7 @@ conyugal|spousal
 conífera|conifer,coniferous tree
 cooperación|cooperation,collaboration,coaction
 cooperativa|cooperative,collective,employee ownership
-cooptación|co-option,co-optation
+cooptación|co-optation,co-option
 cooptar|co-opt
 coordinación|coordination,contact,link
 copa|cup,drink,crown
@@ -37533,8 +36427,8 @@ copalita|fossil copal,copaline,copalite
 copartícipe|copartner
 copia|copy,twin,counterpart
 copia de seguridad|backup,computer backup
-copiar|copy,imitate,re-create
-copiloto|co-pilot,copilot
+copiar|copy,imitate,simulate
+copiloto|copilot,co-pilot
 copiosamente|hard,heavily,intemperately
 copista|scribe,shorthand typist,stenographer
 copo|snowflake,flake
@@ -37555,14 +36449,14 @@ corazones|hearts
 corazón|heart,center,core
 corazón de atleta|athlete's heart
 corbata|tie,necktie
-corbatín|bow tie,bow-tie,bowtie
+corbatín|bow tie,bowtie,bow-tie
 corcho|bottle cork,cork
 corcho de botella|bottle cork,cork
 corchorus capsularis|jute
 cordel|cord
-cordelero|rope-maker,roper,ropemaker
+cordelero|roper,rope-maker,ropemaker
 cordero|lamb
-cordial|good-time,dear,welcoming
+cordial|dear,welcoming,earnest
 cordillera|range,mountain range,chain
 cordon bleu|blue ribbon,cordon bleu
 cordón|string,cordon,tie
@@ -37578,7 +36472,7 @@ coroides|choroid,choroid coat
 corola|corona
 corona|crown,wreath,pennant
 corona danesa|krone
-corona de rey|trifid beggar-ticks,trifid bur marigold
+corona de rey|trifid bur marigold,trifid beggar-ticks
 corona noruega|krone
 corona solar|corona
 corona sueca|krona
@@ -37606,7 +36500,7 @@ corrector|reader,brace,braces
 corredera|groove,vallecula
 corredor|corridor,runner,traveling salesman
 corredor de apuestas|bookie,bookmaker
-corredor de maratón|long-distance runner,road runner,marathon runner
+corredor de maratón|road runner,marathon runner,marathoner
 corredor de milla|miler
 corredor de rodeo|cowboy,rodeo rider
 corregir|correct,right,adjust
@@ -37801,7 +36695,7 @@ criado con biberón|bottle-fed
 criar|breed,raise,bring up
 criatura|child,kid,animal
 criatura mítica|mythical creature,mythical monster
-crimen|crime,law-breaking,offense
+crimen|crime,offense,criminal offense
 crimen organizado|organized crime,racketeering,gangland
 criminal|criminal,crook,outlaw
 criminalización|criminalization,criminalisation
@@ -37907,10 +36801,10 @@ crótalos|zill
 cuaderno|notebook,notebook computer
 cuaderno de bitácora|logbook
 cuadra|stable,horse barn,stalls
-cuadrado|square,second power,square-built
+cuadrado|square,second power,parochial
 cuadrafónico|quadraphonic,quadrasonic,quadriphonic
 cuadragésimo|fortieth
-cuadrante|quarter-circle,quadrant
+cuadrante|quadrant,quarter-circle
 cuadrar|square,square up,even up
 cuadratura|neap,neap tide
 cuadrilla|lot,bunch,caboodle
@@ -38042,7 +36936,7 @@ culebra arenera bandada|banded sand snake
 culebra de collar|grass snake,green snake,garter snake
 culebra nocturna|night snake
 culebrina|culverin
-culminación|end-all,conclusion,culmination
+culminación|conclusion,culmination,apogee
 culminar|culminate,climax
 culo|can,seat,behind
 culote|culotte
@@ -38056,7 +36950,7 @@ cultivar en terrazas|terrace
 cultivo|culture,farming area,cultivation
 cultivo de arándanos|cranberry culture
 cultivos hidropónicos|hydroponic,aquacultural,aquicultural
-culto|learned,well-read,well-educated
+culto|learned,knowing,cult
 cultura|culture,civilization,cultivation
 cultural|cultural,ethnic,ethnical
 culturalmente|culturally
@@ -38111,15 +37005,15 @@ curtir|tan
 curuba|sweet calabash
 curva|curve,turn,bend
 curva cerrada|dogleg
-curva de campana|bell-shaped curve,normal curve
+curva de campana|normal curve,bell-shaped curve
 curva de horquilla|hairpin bend
 curva exponencial|exponential curve
-curva gausiana|bell-shaped curve,normal curve
-curva normal|bell-shaped curve,normal curve
+curva gausiana|normal curve,bell-shaped curve
+curva normal|normal curve,bell-shaped curve
 curvatura|turn,bend,twist
 cuscús|couscous
 custodia|keeping,custody,guardianship
-customizar|customize,custom-make,customise
+customizar|customize,customise,custom-make
 cuticular|dermal,epidermal,cuticular
 cutis|dermis,derma,corium
 cuádrica|quadric,quadric surface
@@ -38130,7 +37024,7 @@ cuñado|brother-in-law
 cuórum|quorum
 cv|resume,curriculum vitae
 cyamopsis tetragonoloba|cluster bean,guar
-cyberpunk|cyber-terrorist,hacker,cyberpunk
+cyberpunk|hacker,cyberpunk,cyber-terrorist
 cynara cardunculus|cardoon
 cynara scolymus|artichoke,artichoke plant,globe artichoke
 cábala|kabbalah,kabala,cabala
@@ -38191,7 +37085,7 @@ cítara|zither,cither,zithern
 cítrico|citric
 cívico|civil,civic,polite
 cóctel|cocktail,cocktail party
-códice|leaf-book,codex
+códice|codex,leaf-book
 código|code,computer code,coding system
 código binario|binary code
 código de acceso|access,access code
@@ -38229,17 +37123,16 @@ dacrydium cupressinum|red pine,rimu,imou pine
 dactilar|digital
 dactylopius coccus|cochineal,cochineal insect
 dador|donor,presenter,giver
-dag.|dag,decagram,dekagram
 dahlia|dahlia
 daiquiri|rum cocktail,daiquiri
 daiquiri de fresa|strawberry daiquiri
 daiquirí|rum cocktail,daiquiri
 dalbergia retusa|cocobolo
 daltonismo|color vision deficiency,colour vision deficiency,color blindness
-dama|lady,ma'am,dame
+dama|lady,dame,madam
 dama blanca|hell dust,nose drops,thunder
 dama de compañía|lady-in-waiting
-dama de honor|lady-in-waiting,maid of honor,bridesmaid
+dama de honor|maid of honor,bridesmaid,lady-in-waiting
 damajuana|carboy
 damas|checkers,draughts
 damasco|damask
@@ -38294,7 +37187,7 @@ dar langüetazos|lick,lap
 dar largas caminatas|hike
 dar llaves|key
 dar mal consejo|misguide,misadvise
-dar nuevo énfasis|re-emphasize,re-emphasise
+dar nuevo énfasis|re-emphasise,re-emphasize
 dar náuseas|turn one's stomach,sicken,nauseate
 dar patadas|boot
 dar permiso|allow,permit,let
@@ -38380,7 +37273,7 @@ de ello|on it,on that,thereon
 de esfinge|sphingine
 de eso|thereof
 de estafilococos|staphylococcal
-de fibra óptica|fiber-optic,fibre-optic,fiberoptic
+de fibra óptica|fiberoptic,fibreoptic,fiber-optic
 de forma andrajosa|raggedly,jaggedly
 de forma asesina|amok,amuck
 de forma cortante|cuttingly
@@ -38435,9 +37328,9 @@ de ninguna forma|by no means,not by a blame sight,not by a long sight
 de ninguna manera|by no means,not by a blame sight,not by a long sight
 de nuevo|again,once more,once again
 de odontología|dental
-de oficina|white-collar,clerical
+de oficina|clerical,white-collar
 de paso|by the way,by the bye,incidentally
-de pequeña capitalización|small-cap,small-capitalization,small-capitalisation
+de pequeña capitalización|small-cap,small-capitalisation,small-capitalization
 de poca fiabilidad|untrustworthiness,untrustiness
 de primos|cousinly
 de puntillas|tiptoe
@@ -38446,8 +37339,8 @@ de repente|suddenly,all of a sudden,of a sudden
 de sastrería|sartorial
 de sobras|all too,only too
 de todo corazón|wholeheartedness
-de trigo|whole-wheat,wholemeal,wheaten
-de trigo integral|whole-wheat,wholemeal,wheaten
+de trigo|wholemeal,wheaten,whole-wheat
+de trigo integral|wholemeal,wheaten,whole-wheat
 de término|full-term
 de un concejal|aldermanic,aldermanly
 de una comida|prandial
@@ -38455,7 +37348,7 @@ de una inscripción|inscriptive
 de una vestidura|vestmental
 de vainilla|vanilla
 de varias maneras|variously,diversely,multifariously
-de venta libre|over-the-counter,nonprescription
+de venta libre|nonprescription,over-the-counter
 de vestuario|locker-room
 de vino|vinous,vinaceous
 de virrey|viceregal
@@ -38494,7 +37387,7 @@ decepción|disappointment,deception,deceit
 deceso|going,release,loss
 dechado|example,model,paragon
 decibelio|decibel
-decidido|determined,out to,strong-minded
+decidido|determined,out to,dead set
 decidir|decide,determine,make up one's mind
 decidua|decidua
 decimal|decimal
@@ -38559,7 +37452,7 @@ dedicar|give,devote,dedicate
 dedicarse|go after,pursue,apply
 dedo|digit,finger,toe
 dedo índice|index finger,index,forefinger
-deducción|deduction,implication,tax write-off
+deducción|deduction,implication,synthesis
 deducción por negocios|business deduction
 deducible|deductible
 deducir|deduct,compute,derive
@@ -38572,7 +37465,7 @@ defenderse|fight,oppose,fight down
 defensa|defense,defence,back
 defensa civil|civil defense
 defensa comercial|protection,trade protection
-defensa personal|self-defense,self-protection,self-defence
+defensa personal|self-defense,self-defence,self-protection
 defensiva|defensive,defensive attitude
 defensivo|defensive,justificatory,justificative
 defensor|guardian,defender,advocate
@@ -38676,18 +37569,18 @@ delimitar|define,delimit,specify
 delincuencia juvenil|delinquency,juvenile delinquency
 delincuente|criminal,delinquent,robber
 delincuente primerizo|first offender
-delineación|picture,word picture,word-painting
+delineación|picture,word picture,characterization
 delineado|represented,delineated,delineate
 delinear|represented,streamline,delineated
 delirantemente|deliriously
 delirio|delirium,frenzy,fury
-delito|crime,law-breaking,offense
+delito|crime,offense,criminal offense
 delito común|job,caper
 delito informático|cybercrime
 delta|delta
 delírium|delirium
 demagogia|demagoguery,demagogy
-demagogo|demagogue,rabble-rouser,demagog
+demagogo|demagogue,demagog,rabble-rouser
 demanda|demand,question,call
 demanda reconvencional|counterclaim
 demandante|plaintiff in error,accuser,appellant
@@ -38702,7 +37595,7 @@ democracia parlamentaria|parliamentary democracy
 democrático|democratic,popular
 demodulación|demodulation
 demográfico|demographic
-demoler|destroy,spread-eagle,demolish
+demoler|destroy,demolish,rout
 demolición|tearing down,leveling,demolishing
 demoniaco|cacodaemonic,cacodemonic
 demonio|devil,demon,fiend
@@ -38775,7 +37668,7 @@ derecho civil|civil law
 derecho contractual|contract law
 derecho de acción|right of action
 derecho de alimentos|maintenance,alimony
-derecho de autodeterminación|self-government,self-rule,self-determination
+derecho de autodeterminación|self-determination,self-government,self-rule
 derecho de autor|right of first publication,copyright
 derecho de suscripción|subscription warrant
 derecho del mar|marine law,maritime law,admiralty law
@@ -38812,7 +37705,7 @@ derrocar|tip,tumble,topple
 derrochador|high roller,wasteful,prodigal
 derrochar|run off,waste,shoot
 derroche|waste,wastefulness,thriftlessness
-derrota|defeat,loss,put-down
+derrota|defeat,loss,frustration
 derrota aplastante|rout
 derrotar|fight,beat,defeat
 derrotar completamente|wallop
@@ -38826,7 +37719,7 @@ desabotonar|unbutton
 desabrochado|unbuttoned,unfastened
 desabrochar|unbutton,unbuckle,unclasp
 desacierto|miss,misfire
-desaconsejado|ill-advised,inadvisable,unadvised
+desaconsejado|inadvisable,unadvised,unadvisable
 desacorde|inharmonious,unharmonious
 desacostumbrado|unaccustomed
 desacreditar|disgrace,discredit
@@ -38885,7 +37778,7 @@ desbloquear|free,release,unblock
 desbordar|crowd
 desbridamiento|debridement
 desbrozar|beat,weed
-descalabro|flame-out,bust,flop
+descalabro|bust,flop,fizzle
 descalificación|disqualification
 descalificar|disqualify
 descalzo|barefoot,barefooted,unshod
@@ -38947,14 +37840,14 @@ descontaminación|decontamination
 descontaminar|decontaminate
 descontar|allow,dock
 descontento|discontent,discontentment,discontentedness
-descontrol|self-gratification,incontinence,dissoluteness
+descontrol|incontinence,dissoluteness,self-gratification
 descorchar|uncork
 descortesía|disrespect
 descreimiento|disbelief,unbelief
 describir|describe,report,draw
 descriminalización|decriminalization,decriminalisation
 descripción|description,picture,word picture
-descripción verbal|picture,word picture,word-painting
+descripción verbal|picture,word picture,characterization
 descriptivamente|descriptively
 descriptivo|descriptive,synchronic,delineative
 descrédito|disbelief,unbelief
@@ -39081,7 +37974,7 @@ desnacionalizar|denationalise,denationalize
 desnazificación|denazification
 desnivelar|ramp
 desnudar|strip,bare,clean
-desnudo|stripped,bare,stripped-down
+desnudo|stripped,bare,bald
 desobediencia|disobedience,noncompliance
 desobediente|disobedient
 desocupado|free,spare,unoccupied
@@ -39146,7 +38039,7 @@ despojaron|divest,disinvest
 despojarse|throw,shed,throw off
 desposar|marry,get married,engage
 desposeer|strip,deprive,divest
-despotismo|one-man rule,dictatorship,tyranny
+despotismo|dictatorship,tyranny,authoritarianism
 despreciable|ugly,hateful,vile
 despreciar|ignore,snub,cut
 desprecio|despite,contempt,slight
@@ -39259,7 +38152,6 @@ dextrina|dextrin
 deyección|body waste,excrement,excretion
 deísmo|free thought,deism
 deísta|deist,deistic
-dg.|dg,decigram
 dhoti|dhoti
 diablillo|cacodemon,cacodaemon
 diablo|devil,demon,fiend
@@ -39315,8 +38207,8 @@ dicotiledóneas|dicot family,dicot genus,magnoliopsid family
 dicotomía|duality,dichotomy
 dictado|dictate
 dictador|dictator
-dictadura|one-man rule,dictatorship,tyranny
-dictamen|say-so,dictum,pronouncement
+dictadura|dictatorship,tyranny,authoritarianism
+dictamen|dictum,pronouncement,obiter dictum
 dictar|dictate,order,return
 didanosina|didanosine,dideoxyinosine
 dieléctrico|dielectric,insulator,nonconductor
@@ -39357,7 +38249,7 @@ digitalización de vídeo|video digitizing
 digitalmente|digitally
 digitar|press down,depress
 digitaria ischaemum|smooth crabgrass
-dignidad|dignity,high-up,very important person
+dignidad|dignity,very important person,gravitas
 dignificar|dignify,ennoble
 digno|worth,worthy,solid
 digoxina|digoxin
@@ -39376,7 +38268,7 @@ diluyente|thinner,diluent,dilutant
 diluído|thin,thinly
 dimensión|dimension,proportion
 diminuendo|diminuendo,decrescendo
-diminuto|tiny,small,one-horse
+diminuto|tiny,small,atomic
 dimisión|resignation
 dimitir|give up,resign,vacate
 dina|dyne
@@ -39464,7 +38356,7 @@ discusión|discussion,argument,debate
 discutible|debatable,arguable,disputable
 discutir|discuss,argue,debate
 discutir a fondo|hammer out,thrash out
-discípulo|school-age child,pupil,disciple
+discípulo|pupil,disciple,adherent
 diseccionar|anatomize,anatomise
 disección|dissection
 diseminar|spread out,fan out,spread
@@ -39492,7 +38384,7 @@ disimilitud|dissimilitude,unlikeness
 disimulación|deception,deceit,dissembling
 disimular|mask,disguise,gloss over
 disimulo|stealing,stealth,pretense
-disipación|self-gratification,incontinence,dissipation
+disipación|incontinence,dissipation,dissoluteness
 disipar|dissipate,break up,still
 disiparse|disappear,go away,vanish
 dislocación|dislocation
@@ -39557,7 +38449,7 @@ distrito administrativo|administrative district,administrative division,territor
 distrito federal|federal district
 distrito rojo|red-light district
 distrofia muscular|muscular dystrophy,dystrophy
-disturbio|to-do,disturbance,commotion
+disturbio|disturbance,commotion,disruption
 disuadir|discourage,dissuade,deter
 disuasión|discouragement,dissuasion
 disulfiram|disulfiram
@@ -39612,7 +38504,7 @@ doblarse sobre sí|double,double over,double up
 doble|double,image,dual
 doble comprobación|double check,countercheck
 doble de cartón|standee
-doble juego|double-dealing,duplicity
+doble juego|duplicity,double-dealing
 doble negación|double negative
 doble refracción|double refraction,birefringence
 doble salario|double time
@@ -39666,7 +38558,7 @@ domiciliar|house,put up,domiciliate
 domiciliario|domiciliary
 domicilio|home,residence,dwelling
 dominación|authority,dominance,control
-dominada|pull-up,chin-up
+dominada|chin-up,pull-up
 dominante|dominant,dominating,ruling
 dominar|dominate,master,subdue
 dominatrix|dominatrix
@@ -39688,7 +38580,7 @@ doo wop|doo-wop
 dopamina|dopamine
 dopar|soup,dope up
 dorado|golden,gold,gilded
-dorar|brown,gold plate,gold-plate
+dorar|brown,gold plate,gild
 dormir|sleep,sleep off,slumber
 dormir una siesta|nap,catch a wink,catnap
 dormirse|fall asleep,drop off,dope off
@@ -39784,7 +38676,7 @@ déficit comercial|trade deficit
 déficit presupuestario|deficit
 dérmico|dermal,epidermal,cuticular
 déspota|tyrant,despot,autocrat
-día|day,twenty-four hours,civil day
+día|day,civil day,mean solar day
 día a día|day by day,daily
 día de fiesta|feast day,fete day
 día festivo|holiday,feast day,fete day
@@ -39848,7 +38740,7 @@ econométrico|econometric
 economía|economy,economic system,thriftiness
 economía doméstica|homemaking
 económicamente|economically
-económico|economic,economical,low-cost
+económico|economic,economical,affordable
 ectodermo|ectoderm,ectoblast,exoderm
 ectodérmico|ectodermal,ectodermic
 ectomorfo|asthenic type,ectomorphy
@@ -39901,10 +38793,10 @@ eficiente|efficient,effective
 efluvio|effluvium
 efusividad|high-spiritedness
 efusión|rise,outburst,procession
-efímero|short-lived,passing,momentary
-egocentrismo|self-interest,self-concern,egoism
-egolatría|self-love,self-worship,narcissism
-egotismo|self-importance,self-worship,swelled head
+efímero|passing,momentary,fugitive
+egocentrismo|egoism,egocentrism,self-centeredness
+egolatría|narcissism,autolatry,idiolatry
+egotismo|swelled head,egotism,autolatry
 ehf|extremely high frequency
 eimeria|eimeria,coccidium
 eira barbara|taira,tayra
@@ -40019,7 +38911,7 @@ embajador|ambassador,embassador
 embalar|bale
 embalsamar|embalm
 embarazar|knock up,bang up,impregnate
-embarazo|labor,labour,lying-in
+embarazo|labor,labour,pregnancy
 embarazo abdominal|abdominal pregnancy
 embarazo ovárico|ovarian pregnancy
 embarazo tubárico|tubal pregnancy
@@ -40045,22 +38937,22 @@ embocadura|mouthpiece,embouchure
 embolismo|embolism,intercalation
 embolsarse|bag,pocket
 emborracharse|drink,booze,fuddle
-emboscar|still-hunt,ambush
+emboscar|ambush,still-hunt
 embotar|clog,constipate
 embotellador|bottler
 embozado|masker,masquerader,masquer
 embrague|clutch,clutch pedal
 embrionario|embryonic,embryotic
 embrollar|mire,entangle
-embrollo|foul-up,maze,boo-boo
+embrollo|maze,blunder,intrigue
 embrujar|mesmerize,bewitch,magnetize
 embrujo|enchantment,bewitchment
 embudo|funnel
 embuste|canard
-embustero|cut-up,practical joker,storyteller
+embustero|practical joker,storyteller,trickster
 emergencia|emergence,emersion
 emerger|come out,issue,come up
-emigración|out-migration,emigration,expatriation
+emigración|emigration,expatriation,out-migration
 emigrante|migrant,migrator
 eminencia|distinction,note,eminence
 eminente|high,distinguished,eminent
@@ -40096,7 +38988,7 @@ empaquetar|parcel
 emparejamiento|pairing
 emparejar|match,fit
 empastar|plaster
-empatados|head-to-head,neck and neck,nip and tuck
+empatados|neck and neck,nip and tuck,head-to-head
 empatar|match,equal,equate
 empate|tie,draw,standoff
 empatizar|understand,sympathize,empathize
@@ -40133,7 +39025,7 @@ empleo de oficinista|clerkship
 empobrecer|deprive,impoverish
 empollar|cover,hatch,brood
 empolvarse|powder
-emprendedor|ball of fire,whiz-kid,go-getter
+emprendedor|ball of fire,go-getter,whiz-kid
 emprender|undertake,set about,attempt
 empresa|company,firm,enterprise
 empresa comercial|commercial enterprise
@@ -40234,9 +39126,9 @@ en un aprieto|on the spot
 en un bajío|aground
 en un banco|aground
 en un instante|instantly,in a flash,outright
-en un vagón-plataforma|pig-a-back,piggyback,pickaback
+en un vagón-plataforma|piggyback,pickaback,pig-a-back
 en uso|occupied
-en vagones-plataforma|pig-a-back,piggyback,pickaback
+en vagones-plataforma|piggyback,pickaback,pig-a-back
 en vez de|rather,instead
 en voz baja|in a low voice,sotto voce
 en zigzag|zigzag
@@ -40265,16 +39157,16 @@ encantadora|witch,enchantress
 encantamiento|spell,enchantment,trance
 encantar|love,please,enjoy
 encantarse|enjoy,delight,revel
-encanto|appeal,come-on,charm
+encanto|appeal,charm,style
 encaprichamiento|infatuation,crush,puppy love
 encapsular|capsule,capsulate,capsulise
 encaramarse|struggle,skin,scramble
 encarcelamiento|imprisonment
 encarcelar|detain,confine
 encargado|attendant,tender,straw boss
-encargado de comedor|dining-room attendant,restaurant attendant
+encargado de comedor|restaurant attendant,dining-room attendant
 encargado de negocios|charge d'affaires
-encargado de restaurante|dining-room attendant,restaurant attendant
+encargado de restaurante|restaurant attendant,dining-room attendant
 encargar|order,tell,say
 encargarse de|stick,sting
 encargo|commission,charge,mission
@@ -40287,7 +39179,6 @@ encefalopatía|brain disease,brain disorder,encephalopathy
 encendedor|light,lighter,igniter
 encender|open,turn on,ignite
 encender con manivela|crank,crank up
-encender(se)|kindle,inflame
 encendido|on,ignition,ignition system
 encerado|waxing
 encerrar|put away,confine,hold in
@@ -40298,7 +39189,7 @@ enchufe de pared|point,power point
 enciclopedia|encyclopedia,encyclopaedia,cyclopedia
 enciclopedismo|learning,scholarship,erudition
 enciclopedista|compiler
-encierro|sit-down,sit-down strike,locking
+encierro|locking,lockup,sit-down
 encimera|countertop
 encina|evergreen oak,holm oak,holm tree
 encoger|contract,shrink,shorten
@@ -40310,7 +39201,7 @@ encontrado|found
 encontrar|find,meet,discover
 encontrarse|meet,find,come upon
 encontronazo|brush
-encontrón|run-in,words,row
+encontrón|words,row,quarrel
 encopresis infantil|encopresis
 encordar|string,draw,thread
 encorvar|incurvate
@@ -40319,7 +39210,7 @@ encriptación|encryption,encoding
 encrucijada|crossing,intersection,crossroad
 encuadernación|back,cover,binding
 encuadernación de libros|bookbinding
-encuadernación en rústica|paper-back book,soft-cover,soft-cover book
+encuadernación en rústica|paperback,paperback book,softback
 encubrir|hide,conceal,cover for
 encuentro|encounter,meeting,get together
 encuentro violento|brush
@@ -40353,7 +39244,7 @@ enemigo|enemy,foe
 enemigo íntimo|enemy,foe
 enemistad|unfriendliness
 energizante|invigorating
-energía|energy,get-up-and-go,color
+energía|energy,color,free energy
 energía eléctrica|electricity,electric power,electrical energy
 enervar|enervate,faze,unsettle
 enfadar|anger
@@ -40381,7 +39272,7 @@ enfocar|focus,center,center on
 enfondar con cobre|copper-bottom
 enfoque|focus,direction,angle
 enfrascarse|steep,absorb,soak up
-enfrentamiento|encounter,face-off,conflict
+enfrentamiento|encounter,conflict,brush
 enfrentar|face,confront,present
 enfrentarse|fight,meet,take on
 enfrentarse a|face,confront,present
@@ -40412,7 +39303,7 @@ engrosamiento|node,knob,thickening
 engullir|go down,pig,gulp
 enhebrar|thread,draw,string
 enhorabuena|congratulation,felicitation
-enigma|riddle,brain-teaser,enigma
+enigma|riddle,enigma,conundrum
 enjabonar|suds
 enjambre|drove,swarm,horde
 enjuagar|wash,rinse
@@ -40462,7 +39353,7 @@ enrojecer|redden,blush,flush
 enrolamiento|tour,duty tour,tour of duty
 enrolar|beat up,rally,drum up
 enrollado|coiled
-enrollar|hand-build,roll up,bundle
+enrollar|roll up,bundle,bundle up
 enroscado|coiled
 enrutador|router
 ensalada de col|coleslaw,slaw
@@ -40521,7 +39412,7 @@ entorno|environment,surroundings,element
 entrada|entrance,entry,access
 entrada de teléfonos|phone jack,telephone jack
 entrampar|set up,frame,trap
-entrante|incoming,re-entrant,reentrant
+entrante|incoming,reentrant,re-entrant
 entrar|enter,come in,go into
 entrar en erupción|erupt,break out,come out
 entrar volando|whisk
@@ -40602,7 +39493,7 @@ enyesar otra vez|recast,remold,remould
 enzima|enzyme
 enérgicamente|heartily
 enérgico|lively,full of life,game
-enésimo|n-th,nth,umpteenth
+enésimo|nth,umpteenth,n-th
 enólogo|oenologist,enologist,fermentologist
 eosina|eosin,bromeosin
 eosinofilia|eosinophilia
@@ -40640,7 +39531,7 @@ epitelio|epithelial
 epos|epic,epic poem,heroic poem
 epígono|epigon,epigone
 epígrafe|epigraph
-equilibrado|well-balanced,poised,balanced
+equilibrado|poised,balanced,collected
 equilibrar|balance,true,true up
 equilibrar riesgos|hedge
 equilibrio|balance,equilibrium,sense of balance
@@ -40673,7 +39564,7 @@ equisetum arvense|common horsetail,field horsetail
 equivalencia|equality,equivalence,par
 equivalente|equivalent,same,like
 equivaler|be,equal,buy
-equivocación|foul-up,misunderstanding,misconception
+equivocación|misunderstanding,misconception,blunder
 equivocar|misunderstand,be amiss,misinterpret
 equivocarse|trip up,mistake,slip
 equus africanus asinus|donkey
@@ -41060,7 +39951,7 @@ estadístico|statistical
 estadístico muestral|statistic
 estafa|snow job
 estafador|confidence man,con artist,con man
-estafar|short-change,con,cheat
+estafar|con,cheat,rip off
 estafilococos|cocci,coccus
 estalactita|stalactite
 estallar|explode,burst,crack
@@ -41093,7 +39984,7 @@ estar pendiente|weather eye,vigilance,watchfulness
 estar tras|run down,check out
 estatal|state-supported
 estatalización|nationalization,nationalisation,communization
-estatina|lipid-lowering medication,lipid-lowering medicine,statin
+estatina|statin,statin drug,lipid-lowering medication
 estatua|statue
 estatuaria|statuary
 estatura|height,stature
@@ -41208,12 +40099,12 @@ estreptoquinasa|streptokinase
 estreñido|costive
 estribo|stirrup,stapes
 estrictamente|purely,strictly
-estricto|strict,rigorous,hard-and-fast
+estricto|strict,rigorous,severe
 estriol|estriol,oestriol
 estrofa|stanza,strophe
 estropear|mar,spoil,flaw
 estropearse|go down,crash,decay
-estropeo|foul-up,boo-boo,blunder
+estropeo|blunder,boner,bloomer
 estructura|structure,form,pattern
 estructura anatómica|structure,complex body part,body structure
 estructura de datos|data structure
@@ -41312,17 +40203,15 @@ evidencia|evidence,fact,grounds
 evidencia de vista|prima facie
 evidencia directa|direct evidence
 evidenciar|show,express,evidence
-evidente|evident,apparent,out-and-out
+evidente|evident,apparent,plain
 evidentemente|obviously,evidently,plainly
 evitar|avoid,prevent,keep
 evocación|evocation
 evocar|evoke,suggest,call forth
 evolucionar|develop,evolve,acquire
 evolución|development,progress,advance
-ex|ex,ex-husband,ex-wife
+ex|ex,divorced man,grass widower
 ex libris|ex libris,bookplate
-ex-alcalde|ex-mayor
-ex-jugador|ex-gambler
 exacerbación|exacerbation
 exacerbar|aggravate,exacerbate,exasperate
 exactamente|right,flop
@@ -41333,7 +40222,7 @@ exagerado|exaggerated,inflated,excessive
 exagerado elogio|unction,oiliness,fulsomeness
 exagerar|exaggerate,amplify,magnify
 exaltación|transport,ecstasy,rapture
-exaltado|fire-eater,hothead
+exaltado|hothead,fire-eater
 exaltar|inspire,exalt,glorify
 examen|examination,test,trial
 examen escrito|test paper,question sheet,exam paper
@@ -41379,7 +40268,7 @@ excremento|body waste,stool,feces
 exculpatorio|exculpatory
 excursionista|camper
 excursión|excursion,pleasure trip,hike
-excusa|excuse,self-justification,alibi
+excusa|excuse,alibi,exculpation
 excusado|closet,water closet,loo
 excusar|excuse,explain,spare
 excusarse|apologize,apologise
@@ -41436,7 +40325,7 @@ expender|spend,make out,cut
 expensas|expense
 experiencia|experience
 experimentación|experiment,experimentation
-experimental|experimental,data-based,observational
+experimental|experimental,observational,data-based
 experimentalismo|experimentalism
 experimentalmente|through an experiment,experimentally,by experimentation
 experimentar|have,get,experience
@@ -41475,7 +40364,7 @@ exportador|exporter
 exposición|exposure,photograph,display
 expresar|express,show,state
 expresionista|expressionist,expressionistic
-expresivo|silver,smooth-spoken,expressive
+expresivo|silver,expressive,eloquent
 expresión|expression,look,face
 expresión facial|facial expression,facial gesture
 exprimir|milk
@@ -41574,7 +40463,6 @@ factor decisivo|determining factor,causal factor,determinant
 factor determinante|determining factor,causal factor,determinant
 factor iv|calcium ion
 factor v|accelerator factor,prothrombin accelerator,proaccelerin
-factor-analítico|factor analytical,factor analytic
 factorial|factorial
 factorizar|factor,factor in,factor out
 factoría|plant,works,industrial plant
@@ -41676,14 +40564,14 @@ fan|fan,sports fan,fandom
 fanatismo|bigotry,fanaticism,dogmatism
 fandango|fandango
 fanfarria|flourish,fanfare,tucket
-fanfarronada|line-shooting,crow,brag
-fanfarronería|line-shooting,crow,brag
+fanfarronada|crow,brag,bragging
+fanfarronería|crow,brag,bragging
 fango|sludge
 fantasear|fantasize,fantasy,fantasise
 fantasma|ghost,specter,spectre
 fantasmas|shades of
 fantasmas de|shades of
-fantasía|fantasy,phantasy,make-believe
+fantasía|fantasy,phantasy,illusion
 fantástico|fantastic,wonderful,marvelous
 fanático|fandom,fanatic,rabid
 fardo de heno|hay bale
@@ -41724,7 +40612,7 @@ fauna|animal,creature,beast
 favor|favor,favour,good turn
 favorable|favorable,favourable,lucky
 favorecer|favor,promote,encourage
-favorito|favorite,favourite,best-loved
+favorito|favorite,favourite,pet
 faz|face,side,human face
 fe|faith,religion,trust
 fecha|date,day of the month
@@ -41823,9 +40711,9 @@ fideos de chocolate|sprinkles,jimmies
 fiebre|fever,pyrexia,febricity
 fiebre aftosa|foot-and-mouth disease,hoof-and-mouth disease
 fiebre amarilla|yellow jack,yellow fever,black vomit
-fiebre assam|kala-azar,visceral leishmaniasis,dumdum fever
+fiebre assam|visceral leishmaniasis,dumdum fever,kala-azar
 fiebre del oro|gold fever
-fiebre dum-dum|kala-azar,visceral leishmaniasis,dumdum fever
+fiebre dum-dum|visceral leishmaniasis,dumdum fever,kala-azar
 fiebre pappataci|sandfly fever,pappataci fever,phlebotomus
 fiel|faithful,close,true
 fieltro|felt hat,fedora,trilby
@@ -41946,7 +40834,7 @@ flexible|flexible,live,pliable
 flexiblemente|flexibly
 flexionar|flex,bend
 flexión|bending,inflection,inflexion
-flexión de codos|press-up,pushup
+flexión de codos|pushup,press-up
 flexión de pierna|leg curling,leg curl
 flexión de rodilla|knee bend,squat,squatting
 flexor|flexor,flexor muscle
@@ -41994,7 +40882,7 @@ fly high|fly high,thrive,flourish
 flúor|fluorine
 fm|medium frequency
 fobia|simple phobia
-foca cangrejera|crab-eating seal,crabeater seal
+foca cangrejera|crabeater seal,crab-eating seal
 focha americana|marsh hen,mud hen,water hen
 focha cenicienta|marsh hen,mud hen,water hen
 foco de infección|pesthole
@@ -42011,7 +40899,7 @@ folio|sheet,piece of paper,sheet of paper
 folklore|folklore
 follaje|leaf,foliage,foliation
 follar|piece of tail,screw,roll in the hay
-follón|how-do-you-do,excitement,how-d'ye-do
+follón|excitement,turmoil,agitation
 folículo|follicular
 fomentar|promote,encourage,advance
 fomento|promotion,furtherance,advancement
@@ -42044,7 +40932,7 @@ forma|form,shape,way
 forma de campana|bell,bell shape,campana
 forma de gobierno|political system,form of government,civil order
 forma de hablar|turn of expression,turn of phrase
-forma gausiana|bell-shaped curve,normal curve
+forma gausiana|normal curve,bell-shaped curve
 formación|formation,training,education
 formación de ampollas|blistering,vesication,vesiculation
 formación tipo|close-order drill
@@ -42113,7 +41001,7 @@ fotógrafo de prensa|press photographer
 fotógrafo entusiasta|shutterbug
 fotón|photon
 foulard|foulard
-foxtrot|fox-trot,foxtrot
+foxtrot|foxtrot,fox-trot
 fracasar|fail,go wrong,fall
 fracaso|failure,loss,defeat
 fraccionamiento|fractionation
@@ -42125,7 +41013,7 @@ fracción propia|proper fraction
 fracción simple|common fraction,simple fraction
 fracturar|fracture
 fragante|fragrant
-fragata|three-decker,frigate,square-rigger
+fragata|frigate,square-rigger,three-decker
 fragmentación|fragmentation
 fragmento|fragment,selection,extract
 fragmento de cerámica|potsherd
@@ -42151,7 +41039,7 @@ frase|line,phrase,musical phrase
 frase declarativa|declarative sentence,declaratory sentence
 frase enunciativa|declarative sentence,declaratory sentence
 fraternidad|club,society,order
-fraude|fraud,cheat,put-on
+fraude|fraud,cheat,fraudulence
 fraude electoral|gerrymander
 fraudulencia|duplicity,fraudulence
 fraxinus texensis|mountain ash
@@ -42163,7 +41051,7 @@ frecuencia modulada pulsada|chirp
 frecuencia por minuto|count per minute
 frecuentar|frequent,haunt
 frecuente|frequent
-freelance|independent,self-employed person,free lance
+freelance|independent,free lance,freelance
 freeware|freeware
 fregadero|sink,scullery
 fregado|mopping,swabbing
@@ -42193,7 +41081,7 @@ frigorífico|cold storage
 friolera|nothings
 frisa|fraise
 fritura|frying,sauteing
-frivolidad|light-mindedness,flippancy
+frivolidad|flippancy,light-mindedness
 fronda|frond
 frondoso|foliate,foliated
 frontal anterior|frontal
@@ -42222,7 +41110,7 @@ fucus|fucus,fucoid
 fuego|fire,flame,firing
 fuego de artillería|shellfire
 fuego de mortero|mortar fire
-fuego fatuo|will-o'-the-wisp,ignis fatuus
+fuego fatuo|ignis fatuus,will-o'-the-wisp
 fuegos artificiales giratorios|catherine wheel,pinwheel
 fuelle|bellows
 fuente|source,fountain,origin
@@ -42235,7 +41123,7 @@ fuerte|strong,loud,heavy
 fuertemente|fast,tight,mightily
 fuerza|force,intensity,strength
 fuerza convincente|cogency
-fuerza g|g,g-force,gee
+fuerza g|g,gee,g-force
 fuerza mayor|inevitable accident,vis major,unavoidable casualty
 fuerza moral|moral force,dynamic
 fuerza muscular|muscle,brawn,sinew
@@ -42244,7 +41132,7 @@ fuerzas marítimas|sea power
 fuga|escape,break,flight
 fuga de cerebros|brain drain
 fugarse|squeak by,squeak through
-fugaz|short-lived,passing,momentary
+fugaz|passing,momentary,fugitive
 fugitivo|fugitive,runaway,fleer
 fulana|street girl,hustler,floozy
 fulgor|glare,blaze,brilliance
@@ -42324,7 +41212,6 @@ fémur|femur,thighbone,femoris
 fértil|fertile,prolific,rich
 física|physics,natural philosophy
 físico|physical,figure,form
-físico-químico|physicochemical
 fístula|sinus,fistula
 fórmico|formic
 fórmula|formula,rule,pattern
@@ -42406,7 +41293,7 @@ ganar prosélitos|proselytize,proselytise
 ganarse el cariño|endear
 gancho|hook,teaser
 gancho para tazas|cup hook
-gandul|do-nothing,bum,slouch
+gandul|bum,slouch,idler
 ganga hindú|painted sandgrouse
 ganglio nervioso|ganglion
 gangrena del tallo|little potato,rosette,russet scab
@@ -42462,7 +41349,7 @@ gato callejero|alley cat
 gato castrado|gib
 gato nativo|native cat
 gato salvaje africano|kaffir cat,caffer cat
-gatos solos|coon cat,coati,coati-mundi
+gatos solos|coon cat,coati,coati-mondi
 gaucho|gaucho
 gavia|diver,loon,topsail
 gavia del trinquete|fore-topsail
@@ -42490,7 +41377,7 @@ generación|generation,genesis,contemporaries
 generador|generator
 general|general,wide,broad
 generalidad|generality,generalization,generalisation
-generalización|generalization,carry-over,transfer
+generalización|generalization,transfer,transfer of training
 generalizar|generalize,generalise,infer
 generalmente|in general,generally,in the main
 generar|generate,give,return
@@ -42507,13 +41394,12 @@ genitales|private parts,genital organ,crotch
 genitales femeninos|fanny,female genital organ,female genitals
 genoma|genome
 gens|name,gens
-gent.|gent
 gentamicina|gentamicin
 gente|people,mass,masses
 gente bien|high society,society,smart set
 gentil|gentile,goy
 gentrificación|gentrification
-genu valgum|knock-knee,tibia valga,genu valgum
+genu valgum|tibia valga,genu valgum,knock-knee
 genuinamente|genuinely,authentically
 genuino|genuine,real,literal
 genéricamente|generically
@@ -42601,7 +41487,7 @@ glasnost|glasnost
 glauconita|glauconite
 glicina|glycine
 glissando|glissando
-global|world-wide,worldwide,universal
+global|worldwide,universal,wide
 globalización|globalization,globalisation
 globalizar|globalize,globalise
 globo|world,globe,balloon
@@ -42669,14 +41555,14 @@ golosina|candy,confectionery,sweetmeat
 golosinas|tuck
 golpazo|swipe
 golpe|blow,hit,knock
-golpe bajo|put-down,low blow,sucker punch
+golpe bajo|low blow,sucker punch,takedown
 golpe brusco|swing
 golpe circular|roundhouse
 golpe de efecto|corker
 golpe de estado|insurgency,subversive activity,subversion
 golpe de gracia|coup de grace,deathblow
 golpe de refilón|sideswipe
-golpe decisivo|put-down,takedown,squelch
+golpe decisivo|takedown,squelch,put-down
 golpe fuerte|bang,belt,smash
 golpe mortal|coup de grace,deathblow
 golpe teatral|coup de theatre
@@ -42693,8 +41579,8 @@ golpearse contra|run into,knock against,butt against
 golpecito|tap,pat,dab
 golpetazo|blow
 golpetear|pat,dab
-golpeteo|pit-a-pat,pitty-pat,pitty-patty
-golpiza|going-over,dressing down,chewing out
+golpeteo|pit-a-pat,pitter-patter,pitty-pat
+golpiza|dressing down,chewing out,bawling out
 goma|rubber,gum,safe
 goma buna|buna,buna rubber
 goma de borrar|rubber,eraser,pencil eraser
@@ -42709,8 +41595,8 @@ gonadotrofina|gonadotropin,gonadotrophin,gonadotropic hormone
 gonadotropina|gonadotropin,gonadotrophin,gonadotropic hormone
 gondolero|gondolier,gondoliere
 gong|bell,gong,chime
-gordinflón|fat person,fatty,roly-poly
-gordito|fat person,fatty,roly-poly
+gordinflón|fat person,fatty,fatso
+gordito|fat person,fatty,fatso
 gordo|fatty,fat,fat person
 gordura|fat,blubber,fatness
 gorila|tough,muscle,bully
@@ -42759,12 +41645,12 @@ grafismo por ordenador|computer graphics
 grafito|black lead,graphite,plumbago
 grafología|graphology
 grafía|character,graphic symbol,grapheme
-gramatical|grammatical,well-formed,grammatic
+gramatical|grammatical,grammatic,well-formed
 gramo|gram,gm,g
 gramática|grammar
 gramático|grammarian,syntactician
 gran|big,large,bad
-gran angular|wide-angle,fisheye
+gran angular|fisheye,wide-angle
 gran beso|smacker
 gran jurado|grand jury
 gran pantalla|silver screen
@@ -42819,7 +41705,6 @@ greca|lattice,fretwork,latticework
 greguería|uproar,hubbub,brouhaha
 gremio|club,society,order
 gremlin|elf,imp,pixie
-gres-gris|gres-gris,grigri,greegree
 gresca|altercation,hassle,scuffle
 grial|grail
 grieta|break,hole
@@ -42873,7 +41758,7 @@ gráficamente|graphically
 gráfico|graphic,art,vivid
 gránulo|granule
 guacamole|guacamole
-guaches|coon cat,coati,coati-mundi
+guaches|coon cat,coati,coati-mondi
 guanaco|guanaco
 guanina|guanine
 guano|guano
@@ -42882,7 +41767,7 @@ guante|glove,baseball glove,baseball mitt
 guante de metal|metal glove,gauntlet,gantlet
 guante largo|gauntlet,gantlet
 guantelete|metal glove,gauntlet,gantlet
-guapo|good-looking,handsome,better-looking
+guapo|handsome,dishy,better-looking
 guarda|security guard,watchman,watcher
 guarda de seguridad|security guard,watchman,watcher
 guardabarrera|door guard,porter,hall porter
@@ -42973,7 +41858,7 @@ haber|be,exist,credit
 haber borrasca|squall
 haber ráfaga|squall
 haber temporal|squall
-habilidad|skill,know-how,craft
+habilidad|skill,craft,acquisition
 habilidad manual|hand,handiness
 habilidoso|good,expert,practiced
 habilitante|enabling
@@ -43003,7 +41888,7 @@ hacer|make,do,create
 hacer a carboncillo|charcoal
 hacer a carbón|charcoal
 hacer a lápiz|pencil
-hacer a mano|hand-build,coil,handbuild
+hacer a mano|coil,hand-build,handbuild
 hacer a máquina|machine
 hacer aguas menores|make,make water,pass water
 hacer al aguatinta|aquatint
@@ -43058,7 +41943,7 @@ hacer la pelota|court favor,court favour,curry favor
 hacer muescas|notch
 hacer notar|point out,comment,notice
 hacer novillos|cut,skip
-hacer nuevo énfasis|re-emphasize,re-emphasise
+hacer nuevo énfasis|re-emphasise,re-emphasize
 hacer obsceno|smut
 hacer parar|flag down
 hacer patinaje artístico|figure skate
@@ -43137,7 +42022,7 @@ halagador|complimentary,flattering
 halagos|sweet nothings,honeyed words
 halal|halal
 halcón|hawk,war hawk
-halcón hembra|falcon-gentle,falcon-gentil
+halcón hembra|falcon-gentil,falcon-gentle
 halita|rock salt,halite
 hallar|come upon,come across,discover
 hallazgo|discovery,finding,find
@@ -43153,7 +42038,7 @@ hambruna|famine,shortage,dearth
 hamburguesa de atún|tunaburger
 hamburguesa de queso|cheeseburger
 haplotipo|haplotype
-harakiri|hara-kiri,seppuku,harakiri
+harakiri|seppuku,harakiri,hara-kiri
 harina|oil meal
 harina Graham|graham,graham flour,whole meal flour
 harina de soja|soy flour,soybean flour,soybean meal
@@ -43165,9 +42050,9 @@ hasta el final|all the way,the whole way
 hasta el momento|up to now,to date
 hasta la meta|all the way,the whole way
 hasta la rodilla|knee-length
-hasta la vista|good-by,good day,so long
-hasta más ver|good-by,good day,so long
-hasta otra|good-by,good day,so long
+hasta la vista|good day,so long,bye
+hasta más ver|good day,so long,bye
+hasta otra|good day,so long,bye
 hastío|tedium,tediousness,tiresomeness
 hatajo|collection,accumulation,aggregation
 hatchback|hatchback
@@ -43199,7 +42084,7 @@ hedor|stink,pong,stench
 hegemonía|hegemony
 helada|frost,icing,frostiness
 heladera|icehouse
-helado con soda|ice-cream soda,float,ice-cream float
+helado con soda|float,ice-cream float,ice-cream soda
 helado de chocolate|chocolate ice cream
 helado de vainilla|vanilla ice cream
 helar|freeze,ice,chill
@@ -43280,14 +42165,14 @@ herir a sablazos|saber,sabre
 hermafroditismo|intersex,hermaphrodite,androgyne
 hermana|sister,buddy,brother
 hermana mayor|big sister
-hermanastro|half-brother,half brother,stepbrother
+hermanastro|half brother,stepbrother,half-brother
 hermano|brother,buddy,blood brother
 hermano mayor|big brother
 hermenéutico|hermeneutic
 hermita|hermitage
 hermitaño|solitary,hermit,recluse
 hermoso|beautiful,fair,lovely
-heroico|heroic,larger-than-life,epic
+heroico|heroic,epic,desperate
 heroinómano|heroin addict
 heroína|heroine,hell dust,nose drops
 herradura|shoe,horseshoe,horseshoes
@@ -43301,7 +42186,7 @@ hervir|boil
 hervir excesivamente|overboil
 heráldico|heraldic,heraldist
 heróico|heroic,heroic meter,heroic verse
-het|thyroid-stimulating hormone,thyrotropin,thyrotrophic hormone
+het|thyrotropin,thyroid-stimulating hormone,thyrotrophic hormone
 hetaira|street girl,hustler,floozy
 heterogéneo|heterogeneous,heterogenous
 heterosexismo|heterosexism
@@ -43309,7 +42194,6 @@ heterosis|hybrid vigor,heterosis
 hexano|hexane
 hexágono|hexagon
 hez|body waste,excrement,excretion
-hg.|hg,hectogram
 hialuronidasa|spreading factor,hyaluronidase
 hibernar|hole up,hibernate
 hibiscus|hibiscus
@@ -43436,7 +42320,7 @@ hipovolémico|hypovolemic,hypovolaemic
 hippopotamus amphibius|river horse,hippo,hippopotamus
 hipérbaton|hyperbaton
 hipérbole|exaggeration,hyperbole
-hipócrita|self-righteous,hypocritical,insincere
+hipócrita|hypocritical,insincere,sanctimonious
 hipócritamente|insincerely
 hipódromo|hippodrome
 hipótesis|theory,hypothesis,possibility
@@ -43489,12 +42373,12 @@ hoja simple|simple leaf
 hojalatero|tinsmith,tinner
 hojalatería|tinware
 hojaldrado|flaky,flakey
-hojarasca|trash,wish-wash,rubbish
+hojarasca|trash,rubbish,tripe
 hojear|leaf,flick,ruffle
 hojilla|leaflet
-hola|how-do-you-do,hi,hello
+hola|hi,hello,howdy
 holgazanear|idle,slug,stagnate
-holgazán|do-nothing,bum,slouch
+holgazán|bum,slouch,idler
 holismo|holistic theory,holism
 hollar|tread
 hollín|carbon black,crock,soot
@@ -43506,7 +42390,7 @@ hombre contratado|hand,hired man,hired hand
 hombre de accion|mover
 hombre del gas|gasman
 hombre del tiempo|weatherman,weather forecaster
-hombre lobo|werewolf,wolfman,loup-garou
+hombre lobo|werewolf,wolfman,lycanthrope
 hombre mecánico|android,mechanical man,humanoid
 hombre rana|diver,underwater diver,frogman
 hombrera|epauliere
@@ -43525,7 +42409,7 @@ homogéneo|homogeneous,homogenous
 homologar|mastopexy,homologise,homologize
 homomorfismo|homomorphism,homomorphy
 homínido|hominid
-homólogo|counterpart,opposite number,vis-a-vis
+homólogo|counterpart,opposite number,concurring
 hondo|profound
 honestidad|rightness
 honesto|honest,honorable
@@ -43566,9 +42450,9 @@ hormigueo|tingle,chill,thrill
 hormiguillo|tingling,tingle,prickling
 hormona|hormone,internal secretion,endocrine
 hormona antidiurética|vasopressin,antidiuretic hormone
-hormona estimuladora tiroidea|thyroid-stimulating hormone,thyrotropin,thyrotrophic hormone
-hormona thyrotrópica|thyroid-stimulating hormone,thyrotropin,thyrotrophic hormone
-hormona tirotrópica|thyroid-stimulating hormone,thyrotropin,thyrotrophic hormone
+hormona estimuladora tiroidea|thyrotropin,thyroid-stimulating hormone,thyrotrophic hormone
+hormona thyrotrópica|thyrotropin,thyroid-stimulating hormone,thyrotrophic hormone
+hormona tirotrópica|thyrotropin,thyroid-stimulating hormone,thyrotrophic hormone
 horneado|baking
 hornear|ovenbake
 hornero|ovenbird
@@ -43598,7 +42482,6 @@ hostigar|harry,bug,plague
 hostil|hostile,unfriendly,uncongenial
 hostilidad|unfriendliness
 hotel|hotel
-hotel-casino|casino-hotel,hotel-casino
 hotelero|hotel manager,hotelier,hotelkeeper
 hoy|today
 hoya|hoya
@@ -43617,7 +42500,7 @@ huella dactilar|fingerprint,fingermark
 huella digital|fingerprint,fingermark
 huerta|market garden,truck farm,truck garden
 huerto|kitchen garden,vegetable patch,vegetable garden
-hueso|bone,off-white,stone
+hueso|bone,stone,pearl
 hueso del trapecio|os trapezium,trapezium,trapezium bone
 hueso desnudo|bare bone
 hueso piramidal|pyramidal bone,cuneiform bone,os triquetrum
@@ -43634,7 +42517,7 @@ hula|hula,hula-hula
 humanidad|humanity,world,man
 humanidades|arts,liberal arts,humanities
 humanista|humanitarian,humanist
-humanitario|humanitarian,humanist,human-centered
+humanitario|humanitarian,humanist,humane
 humano|human,person,individual
 humanoide|android,mechanical man,humanoid
 humear|steam,smoke,fume
@@ -43652,7 +42535,7 @@ humo|smoke,smoking
 humor|mood,humor,temper
 humoral|humoral
 humorista gráfico|cartoonist
-humorísticamente|jokingly,tongue-in-cheek,facetiously
+humorísticamente|jokingly,facetiously,jestingly
 humus de lombriz|wormcast
 hundir|sink,drop,drop down
 hundirse|go down,go under,settle
@@ -43706,7 +42589,7 @@ ideólogo|ideologue,ideologist
 idioma|tongue,natural language
 idiomático|idiomatic,idiomatical
 idiota|jackass,lump,goose
-idolatrar|worship,hero-worship,revere
+idolatrar|worship,revere,idolize
 idolatría|idolization,idolisation
 idéntico|identical,very,indistinguishable
 idólatra|idoliser,idolizer
@@ -43750,7 +42633,7 @@ imagen|image,picture,sight
 imagen memorística|memory image
 imagen mental|image,picture,mental image
 imagen panorámica|panorama,diorama,cyclorama
-imaginación|imagination,make-believe,vision
+imaginación|imagination,vision,pretend
 imaginar|imagine,think,guess
 imaginario|imaginary,fanciful,notional
 imaginativamente|imaginatively
@@ -43759,7 +42642,7 @@ imago|imago
 imbecilidad|stupidity,mental deficiency,folly
 imberbe|youth,young person,spring chicken
 imbibición|imbibition
-imbécil|stupid,half-wit,idiotic
+imbécil|stupid,idiotic,imbecile
 imida|imide
 imidazol|imidazole,glyoxaline,iminazole
 imipramina|imipramine,impramine hydrochloride
@@ -43782,7 +42665,7 @@ impasibilidad|indifference,coolness,phlegm
 impasible|untouched,unaffected,unmoved
 impecablemente|impeccably
 impedimenta|impedimenta
-impedimento|hang-up,rub,hitch
+impedimento|rub,hitch,snag
 impedimento olfativo|olfactory impairment,dysosmia,parosamia
 impedir|prevent,keep,rule out
 impedir el paso|spike
@@ -43846,10 +42729,10 @@ impresionar|impress,instill,ingrain
 impresión|impression,feeling,picture
 impresora|printer,printing machine
 impresora de agujas|wire matrix printer,wire printer,stylus printer
-impresora de impacto|character printer,character-at-a-time printer,impact printer
+impresora de impacto|character printer,impact printer,serial printer
 impresora de inyección|ink-jet printer
 impresora de páginas|page printer,page-at-a-time printer
-impresora en serie|character printer,character-at-a-time printer,serial printer
+impresora en serie|character printer,serial printer,character-at-a-time printer
 impresora matricial|dot matrix printer,dot printer,matrix printer
 imprevisible|erratic,fickle,quicksilver
 imprimatur|warrant,sanction,endorsement
@@ -43863,9 +42746,9 @@ improperio|oath,curse,curse word
 impropiamente|indecorously,unbecomingly
 improvisación|improvisation,vamp,temporary expedient
 improvisado|unscripted
-improvisar|whip up,ad-lib,improvise
+improvisar|whip up,improvise,vamp
 imprudencia|heedlessness,inadvertence,inadvertency
-imprudente|ill-advised,imprudent,unadvised
+imprudente|imprudent,unadvised,ill-advised
 imprudentemente|unwarily
 impuesto|tax,tax bill,taxation
 impuesto de protección|protection,tribute
@@ -44018,8 +42901,8 @@ indefinida|indefinite
 indefinido|indefinite
 indemnidad|indemnity,damages,redress
 indemnización|compensation,amends,damages
-independencia|independence,self-direction,self-reliance
-independiente|independent,separate,self-contained
+independencia|independence,autonomy,independency
+independiente|independent,separate,sovereign
 independientemente|no matter,regardless,independently
 indeseable|unwanted,undesirable
 indestructibilidad|indestructibility
@@ -44033,7 +42916,7 @@ indicción|indiction
 indicio|show,indication,display
 indiferencia|indifference,apathy,numbness
 indiferenciado|undiversified
-indiferente|indifferent,so-so,unconcerned
+indiferente|indifferent,unconcerned,neutral
 indigente|bum,tramp,hobo
 indignación|indignation,outrage
 indigno|unmerited
@@ -44047,7 +42930,7 @@ indisciplinado|disorderly
 indiscreción|indiscretion,peccadillo
 indiscretamente|indiscreetly
 indiscriminado|undiscriminating,indiscriminating
-indiscutible|sure,straight-out,decided
+indiscutible|sure,decided,distinct
 indispensable|essential,indispensable,vital
 individual|individual,single,personal
 individualidad|identity,individuality,individualism
@@ -44061,7 +42944,7 @@ inductancia|inductance,inductor
 inductor|field magnet,inductance,inductor
 indudable|positive,decided,beyond doubt
 indudablemente|no doubt,to be sure,undoubtedly
-indulgencia|indulgence,self-indulgence,leniency
+indulgencia|indulgence,leniency,lenience
 indulto|pardon,amnesty,free pardon
 indumentaria|clothing,wear,article of clothing
 indumento|garment
@@ -44174,7 +43057,7 @@ ingeniero espacial|rocket scientist
 ingeniero ferroviario|engine driver,engineer,railroad engineer
 ingeniería|technology,engineering
 ingenio|power,ability,brain
-ingenioso|clever,tongue-in-cheek,imaginative
+ingenioso|clever,imaginative,inventive
 ingenua|ingenue
 ingenuidad|ingenuousness
 ingenuo|simple,green,innocent
@@ -44191,16 +43074,16 @@ ingurgitación|engorgement
 inhabilitar para votar|disenfranchise,enfranchise,disfranchise
 inhalador|respirator,inhalator
 inhalar|snort,huff
-inherente|inherent,underlying,built-in
+inherente|inherent,underlying,genetic
 inhibición|inhibition,suppression
 inhibir|inhibit
 inhibirse|refrain,abstain,desist
 iniciación|induction,initiation,start
 inicial|initial,first,starting
-inicialización|low-level formatting,initialization,initialisation
+inicialización|initialization,initialisation,low-level formatting
 iniciar|start,begin,initiate
 iniciarse|take up,start
-iniciativa|initiative,first step,go-ahead
+iniciativa|initiative,first step,opening
 inicio|start,beginning,first
 inicuo|unrighteous
 inidentificable|unidentifiable
@@ -44243,10 +43126,10 @@ inmunoterapia|immunotherapy
 inmunólogo|immunologist
 inmóvil|still,sitting,motionless
 innato|innate,inbred,inborn
-innecesario|unnecessary,uncalled-for,needless
+innecesario|unnecessary,needless,gratuitous
 innegable|positive,decided,distinct
 innovación|invention,innovation,design
-innovador|modern,advanced,forward-looking
+innovador|modern,advanced,innovative
 innumerable|countless,infinite,myriad
 inocencia|innocence,naturalness,ingenuousness
 inocentada|drollery,waggery
@@ -44282,7 +43165,7 @@ insecto coreido|coreid,coreid bug
 insecto cóccido|coccid insect
 insecto dictióptero|dictyopterous insect
 insecto tricóptero|trichopteran,trichopteron,trichopterous insect
-inseguridad|insecurity,self-doubt,self-distrust
+inseguridad|insecurity,diffidence,unsteadiness
 inseguro|insecure,unsure,unsafe
 inseminación|insemination
 inseminar|fertilize,fertilise,inseminate
@@ -44415,7 +43298,7 @@ intento de estafa|raid
 interacción|interaction,fundamental interaction,interplay
 intercalación|embolism,intercalation
 intercambiar|exchange,change,switch
-intercambio|exchange,discussion,give-and-take
+intercambio|exchange,discussion,relations
 intercambio de pareja|swing,swinging,vacillation
 intercepción|interception
 interceptar|stop,block,intercept
@@ -44470,7 +43353,7 @@ intervención|operation,intervention,surgery
 intervenir|tap,bug,intercept
 interés|interest,good,research
 interés compuesto|compound interest
-interés propio|self-interest,self-seeking,opportunism
+interés propio|opportunism,expedience,self-interest
 intestinal|alvine
 intestino grueso|large intestine
 intimación|injunction
@@ -44484,7 +43367,7 @@ intranet|intranet
 intransigente|sturdy,uncompromising,inflexible
 intratable|intractable
 intravenoso|intravenous,endovenous
-intrepidez|derring-do,intrepidity,dauntlessness
+intrepidez|intrepidity,dauntlessness,derring-do
 intriga|intrigue,suspense,machination
 intrincadamente|in an elaborate way,elaborately,intricately
 intrincado|complicated
@@ -44496,7 +43379,7 @@ introducir subrepticiamente|stick in,slip in,insert
 introyección|introjection
 intrusión|intrusion
 intruso|stranger,unknown,alien
-intrínseco|built-in,inherent,integral
+intrínseco|inherent,integral,constitutional
 intrón|intron
 intuición|intuition,suspicion,insight
 intuir|divine,intuit
@@ -44578,7 +43461,7 @@ ir en procesión|march,process,flock
 ir en tropel|flock
 ir juntos|troop,parade,promenade
 ira|anger,ire,ira
-iracundo|hot-tempered,short-tempered,quick-tempered
+iracundo|irascible,hotheaded,choleric
 iris cristata|dwarf iris
 iris enano|dwarf iris
 ironizar|wisecrack
@@ -44617,7 +43500,7 @@ irrupción|outbreak,irruption,eruption
 irse|go,walk away,walk off
 irse a pique|founder,give,give way
 irse al catre|go to bed,go to sleep,turn in
-irónicamente|tongue-in-cheek,jokingly,facetiously
+irónicamente|jokingly,facetiously,tongue-in-cheek
 isla|island
 isocianato|isocyanate
 isoleucina|isoleucine
@@ -44636,7 +43519,7 @@ itinerario|itinerary,travel guidebook
 itraconazol|itraconazole
 izar el ancla|weigh anchor,weigh the anchor
 izquierda|left,left hand,left wing
-izquierdista|leftist,left-winger,collectivist
+izquierdista|leftist,collectivist,left-winger
 izquierdo|left,left-hand
 jabberwocky|jabberwocky
 jabiru mycteria|jabiru
@@ -44646,9 +43529,8 @@ jabón|soap
 jabón para cuero|leather soap,saddle soap
 jabón para guarniciones|leather soap,saddle soap
 jacaranda|jacaranda,caviuna wood
-jack-o'-lantern|jack-o'-lantern,will-o'-the-wisp,friar's lantern
 jactancia|vaunt
-jactancioso|big,braggart,line-shooter
+jactancioso|big,braggart,bragging
 jactarse|gas,boast,shoot a line
 jadeíta|jadeite
 jagua|genipap,genipap fruit
@@ -44693,7 +43575,7 @@ jefe del consejo|chairman of the board
 jerarca|high priest,primate,prelate
 jerarquía|hierarchy,rank,power structure
 jerga médica|doctorspeak
-jerigonza|trash,wish-wash,rubbish
+jerigonza|trash,rubbish,gibberish
 jeroglífico|rebus,hieroglyphic,hieroglyphical
 jersey|sweater,jumper
 jet|green,super acid,honey oil
@@ -44749,7 +43631,7 @@ jugar|play,meet,toy
 jugar una broma|pull a fast one on,trick,play a joke on
 jugarse|play,bet,wager
 juglans|walnut tree,walnut
-juglar|folk singer,poet-singer,minstrel
+juglar|folk singer,minstrel,troubadour
 juglaría|minstrelsy,minstrel show
 jugo|juice
 jugo Ade|fruit drink,ade
@@ -44778,7 +43660,7 @@ juntar|collect,gather,assemble
 juntarse|join,get together,come together
 junto|united,joined
 junto a|alongside,aboard
-juntos|together,together with,head-to-head
+juntos|together,together with,neck and neck
 juntura|joint
 jurado|jury,panel,juror
 jurado de acusaciones|grand jury
@@ -44812,7 +43694,6 @@ juzgar mal|misunderstand,be amiss,misinterpret
 jynx|wryneck
 júbilo|glee,hilarity,mirth
 kaf|kaph
-kala-azar|kala-azar,visceral leishmaniasis,dumdum fever
 kamikaze|kamikaze
 kanamicina|kanamycin
 karate|karate
@@ -44915,7 +43796,7 @@ lager|lager,lager beer
 lago|lake
 lagrimeo|tearing,watering,lacrimation
 laguna|lagoon,blank,mere
-lagópodo escocés|moor-bird,red grouse,moorbird
+lagópodo escocés|red grouse,moor-bird,moorbird
 lahar|lahar
 laico|laity,irreligious,temporalty
 laja|flag,flagstone
@@ -44972,7 +43853,7 @@ lapidación|stoning,lapidation
 lapidario|lapidary,lapidist
 lapislázuli|lapis lazuli,lazuli
 lapso|lapse
-lapsus|slip,slip-up,miscue
+lapsus|slip,miscue,parapraxis
 largar|send away,drop,send packing
 largo|long,largo,extension
 largo tiempo|long time,years,run
@@ -45060,7 +43941,7 @@ lectorado|lectureship
 lectura|reading,lecture,read
 lectura de manos|palm reading,palmistry,chirology
 lectura pública|lecture,talk,public lecture
-leer|read,take,sight-read
+leer|read,take,trace
 leer la cartilla|riot act
 leer la mano|chiromance
 leer por encima|skim over,skim
@@ -45081,7 +43962,7 @@ legitimidad|authenticity,legitimacy,genuineness
 legión|host,legion,horde
 legumbre|legume,leguminous plant
 legítimo|lawful,legitimate,rightful
-leishmaniasis visceral|kala-azar,visceral leishmaniasis,dumdum fever
+leishmaniasis visceral|visceral leishmaniasis,dumdum fever,kala-azar
 lejanamente|distantly
 lejano|far,remote,distant
 lejanía|remoteness,farawayness,farness
@@ -45108,7 +43989,7 @@ lente|lens,lens system,lense
 lente bifocal|bifocals
 lente zoom|zoom lens,telephoto lens
 lentinula edodes|golden oak mushroom,shiitake,shiitake mushroom
-lento|slow,dumb,slow-moving
+lento|slow,dumb,dull
 leona|lioness
 leopardo hembra|leopardess
 leopardus pardalis|panther cat,ocelot
@@ -45275,7 +44156,7 @@ limitar|limit,restrict,bound
 limonada|lemonade
 limonar|lemon grove
 limones|lemon
-limosna|dole,alms,alms-giving
+limosna|dole,alms,almsgiving
 limosnero|medical social worker,almoner
 limpiador de baño|bathroom cleaner
 limpiaparabrisas|windscreen wiper,windshield wiper,wiper
@@ -45295,7 +44176,7 @@ linchar|lynch
 lindano|lindane
 lindo|fair,cute,bonnie
 linea de flotacion|water line,water level,waterline
-lineal|linear,direct,one-dimensional
+lineal|linear,direct,additive
 linealmente|lineally
 linfadenitis|lymphadenitis
 linfangitis|lymphangitis
@@ -45313,7 +44194,7 @@ lingüística|linguistics,philology
 lingüístico|linguistic,lingual
 linterna|flashlight,torch
 linóleo|linoleum,lino
-liofilización|freeze-drying,lyophilization,lyophilisation
+liofilización|lyophilization,freeze-drying,lyophilisation
 lipasa|lipase
 lipoproteína|lipoprotein
 liposucción|liposuction,suction lipectomy
@@ -45502,7 +44383,7 @@ lope|canter,lope
 lophophora williamsii|peyote,mezcal,mescal
 loquios|lochia
 lorazepam|lorazepam
-lordosis|hollow-back,lordosis
+lordosis|lordosis,hollow-back
 loro|popinjay
 loro doméstico|poll,poll parrot
 los elegidos|chosen,elect
@@ -45520,7 +44401,7 @@ lucerna|alfalfa,lucerne
 luces del proscenio|footlights
 lucha|fight,battle,struggle
 lucha de clases|class war,class struggle,class warfare
-lucha libre|hand-to-hand struggle,wrestling,grappling
+lucha libre|wrestling,grappling,wrestle
 luchar|fight,struggle,wrestle
 luchar a puñetazos|fistfight
 luchar en lodo|mud-wrestle,mudwrestle
@@ -45608,7 +44489,7 @@ línea eléctrica|power line,power cable
 línea ferroviaria|line,railway line,rail line
 línea telefónica|telephone line,line,phone line
 línea telegráfica|telephone line,telephone wire,telegraph line
-lío|trouble,bundle,to-do
+lío|trouble,bundle,packet
 lío amoroso|intrigue
 lío emocional|hang-up
 lípido|lipid,lipoid,lipide
@@ -45622,14 +44503,14 @@ lógica epistémica|epistemic logic
 lógicamente|logically
 lógico|logical,legitimate
 lúteo|luteal
-macaco cangrejero|crab-eating macaque,croo monkey
+macaco cangrejero|croo monkey,crab-eating macaque
 macadam|macadam
 maceración|maceration
 macerar|macerate
 maceta|pot,flowerpot
 machacar|beat in,jam,ram down
 machismo|machismo
-macho|male,he-man,stud
+macho|male,stud,butch
 macintosh|mac,mack,macintosh
 macizo|massif
 macrocefalia|macrocephaly,megacephaly,megalocephaly
@@ -45680,11 +44561,10 @@ magnéticamente|magnetically
 magnético|magnetic,magnetized,magnetised
 magnífico|excellent,wonderful,splendid
 mago|magician,magus,wizard
-magullar(se)|jam,crush
 mahjong|mahjong
 mahout|mahout
 maitre de vinos|wine waiter,wine steward,sommelier
-majadería|trash,wish-wash,rubbish
+majadería|trash,rubbish,absurdity
 majar|jam,crush,pestle
 majestad|majesty,loftiness,stateliness
 majestuosidad|courtliness
@@ -45704,7 +44584,7 @@ mal viaje|bummer
 mala construcción|misconstruction
 mala fama|black eye,ill fame,notoriety
 mala jugada|dirty trick
-mala leche|bad temper,ill temper,fire-eater
+mala leche|bad temper,ill temper,hothead
 mala pata|hard cheese,whammy
 mala pronunciación|mispronunciation
 mala suerte|whammy
@@ -45738,15 +44618,15 @@ malinterpretar|misinterpret,misread,misunderstand
 mallas|maillot
 mallotus villosus|caplin,capelin,capelan
 malo|bad,evil,off
-malos tratos|abuse,ill-treatment,ill-usage
+malos tratos|abuse,maltreatment,ill-treatment
 malsano|unsanitary,insanitary,unhealthful
 malta|malt,malted,malted milk
 malta agria|sour mash,sour mash whiskey
 malteada|malt,malted,malted milk
-maltratado|ill-treated,abused,mistreated
+maltratado|abused,mistreated,maltreated
 maltratador|abuser,maltreater
-maltratar|abuse,step,ill-use
-maltrato|abuse,ill-treatment,ill-usage
+maltratar|abuse,step,knock about
+maltrato|abuse,maltreatment,ill-treatment
 malvadamente|badly
 malvado|evil
 malvasía|malvasia
@@ -45787,7 +44667,7 @@ mandante|mandator
 mandar|send,order,command
 mandatario|mandatory,mandatary
 mandato|mandate,term of office,administration
-mandato vicepresidencial|vice-presidential term,vice-presidency
+mandato vicepresidencial|vice-presidency,vice-presidential term
 mandibular|mandibular,inframaxillary
 mando|leaders,leadership
 mando hidráulico|fluid drive
@@ -45886,7 +44766,7 @@ mar de fondo|ground swell,heavy swell
 mara|mara
 maraca|maraca
 maracuyá|sweet calabash
-marah|man-of-the-earth,wild potato vine,wild sweet potato vine
+marah|wild potato vine,wild sweet potato vine,man-of-the-earth
 maranta arundinacea|obedience plant,arrowroot
 marasmo|marasmus
 maravilla|wonder,miracle,marvel
@@ -45913,7 +44793,7 @@ marea baja|neap,neap tide
 marea muerta|neap,neap tide
 marear|dizzy
 mareo|mal de mer,seasickness,naupathia
-marfil|off-white,bone,pearl
+marfil|bone,pearl,ivory
 margarina|glycerol trimargarate,margarin
 margarita|margarita
 margen|edge,margin,bank
@@ -45949,7 +44829,7 @@ maroma|rope
 marquesa|marchioness,marquise
 marqués|marquess,marquis
 marrasquino|maraschino,maraschino cherry,maraschino liqueur
-marrón|brown,dark-brown,chocolate-brown
+marrón|brown,brownish,dark-brown
 marrón amarillento|tan,topaz
 marrón oliváceo|olive brown
 marrón rojizo|brick red,reddish brown,mahogany
@@ -46001,7 +44881,6 @@ mastitis|mastitis
 mastoiditis|mastoiditis
 mastuerzo|stupid,stupid person,poor fish
 masturbación|masturbation,onanism
-masturbar(se)|masturbate
 masía|farm,homestead
 masónico|masonic
 mata|bush,shrub
@@ -46037,7 +44916,7 @@ matrimonio|marriage,couple,man and wife
 matriz|matrix,original,master
 matriz transpuesta|transpose
 matrona|matron
-matusalén|antique,old-timer,old geezer
+matusalén|antique,old geezer,gaffer
 matza|matzo meal,matzah meal,matzoh meal
 matzá|unleavened bread,matzo,matzah
 maullar|meow,mew
@@ -46046,7 +44925,7 @@ maxilar|maxillary
 mayo|maypole
 mayonesa verde|green mayonnaise,sauce verte
 mayor|major,greater,larger
-mayordomo|major-domo,seneschal
+mayordomo|seneschal,major-domo
 mayoría|majority,legal age,bulk
 mayoría absoluta|majority,absolute majority
 mazapán|marzipan,marchpane
@@ -46055,7 +44934,6 @@ mazo|beetle,mallet
 maíz|corn,corn whiskey,corn whisky
 mañana|tomorrow,morning,morning time
 mañoso|good,expert,practiced
-mcg.|mcg,microgram
 mea culpa|mea culpa
 meado|water,urine,pee
 meandro|meander
@@ -46119,14 +44997,14 @@ medio de transporte|transport,conveyance
 medio dólar|half dollar,fifty-cent piece
 medio punto cruz|half cross stitch
 mediocampo|midfield
-mediocre|average,mediocre,second-rate
+mediocre|average,mediocre,fair
 mediodía|noon,high noon,twelve noon
 medios|devices
 medios periodísticos|news media,journalism
 medir|measure,measure out,mensurate
 meditación|thought,thinking,reflection
 meditar|reflect,think over,contemplate
-medroso|faint,faint-hearted,timid
+medroso|faint,timid,fainthearted
 medular|medullary
 megabit|megabit
 megalitismo|megalithic structure,megalith
@@ -46171,7 +45049,7 @@ membranófono|drum,membranophone,tympan
 membrete|letterhead
 meme|meme
 memento mori|memento mori
-memo|half-wit,doofus,dimwit
+memo|doofus,dimwit,nitwit
 memorando|memorandum,memo,memoranda
 memoria|memory,report,study
 memoria caché|cache,memory cache
@@ -46181,7 +45059,7 @@ memoria de toros|core memory,magnetic core memory
 memoria flash|flash memory
 memoria física|real storage
 memoria intermedia|buffer,buffer storage,buffer store
-memoria no volátil|non-volatile storage,nonvolatile storage
+memoria no volátil|nonvolatile storage,non-volatile storage
 memoria real|real storage
 memoria virtual|virtual memory,virtual storage
 memoria volátil|volatile storage
@@ -46196,7 +45074,7 @@ mención|mention,reference,credit
 mendigo|bum,tramp,beggar
 menear|shake,waggle,wiggle
 menearse|bob
-mengua|decrease,drop-off,lessening
+mengua|decrease,lessening,dwindling away
 menguar|dwindle,subside,lessen
 meninge|meninges,meninx
 meninges|meninges,meninx
@@ -46241,7 +45119,7 @@ mercadeo directo|direct marketing
 mercader|merchant,merchandiser
 mercadería|product,merchandise,ware
 mercadillo benéfico|jumble sale,rummage sale
-mercado|market,market place,open-air market
+mercado|market,market place,market square
 mercado de valores|market,securities industry
 mercado extrabursátil|curb market
 mercado laboral|labor market
@@ -46263,7 +45141,7 @@ meridional|southern,south,southerly
 merienda|lunch,luncheon,tiffin
 meritocracia|meritocracy
 merluza ahumada|smoked haddock,finnan,finnan haddock
-merma|reduction,step-down,decrease
+merma|reduction,decrease,diminution
 mermar|decrease,fall,diminish
 mero|homely
 merodear|ghost,haunt,obsess
@@ -46275,7 +45153,7 @@ mesa|table,board,mesa
 mesa de cartas|card table
 mesa de cocina|kitchen table
 mesa de operaciones|operating table
-mesa redonda|round table,round-table conference,roundtable
+mesa redonda|round table,roundtable,round-table conference
 mesalina|street girl,hustler,floozy
 mesana|mizzen,mizen
 mesencéfalo|midbrain,mesencephalon
@@ -46286,7 +45164,6 @@ mesodermo|mesoderm,mesoblast
 mesomorfo|athletic type,mesomorphy
 mesotelioma|mesothelioma
 mestizo|cur,mutt,mongrel
-mesón-B|b-meson
 meta|goal,purpose,objective
 metabolismo|metabolism,metabolic process
 metabolito|metabolite
@@ -46305,7 +45182,7 @@ metalúrgico|metallurgical,metallurgic
 metanfetamina|ice,glass,chicken feed
 metatarsiano|metatarsal
 meteco|metic
-metedura de pata|foul-up,boo-boo,blunder
+metedura de pata|blunder,boner,bloomer
 meteorismo|tympanites
 meteorólogo|weatherman,weather forecaster
 meter|crowd,insert,put in
@@ -46396,7 +45273,7 @@ mihrab|mihrab
 mil|thousand,grand,one thousand
 mil veces|thousand times,thousand-fold
 milagro|miracle,miracle play
-milagroso|miraculous,heaven-sent,marvelous
+milagroso|miraculous,marvelous,marvellous
 milano tijereta|swallow-tailed hawk,swallow-tailed kite
 mildiu|mildew
 milenario|millennium,millennial,millenary
@@ -46430,7 +45307,6 @@ mimo excesivo|overprotection,momism,overshielding
 mimosa|mimosa
 mina|mine,lead,treasure house
 mina saltarina|bouncing betty
-mina-S|bouncing betty
 minar|mine,cavern,cavern out
 minarete|minaret
 mineral|mineral
@@ -46462,7 +45338,7 @@ minusvalía|disability,handicap,impairment
 minutas|minutes,transactions,proceedings
 minutero|big hand,minute hand
 minuto|minute,moment,while
-minúscula|lower-case letter,small letter,minuscule
+minúscula|small letter,minuscule,lowercase
 minúsculo|tiny,small,minuscule
 miocardiopatía|cardiomyopathy,myocardiopathy
 mioma|leiomyoma
@@ -46473,8 +45349,8 @@ mira de bombardeo|bombsight
 mira de telescopio|telescope sight,telescopic sight
 mira telescópica|telescope sight,telescopic sight
 mirada|look,looking at,looking
-mirada de reojo|side-look,side-glance
-mirada de soslayo|side-look,side-glance
+mirada de reojo|side-glance,side-look
+mirada de soslayo|side-glance,side-look
 mirada feroz|glare,glower
 mirador|observation post,lookout,belvedere
 mirar|watch,look,view
@@ -46526,7 +45402,7 @@ modelo|model,example,pattern
 modelo a imitar|model,role model
 modelo de fotógrafia|photographer's model
 moderación|control,moderation,relief
-moderado|moderate,temperate,middle-of-the-road
+moderado|moderate,temperate,measurable
 moderador|moderating
 moderar|moderate,temper,season
 modernidad|last word,modernity,chic
@@ -46554,7 +45430,7 @@ moho mucilaginoso verdadero|true slime mold,acellular slime mold,plasmodial slim
 mohín|wry face,pout,moue
 mojar|dip,dunk,wet
 mojigatería|priggishness,primness
-mojigato|victorian,straight-laced,tight-laced
+mojigato|victorian,prim,puritanical
 mojón|milestone,landmark,cairn
 molalidad|molality,molal concentration
 moledora de carne|meat grinder
@@ -46632,7 +45508,7 @@ montar|ride,mount,set up
 montar guardia|stand watch,stand guard,keep guard
 montar vigilancia|stand watch,stand guard,keep guard
 montaña|mountain,pile,lot
-montaña rusa|roller coaster,chute-the-chute,big dipper
+montaña rusa|roller coaster,big dipper,chute-the-chute
 montañismo|mountain climbing,mountaineering
 montañoso|mountainous,highland,upland
 monte|mountain,mount
@@ -46664,7 +45540,7 @@ morder|bite,worry,sting
 mordida de perro|dog bite
 mordida de serpiente|snakebite
 mordisquear|pick,piece,nibble
-moreno|black-haired,dark-haired,brown-haired
+moreno|brunette,tanned,bronzed
 morfea|morphea
 morfogénesis|morphogenesis
 morfología|morphology,sound structure,word structure
@@ -46675,7 +45551,7 @@ mormota voladora|flying cat,flying marmot,taguan
 morosidad|procrastination,delinquency,dilatoriness
 moroso|deadbeat,procrastinator,defaulter
 morral|kit bag,kitbag
-morralla|trash,wish-wash,rubbish
+morralla|trash,rubbish,tripe
 morriña|murrain
 mortal|deadly,mortal,person
 mortalidad|mortality,death rate,mortality rate
@@ -46714,7 +45590,7 @@ motociclista|motorcyclist
 motonave|motorboat,powerboat
 motoniveladora|grader
 motor|motor,engine,motive
-motor a chorro|fan-jet,turbojet,turbofan
+motor a chorro|turbojet,turbofan,fan-jet
 motor de arranque|starting motor,starter,starter motor
 motor de automóvil|automobile engine
 motor de búsqueda|search engine
@@ -46732,7 +45608,7 @@ moverse agitadamente|toss,slash,thrash
 moverse estruendosamente|bang
 moverse nerviosamente|fidget
 moverse ruidosamente|crash
-movida|thing,to-do,set-to
+movida|thing,commotion,chess move
 movilidad|mobility,movability,movableness
 movilización económica|economic mobilization,economic mobilisation
 movilización militar|mobilization,mobilisation,militarization
@@ -46755,7 +45631,6 @@ mozo de estación|redcap
 mozo de ferrocarril|porter
 mozzarella|mozzarella
 moño|chignon
-mu-mesón|muon,negative muon,mu-meson
 muchacha|girl,young girl,young woman
 muchacho|boy,youth,young person
 muchedumbre|army,press,drove
@@ -46801,7 +45676,7 @@ mulato|mulatto
 muleta|crutch
 multa|fine,ticket,amercement
 multa de aparcamiento|parking ticket
-multar|fine,short-change,ticket
+multar|fine,ticket,con
 multiculturalismo|multiculturalism
 multimedia|multimedia,multimedia system
 multiplicación|increase,multiplication,times
@@ -46812,7 +45687,7 @@ multiplicidad|pluralism
 multiprogramación|concurrent execution,multiprogramming
 multitud|crowd,mass,large number
 mundano|temporal,secular,worldly
-mundial|world-wide,worldwide,universal
+mundial|worldwide,universal,world
 mundo|world,public,reality
 municipal|municipal
 municipalidad|municipal government
@@ -46840,7 +45715,7 @@ musitar|mutter,mumble,maunder
 muslera|cuisse
 muslo|thigh,second joint
 mustang|bronco,bronc,broncho
-mustela putorius furo|black-footed ferret,ferret
+mustela putorius furo|ferret,black-footed ferret
 mutación|mutation,shift,transformation
 mutagénesis|mutagenesis
 mutilar|fix,sterilize,mutilate
@@ -46864,7 +45739,7 @@ muón negativo|muon,negative muon,mu-meson
 mycobacterium|mycobacterium,mycobacteria
 mycoplasma|mycoplasma
 myocastor coypus|nutria,coypu
-myosotis|forget-me-not,mouse ear
+myosotis|mouse ear,forget-me-not
 myrmecobius fasciatus|anteater,banded anteater,numbat
 mágico|magic,magical,charming
 máquina|machine,car,automobile
@@ -46919,7 +45794,7 @@ músculo serrato posterior|musculus serratus posterior,posterior serratus muscle
 música|music,euphony
 música de acompañamiento|support,backup,accompaniment
 música popular|popular music,popular music genre
-música rock|rock,rock music,rock 'n' roll
+música rock|rock,rock music,rock and roll
 músico|musician,player,instrumentalist
 músico mayor|bandmaster
 naan|nan,naan
@@ -46959,8 +45834,8 @@ naranja|orange,orangeness
 naranja cadmio|cadmium orange
 naranjal|orange grove
 naranjo|orange,orange tree
-narcisismo|self-love,narcissism,narcism
-narcisista|self-loving,narcissistic,narcissist
+narcisismo|narcissism,narcism,self-love
+narcisista|narcissistic,narcissist,egotistical
 narcolepsia|narcolepsy
 narcosis|narcosis
 narcoterrorismo|narcoterrorism
@@ -47111,7 +45986,6 @@ nevero|snowfield
 nevirapina|nevirapine
 nevus|birthmark,nevus
 neón|neon
-ng.|ng,nanogram
 nick|nick
 nicotina|nicotine
 nicturia|nocturia,nycturia
@@ -47329,7 +46203,7 @@ nonato|unborn
 nones|nay
 noqueador|mauler
 noradrenalina|norepinephrine,noradrenaline
-nordeste|north-east,nor'-east,northeast
+nordeste|northeast,nor'-east,north-east
 noreste|northeaster,noreaster
 noria|noria
 norma|rule,pattern,norm
@@ -47339,7 +46213,7 @@ normalización|standardization,standardisation,normalization
 normalizar|mastopexy
 normativa|regulation,regulating
 normativo|normative,prescriptive
-noroeste|nor'-west,northwest,north-west
+noroeste|northwest,northwestward,nor'-west
 norte|north,due north,northward
 nosocomial|nosocomial
 nostalgia|nostalgia
@@ -47380,7 +46254,7 @@ novillo|calf
 novillo castrado|steer,bullock
 novio|young man,groom,bridegroom
 novocaína|novocaine,procaine hydrochloride
-noúmeno|thing-in-itself,noumenon
+noúmeno|noumenon,thing-in-itself
 nube|cloud,drove,swarm
 nube altocumulus|altocumulus,altocumulus cloud
 nube altostratus|altostratus,altostratus cloud
@@ -47429,7 +46303,7 @@ nutrir|feed,nourish,nurture
 nutritivo|solid,square,substantial
 nymphicus hollandicus|cockatoo parrot,cockatiel,cockateel
 nyssa|tupelo,tupelo tree
-nácar|mother-of-pearl,nacre
+nácar|nacre,mother-of-pearl
 néctar|nectar
 níquel|nickel,nickel note
 nódulo|node
@@ -47451,7 +46325,7 @@ oasis|oasis
 obedecer|obey,answer,conform
 obediencia|obedience,respect,obeisance
 obediente|obedient,compliant
-obenque|winding-clothes,winding-sheet,shroud
+obenque|shroud,pall,winding-clothes
 obesidad|obesity,fleshiness,corpulency
 obispado|episcopate,diocese,bishopric
 obispo|bishop
@@ -47484,7 +46358,7 @@ obligado|obbligato,obligato
 obligar|oblige,compel,hold
 obligatorio|obligatory,required,mandatory
 obliteración|obliteration,annihilation,eradication
-oblongo|oval,egg-shaped,oval-shaped
+oblongo|oval,elliptical,elliptic
 oboe|oboe,oboe da caccia,hautbois
 obra|work,play,piece
 obra completa|work,body of work,oeuvre
@@ -47495,7 +46369,7 @@ obra maestra|masterpiece
 obra sentimentaloide|tearjerker
 obrar|act,behave,do
 obras de hierro|ironwork
-obrero|working-class,wage-earning,working man
+obrero|working man,working person,worker
 obrero agrícola|field hand,farm worker,farmhand
 obrero ferroviario|gandy dancer
 obscenidad|obscenity,lewdness,ribaldry
@@ -47517,7 +46391,7 @@ obstinarse|obstinate
 obstruccionismo|obstructionism
 obstrucción|stop,block,closure
 obstruir|block,stuff,choke up
-obstáculo|difficulty,barrier,hang-up
+obstáculo|difficulty,barrier,obstacle
 obstáculo de campo|hazard
 obtención|arrival,reaching
 obtener|get,obtain,receive
@@ -47625,7 +46499,7 @@ ojear|eye,eyeball
 ojiva|load,payload,warhead
 ojo|eye,center,middle
 ojo de buey|porthole,oeil de boeuf,oxeye
-ojo de pez|wide-angle,fisheye
+ojo de pez|fisheye,wide-angle
 ojo mágico|judas
 ok|okay,okey,okeh
 okapia johnstoni|okapi
@@ -47674,7 +46548,7 @@ onda sinusoidal|sine wave
 onda sonora|sound wave,acoustic wave
 ondatra zibethicus|muskrat,musquash
 ondear|wave,flourish,brandish
-ondeo|go-around,wave-off,overshoot
+ondeo|overshoot,go-around,wave-off
 ondulación|wave,undulation
 ondular|roll,wave,undulate
 onfalocele|umbilical hernia,omphalocele
@@ -47713,7 +46587,7 @@ operador de radio|radio operator
 operador de telegrafía|telegraph operator,telegrapher,telegraphist
 operar|operate,run,work
 operar en bancos|bank
-operario|operator,factory worker,mill-hand
+operario|operator,factory worker,manipulator
 operario de cámara|camera operator,cameraman,cinematographer
 operario eléctrico|electrical work
 operativamente|operatively
@@ -47729,9 +46603,9 @@ oponente|antagonist,opponent,adversary
 oponer|put up,post,react
 oponerse|fight,fight back,oppose
 oportunidad|chance,opportunity,opening
-oportunismo|self-interest,self-seeking,opportunism
+oportunismo|opportunism,expedience,self-interest
 oportunista|bottom feeder
-oportuno|timely,happy,well-chosen
+oportuno|timely,happy,pat
 oposición|opposition,resistance,confrontation
 opositor|antagonist,opponent,adversary
 oposum pigmeo acróbata|flying mouse
@@ -47783,7 +46657,7 @@ ordeñar|milk
 ordinariez|loudness,glitz,brashness
 ordinario|common,vulgar,average
 oreja|ear,external ear,outer ear
-oreja de mar|sea-ear,ormer
+oreja de mar|ormer,sea-ear
 oreo|oreo,oreo cookie
 orfandad|orphan
 orfeón|glee club
@@ -47791,7 +46665,7 @@ organdí|organdy,organdie
 organicismo|organicistic
 organicista|organicistic
 organismo|organism,being,living thing
-organismo bentónico|bottom-feeder,bottom-dweller
+organismo bentónico|bottom-dweller,bottom-feeder
 organización|organization,organisation,system
 organización benéfica|charity
 organización comerical|business,business concern,business organization
@@ -47808,7 +46682,7 @@ organon|organon
 orgasmo|coming,climax,orgasm
 orgasmo masculino|male orgasm
 orgullo|pride,high horse,arrogance
-orgulloso|proud,self-important,arrogant
+orgulloso|proud,arrogant,chesty
 orgánico|organic,constitutional,constituent
 orgánulo|cell organ,cell organelle,organelle
 orgía|riot,binge,splurge
@@ -47838,7 +46712,7 @@ orinar|make,make water,pass water
 orines|water,urine,pee
 ornamentar|trim
 ornamento|embellishment
-ornithorhynchus anatinus|duck-billed platypus,platypus,duckbill
+ornithorhynchus anatinus|platypus,duckbill,duck-billed platypus
 ornitológico|ornithological
 ornitóptero|ornithopter,orthopter
 oro|gold
@@ -47906,7 +46780,7 @@ otitis|otitis
 otología|otology
 otorgar|grant,give,award
 otorgar una mitra|miter
-otorrinolaringólogo|ear-nose-and-throat doctor,otolaryngologist,otorhinolaryngologist
+otorrinolaringólogo|otolaryngologist,ear-nose-and-throat doctor,otorhinolaryngologist
 otosclerosis|otosclerosis
 otoño|fall,autumn
 otra vez|again,once more,once again
@@ -47943,13 +46817,12 @@ oído de lata|tin ear,tone deafness
 oír|hear,get,catch
 oír por casualidad|take in,catch,overhear
 oír sin querer|take in,catch,overhear
-p'alante|forward,forwards,frontwards
 p. ej.|for example,for instance
 pabilo|candlewick
 pachanga|do,bash,brawl
 pachinko|pachinko
 pachuco|pachuco
-paciencia|patience,long-suffering,forbearance
+paciencia|patience,forbearance,long-sufferance
 paciente|patient
 pacificación|peace,peace treaty,pacification
 pacifismo|pacifism,peace advocacy,pacificism
@@ -47983,11 +46856,11 @@ pajearse|hand job,jerking off,jacking off
 pala|shoulder flash,paddle
 pala de carbón|coal shovel
 pala excavadora|power shovel,shovel,digger
-palabra|word,discussion,give-and-take
+palabra|word,discussion,word of honor
 palabra clave|key word
 palabra de honor|word,word of honor,parole
 palabra malsonante|oath,curse,curse word
-palabras|run-in,words,row
+palabras|words,row,quarrel
 palabras amorosas|sweet nothings,honeyed words
 palabras de despedida|farewell,word of farewell
 palabrería|talk,talk of the town,wordiness
@@ -48001,7 +46874,7 @@ palanca|lever
 palanca de cambios|gear lever,shifter,gearshift
 palanca de mando|stick,control stick,joystick
 palangana|dinner bucket,dinner pail
-palanganero|wash-hand stand,washstand
+palanganero|washstand,wash-hand stand
 palante|forward,forwards,frontwards
 palatal|palatal,palatine,palatalized
 palatinado|county palatine
@@ -48045,7 +46918,7 @@ pana ancha|wide wale
 panadero|baker,bread maker
 panadería|baking
 panal|hive,honeycomb,beehive
-panax|nin-sin,ginseng
+panax|ginseng,nin-sin
 pancarta|banner,streamer
 panceta|bacon
 pancitopenia|pancytopenia
@@ -48060,7 +46933,7 @@ panegírico|eulogy,paean,panegyric
 panel|panel,gore
 panel solar|solar panel,solar battery,solar array
 panelista|discussant
-panera|bread-bin,breadbox
+panera|breadbox,bread-bin
 panopea abrupta|geoduck
 panoplia|panoply
 panorama|view,scene,panorama
@@ -48127,9 +47000,9 @@ parada en ruta|pit stop
 parada nocturna|night-stop
 paradigma|image,prototype,paradigm
 paradigmático|paradigmatic
-parado|stick-in-the-mud,slowpoke,plodder
+parado|slowpoke,plodder,slowcoach
 paradoja|paradox
-paradójico|self-contradictory,paradoxical
+paradójico|paradoxical,self-contradictory
 parafilia|paraphilia
 parafina de escamas|scale wax,paraffin scale
 paraguas|umbrella
@@ -48230,7 +47103,7 @@ parti|discussant
 participación|involvement,participation,contribution
 participación mayoritaria|controlling interest
 participar|participate,enter,take part
-partición|division,share-out,sharing
+partición|division,sharing,partition
 partición de disco|partition
 particular|particular,special,personal
 particularidad|detail,point,item
@@ -48265,19 +47138,19 @@ parénquima|parenchyma
 paréntesis|break,interruption,parenthesis
 pasadizo elevado|flight path,air lane,airway
 pasado|past,past times,paragraph
-pasado por agua|soft-boiled,softhearted
+pasado por agua|softhearted,soft-boiled
 pasador del pistón|wrist pin,gudgeon pin
 pasador del émbolo|wrist pin,gudgeon pin
 pasaje|passage,transition,ticket
 pasaje aéreo|air passage,airway,air duct
-pasajero|passenger,short-lived,passing
+pasajero|passenger,passing,guest
 pasajero aéreo|air traveler,air traveller
 pasaporte|passport,pass,walking papers
 pasar|pass,happen,be
 pasar con rapidez|breeze
 pasar el invierno|winter,overwinter
 pasar información|inform
-pasar la aspiradora|vacuum,vacuum-clean,hoover
+pasar la aspiradora|vacuum,hoover,vacuum-clean
 pasar la boca|mouth
 pasar la esponja|sponge off,sponge down
 pasar la lengua|tongue
@@ -48308,12 +47181,11 @@ pasivo|passive,peaceful,inactive
 pasión|passion,love,heat
 pasmar|stun,sandbag
 paso|pace,step,passage
-paso en falso|trip,trip-up,stumble
+paso en falso|trip,stumble,misstep
 paso lento|saunter
 paso rápido|quick march,quickstep
 paso subterráneo|subway,underpass
 paspalum|paspalum,dallis grass,dallisgrass
-passe-partout|master,master key,passkey
 pasta|paste,dough,spread
 pasta filo|phyllo
 pastar|range,crop,graze
@@ -48355,7 +47227,7 @@ paternalismo|paternal quality,fatherliness
 paternidad|fatherhood
 paternoster|paternoster
 pathos|pathos
-patilla|mutton chop,side-whiskers,burnside
+patilla|mutton chop,burnside,sideburn
 patinador|skater
 patinaje|skating
 patinaje artístico|figure skating
@@ -48368,7 +47240,7 @@ patio|court,terrace,courtyard
 patio trasero|backyard
 pato|duck
 pato salvaje|wild duck
-patochada|foul-up,boo-boo,blunder
+patochada|blunder,boner,bloomer
 patois|cant,slang,jargon
 patología|disease,illness,sickness
 patológicamente|pathologically
@@ -48413,7 +47285,7 @@ pavo|peafowl
 pavo real azul|blue peafowl
 pavo real verde|green peafowl
 pavonearse|swan,congratulate,preen
-pavoneo|line-shooting,crow,brag
+pavoneo|crow,brag,bragging
 pavés|pavis,pavise
 payasada|slapstick,drollery,waggery
 payasear|horse around,fool around,fool
@@ -48483,7 +47355,7 @@ pelador|peeler
 pelandusca|street girl,hustler,floozy
 pelar|pluck,pick,pick off
 pelarse|peel off,desquamate
-pelea|fighting,fight,run-in
+pelea|fighting,fight,words
 pelea a puñetazos|fistfight,fisticuffs,slugfest
 pelea con cuchillos|knife fight,cut-and-thrust,snickersnee
 pelea de almohadas|pillow fight
@@ -48503,10 +47375,10 @@ pellejo|skin,hide,pelt
 pellizcar|pinch,top,tweak
 pellizco|pinch,tweak
 pelo|hair,coat,whisker
-pelota|ball,yes-man,smoothie
+pelota|ball,smoothie,sweet talker
 pelota elevada|fly,fly ball
 pelota vasca|jai alai,pelota
-pelotera|run-in,words,row
+pelotera|words,row,quarrel
 peluca gris|grizzle
 peludo|hairy,haired,hirsute
 película|film,movie,lie
@@ -48533,7 +47405,7 @@ penicilamina|penicillamine
 penicilina|penicillin
 penillanura|peneplain,peneplane
 peninsular|peninsular
-penitencia|penance,self-mortification,self-abasement
+penitencia|penance,self-abasement,self-mortification
 penitenciaría|pen,penitentiary
 penne|penne
 penología|penology,poenology
@@ -48555,9 +47427,9 @@ pentobarbital|yellow jacket,pentobarbital,pentobarbital sodium
 pentosa|pentose
 pentoxifilina|pentoxifylline
 pentágono|pentagon
-penumbra|half-light,gloom,umbra
+penumbra|gloom,umbra,penumbra
 península|peninsula
-penúltimo|next-to-last,penultimate
+penúltimo|penultimate,next-to-last
 peonaje|peonage
 peonza|fizgig
 peor|worse,still,worst
@@ -48657,7 +47529,7 @@ periódico sensacionalista|sheet,rag,tabloid
 perjudicar|hurt,prejudice,disadvantage
 perjuicio|damage,harm,hurt
 perjurio|bearing false witness,lying under oath,perjury
-perla|pearl,drop,off-white
+perla|pearl,drop,bone
 permanecer|stay,remain,wait
 permanencia|duration,stay,continuance
 permanente|permanent,lasting
@@ -48685,7 +47557,7 @@ perpetuamente|always,forever,constantly
 perpetuar|perpetuate
 perpetuo|eternal,perpetual,enduring
 perplejo|at a loss,puzzled,perplexed
-perro|dog,so-and-so,domestic dog
+perro|dog,domestic dog,dirty dog
 perro cazador|gun dog,sporting dog
 perro de caza|gun dog,sporting dog
 perro de trineo|sled dog,sledge dog
@@ -48725,7 +47597,7 @@ personal|personal,personnel,staff
 personal de mantenimiento|ground crew,ground-service crew
 personal de tierra|ground crew,ground-service crew
 personal militar|troops,military personnel,soldiery
-personalidad|personality,high-up,very important person
+personalidad|personality,very important person,individualism
 personalmente|personally
 personarse|appear
 personas|people
@@ -48811,7 +47683,7 @@ pez|fish,pitch,tar
 pez carácido|characid,characin,characin fish
 pez carángido|carangid,carangid fish
 pez cipriniforme|cypriniform fish
-pez de fondo|bottom-feeder,bottom-dweller
+pez de fondo|bottom-dweller,bottom-feeder
 pez gadiforme|gadoid,gadoid fish
 pez lanceta|handsaw fish
 pez lima|squaretail
@@ -48841,7 +47713,7 @@ physalis ixocarpa|purple ground cherry,tomatillo,jamberry
 pi|pi
 pian|yaws,frambesia,framboesia
 pianismo|pianism
-piano|piano,forte-piano,pianoforte
+piano|piano,pianoforte,pianissimo
 pianístico|pianistic
 picada|hash house
 picada de abeja|bee sting
@@ -48958,7 +47830,7 @@ piojo común|common louse
 piojo de mar|sea slater,sea louse
 piojo del frijol|bean aphid,blackfly
 piojo púbico|crab,crab louse,pubic louse
-pion|pi-meson,pion
+pion|pion,pi-meson
 piorrea|pyorrhea,pyorrhea alveolaris,pyorrhoea
 piorrea alveolar|pyorrhea,pyorrhea alveolaris,pyorrhoea
 pipa|pipe,tobacco pipe
@@ -48985,12 +47857,12 @@ pirotecnia|pyrotechnics,pyrotechny
 pirotécnico|pyrotechnic,pyrotechnical
 piroxicam|piroxicam
 pirrotina|magnetic pyrites,pyrrhotite,pyrrhotine
-piruleta|all-day sucker,sucker,lollipop
-pirulí|all-day sucker,sucker,lollipop
+piruleta|sucker,lollipop,all-day sucker
+pirulí|sucker,lollipop,all-day sucker
 pirólisis|pyrolysis
 pis|water,urine,pee
 pisada|step,footprint,footmark
-pisadas ligeras|pit-a-pat,pitty-pat,pitty-patty
+pisadas ligeras|pit-a-pat,pitter-patter,pitty-pat
 pisar|step,tread,trample
 piscina|swimming pool,swimming bath,natatorium
 piso|floor,home,apartment
@@ -49044,7 +47916,7 @@ plagiocefalia|plagiocephaly
 plagioclasa|plagioclase,oligoclase
 plan|plan,program,design
 plan de emergencia|safety net
-plancha|plate,press-up,iron
+plancha|plate,iron,belly flop
 planchada|gangway,gangplank,gangboard
 planchado|unwrinkled,wrinkleless
 planchar con máquina|mangle
@@ -49080,7 +47952,7 @@ plata|silver,silverware
 plata trabajada|silverwork
 plataforma|platform,truck bed
 platea|orchestra
-platero|silver-worker,silversmith,silverworker
+platero|silversmith,silver-worker,silverworker
 platería|silver,silverware,flatware
 platillos|cymbal
 platina|platen
@@ -49091,7 +47963,7 @@ plato de papel|paper plate
 plato principal|main course,entree
 plausibilidad|plausibility,plausibleness
 plausible|likely,plausible,credible
-playa|coast,beach,sea-coast
+playa|coast,beach,seashore
 plaza|place,seat,opening
 plaza de mercado|market,market place,marketplace
 plaza de toros|bullring
@@ -49103,7 +47975,7 @@ plectro|pick,plectrum,plectron
 plegadora|bender
 plegar|turn up,fold,fold up
 plegaria|prayer
-pleito|run-in,words,row
+pleito|words,row,quarrel
 plenipotenciario|plenipotentiary
 plenitud|fullness,plenty,completeness
 pleno|full,total,entire
@@ -49140,11 +48012,11 @@ plétora|surplus,excess,nimiety
 población|town,population,universe
 poblamiento|population
 poblar|live,settle,people
-pobre|poor,have-not,hard up
+pobre|poor,hard up,poor person
 pobreza|poverty,poorness,deficiency
 poca fiabilidad|untrustworthiness,untrustiness
 pocilga|sty,pigsty,pigpen
-poción|witches' brew,witches' broth,potion
+poción|potion,concoction,witch's brew
 poco|lightly
 poco acogedor|inhospitable
 poco agresivo|nonaggressive,unaggressive
@@ -49202,7 +48074,7 @@ poder judicial|judicial system,judiciary,judicature
 poder legislativo|legislature,general assembly,legislative assembly
 poder mental|brain,learning ability,mental capacity
 poder notarial|power of attorney
-poderoso|powerful,mighty,knock-down
+poderoso|powerful,mighty,potent
 podio|podium,pulpit,stump
 podocarpus spicata|black pine,matai
 podre|pus,festering,ichor
@@ -49244,7 +48116,7 @@ poliginia|polygyny
 polimerasa|polymerase
 polinia|polynya,pollinium
 polinizador|pollinator
-polinizar|cross-pollinate,pollinate,pollenate
+polinizar|pollinate,cross-pollinate,pollenate
 polinomial|polynomial,multinomial
 polinomio|polynomial,multinomial
 polinómico|polynomial,multinomial
@@ -49354,7 +48226,7 @@ pontificado|papacy,pontificate
 pontificio|episcopal,pontifical
 pontífice|pope,pontiff
 popper|popper
-popular|popular,cracker-barrel,folksy
+popular|popular,folksy,homespun
 popularización|popularization,popularisation
 populista|democrat,populist
 popurrí|potpourri
@@ -49411,7 +48283,7 @@ porquero|pigman,swineherd
 porqué|reason,why,wherefore
 porrazo|knock
 portador|carrier,immune carrier,bearer
-portador de armas|armor-bearer,armiger
+portador de armas|armiger,armor-bearer
 portador del ataúd|bearer,pallbearer
 portador del féretro|bearer,pallbearer
 portainjerto|rhizome,rootstock,rootstalk
@@ -49528,7 +48400,7 @@ predominante|predominant,paramount,dominant
 predominar|dominate,rule,prevail
 predominio|predominance,prevalence,predomination
 preeminencia|distinction,note,eminence
-preexistente|pre-existing,pre-existent,preexisting
+preexistente|preexisting,preexistent,pre-existent
 prefectura|prefecture
 prefectural|prefectural
 preferencia|preference,taste,predilection
@@ -49632,19 +48504,18 @@ prestigio|status,position,prestige
 prestigioso|honored,prestigious,dominating
 presumiblemente|presumably,presumptively
 presumir|assume,show off,presume
-presunción|self-worship,presumption,vainglory
-presunto|so-called,alleged,supposed
+presunción|presumption,vainglory,boastfulness
+presunto|alleged,supposed,presumptive
 presuponer|mean,suppose,presuppose
 presuposición|given,presumption,precondition
 presupuestar|budget
 presupuestario|budgetary
 presupuesto|budget,given,estimate
-pret-a-porter|ready-to-wear
 pretender|try,attempt,seek
 pretendiente|hopeful,wannabe,aspirant
 pretensión|ambition,dream,pretense
 preterición|pretermission
-pretexto|pretext,plea,stalking-horse
+pretexto|pretext,plea,guise
 pretor|praetor,pretor
 pretoriano|praetorian,pretorian,praetorial
 pretérito perfecto simple|preterite,preterit
@@ -49777,7 +48648,7 @@ producto agrícola|produce,garden truck,green goods
 producto alimenticio|food product,foodstuff
 producto animal|animal product
 producto antiherrumbre|rust inhibitor
-producto derivado|by-product,byproduct
+producto derivado|byproduct,by-product
 producto lácteo|dairy product
 producto químico|chemical,chemical substance
 producto vegetal|plant product
@@ -49843,7 +48714,7 @@ programa salida|output program
 programa vocacional|vocational program
 programar|schedule,program,programme
 progresar|improve,progress,get on
-progresista|modern,advanced,forward-looking
+progresista|modern,advanced,progressive
 progresividad|progressiveness,progressivity
 progresivo|progressive,incremental,degenerative
 progresión|advance,progress,progression
@@ -49882,7 +48753,7 @@ pronominal|pronominal
 pronto|soon,presently,before long
 pronunciación|pronunciation
 pronunciación incorrecta|mispronunciation
-pronunciamiento|say-so,pronouncement,dictum
+pronunciamiento|pronouncement,dictum,say-so
 pronunciar|deliver,pronounce,say
 pronunciar arrastrado|drawl
 pronunciar con sibilante|sibilate
@@ -50112,7 +48983,7 @@ pug|pug,pug-dog
 pugilismo|boxing,fisticuffs,pugilism
 pugilista|boxer,pugilist
 pugilístico|pugilistic
-pugna|face-off,pains,encounter
+pugna|pains,encounter,strain
 pujar|bid,offer,bear down
 pulcramente|neatly
 pulgar|thumb,pollex
@@ -50188,7 +49059,7 @@ putero|trick
 puto|queen,fairy,poof
 putrefacción|decay,decomposition
 puñado|handful,cluster,bunch
-puñal|knife fight,cut-and-thrust,bodkin
+puñal|knife fight,bodkin,poniard
 puñetazo|punch,lick,poke
 puñetazos|fisticuffs,boxing,fistfight
 puñete|punch,lick,poke
@@ -50276,7 +49147,7 @@ quedarse despierto|keep up,lie awake
 quedarse en blanco|forget,block,blank out
 quedarse levantado|keep up,sit up,stay up
 quedarse más tiempo|outstay
-quehacer|job,task,to-do
+quehacer|job,task,chore
 quehaceres domésticos|housewifery
 queja|complaint,representation,moan
 queja constante|kvetch
@@ -50343,12 +49214,11 @@ quitinoso|chitinous
 quizá|maybe,perhaps,possibly
 quodlibet|quodlibet
 qué lástima|unfortunately,alas,regrettably
-qué tal|how-do-you-do,hi,hello
+qué tal|hi,hello,howdy
 química|chemistry,chemical science,interpersonal chemistry
 química interpersonal|chemistry,interpersonal chemistry,alchemy
 químicamente|chemically
 químico|chemical,chemist,chemic
-químico-fluorescente|chemiluminescent
 quístico|cystic
 rabadilla|rump,croup,hindquarters
 rabdomiosarcoma|rhabdomyosarcoma,rhabdosarcoma
@@ -50467,21 +49337,20 @@ ratonero|mousy,mousey
 ratonil|mousy,mousey
 rattus|rat
 ratán|rattan,rattan palm
-ratón-topo|pine mouse,pine vole
 rave|rave,rave-up
 raya|limit,part,dash
 rayadura de limón|lemon zest
 rayadura de naranja|orange zest
 rayo|ray,beam,ray of light
 rayo catódico|cathode ray
-rayo de luna|moon ray,moon-ray,moonbeam
+rayo de luna|moon ray,moonbeam,moon-ray
 rayo de luz|ray,beam,ray of light
 rayo de sol|sunbeam,sunray
 rayo laser|laser beam
 rayuela|hopscotch
 raza|race,stock,strain
 razonable|reasonable,sound,fair
-razonado|sound,well-grounded,reasoned
+razonado|sound,reasoned,well-grounded
 razonador|reasoner,ratiocinator
 razonamiento|reasoning,observation,reflection
 razonar|reason,argue,conclude
@@ -50495,8 +49364,7 @@ razón social|brand,trade name,brand name
 raíz|root,stem,base
 raíz primaria|taproot
 raíz rosada|pinkroot
-re-experimentación|re-experiencing,reliving
-reabsorción|re-uptake,reuptake
+reabsorción|reuptake,re-uptake
 reaccionar|react,respond,oppose
 reaccionarismo|reactionism
 reacción|reaction,response,reactivity
@@ -50515,7 +49383,7 @@ realismo|realism,reality,naive realism
 realista|realistic,naturalistic
 realizable|feasible,viable,workable
 realización|performance,achievement,execution
-realización personal|self-realization,self-fulfillment,self-realisation
+realización personal|self-fulfillment,self-realisation,self-realization
 realizar|do,make,create
 realizar un picado|power-dive
 realizar una volcada|dunk
@@ -50528,10 +49396,10 @@ reaseguro|reinsurance
 reasentamiento|relocation,resettlement
 reasignar|reallot
 reavivar|bring around,cure,bring back
-rebaja|decrease,drop-off,lessening
+rebaja|decrease,lessening,drop-off
 rebajar|reduce,cut,cut down
 rebaño|herd,drove,fold
-rebelde|rebellious,rebel,ill-affected
+rebelde|rebellious,rebel,freedom fighter
 reblandecer|supple
 rebosar|brim
 rebotar|bounce,bang,spang
@@ -50547,7 +49415,7 @@ recado|errand
 recaer|depend on,depend upon,fall
 recalcular|recalculate
 recapitular|recap,recapitulate
-recaptación|re-uptake,reuptake
+recaptación|reuptake,re-uptake
 recapturar|recapture,retake
 recargar|reload,recharge
 recato|demureness
@@ -50569,7 +49437,7 @@ receptor de satélite|satellite receiver
 receptor de satélites|satellite receiver
 recesivo|recessional
 recesión|recession,receding,ceding back
-receso|break,stand-down,interruption
+receso|break,interruption,standdown
 receta|formula,recipe
 rechazar|reject,refuse,turn down
 rechazo|rejection,throwing away,disapproval
@@ -50636,17 +49504,17 @@ reconvención|expostulation
 reconvenir|call down,have words,dress down
 recordar|remember,recall,think of
 recorrer|come,run,pass
-recorrido|route,path,walk-through
+recorrido|route,path,grand tour
 recortado|cut,trimmed
 recortador|trimmer
 recortar|cut,reduce,trim
 recorte|cut,cutting,clipping
 recorte de prensa|cutting,press cutting,press clipping
 recreación|recreation,diversion
-recrear|re-create,copy,cheer
+recrear|copy,cheer,re-create
 recrearse|play,recreate
 recreativo|recreational
-recriminación|going-over,dressing down,chewing out
+recriminación|dressing down,chewing out,bawling out
 recrudecerse|break,develop,recrudesce
 recta|stretch
 rectangular|rectangular,orthogonal,quadrate
@@ -50695,7 +49563,6 @@ redondeo|rounding,rounding error
 redondez|roundness,rotundity
 redondo|round,circular
 reducción|reduction,decrease,decline
-reducción-oxidación|oxidation-reduction,redox,oxidoreduction
 reducir|reduce,cut,thin
 reducto|redoubt
 reductor|impairer
@@ -50781,8 +49648,8 @@ regatear|bargain,dicker
 regateo|bargaining
 regazo|lap
 regañar|call down,have words,dress down
-regañina|going-over,dressing down,chewing out
-regaño|going-over,dressing down,chewing out
+regañina|dressing down,chewing out,bawling out
+regaño|dressing down,chewing out,bawling out
 regencia|regent,regency
 regeneración|regeneration
 regenerado|regenerate
@@ -50793,7 +49660,7 @@ regional|regional
 regionalizar|sectionalise,sectionalize
 regir|rule,govern,harness
 registrado|registered
-registrador|record-keeper,recorder,registrar
+registrador|recorder,registrar,record-keeper
 registradora|cash register,register
 registrar|record,register,look for
 registro|register,record,book
@@ -50810,7 +49677,7 @@ regocijar|joy,gladden
 regocijo|glee,gloating,gloat
 regodearse|crow,triumph,gloat
 regodeo|glee,gloating,gloat
-regordete|fat person,fatty,roly-poly
+regordete|fat person,fatty,fatso
 regresar|return,take back,bring back
 regresión|regression,arrested development,fixation
 regreso|return,coming back,homecoming
@@ -50837,7 +49704,7 @@ reinar|reign
 reincidencia|recidivism
 reincorporar|re-incorporate
 reincorporarse|rejoin
-reiniciar|resume,re-start,restart
+reiniciar|resume,restart,re-start
 reino|kingdom,reign,realm
 reino animal|animal kingdom
 reinstalar|reinstall
@@ -50881,7 +49748,7 @@ religiosamente|religiously,sacredly
 religioso|religious,spiritual
 religión|religion,faith,religious belief
 religión revelada|revealed religion
-reliquia|has-been,relic,back-number
+reliquia|relic,token,souvenir
 rellano|landing
 rellenar|stuff,fill out,fill
 rellenar con corcho|cork
@@ -50965,19 +49832,19 @@ renuncia|renunciation,giving up,release
 renunciante|abnegator
 renunciar|give up,relinquish,quit
 reológico|rheological,rheologic
-reorganización|shake-up,reorganization,reorganisation
+reorganización|reorganization,reorganisation,rearrangement
 reorganizar|shake up,reorganize,reshuffle
 reparación|repair,fix,reparation
 reparación de techos|roofing
 reparar|repair,fix,touch on
 reparo|objection,repair,fix
-repartición|share-out,sharing
+repartición|sharing,share-out
 repartidor|carrier,delivery boy,bearer
 repartidor de periódicos|carrier,newsboy
 repartimiento|allocation,allotment,apportionment
 repartir|distribute,deal,divide
 repartir mal|misdeliver
-reparto|cast,delivery,share-out
+reparto|cast,delivery,bringing
 reparto de periódicos|paper route
 repasador|finisher
 repasar|check,go over,check out
@@ -51033,7 +49900,7 @@ represor|repressor,represser
 reprimenda|chastisement,castigation
 reprimenda conyugal|curtain lecture
 reprimir|suppress,crush,bottle up
-reprobación|going-over,dressing down,chewing out
+reprobación|dressing down,chewing out,bawling out
 reprobar|come down,reprobate
 reprochable|culpable,blameworthy,blamable
 reprochar|call down,have words,dress down
@@ -51089,7 +49956,7 @@ residente temporal|sojourner
 residir|live,belong to,lie in
 residuo|waste,waste material,waste matter
 residuos|sewage,sewerage
-resignacion|long-suffering,long-sufferance
+resignacion|long-sufferance,long-suffering
 resignación|patience,surrender,resignation
 resignado|uncomplaining
 resiliencia|resilience,resiliency
@@ -51109,7 +49976,7 @@ resistividad|resistance,electric resistance,electrical resistance
 resollar|blubber,sniffle,blub
 resolución|resolution,decision,conclusion
 resolver|resolve,solve,set
-resolver problemas|trouble-shoot,troubleshoot
+resolver problemas|troubleshoot,trouble-shoot
 resolver un acertijo|riddle
 resonador|resonator,resonant circuit,cavity resonator
 resonar|echo,ring,repeat
@@ -51175,7 +50042,7 @@ resultado inesperado|upset,overturn
 resultante|resultant,accompanying,consequent
 resultar|come,result,be due
 resultar finalmente|eventuate
-resumen|summary,sum-up,digest
+resumen|summary,digest,capsule
 resumidamente|succinctly,compactly
 resumir|sum up,summarize,resume
 resurrección|resurrection
@@ -51188,7 +50055,7 @@ retención urinaria|urinary retention
 retener|hold,keep back,withhold
 reti testis|rete testis
 reticencia|reservation,mental reservation,aposiopesis
-reticulación|cross-link,reticulation,cross-linkage
+reticulación|reticulation,cross-link,cross-linkage
 retina|retina
 retinitis|retinitis
 retinoblastoma|retinoblastoma
@@ -51203,7 +50070,7 @@ retirarse|withdraw,give up,retire
 retirarse dignamente|bow out,withdraw
 retiro|recall,withdrawal,secession
 retiro de tropas|disengagement,fallback,pullout
-reto|challenge,call-out,dare
+reto|challenge,dare,daring
 retocar|replay
 retomar|take up,resume,retake
 retorcer|twist,worm,writhe
@@ -51223,7 +50090,7 @@ retratar|portray,depict,limn
 retratarse|photograph
 retratista|photographer,portrait painter,portraitist
 retrato|portrayal,portrait,picture
-retrato hablado|picture,word picture,word-painting
+retrato hablado|picture,word picture,characterization
 retrete|can,pot,toilet
 retribución|retribution,requital
 retroalimentar|feed back
@@ -51256,14 +50123,14 @@ reventar|burst,explode
 reverberante|reverberant
 reverdecimiento|greenness,verdure,verdancy
 reverencia|reverence,fear,awe
-reverenciar|worship,hero-worship,revere
+reverenciar|worship,revere,idolize
 revertir|turn,reverse,change by reversal
 revestimiento|application,covering,coating
 revestir|face,line,cake
 revigorizar|inspire,invigorate,animate
 revisar|review,check,go over
 revisionismo|revisionism
-revisión|review,going-over,service
+revisión|review,service,limited review
 revisión puntual|review,limited review
 revisor|rewrite man,checker,redact
 revisora|check girl,hatcheck girl
@@ -51274,7 +50141,7 @@ revivir|come to,revive,resurrect
 revocar|overturn,lift,repeal
 revolcarse|tumble
 revolotear|flicker,flutter,quiver
-revoloteo|to-do,flutter,commotion
+revoloteo|flutter,commotion,disturbance
 revoltijo|maze,tangle,snarl
 revolucionar|overturn,revolutionize,revolutionise
 revolucionario|revolutionary,radical
@@ -51285,7 +50152,7 @@ revuelo|stir,flurry,splash
 revuelta|rebellion,revolt,rising
 reválida|final,final exam,final examination
 revés|back,reverse,reversal
-revólver|pistol,six-gun,shooting iron
+revólver|pistol,shooting iron,side arm
 rey|king,male monarch
 reyerta|do,affray,altercation
 rezar|pray
@@ -51359,12 +50226,12 @@ rival|competitor,competition,rival
 rivalidad|competition,rivalry,contention
 rizar|kink,kink up,crimp
 rizo|kiss curl,spit curl
-riña|free-for-all,run-in,words
+riña|words,row,quarrel
 riñón|kidney
 riñón flotante|nephroptosia,nephroptosis
 robar|steal,hook,rob
 roble|oak,oak tree
-robo|stealing,rip-off,theft
+robo|stealing,theft,robbery
 robo armado|armed robbery,heist,holdup
 robot|robot,golem,automaton
 robotización|automation,mechanization,mechanisation
@@ -51373,19 +50240,19 @@ robótica|robotics
 roca|stone,rock,ice
 roca porfírica|porphyry,porphyritic rock
 roca sedimentaria|siltstone
-roce|brush,encounter,run-in
+roce|brush,encounter,contact
 rociar|shower,spray,spit
-rock|rock,rock music,rock 'n' roll
-rock and roll|rock,rock music,rock 'n' roll
+rock|rock,rock music,rock and roll
+rock and roll|rock,rock music,rock and roll
 rockabilly|rockabilly
-rockero|rock 'n' roll musician,rocker
-rocoso|stony,rocky,rock-ribbed
+rockero|rocker,rock 'n' roll musician
+rocoso|stony,rocky,granitic
 rocío|dew
 rodapié|skirting board,baseboard,mopboard
 rodar|roll,go around,turn over
 rodear|surround,skirt,close in
 rodentia|rodent,gnawer
-rodeo|go-around,wave-off,overshoot
+rodeo|overshoot,go-around,wave-off
 rodeo estadounidense|rodeo
 rodete|impeller
 rodilla|knee,knee joint,human knee
@@ -51395,7 +50262,7 @@ rodocrosita|rhodochrosite
 roedor|rodent,nibbler,gnawer
 roer|eat into,fret,grate
 rogar|plead,press,beg
-rojizo|red,crimson,blood-red
+rojizo|red,crimson,cherry
 rojo|red,crimson,communist
 rojo terroso|brick red
 rojo veneciano|reddish brown,mahogany,burnt sienna
@@ -51410,16 +50277,14 @@ romanticismo|romanticism
 romantizar|romanticize,romanticise,glamorize
 romboidal|rhombic
 romero|rosemary
-rompe-huelga|rat,scab,blackleg
-rompe-huelgas|rat,scab,blackleg
-rompecabezas|riddle,brain-teaser,enigma
+rompecabezas|riddle,enigma,conundrum
 romper|break,break up,interrupt
 romperse|collapse,give,give way
 romperse el hielo|break up,calve
 rompiente|surf,breaker,breakers
 rompientes|surf,breaker,breakers
 rompope|eggnog
-romántico|romantic,wild-eyed,romanticist
+romántico|romantic,romanticist,quixotic
 ron|rum
 ronco|hoarse,husky,gruff
 ronda|round
@@ -51435,7 +50300,7 @@ ropa interior|underwear,underclothes,underclothing
 rosa|pink,rose,rose window
 rosa amarillento|salmon pink,peach,yellowish pink
 rosa de jericó|desert selaginella
-rosa de muerto|trifid beggar-ticks,trifid bur marigold
+rosa de muerto|trifid bur marigold,trifid beggar-ticks
 rosa salmón|salmon pink,peach,yellowish pink
 rosado|pink,rose,rosy
 rosario|back,spine,spinal column
@@ -51454,7 +50319,7 @@ roto|broken
 rotor|rotor
 rotular|docket
 rotundidad|roundness,rotundity
-rotundo|round,straight-out,flat
+rotundo|round,flat,heavy
 router|router
 roux|roux
 rozadura|attrition,abrasion,corrasion
@@ -51462,7 +50327,7 @@ rozar|chafe,brush,scratch
 rubio|blonde,blond,light-haired
 rubricar|rubricate
 rubus caesius|dewberry
-rubéola|three-day measles,rubella,epidemic roseola
+rubéola|rubella,epidemic roseola,three-day measles
 rudimento|first principle,alphabet,first rudiment
 rudimentos|basics,rudiments
 rudo|neanderthal,boorish,oafish
@@ -51479,7 +50344,7 @@ ruego|appeal,prayer,entreaty
 ruego indirecto|wish,indirect request
 rugir|roar,thunder,howl
 rugosidad|coarseness,nubbiness,tweediness
-ruido|noise,sound,to-do
+ruido|noise,sound,make noise
 ruido atmosférico|static,atmospheric static,atmospherics
 ruidos atmosféricos|static,atmospheric static,atmospherics
 ruidoso|noisy,vocal,boisterous
@@ -51495,9 +50360,9 @@ rumiar|ruminate
 rumor|rumor,rumour,murmur
 rupia|rupee
 rupicapra rupicapra|chamois
-ruptura|break,to-do,breaking away
+ruptura|break,breaking away,breaking
 rural|rural,rustic,countrified
-rusk|twice-baked bread,rusk,zwieback
+rusk|rusk,zwieback,twice-baked bread
 ruta|way,route,path
 rutilo|rutile
 rutina|habit,routine,use
@@ -51529,7 +50394,6 @@ rígido|rigid,strict,stiff
 río|river,stream,flow
 rótula|kneecap,patella,kneepan
 s|second,s,sec
-s/n|signal-to-noise,signal-to-noise ratio
 sabana|savannah,savanna,veld
 sabelotodo|wise guy,smart aleck,wiseacre
 saber|know,knowledge,experience
@@ -51538,7 +50402,7 @@ sabido|known
 sabiduría|wisdom,initiation,sapience
 sabiduría callejera|street smarts
 sabihondo|wise guy,smart aleck,wiseacre
-sabio|learned,wise,well-read
+sabio|learned,wise,learned person
 sable|saber,sabre,coal black
 saboga|shad
 sabor|taste,flavor,taste perception
@@ -51601,7 +50465,7 @@ sala común|common room
 sala de espera|waiting area,waiting room,lounge
 sala de lectura|reading room
 sala de masajes|massage parlor
-salado|tongue-in-cheek,salty,salt-cured
+salado|salty,saline,salted
 salamandra|salamander
 salamandra alpina|alpine salamander
 salamandra topo|mole salamander
@@ -51689,7 +50553,7 @@ salto de cabeza|header
 salto de longitud|long jump,broad jump
 salto de montaje|jump,jump cut
 salto largo|long jump,broad jump
-salto mortal|flip,somerset,flip-flop
+salto mortal|flip,somerset,somersault
 salud|health,wellness
 salud mental|mental health
 saludar|salute,greet,present
@@ -51709,7 +50573,7 @@ salvia lyrata|cancer weed,cancerweed
 salvinia|floating-moss
 salvinia auriculata|floating-moss
 salvinia rotundifolia|floating-moss
-salvoconducto|safe-conduct,safeguard
+salvoconducto|safeguard,safe-conduct
 salón|living room,parlor,front room
 salón de baile|dance hall,dance palace,ballroom
 salón de belleza|beauty shop,beauty salon,salon
@@ -51753,7 +50617,7 @@ sapito leptodáctilo|leptodactylid,leptodactylid frog
 sapo del Suroeste|southwestern toad
 sapo mosquero occidental|western spadefoot
 saponificación|saponification
-saque|service,start-off,send-off
+saque|service,serve,place kick
 saque de banda|throw-in
 saqueo|robbery,looting
 saquinavir|saquinavir
@@ -51793,7 +50657,7 @@ sausage roll|sausage roll
 saxicola rubetra|whinchat
 saxofón|sax,saxophone
 saxófono|sax,saxophone
-sayonara|good-by,good day,so long
+sayonara|good day,so long,bye
 sazonador|relish
 sazonar|season,flavor,flavour
 scaridae|polly fish,parrotfish,pollyfish
@@ -51821,7 +50685,7 @@ secretario|secretary,secretary bird,vote counter
 secretario del ayuntamiento|town clerk
 secretario municipal|town clerk
 secretaría|secretariat,secretaryship,secretariate
-secreto|secret,confidential,under-the-table
+secreto|secret,confidential,privacy
 secta|sect,religious order,faction
 sector|sector,sphere,occupational group
 sector bancario|banking industry,banking system
@@ -51836,7 +50700,7 @@ secuestro|hijack,highjack
 secularismo|secularism
 secularización|secularization,secularisation
 secundariamente|secondarily
-secundario|secondary,back-channel,minor
+secundario|secondary,minor,back-channel
 sed|thirst,hunger,longing
 sed de sangre|bloodlust
 sed de venganza|vindictiveness,vengefulness
@@ -51860,7 +50724,7 @@ segregación racial|racial segregation
 segregar|set aside,set apart,keep apart
 seguido|straight,through,consecutive
 seguidor|fan,friend,follower
-seguimiento|review,follow-up,surveillance
+seguimiento|review,surveillance,followup
 seguir|follow,continue,remain
 seguir en|harp,dwell
 seguir la corriente|go along,play along
@@ -51903,7 +50767,6 @@ semejanza|similarity,likeness,guise
 semental|sire
 semestre|semester
 semi|semi,semifinal
-semi-tuberoso|semi-tuberous
 semicírculo|semicircle,hemicycle
 semifinal|semi,semifinal
 semilla|seed,source,germ
@@ -52068,7 +50931,6 @@ señal de alerta|heads-up
 señal de amor|love-token
 señal radiotelegráfica|telegraphic signal,radiotelegraphic signal
 señal telegráfica|telegraphic signal,radiotelegraphic signal
-señal/ruido|signal-to-noise,signal-to-noise ratio
 señaladamente|signally
 señalar|point out,indicate,report
 señalización|signal,sign,signaling
@@ -52189,14 +51051,14 @@ simio|monkey,ape,simian
 simios menores|lesser ape
 simpatizante|cheerleader
 simpatía|sympathy,affection,heart
-simple|simple,mere,simple-minded
+simple|simple,mere,elementary
 simplemente|just,simply
 simpleza|ease,simplicity,easiness
 simplicidad|simplicity,ease,easiness
 simplificación|simplification,reduction
 simplismo|oversimplification,simplism
 simplon|nebbish,nebbech
-simplón|stick-in-the-mud,slowpoke,plodder
+simplón|slowpoke,plodder,slowcoach
 simposio|symposiast
 simpático|nice,sympathetic,kind
 simulación|simulation,model,computer simulation
@@ -52263,13 +51125,13 @@ sin papeles|unregistered
 sin parar|no end,around the clock,round the clock
 sin pecho|breastless
 sin polarizar|nonionic,nonpolar
-sin prescripción|over-the-counter,nonprescription
+sin prescripción|nonprescription,over-the-counter
 sin pretensiones|sincerely,truly,unfeignedly
 sin problemas|unfastidious
 sin protección|defenseless,defenceless,defencelessly
 sin pruebas|unproven,unproved
 sin querer|inadvertently,unwittingly,unknowingly
-sin receta médica|over-the-counter,nonprescription
+sin receta médica|nonprescription,over-the-counter
 sin recortar|uncut,untrimmed
 sin regenerar|unregenerate,unregenerated
 sin registrar|unregistered
@@ -52328,7 +51190,7 @@ sintetizar|synthesize,synthesise
 sintomáticamente|symptomatically
 sintomático|symptomatic,diagnostic
 sintáctico|syntactic,syntactical
-sintético|synthetic,man-made,celluloid
+sintético|synthetic,celluloid,synthetical
 sinusitis|sinusitis
 sinusoide|sine curve,sinusoid
 sinverguenza|rogue,rascal,knave
@@ -52356,7 +51218,7 @@ sistema de respaldo|backup system
 sistema de seguridad|security system
 sistema de votación|voting system,electoral system
 sistema decimal|algorism
-sistema duodecimal|one-twelfth,twelfth,twelfth part
+sistema duodecimal|twelfth,twelfth part,duodecimal
 sistema electoral|voting system,electoral system
 sistema eléctrico|electrical plant,electrical system
 sistema endocrino|endocrine system
@@ -52381,7 +51243,7 @@ skiffle|skiffle
 smilax|smilax
 smiley|smiley
 soberana reinante|queen,female monarch,queen regnant
-soberano|independent,sovereign,self-governing
+soberano|independent,sovereign,autonomous
 soberanía|sovereignty,reign
 sobornar|sop,suborn
 soborno|price
@@ -52422,9 +51284,9 @@ sobrevenir|take place,happen,go on
 sobrevivir|survive,live,make it
 sobriedad|sobriety,temperance,frugality
 sobrina|niece
-sobrina nieta|great-niece,grandniece
+sobrina nieta|grandniece,great-niece
 sobrino|nephew,niece
-sobrino nieto|great-nephew,grandnephew
+sobrino nieto|grandnephew,great-nephew
 socavar|undercut
 social|social,societal,sociable
 socialismo|socialism,socialist economy
@@ -52516,7 +51378,7 @@ solidificación|freezing,freeze
 solitariamente|solitarily
 solitario|solitary,lonely,only
 sollozar|weep,cry,sob
-solo|lonely,straight,full-strength
+solo|lonely,straight,neat
 solomillo Wellington|filet de boeuf en croute
 solos|unique,alone,unparalleled
 soltar|release,loosen,let go
@@ -52527,7 +51389,7 @@ soltería|celibacy
 solubilidad|solubility,solvability
 solucionado|solved,resolved
 solucionar|solve,figure out,work
-solucionar problemas|trouble-shoot,troubleshoot
+solucionar problemas|troubleshoot,trouble-shoot
 solución|solution,result,answer
 solución milagrosa|silver bullet
 solución parche|band aid,quick fix,quickie
@@ -52649,7 +51511,7 @@ suave|soft,gentle,mild
 suave al tacto|tender,untoughened
 suavidad|slip,slick,slickness
 suavizado|tender,untoughened
-suavizar|cushion,buffer,soft-pedal
+suavizar|cushion,buffer,soften
 sub iúdice|sub judice
 sub judice|sub judice
 sub júdice|sub judice
@@ -52685,7 +51547,7 @@ suborden Thyreophora|thyreophoran
 subordinada de relativo|relative clause
 subordinada relativa|relative clause
 subordinar|subordinate,subdue
-subproducto|by-product,byproduct
+subproducto|byproduct,by-product
 subrayado|underline,underscore
 subrayar|headline,underline,emphasize
 subrogación|subrogation
@@ -52724,13 +51586,13 @@ sucintamente|succinctly,compactly
 sucio|dirty,soiled,foul
 sucralfato|sucralfate
 suculencia|juiciness,succulence,succulency
-suculento|delicious,lush,pleasant-tasting
+suculento|delicious,lush,yummy
 sucumbir|die,go,pass away
 sucursal|chain store
 sudadera|sports jacket,sport coat,sports coat
 sudar|sweat,perspire,sudate
-sudeste|southeast,south-east,sou'-east
-sudoeste|southwest,sou'-west,southwestward
+sudeste|southeast,southeastward,sou'-east
+sudoeste|southwest,southwestward,sou'-west
 sudoku|sudoku
 sudor|sweat,perspiration,sweating
 sudoración|sweat,perspiration,sudor
@@ -52755,7 +51617,7 @@ sueño|dream,sleep,dreaming
 sueño del opio|dream,pipe dream
 sueño fantástico|dream,pipe dream
 sueño húmedo|wet dream
-suficiencia|arrogance,sufficiency,high-handedness
+suficiencia|arrogance,sufficiency,haughtiness
 suficiente|enough,sufficient,adequate
 sufijo|ending,termination,suffix
 sufragio|right to vote,vote,suffrage
@@ -52842,12 +51704,10 @@ supremo|supreme,high,sovereign
 supresión|deletion,suppression,cut
 supresor|suppressor,suppressor gene,eliminator
 suprimir|delete,cut out,cancel
-supuesto|assumption,supposed,so-called
+supuesto|assumption,supposed,given
 supuración|pus,festering,ichor
 supurar|eat into,fret,grate
 sur|south,due south,southward
-sur-sudeste|south-southeast,sou'-sou'-east
-sur-sudoeste|south-southwest,sou'-sou'-west
 sura|sura
 surcar|streak,crease,wrinkle
 surcar los cielos|soar,hang glide,sailplane
@@ -52855,13 +51715,13 @@ surco|furrow
 surf|surfing,surfboarding,surfriding
 surgir|come out,emerge,come up
 suricata suricatta|meerkat,mierkat
-suroeste|southwest,sou'-west,southwestward
+suroeste|southwest,southwestward,sou'-west
 sursum corda|sursum corda
 surtido|variety,mixed bag,mixture
 surtidor de combustible|gas pump,gasoline pump,petrol pump
 sus|pig,hog,squealer
 susceptibilidad|sentimentality,sloppiness,mawkishness
-susceptible|susceptible,thin-skinned,touchy
+susceptible|susceptible,touchy,feisty
 suscitar|elicit
 suscribir|support,subscribe
 suscripción|subscription
@@ -52926,7 +51786,7 @@ síndrome|syndrome
 síndrome de Tietze|costochondritis
 síndrome de abstinencia|drug withdrawal,withdrawal
 síndrome meníngeo|meningism
-síntesis|synthesis,summary,sum-up
+síntesis|synthesis,summary,synthetic thinking
 síntoma|symptom,sign
 sólidamente|solidly
 sólido|solid,substantial,firm
@@ -52992,7 +51852,7 @@ tallar|carve,cut out,chip at
 tallarines|tagliatelle
 tallarín|noodle
 talle|fit,waist,waistline
-taller|workshop,shop,fix-it shop
+taller|workshop,shop,repair shop
 tallista|carver,statue maker,sculptor
 tallista en madera|carver,woodcarver
 tallo|stem,stalk
@@ -53052,11 +51912,11 @@ tarea|job,task,project
 tarifa|rate,fee,price list
 tarifas de exportación|export duty
 tarima|platform,stand,outdoor stage
-tarjeta|card,board,add-in
+tarjeta|card,board,calling card
 tarjeta CPU|mother board
 tarjeta bancaria|bank card
 tarjeta de CPU|mother board
-tarjeta de expansión|board,add-in,card
+tarjeta de expansión|board,card,circuit board
 tarjeta de memoria|memory,store,computer memory
 tarot|tarot,tarot card
 tarro blanco|shelduck
@@ -53183,7 +52043,7 @@ temporalmente|pro tem,pro tempore,temporally
 temprano|early,new,young
 temático|thematic
 tenacidad|persistence,temper,perseverance
-tenaz|up-and-coming,tenacious,hard-boiled
+tenaz|tenacious,energetic,persistent
 tenazmente|doggedly,tenaciously
 tendencia|tendency,trend,inclination
 tender|tend,lie down,run
@@ -53221,7 +52081,7 @@ tenosinovitis|tenosynovitis,tendonous synovitis,tendosynovitis
 tensar|tense,tighten,strain
 tensión|stress,tension,strain
 tenso|tense
-tensoactivo|surface-active agent,surfactant,wetter
+tensoactivo|surfactant,wetter,wetting agent
 tensor|tensor
 tentación|temptation,enticement,allure
 tentacular|tentacular
@@ -53253,7 +52113,7 @@ tercera clase|steerage
 tercera persona|third party
 tercero|third,tertiary
 terceto|three,trio,trinity
-tercio|one-third,third,tierce
+tercio|third,tierce,one-third
 terciopelo|velvet
 tergiversación|distortion
 tergiversador|hedger,equivocator,tergiversator
@@ -53296,7 +52156,7 @@ territorialmente|territorially
 territorio|land,domain,terrain
 terror|fear,terror,panic
 terrorismo|terrorist act,act of terrorism,terrorism
-terrorismo cibernético|cyber-terrorism,cyberwar
+terrorismo cibernético|cyberwar,cyber-terrorism
 terruño|old country
 terrón|ball,chunk,lump
 tertulia|social,mixer,sociable
@@ -53341,7 +52201,7 @@ thunnus alalunga|albacore,long-fin tunny
 thylacinus cynocephalus|thylacine
 thyrsopteris elegans|thyrsopteris
 tibia|shin,shin bone,tibia
-tibia vaga|knock-knee,tibia valga,genu valgum
+tibia vaga|tibia valga,genu valgum,knock-knee
 tibio|lukewarm,tepid
 tiburón|shark
 tiempo|time,weather,conditions
@@ -53405,7 +52265,7 @@ tiranicidio|tyrannicide
 tiranizar|dragoon
 tirano|tyrant,despot,autocrat
 tirante|tense
-tiranía|one-man rule,dictatorship,tyranny
+tiranía|dictatorship,tyranny,authoritarianism
 tirar|pull,shoot,draw
 tirar al hoyo|putt
 tirar con honda|sling,catapult
@@ -53429,11 +52289,11 @@ tiroidea|thyroid,thyroidal
 tiroiditis|thyroiditis
 tironear|pick at,pull at,pluck at
 tiroteo|shooting
-tirotropina|thyroid-stimulating hormone,thyrotropin,thyrotrophic hormone
+tirotropina|thyrotropin,thyroid-stimulating hormone,thyrotrophic hormone
 tiroxina|thyroxine,thyroxin,tetraiodothyronine
 tirso|thyrsus,thyrse
 tirón|jerk,tug,jerking
-tirón de orejas|going-over,dressing down,chewing out
+tirón de orejas|dressing down,chewing out,bawling out
 tita|aunt,auntie,aunty
 titilar|flash,flick,flicker
 titiritero|puppeteer
@@ -53453,8 +52313,7 @@ toba calcárea|tufa,calc-tufa
 toba volcánica|tuff,tufa
 tobera|nose,nozzle
 tobramicina|tobramycin
-toc toc|rat-a-tat,rat-tat,rat-a-tat-tat
-toc-toc|flip-flap
+toc toc|rat-a-tat,rat-a-tat-tat,rat-tat
 tocable|tangible,touchable
 tocadiscos|record player,phonograph
 tocado|coif
@@ -53468,7 +52327,7 @@ todo|all,whole,works
 todo dulzura|sweetness and light
 todo el rollo|works,whole works,full treatment
 todo el tiempo|all the time,day in and day out
-todo vale|free-for-all,brawl
+todo vale|brawl,free-for-all
 todos juntos|all at once,all together
 tofe de melaza|molasses taffy
 tofo|chalkstone,tophus
@@ -53508,7 +52367,6 @@ tonada|song
 tonalidad|key,tonality
 tonel demontado|shook
 tonelada|ton,t,gross ton
-tonelada-pie|foot-ton
 tonelero|cooper,barrel maker
 toner|toner
 tonificar|tone,tone up,strengthen
@@ -53519,7 +52377,7 @@ tonsura|tonsure
 tontamente|foolishly,unwisely
 tontear|horse around,fool around,fool
 tontería|bull,stupidity,folly
-tonterías|stuff,trash,wish-wash
+tonterías|stuff,trash,stuff and nonsense
 tontina|tontine
 tonto|silly,stupid,foolish
 tontorrona|foolish woman,flibbertigibbet
@@ -53542,7 +52400,7 @@ toponimia|toponymy,toponomy
 topónimo|place name,toponym,toponymy
 toque|touch,blow,dab
 toque de bocina|toot
-toque de diana|wake-up signal,reveille
+toque de diana|reveille,wake-up signal
 toque de queda|curfew
 toque final|finishing touch,capstone,copestone
 toquetear|paw,grope
@@ -53613,7 +52471,7 @@ tostada con canela|cinnamon toast
 tostadora|toaster
 total|total,full,entire
 totalidad|unity,total,totality
-totalitarismo|one-man rule,dictatorship,tyranny
+totalitarismo|dictatorship,tyranny,authoritarianism
 totalizar|totalize,totalise
 totemismo|totemism
 totémico|totemic
@@ -53668,7 +52526,7 @@ traer|bring,get,take
 traer a colación|work out,work up
 traer al mundo|bear,have,give birth
 traer de regreso|take back,bring back,return
-traficante de armas|arms-runner,gunrunner
+traficante de armas|gunrunner,arms-runner
 traficante de esclavos|slave driver
 tragaluz|skylight,fanlight
 tragar|swallow,get down,suck in
@@ -53684,13 +52542,13 @@ trailers en tándem|tandem trailer
 traje|suit,dress,gown
 traje cruzado|double-breasted suit
 tralará|fa la,fal la
-trama|plot,pick,frame-up
+trama|plot,pick,filling
 tramado|dithering
 tramar|trump up,concoct
 tramitación|talks,dialogue,negotiation
 tramo|point,stage,level
 tramontana|north wind,northerly,norther
-trampa|trap,frame-up,sand trap
+trampa|trap,sand trap,cheating
 trampa de arena|sand trap,trap,bunker
 trampa humana|mantrap
 trampa para ratones|mousetrap
@@ -53741,7 +52599,7 @@ transistor|transistor,electronic transistor,junction transistor
 transitar|pass through,move through,pass over
 transitividad|transitivity,transitiveness
 transitoriedad|impermanence,impermanency
-transitorio|short-lived,passing,tentative
+transitorio|passing,tentative,provisional
 transliteración|transliteration
 translocación|translocation
 transmisión|transmission,transmitting,diffusion
@@ -53801,14 +52659,14 @@ traspasar|hand,present,give
 traspasar los límites|trench,impinge,encroach
 traspaso|transfer,transferred possession,transferred property
 traspaso legal|legal transfer,delivery,livery
-traspié|trip,trip-up,stumble
+traspié|trip,stumble,misstep
 trasquilar|shear,fleece
 trastabillar|stumble,falter,bumble
 traste|can,seat,behind
 trastero|catchall
 trastocar|reverse,turn,turn back
 trastornar|mess up,ruffle,ruffle up
-trastorno|to-do,disturbance,turmoil
+trastorno|disturbance,turmoil,disruption
 trastorno auditivo|hearing disorder,hearing impairment
 trastorno cerebral|brain disease,brain disorder,encephalopathy
 trastorno de ansiedad|anxiety
@@ -53867,9 +52725,9 @@ treonina|threonine
 trepadora|vine
 trepar|climb,go up,mount
 trepar a gatas|struggle,skin,scramble
-tres en línea|tick-tack-toe,tic-tac-toe,noughts and crosses
+tres en línea|noughts and crosses,tic-tac-toe,tick-tack-toe
 tres veces|three times,threefold
-treta|stalking-horse,shtick,schtick
+treta|shtick,schtick,schtik
 triangulación|triangulation
 triangular|triangulate
 tribalismo|tribalism
@@ -53895,7 +52753,7 @@ tricomoniasis|trichomoniasis
 tricot|tricot
 tricotilomanía|trichotillomania
 tridente|trident
-tridimensional|three-d,three-dimensional,third-dimensional
+tridimensional|three-dimensional,third-dimensional,three-d
 triestearato de glicerilo|glycerol tristearate,tristearin
 trifolium|clover,trefoil
 trifolium reflexum|buffalo clover
@@ -53923,7 +52781,7 @@ triodo|triode
 tripa|bay window,corporation,belly
 tripalmitato de glicerilo|glycerol tripalmitate,tripalmitin
 tripas|tripe
-triple|triple,treble,three-base hit
+triple|triple,treble,threefold
 triplicar|triplicate
 tripsina|trypsin
 triptófano|tryptophan,tryptophane
@@ -53971,7 +52829,7 @@ trombosis cerebral|cerebral thrombosis
 trompa|trunk,corona,proboscis
 tronar|boom,thunder
 tronco|body,trunk,log
-tronco del encéfalo|brain stem,brain-stem,brainstem
+tronco del encéfalo|brain stem,brainstem,brain-stem
 tronera lateral|side pocket
 trono|throne
 tropa|troops,troop,military personnel
@@ -53981,12 +52839,12 @@ tropas|troops,military personnel,soldiery
 tropas paracaídistas|paratroops
 tropezar|find,encounter,run into
 tropical|tropical,tropic
-tropiezo|stumble,trip,trip-up
+tropiezo|stumble,trip,rub
 tropopausa|tropopause
 troqueo|trochee
 trote lento|dogtrot
-trote ligero|pit-a-pat,pitty-pat,pitty-patty
-trovador|folk singer,poet-singer,bard
+trote ligero|pit-a-pat,pitter-patter,pitty-pat
+trovador|folk singer,bard,minstrel
 troyano|trojan,trojan horse
 trozo|piece,part,bit
 trozo de cuero|piece of leather
@@ -54007,7 +52865,6 @@ trámite|proceedings,proceeding,legal proceeding
 trámite legal|proceedings,proceeding,legal proceeding
 tránsito|death,traffic,going
 trío|trio,trinity,threesome
-tse-tse|tsetse,tsetse fly,glossina
 tsunami|tsunami
 tuberia de alcantarillado|sewer line,sewer main
 tuberoso|tuberous
@@ -54027,7 +52884,7 @@ tubo de lámpara|lamp chimney,chimney
 tubo del órgano|pipe,organ pipe,pipework
 tubo graduado|graduated cylinder
 tubo piezométrico|piezometer
-tubular|tube-shaped,tubular,cannular
+tubular|tubular,cannular,tube-shaped
 tubérculo|root vegetable
 tuerca|en,nut
 tuerca y tornillo|nut and bolt
@@ -54050,7 +52907,7 @@ turba|mob,press,crush
 turbidez|turbidity,turbidness
 turbina|impeller
 turbina de gas|gas turbine
-turbio|fly-by-night,shady,muddy
+turbio|shady,muddy,cloudy
 turbión|torrent,downpour,deluge
 turbulencia|turbulence
 turbulento|unpeaceful
@@ -54089,12 +52946,12 @@ térmico|thermal,caloric,thermic
 término|term,end,close
 tétanos|tetanus,lockjaw
 tía|aunt,bird,broad
-tía abuela|great-aunt,grandaunt
+tía abuela|grandaunt,great-aunt
 tía soltera|maiden aunt
 tímido|timid,coy,faint
 tímpano|eardrum,tympanum,tympanic membrane
 tío|fellow,guy,uncle
-tío abuelo|great-uncle,granduncle
+tío abuelo|granduncle,great-uncle
 típico|typical,characteristic,distinctive
 títeres|puppetry
 título|title,security,title of respect
@@ -54171,7 +53028,7 @@ unilateral|one-way street
 unir|join,combine,link
 unirse|join,put in,break in
 unitario|one,unitary
-universal|world-wide,worldwide,universal
+universal|worldwide,universal,world
 universalidad|universality,catholicity
 universalista|universalist,universalistic
 universalizar|universalize,universalise
@@ -54218,7 +53075,7 @@ usado|used
 usar|use,apply,employ
 usar tácticas obstructivas|filibuster
 uso|use,usage,habit
-uso indebido|abuse,ill-treatment,ill-usage
+uso indebido|abuse,maltreatment,ill-treatment
 usuario|user
 usufructo|usufruct
 usura|usury,vigorish
@@ -54268,7 +53125,7 @@ vagancia|slacking,goofing off,shirking
 vagar|jazz around,gad,traipse
 vaginismo|vaginismus
 vaginitis|vaginitis,colpitis
-vago|vague,do-nothing,faint
+vago|vague,faint,obscure
 vaguada|thalweg
 vaguedad|looseness
 vagón|car,coach,railway car
@@ -54373,7 +53230,7 @@ vehículo utilitario deportivo|sport utility,sport utility vehicle
 veinte|twenty,twenty dollar bill
 veinteavo|twentieth
 veintidós|twenty-two
-vejestorio|antique,old-timer,old geezer
+vejestorio|antique,old geezer,gaffer
 vejez|years,old age,age
 vejiga urinaria|urinary bladder
 vela|watch,vigil,candle
@@ -54442,9 +53299,9 @@ veneno|venom
 venera|scallop,escallop,scollop
 veneración|fear,awe,reverence
 veneración ancestral|ancestor worship
-veneración de demonios|devil-worship,demonolatry,diabolatry
+veneración de demonios|demonolatry,devil-worship,diabolatry
 veneración del hombre|worship of man,anthropolatry
-veneración del sol|sun-worship,heliolatry
+veneración del sol|heliolatry,sun-worship
 venerador de héroes|hero worshipper,hero worshiper
 venerar|worship,saint,enshrine
 vengador|avenger,retaliator
@@ -54492,7 +53349,7 @@ verbosidad|wordiness,prolixity,long-windedness
 verdad|truth,the true,true statement
 verdaderamente|sincerely,truly,unfeignedly
 verdadero|true,actual,genuine
-verde|green,light-green,blue
+verde|green,blue,unripe
 verde amarillento|yellow green,pea green,yellowish green
 verde azulado|blue green,teal,bluish green
 verde loro|yellow green,pea green,yellowish green
@@ -54551,7 +53408,7 @@ vestíbulo|hall,lobby,vestibule
 veta carbonífera|coal seam
 veta madre|champion lode,mother lode
 vetar|forbid,veto,prohibit
-veterano|antique,old-timer,old geezer
+veterano|antique,old geezer,gaffer
 veterinario|veterinary,vet,veterinary surgeon
 veto de bolsillo|pocket veto
 vez|time,clip
@@ -54579,17 +53436,17 @@ vibrisas|beard,face fungus,whiskers
 vicario|minister,pastor,vicar
 vicario general|vicar-general
 vice gerente|vicegerent
-vicepresidencia|vice-presidential term,vice-presidency
+vicepresidencia|vice-presidency,vice-presidential term
 vicepresidente|vice president,vice chairman
 vichyssoise|vichyssoise
 viciar|mar,corrupt,spoil
 vicio|vice,frailty
 vicisitud|vicissitude
 victima de robo|muggee
-victimizar|victimize,short-change,con
+victimizar|victimize,con,scam
 victoria|victory,triumph
-victoria inminenta|walk-in,waltz
-victoria inminente|walk-in,waltz
+victoria inminenta|waltz,walk-in
+victoria inminente|waltz,walk-in
 vicugna pacos|alpaca
 vicuña|vicuna
 vid|grape,grape vine,grapevine
@@ -54620,7 +53477,7 @@ vigilante|super,security guard,monitor
 vigilante nocturno|night watchman
 vigilar|look out,supervise,watch out
 vigilia|watch,vigil
-vigna unguiculata|black-eyed pea,cowpea,cowpea plant
+vigna unguiculata|cowpea,cowpea plant,black-eyed pea
 vigor|energy,vigor,vigour
 vigorizante|invigorating
 vigorizar|invigorate,animate,liven
@@ -54695,7 +53552,7 @@ visión foveal|foveal vision
 visión mental|picturing,envisioning
 vislumbrar|glimpse,announce,herald
 vislumbre|glimpse
-viso|half-slip,sheen,petticoat
+viso|sheen,petticoat,underskirt
 visor|viewer
 visor de bombardeo|bombsight
 vista|view,sight,scene
@@ -54739,7 +53596,7 @@ vivir disipadamente|wanton
 vivir licenciosamente|wanton
 vivisección|vivisection
 vivo|bright,vivid,living
-vivíparo|live-bearing,viviparous
+vivíparo|viviparous,live-bearing
 vizcacha|chinchillon,viscacha
 vizcondado|viscountcy
 vizcondesa|viscountess
@@ -54801,7 +53658,7 @@ volver a llamar|call back,recall
 volver a ocurrir|come around,roll around
 volver a pagar|give back,return,repay
 volver a pespuntear|tick,retick
-volver a presentar|re-introduce,reintroduce
+volver a presentar|reintroduce,re-introduce
 volver a tomar|retake
 volver a traducir|retranslate
 volver en sí|come to,bring back,bring around
@@ -54909,7 +53766,6 @@ yeso|plaster,chalk,gypsum
 yesquero|tinderbox
 yeti|yeti,abominable snowman
 yihad|international jihad,jihad,jehad
-yo-yo|yo-yo
 yodel|yodeling
 yoduro|iodide
 yucca|yucca
@@ -55009,7 +53865,7 @@ zíper|zip,zipper,slide fastener
 ácido margárico|heptadecanoic acid,margaric acid
 ácido oleoesteárico|elaeostearic acid,eleostearic acid
 ácido salicílico|hydroxybenzoic acid
-ácido sulfúrico|acid,dose,battery-acid
+ácido sulfúrico|acid,dose,dot
 ácimo|unleavened,unraised
 ágape|agape
 ágil|agile,light,quick
@@ -55052,7 +53908,7 @@ zíper|zip,zipper,slide fastener
 área temática|field,subject,study
 árido|bare,stark,desolate
 árnica|arnica
-ártico|arctic,polar,north-polar
+ártico|arctic,polar,icy
 áspero|rough,bitter,acid
 átomo|atom,bit,chip
 átomo de carbono|carbon atom
@@ -55111,7 +53967,7 @@ zíper|zip,zipper,slide fastener
 úlcera aftosa|aphthous ulcer
 úlcera duodenal|duodenal ulcer
 úlcera gástrica|gastric ulcer
-última palabra|say-so,last word
+última palabra|last word,say-so
 último|last,final,ultimate
 único|unique,alone,singular
 útil|useful,positive,helpful

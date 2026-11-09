@@ -1,0 +1,34 @@
+The Romanian (Romanian Wordnet) dictionary in src/translations/ is derived from this wordnet, as distributed in the Open
+Multilingual Wordnet 1.4 (https://omwn.org/). Onyx changed it: for each English word it chose the wordnet's commonest
+words, and for each of the wordnet's words the commonest English ones. The derived file is distributed under the
+same license as the wordnet.
+
+The data file's own header: # Romanian Wordnet	ron	http://www.racai.ro/tools/text/rowordnet-visualizer/	CC BY SA
+
+----- Citation -----
+
+Citation for the Romanian Wordnet
+
+@InProceedings{Tufis:Ion:Bozianu:Ceausu:Stefanescu:2008,
+  author =	 "Dan Tufi\c{s} and Radu Ion and Luigi Bozianu and
+                  Alexandru Ceau\c{s}u and Dan \c{S}tef\u{a}nescu",
+  title =	 "Romanian WordNet: Current State, New Applications
+                  and Prospects",
+  booktitle =	 "Proceedings of the 4th Global WordNet Association
+                  Conference",
+  pages =	 "441-452",
+  year =	 2008,
+  address =	 "Szeged"
+}
+
+----- License -----
+
+rown --- the Romanian Wordnet
+
+This data is released under the Creative Commons Attribution-ShareAlike
+     (CC BY-SA)  license. You can find it at 
+     http://creativecommons.org/licenses/by-sa/
+
+Contact: Dan Ioan TUFIȘ <tufis@racai.ro
+>
+URL:  http://www.racai.ro/tools/text/rowordnet-visualizer/

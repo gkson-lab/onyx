@@ -1169,6 +1169,52 @@
 		return null;
 	}
 
+	/** Any translation request: the languages Onyx has grammar for (English, Spanish, French), or any of its dictionaries. */
+	async function translateAny(q, replyLang) {
+		const T = Omni.onyxTranslate;
+		const G = Omni.onyxTongues;
+		if (!T || !G || ![q.to, q.from].some((c) => c && !['en', 'es', 'fr'].includes(c))) return translateReply(q, replyLang);
+		const word = q.word.replace(/^["'«“¿¡]+|["'»”?!.]+$/g, '').trim();
+		const d = Omni.onyxDictionary;
+		const name = (c) => G.nameOf(c, replyLang);
+		for (const c of [q.to, q.from]) if (c && !(await T.need(c))) return answer(`I know of ${G.nameOf(c)}, but its dictionary isn't loaded in this copy of me.`);
+		let from = q.from || null;
+		let to = q.to || null;
+		if (!from) {
+			// "Cane in Italian" could be the English cane or the Italian dog: an English word is English. A word in a
+			// Spanish or French question is Spanish or French first ("¿cómo se dice perro en italiano?").
+			const english = d && word.split(/\s+/).every((w) => (d.lookupAll ? d.lookupAll(w) : d.lookup(w)));
+			if (q.lang && q.lang !== 'en' && q.lang !== to && T.toEnglish(word, q.lang)) from = q.lang;
+			else from = !english && to && to !== 'en' && T.toEnglish(word, to) ? to : 'en';
+			if (from === to) to = 'en';
+		}
+		if (!to) to = replyLang !== from ? replyLang : 'en';
+		if (from === to) return answer(`That's already ${G.nameOf(to)}.`);
+		const source = [from, to].map((c) => T.sourceOf(c)).filter(Boolean)[0];
+		const note = replyLang === 'es' ? `(De ${source}: hecho automáticamente, así que menos seguro que mis palabras escritas a mano.)` : replyLang === 'fr' ? `(D'après ${source} : construit automatiquement, donc moins sûr que mes mots écrits à la main.)` : `(From ${source}: built automatically, so less sure than my hand-written words.)`;
+		const inLang = (c) => (replyLang === 'es' ? `en ${name(c)}` : replyLang === 'fr' ? `en ${name(c)}` : `in ${name(c)}`);
+		convo.lastKind = 'translation';
+		// A phrase: one of the ten basics, or word by word.
+		if (/\s/.test(word) && !(from === 'en' ? T.toForeign(word, to) : T.toEnglish(word, from))) {
+			const r = T.text(word, from, to);
+			if (!r || r.unknown.length === word.split(/\s+/).length) return answer(`I can't translate "${word}" ${inLang(to)}.`);
+			convo.lastOutput = r.text;
+			const rough = r.how === 'words' ? '\n' + (NOTES[replyLang] || NOTES.en).rough(r.unknown) + ' ' + note : '';
+			return answer(`"${word}" ${inLang(to)}: **${r.text}**${rough}`);
+		}
+		const w = T.word(word, from, to);
+		if (!w) return answer(replyLang === 'es' ? `No encuentro «${word}» en mi diccionario de ${name(from === 'en' ? to : from)}.` : replyLang === 'fr' ? `Je ne trouve pas « ${word} » dans mon dictionnaire de ${name(from === 'en' ? to : from)}.` : `"${word}" isn't in my ${G.nameOf(from === 'en' ? to : from)} dictionary.`);
+		if (to === 'en') {
+			const hit = d && (d.lookupAll ? d.lookupAll(w.en[0]) : d.lookup(w.en[0]));
+			convo.subject = w.en[0];
+			convo.lastOutput = w.en[0];
+			return answer(`**${word}** (${name(from)}) ${replyLang === 'es' ? 'es' : replyLang === 'fr' ? 'se dit' : 'is'} **${w.en.join('**, **')}** ${inLang('en')}${hit && replyLang === 'en' ? `: ${hit[0].e.def}` : ''}.${w.src === 'hand' ? '' : '\n' + note}`);
+		}
+		convo.lastOutput = w.word;
+		const also = w.alts && w.alts.length ? ` (${replyLang === 'es' ? 'también' : replyLang === 'fr' ? 'aussi' : 'also'} ${w.alts.slice(0, 2).join(', ')})` : '';
+		return answer(`**${word}** ${inLang(to)}: **${w.word}**${also}.${w.src === 'hand' ? '' : '\n' + note}`);
+	}
+
 	/** A reply to "how do you say dog in Spanish", "¿qué significa feliz?" or "que veut dire chien", in `replyLang`. */
 	function translateReply(q, replyLang) {
 		const L = Omni.onyxLanguages;
@@ -1280,7 +1326,7 @@
 			return answer(P.named(who));
 		}
 		const q = L.translateQuery(text);
-		if (q) return translateReply(q, lang);
+		if (q) return translateAny(q, lang);
 		const wanted = lookupRequest(text);
 		if (wanted && wanted.kind === 'again' && netReady()) return answer(netWords(lang).whatTopic);
 		if (wanted && wanted.kind !== 'again') {
@@ -1873,7 +1919,6 @@ ${r.offer.ask}` : '');
 		if (CRISIS.test(text)) {
 			return answer('I\'m really sorry you\'re feeling this way. I\'m only a small program, so please talk to a person who can help right now: in the US you can call or text **988** (Suicide & Crisis Lifeline), and anywhere else your local emergency number or a line listed at **findahelpline.com** will reach someone. If you\'re in danger, call emergency services. You don\'t have to go through this alone.');
 		}
-		if (FOREIGN.test(text)) return answer('I speak English, Spanish and French. Hablo inglés, español y francés. Je parle anglais, espagnol et français.');
 		// A translation question is answered in the language it was asked in: "translate merci" in English.
 		let translation = Omni.onyxLanguages && !nameFrom(text, false) && Omni.onyxLanguages.translateQuery(text.replace(/^(?:hi|hello|hey|hola|bonjour|salut)[\s,!.]+/i, ''));
 		// "What does 'tengo hambre' mean?": quoted Spanish or French in an English question.
@@ -1884,8 +1929,26 @@ ${r.offer.ask}` : '');
 		}
 		if (translation && (translation.lang === 'en' || /\b(?:in|into|to)\s+(?:english|spanish|french)\b/i.test(text))) {
 			convo.lang = 'en';
-			return translateReply(translation, 'en');
+			return translateAny(translation, 'en');
 		}
+		// Another language: a greeting Onyx knows ("ciao", "こんにちは"), a language it has no dictionary for, or a script
+		// it can't read.
+		const G = Omni.onyxTongues;
+		if (G && !translation) {
+			const flat = (s) => G.strip(String(s).replace(/[¿¡.!?,;:。！？]+/g, ' ')).replace(/\s+/g, ' ').trim();
+			const said = flat(text);
+			for (const row of G.PHRASES) {
+				// Not "yes" and "no" (too short to tell: "da", "ne", "ja"), not what Spanish or French also say ("hola"), and
+				// not a slip of the English ("helo").
+				if (/^(?:Yes|No)$/.test(row.en) || said === 'helo' || [row.es, row.fr, row.en].some((x) => flat(x) === said)) continue;
+				const lang = G.codes.find((c) => !['en', 'es', 'fr'].includes(c) && row[c] && flat(row[c]) === said);
+				if (!lang || (Omni.onyxDictionary && Omni.onyxDictionary.lookup(said) && !/^(?:hallo|ciao|hej|hei|halo)$/.test(said))) continue;
+				return answer(`${row[lang][0].toUpperCase()}${row[lang].slice(1)}! That's "${row.en.toLowerCase()}" in ${G.nameOf(lang)}. I talk in English, Spanish and French, and I have dictionaries for ${G.codes.length - 1} languages: try "how do you say dog in ${G.nameOf(lang)}".`);
+			}
+			const unknown = text.match(/^(?:how (?:do|would) (?:you|i|we) say|translate|say)\s+.+?\s+(?:in|into|to)\s+([A-Za-z]+)\s*\??$/i);
+			if (unknown && !G.codeOf(unknown[1]) && !(Omni.onyxDictionary && Omni.onyxDictionary.lookupAll && Omni.onyxDictionary.lookupAll(unknown[1].toLowerCase()) && !/^[A-Z]/.test(unknown[1]))) return answer(`I don't have a dictionary for ${unknown[1]}. I have ${G.codes.length - 1}: ${listOf(G.LIST.filter((l) => l.code !== 'en').map((l) => l.name))}.`);
+		}
+		if (FOREIGN.test(text)) return answer(G ? `I can't read that as a sentence: I talk in English, Spanish and French. I do have dictionaries for ${G.codes.length - 1} languages, so you can ask "translate ... from Japanese" or "how do you say dog in Greek".` : 'I speak English, Spanish and French. Hablo inglés, español y francés. Je parle anglais, espagnol et français.');
 		// So is a request to look something up: "busca Frida Kahlo" is answered in Spanish, "search online" in English.
 		const lookup = !translation && lookupRequest(text);
 		const lang = translation ? (convo.lang = translation.lang) : lookup ? (convo.lang = lookup.lang) : languageOf(text, expect === 'name' || (convo.topic && convo.topic.kind === 'name'));
@@ -1984,7 +2047,7 @@ ${r.offer.ask}` : '');
 		const coded = codeReply(body);
 		if (coded) return withGreet(coded);
 		const asksTranslation = Omni.onyxLanguages && Omni.onyxLanguages.translateQuery(body);
-		if (asksTranslation) return withGreet(translateReply(asksTranslation, 'en'));
+		if (asksTranslation) return withGreet(await translateAny(asksTranslation, 'en'));
 		const word = wordTrick(body);
 		if (word) return withGreet(answer(word));
 		const aboutWords = wordQuery(body);

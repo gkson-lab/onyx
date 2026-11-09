@@ -1,0 +1,42 @@
+The Swedish (SALDO) dictionary in src/translations/ is derived from this wordnet, as distributed in the Open
+Multilingual Wordnet 1.4 (https://omwn.org/). Onyx changed it: for each English word it chose the wordnet's commonest
+words, and for each of the wordnet's words the commonest English ones. The derived file is distributed under the
+same license as the wordnet.
+
+The data file's own header: # Swedish (SALDO)	swe	http://spraakbanken.gu.se/eng/resource/wordnet-saldo	CC-BY 3.0
+
+----- Citation -----
+
+Citation for sweWN
+
+@article{Borin:Forsberg:Lönngren,2013,
+        title           = "SALDO: a touch of yin to WordNet's yang",
+        journal         = "Language Resources and Evaluation",
+        author          = "Borin, Lars and Forsberg, Markus and Lönngren, Lennart",
+        year            = "2013",
+        volume          = "47",
+        number          = "4",
+        url             = "http://dx.doi.org/10.1007/s10579-013-9233-4",
+        pages           = "1191-1211",
+}
+
+----- License -----
+
+<olac:olac>
+  <dc:title>WordNet-SALDO </dc:title>
+  <dcterms:alternative>wordnet-saldo</dcterms:alternative>
+  <dc:identifier>hdl:10794/4fc635e47910f6.64094218</dc:identifier>
+  <dc:description>A linking between SALDO senses and Core WordNet</dc:description>
+  <dc:type xsi:type="olac:linguistic-type" olac:code="lexicon"/>
+  <dc:language xsi:type="olac:language" olac:code="swe">Swedish</dc:language>
+  <dc:language xsi:type="olac:language" olac:code="eng">English</dc:language>
+  <dc:rights>CC-BY attribution</dc:rights>
+  <dc:references xsi:type="File">https://svn.spraakdata.gu.se/sb-arkiv/pub/lmf/wordnet-saldo/wordnet-saldo.xml</dc:references>
+  <dc:rights>CC-BY attribution</dc:rights>
+  <dc:references xsi:type="dcterms:URI">http://spraakbanken.gu.se/karp/</dc:references>
+  <dc:rights>CC-BY attribution</dc:rights>
+  <dc:references xsi:type="File">http://spraakbanken.gu.se/swe/resurs/wordnet-saldo</dc:references>
+  <dc:rights>CC-BY attribution</dc:rights>
+  <dc:references xsi:type="File">http://spraakbanken.gu.se/eng/resource/wordnet-saldo</dc:references>
+  <dc:extent>6989 entries</dc:extent>
+</olac:olac>

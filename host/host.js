@@ -64,4 +64,39 @@
 		open() {},
 		setTheme() {},
 	};
+
+	// Onyx 3's dictionaries (src/translations/onyx-translations-<code>.js) are loaded one language at a time, when a
+	// language is first asked for: a script tag in a page, require() in Node. `base` is where they are.
+	const here = typeof document !== 'undefined' && document.currentScript ? document.currentScript.src : null;
+	const loading = new Map();
+	root.Omni.languages = {
+		base: here ? here.replace(/host\/host\.js(?:\?.*)?$/, 'src/translations/') : null,
+		/** Loads a language's dictionary; resolves to whether it is there. */
+		load(code) {
+			if (root.Omni.onyxTranslations && root.Omni.onyxTranslations[code]) return Promise.resolve(true);
+			if (!/^[a-z]{2}$/.test(code)) return Promise.resolve(false);
+			if (loading.has(code)) return loading.get(code);
+			const file = `onyx-translations-${code}.js`;
+			const done = () => !!(root.Omni.onyxTranslations && root.Omni.onyxTranslations[code]);
+			let p;
+			if (typeof document !== 'undefined') {
+				p = new Promise((resolve) => {
+					const s = document.createElement('script');
+					s.src = (this.base || 'src/translations/') + file;
+					s.onload = () => resolve(done());
+					s.onerror = () => resolve(false);
+					document.head.appendChild(s);
+				});
+			} else {
+				p = new Promise((resolve) => {
+					try {
+						require(this.base ? this.base + file : require('path').join(__dirname, '..', 'src', 'translations', file));
+					} catch (e) { /* not installed: Onyx says it doesn't have that language */ }
+					resolve(done());
+				});
+			}
+			loading.set(code, p);
+			return p;
+		},
+	};
 })(typeof window !== 'undefined' ? window : globalThis);

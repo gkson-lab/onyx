@@ -1,0 +1,58 @@
+The Japanese (Japanese Wordnet) dictionary in src/translations/ is derived from this wordnet, as distributed in the Open
+Multilingual Wordnet 1.4 (https://omwn.org/). Onyx changed it: for each English word it chose the wordnet's commonest
+words, and for each of the wordnet's words the commonest English ones. The derived file is distributed under the
+same license as the wordnet.
+
+The data file's own header: # Japanese Wordnet	jpn	http://nlpwww.nict.go.jp/wn-ja/	wordnet
+
+----- Citation -----
+
+Citation for jpnWN
+
+@InProceedings{Isahara:Bond:Uchimoto:Utiyama:Kanzaki:2008,
+  author =	 "Hitoshi Isahara and Francis Bond and Kiyotaka
+                  Uchimoto and Masao Utiyama and Kyoko Kanzaki",
+  title =	 "Development of the {Japanese} {WordNet}",
+  booktitle =	 "Sixth International conference on Language Resources
+                  and Evaluation (LREC 2008)",
+  year =	 2008,
+  address =	 "Marrakech",
+}
+
+----- License -----
+
+Copyright: 2009, 2010 NICT
+
+Japanese WordNet
+
+This software and database is being provided to you, the LICENSEE, by
+the National Institute of Information and Communications Technology
+under the following license.  By obtaining, using and/or copying this
+software and database, you agree that you have read, understood, and
+will comply with these terms and conditions:
+  
+  Permission to use, copy, modify and distribute this software and
+  database and its documentation for any purpose and without fee or
+  royalty is hereby granted, provided that you agree to comply with
+  the following copyright notice and statements, including the
+  disclaimer, and that the same appear on ALL copies of the software,
+  database and documentation, including modifications that you make
+  for internal use or for distribution.
+  
+Japanese WordNet Copyright 2009 by the National Institute of
+Information and Communications Technology (NICT).  All rights
+reserved.
+  
+THIS SOFTWARE AND DATABASE IS PROVIDED "AS IS" AND NICT MAKES NO
+REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED.  BY WAY OF EXAMPLE,
+BUT NOT LIMITATION, NICT MAKES NO REPRESENTATIONS OR WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE
+OF THE LICENSED SOFTWARE, DATABASE OR DOCUMENTATION WILL NOT INFRINGE
+ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.
+  
+The name of the National Institute of Information and Communications
+Technology may not be used in advertising or publicity pertaining to
+distribution of the software and/or database.  Title to copyright in
+this software, database and any associated documentation shall at all
+times remain with National Institute of Information and Communications
+Technology and LICENSEE agrees to preserve same.

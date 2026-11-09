@@ -7,6 +7,7 @@ for (const part of ['index', 'nouns-1', 'nouns-2', 'verbs', 'modifiers']) requir
 require('../src/onyx-math.js');
 require('../src/onyx-lexicon.js');
 require('../src/onyx-dictionary.js');
+require('../src/onyx-tongues.js');
 require('../src/onyx-languages.js');
 require('../src/onyx-data.js');
 require('../src/onyx-model.js');

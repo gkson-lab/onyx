@@ -1,0 +1,49 @@
+The Arabic (Arabic WordNet) dictionary in src/translations/ is derived from this wordnet, as distributed in the Open
+Multilingual Wordnet 1.4 (https://omwn.org/). Onyx changed it: for each English word it chose the wordnet's commonest
+words, and for each of the wordnet's words the commonest English ones. The derived file is distributed under the
+same license as the wordnet.
+
+The data file's own header: # Arabic WordNet (AWN v2)	arb	http://www.globalwordnet.org/AWN/	CC BY SA 3.0
+
+----- Citation -----
+
+Citations for arbWN
+
+@article{Abouenour:Bouzoubaa:Rosso:2013,
+  title={On the evaluation and improvement of {Arabic} WordNet coverage and usability},
+  author={Abouenour, Lahsen and Bouzoubaa, Karim and Rosso, Paolo},
+  journal={Language Resources and Evaluation},
+  volume=47,
+  number=3,
+  pages={891--917},
+  year=2013,
+  publisher={Springer Netherlands}
+}
+
+@InProceedings{Black:Elkateb:Rodriguez:Alkhalifa:Vossen:Pease:Bertran:Fellbaum:2006,
+  author =   "Elkateb, Sabri, William Black, Horacio Rodríguez, Musa Alkhalifa, 
+                  Piek Vossen, Adam Pease, and Christiane Fellbaum",
+  title =    "Building a Wordnet for {Arabic}",
+  booktitle =    "In Proceedings of The fifth international conference 
+                 on Language Resources and Evaluation (LREC 2006)",
+  year =    2006
+}
+
+----- License -----
+
+Arabic WordNet data
+
+Authorship: 
+Abouenour Lahsen, Karim Bouzoubaa, Paolo Rosso (c) 2015, 
+    Mohammed V Rabat University, Morocco and 
+    Universitat Politècnica de València, Spain
+
+Taken from awnCopyright.pdf
+
+Authorship: Musa Alkhalifa, Sabri Elkateb (c) 2007, 
+            UPC and the University of Manchester.
+
+
+The Arabic WordNet data in the distribution is subject to the 
+Creative Commons Attribution-ShareAlike license, Version 3.0, 
+http://creativecommons.org/licenses/by-sa/3.0/

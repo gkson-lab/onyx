@@ -1,0 +1,27 @@
+The Albanian (Albanet) dictionary in src/translations/ is derived from this wordnet, as distributed in the Open
+Multilingual Wordnet 1.4 (https://omwn.org/). Onyx changed it: for each English word it chose the wordnet's commonest
+words, and for each of the wordnet's words the commonest English ones. The derived file is distributed under the
+same license as the wordnet.
+
+The data file's own header: # Albanet	als	http://fjalnet.com/	CC BY 3.0
+
+----- Citation -----
+
+Citation for alsWN
+
+@TechReport{Ruci:2008,
+  author =	 "Ervin Ruci",
+  title =	 "On the current state of {Albanet} and related
+                  applications",
+  institution =	 "University of Vlora",
+  year =	 2008,
+  note =
+                  "(\url{http://fjalnet.com/technicalreportalbanet.pdf})"
+}
+
+----- License -----
+
+The Albanian wordnet is dual licensed under either:
+
+ * GPL 3
+ * CC BY 3
