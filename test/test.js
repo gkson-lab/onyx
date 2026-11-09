@@ -3,6 +3,7 @@
 //   node test/test.js
 'use strict';
 require('../host/host.js');
+for (const part of ['index', 'nouns-1', 'nouns-2', 'verbs', 'modifiers']) require(`../src/english/onyx-english-${part}.js`);
 require('../src/onyx-math.js');
 require('../src/onyx-lexicon.js');
 require('../src/onyx-dictionary.js');
@@ -11,6 +12,9 @@ require('../src/onyx-data.js');
 require('../src/onyx-model.js');
 require('../src/onyx-weights.js');
 require('../src/onyx-write.js');
+require('../src/translations/onyx-translations-es.js');
+require('../src/translations/onyx-translations-fr.js');
+require('../src/onyx-translate.js');
 require('../src/onyx.js');
 const fs = require('fs');
 const path = require('path');
@@ -427,6 +431,99 @@ const SCRIPT_2 = [
 		const ok = !!r && (expect instanceof RegExp ? expect.test(r.text) : expect(r));
 		if (!ok) failed++;
 		console.log(`${ok ? 'PASS' : 'FAIL'} writing: "${say.slice(0, 50)}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
+	}
+
+	// The full dictionary (src/english): all of WordNet, for every word the everyday dictionary doesn't have.
+	Omni.onyx.reset();
+	const D2 = Omni.onyxDictionary;
+	const E = Omni.onyxEnglish;
+	let unresolved = 0;
+	let undefinedSenses = 0;
+	for (const line of E.parts.index.trim().split('\n')) for (const id of line.split('|')[1].split(',')) if (!D2.full.sense(parseInt(id, 36))) unresolved++;
+	for (let id = 0; id < E.counts.senses; id++) if (!(D2.full.sense(id) || {}).def) undefinedSenses++;
+	const fullOk = E.counts.words >= 147000 && E.counts.senses === 117659 && !unresolved && !undefinedSenses && D2.total >= 147000;
+	if (!fullOk) failed++;
+	console.log(`${fullOk ? 'PASS' : 'FAIL'} full dictionary: ${E.counts.words.toLocaleString('en-US')} WordNet words in ${E.counts.senses.toLocaleString('en-US')} senses, every sense defined and reachable${unresolved ? `; ${unresolved} unresolved` : ''}${undefinedSenses ? `; ${undefinedSenses} without a definition` : ''}; ${D2.total.toLocaleString('en-US')} different words in all`);
+	const FULL_CHECKS = [
+		['define sesquipedalian', /^\*\*sesquipedalian\*\*[\s\S]*overuse of long words/],
+		['what does defenestration mean', /^\*\*defenestration\*\* \*\(noun\)\*\nThe act of throwing someone or something out of a window/],
+		['define narwhals', /^\*\*narwhals\*\* is the plural of \*\*narwhal\*\*/],
+		['define sauntered', /is the past tense of \*\*saunter\*\*/],
+		['define quirkier', /is the comparative of \*\*quirky\*\*/],
+		['is a narwhal a mammal?', /^Yes\. A narwhal is a mammal: narwhal → whale → cetacean/],
+		['is a platypus a bird?', /^No\. In my dictionary, a platypus is a kind of/],
+		['name some cetaceans', /^Some cetaceans I know: whale, baleen whale, toothed whale, narwhal/],
+		['where is Timbuktu?', /^Timbuktu is in Mali/],
+		['who was Mozart?', /^From my dictionary \(written in 2006\): \*\*Mozart\*\* \(composer\): prolific Austrian composer/],
+		['who is Grace Hopper?', (r) => !/GK Labs/.test(r.text)],
+		['all meanings of set', /^\*\*set\*\*, 45 senses:\n1\. \*\(verb\)\* put into a certain place/],
+		['how do you pronounce quixotic', /\/kwɪksˈɑtɪk\//],
+		['define selfie', /^\*\*selfie\*\* \*\(noun\)\*[\s\S]*photo you take of yourself/],
+		['how many words do you know?', /^I have a dictionary of 147,\d{3} English words and phrases/],
+	];
+	for (const [say, expect] of FULL_CHECKS) {
+		const r = await Omni.onyx.respond(say);
+		const ok = !!r && (expect instanceof RegExp ? expect.test(r.text) : expect(r));
+		if (!ok) failed++;
+		console.log(`${ok ? 'PASS' : 'FAIL'} full dictionary: "${say}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
+	}
+
+	// Translation: words from the large lists, the phrasebook, and sentences both ways, checked against what a person
+	// would write.
+	const TR = Omni.onyxTranslate;
+	const cov = TR.coverage();
+	const covOk = cov.es.words >= 25000 && cov.fr.words >= 40000 && cov.es.back >= 20000 && cov.fr.back >= 30000;
+	if (!covOk) failed++;
+	console.log(`${covOk ? 'PASS' : 'FAIL'} word lists: Spanish for ${cov.es.words.toLocaleString('en-US')} English words (${cov.es.back.toLocaleString('en-US')} back), French for ${cov.fr.words.toLocaleString('en-US')} (${cov.fr.back.toLocaleString('en-US')} back)`);
+	const SENTENCES = [
+		['en', 'es', 'Where is the station?', '¿Dónde está la estación?'], ['en', 'fr', 'Where is the station?', 'Où est la gare ?'],
+		['en', 'es', 'I want two coffees', 'Quiero dos cafés.'], ['en', 'fr', 'I would like a beer, please', "Je voudrais une bière, s'il vous plaît."],
+		['en', 'es', "I'm hungry", 'Tengo hambre.'], ['en', 'fr', "I'm hungry", "J'ai faim."],
+		['en', 'es', "I'm not tired", 'No estoy cansado (o cansada).'], ['en', 'fr', 'She is happy', 'Elle est heureuse.'],
+		['en', 'es', 'The house is white', 'La casa es blanca.'], ['en', 'fr', 'The house is white', 'La maison est blanche.'],
+		['en', 'es', "I don't have a car", 'No tengo coche.'], ['en', 'fr', "I don't have a car", "Je n'ai pas de voiture."],
+		['en', 'fr', 'I need a doctor', "J'ai besoin d'un médecin."], ['en', 'es', 'I like cats', 'Me gustan los gatos.'],
+		['en', 'fr', "I don't like rain", "Je n'aime pas la pluie."], ['en', 'es', 'How much are the apples?', '¿Cuánto cuestan las manzanas?'],
+		['en', 'fr', 'There is a dog in the garden', 'Il y a un chien dans le jardin.'], ['en', 'es', 'I eat apples', 'Como manzanas.'],
+		['en', 'fr', "We don't drink coffee", 'Nous ne buvons pas de café.'], ['en', 'fr', 'I play the piano', 'Je joue du piano.'],
+		['en', 'es', 'I play the piano', 'Toco el piano.'], ['en', 'es', 'The children play football', 'Los niños juegan al fútbol.'],
+		['en', 'fr', 'The old man reads a book', 'Le vieil homme lit un livre.'], ['en', 'fr', 'I have a beautiful dog', "J'ai un beau chien."],
+		['en', 'es', 'My keys are in the car', 'Mis llaves están en el coche.'], ['en', 'fr', 'the big red house', 'la grande maison rouge'],
+		['en', 'es', 'I am 30 years old', 'Tengo 30 años.'], ['en', 'fr', 'My name is Sam', "Je m'appelle Sam."],
+		['es', 'en', 'Me gustan los gatos', 'I like cats.'], ['es', 'en', 'No tengo coche', 'I do not have a car.'],
+		['es', 'en', 'Mi hermano juega al fútbol', 'My brother plays football.'], ['es', 'en', 'Las casas son blancas', 'The houses are white.'],
+		['es', 'en', 'unas manzanas rojas', 'some red apples'], ['es', 'en', 'Estoy cansada', 'I am tired.'],
+		['fr', 'en', 'Je n\'ai pas de voiture', 'I do not have a car.'], ['fr', 'en', 'Les enfants jouent au football', 'The children play football.'],
+		['fr', 'en', 'les petites maisons blanches', 'the small white houses'], ['fr', 'en', 'Je m\'appelle Léa', 'My name is Léa.'],
+		['fr', 'en', 'Nous parlons français', 'We speak French.'], ['es', 'fr', 'Tengo hambre', "J'ai faim."],
+	];
+	let trRight = 0;
+	for (const [from, to, said, want] of SENTENCES) {
+		const r = TR.text(said, from, to);
+		if (r && r.text === want && r.how !== 'words') trRight++;
+		else console.log(`     mistranslated "${said}" (${from} -> ${to}): ${r ? r.text : 'nothing'}, wanted ${want}`);
+	}
+	const trOk = trRight === SENTENCES.length;
+	if (!trOk) failed++;
+	console.log(`${trOk ? 'PASS' : 'FAIL'} sentence translation: ${trRight} of ${SENTENCES.length} exactly as a person would write them`);
+	const rough = TR.text('the quick brown fox jumps over the lazy dog', 'en', 'es');
+	const roughOk = rough && rough.how === 'words';
+	if (!roughOk) failed++;
+	console.log(`${roughOk ? 'PASS' : 'FAIL'} a sentence beyond the grammar is translated word by word, and marked so`);
+	Omni.onyx.reset();
+	const TR_CHAT = [
+		["how do you say 'where is the station' in French", /^"where is the station" in French: \*\*Où est la gare \?\*\*$/],
+		["what does 'je suis fatiguée' mean", /in English: \*\*I am tired\.\*\*/],
+		['how do you say astronomer in French', /\*\*astronomer\*\* in French: \*\*l'astronome\*\*[\s\S]*Open Multilingual Wordnet/],
+		['what does rápidamente mean', /\*\*rápidamente\*\* \(Spanish\) is \*\*quickly\*\*/],
+		["¿cómo se dice 'I am hungry' en francés?", /^«I am hungry» en francés: \*\*J'ai faim\.\*\*$/],
+		["how do you say 'the quick brown fox jumps over the lazy dog' in Spanish", /Word by word, so the grammar may be off/],
+	];
+	for (const [say, expect] of TR_CHAT) {
+		const r = await Omni.onyx.respond(say);
+		const ok = !!r && expect.test(r.text);
+		if (!ok) failed++;
+		console.log(`${ok ? 'PASS' : 'FAIL'} translation: "${say}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
 	}
 
 	// Speed: deciding a reply, averaged over the held-out phrasings and the conversation, after the first.

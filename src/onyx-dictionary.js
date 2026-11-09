@@ -3610,6 +3610,76 @@ novice|n|a person who is new to an activity and doesn't have much experience|I'm
 moderator|n|a person who keeps a discussion or debate fair and in order|The moderator gave each candidate two minutes.|chair||kind=person
 thrift|n|being careful with money and not wasting it; also, a secondhand shop|She bought the jacket at a thrift store.|frugality|waste|kind=idea;mass
 turnaround|n|a sudden change from a bad situation to a good one|The team's turnaround this season has been amazing.|reversal||kind=idea
+# Onyx 2.5: words from after WordNet (2006), written for Onyx
+selfie|n|a photo you take of yourself, usually with a phone|We took a selfie in front of the waterfall.|||kind=thing
+emoji|n|a small picture or face used in a text message or online|She replied with a laughing emoji.|emoticon||kind=media
+hashtag|n|a word or phrase after a # sign, used to group posts on social media on the same topic|The event's hashtag was trending all day.|tag||kind=media
+wi-fi|n|a way of connecting computers and phones to the internet without wires|Does the café have free wi-fi?|wireless||kind=thing;mass;forms=wifi
+bluetooth|n|a way of connecting nearby devices, like headphones and phones, without wires|Turn on bluetooth to pair the speaker.|||kind=thing;mass
+vlog|n|a video blog: a series of videos someone posts about their life or interests|He films a travel vlog every week.|video blog||kind=media
+vlogger|n|a person who makes a vlog|The vlogger has a million subscribers.|||kind=person
+influencer|n|a person who is paid to promote products to their many followers on social media|The influencer posted a photo with the new shoes.|||kind=person
+unfriend|v|to remove someone from your friends on a social network|She unfriended him after the argument.|||act
+cryptocurrency|n|digital money that isn't issued by a government and is recorded on a blockchain|He bought some cryptocurrency last year.|crypto||kind=thing;mass
+blockchain|n|a shared digital record of transactions, kept on many computers so it is hard to change|Each payment is recorded on the blockchain.|ledger||kind=thing
+crowdfunding|n|raising money for a project by asking many people online for small amounts|They paid for the album through crowdfunding.|||kind=idea;mass
+crowdsource|v|to get ideas, information or work from a large group of people, usually online|We crowdsourced names for the new puppy.|||act
+e-book|n|a book you read on a screen|I read the e-book on my phone.|ebook||kind=media;forms=ebook
+e-reader|n|a small device for reading e-books|My e-reader holds hundreds of books.|||kind=thing
+smartwatch|n|a wristwatch that works like a small computer and connects to a phone|My smartwatch counts my steps.|||kind=thing
+gif|n|a short looping animation, often shared online as a reaction|He answered with a gif of a dancing cat.|||kind=media
+malware|n|software made to damage a computer or steal information from it|The attachment was full of malware.|virus||kind=thing;mass
+ransomware|n|malware that locks your files until you pay to get them back|The hospital's computers were hit by ransomware.|||kind=thing;mass
+phishing|n|tricking people into giving away passwords or bank details with fake emails or websites|That email asking for your password is phishing.|scam||kind=idea;mass
+cybersecurity|n|protecting computers, networks and data from attacks|She works in cybersecurity.|security||kind=idea;mass
+livestream|v|to broadcast video over the internet as it happens|They livestreamed the concert.|stream||act
+binge-watch|v|to watch many episodes of a show one after another|We binge-watched the whole series over the weekend.|||act
+photobomb|v|to step into someone's photo as a joke, without them knowing|My brother photobombed every picture at the wedding.|||act
+vape|v|to breathe in vapor from an electronic cigarette|He's trying to stop vaping.|||act
+e-scooter|n|an electric scooter you stand on, often rented by the minute in cities|She rode an e-scooter to work.|scooter||kind=vehicle
+rideshare|n|a service that arranges car rides with drivers through an app|We took a rideshare to the airport.|||kind=thing
+qr code|n|a square pattern of black and white dots that a phone camera can read, often to open a website|Scan the QR code to see the menu.|||kind=thing
+usb|n|a standard plug and socket for connecting devices to computers|Plug the drive into a USB port.|||kind=thing;nogen
+username|n|the name you use to sign in to a website or app|Enter your username and password.|login, handle||kind=idea
+login|n|the details you use to get into an account; also, the act of signing in|I forgot my login for the bank's website.|sign-in|logout|kind=idea
+logout|n|signing out of an account on a website or app|Click logout when you're done on a shared computer.|sign-out|login|kind=idea
+screenshot|n|a picture of what is on a screen|Send me a screenshot of the error.|screen capture||kind=media
+chatbot|n|a computer program that you can chat with in writing|The bank's chatbot answered my question.|bot||kind=thing
+gamer|n|a person who plays video games, especially a lot|My nephew is a serious gamer.|player||kind=person
+esports|n|video games played as competitive sports, often in front of large audiences|The esports final sold out the arena.|||kind=event;event=joy;mass
+youtuber|n|a person who makes videos for YouTube, often as a job|The youtuber reviews cameras.|||kind=person
+podcaster|n|a person who makes a podcast|The podcaster interviewed a famous chef.|||kind=person
+cyberbullying|n|bullying someone online, by message or social media|The school has a policy on cyberbullying.|||kind=idea;mass
+retweet|v|to share someone else's post on Twitter (now X) with your own followers|She retweeted the announcement.|share||act
+inbox|n|the place where new emails or messages arrive|My inbox has two hundred unread emails.|||kind=thing
+megapixel|n|a million pixels, a measure of how detailed a camera's pictures are|The phone has a twelve-megapixel camera.|||kind=idea
+carpool|n|an arrangement where people share car journeys, for example to work|We have a carpool for the school run.|||kind=idea
+telecommute|v|to work from home, keeping in touch with the office by internet and phone|She telecommutes three days a week.|work remotely||act
+webinar|n|a talk or class given online|I signed up for a webinar on saving money.|online seminar||kind=event;event=luck
+gluten-free|adj|made without gluten, a protein in wheat that some people can't eat|The bakery sells gluten-free bread.|||use=object
+kombucha|n|a fizzy, slightly sour drink made from fermented tea|She brews her own kombucha.|||kind=food;mass
+quinoa|n|small seeds cooked and eaten like a grain|We had quinoa with roasted vegetables.|||kind=food;mass
+athleisure|n|comfortable sports clothing worn as everyday clothes|Athleisure is all he wears now.|||kind=thing;mass
+mansplain|v|of a man: to explain something to a woman in a condescending way, assuming she doesn't know it|He mansplained the rules to the team captain.|||act
+fomo|n|fear of missing out: worry that others are having fun without you|I went to the party out of pure fomo.|||kind=idea;mass;variants=FOMO
+clickbait|n|a headline or picture made to get people to click, often misleading|That headline is just clickbait.|||kind=media;mass
+doomscrolling|n|scrolling through bad news on a screen for a long time|I lost an hour to doomscrolling last night.|||kind=idea;mass
+deepfake|n|a fake video or recording made with AI, showing someone saying or doing something they never did|The video of the actor was a deepfake.|fake||kind=media
+metaverse|n|shared virtual worlds people can enter online, often with a headset|The company is building offices in the metaverse.|virtual world||kind=place;at=in
+nft|n|non-fungible token: a record on a blockchain that says who owns a digital item|He sold the drawing as an NFT.|token||kind=thing;variants=NFT
+wearable|n|a small device you wear, like a smartwatch or fitness tracker|Her wearable tracks her sleep.|||kind=thing
+hotspot|n|a place or a phone that shares an internet connection without wires|I used my phone as a hotspot on the train.|||kind=thing
+streamer|n|a person who broadcasts themselves live online, often playing games|The streamer has thousands of viewers every night.|||kind=person
+unboxing|n|a video of someone opening a new product for the first time|I watched an unboxing of the new phone.|||kind=media
+app store|n|an online shop for downloading apps to a phone or computer|Download it from the app store.|||kind=place;at=in
+spam|v|to send the same message to many people who didn't ask for it|Stop spamming the group chat!|||act
+emoticon|n|a face made of keyboard characters, like :-) to show a feeling|She ended every message with an emoticon.|smiley, emoji||kind=media
+upvote|v|to show you like a post online by voting for it|Upvote the answer if it helped.|like|downvote|act
+downvote|v|to show you dislike a post online by voting against it|People downvoted the rude comment.||upvote|act
+geotag|v|to add the place where a photo or post was made|She geotagged every photo from the trip.|||act
+podcasting|n|making and publishing podcasts|Podcasting has become a real job for some people.|||kind=idea;mass
+microplastic|n|a tiny piece of plastic, smaller than a grain of rice, that pollutes water and soil|Microplastics have been found in the deep ocean.|||kind=thing
+plant-based|adj|made from plants rather than animals|The café has a plant-based menu.|vegan||use=object
 # Onyx 2: kinds of living thing, for "is a whale a mammal" and "name some reptiles"
 alligator|n|a large reptile like a crocodile, with a wider, rounder snout, found in the Americas and China|An alligator slid into the swamp.|||kind=animal
 mammal|n|a warm-blooded animal with hair or fur that feeds its young on milk|Whales and bats are both mammals.|||kind=animal;nogen
@@ -3755,6 +3825,186 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 		return index.get(w) || null;
 	}
 
+	/* ---------- The full dictionary: all of WordNet, for every word the everyday dictionary doesn't have ---------- */
+
+	// src/english/*.js (built by tools/build-full.py) add their parts to Omni.onyxEnglish, in any order and at any time
+	// (a page can load them after Onyx starts). Nothing is read until a word is looked up: the index is parsed on first
+	// use (about 0.1 s), and each block of senses when it is first needed.
+	const makeFull = (E) => {
+		const KINDS = { 'noun.animal': 'animal', 'noun.food': 'food', 'noun.person': 'person', 'noun.location': 'place', 'noun.artifact': 'thing', 'noun.plant': 'nature', 'noun.object': 'nature', 'noun.phenomenon': 'nature', 'noun.time': 'time', 'noun.event': 'event', 'noun.act': 'event', 'noun.communication': 'media', 'noun.body': 'body', 'noun.cognition': 'idea', 'noun.attribute': 'idea', 'noun.feeling': 'idea', 'noun.state': 'idea' };
+		// The tops of WordNet's tree say nothing useful: "a whale is a kind of physical entity".
+		const TOPS = new Set(['entity', 'physical entity', 'abstraction', 'abstract entity', 'object', 'physical object', 'whole', 'unit', 'matter', 'thing', 'psychological feature', 'attribute', 'relation', 'measure', 'group', 'grouping', 'causal agent', 'cause', 'causal agency', 'living thing', 'animate thing']);
+		let words = null;
+		let forms = null;
+		let prons = null;
+		const blocks = [];
+		const cache = new Map();
+		const map = (text) => {
+			const m = new Map();
+			for (const line of text.split('\n')) {
+				const bar = line.indexOf('|');
+				if (bar > 0) m.set(line.slice(0, bar), line.slice(bar + 1));
+			}
+			return m;
+		};
+		let seen = 0;
+		function ready() {
+			// Blocks of senses that arrived since the last look.
+			const keys = Object.keys(E.parts);
+			if (keys.length !== seen) {
+				seen = keys.length;
+				blocks.length = 0;
+				for (const key of keys) if (/^s[0-9a-z]+$/.test(key)) blocks.push(E.parts[key]);
+				blocks.sort((a, b) => a.first - b.first);
+				hypo = null;
+			}
+			if (words) return;
+			words = map(E.parts.index);
+			prons = map(E.parts.pron || '');
+			forms = new Map();
+			for (const line of (E.parts.forms || '').split('\n')) {
+				const [form, bases, pos] = line.split('|');
+				if (!form) continue;
+				if (!forms.has(form)) forms.set(form, []);
+				for (const b of bases.split(',')) forms.get(form).push({ base: b, pos });
+			}
+		}
+		/** One sense by its id, parsed: { lex, def, ex, words, up, parts, wholes, ants, flags }; null if its block isn't loaded. */
+		function sense(id) {
+			if (cache.has(id)) return cache.get(id);
+			let b = null;
+			for (const x of blocks) if (x.first <= id) b = x;
+			if (!b) return null;
+			if (!b.lines) b.lines = b.text.slice(1).split('\n');
+			const raw = b.lines[id - b.first];
+			if (!raw) return null;
+			const [lex, def, ex, members, up, parts, wholes, ants, flags] = raw.split('|');
+			const ids = (s) => (s ? s.split(',').map((x) => ({ id: parseInt(x.replace('!', ''), 36), instance: x[0] === '!' })) : []);
+			const s = { id, lex: E.LEXNAMES[+lex] || '', def, ex: ex ? ex.split('~') : [], words: members.split(','), up: ids(up), parts: ids(parts), wholes: ids(wholes), ants: ants ? ants.split(';').map((a) => a.split('>')) : [], flags: flags || '' };
+			cache.set(id, s);
+			return s;
+		}
+		const name = (id) => {
+			const s = sense(id);
+			return s ? s.words[0] : null;
+		};
+		/** What a sense is a kind of, nearest first: narwhal -> whale -> cetacean -> aquatic mammal -> placental -> mammal... */
+		function chain(s, limit = 10) {
+			const out = [];
+			let cur = s;
+			for (let i = 0; cur && cur.up.length && out.length < limit && i < 20; i++) {
+				const next = sense(cur.up[0].id);
+				if (!next) break;
+				if (!TOPS.has(next.words[0].toLowerCase())) out.push(next.words[0]);
+				cur = next;
+			}
+			return out;
+		}
+		const POS_OF = { noun: 'noun', verb: 'verb', adj: 'adjective', adv: 'adverb' };
+		/** A sense as an entry shaped like the everyday dictionary's, for word `w`. */
+		function entry(w, s, total) {
+			const pos = POS_OF[s.lex.split('.')[0]] || 'noun';
+			const own = s.words.find((x) => x.toLowerCase() === w) || w;
+			const e = { w: own, pos, def: s.def, ex: s.ex[0] || '', syn: s.words.filter((x) => x.toLowerCase() !== w).slice(0, 6), src: 'full', sense: s.id, lex: s.lex, more: total };
+			const ant = s.ants.find((a) => a[0].toLowerCase() === w);
+			if (ant) e.ant = ant[1].split(',');
+			if (pos === 'noun') {
+				e.isa = chain(s);
+				if (s.up.some((u) => u.instance)) e.instance = true;
+				const has = s.parts.map((x) => name(x.id)).filter(Boolean);
+				const of = s.wholes.map((x) => name(x.id)).filter(Boolean);
+				if (has.length) e.has = has.slice(0, 8);
+				if (of.length) e.partof = of.slice(0, 4);
+				if (KINDS[s.lex]) e.kind = KINDS[s.lex];
+			}
+			if (s.flags.includes('o')) e.offensive = true;
+			if (s.flags.includes('i')) e.informal = true;
+			const ipa = prons.get(w);
+			if (ipa) e.ipa = ipa;
+			if (!e.syn.length) delete e.syn;
+			return e;
+		}
+		/** Entries for a word spelled exactly so (any case), most used sense first; [] if WordNet doesn't have it. */
+		function exact(w, limit = 8) {
+			ready();
+			const list = words.get(w);
+			if (!list) return [];
+			const ids = list.split(',').map((x) => parseInt(x, 36));
+			return ids.slice(0, limit).map((id) => sense(id)).filter(Boolean).map((s) => entry(w, s, ids.length));
+		}
+		// Regular endings, tried when a word isn't in the index as spelled ("narwhals", "sauntered", "quirkier").
+		const RULES = { n: [['ses', 's'], ['xes', 'x'], ['zes', 'z'], ['ches', 'ch'], ['shes', 'sh'], ['men', 'man'], ['ies', 'y'], ['s', '']], v: [['ies', 'y'], ['es', 'e'], ['es', ''], ['ed', 'e'], ['ed', ''], ['ing', 'e'], ['ing', ''], ['s', '']], a: [['er', ''], ['est', ''], ['er', 'e'], ['est', 'e']] };
+		const LABEL = { n: 'plural', a: 'comparative' };
+		const verbLabel = (form) => (/ing$/.test(form) ? '-ing form' : /ed$/.test(form) ? 'past tense' : /s$/.test(form) ? 'present' : 'form');
+		const POS_LETTER = { noun: 'n', verb: 'v', adjective: 'a', adverb: 'r' };
+		/** Finds a word or any form of it: [{ e, label }] in the same shape as lookup(), or null. */
+		function find(word, limit = 8) {
+			const w = clean(word);
+			if (!w) return null;
+			const own = exact(w, limit);
+			if (own.length) return own.map((e) => ({ e, label: null }));
+			const out = [];
+			const take = (base, pos, label) => {
+				for (const e of exact(base, limit)) if (POS_LETTER[e.pos] === pos && !out.some((x) => x.e.sense === e.sense)) out.push({ e, label });
+			};
+			for (const f of forms.get(w) || []) take(f.base, f.pos === 'a' ? 'a' : f.pos, f.pos === 'v' ? 'form' : f.pos === 'n' ? 'plural' : 'form');
+			if (!out.length) {
+				for (const pos of ['n', 'v', 'a']) {
+					for (const [end, put] of RULES[pos]) {
+						if (w.length > end.length + 1 && w.endsWith(end)) take(w.slice(0, -end.length) + put, pos, pos === 'v' ? verbLabel(w) : pos === 'a' && w.endsWith('est') ? 'superlative' : LABEL[pos]);
+					}
+				}
+			}
+			return out.length ? out : null;
+		}
+		let hypo = null;
+		/** Names of the senses that are a kind of word `y` (its first noun sense, then its own kinds), for "name some cetaceans". */
+		function kindsOf(y, limit = 10) {
+			ready();
+			const target = exact(y).find((e) => e.pos === 'noun');
+			if (!target) return null;
+			if (!hypo) {
+				hypo = new Map();
+				for (const b of blocks) {
+					if (!b.lines) b.lines = b.text.slice(1).split('\n');
+					b.lines.forEach((raw, i) => {
+						const up = raw.split('|')[4];
+						if (!up) return;
+						for (const x of up.split(',')) {
+							const id = parseInt(x.replace('!', ''), 36);
+							if (!hypo.has(id)) hypo.set(id, []);
+							hypo.get(id).push(b.first + i);
+						}
+					});
+				}
+			}
+			const out = [];
+			const queue = [target.sense];
+			while (queue.length && out.length < 200) {
+				const id = queue.shift();
+				for (const k of hypo.get(id) || []) {
+					const s = sense(k);
+					if (!s || s.flags.includes('o')) continue;
+					out.push(s.words[0]);
+					queue.push(k);
+				}
+			}
+			const list = [...new Set(out)];
+			return { words: list.slice(0, limit), total: list.length, of: target.w };
+		}
+		return { find, exact, kindsOf, sense, has: (w) => (ready(), words.has(clean(w))), get size() { return E.counts ? E.counts.words : (ready(), words.size); }, pron: (w) => (ready(), prons.get(clean(w)) || null) };
+	};
+	let fullDict = null;
+	/** The full dictionary, once its index has loaded; null until then (or in a page without it). */
+	const full = () => {
+		const E = Omni.onyxEnglish;
+		if (!fullDict && E && E.parts && E.parts.index) fullDict = makeFull(E);
+		return fullDict;
+	};
+
+	/** lookup(), then the full dictionary: every word in English that WordNet has. */
+	const lookupAll = (word) => lookup(word) || (full() && full().find(word)) || null;
+
 	const FORM_NAMES = { form: 'a form of', 'past participle': 'the past participle of', plural: 'the plural of', present: 'a present-tense form of', 'past tense': 'the past tense of', '-ing form': 'the -ing form of', comparative: 'the comparative of', superlative: 'the superlative of', spelling: 'another spelling of', variant: 'an informal form of' };
 
 	/** "ran" -> "**Ran** is the past tense of **run**.\n\n", so the definition that follows makes sense. */
@@ -3772,12 +4022,16 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 
 	/** A dictionary entry for a word, as Markdown: pronunciation, part of speech, definition, example, related words. */
 	function define(word) {
-		const hits = lookup(word);
+		const hits = lookupAll(word);
 		if (!hits) return null;
-		const entries = hits.filter((x) => !x.label).length ? hits.filter((x) => !x.label).map((x) => x.e) : hits.map((x) => x.e);
+		let entries = hits.filter((x) => !x.label).length ? hits.filter((x) => !x.label).map((x) => x.e) : hits.map((x) => x.e);
+		// The full dictionary can have dozens of senses ("break" has 75): the five most used, and how many more there are.
+		const more = entries[0].src === 'full' ? Math.max(0, entries[0].more - 5) : 0;
+		if (entries[0].src === 'full') entries = entries.slice(0, 5);
 		// A short example is a phrase ("some paper"); a full one is a sentence.
-		const quote = (ex) => (/[.!?]["']?$/.test(ex) ? `*"${ex}"*` : `*"${ex}"* (as in)`);
-		const sense = (e) => `${e.def[0].toUpperCase()}${e.def.slice(1)}.\n${quote(e.ex)}${also(e) ? '\n' + also(e) : ''}${KIND_LINE(e)}`;
+		const quote = (ex) => (!ex ? '' : /[.!?]["']?$/.test(ex) ? `\n*"${ex}"*` : `\n*"${ex}"* (as in)`);
+		const label = (e) => (e.offensive ? '*Offensive.* ' : e.informal ? '*Informal.* ' : '');
+		const sense = (e) => `${label(e)}${e.def[0].toUpperCase()}${e.def.slice(1)}.${quote(e.ex)}${also(e) ? '\n' + also(e) : ''}${KIND_LINE(e)}`;
 		// Several words can share a spelling ("analyses": analysis and analyse): each gets its own heading.
 		const groups = [];
 		for (const e of entries) {
@@ -3787,12 +4041,21 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 		}
 		const block = (g) => (g.list.length === 1 ? `**${g.w}** *(${g.list[0].pos})*${sayIpa(g.list[0])}\n${sense(g.list[0])}` : `**${g.w}**${sayIpa(g.list[0])}\n\n${g.list.map((e, i) => `${i + 1}. *(${e.pos})* ${sense(e)}`).join('\n\n')}`);
 		const note = groups.length > 1 && !groups.some((g) => g.w.toLowerCase() === clean(word)) ? `**${clean(word)}** is a form of ${groups.map((g) => `**${g.w}**`).join(' and of ')}.\n\n` : formNote(word, hits);
-		return note + groups.map(block).join('\n\n');
+		return note + groups.map(block).join('\n\n') + (more ? `\n\n(${more} more sense${more === 1 ? '' : 's'}: say "all meanings of ${clean(word)}".)` : '');
+	}
+
+	/** Every sense of a word in the full dictionary, briefly: "all meanings of break". */
+	function meanings(word, limit = 40) {
+		const w = clean(word);
+		const list = full() ? full().exact(w, limit) : [];
+		if (!list.length) return define(word);
+		const total = list[0].more;
+		return `**${list[0].w}**, ${total} sense${total === 1 ? '' : 's'}:\n${list.map((e, i) => `${i + 1}. *(${e.pos})* ${e.def}`).join('\n')}${total > list.length ? `\n…and ${total - list.length} more.` : ''}`;
 	}
 
 	/** "Some words like **happy**: glad, cheerful." or the opposites; null if the word is unknown. */
 	function related(word, opposite) {
-		const hits = lookup(word);
+		const hits = lookupAll(word);
 		if (!hits) return null;
 		const list = [...new Set(hits.flatMap((x) => (opposite ? x.e.ant : x.e.syn) || []))];
 		const w = hits[0].e.w;
@@ -3801,7 +4064,7 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 	}
 
 	function partOfSpeech(word) {
-		const hits = lookup(word);
+		const hits = lookupAll(word);
 		if (!hits) return null;
 		const kinds = [...new Set(hits.map((x) => x.e.pos))];
 		const w = clean(word);
@@ -3872,8 +4135,8 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 	function sentence(word, n = 0, rand = Math.random) {
 		let entries;
 		if (word) {
-			const hits = lookup(word);
-			if (!hits) return { missing: clean(word) };
+			const hits = lookup(word) || (full() && (full().find(word) || []).filter((x) => x.e.ex).slice(0, 4));
+			if (!hits || !hits.length) return { missing: clean(word) };
 			entries = hits.map((x) => x.e);
 		} else entries = WORDS.filter(slot);
 		const made = entries.filter(slot);
@@ -3889,7 +4152,11 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 
 	/* ---------- Thinking with the dictionary ---------- */
 
-	const nounsOf = (word) => (lookup(word) || []).map((x) => x.e).filter((e) => e.pos === 'noun');
+	// The everyday dictionary first; the full one for any other noun ("narwhal", "Einstein").
+	const nounsOf = (word) => {
+		const own = (lookup(word) || []).map((x) => x.e).filter((e) => e.pos === 'noun');
+		return own.length ? own : ((full() && full().find(word)) || []).map((x) => x.e).filter((e) => e.pos === 'noun');
+	};
 	const same = (a, b) => a.toLowerCase() === b.toLowerCase();
 	/** The base noun a word names: "mammals" -> "mammal", "Fish" -> "fish". */
 	const baseNoun = (word) => {
@@ -3934,6 +4201,11 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 		const key = hypo.has(baseNoun(y).toLowerCase()) ? baseNoun(y).toLowerCase() : clean(y).toLowerCase();
 		const found = [...(hypo.get('edible ' + key) || []), ...(hypo.get(key) || [])];
 		const list = [...new Set(found.map((x, i) => [x, i]).sort((a, b) => a[0].depth - b[0].depth || a[1] - b[1]).map(([x]) => x.w))];
+		// A category the everyday words don't fill ("cetaceans", "conifers"): the full dictionary's kinds of it.
+		if (list.length < 3 && full()) {
+			const more = full().kindsOf(baseNoun(y).toLowerCase()) || full().kindsOf(clean(y));
+			if (more && more.words.length > list.length) return { words: more.words.slice(0, limit), total: more.total };
+		}
 		return { words: list.slice(0, limit), total: list.length };
 	}
 
@@ -3953,6 +4225,8 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 		const e = (lookup(word) || []).map((x) => x.e).find((x) => x.ipa);
 		if (e) return { n: (e.ipa.match(IPA_VOWEL) || []).length, ipa: e.ipa, w: e.w };
 		const w = clean(word);
+		const ipa = full() && full().pron(w);
+		if (ipa) return { n: (ipa.match(IPA_VOWEL) || []).length, ipa, w };
 		const n = (w.replace(/e$/, '').match(/[aeiouy]+/g) || []).length || 1;
 		return { n, ipa: null, w };
 	}
@@ -4012,5 +4286,14 @@ vertebrate|n|an animal that has a backbone|Fish, birds and mammals are all verte
 		return pool[(day * 7919) % pool.length];
 	}
 
-	Omni.onyxDictionary = { WORDS, CORE, lookup, define, related, partOfSpeech, sentence, isA, kinds, common, syllables: syllableCount, rhymes, affix, anagrams, wordOfTheDay, baseNoun, forms: { plural, third, past, ing }, a, size: new Set(WORDS.map((e) => e.w.toLowerCase())).size };
+	let total = null;
+	/** How many different words Onyx knows: the everyday ones, and every other word in the full dictionary. */
+	const totalWords = () => {
+		const f = full();
+		if (!f) return new Set(WORDS.map((e) => e.w.toLowerCase())).size;
+		if (total === null) total = f.size + [...new Set(WORDS.map((e) => e.w.toLowerCase()))].filter((w) => !f.has(w)).length;
+		return total;
+	};
+
+	Omni.onyxDictionary = { WORDS, CORE, lookup, lookupAll, get full() { return full(); }, get total() { return totalWords(); }, meanings, define, related, partOfSpeech, sentence, isA, kinds, common, syllables: syllableCount, rhymes, affix, anagrams, wordOfTheDay, baseNoun, forms: { plural, third, past, ing }, a, size: new Set(WORDS.map((e) => e.w.toLowerCase())).size };
 })();

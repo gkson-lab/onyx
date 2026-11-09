@@ -915,11 +915,13 @@
 		const it = (w) => (/^(it|that|this|they|them|those|these)$/.test(w) && convo.subject ? convo.subject : w);
 		const bare = (w) => it(w.replace(/^(?:an?|the|some)\s+/, '').trim());
 		const an = (w) => (/^[A-Z]/.test(w) ? w : d.a(w));
+		// Everyday words first, then the full dictionary ("narwhal", "Timbuktu").
+		const all = (w) => (d.lookupAll ? d.lookupAll(w) : d.lookup(w));
 		const many = (w) => {
-			const e = (d.lookup(w) || []).find((x) => x.e.pos === 'noun' && x.e.w.toLowerCase() === w.toLowerCase());
+			const e = (all(w) || []).find((x) => x.e.pos === 'noun' && x.e.w.toLowerCase() === w.toLowerCase());
 			return e ? d.forms.plural(e.e) : /s$/.test(w) ? w : w + 's';
 		};
-		const noun = (w, field) => (d.lookup(w) || []).map((x) => x.e).find((e) => e.pos === 'noun' && (!field || (e[field] && e[field].length)));
+		const noun = (w, field) => (all(w) || []).map((x) => x.e).find((e) => e.pos === 'noun' && (!field || (e[field] && e[field].length)));
 		const subject = (e) => {
 			convo.subject = e.w;
 			mention(e.w);
@@ -963,8 +965,8 @@
 		// The difference between two things, and what they have in common.
 		if ((m = t.match(/^what(?:'s| is|s)? (?:the )?difference between (?:an? |the )?([a-z' -]+?) and (?:an? |the )?([a-z' -]+)$/)) || (m = t.match(/^how (?:is|are) (?:an? |the )?([a-z' -]+?) different from (?:an? |the )?([a-z' -]+)$/))) {
 			const [a, b] = [bare(m[1]), bare(m[2])];
-			const ha = (d.lookup(a) || [])[0];
-			const hb = (d.lookup(b) || [])[0];
+			const ha = (all(a) || [])[0];
+			const hb = (all(b) || [])[0];
 			if (ha && hb) {
 				const c = d.common(a, b);
 				const both = c && c.shared ? `\n\nBoth are ${many(c.shared)}${c.a.isa[0] !== c.shared ? `, but ${an(c.a.w)} is ${an(c.a.isa[0])}` : ''}${c.b.isa[0] !== c.shared ? `${c.a.isa[0] !== c.shared ? ' and' : ', but'} ${an(c.b.w)} is ${an(c.b.isa[0])}` : ''}.` : '';
@@ -1006,7 +1008,16 @@
 			const w = it(m[1] || m[2] || m[3] || m[4]);
 			const sy = d.syllables(w);
 			if (sy.ipa) return answer(`**${sy.w}** is pronounced /${sy.ipa}/, with ${sy.n} syllable${sy.n === 1 ? '' : 's'}. The mark ˈ comes before the stressed one.`);
-			return answer(d.lookup(w) ? `I know **${w}**, but I don't have its pronunciation. My guess is ${sy.n} syllable${sy.n === 1 ? '' : 's'}.` : `**${w}** isn't in my dictionary, so I don't know how it's said.`);
+			return answer(all(w) ? `I know **${w}**, but I don't have its pronunciation. My guess is ${sy.n} syllable${sy.n === 1 ? '' : 's'}.` : `**${w}** isn't in my dictionary, so I don't know how it's said.`);
+		}
+
+		// Every sense of a word: "all meanings of set".
+		if ((m = t.match(/^(?:what are |give me |list |show me )?(?:all|every)(?: of)? (?:the )?(?:meanings|senses|definitions) of (?:the word )?([a-z' -]+)$/))) {
+			const w = it(m[1]);
+			if (all(w)) {
+				convo.subject = w;
+				return answer(d.meanings(w));
+			}
 		}
 
 		// Words by their letters.
@@ -1029,6 +1040,26 @@
 		return null;
 	}
 
+	/**
+	 * What the full dictionary says about the subject of a question ("who was Einstein?", "tell me about Timbuktu"):
+	 * { text, e }, or null when it isn't a person, place or thing the dictionary has.
+	 */
+	function fromDictionary(body) {
+		const d = Omni.onyxDictionary;
+		if (!d || !d.full) return null;
+		const m = String(body).trim().replace(/[?!.]+$/, '').match(/^(?:who|what) (?:is|was|were|are) (?:an? |the )?(.+)$|^tell me (?:more )?about (?:an? |the )?(.+)$/i);
+		if (!m) return null;
+		const topic = (m[1] || m[2]).trim();
+		const who = /^who\b/i.test(body.trim());
+		const e = ((d.lookupAll(topic) || []).map((x) => x.e)).find((x) => x.pos === 'noun' && x.w.toLowerCase() === topic.toLowerCase() && (!who || x.instance || x.kind === 'person'));
+		if (!e) return null;
+		convo.subject = e.w;
+		mention(e.w);
+		const kind = e.isa && e.isa.length ? ` (${e.instance ? '' : 'a kind of '}${e.isa[0]})` : '';
+		// WordNet was finished in 2006: say so, since people and places change.
+		return { e, text: `From my dictionary (written in 2006): **${e.w}**${kind}: ${e.def}.` };
+	}
+
 	/* ---------- Spanish and French ---------- */
 
 	const ABBR = { noun: 'n', verb: 'v', adjective: 'adj', adverb: 'adv', conjunction: 'conj', preposition: 'prep', exclamation: 'excl', pronoun: 'pron', determiner: 'det', number: 'num', 'auxiliary verb': 'aux' };
@@ -1046,6 +1077,97 @@
 		return keys;
 	}
 
+	const NOTES = {
+		en: { rough: (u) => `(Word by word, so the grammar may be off${u.length ? `. I don't know: ${u.join(', ')}` : ''}.)`, guessed: '(Some genders are my best guess.)', list: '(From the Open Multilingual Wordnet: less sure than my everyday words.)', via: (x) => `(Through English: "${x}".)` },
+		es: { rough: (u) => `(Palabra por palabra, así que la gramática puede fallar${u.length ? `. No conozco: ${u.join(', ')}` : ''}.)`, guessed: '(Algunos géneros son una suposición.)', list: '(Del Open Multilingual Wordnet: menos seguro que mis palabras cotidianas.)', via: (x) => `(Pasando por el inglés: «${x}».)` },
+		fr: { rough: (u) => `(Mot à mot, donc la grammaire peut être fausse${u.length ? `. Je ne connais pas : ${u.join(', ')}` : ''}.)`, guessed: '(Certains genres sont une supposition.)', list: '(De l\'Open Multilingual Wordnet : moins sûr que mes mots courants.)', via: (x) => `(En passant par l'anglais : « ${x} ».)` },
+	};
+
+	/** What Onyx can translate, in a sentence. */
+	function translationReach() {
+		const L = Omni.onyxLanguages;
+		const c = Omni.onyxTranslate && Omni.onyxTranslate.coverage();
+		const hand = L.size.toLocaleString('en-US');
+		if (!c || !c.es || !c.fr) return `I know Spanish and French for ${hand} everyday English words.`;
+		return `I know Spanish for ${c.es.words.toLocaleString('en-US')} English words and French for ${c.fr.words.toLocaleString('en-US')} (${hand} of them written for me), and I can translate simple sentences.`;
+	}
+
+	/** A whole phrase or sentence: "how do you say 'where is the station' in French", "what does 'tengo hambre' mean". */
+	function translatePhrase(q, text, replyLang) {
+		const L = Omni.onyxLanguages;
+		const T = Omni.onyxTranslate;
+		const P = replyLang === 'en' ? null : L.LANGS[replyLang];
+		const names = P ? P.names : EN_NAMES;
+		const notes = NOTES[replyLang] || NOTES.en;
+		const detected = L.detect(text);
+		// Which language the phrase is in: as asked, as it looks, or whichever reads it best.
+		const froms = q.from ? [q.from] : detected && detected !== q.to ? [detected] : q.to === 'en' ? ['es', 'fr'] : q.to ? ['en', 'es', 'fr'].filter((x) => x !== q.to) : ['en', 'es', 'fr'];
+		const score = (r) => (!r ? -99 : (r.how === 'phrasebook' ? 3 : r.how === 'grammar' ? 2 : 0) - r.unknown.length);
+		let best = null;
+		for (const from of froms) {
+			const tos = q.to && q.to !== from ? [q.to] : from === 'en' ? (replyLang === 'fr' ? ['fr', 'es'] : ['es', 'fr']) : [replyLang !== from ? replyLang : 'en'];
+			const results = tos.map((to) => [to, T.text(text, from, to)]).filter(([, r]) => r);
+			const s = results.length ? Math.min(...results.map(([, r]) => score(r))) : -99;
+			if (!best || s > best.s) best = { from, results, s };
+		}
+		if (!best || !best.results.length) return answer(P ? P.unknownWord(text) : `I can't translate "${text}".`);
+		const said = best.results.map(([to, r]) => [names[to], r.text]);
+		const all = best.results.map(([, r]) => r);
+		const extra = [];
+		if (all.some((r) => r.how === 'words')) extra.push(notes.rough([...new Set(all.flatMap((r) => r.unknown))]));
+		if (all.some((r) => r.guessed)) extra.push(notes.guessed);
+		if (all.some((r) => r.via) && best.from !== 'en') extra.push(notes.via(all.find((r) => r.via).via));
+		convo.lastKind = 'translation';
+		const body = replyLang === 'es' ? said.map(([l, x]) => `«${text}» en ${l}: **${x}**`).join('\n') : replyLang === 'fr' ? said.map(([l, x]) => `« ${text} » en ${l} : **${x}**`).join('\n') : `"${text}" in ${said.map(([l, x]) => `${l}: **${x}**`).join('\nIn ')}`;
+		return answer(`${body}${extra.length ? '\n' + extra.join(' ') : ''}`);
+	}
+
+	/** A word from the large lists (src/translations), when the hand-written one doesn't have it. */
+	function listWord(word, replyLang, q) {
+		const L = Omni.onyxLanguages;
+		const T = Omni.onyxTranslate;
+		const d = Omni.onyxDictionary;
+		if (!T) return null;
+		const P = replyLang === 'en' ? null : L.LANGS[replyLang];
+		const names = P ? P.names : EN_NAMES;
+		const notes = NOTES[replyLang] || NOTES.en;
+		const article = (lang, t) => (t.gender && t.pos === 'noun' && !/\s/.test(t.word) ? (lang === 'es' ? (t.gender === 'f' ? 'la ' : 'el ') : /^[aeiouyhéèêàâîôû]/i.test(t.word) ? "l'" : t.gender === 'f' ? 'la ' : 'le ') : '');
+		const english = d && (d.lookupAll ? d.lookupAll(word) : d.lookup(word));
+		const fromForeign = (lang) => T.toEnglish(word, lang);
+		const tryEnglish = english && q.to !== 'en' && !(q.lang && q.lang !== 'en' && (fromForeign(q.lang) || {}).en);
+		if (tryEnglish) {
+			const tos = q.to ? [q.to] : replyLang === 'fr' ? ['fr', 'es'] : ['es', 'fr'];
+			const list = [];
+			let guessed = false;
+			for (const lang of tos) {
+				const t = T.word(word, 'en', lang);
+				if (!t) continue;
+				if (t.guessed) guessed = true;
+				list.push([names[lang], `${article(lang, t)}${t.word}${t.alts && t.alts.length ? ` (${t.alts.slice(0, 2).join(', ')})` : ''}`]);
+			}
+			if (list.length) {
+				convo.subject = english[0].e.w;
+				return answer(`${P ? P.translated(word, list) : `**${word}** in ${list.map(([l, x]) => `${l}: **${x}**`).join('. In ')}.`}\n${notes.list}${guessed ? ' ' + notes.guessed : ''}`);
+			}
+		}
+		for (const lang of q.from ? [q.from] : [q.lang && q.lang !== 'en' ? q.lang : 'es', 'es', 'fr']) {
+			if (lang === 'en') continue;
+			const e = fromForeign(lang);
+			if (!e) continue;
+			const to = q.to && q.to !== lang ? q.to : 'en';
+			if (to !== 'en') {
+				const t = T.toForeign(e.en[0], to);
+				if (!t) continue;
+				return answer(`${P ? P.translated(word, [[names[to], t.word]]) : `**${word}** (${EN_NAMES[lang]}) in ${EN_NAMES[to]}: **${t.word}**.`}\n${notes.list}`);
+			}
+			const hit = d && (d.lookupAll ? d.lookupAll(e.en[0]) : d.lookup(e.en[0]));
+			const def = hit && hit[0].e.def;
+			convo.subject = e.en[0];
+			return answer(`${P ? P.meaning(word, e.en.join(', '), def) : `**${word}** (${EN_NAMES[lang]}) is **${e.en.join('**, **')}** in English${def ? `: ${def}` : ''}.`}\n${notes.list}`);
+		}
+		return null;
+	}
+
 	/** A reply to "how do you say dog in Spanish", "¿qué significa feliz?" or "que veut dire chien", in `replyLang`. */
 	function translateReply(q, replyLang) {
 		const L = Omni.onyxLanguages;
@@ -1053,8 +1175,16 @@
 		const P = replyLang === 'en' ? null : L.LANGS[replyLang];
 		const names = P ? P.names : EN_NAMES;
 		const word = q.word.replace(/^["'«“¿¡]+|["'»”?!.]+$/g, '').trim();
+		// A phrase or a sentence, not one word (or one entry, like "ice cream"): the translator.
+		if (Omni.onyxTranslate && /\s/.test(word) && !L.TABLE.has(word.toLowerCase()) && !L.findForeign('es', word).length && !L.findForeign('fr', word).length && !(d && d.lookup(word))) return translatePhrase(q, word, replyLang);
 		const en = englishKeys(word);
 		const found = { es: L.findForeign('es', word), fr: L.findForeign('fr', word) };
+		// Not in the hand-written list: the large lists.
+		if (!en.length && !found.es.length && !found.fr.length) {
+			const listed = listWord(word, replyLang, q);
+			if (listed) return listed;
+		}
+		if (q.to && q.to !== 'en' && !en.length && !found.es.length && !found.fr.length) return answer(P ? P.unknownWord(word) : `"${word}" isn't a word I can translate.`);
 		let from = q.from;
 		if (!from) {
 			// A word in a Spanish or French question is read as Spanish or French first: "comment dit-on chat" is the cat.
@@ -1065,8 +1195,7 @@
 			else if (en.length) from = 'en';
 			else from = found.es.length ? 'es' : found.fr.length ? 'fr' : null;
 		}
-		const size = L.size.toLocaleString('en-US');
-		if (!from) return answer(P ? P.unknownWord(word) : `"${word}" isn't a word I can translate. I know Spanish and French for ${size} everyday English words.`);
+		if (!from) return answer(P ? P.unknownWord(word) : `"${word}" isn't a word I can translate. ${translationReach()}`);
 		if (from === 'en') {
 			convo.subject = d.lookup(word)[0].e.w;
 			const to = q.to && q.to !== 'en' ? [q.to] : replyLang === 'fr' ? ['fr', 'es'] : ['es', 'fr'];
@@ -1075,7 +1204,7 @@
 				const said = [...new Set(en.map((k) => L.TABLE.get(k)[lang]).filter(Boolean))].map(L.show);
 				if (said.length) list.push([names[lang], said.join(' / ')]);
 			}
-			if (!list.length) return answer(P ? P.noTranslation(word, names[to[0]]) : `I don't have the ${EN_NAMES[to[0]]} for **${word}** yet. I know Spanish and French for ${size} everyday words.`);
+			if (!list.length) return listWord(word, replyLang, q) || answer(P ? P.noTranslation(word, names[to[0]]) : `I don't have the ${EN_NAMES[to[0]]} for **${word}** yet. ${translationReach()}`);
 			return answer(P ? P.translated(word, list) : `**${word}** in ${list.map(([l, x]) => `${l}: **${x}**`).join('. In ')}.`);
 		}
 		// From Spanish or French: into English, with what it means, or into the other one.
@@ -1274,6 +1403,7 @@
 		en: {
 			offer: (what, q, src) => `I can ${what} online: I'd send "${q}" to ${src}.`,
 			offerNews: (src) => `I can get today's headlines from ${src}'s "In the news" page.`,
+			offerMore: (q, src) => `For more, I can look it up online: I'd send "${q}" to ${src}.`,
 			ask: 'Want me to? (yes, no, or "always" so I stop asking)',
 			failed: (src) => `I couldn't reach ${src} just now (no connection, or it's busy).`,
 			retry: 'Want me to try again?',
@@ -1338,7 +1468,7 @@
 	 * the setting on "ask", it returns an offer to look it up (after `lead`, what Onyx knows without it); `granted`
 	 * means they already said yes to this one.
 	 */
-	async function lookOnline(request, { granted = false, lead = '' } = {}) {
+	async function lookOnline(request, { granted = false, lead = '', more = false } = {}) {
 		if (!netReady() || !NET_KINDS.includes(request.kind)) return null;
 		const lang = request.lang || 'en';
 		const mode = settings().internet;
@@ -1346,12 +1476,13 @@
 		if (mode !== 'on' && !granted) {
 			const what = (WHAT[lang] || WHAT.en)[request.kind](request);
 			const q = request.kind === 'weather' ? request.place : request.query;
-			const said = request.kind === 'news' ? netWords(lang).offerNews(sourceOf('news')) : netWords(lang).offer(what, q, sourceOf(request.kind));
+			const said = request.kind === 'news' ? netWords(lang).offerNews(sourceOf('news')) : more && netWords(lang).offerMore ? netWords(lang).offerMore(q, sourceOf(request.kind)) : netWords(lang).offer(what, q, sourceOf(request.kind));
 			return answer(`${lead ? lead + ' ' : ''}${said}`, { offer: { kind: 'online', request, ask: netWords(lang).ask } });
 		}
 		const r = await fetchOnline(request);
 		// A failed lookup offers to try again, so "try again", "yes" or "tell me more" goes straight back online.
-		if (!r) return answer(netWords(lang).failed(sourceOf(request.kind)), { miss: true, offer: { kind: 'online', request, ask: netWords(lang).retry, retry: true } });
+		// After a dictionary answer, a failed lookup still leaves that answer in place.
+		if (!r) return answer(`${more && lead ? lead + '\n\n' : ''}${netWords(lang).failed(sourceOf(request.kind))}`, { miss: !more, offer: { kind: 'online', request, ask: netWords(lang).retry, retry: true } });
 		if (typeof r.text === 'string') return answer(r.text.trim());
 		return showOnline(r.data, request);
 	}
@@ -1602,7 +1733,7 @@
 			if (!entry) return null;
 			convo.lastKind = null;
 			convo.sentence = { word: t, n: 0, said: [] };
-			const hit = Omni.onyxDictionary.lookup(t);
+			const hit = Omni.onyxDictionary.lookupAll ? Omni.onyxDictionary.lookupAll(t) : Omni.onyxDictionary.lookup(t);
 			convo.subject = hit ? hit[0].e.w : t;
 			mention(convo.subject);
 			return answer(entry);
@@ -1682,7 +1813,13 @@ ${r.offer.ask}` : '');
 		}
 		if (FOREIGN.test(text)) return answer('I speak English, Spanish and French. Hablo inglés, español y francés. Je parle anglais, espagnol et français.');
 		// A translation question is answered in the language it was asked in: "translate merci" in English.
-		const translation = Omni.onyxLanguages && !nameFrom(text, false) && Omni.onyxLanguages.translateQuery(text.replace(/^(?:hi|hello|hey|hola|bonjour|salut)[\s,!.]+/i, ''));
+		let translation = Omni.onyxLanguages && !nameFrom(text, false) && Omni.onyxLanguages.translateQuery(text.replace(/^(?:hi|hello|hey|hola|bonjour|salut)[\s,!.]+/i, ''));
+		// "What does 'tengo hambre' mean?": quoted Spanish or French in an English question.
+		const quoted = !translation && text.match(/^(?:what does|what do|what is the meaning of|what's the meaning of|meaning of)\s+["'«“](.+?)["'»”](?:\s+mean)?\s*\??$/i);
+		if (quoted && Omni.onyxLanguages) {
+			const said = Omni.onyxLanguages.detect(quoted[1]);
+			if (said === 'es' || said === 'fr') translation = { word: quoted[1], to: 'en', from: said, lang: 'en' };
+		}
 		if (translation && (translation.lang === 'en' || /\b(?:in|into|to)\s+(?:english|spanish|french)\b/i.test(text))) {
 			convo.lang = 'en';
 			return translateReply(translation, 'en');
@@ -1796,6 +1933,16 @@ ${r.offer.ask}` : '');
 		}
 		const thought = think(body);
 		if (thought) return withGreet(thought);
+		// "Who was Ada Lovelace?": a person or place the full dictionary names is answered from it, before small talk
+		// ("who made you") can claim the question; Wikipedia is offered for more.
+		if (/^who (?:is|was|were) (?!you\b|your\b|i\b|me\b|my\b|we\b|this\b|that\b|it\b)/i.test(body.trim())) {
+			const known = fromDictionary(body);
+			if (known && (known.e.instance || /^[A-Z]/.test(known.e.w))) {
+				convo.lastQuestion = body;
+				const net = await lookOnline({ kind: 'search', query: body.replace(/[?!.]+$/, ''), topic: known.e.w, lang: 'en' }, { lead: known.text, more: true });
+				return withGreet(net || answer(known.text));
+			}
+		}
 		// Arithmetic is answered directly, and the answer is kept so "times 3" or "that squared" can follow.
 		const sum = Omni.onyxMath && Omni.onyxMath.answer(body, convo.lastAnswer);
 		if (sum) {
@@ -1842,10 +1989,12 @@ ${r.offer.ask}` : '');
 				const L = Omni.onyxLanguages;
 				if (L && (L.findForeign('es', unknown).length || L.findForeign('fr', unknown).length)) return withGreet(translateReply({ word: unknown, to: 'en' }, 'en'));
 				const missing = `"${unknown}" isn't in my dictionary or glossary.`;
-				return withGreet((await lookOnline({ kind: 'define', query: unknown, lang: 'en' }, { lead: missing })) || answer(`${missing} I know ${Omni.onyxDictionary ? Omni.onyxDictionary.size.toLocaleString('en-US') + ' words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms${netReady() ? '' : ', and I can\'t look up new ones here'}.`));
+				return withGreet((await lookOnline({ kind: 'define', query: unknown, lang: 'en' }, { lead: missing })) || answer(`${missing} I know ${Omni.onyxDictionary ? Omni.onyxDictionary.total.toLocaleString('en-US') + ' words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms${netReady() ? '' : ', and I can\'t look up new ones here'}.`));
 			}
 		}
-		if (top.score >= 0.5 || (top.score >= 0.38 && top.score - ((ranked[1] && ranked[1].score) || 0) >= 0.12)) {
+		// Replies about Onyx itself need the question to be about Onyx: "who is Grace Hopper?" isn't "who made you?".
+		const aboutOnyx = ['creator', 'identity', 'age', 'where', 'is_ai'].includes(top.id) && /^(?:who|what|when|where|how)\b/i.test(body.trim()) && !/\b(?:you|your|yourself|yours|onyx|u|ur|this|talking)\b/i.test(body);
+		if (!aboutOnyx && (top.score >= 0.5 || (top.score >= 0.38 && top.score - ((ranked[1] && ranked[1].score) || 0) >= 0.12))) {
 			const intent = Omni.onyxData.INTENTS.find((i) => i.id === top.id);
 			const searching = intent.id === 'limits' && /\b(web|internet|google|search|look (this|it) up|online|browse)\b/.test(normalize(body));
 			if (searching && netReady()) return withGreet(answer(settings().internet === 'off' ? netWords('en').off : 'I can, with your permission: tell me what to look up, like "look up Ada Lovelace" or "research black holes", and I\'ll check Wikipedia.'));
@@ -1866,7 +2015,7 @@ ${r.offer.ask}` : '');
 			if (aboutWord && !/^(that|it|this|these|those)$/i.test(meaning[1].trim())) {
 				const word = meaning[1].replace(/[?.!"“”]/g, '').trim();
 				const missing = `"${word}" isn't in my dictionary or glossary.`;
-				return withGreet((await lookOnline({ kind: 'define', query: word, lang: 'en' }, { lead: missing })) || answer(`${missing} I know ${Omni.onyxDictionary ? Omni.onyxDictionary.size.toLocaleString('en-US') + ' words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms${netReady() ? '' : ', and I can\'t look up new ones here'}.`));
+				return withGreet((await lookOnline({ kind: 'define', query: word, lang: 'en' }, { lead: missing })) || answer(`${missing} I know ${Omni.onyxDictionary ? Omni.onyxDictionary.total.toLocaleString('en-US') + ' words and ' : ''}${Omni.onyxData.GLOSSARY.length} tech terms${netReady() ? '' : ', and I can\'t look up new ones here'}.`));
 			}
 		}
 
@@ -1884,9 +2033,14 @@ ${r.offer.ask}` : '');
 
 		convo.misses++;
 		if (/^(who|what|when|where|why|how|which|is|are|does|do|did|can|could|will|would)\b/i.test(body) || /\?\s*$/.test(body) || /^tell me (?:more )?about\b/i.test(body)) {
-			// Questions Onyx can't answer offline can be looked up, with permission.
+			// Questions Onyx can't answer offline can be looked up, with permission. The full dictionary may know the
+			// person or place already ("who was Einstein?"): that comes first, and Wikipedia is offered for more.
 			convo.lastQuestion = body;
-			const net = await lookOnline({ kind: 'search', query: body.replace(/[?!.]+$/, ''), topic: topicOf(body), lang: 'en' }, { lead: 'I don\'t know that offline.' });
+			const known = fromDictionary(body);
+			if (known && known.e) convo.misses--;
+			const net = await lookOnline({ kind: 'search', query: body.replace(/[?!.]+$/, ''), topic: topicOf(body), lang: 'en' }, { lead: known ? known.text : 'I don\'t know that offline.', more: !!known });
+			if (net) return withGreet(net);
+			if (known) return withGreet(answer(known.text));
 			if (net) return withGreet(net);
 			return withGreet(answer2(pick('dunno', [
 				'I don\'t know that one. I only know about OmniTool and a few small things, and I can\'t look anything up.',

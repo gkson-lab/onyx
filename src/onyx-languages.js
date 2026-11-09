@@ -3734,8 +3734,8 @@ turnaround|el cambio de rumbo|le revirement
 				'Los flamencos son rosados por lo que comen: algas y gambas.',
 				'El corazón de una ballena azul pesa tanto como un coche pequeño.',
 			],
-			unknownWord: (w) => `No tengo «${w}» en mi diccionario. Conozco unas 3.400 palabras cotidianas en español y francés, y más de 14.000 en inglés.`,
-			noTranslation: (w, to) => `Todavía no sé decir **${w}** en ${to}. Tengo traducciones para las 3.400 palabras más cotidianas de mi diccionario.`,
+			unknownWord: (w) => `No encuentro «${w}» en mis diccionarios.`,
+			noTranslation: (w, to) => `Todavía no sé decir **${w}** en ${to}.`,
 			translated: (w, list) => `**${w}**: ${list.map(([l, s]) => `en ${l}, **${s}**`).join('; ')}.`,
 			meaning: (w, en, def) => `**${w}** en inglés es **${en}**${def ? `: *${def}*` : ''}.`,
 			feel: {
@@ -3804,8 +3804,8 @@ turnaround|el cambio de rumbo|le revirement
 				'Les flamants roses sont roses à cause de ce qu\'ils mangent : des algues et des crevettes.',
 				'Le cœur d\'une baleine bleue pèse autant qu\'une petite voiture.',
 			],
-			unknownWord: (w) => `« ${w} » n'est pas dans mon dictionnaire. Je connais environ 3 400 mots courants en français et en espagnol, et plus de 14 000 en anglais.`,
-			noTranslation: (w, to) => `Je ne sais pas encore dire **${w}** en ${to}. J'ai des traductions pour les 3 400 mots les plus courants de mon dictionnaire.`,
+			unknownWord: (w) => `Je ne trouve pas « ${w} » dans mes dictionnaires.`,
+			noTranslation: (w, to) => `Je ne sais pas encore dire **${w}** en ${to}.`,
 			translated: (w, list) => `**${w}** : ${list.map(([l, s]) => `en ${l}, **${s}**`).join(' ; ')}.`,
 			meaning: (w, en, def) => `**${w}** se dit **${en}** en anglais${def ? ` : *${def}*` : ''}.`,
 			feel: {
@@ -3926,10 +3926,11 @@ turnaround|el cambio de rumbo|le revirement
 				if (v == null) return;
 				out[slot] = slot === 'word' ? v.trim() : LANG_WORD[strip(v)];
 			});
-			if (out.word && out.word.split(/\s+/).length <= 4) return out;
+			// A word, a phrase or a short sentence: "how do you say 'where is the station' in French".
+			if (out.word && out.word.split(/\s+/).length <= 14) return out;
 		}
 		return null;
 	}
 
-	(root.Omni = root.Omni || {}).onyxLanguages = { TABLE, LANGS, SWITCH, CRISIS, detect, findForeign, show, nameFrom, feeling, translateQuery, mathToEnglish, numbersToDigits, strip, size: TABLE.size };
+	(root.Omni = root.Omni || {}).onyxLanguages = { TABLE, BACK, IRREGULAR, ENDINGS, ARTICLE, LANGS, SWITCH, CRISIS, detect, findForeign, show, nameFrom, feeling, translateQuery, mathToEnglish, numbersToDigits, strip, size: TABLE.size };
 })(typeof window !== 'undefined' ? window : globalThis);

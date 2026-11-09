@@ -1,3 +1,4 @@
 # Anything private (passwords, keys, notes) goes here and is never committed.
 private/
 node_modules/
+__pycache__/

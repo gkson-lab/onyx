@@ -35,8 +35,8 @@ general|n|a general officer of the highest rank; also, a fact about the whole|He
 united|adj|characterized by unity; being or joined into a single entity|presented a united front|one, agreed, tied, allied|divided|nogen
 area|n|a particular geographical region of indefinite boundary|It was a mountainous area.|country||isa=region,location;nogen
 law|n|the collection of rules imposed by authority|Civilization presupposes respect for the law.|jurisprudence||isa=collection,group;has=law;nogen
-war|n|the waging of armed conflict against an enemy; also, a legal state created by a declaration of war and ended by official declaration during which the international rules of war apply|War was declared in November but actual fighting did not begin until the following spring.|warfare||isa=military action,group action,act,event,psychological feature;has=battle,combat,aggression;nogen
-course|n|education imparted in a series of lessons or meetings|He took a course in basket weaving.|class||isa=education,activity,act,event,psychological feature;has=course session,lesson,lecture,coursework;nogen
+war|n|the waging of armed conflict against an enemy; also, a legal state created by a declaration of war and ended by official declaration during which the international rules of war apply|War was declared in November but actual fighting did not begin until the following spring.|warfare||isa=military action,group action,act,event,psychological feature;has=aggression,battle,combat;nogen
+course|n|education imparted in a series of lessons or meetings|He took a course in basket weaving.|class||isa=education,activity,act,event,psychological feature;has=coursework,course session,lesson,lecture;nogen
 able|adj|having the necessary means or skill or know-how or authority to do something|able to swim||unable|nogen
 social|adj|relating to human society and its members|social legislation|societal||nogen
 level|n|a position on a scale of intensity or amount or quality|A high level of care is required.|degree, grade||isa=property,attribute;nogen
@@ -48,7 +48,7 @@ death|n|the event of dying or departure from life|Her death came as a terrible s
 guy|n|an informal term for a youth or man|a nice guy|cat, hombre, bozo||kind=person;isa=man,adult,person,organism,living thing,male,causal agent;nogen
 south|adj|situated in or facing or moving toward or coming from the south|the south entrance|south-central, southeast, southwest, southbound|north|nogen
 south|adv|in a southern direction|we moved south|||nogen
-large|adj|above average in size or number or quantity or magnitude or extent|a large sum|great, big, super, life-size|small|nogen
+large|adj|above average in size or number or quantity or magnitude or extent|a large sum|great, big, super, huge|small|nogen
 research|n|systematic investigation to establish facts; also, a search for knowledge|Their pottery deserves more research than it has received.|||isa=investigation,work,activity,act,event,psychological feature;nogen
 matter|n|a vaguely specified concern|Several matters to attend to.|thing, affair||isa=concern,interest,curiosity,cognitive state,psychological state,condition,state,attribute;nogen
 matter|v|have weight; have import, carry weight|It does not matter much.|count, weigh||nogen
@@ -99,7 +99,7 @@ event|n|something that happens at a given place and time; also, a special set of
 member|n|one of the persons who compose a social group|A member of the faculty.|||kind=person;isa=associate,peer,person,organism,living thing,causal agent;nogen
 interest|n|a sense of concern with and curiosity about someone or something|an interest in music|involvement||isa=curiosity,cognitive state,psychological state,condition,state,attribute;nogen
 policy|n|a plan of action adopted by an individual or social group|It was a policy of retribution.|||isa=plan of action,plan,idea,content,cognition,psychological feature;nogen
-society|n|an extended social group having a distinctive cultural and economic organization; also, a formal association of people with similar interests|They formed a small lunch society.|||isa=social group,group;has=sector,class;nogen
+society|n|an extended social group having a distinctive cultural and economic organization; also, a formal association of people with similar interests|They formed a small lunch society.|||isa=social group,group;has=class,sector;nogen
 east|adj|situated in or facing or moving toward the east|We stayed on the east side of the island.|eastern, eastbound, easterly, eastside|west|nogen
 medical|adj|relating to the study or practice of medicine|medical school|||nogen
 original|adj|preceding all others in time or being as first made or performed|the original cast|first|last|nogen
@@ -220,12 +220,12 @@ scene|n|the place where some action occurs|The police returned to the scene of t
 statement|n|a message that is stated or declared; a communication setting forth particulars or facts etc|According to his statement he was in London on that day.|||isa=message,communication;nogen
 announced|adj|declared publicly; made widely known|their announced intentions|declared, proclaimed|undeclared|nogen
 collection|n|several things grouped together or considered as a whole|He has a huge collection of old coins.|accumulation, aggregation, assemblage||isa=group;nogen
-gun|n|a weapon that discharges a missile at high velocity|The officer keeps her gun locked in a safe.|||kind=thing;isa=weapon,instrument,device,instrumentality,artifact;has=gun trigger,gun muzzle,cartridge ejector,action,gunsight,gunlock,safety catch,stock;nogen
+gun|n|a weapon that discharges a missile at high velocity|The officer keeps her gun locked in a safe.|||kind=thing;isa=weapon,instrument,device,instrumentality,artifact;has=stock,gunsight,gunlock,safety catch,barrel,cartridge holder,firing chamber,cartridge extractor;nogen
 claim|v|assert or affirm strongly; also, demand as being one's due or property|He claimed his suitcases at the airline counter.||disclaim|nogen
 claim|n|an assertion of a right|His claim asked for damages.|||isa=assertion,declaration,statement,message,communication;nogen
 fit|v|be agreeable or acceptable to; also, be the right size or shape|This piece won't fit into the puzzle.|suit, accommodate||past=fitted;ing=fitting;nogen
 global|adj|involving the entire earth; not limited or provincial in scope|global war|world, international, world-wide, worldwide|national|nogen
-lady|n|a polite name for any woman|A nice lady at the library helped me.|||kind=person;isa=woman,adult,person,organism,living thing,female,causal agent;nogen
+lady|n|a polite name for any woman|A nice lady at the library helped me.|||kind=person;isa=woman,female,person,organism,living thing,adult,causal agent;nogen
 material|n|the tangible substance that goes into the makeup of a physical object|Coal is a hard black material.|stuff||isa=substance,part,relation,matter;nogen
 product|n|commodities offered for sale|That store offers a variety of products.|merchandise, ware||kind=thing;isa=commodity,artifact;partof=mercantile establishment;nogen
 regular|adj|in accordance with fixed order or procedure or principle|regular meals|official, standard, well-ordered, weak|irregular|nogen
@@ -244,7 +244,7 @@ active|n|chemical agent capable of activity; also, the voice used to indicate th
 administration|n|a method of tending to or managing the affairs of a some group of people; also, the persons who make up a body for the purpose of administering something|He claims that the present administration is corrupt.|disposal||isa=management,social control,group action,act,event,psychological feature;nogen
 approach|v|move towards|We were approaching our destination.|go up, come on, near, come near||nogen
 approach|n|ideas or actions intended to deal with a problem or situation|His approach to every problem is to draw up a list of pros and cons.|attack, plan of attack||isa=conceptualization,creating by mental acts,creation,activity,act,event,psychological feature;nogen
-cancer|n|any malignant growth or tumor caused by abnormal and uncontrolled cell division|My aunt is recovering from cancer.|||isa=malignant tumor,tumor,growth,illness,ill health,pathological state,physical condition,condition,state,attribute;nogen
+cancer|n|any malignant growth or tumor caused by abnormal and uncontrolled cell division|My aunt is recovering from cancer.|||isa=malignant tumor,malignancy,disease,illness,ill health,pathological state,physical condition,condition,state,attribute;nogen
 civil|adj|applying to ordinary citizens as contrasted with the military|civil authorities|civilian|military|nogen
 master|n|an artist of consummate skill|A master of the violin.|maestro||kind=person;isa=artist,creator,person,organism,living thing,causal agent;nogen
 master|v|be or become completely proficient or skilled in|She mastered Japanese in less than two years.|get the hang||nogen
@@ -290,7 +290,7 @@ drug|n|a substance that is used as a medicine or narcotic|The doctor prescribed 
 economy|n|the system of production and distribution and consumption; also, the efficient use of resources|economy of effort|economic system||isa=system,group;has=sector,black economy;nogen
 environment|n|the totality of surrounding conditions|He longed for the comfortable environment of his living room.|||isa=situation,state,attribute;nogen
 executive|n|a person responsible for the administration of a business|She's a senior executive at a software company.|||kind=person;isa=administrator,head,leader,person,organism,living thing,causal agent;nogen
-hall|n|an interior passage or corridor onto which rooms open|The elevators were at the end of the hall.|hallway||kind=thing;isa=corridor,passageway,passage,way,artifact;has=wall,floor,ceiling;nogen
+hall|n|an interior passage or corridor onto which rooms open|The elevators were at the end of the hall.|hallway||kind=thing;isa=corridor,passageway,passage,way,artifact;has=ceiling,wall,floor;nogen
 mass|n|the property of a body that causes it to have weight in a gravitational field; also, a body of matter without definite shape|a huge ice mass|||plural=masses;isa=physical property,property,attribute,fundamental quantity,measure;nogen
 mission|n|an organization of missionaries in a foreign land sent to carry on religious work; also, an operation that is assigned by a higher headquarters|The planes were on a bombing mission.|missionary post, missionary station||isa=nongovernmental organization,organization,social group,group;nogen
 politics|n|social relations involving intrigue to gain authority or power|Office politics is often counterproductive.|political relation||isa=social relation,relation;nogen
@@ -321,10 +321,10 @@ demand|v|request urgently and forcefully|She demanded to see the manager.|||noge
 demand|n|an urgent or peremptory request|His demands for attention were unceasing.|||isa=request,message,communication;nogen
 investment|n|the act of investing; also, the commitment of something other than money to a project with the expectation of some worthwhile result|He made an emotional investment in the work.|investing||isa=finance,commercial enterprise,commerce,transaction,group action,act,event,psychological feature;nogen
 southern|adj|in or characteristic of a region of the United States south of the Mason-Dixon line|southern cooking|grey|northern|nogen
-structure|n|a thing constructed; a complex entity constructed of many parts|The structure consisted of a series of arches.|construction||kind=thing;isa=artifact;has=foundation,structural member,plate;nogen
+structure|n|a thing constructed; a complex entity constructed of many parts|The structure consisted of a series of arches.|construction||kind=thing;isa=artifact;has=plate,foundation,structural member;nogen
 traditional|adj|consisting of or derived from tradition|traditional history|handed-down, conventional|nontraditional|nogen
 brand|n|a name given to a product or service; also, a recognizable kind|There's a new brand of hero in the movies now.|trade name, marque||isa=name,language unit,part,relation;nogen
-cent|n|a fractional monetary unit of several countries|The candy costs fifty cents.|||isa=Sri Lanka rupee,Sri Lankan monetary unit,monetary unit,unit of measurement,definite quantity,measure,fractional monetary unit;partof=Mauritian rupee,leone,British shilling,birr;nogen
+cent|n|a fractional monetary unit of several countries|The candy costs fifty cents.|||isa=Sri Lanka rupee,Sri Lankan monetary unit,monetary unit,unit of measurement,definite quantity,measure,fractional monetary unit;partof=lilangeni,Seychelles rupee,dollar,guilder;nogen
 critical|adj|marked by a tendency to find and call attention to errors and flaws|a critical attitude|scathing, searing|uncritical|nogen
 mental|adj|involving the mind or an intellectual process|mental suffering|moral, intellectual, psychological, psychic|physical|nogen
 remain|v|stay the same; remain in a certain state|He remained unmoved by her tears.|stay, rest||nogen
@@ -501,7 +501,7 @@ appeal|n|earnest or urgent request|an appeal for help|prayer||isa=request,speech
 appeal|v|take a court case to a higher court for review|He was found guilty but appealed immediately.|||nogen
 appropriate|adj|suitable for a particular person or place or condition etc|A book not appropriate for children.|proper, grade-appropriate, pat, befitting|inappropriate|nogen
 device|n|an instrumentality invented for a particular purpose|A device intended to conserve water.|||kind=thing;isa=instrumentality,artifact;nogen
-drama|n|a dramatic work intended for performance by actors on a stage|She's starring in a new drama on television.|play, dramatic play||isa=dramatic composition,writing,written communication,communication;has=stage direction,act;nogen
+drama|n|a dramatic work intended for performance by actors on a stage|She's starring in a new drama on television.|play, dramatic play||isa=dramatic composition,writing,written communication,communication;has=act,stage direction;nogen
 entry|n|an item inserted in a written record|I wrote a long entry in my diary last night.|||isa=written record,record,evidence,indication,communication;nogen
 era|n|a period marked by distinctive character or reckoned from a fixed point or event|The smartphone started a new era.|epoch||kind=time;isa=time period,fundamental quantity,measure;nogen
 factor|n|anything that contributes causally to a result|A number of factors determined the outcome.|||isa=cause,origin,beginning,happening,event,psychological feature;nogen
@@ -537,7 +537,7 @@ specifically|adv|in distinction from others|A program specifically for teenagers
 split|v|separate into parts or portions; also, discontinue an association or relation|My friend and I split up.|separate, divide, carve up||ing=splitting;nogen
 split|n|extending the legs at right angles to the trunk; also, a promised or claimed share of loot or money|He demanded his split before they disbanded.|||isa=acrobatic stunt,stunt,feat,accomplishment,action,act,event,psychological feature;nogen
 urban|adj|relating to or concerned with a city or densely populated area|urban sociology|||nogen
-aircraft|n|a vehicle that can fly|The aircraft landed safely in the fog.|||kind=vehicle;isa=craft,vehicle,conveyance,instrumentality,artifact;has=skin,cabin,skeleton,cockpit,nose,fuel system,bay,aircraft engine;nogen
+aircraft|n|a vehicle that can fly|The aircraft landed safely in the fog.|||kind=vehicle;isa=craft,vehicle,conveyance,instrumentality,artifact;has=cabin,cockpit,nose,skin,skeleton,fuel system,bay,aircraft engine;nogen
 approved|adj|established by authority; given authoritative approval|A list of approved candidates.|authorized, sanctioned|unauthorized|nogen
 approximately|adv|imprecise but fairly close to correct|lasted approximately an hour|about, or so, some, just about||nogen
 conflict|n|an open clash between two opposing groups; --Thomas Paine|The harder the conflict the more glorious the triumph.|battle, struggle||isa=group action,act,event,psychological feature;nogen
@@ -565,14 +565,14 @@ crisis|n|an unstable situation of extreme danger or difficulty|They went bankrup
 editor|n|a person responsible for the editorial aspects of publication; the person who determines the final content of a text|The editor cut two pages from my article.|||kind=person;isa=skilled worker,worker,person,organism,living thing,causal agent;nogen
 jail|n|a correctional institution used to detain persons who are in the lawful custody of the government|He spent a night in jail for drunk driving.|gaol, jailhouse, clink, pokey||kind=thing;isa=correctional institution,penal institution,institution,establishment,structure,artifact;nogen
 kingdom|n|a domain in which something is dominant|The untroubled kingdom of reason.|land, realm||isa=sphere,environment,situation,state,attribute;nogen
-mayor|n|the head of a city government|The mayor opened the new library.|city manager||kind=person;isa=civil authority,authority,person,organism,living thing,politician,leader,causal agent;nogen
+mayor|n|the head of a city government|The mayor opened the new library.|city manager||kind=person;isa=politician,leader,person,organism,living thing,civil authority,authority,causal agent;nogen
 minor|adj|of lesser importance or stature or rank|a minor poet|secondary, insignificant|major|nogen
 selection|n|the act of choosing or selecting; also, an assortment of things from which a choice can be made|The store carried a large selection of shoes.|choice, pick, option||isa=action,act,event,psychological feature;nogen
 signal|n|any nonverbal action or gesture that encodes a message|Signals from the boat suddenly stopped.|sign, signaling||isa=communication;nogen
 signal|v|communicate silently and non-verbally by signals or signs|The diner signaled the waiters to bring the menu.|sign||past=signalled;ing=signalling;nogen
 theme|n|the subject matter of a conversation or discussion|His letters were always on the theme of love.|subject, topic||isa=message,communication;nogen
 typically|adv|in a typical manner|Tom was typically hostile|||nogen
-alcohol|n|a liquor or brew containing alcohol as the active agent|Alcohol (or drink) ruined him.|alcoholic drink, alcoholic beverage||kind=food;isa=beverage,liquid,fluid,substance,part,relation,matter,drug of abuse,drug,agent;nogen
+alcohol|n|a liquor or brew containing alcohol as the active agent|Alcohol (or drink) ruined him.|alcoholic drink, alcoholic beverage||kind=food;isa=beverage,liquid,fluid,substance,part,relation,drug of abuse,drug,agent,matter;nogen
 assembly|n|a group of machine parts that fit together to form a self-contained unit|The engine assembly was shipped from Germany.|||kind=thing;isa=machine,device,instrumentality,artifact;nogen
 capable|adj|having capacity or ability|capable of winning|able, confident, resourceful|incapable|nogen
 combination|n|a collection of things that have been combined; also, a sequence of numbers or letters that opens a combination lock|He forgot the combination to the safe.|||isa=collection,group;nogen
@@ -589,7 +589,7 @@ relevant|adj|having a bearing on or connection with the subject at issue|The sci
 seek|v|try to get or reach|seek happiness|||past=sought;nogen
 solo|n|any activity that is performed alone without assistance|The guitarist played a long solo.|||plural=soli;isa=activity,act,event,psychological feature;nogen
 unable|adj|not having the necessary means or skill or know-how|unable to obtain funds||able|nogen
-wing|n|a movable organ for flying|The bird spread its wings and flew off.|||kind=animal;isa=organ,body part,part,thing;has=flight feather,bastard wing;partof=bird,insect,angel,bat
+wing|n|a movable organ for flying|The bird spread its wings and flew off.|||kind=animal;isa=organ,body part,part,thing;has=flight feather,bastard wing;partof=insect,bat,bird,angel
 bomb|v|throw bombs at or attack with bombs|The Americans bombed Dresden|bombard||nogen
 don|v|put clothing on one's body|The princess donned a long blue dress.|get into, put on, wear, assume||past=donned;ing=donning;nogen
 educational|adj|relating to the process of education|educational psychology|||nogen
@@ -662,7 +662,7 @@ representative|adj|serving to represent or typify|representative moviegoers|typi
 scheme|n|an elaborate and systematic plan of action|The council started a recycling scheme.|strategy||isa=plan of action,plan,idea,content,cognition,psychological feature;nogen
 storage|n|the act of storing something|We rent a unit for extra storage.|||isa=retention,possession,control,activity,act,event,psychological feature;nogen
 tend|v|have a tendency or disposition to do or be something; be inclined|She tends to be nervous before her lectures.|run, be given, lean, incline||nogen
-transportation|n|a facility consisting of the means and equipment necessary for the movement of passengers or goods|The city needs better public transportation.|transit||kind=thing;isa=facility,artifact;has=line,way,terminal,public transport,bridge,airfield;partof=infrastructure;nogen
+transportation|n|a facility consisting of the means and equipment necessary for the movement of passengers or goods|The city needs better public transportation.|transit||kind=thing;isa=facility,artifact;has=way,public transport,terminal,bridge,line,airfield;partof=infrastructure;nogen
 ultimately|adv|as the end result of a succession or process|Ultimately he had to give in.|at last, in the end, at long last, finally||nogen
 weekly|n|a periodical that is published every week|She writes a column for the local weekly.|||isa=series,periodical,publication,work,product,creation,artifact;nogen
 assets|n|anything of material value or usefulness that is owned by a person or company|The company sold its assets to pay its debts.|||isa=possession,relation;nogen
@@ -707,7 +707,7 @@ maintenance|n|activity involved in maintaining something in good working order|T
 manner|n|how something is done or how it happens|her dignified manner|way, style, fashion, mode||isa=property,attribute;nogen
 origin|n|the place where something begins, where it springs into being|Jupiter was the origin of the radiation.|source, beginning, root||isa=point,location;nogen
 panel|n|sheet that forms a distinct section or component of something|A glass panel in the door was cracked.|||kind=thing;isa=sheet,artifact;nogen
-personality|n|the complex of all the attributes--behavioral, temperamental, emotional and mental--that characterize a unique individual|Their different reactions reflected their very different personalities.|||isa=attribute;has=character,nature,trait;partof=person;nogen
+personality|n|the complex of all the attributes--behavioral, temperamental, emotional and mental--that characterize a unique individual|Their different reactions reflected their very different personalities.|||isa=attribute;has=trait,nature,character;partof=person;nogen
 resistance|n|the action of opposing something that you disapprove or disagree with|He encountered a general feeling of resistance from many citizens.|opposition||isa=action,act,event,psychological feature;nogen
 retail|v|be sold at the retail level|These gems retail at thousands of dollars each.|||nogen
 surely|adv|definitely or positively|The results are surely encouraging.|sure, for sure, sure enough, for certain||nogen
@@ -807,7 +807,7 @@ formation|n|an arrangement of people or things acting as a unit|a defensive form
 historic|adj|belonging to the past; of what is important or famous in the past|historic victories|past, historical|present, future|nogen
 hunt|v|pursue for food or sport|The Duke hunted in these woods.|run, track down||nogen
 improvement|n|a change for the better; also, the act of improving something|Their improvements increased the value of the property.|advance, betterment||isa=transformation,change,happening,event,psychological feature;nogen
-inch|n|a unit of length equal to one twelfth of a foot|The snail moved an inch in a minute.|in||isa=linear unit,unit of measurement,definite quantity,measure;has=mesh,em,ligne,mil;partof=foot;nogen
+inch|n|a unit of length equal to one twelfth of a foot|The snail moved an inch in a minute.|in||isa=linear unit,unit of measurement,definite quantity,measure;has=mil,mesh,em,ligne;partof=foot;nogen
 initially|adv|at the beginning|Initially I didn't like the city, but now I love it.|||nogen
 junior|n|term of address for a disrespectful and annoying male|Look here, junior, it's none of your business.|||kind=person;isa=upstart,unpleasant person,unwelcome person,person,organism,living thing,causal agent;nogen
 junior|adj|younger; also, used of the third or next to final year in United States high school or college|the junior class|younger, minor, junior-grade|senior|nogen
@@ -819,7 +819,7 @@ surrounding|adj|closely encircling|the surrounding countryside|close, encompassi
 tone|n|the quality of a person's voice|He began in a conversational tone.|||isa=manner of speaking,expressive style,communication;nogen
 universal|adj|of worldwide scope or applicability|universal experience|general, world-wide, worldwide, comprehensive||nogen
 vast|adj|unusually great in size or amount or degree or especially extent or scope|At vast (or immense) expense.|large, huge, immense|small, little|nogen
-auto|n|a motor vehicle with four wheels; usually propelled by an internal combustion engine|He works at an auto repair shop.|car, machine, automobile, motorcar||kind=vehicle;isa=motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container;has=sunroof,automobile horn,fender,rear window,buffer,floorboard,glove compartment,car window;nogen
+auto|n|a motor vehicle with four wheels; usually propelled by an internal combustion engine|He works at an auto repair shop.|car, machine, automobile, motorcar||kind=vehicle;isa=motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container;has=air bag,automobile engine,hood,roof,gasoline engine,auto accessory,sunroof,automobile horn;nogen
 consistent|adj|in agreement or consistent or reliable|Testimony consistent with the known facts.|self-consistent, pursuant, reconciled, unchanging|inconsistent|nogen
 naturally|adv|as might be expected|Naturally, the lawyer sent us a huge bill.|course, of course|unnaturally|nogen
 necessarily|adv|in an essential manner|Such expenses are necessarily incurred.||unnecessarily|nogen
@@ -834,7 +834,7 @@ trick|n|a cunning or deceitful action or device|He played a trick on me.|fast on
 audio|n|the audible part of a transmitted signal|They always raise the audio for commercials.|sound||isa=auditory communication,communication;partof=television;nogen
 chamber|n|a natural or artificial enclosed space; also, an enclosed volume in the body|The chambers of his heart were healthy.|||kind=thing;isa=enclosure,area,structure,artifact;nogen
 chart|v|make a chart of|chart the territory|||nogen
-circuit|n|an electrical device that provides a path for electrical current to flow; also, a journey or route all the way around a particular place or area|We took a quick circuit of the park.|||kind=thing;isa=electrical device,device,instrumentality,artifact;has=capacitor,shunt,resistor,short circuit,choke,tube,relay;partof=electronic equipment;nogen
+circuit|n|an electrical device that provides a path for electrical current to flow; also, a journey or route all the way around a particular place or area|We took a quick circuit of the park.|||kind=thing;isa=electrical device,device,instrumentality,artifact;has=resistor,choke,short circuit,tube,relay,capacitor,shunt;partof=electronic equipment;nogen
 clothing|n|a covering designed to be worn on a person's body|Bring warm clothing for the trip.|wear, wearable||kind=thing;isa=consumer goods,commodity,artifact,covering;has=wardrobe;nogen
 defend|v|argue or speak in defense of|She defended her friend when the others teased him.|support, fend for||nogen
 divided|adj|separated into parts or pieces|opinions are divided|black-and-white, torn, disconnected, sectional|united|nogen
@@ -896,7 +896,7 @@ innocent|adj|free from evil or guilt|an innocent child|clean-handed, acquitted, 
 penalty|n|the act of punishing; also, the disadvantage or painful consequences of an action or condition|Neglected his health and paid the penalty.|punishment||isa=social control,group action,act,event,psychological feature;nogen
 protest|v|utter words of protest; also, affirm or avow formally or solemnly|The suspect protested his innocence.|||nogen
 protest|n|a formal and solemn declaration of objection|The senator rose to register his protest.|||isa=objection,speech act,act,event,psychological feature;nogen
-publication|n|a copy of a printed work offered for distribution|The magazine is a monthly publication.|||isa=work,product,creation,artifact;has=artwork,contents,cartoon,spread,text,format;nogen
+publication|n|a copy of a printed work offered for distribution|The magazine is a monthly publication.|||isa=work,product,creation,artifact;has=cartoon,artwork,text,contents,spread,format;nogen
 refer|v|make reference to; also, be relevant to|There were lots of questions referring to her talk.|name, bring up, mention, cite||past=referred;ing=referring;nogen
 respectively|adv|in the order given|The brothers were called Felix and Max, respectively.|severally||nogen
 select|v|pick out, select, or choose from a number of alternatives|She selected a pair of shoes from among the dozen the salesgirl had shown her.|take, pick out, choose||nogen
@@ -971,7 +971,7 @@ priority|n|status established in order of importance or urgency|National indepen
 rail|n|a barrier consisting of a horizontal bar and supports; also, short for railway|he traveled by rail|railing||kind=thing;isa=barrier,obstruction,structure,artifact;has=ledger board;partof=bannister;nogen
 saint|n|a person who has died and has been declared a saint by canonization|The church is named after a saint.|||kind=person;isa=deity,spiritual being,belief,content,cognition,psychological feature;nogen
 steal|v|take without the owner's consent|Someone stole my bike from outside the shop.|||past=stole;pp=stolen;nogen
-telephone|n|electronic equipment that converts sound into electrical signals that can be transmitted over distances and then converts received signals back into sounds|I talked to him on the telephone.|phone||kind=thing;isa=electronic equipment,equipment,instrumentality,artifact;has=telephone receiver,mouthpiece;nogen
+telephone|n|electronic equipment that converts sound into electrical signals that can be transmitted over distances and then converts received signals back into sounds|I talked to him on the telephone.|phone||kind=thing;isa=electronic equipment,equipment,instrumentality,artifact;has=mouthpiece,telephone receiver;nogen
 abandoned|adj|forsaken by owner or inhabitants|Weed-grown yard of an abandoned farmhouse.|deserted, derelict, uninhabited|inhabited|nogen
 alliance|n|the state of being allied or confederated; also, a connection based on kinship or marriage or common interest|The shifting alliances within a large family.|confederation||isa=coalition,union,state,attribute;nogen
 annoying|adj|causing irritation or annoyance|Tapping an annoying rhythm on his glass with his fork.|irritating, teasing, pesky, disagreeable|agreeable|nogen
@@ -1003,7 +1003,7 @@ citizen|n|a native or naturalized member of a state or other political community
 disaster|n|a state of extreme ruin and misfortune|His policies were a disaster.|catastrophe||isa=adversity,misfortune,fortune,condition,state,attribute;nogen
 equally|adv|to the same degree|they were equally beautiful|as, every bit||nogen
 intense|adj|possessing or displaying a distinctive feature to a heightened degree|intense heat|bad, main, strong, deep|mild|nogen
-lifetime|n|the period during which something is functional|It was the trip of a lifetime.|life, life-time, lifespan||kind=time;isa=time period,fundamental quantity,measure;has=age,time of life,birth,death;nogen
+lifetime|n|the period during which something is functional|It was the trip of a lifetime.|life, life-time, lifespan||kind=time;isa=time period,fundamental quantity,measure;has=time of life,death,birth,age;nogen
 liquid|adj|existing as or having characteristics of a liquid; especially tending to flow|Water and milk and blood are liquid substances.|fluid, watery, liquefied|gaseous, solid|nogen
 mortgage|n|a conditional conveyance of property as security for the repayment of a loan|They took out a mortgage to buy the house.|||isa=security interest,interest,share,assets,possession,relation;nogen
 narrative|n|a message that tells the particulars of an act or occurrence or course of events|his narrative was interesting|story, tale, narration||isa=message,communication;nogen
@@ -1063,7 +1063,7 @@ settle|v|settle into a position, usually on a surface or ground|Dust settled on 
 sin|n|estrangement from god|Wasting good food feels like a sin.|wickedness||isa=unrighteousness,immorality,quality,attribute;nogen
 summary|n|a brief statement that presents the main points in a concise form|He gave a summary of the conclusions.|sum-up||isa=statement,message,communication;nogen
 survival|n|a state of surviving; remaining alive|Clean water is essential for survival.|endurance||isa=animation,being,state,attribute;nogen
-sword|n|a cutting or thrusting weapon that has a long metal blade and a hilt with a hand guard|The knight drew his sword.|brand, steel, blade||kind=thing;isa=weapon,instrument,device,instrumentality,artifact;has=point,forte,foible,blade,haft,hilt;nogen
+sword|n|a cutting or thrusting weapon that has a long metal blade and a hilt with a hand guard|The knight drew his sword.|brand, steel, blade||kind=thing;isa=weapon,instrument,device,instrumentality,artifact;has=haft,hilt,blade,point,forte,foible;nogen
 ward|n|a person who is under the protection or in the custody of another; also, block forming a division of a hospital shared by patients who need a similar kind of care|They put her in a 4-bed ward.|||kind=person;isa=person,organism,living thing,causal agent;nogen
 achievement|n|the action of accomplishing something|Finishing the marathon was a huge achievement.|accomplishment||isa=action,act,event,psychological feature;nogen
 asleep|adj|in a state of sleep|Fell asleep at the wheel.|sleepy, dormant, drowsy|awake|nogen
@@ -1156,7 +1156,7 @@ guidance|n|something that provides direction or advice as to a decision or cours
 intention|n|an anticipated outcome that is intended or that guides your planned actions|Good intentions are not enough.|design, purpose, aim, intent||isa=goal,content,cognition,psychological feature;nogen
 mechanical|adj|using mechanisms or tools or devices|a mechanical toy|automatic, mechanic, mechanized, mechanistic||nogen
 participation|n|the act of sharing in the activities of a group|Participation in the survey is voluntary.|engagement, involvement||isa=group action,act,event,psychological feature;nogen
-pregnancy|n|the state of being pregnant; the period from conception to birth when a woman carries a developing fetus in her uterus|She felt great throughout her pregnancy.|maternity, gestation||isa=physical condition,condition,state,attribute;has=morning sickness,quickening,cleavage,parturiency;nogen
+pregnancy|n|the state of being pregnant; the period from conception to birth when a woman carries a developing fetus in her uterus|She felt great throughout her pregnancy.|maternity, gestation||isa=physical condition,condition,state,attribute;has=parturiency,morning sickness,quickening,cleavage;nogen
 premium|n|payment for insurance; also, the amount that something in scarce supply is valued above its nominal value|They paid a premium for access to water.|||isa=payment,cost,outgo,transferred property,possession,relation;nogen
 priest|n|a clergyman in Christian churches who has the authority to perform or administer various religious rites; one of the Holy Orders|The priest married them in a small chapel.|||kind=person;isa=clergyman,spiritual leader,leader,person,organism,living thing,causal agent,Holy Order,status,state;nogen
 prominent|adj|having a quality that thrusts itself into attention|A new theory is the most prominent feature of the book.|outstanding, striking, spectacular, conspicuous|inconspicuous|nogen
@@ -1191,7 +1191,7 @@ occupied|adj|held or filled or in use|the wc is occupied|busy, filled|unoccupied
 ongoing|adj|currently happening|an ongoing economic crisis|on-going, current||nogen
 operator|n|a symbol or function representing a mathematical operation; also, an agent that operates some apparatus or machine|The operator of the switchboard.|||isa=function,mathematical relation,relation;nogen
 painful|adj|causing physical or psychological pain|worked with painful slowness|sensitive, traumatic, biting, saddle-sore|painless|nogen
-pound|n|16 ounces avoirdupois|He got a hernia when he tried to lift 100 pounds.|lb||isa=avoirdupois unit,mass unit,unit of measurement,definite quantity,measure;has=half pound,ounce;partof=quarter,stone;nogen
+pound|n|16 ounces avoirdupois|He got a hernia when he tried to lift 100 pounds.|lb||isa=avoirdupois unit,mass unit,unit of measurement,definite quantity,measure;has=half pound,ounce;partof=stone,quarter;nogen
 preparation|n|the activity of putting or setting in order in advance of some act or purpose|Preparations for the ceremony had begun.|readying||isa=activity,act,event,psychological feature;nogen
 punch|v|deliver a quick blow to|He punched me in the stomach.|plug||nogen
 railroad|n|line that is the commercial organization responsible for operating a system of transportation for trains that pull passengers or freight; also, a line of track providing a runway for wheels|He walked along the railroad track.|railway, railway system, railway line||kind=thing;isa=line,carrier,business,enterprise,organization,social group,group;nogen
@@ -1379,7 +1379,7 @@ inquiry|n|a search for knowledge; also, an instance of questioning|We made inqui
 inspector|n|a high ranking police officer|The inspector questioned the suspect.|||kind=person;isa=policeman,lawman,defender,preserver,person,organism,living thing,causal agent;nogen
 mercy|n|leniency and compassion shown toward offenders by a person or agency charged with administering justice|He threw himself on the mercy of the court.|clemency||isa=lenience,tolerance,allowance,license,authorization,management,social control,group action,act,event;nogen
 nevertheless|adv|despite anything to the contrary|While we disliked each other, nevertheless we agreed.|still, even so, all the same, however||nogen
-pipe|n|a tube with a small bowl at one end; used for smoking tobacco|My grandfather smoked a pipe.|||kind=thing;isa=tube,conduit,passage,way,artifact;has=mouthpiece,bowl,stem;nogen
+pipe|n|a tube with a small bowl at one end; used for smoking tobacco|My grandfather smoked a pipe.|||kind=thing;isa=tube,conduit,passage,way,artifact;has=mouthpiece,stem,bowl;nogen
 powder|n|a solid substance in the form of tiny loose particles; a solid that has been pulverized|She dusted the cake with powder sugar.|||isa=solid,matter;nogen
 racism|n|the prejudice that members of one race are intrinsically superior to members of other races|The school runs workshops against racism.|||isa=bias,partiality,inclination,attitude,cognition,psychological feature;nogen
 shelter|n|a structure that provides privacy and protection from danger|We took shelter from the rain under a tree.|||kind=thing;isa=structure,artifact;nogen
@@ -1537,7 +1537,7 @@ pollution|n|undesirable state of the natural environment being contaminated with
 precisely|adv|indicating exactness or preciseness|He was doing precisely (or exactly) what she had told him to do.|just, exactly||nogen
 prisoner|n|a person who is confined; especially a prisoner of war|The prisoner was released after ten years.|captive||kind=person;isa=unfortunate,person,organism,living thing,causal agent;nogen
 privilege|n|a special advantage or immunity or benefit not enjoyed by all|It's a privilege to work with such a talented team.|||isa=advantage,asset,quality,attribute;nogen
-radar|n|measuring instrument in which the echo of a pulse of microwave radiation is used to detect and locate distant objects|The ship showed up on the radar.|radio detection and ranging||kind=thing;isa=measuring instrument,instrument,device,instrumentality,artifact;has=dish,pulse generator,waveguide,oscilloscope;nogen
+radar|n|measuring instrument in which the echo of a pulse of microwave radiation is used to detect and locate distant objects|The ship showed up on the radar.|radio detection and ranging||kind=thing;isa=measuring instrument,instrument,device,instrumentality,artifact;has=waveguide,dish,oscilloscope,pulse generator;nogen
 resist|v|elude, especially in a baffling way; also, withstand the force of something|The trees resisted her|refuse, defy||nogen
 solely|adv|without any others being included or involved|Did it solely for money.|only, alone, entirely, exclusively||nogen
 villa|n|detached or semidetached suburban house|We rented a villa with a pool.|||kind=thing;isa=house,dwelling,housing,structure,artifact,building;nogen
@@ -1559,7 +1559,7 @@ ethics|n|motivation based on ideas of right and wrong|The class discussed the et
 exploration|n|to travel for the purpose of discovery; also, a systematic consideration|He called for a careful exploration of the consequences.|geographic expedition||isa=expedition,journey,travel,motion,change,action,act,event,psychological feature;nogen
 insight|n|clear or deep perception of a situation|Her book offers real insight into family life.|penetration||isa=perception,cognition,psychological feature;nogen
 mar|v|make imperfect|nothing marred her beauty|spoil, impair||past=marred;ing=marring;nogen
-nerve|n|any bundle of nerve fibers running to various organs and tissues of the body|The dentist hit a nerve.|||kind=body;isa=fiber bundle,nervous tissue,animal tissue,tissue,body part,part,thing;has=radicle,nerve fiber,synapse;nogen
+nerve|n|any bundle of nerve fibers running to various organs and tissues of the body|The dentist hit a nerve.|||kind=body;isa=fiber bundle,nervous tissue,animal tissue,tissue,body part,part,thing;has=synapse,radicle,nerve fiber;nogen
 overnight|adv|during or for the length of one night|the fish marinates overnight|||nogen
 partially|adv|in part; in some degree; not wholly|He was partially paralyzed|part, partly||nogen
 practically|adv|almost; nearly|There was practically no garden at all.|||nogen
@@ -1573,7 +1573,7 @@ sandy|adj|of hair color; pale yellowish to yellowish brown|The boy has sandy hai
 scenario|n|an outline or synopsis of a play; also, a setting for a work of art or literature|The scenario is France during the Reign of Terror.|||isa=script,dramatic composition,writing,written communication,communication;nogen
 situated|adj|situated in a particular spot or position|Nicely situated on a quiet riverbank.|set, located, placed, settled|unsettled|nogen
 sustainable|adj|capable of being sustained|They're looking for more sustainable ways to farm.|||nogen
-tobacco|n|leaves of the tobacco plant dried and prepared for smoking or ingestion|Tobacco smoke fills the old room.|||kind=thing;plural=tobaccoes;isa=plant product,plant material,material,substance,part,relation,matter,drug of abuse,drug,agent;nogen
+tobacco|n|leaves of the tobacco plant dried and prepared for smoking or ingestion|Tobacco smoke fills the old room.|||kind=thing;plural=tobaccoes;isa=plant product,plant material,material,substance,part,relation,drug of abuse,drug,agent,matter;nogen
 trace|v|follow, discover, or ascertain the course of development of something|trace the student's progress|follow||nogen
 trace|n|a just detectable amount|He speaks French with a trace of an accent.|suggestion, hint||isa=small indefinite quantity,indefinite quantity,measure;nogen
 widespread|adj|widely circulated or diffused|a widespread doctrine|general|specific|nogen
@@ -1601,7 +1601,7 @@ grid|n|a pattern of regularly spaced horizontal and vertical lines|The streets a
 identification|n|the act of designating or identifying something; also, the condition of having the identity established|Identification of the gun was an important clue.|designation||isa=determination,discovery,act,event,psychological feature;nogen
 lap|n|the upper side of the thighs of a seated person|He picked up the little girl and plopped her down in his lap.|||kind=body;isa=thigh,limb,extremity,external body part,body part,part,thing;nogen
 lap|v|lie partly over or alongside of something or of one another; also, take up with the tongue|The cat lapped up the milk.|||past=lapped;ing=lapping;nogen
-liver|n|large and complicated reddish-brown glandular organ located in the upper right portion of the abdominal cavity; also, a person who has a special life style|a high liver|||kind=body;isa=internal organ,organ,body part,part,thing;has=hepatic duct,Kupffer's cell,hepatic vein,venae interlobulares hepatis,hepatic lobe,common bile duct,biliary ductule,hepatic artery;partof=circulatory system,digestive system;nogen
+liver|n|large and complicated reddish-brown glandular organ located in the upper right portion of the abdominal cavity; also, a person who has a special life style|a high liver|||kind=body;isa=internal organ,organ,body part,part,thing;has=hepatic vein,hepatic lobe,venae interlobulares hepatis,common bile duct,biliary ductule,hepatic artery,hepatic duct,Kupffer's cell;partof=circulatory system,digestive system;nogen
 metropolitan|adj|relating to or characteristic of a metropolis|metropolitan area|||nogen
 mixture|n|a substance consisting of two or more substances mixed together; also, any foodstuff made by combining different ingredients|He drank a mixture of beer and lemonade.|||isa=substance,part,relation,matter;nogen
 nominated|adj|appointed by nomination|The nominated films were shown at the festival.|nominative|elective|nogen
@@ -1612,7 +1612,7 @@ physician|n|a licensed medical practitioner|Ask your physician before changing y
 proceed|v|continue talking; also, move ahead|We proceeded towards Washington|go on, continue, carry on||nogen
 proceedings|n|the institution of a sequence of steps by which legal judgments are invoked|The proceedings against him were dropped.|proceeding, legal proceeding||isa=due process,group action,act,event,psychological feature;nogen
 restore|v|return to its original or usable and functioning condition|Restore the forest to its original pristine condition.|reconstruct||nogen
-rifle|n|a shoulder firearm with a long barrel and a rifled bore|He lifted the rifle to his shoulder and fired.|||kind=thing;isa=firearm,gun,weapon,instrument,device,instrumentality,artifact;has=bolt,rifle butt,pump action;nogen
+rifle|n|a shoulder firearm with a long barrel and a rifled bore|He lifted the rifle to his shoulder and fired.|||kind=thing;isa=firearm,gun,weapon,instrument,device,instrumentality,artifact;has=pump action,bolt,rifle butt;nogen
 rival|v|be equal to in quality or ability|Nothing can rival cotton for durability.|match, touch, equal||past=rivalled;ing=rivalling;nogen
 runner|n|someone who imports or exports without paying duties; also, a person who is employed to deliver messages or documents|He sent a runner over with the contract.|smuggler||kind=person;isa=criminal,principal,wrongdoer,bad person,person,organism,living thing,causal agent;nogen
 significance|n|the quality of being significant|Do not underestimate the significance of nuclear power.||insignificance|isa=importance,value,worth,quality,attribute;nogen
@@ -1623,7 +1623,7 @@ tropical|adj|relating to or situated in or characteristic of the tropics|tropica
 unnecessary|adj|not necessary|Don't take any unnecessary risks.|spare, excess, gratuitous, unneeded|necessary|nogen
 verse|n|literature in metrical form|She writes her plays in verse.|poetry||isa=writing style,expressive style,communication;nogen
 victor|n|a combatant who is able to defeat rivals|The victor was cheered by the crowd.|master, superior||kind=person;isa=combatant,person,organism,living thing,causal agent;nogen
-vintage|n|a season's yield of wine from a vineyard|This is an excellent vintage from a small vineyard.|||kind=food;isa=wine,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+vintage|n|a season's yield of wine from a vineyard|This is an excellent vintage from a small vineyard.|||kind=food;isa=wine,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 adoption|n|the act of accepting with approval; favorable reception|its adoption by society|acceptance||isa=blessing,support,aid,activity,act,event,psychological feature;nogen
 anonymous|adj|having no known name or identity or known source|anonymous donors|anon., nameless||nogen
 artistic|adj|relating to or characteristic of art or artists|his artistic background|||nogen
@@ -1750,7 +1750,7 @@ logical|adj|capable of or reflecting the capability for correct and valid reason
 mason|n|a craftsman who works with stone or brick|The mason repaired the old stone wall.|||kind=person;isa=craftsman,skilled worker,worker,person,organism,living thing,causal agent;nogen
 meaningful|adj|having a meaning or purpose|a meaningful pause|meaning, purposeful, meaty|meaningless|nogen
 migration|n|the movement of persons from one country or locality to another|The migration of birds south begins in autumn.|||isa=motion,change,action,act,event,psychological feature;nogen
-missile|n|a rocket carrying a warhead of conventional or nuclear explosives; may be ballistic or directed by remote control|The missile was shot down over the sea.|||kind=vehicle;isa=weapon,instrument,device,instrumentality,artifact,rocket,vehicle,conveyance;has=nose,vane;nogen
+missile|n|a rocket carrying a warhead of conventional or nuclear explosives; may be ballistic or directed by remote control|The missile was shot down over the sea.|||kind=vehicle;isa=weapon,instrument,device,instrumentality,artifact,rocket,vehicle,conveyance;has=vane,nose;nogen
 northwest|adj|situated in or oriented toward the northwest; also, coming from the northwest|northwesterly winds|north, northwestern, northwesterly|south|nogen
 organ|n|a fully differentiated structural and functional unit in an animal that is specialized for some particular function; also, a government agency or instrument devoted to the performance of some specific function|The Census Bureau is an organ of the Commerce Department.|||kind=body;isa=body part,part,thing;has=lobe;nogen
 patrol|n|a detachment used for security or reconnaissance|A patrol checked the border every night.|||isa=detachment,army unit,military unit,organization,social group,group;nogen
@@ -1920,7 +1920,7 @@ riot|n|a public act of violence by an unruly mob|The police broke up the riot.|p
 roster|n|a list of names|Check the roster to see who's working on Sunday.|roll||isa=list,database,information,message,communication;nogen
 servant|n|a person working in the service of another; also, in a subordinate position|The state cannot be a servant of the church.|retainer||kind=person;isa=worker,person,organism,living thing,causal agent;nogen
 setup|n|equipment designed to serve a specific function; also, the way something is organized or arranged|It takes time to learn the setup around here.|apparatus||kind=thing;isa=equipment,instrumentality,artifact;nogen
-skull|n|the bony skeleton of the head of vertebrates|The skull protects the brain.|||kind=body;isa=bone,connective tissue,animal tissue,tissue,body part,part,thing;has=cheekbone,eye socket,endocranium,jaw,vomer,sphenoid bone,cranium,craniometric point;partof=axial skeleton,head;nogen
+skull|n|the bony skeleton of the head of vertebrates|The skull protects the brain.|||kind=body;isa=bone,connective tissue,animal tissue,tissue,body part,part,thing;has=sphenoid bone,cranium,craniometric point,eye socket,jaw,cheekbone,endocranium,vomer;partof=head,axial skeleton;nogen
 slot|n|a position in a grammatical linguistic construction in which a variety of alternative units are interchangeable|He developed a version of slot grammar.|||isa=position,relation;nogen
 smash|v|hit hard|He smashed a 3-run homer.|boom, blast, nail||nogen
 surprisingly|adv|in a surprising manner|he was surprisingly friendly|||nogen
@@ -1971,7 +1971,7 @@ tragic|adj|very sad; especially involving grief or death or destruction|a tragic
 unbelievable|adj|beyond belief or understanding|The view from the top was unbelievable.|incredible, fabulous, astounding, improbable||nogen
 variation|n|an instance of change; also, an activity that varies from a norm or standard|Any variation in his routine was immediately reported.|fluctuation||isa=change,happening,event,psychological feature;nogen
 viral|adj|relating to or caused by a virus|viral infection|||nogen
-widow|n|a woman whose husband is dead especially one who has not remarried|She has been a widow for ten years.|||kind=person;isa=woman,adult,person,organism,living thing,female,causal agent;nogen
+widow|n|a woman whose husband is dead especially one who has not remarried|She has been a widow for ten years.|||kind=person;isa=woman,female,person,organism,living thing,adult,causal agent;nogen
 adjust|v|alter or regulate so as to achieve accuracy or conform to a standard|Adjust the clock, please|set, correct||nogen
 administrator|n|someone who administers a business|Ask the system administrator to reset your password.|decision maker||kind=person;isa=head,leader,person,organism,living thing,causal agent;nogen
 altogether|adv|to a complete degree or to the full or entire extent|an altogether new approach|all, whole, completely, totally||nogen
@@ -2004,7 +2004,7 @@ notable|adj|worthy of notice; also, widely known and esteemed|a notable historia
 obligation|n|the social force that binds you to the courses of action demanded by that force|Every right implies a responsibility; every opportunity, an obligation; every possession, a duty.|responsibility, duty||isa=social control,group action,act,event,psychological feature;nogen
 optical|adj|of or relating to or involving light or optics|optical supplies|||nogen
 outlook|n|a habitual or characteristic mental attitude that determines how you will interpret and respond to situations|She has a positive outlook on life.|mind-set, mindset, mentality||isa=attitude,cognition,psychological feature;nogen
-penny|n|a fractional monetary unit of Ireland and the United Kingdom; equal to one hundredth of a pound|I found a penny on the sidewalk.|||plural=pence;isa=fractional monetary unit,monetary unit,unit of measurement,definite quantity,measure;partof=British pound,Irish pound;nogen
+penny|n|a fractional monetary unit of Ireland and the United Kingdom; equal to one hundredth of a pound|I found a penny on the sidewalk.|||plural=pence;isa=fractional monetary unit,monetary unit,unit of measurement,definite quantity,measure;partof=Irish pound,British pound;nogen
 petty|adj|inferior in rank or status|petty officialdom|secondary, junior, junior-grade, lower-ranking|senior|nogen
 quantity|n|how much there is or how many there are of something that you can quantify; also, an adequate or large amount|He had a quantity of ammunition.|amount, measure||nogen
 quantum|n|a discrete amount of something that is analogous to the quantities in quantum theory|Energy comes in tiny packets called quanta.|||plural=quanta;isa=quantity,concept,idea,content,cognition,psychological feature;nogen
@@ -2026,7 +2026,7 @@ assure|v|make certain of; also, assure somebody of the truth of something with t
 ballot|n|a document listing the alternatives that is used in voting|Put your ballot in the box.|||isa=document,writing,written communication,communication;nogen
 cemetery|n|a tract of land used for burials|My grandparents are buried in the old cemetery.|memorial park, burial site, burial ground, graveyard||isa=site,tract,geographical area,region,location;nogen
 cheat|v|deprive somebody of something by deceit|We were cheated by their clever-sounding scheme.|rip off, chisel||nogen
-cigarette|n|finely ground tobacco wrapped in paper; for smoking|He finally gave up cigarettes.|coffin nail||kind=thing;isa=roll of tobacco,tobacco,plant product,plant material,material,substance,part,relation,matter,drug of abuse;has=cigarette butt;nogen
+cigarette|n|finely ground tobacco wrapped in paper; for smoking|He finally gave up cigarettes.|coffin nail||kind=thing;isa=roll of tobacco,tobacco,plant product,plant material,material,substance,part,relation,drug of abuse,drug;has=cigarette butt;nogen
 deficit|n|the property of being an amount by which something is less than expected or required|New blood vessels bud out from the already dilated vascular bed to make up the nutritional deficit.|shortage, shortfall||isa=insufficiency,amount,magnitude,property,attribute;nogen
 demo|n|a visual presentation showing how something works|The salesman gave us a demo of the vacuum cleaner.|demonstration||isa=visual communication,communication;nogen
 demon|n|an evil supernatural being; also, someone extremely diligent or skillful|She's a demon at math.|devil, fiend, daemon||kind=person;isa=evil spirit,spirit,spiritual being,belief,content,cognition,psychological feature;nogen
@@ -2087,13 +2087,12 @@ orientation|n|the act of orienting; also, a predisposition in favor of something
 shooter|n|a large marble used for shooting in the game of marbles; also, a person who shoots|a poor shooter|taw||kind=thing;isa=marble,ball,game equipment,equipment,instrumentality,artifact;nogen
 slim|adj|being of delicate or slender build|A slim girl with straight blonde hair.|thin, slight, slender, svelte|fat|nogen
 sophisticated|adj|having or appealing to those having worldly knowledge and refinement and savoir-faire|a sophisticated book|intelligent, polished, worldly-wise|naive|nogen
-spam|n|unwanted e-mail|My inbox is full of spam.|junk e-mail||isa=electronic mail,electronic communication,transmission,communication,act,event,psychological feature;nogen
 stack|n|an orderly pile|There's a stack of plates by the sink.|||isa=pile,collection,group;nogen
 stance|n|standing posture|She took a wide stance and swung the bat.|||isa=position,bodily property,property,attribute;nogen
 static|adj|not in physical motion; also, concerned with or producing or caused by static electricity|An electrostatic generator produces high-voltage static electricity.|still, inactive, motionless|moving|nogen
 surgical|adj|of or relating to or involving or used in surgery|surgical instruments|||nogen
 thesis|n|an unproved statement put forward as a premise in an argument|He's writing his thesis on climate change.|||plural=theses;isa=premise,postulate,proposition,statement,message,communication;nogen
-warfare|n|the waging of armed conflict against an enemy; also, an active struggle between competing entities|diplomatic warfare|war||isa=military action,group action,act,event,psychological feature;has=battle,combat,aggression;nogen
+warfare|n|the waging of armed conflict against an enemy; also, an active struggle between competing entities|diplomatic warfare|war||isa=military action,group action,act,event,psychological feature;has=aggression,battle,combat;nogen
 withdraw|v|pull back or move away or backward|She withdrew her hand from the hot pan.|move back, draw back, pull back, pull away||past=withdrew;pp=withdrawn;nogen
 withdrawal|n|a retraction of a previously held position; also, the act of withdrawing|The withdrawal of French troops from Vietnam.|climb-down||isa=retraction,disavowal,denial,speech act,act,event,psychological feature;nogen
 anyways|adv|used to indicate that a statement explains or supports a previous statement|Anyways, I should get going.|in any case, in any event, at any rate, anyway||nogen
@@ -2136,7 +2135,7 @@ buyer|n|a person who buys|They found a buyer for the house in a week.|purchaser|
 cannabis|n|any plant of the genus Cannabis; a coarse bushy annual with palmate leaves and clusters of small green flowers; yields tough fibers and narcotic drugs|Cannabis is grown legally in some countries.|hemp||kind=nature;isa=shrub,woody plant,vascular plant,plant,organism,living thing;has=cannabis;nogen
 cease|v|put an end to a state or an activity|The noise ceased at midnight.|give up, stop, lay off, quit||nogen
 chapel|n|a place of worship that has its own altar; also, a service conducted in a place of worship that has its own altar|He was late for chapel.|||kind=thing;isa=place of worship,building,structure,artifact;nogen
-cloth|n|artifact made by weaving or felting or knitting or crocheting natural or synthetic fibers|Woven cloth originated in Mesopotamia around 5000 BC.|material, fabric, textile||kind=thing;isa=artifact;has=hem,edging;nogen
+cloth|n|artifact made by weaving or felting or knitting or crocheting natural or synthetic fibers|Woven cloth originated in Mesopotamia around 5000 BC.|material, fabric, textile||kind=thing;isa=artifact;has=edging,hem;nogen
 container|n|any object that can be used to hold things|Put the leftovers in a container in the fridge.|||kind=thing;isa=instrumentality,artifact;nogen
 differ|v|be different|These two tests differ in only one respect.||equal|nogen
 dimensional|adj|of or relating to dimensions; also, having dimension--the quality or character or stature proper to a person|Never matures as a dimensional character; he is pasty, bland, faceless.|||nogen
@@ -2148,12 +2147,12 @@ headline|n|the heading or caption of a newspaper article|The headline was about 
 hype|n|blatant or sensational promotion|The film didn't live up to the hype.|plug, hoopla||isa=promotion,message,communication;nogen
 insist|v|be emphatic or resolute and refuse to budge|I must insist!|take a firm stand||nogen
 junk|n|the remains of something that has been destroyed or broken up|The garage is full of junk.|dust, debris, rubble, detritus||isa=rubbish,waste,material,substance,part,relation,matter;nogen
-kidney|n|either of two bean-shaped excretory organs that filter wastes from the blood and excrete them and water in urine|Urine passes out of the kidney through ureters to the bladder.|||kind=body;isa=excretory organ,internal organ,organ,body part,part,thing;has=nephron,venae interlobulares renis,adrenal gland,renal vein,arcuate artery of the kidney,arcuate vein of the kidney,renal artery,venae renis;partof=urinary tract;nogen
+kidney|n|either of two bean-shaped excretory organs that filter wastes from the blood and excrete them and water in urine|Urine passes out of the kidney through ureters to the bladder.|||kind=body;isa=excretory organ,internal organ,organ,body part,part,thing;has=venae interlobulares renis,adrenal gland,arcuate vein of the kidney,renal artery,renal cortex,renal vein,arcuate artery of the kidney,pelvis;partof=urinary tract;nogen
 lobby|n|a large entrance or reception room or area|Let's meet in the hotel lobby.|hall, entrance hall, foyer, vestibule||kind=thing;isa=room,area,structure,artifact;partof=building;nogen
 mineral|n|solid homogeneous inorganic substances occurring in nature having a definite chemical composition|Quartz is a common mineral.|||isa=material,substance,part,relation,matter;nogen
 mob|n|a disorderly crowd of people|An angry mob gathered outside the gates.|rout, rabble||isa=crowd,gathering,social group,group;nogen
 navigation|n|the guidance of ships or airplanes from place to place; also, ship traffic|The channel will be open to navigation as soon as the ice melts.|piloting||isa=steering,control,activity,act,event,psychological feature;nogen
-orbit|n|the path described by one celestial body in its revolution about another|He plotted the orbit of the moon.|||isa=path,line,location;has=periapsis,apoapsis;nogen
+orbit|n|the path described by one celestial body in its revolution about another|He plotted the orbit of the moon.|||isa=path,line,location;has=apoapsis,periapsis;nogen
 passive|adj|lacking in energy or will|Much benevolence of the passive order may be traced to a disinclination to inflict pain upon oneself.|hands-off, inactive|active|nogen
 peninsula|n|a large mass of land projecting into a body of water|Italy is a long peninsula.|||isa=land;nogen
 profitable|adj|yielding material gain or profit|Profitable speculation on the stock market.|economic, fat, lucrative, gainful|unprofitable|nogen
@@ -2182,7 +2181,7 @@ axis|n|a straight line through a body or figure that satisfies certain condition
 badge|n|an emblem that signifies your status|They checked everyone's badge before letting them in.|||isa=emblem,symbol,representational process,basic cognitive process,process,cognition,psychological feature;nogen
 bizarre|adj|conspicuously or grossly unconventional or unusual|Restaurants of bizarre design--one like a hat, another like a rabbit.|off-the-wall, eccentric, unconventional, freaky|conventional|nogen
 cannon|n|a large artillery gun that is usually on wheels|The cannon fired at dawn.|||kind=thing;isa=artillery,armament,weaponry,instrumentality,artifact;nogen
-carol|n|joyful religious song celebrating the birth of Christ|The children sang carols in the snow.|||isa=religious song,song,musical composition,music,auditory communication,communication,religious music,music genre,expressive style;nogen
+carol|n|joyful religious song celebrating the birth of Christ|The children sang carols in the snow.|||isa=religious song,religious music,music genre,music,auditory communication,communication,song,musical composition,expressive style;nogen
 complexity|n|the quality of being intricate and compounded|He enjoyed the complexity of modern computers.||simplicity|isa=quality,attribute;nogen
 confusing|adj|causing confusion or disorientation|A confusing jumble of road signs.|disorienting|orienting|nogen
 consultation|n|a conference|He had a consultation with the judge.|interview, audience||isa=conference,discussion,speech,auditory communication,communication;nogen
@@ -2241,7 +2240,7 @@ formally|adv|with official authorization|The club will be formally recognized.|o
 goddess|n|a female deity|Athena was the Greek goddess of wisdom.|||kind=person;isa=deity,spiritual being,belief,content,cognition,psychological feature;nogen
 harassment|n|a feeling of intense annoyance caused by being tormented|So great was his harassment that he wanted to destroy his tormentors.|torment||isa=annoyance,anger,emotion,feeling,state,attribute;nogen
 insert|v|put or introduce into something|Insert a picture into the text.|enter, introduce||nogen
-liquor|n|an alcoholic beverage that is distilled rather than fermented; also, a liquid substance that is a solution used or obtained in an industrial process|waste liquors|hard drink, strong drink, spirits, booze||kind=food;isa=alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse,drug;nogen
+liquor|n|an alcoholic beverage that is distilled rather than fermented; also, a liquid substance that is a solution used or obtained in an industrial process|waste liquors|hard drink, strong drink, spirits, booze||kind=food;isa=alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug,agent;nogen
 loser|n|a contestant who loses the contest|Don't be a sore loser.|also-ran|winner|kind=person;isa=contestant,person,organism,living thing,causal agent;nogen
 massage|v|manually manipulate, usually for medicinal or relaxation purposes; also, give a massage to|She massaged his sore back.|rub down, knead||nogen
 notably|adv|especially; in particular|Notably in the social sciences, the professors teach too much.|||nogen
@@ -2334,7 +2333,7 @@ spark|n|a momentary flash of light; also, merriment expressed by a brightness or
 spark|v|put in motion or move to act; also, emit or produce sparks|A high tension wire, brought down by a storm, can continue to spark.|set off, trip, touch off, trigger||nogen
 speculation|n|a message expressing an opinion based on incomplete evidence; also, a hypothesis that has been formed by speculating or conjecturing|Speculations about the outcome of the election.|guess, hypothesis, conjecture, surmise||isa=opinion,message,communication;nogen
 steep|adj|having a sharp inclination|steep cliffs|heavy, steep-sided, bluff, abrupt|gradual|nogen
-straw|n|plant fiber used e.g. for making baskets and hats or as fodder|The horses sleep on straw.|||isa=plant fiber,natural fiber,fiber,material,substance,part,relation,plant product,plant material,matter;nogen
+straw|n|plant fiber used e.g. for making baskets and hats or as fodder|The horses sleep on straw.|||isa=plant fiber,plant product,plant material,material,substance,part,relation,natural fiber,fiber,matter;nogen
 successor|n|a person who follows next in order|He was President Lincoln's successor.|replacement||kind=person;isa=peer,person,organism,living thing,causal agent;nogen
 vector|n|a variable quantity that can be resolved into components; also, any agent that carries and transmits a disease|Fleas are vectors of the plague.|||isa=variable,quantity,concept,idea,content,cognition,psychological feature;nogen
 whatsoever|adj|one or some or every or all without specification|No milk whatsoever is left.|some, any, whatever|no, all|nogen
@@ -2468,7 +2467,7 @@ supposedly|adv|believed or reputed to be the case|The restaurant is supposedly t
 tab|n|the bill in a restaurant; also, a short strip of material attached to or projecting from something in order to facilitate opening or identifying or handling it|Pull the tab to open the can.|check, chit||isa=bill,statement,commercial document,document,writing,written communication,communication;nogen
 tendency|n|an attitude of mind especially one that favors one alternative over others|A tendency to be too strict.|disposition, inclination||isa=attitude,cognition,psychological feature;nogen
 touchdown|n|a score in American football; being in possession of the ball across the opponents' goal line|He scored the winning touchdown.|||isa=score,success,attainment,accomplishment,action,act,event,psychological feature;nogen
-triumph|n|a successful ending of a struggle or contest|The agreement was a triumph for common sense.|victory||isa=ending,happening,event,psychological feature,success;nogen
+triumph|n|a successful ending of a struggle or contest|The agreement was a triumph for common sense.|victory||isa=success,happening,event,psychological feature,ending;nogen
 underwear|n|undergarment worn next to the skin and under the outer garments|Pack enough underwear for a week.|||kind=thing;isa=undergarment,garment,clothing,consumer goods,commodity,artifact,covering;nogen
 viable|adj|capable of being done with means at hand and circumstances as they are; also, capable of life or normal growth and development|viable seeds|possible, feasible, workable, practicable|impossible|nogen
 waist|n|the narrowing of the body between the ribs and hips|The belt is too big for my waist.|waistline||kind=body;isa=area,body part,part,thing;partof=torso;nogen
@@ -2511,7 +2510,7 @@ wilderness|n|a state of disfavor|He led the Democratic party back from the wilde
 adviser|n|an expert who gives advice|An adviser helped students select their courses.|consultant, advisor||kind=person;isa=authority,expert,person,organism,living thing,causal agent;nogen
 aggregate|adj|formed of separate units gathered into a mass or whole|The aggregated amount of indebtedness.|mass, collective, aggregated|distributive|nogen
 anatomy|n|the branch of morphology that deals with the structure of animals; also, a detailed analysis|He studied the anatomy of crimes.|||isa=morphology,biology,life science,natural science,science,discipline,knowledge domain,content,cognition,psychological feature;nogen
-automobile|n|a motor vehicle with four wheels; usually propelled by an internal combustion engine|The automobile changed how people lived.|car, machine, auto, motorcar||kind=vehicle;isa=motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container;has=sunroof,automobile horn,fender,rear window,buffer,floorboard,glove compartment,car window;nogen
+automobile|n|a motor vehicle with four wheels; usually propelled by an internal combustion engine|The automobile changed how people lived.|car, machine, auto, motorcar||kind=vehicle;isa=motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container;has=air bag,automobile engine,hood,roof,gasoline engine,auto accessory,sunroof,automobile horn;nogen
 cement|n|concrete pavement is sometimes referred to as cement|They stood on the grey cement beside the pool.|||isa=concrete,building material,artifact,paving;nogen
 composite|n|a conceptual whole made up of complicated and related parts|The photo is a composite of several images.|complex||isa=concept,idea,content,cognition,psychological feature;nogen
 consequently|adv|because of the reason given|Consequently, he didn't do it.|accordingly||nogen
@@ -2523,7 +2522,7 @@ idol|n|a material effigy that is worshipped|The singer was her teenage idol.|god
 illusion|n|an erroneous mental representation; also, something many people believe that is false|They have the illusion that I am very wealthy.|semblance||isa=appearance,representation,content,cognition,psychological feature;nogen
 incorrect|adj|not correct; not in conformity with fact or truth|an incorrect calculation|wrong, false, erroneous, fallacious|correct|nogen
 junction|n|the place where two or more things come together|Turn left at the next junction.|||kind=thing;isa=topographic point,point,location;nogen
-lance|n|a long pointed rod used as a tool or weapon|The knight lowered his lance and charged.|shaft, spear||kind=thing;isa=weapon,instrument,device,instrumentality,artifact;has=barb,spearhead;nogen
+lance|n|a long pointed rod used as a tool or weapon|The knight lowered his lance and charged.|shaft, spear||kind=thing;isa=weapon,instrument,device,instrumentality,artifact;has=spearhead,barb;nogen
 locate|v|discover the location of; determine the place of; find by searching or examining|Can you locate your cousins in the Midwest?|turn up||nogen
 motive|n|the psychological feature that arouses an organism to action toward a desired goal|He acted with the best of motives.|need, motivation||isa=psychological feature;nogen
 newton|n|a unit of force equal to the force that imparts an acceleration of 1 m/sec/sec to a mass of 1 kilogram; equal to 100,000 dynes|A newton is the force needed to speed up one kilogram by one meter per second, every second.|||isa=force unit,unit of measurement,definite quantity,measure;has=dyne;partof=sthene;nogen
@@ -2587,7 +2586,7 @@ siege|n|the action of an armed force that surrounds a fortified place and isolat
 sleeve|n|the part of a garment that is attached at the armhole and that provides a cloth covering for the arm|He rolled up his sleeves and got to work.|arm||kind=thing;isa=cloth covering,covering,artifact;has=wristband,elbow,cuff;partof=garment;nogen
 sonic|adj|having or caused by speed approximately equal to that of sound in air at sea level|a sonic boom||subsonic, supersonic|nogen
 soundtrack|n|sound recording on a narrow strip of a motion picture film|The soundtrack of the film is beautiful.|||kind=thing;isa=sound recording,recording,memory device,device,instrumentality,artifact;partof=sound film;nogen
-spine|n|the series of vertebrae forming the axis of the skeleton and protecting the spinal cord; also, the part of a book's cover that encloses the inner side of the book's pages and that faces outward when the book is shelved|The title and author were printed on the spine of the book.|back, spinal column, backbone, vertebral column||kind=body;isa=skeletal structure,structure,body part,part,thing;has=intervertebral disc,spinal canal,vertebra,coccyx;partof=axial skeleton;nogen
+spine|n|the series of vertebrae forming the axis of the skeleton and protecting the spinal cord; also, the part of a book's cover that encloses the inner side of the book's pages and that faces outward when the book is shelved|The title and author were printed on the spine of the book.|back, spinal column, backbone, vertebral column||kind=body;isa=skeletal structure,structure,body part,part,thing;has=intervertebral disc,vertebra,spinal canal,coccyx;partof=axial skeleton;nogen
 sustain|v|lengthen or extend in duration or space|We sustained the diplomatic negotiations as long as possible.|keep up, prolong||nogen
 tenure|n|the term during which some position is held|During her tenure as mayor, the city grew.|term of office, incumbency||kind=time;isa=term,time period,fundamental quantity,measure;nogen
 texture|n|the feel of a surface or a fabric|The wall had a smooth texture.|||isa=tactile property,property,attribute;nogen
@@ -2683,7 +2682,7 @@ brigade|n|army unit smaller than a division|The brigade moved north at night.|||
 burial|n|the ritual placing of a corpse in a grave|The burial took place in the village churchyard.|interment||isa=funeral,ceremony,affair,social event,event,psychological feature;nogen
 cardinal|adj|serving as an essential component|a cardinal rule|important, central, key, fundamental|unimportant|nogen
 champ|n|someone who has won first place in a competition|The champ defended her title.|champion, title-holder||kind=person;isa=rival,contestant,person,organism,living thing,causal agent;nogen
-champagne|n|a white sparkling wine either produced in Champagne or resembling that produced there|They opened a bottle of champagne to celebrate.|bubbly||kind=food;isa=sparkling wine,wine,alcohol,beverage,liquid,fluid,substance,part,relation,matter;nogen
+champagne|n|a white sparkling wine either produced in Champagne or resembling that produced there|They opened a bottle of champagne to celebrate.|bubbly||kind=food;isa=sparkling wine,wine,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse;nogen
 chorus|n|any utterance produced simultaneously by a group|a chorus of boos|||isa=sound,happening,event,psychological feature;nogen
 chrome|n|another word for chromium when it is used in dyes or pigments|The old car has shiny chrome bumpers.|||isa=chromium,metallic element,chemical element,substance,part,relation,matter;nogen
 clarity|n|free from obscurity and easy to understand; also, the quality of clear water|When she awoke the clarity was back in her eyes.|lucidity, clearness|obscurity|isa=comprehensibility,quality,attribute;nogen
@@ -2735,7 +2734,7 @@ awhile|adv|for a short time|Sit down and stay awhile.|for a while||nogen
 biography|n|an account of the series of events making up a person's life|I'm reading a biography of Marie Curie.|life, life story, life history||isa=history,record,evidence,indication,communication;nogen
 bury|v|cover from sight|Afghani women buried under their burkas.|||past=buried;nogen
 cellular|adj|relating to cells|cellular walls|||nogen
-cocktail|n|a short mixed drink|She ordered a cocktail with lime and mint.|||kind=food;isa=mixed drink,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+cocktail|n|a short mixed drink|She ordered a cocktail with lime and mint.|||kind=food;isa=mixed drink,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 destructive|adj|causing destruction or much damage|destructive criticism|soul-destroying, damaging, crushing, blasting|constructive|nogen
 dislike|v|have or feel a dislike or distaste for|I really dislike this salesman.||like|nogen
 dislike|n|an inclination to withhold approval from some person or group; also, a feeling of aversion or antipathy|My dislike of him was instinctive.|disapproval||isa=inclination,attitude,cognition,psychological feature;nogen
@@ -2823,7 +2822,7 @@ inclined|adj|having a preference, disposition, or tendency|inclined to be moody|
 informal|adj|not formal|an informal free-and-easy manner|free-and-easy, casual, folksy|formal|nogen
 marsh|n|low-lying wet land with grassy vegetation; usually is a transition zone between land and water|Thousands of acres of marshland.|fen, marshland||isa=wetland,land;nogen
 marshal|v|place in proper rank|marshal the troops|||past=marshalled;ing=marshalling;nogen
-maturity|n|the period of time in your life after your physical growth has stopped and you are fully developed|She showed great maturity for her age.|adulthood||kind=time;isa=time of life,time period,fundamental quantity,measure;has=drinking age,forties,middle age,teens,voting age,thirties,fifties,twenties;nogen
+maturity|n|the period of time in your life after your physical growth has stopped and you are fully developed|She showed great maturity for her age.|adulthood||kind=time;isa=time of life,time period,fundamental quantity,measure;has=voting age,thirties,fifties,majority,drinking age,twenties,middle age,teens;nogen
 ninja|n|a member of the ninja who were trained in martial arts and hired for espionage or sabotage or assassinations; a person skilled in ninjutsu|The film is about a ninja in old Japan.|||kind=person;isa=mercenary,adventurer,person,organism,living thing,causal agent;nogen
 problematic|adj|open to doubt or debate|If you ever get married, which seems to be extremely problematic.|questionable, debatable|unquestionable|nogen
 promotional|adj|of or relating to serving as publicity|promotional fares|||nogen
@@ -2961,7 +2960,7 @@ nationally|adv|with regard to a nation taken as a whole|a nationally uniform cul
 outrage|n|a feeling of righteous anger|The decision caused public outrage.|indignation||isa=anger,emotion,feeling,state,attribute;nogen
 paperwork|n|work that involves handling papers: forms or letters or reports etc|I spent the morning doing paperwork.|||isa=work,activity,act,event,psychological feature;nogen
 promptly|adv|with little or no delay|The rescue squad arrived promptly.|quickly, quick||nogen
-sperm|n|the male reproductive cell; the male gamete|A sperm is mostly a nucleus surrounded by little other cellular material.|||kind=body;isa=gamete,reproductive cell,cell,living thing;has=flagellum,acrosome;partof=semen,male reproductive system;nogen
+sperm|n|the male reproductive cell; the male gamete|A sperm is mostly a nucleus surrounded by little other cellular material.|||kind=body;isa=gamete,reproductive cell,cell,living thing;has=acrosome,flagellum;partof=semen,male reproductive system;nogen
 steadily|adv|at a steady rate or pace|his interest eroded steadily|||nogen
 supplier|n|someone whose business is to supply a particular service or commodity|We found a new supplier for the café's coffee.|provider||kind=person;isa=businessperson,capitalist,person,organism,living thing,causal agent;nogen
 swamp|n|low land that is seasonally flooded; also, a situation fraught with difficulties and imponderables|He was trapped in a medical swamp.|||isa=wetland,land;nogen
@@ -2995,7 +2994,7 @@ imagery|n|the ability to form mental images of things or events|The poem is full
 imply|v|express or state indirectly|Are you implying that I'm lying?|||past=implied;nogen
 inherent|adj|existing as an essential constituent or characteristic; also, in the nature of something though not readily apparent|Shortcomings inherent in our approach.|built-in, constitutional, integral, intrinsic|extrinsic|nogen
 inland|adj|situated away from an area's coast or border|We drove to an inland lake.|interior, landlocked|coastal|nogen
-inning|n|one of nine divisions of play during which each team has a turn at bat|The score was tied in the eighth inning.|frame||kind=time;isa=part,concept,idea,content,cognition,psychological feature;has=top,bottom;partof=playing period;nogen
+inning|n|one of nine divisions of play during which each team has a turn at bat|The score was tied in the eighth inning.|frame||kind=time;isa=part,concept,idea,content,cognition,psychological feature;has=bottom,top;partof=playing period;nogen
 innocence|n|the quality of innocent naivete; also, a state or condition of being innocent of a specific crime or offense|The trial established his innocence.|naturalness||isa=naivete,quality,attribute;nogen
 investigator|n|a scientist who devotes himself to doing research|The investigator examined the scene of the fire.|research worker, researcher||kind=person;isa=scientist,person,organism,living thing,causal agent;nogen
 ivy|n|Old World vine with lobed evergreen leaves and black berrylike fruits|Ivy covers the walls of the old house.|||kind=nature;isa=vine,vascular plant,plant,organism,living thing;nogen
@@ -3026,7 +3025,7 @@ statute|n|an act passed by a legislative body|The statute was passed in 1972.|le
 straightforward|adj|free from ambiguity|A straightforward set of instructions.|unequivocal|equivocal|nogen
 superstar|n|someone who is dazzlingly skilled in any field|The superstar signed autographs for an hour.|star, champion, genius, ace||kind=person;isa=expert,person,organism,living thing,causal agent;nogen
 vicious|adj|able or disposed to inflict pain or suffering|vicious kicks|fell, cruel, brutal, inhumane|humane|nogen
-vodka|n|unaged colorless liquor originating in Russia|He ordered a vodka and tonic.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+vodka|n|unaged colorless liquor originating in Russia|He ordered a vodka and tonic.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 wholly|adv|to a complete degree or to the full or entire extent|he was wholly convinced|all, whole, completely, totally|partly|nogen
 zoom|v|move along very quickly|The motorbike zoomed past us.|whizz||nogen
 archbishop|n|a bishop of highest rank|The archbishop led the coronation.|||kind=person;isa=bishop,priest,clergyman,spiritual leader,leader,person,organism,living thing,causal agent,Holy Order;nogen
@@ -3048,7 +3047,7 @@ despair|n|a state in which all hope is lost or absent|In the depths of despair.|
 dividend|n|that part of the earnings of a corporation that is distributed to its shareholders; usually paid quarterly|The company paid a dividend to its shareholders.|||isa=net income,income,financial gain,gain,sum,assets,possession,relation;nogen
 drift|v|be in motion due to some air or water current|The boat drifted on the lake.|blow, float, be adrift||nogen
 dye|v|color with dye|Please dye these shoes|||nogen
-electron|n|an elementary particle with negative charge|An electron carries a negative charge.|||isa=lepton,elementary particle,particle,body,natural object,fermion;nogen
+electron|n|an elementary particle with negative charge|An electron carries a negative charge.|||isa=lepton,fermion,particle,body,natural object,elementary particle;nogen
 endure|v|put up with something or somebody unpleasant|The new secretary had to endure a lot of unprofessional remarks.|put up, support, stand, stick out||nogen
 enzyme|n|any of several complex proteins that are produced by cells and act as catalysts in specific biochemical reactions|Enzymes help the body digest food.|||isa=protein,macromolecule,organic compound,compound,chemical,material,substance,part,relation,matter;has=active site;nogen
 evolutionary|adj|of or relating to or produced by evolution|evolutionary biology|||nogen
@@ -3061,10 +3060,10 @@ inadequate|adj|lacking the requisite qualities or resources to meet a task|inade
 infinity|n|time without end|The road seemed to stretch to infinity.|eternity||kind=time;isa=time,attribute;nogen
 intentionally|adv|with intention; in an intentional manner|He used that word intentionally.|by design, by choice, on purpose, deliberately|unintentionally|nogen
 lace|v|spin,wind, or twist together; also, make by braiding or interlacing|lace a tablecloth|twine, intertwine||nogen
-maiden|n|an unmarried girl|The story tells of a maiden locked in a tower.|maid||kind=person;isa=girl,woman,adult,person,organism,living thing,female,causal agent;nogen
+maiden|n|an unmarried girl|The story tells of a maiden locked in a tower.|maid||kind=person;isa=girl,woman,female,person,organism,living thing,adult,causal agent;nogen
 marketplace|n|the world of commercial activity where goods and services are bought and sold|They were driven from the marketplace.|market, market place||isa=activity,act,event,psychological feature;has=commercial enterprise;nogen
 membrane|n|a thin pliable sheet of material|A thin membrane surrounds each cell.|||kind=thing;isa=sheet,artifact;nogen
-metallic|adj|containing or made of or resembling or characteristic of a metal|a metallic compound|gold, metal, silver, all-metal||nogen
+metallic|adj|containing or made of or resembling or characteristic of a metal|a metallic compound|gold, metal, all-metal, silver||nogen
 methodology|n|the branch of philosophy that analyzes the principles and procedures of inquiry in a particular discipline|The study's methodology was sound.|methodological analysis||isa=epistemology,philosophy,humanistic discipline,discipline,knowledge domain,content,cognition,psychological feature;nogen
 murderer|n|a criminal who commits homicide|The murderer was caught a week later.|liquidator||kind=person;isa=criminal,principal,wrongdoer,bad person,person,organism,living thing,causal agent,killer;nogen
 nickel|n|a hard malleable ductile silvery metallic element that is resistant to corrosion; also, five dollars worth of a drug|A nickel bag of drugs.|||isa=metallic element,chemical element,substance,part,relation,matter;nogen
@@ -3133,7 +3132,7 @@ retention|n|the act of retaining something|The company is working on staff reten
 ribbon|n|any long object resembling a thin line|A mere ribbon of land.|thread||nogen
 shotgun|n|firearm that is a double-barreled smoothbore shoulder weapon for firing shot at short ranges|The farmer kept a shotgun by the door.|||kind=thing;isa=firearm,gun,weapon,instrument,device,instrumentality,artifact;has=pump action;nogen
 spoil|v|make a mess of, destroy or ruin; also, become unfit for consumption or use|The meat must be eaten before it spoils.|ball up, blow, mess up, screw up||past=spoilt;nogen
-submarine|n|a submersible warship usually armed with torpedoes|The submarine dived beneath the waves.|sub||kind=vehicle;isa=submersible,warship,ship,vessel,craft,vehicle,conveyance,instrumentality,artifact,military vehicle;has=conning tower,sonar,escape hatch,snorkel,periscope;nogen
+submarine|n|a submersible warship usually armed with torpedoes|The submarine dived beneath the waves.|sub||kind=vehicle;isa=submersible,warship,ship,vessel,craft,vehicle,conveyance,instrumentality,artifact,military vehicle;has=sonar,snorkel,escape hatch,periscope,conning tower;nogen
 sympathetic|adj|of or relating to the sympathetic nervous system|sympathetic neurons|||nogen
 taxation|n|charge against a citizen's person or property or activity for the support of government|The party promised lower taxation.|tax, revenue enhancement||isa=levy,charge,liabilities,possession,relation;nogen
 temper|n|a sudden outburst of anger|His temper sparked like damp firewood.|irritation, pique||isa=annoyance,anger,emotion,feeling,state,attribute;nogen
@@ -3162,9 +3161,9 @@ font|n|a specific size and style of type within a type family|Use a bigger font 
 freestyle|n|a race in which each contestant has a free choice of the style to use|She won the hundred meters freestyle.|||isa=race,contest,social event,event,psychological feature;nogen
 hairy|adj|having or covered with hair|a hairy caterpillar|shock-headed, haired, long-haired, short-haired|hairless|nogen
 inheritance|n|hereditary succession to a title or an office or property; also, any attribute or immaterial possession that is inherited from ancestors|My only inheritance was my mother's blessing.|heritage||isa=acquisition,acquiring,act,event,psychological feature;nogen
-madame|n|title used for a married Frenchwoman|Madame Dubois will see you now.|||kind=person;plural=mesdames;isa=dame,woman,adult,person,organism,living thing,female,causal agent;nogen
+madame|n|title used for a married Frenchwoman|Madame Dubois will see you now.|||kind=person;plural=mesdames;isa=dame,woman,female,person,organism,living thing,adult,causal agent;nogen
 minimize|v|make small or insignificant|Let's minimize the risk|minimise|maximize|nogen
-ounce|n|a unit of apothecary weight equal to 480 grains or one twelfth of a pound|Add an ounce of butter.|||isa=troy unit,weight unit,unit of measurement,definite quantity,measure,apothecaries' unit;has=dram,pennyweight;partof=troy pound;nogen
+ounce|n|a unit of apothecary weight equal to 480 grains or one twelfth of a pound|Add an ounce of butter.|||isa=troy unit,weight unit,unit of measurement,definite quantity,measure,apothecaries' unit;has=pennyweight,dram;partof=troy pound;nogen
 performer|n|an entertainer who performs a dramatic or musical work for an audience|Each performer had five minutes on stage.|performing artist||kind=person;isa=entertainer,person,organism,living thing,causal agent;nogen
 predominantly|adv|much greater in number or influence|The patients are predominantly indigenous.|||nogen
 primitive|adj|belonging to an early stage of technical development; characterized by simplicity and crudeness|Primitive movies of the 1890s.|early, rude, crude|late|nogen
@@ -3192,8 +3191,8 @@ vent|v|give expression or utterance to|She vented her anger|ventilate||nogen
 vicinity|n|a surrounding or nearby region|The plane crashed in the vicinity of Asheville.|neighborhood, neck of the woods, neighbourhood, locality||isa=section,area,region,location;nogen
 wan|adj|lacking in intensity or brightness; dim or feeble|The wan light of dawn.|sick, weak, pale, pallid|strong|nogen
 warmth|n|the sensation caused by heat energy; also, the quality of having a moderate degree of heat|An agreeable warmth in the house.|heat||isa=temperature,somesthesia,perception,basic cognitive process,process,cognition,psychological feature;nogen
-axe|n|an edge tool with a heavy bladed head mounted across a handle|He split the logs with an axe.|ax||kind=thing;isa=edge tool,cutter,cutting implement,tool,implement,instrumentality,artifact;has=ax handle,haft,blade,ax head;nogen
-belle|n|a young woman who is the most charming and beautiful of several rivals|She was the belle of the ball.|||kind=person;isa=girl,woman,adult,person,organism,living thing,female,causal agent;nogen
+axe|n|an edge tool with a heavy bladed head mounted across a handle|He split the logs with an axe.|ax||kind=thing;isa=edge tool,cutter,cutting implement,tool,implement,instrumentality,artifact;has=blade,ax handle,haft,ax head;nogen
+belle|n|a young woman who is the most charming and beautiful of several rivals|She was the belle of the ball.|||kind=person;isa=girl,woman,female,person,organism,living thing,adult,causal agent;nogen
 bulletin|n|a brief report|The news bulletin is at six.|||isa=report,news,information,message,communication;nogen
 capitalist|adj|of or relating to capitalism or capitalists|a capitalist nation|capitalistic||nogen
 constable|n|a lawman with less authority and jurisdiction than a sheriff|The constable took down our names.|||kind=person;isa=lawman,defender,preserver,person,organism,living thing,causal agent;nogen
@@ -3288,10 +3287,10 @@ unwanted|adj|not wanted; not needed|Tried to give away unwanted kittens.|cast-of
 variant|n|an event that departs from expectations; also, something a little different from others of the same type|A variant of the same word.|variance, discrepancy||isa=deviation,variation,change,happening,event,psychological feature;nogen
 vegetarian|n|eater of fruits and grains and nuts; someone who eats no meat or fish or any animal products|She has been a vegetarian since she was ten.|||kind=person;isa=eater,consumer,user,person,organism,living thing,causal agent;nogen
 visibility|n|quality or fact or degree of being visible; perceptible by the eye or obvious to the eye|Low visibility caused by fog.||invisibility|isa=perceptibility,physical property,property,attribute;nogen
-whiskey|n|a liquor made from fermented mash of grain|He sipped a glass of whiskey by the fire.|whisky||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+whiskey|n|a liquor made from fermented mash of grain|He sipped a glass of whiskey by the fire.|whisky||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 abundant|adj|present in great quantity|An abundant supply of water.|long, easy, thick, rank|scarce|nogen
 algebra|n|the mathematics of generalized arithmetical operations|In algebra, letters stand for numbers.|||isa=pure mathematics,mathematics,science,discipline,knowledge domain,content,cognition,psychological feature;nogen
-antenna|n|an electrical device that sends or receives radio or television signals; also, sensitivity similar to that of a receptor organ|He had a special antenna for public relations.|aerial, transmitting aerial||kind=thing;plural=antennae;isa=electrical device,device,instrumentality,artifact;partof=receiver,transmitter;nogen
+antenna|n|an electrical device that sends or receives radio or television signals; also, sensitivity similar to that of a receptor organ|He had a special antenna for public relations.|aerial, transmitting aerial||kind=thing;plural=antennae;isa=electrical device,device,instrumentality,artifact;partof=transmitter,receiver;nogen
 attribute|v|attribute or credit to|We attributed this quotation to Shakespeare.|assign, ascribe||nogen
 comparative|adj|relating to or based on or involving comparison|comparative linguistics|||nogen
 complement|n|a word or phrase used to complete a grammatical construction; also, a complete number or quantity|a full complement|||isa=construction,constituent,syntagma,string of words,string,sequence,series,ordering,arrangement,group;nogen
@@ -3371,7 +3370,7 @@ duchess|n|the wife of a duke or a woman holding ducal title in her own right|The
 extinction|n|no longer active; extinguished|The extinction of the volcano.|||isa=inaction,state,attribute;nogen
 foil|n|a piece of thin and flexible sheet metal|The photographic film was wrapped in foil.|||kind=thing;isa=sheet metal,sheet,artifact;nogen
 geology|n|a science that deals with the history of the earth as recorded in rocks|She studied geology and now works in mining.|||isa=earth science,natural science,science,discipline,knowledge domain,content,cognition,psychological feature;nogen
-gram|n|a metric unit of weight equal to one thousandth of a kilogram|A paper clip weighs about a gram.|g, gm||isa=metric weight unit,mass unit,unit of measurement,definite quantity,measure,metric unit;has=carat,obolus;nogen
+gram|n|a metric unit of weight equal to one thousandth of a kilogram|A paper clip weighs about a gram.|g, gm||isa=metric weight unit,metric unit,unit of measurement,definite quantity,measure,mass unit;has=obolus,carat;nogen
 heath|n|a low evergreen shrub of the family Ericaceae; has small bell-shaped pink or purple flowers|Heath grows on the open hillside.|||kind=nature;isa=shrub,woody plant,vascular plant,plant,organism,living thing;nogen
 heavenly|adj|relating to or inhabiting a divine heaven|heavenly hosts|celestial||nogen
 horrific|adj|causing fear or dread or terror|There was a horrific accident on the highway.|terrible, awful, frightening, dire||nogen
@@ -3445,10 +3444,10 @@ remotely|adv|in a remote manner|When the measured speech of the chorus passes ov
 retailer|n|a merchant who sells goods at retail|The retailer cut prices before the holidays.|retail merchant||kind=person;isa=distributor,supplier,businessperson,capitalist,person,organism,living thing,merchant,causal agent;nogen
 rigid|adj|incapable of or resistant to bending|A rigid strip of metal.|stiff, inflexible|flexible|nogen
 shattered|adj|ruined or disrupted|Our shattered dreams of peace and prosperity.|destroyed, tattered|preserved|nogen
-spacecraft|n|a craft capable of traveling in outer space; technically, a satellite around the sun|The spacecraft landed on Mars.|space vehicle, ballistic capsule||kind=vehicle;isa=craft,vehicle,conveyance,instrumentality,artifact,satellite,equipment;has=inertial guidance system,module,heat shield,cabin;nogen
+spacecraft|n|a craft capable of traveling in outer space; technically, a satellite around the sun|The spacecraft landed on Mars.|space vehicle, ballistic capsule||kind=vehicle;isa=craft,vehicle,conveyance,instrumentality,artifact,satellite,equipment;has=cabin,module,heat shield,inertial guidance system;nogen
 specification|n|a detailed description of design criteria for a piece of work|The house was built to a high specification.|spec||isa=description,statement,message,communication;nogen
 temp|n|a worker hired on a temporary basis|She worked as a temp for a year.|temporary, temporary worker||kind=person;isa=worker,person,organism,living thing,causal agent;nogen
-textile|n|artifact made by weaving or felting or knitting or crocheting natural or synthetic fibers|The town was once famous for its textiles.|material, fabric, cloth||kind=thing;isa=artifact;has=hem,edging;nogen
+textile|n|artifact made by weaving or felting or knitting or crocheting natural or synthetic fibers|The town was once famous for its textiles.|material, fabric, cloth||kind=thing;isa=artifact;has=edging,hem;nogen
 thickness|n|the dimension through an object as opposed to its length or width; also, indistinct articulation|Judging from the thickness of his speech he had been drinking heavily.||thinness|isa=dimension,magnitude,property,attribute;nogen
 unreasonable|adj|not reasonable; also, beyond normal limits|unreasonable demands|undue, mindless, indefensible, counterintuitive|reasonable|nogen
 upwards|adv|spatially or metaphorically from a lower to a higher position|prices soared upwards|up, upward, upwardly|downwards|nogen
@@ -3554,7 +3553,7 @@ resemble|v|appear like; be similar or bear a likeness to|This paper resembles my
 retro|n|a fashion reminiscent of the past|The café is decorated in seventies retro.|||isa=fashion,vogue,taste,discrimination,basic cognitive process,process,cognition,psychological feature;nogen
 revolt|n|organized opposition to authority; a conflict in which one faction tries to wrest control from another|The peasants rose in revolt.|rising, rebellion, uprising, insurrection||isa=conflict,group action,act,event,psychological feature;nogen
 rightly|adv|with honesty|He was rightly considered the greatest singer of his time.|justly||nogen
-saddle|n|a seat for the rider of a horse or camel|She swung herself up into the saddle.|||kind=thing;isa=seat,support,device,instrumentality,artifact;has=cantle,stirrup,pommel;nogen
+saddle|n|a seat for the rider of a horse or camel|She swung herself up into the saddle.|||kind=thing;isa=seat,support,device,instrumentality,artifact;has=pommel,stirrup,cantle;nogen
 shrine|n|a place of worship hallowed by association with some sacred thing or person|Pilgrims visit the shrine every year.|||kind=thing;isa=place of worship,building,structure,artifact;nogen
 shrink|v|wither, as with a loss of moisture; also, reduce in size|Can you shrink this image?|wither, shrivel||past=shrank;pp=shrunk;nogen
 sniper|n|a marksman who shoots at people from a concealed place|A sniper was hiding on the roof.|||kind=person;isa=marksman,shot,expert,person,organism,living thing,causal agent;nogen
@@ -3562,7 +3561,7 @@ solitary|adj|characterized by or preferring solitude|a solitary walk|lonely, lon
 sorrow|n|an emotion of great sadness associated with loss or bereavement|He tried to express his sorrow at her loss.||joy|isa=sadness,feeling,state,attribute;nogen
 stoke|v|stir up or tend; of a fire|He stoked the fire until it roared.|||nogen
 termination|n|a coming to an end of a contract period|The contract allows termination with a month's notice.|expiration, expiry||kind=time;isa=end,point,measure;nogen
-thigh|n|the part of the leg between the hip and the knee|She pulled a muscle in her thigh.|||kind=body;isa=limb,extremity,external body part,body part,part,thing;has=circumflex artery of the thigh,hip,musculus adductor longus,femoral artery,femur,musculus biceps femoris,musculus adductor magnus,quadriceps;partof=leg;nogen
+thigh|n|the part of the leg between the hip and the knee|She pulled a muscle in her thigh.|||kind=body;isa=limb,extremity,external body part,body part,part,thing;has=musculus adductor magnus,musculus biceps femoris,femoral vein,femur,quadriceps,musculus adductor brevis,circumflex artery of the thigh,femoral nerve;partof=leg;nogen
 thrive|v|grow vigorously|The deer population in this town is thriving.|expand, boom, flourish||past=throve;pp=thriven;nogen
 troll|n|a supernatural creature that is supposed to live in caves or in the mountains; also, a fisherman's lure that is used in trolling|He used a spinner as his troll.|||kind=person;isa=mythical monster,mythical being,imaginary being,imagination,creativity,ability,cognition,psychological feature,monster;nogen
 undertake|v|enter upon an activity or enterprise|They undertook the long journey on foot.|set about, attempt||past=undertook;pp=undertaken;nogen
@@ -3681,7 +3680,7 @@ magistrate|n|a lay judge or civil authority who administers the law|The magistra
 marginal|adj|at or constituting a border or edge|The marginal strip of beach.|peripheral|central|nogen
 masculine|adj|of grammatical gender; also, ending on an accented beat or syllable|a masculine cadence||feminine, neuter|nogen
 milestone|n|stone post at side of a road to show distances|Walking is a big milestone for a baby.|||isa=marker,symbol,signal,communication;nogen
-municipality|n|an urban district having corporate status and powers of self-government|Each municipality runs its own schools.|||isa=administrative district,district,region,location,urban area,geographical area;has=ward;nogen
+municipality|n|an urban district having corporate status and powers of self-government|Each municipality runs its own schools.|||isa=urban area,geographical area,region,location,administrative district,district;has=ward;nogen
 observatory|n|a building designed and equipped to observe astronomical phenomena|We looked at Saturn through the telescope at the observatory.|||kind=thing;isa=building,structure,artifact;nogen
 outdoors|adv|outside a building|The kids played outdoors all afternoon.|outside, out of doors, alfresco|indoors|nogen
 pedestrian|n|a person who travels by foot|The car stopped to let a pedestrian cross.|walker, footer||kind=person;isa=traveler,person,organism,living thing,causal agent;nogen
@@ -3806,7 +3805,7 @@ emphasize|v|to stress, single out as important|Dr. Jones emphasizes exercise in 
 entirety|n|the state of being total and complete|He read the article in its entirety.|totality||isa=completeness,integrity,state,attribute;nogen
 exodus|n|a journey by a large group to escape from a hostile environment|The war caused an exodus from the city.|||isa=escape,running away,act,event,psychological feature;nogen
 fallout|n|the radioactive particles that settle to the ground after a nuclear explosion; also, any adverse and unwanted secondary effect|A strategy to contain the fallout from the accounting scandal.|radioactive dust||isa=dust,particulate,material,substance,part,relation,matter;nogen
-firearm|n|a portable gun|He wore his firearm in a shoulder holster.|piece, small-arm||kind=thing;isa=gun,weapon,instrument,device,instrumentality,artifact;has=sights,firing pin,lock;nogen
+firearm|n|a portable gun|He wore his firearm in a shoulder holster.|piece, small-arm||kind=thing;isa=gun,weapon,instrument,device,instrumentality,artifact;has=sights,lock,firing pin;nogen
 footballer|n|an athlete who plays American football|The footballer signed for a new club.|football player||kind=person;isa=player,contestant,person,organism,living thing,athlete,causal agent;nogen
 forestry|n|the science of planting and caring for forests and the management of growing timber|He studied forestry and now works in a national park.|||isa=biology,life science,natural science,science,discipline,knowledge domain,content,cognition,psychological feature;nogen
 ghetto|n|formerly the restricted quarter of many European cities in which Jews were required to live|the Warsaw ghetto|||plural=ghettoes;isa=quarter,city district,district,region,location;nogen
@@ -3845,7 +3844,7 @@ underestimate|v|assign too low a value to|Don't underestimate the value of this 
 wallpaper|n|a decorative paper for the walls of rooms|We put up new wallpaper in the hall.|||isa=paper,material,substance,part,relation,matter;nogen
 watt|n|a unit of power equal to 1 joule per second; the power dissipated by a current of 1 ampere flowing across a resistance of 1 ohm|Use a sixty-watt bulb in this lamp.|||isa=power unit,electromagnetic unit,unit of measurement,definite quantity,measure;has=milliwatt;partof=horsepower;nogen
 addict|n|someone who is so ardently devoted to something that it resembles an addiction|a golf addict|freak, nut, junkie, junky||kind=person;isa=enthusiast,supporter,advocate,person,organism,living thing,causal agent;nogen
-ale|n|a general name for beer made with a top fermenting yeast; in some of the United States an ale is a brew of more than 4% alcohol by volume|He ordered a pint of ale.|||kind=food;isa=beer,brew,alcohol,beverage,liquid,fluid,substance,part,relation,matter;nogen
+ale|n|a general name for beer made with a top fermenting yeast; in some of the United States an ale is a brew of more than 4% alcohol by volume|He ordered a pint of ale.|||kind=food;isa=beer,brew,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse;nogen
 archaeological|adj|related to or dealing with or devoted to archaeology|an archaeological dig|archeological||nogen
 betrayal|n|an act of deliberate betrayal|She saw his lie as a betrayal.|treason, treachery||isa=dishonesty,wrongdoing,activity,act,event,psychological feature;nogen
 cardiovascular|adj|of or pertaining to or involving the heart and blood vessels|cardiovascular conditioning|||nogen
@@ -3862,7 +3861,7 @@ efficacy|n|capacity or power to produce a desired effect|Concern about the safet
 exaggerated|adj|represented as greater than is true or reasonable|An exaggerated opinion of oneself.|overstated, overdone|moderate|nogen
 exclusion|n|the state of being excluded|The new rule led to the exclusion of three players.||inclusion|isa=situation,state,attribute;nogen
 freelance|adj|working for yourself|She's a freelance photographer.|self-employed, free-lance|salaried|nogen
-gin|n|strong liquor flavored with juniper berries|He ordered a gin and tonic.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+gin|n|strong liquor flavored with juniper berries|He ordered a gin and tonic.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 ignition|n|the process of initiating combustion or catching fire|Turn the key in the ignition.|||isa=fire,combustion,oxidation,chemical reaction,chemical process,natural process,process;nogen
 impaired|adj|diminished in strength, quality, or utility|impaired eyesight|broken, diminished, dysfunctional, dicky||nogen
 investigative|adj|designed to find information or ascertain facts|investigative reporting|fact-finding, inquiring, investigatory||nogen
@@ -3973,7 +3972,7 @@ backlash|n|a movement back from an impact; also, an adverse reaction to some pol
 bonnie|adj|very pleasing to the eye|What a bonnie baby!|beautiful, fair, bonny, comely|ugly|nogen
 brewery|n|a plant where beer is brewed by fermentation|We toured a brewery in the old town.|||kind=thing;isa=plant,building complex,structure,artifact;nogen
 bulb|n|a modified bud consisting of a thickened globular underground stem serving as a reproductive structure; also, a rounded part of a cylindrical instrument|The bulb of a syringe.|||kind=nature;isa=stalk,plant organ,plant part,natural object;nogen
-cardboard|n|a stiff moderately thick paper|The kids built a castle out of cardboard.|composition board||isa=paper,material,substance,part,relation,packing material,matter;nogen
+cardboard|n|a stiff moderately thick paper|The kids built a castle out of cardboard.|composition board||isa=packing material,material,substance,part,relation,paper,matter;nogen
 casually|adv|not methodically or according to plan|He dealt with his course work casually.|||nogen
 circumstance|n|a condition that accompanies or influences some event or activity; also, formal ceremony about important occasions|pomp and circumstance|||isa=condition,state,attribute;nogen
 collateral|adj|descended from a common ancestor but through different lines|cousins are collateral relatives|indirect|lineal|nogen
@@ -4005,7 +4004,7 @@ immature|adj|characteristic of a lack of maturity|immature behavior|childish, ad
 imperative|adj|requiring attention or action|Requests that grew more and more imperative.|desperate, pressing, strident||nogen
 ineffective|adj|not producing an intended effect|an ineffective teacher|unproductive, toothless, ineffectual|effective|nogen
 manly|adj|possessing qualities befitting a man; also, characteristic of a man|manly sports|man-sized|unmanly|nogen
-maternity|n|the state of being pregnant; the period from conception to birth when a woman carries a developing fetus in her uterus|She's on maternity leave until June.|pregnancy, gestation||isa=physical condition,condition,state,attribute;has=morning sickness,quickening,cleavage,parturiency;nogen
+maternity|n|the state of being pregnant; the period from conception to birth when a woman carries a developing fetus in her uterus|She's on maternity leave until June.|pregnancy, gestation||isa=physical condition,condition,state,attribute;has=parturiency,morning sickness,quickening,cleavage;nogen
 misconduct|n|bad or dishonest management by persons supposed to act on another's behalf|The officer was fired for misconduct.|||isa=management,social control,group action,act,event,psychological feature;nogen
 morale|n|a state of individual psychological well-being based upon a sense of confidence and usefulness and purpose|The win boosted the team's morale.|||isa=psychological state,condition,state,attribute;nogen
 mute|adj|expressed without speech; ; ; - Emily Dickinson|a mute appeal|unspoken, wordless, inarticulate|articulate|nogen
@@ -4016,7 +4015,7 @@ optimization|n|the act of rendering optimal|The simultaneous optimization of gro
 outdated|adj|old; no longer valid or fashionable|outdated equipment|out-of-date|current|nogen
 oxide|n|any compound of oxygen with another element or a radical|Rust is a kind of iron oxide.|||isa=compound,chemical,material,substance,part,relation,matter;nogen
 peripheral|adj|on or near an edge or constituting an outer boundary; the outer area|peripheral suburbs|off-base, encircling, circumferential|central|nogen
-pint|n|a British imperial capacity measure equal to 4 gills or 568.26 cubic centimeters|I'll have a pint of milk.|||isa=British capacity unit,dry unit,volume unit,unit of measurement,definite quantity,measure,liquid unit;has=gill;partof=quart;nogen
+pint|n|a British imperial capacity measure equal to 4 gills or 568.26 cubic centimeters|I'll have a pint of milk.|||isa=British capacity unit,liquid unit,volume unit,unit of measurement,definite quantity,measure,dry unit;has=gill;partof=quart;nogen
 prevalence|n|the quality of prevailing generally; being widespread|He was surprised by the prevalence of optimism about the future.|||isa=generality,quality,attribute;nogen
 provisional|adj|under terms not final or fully worked out or agreed upon|a provisional government|conditional, tentative, probationary|unconditional|nogen
 remark|n|a statement that expresses a personal opinion or belief or adds information; also, explicit notice|it passed without remark|comment, input||isa=statement,message,communication;nogen
@@ -4039,7 +4038,7 @@ versatile|adj|having great diversity or variety|His vast and versatile erudition
 wed|v|take in marriage; also, perform a marriage ceremony|We were wed the following week.|get married, marry, hook up with, get hitched with||past=wedded;ing=wedding;nogen
 anthropology|n|the social science that studies the origins and social relationships of human beings|She's studying anthropology.|||isa=social science,science,discipline,knowledge domain,content,cognition,psychological feature;has=structuralism;nogen
 artery|n|a blood vessel that carries blood from the heart to the body|The surgeon repaired the damaged artery.|arterial blood vessel||kind=body;isa=blood vessel,vessel,tube,structure,body part,part,thing;nogen
-booze|n|an alcoholic beverage that is distilled rather than fermented|They bought snacks and booze for the party.|hard drink, strong drink, spirits, liquor||kind=food;isa=alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse,drug;nogen
+booze|n|an alcoholic beverage that is distilled rather than fermented|They bought snacks and booze for the party.|hard drink, strong drink, spirits, liquor||kind=food;isa=alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug,agent;nogen
 caliber|n|a degree or grade of excellence or worth|An executive of low caliber.|quality, calibre||isa=degree,property,attribute;nogen
 corporal|n|a noncommissioned officer in the Army or Air Force or Marines|The corporal saluted the officer.|||kind=person;isa=noncommissioned officer,military officer,serviceman,skilled worker,worker,person,organism,living thing,causal agent;nogen
 courtyard|n|an area wholly or partly surrounded by walls or buildings|The hotel has a quiet courtyard with a fountain.|court||kind=thing;isa=area,structure,artifact;partof=building;nogen
@@ -4059,7 +4058,7 @@ furnished|adj|provided with whatever is necessary for a purpose|a furnished apar
 gothic|adj|as if belonging to the Middle Ages; also, characterized by gloom and mystery and the grotesque|gothic novels like "Frankenstein'|medieval, mediaeval|modern|nogen
 grenade|n|a small explosive bomb thrown by hand or fired from a missile|The soldier threw a grenade.|||kind=thing;isa=bomb,explosive device,device,instrumentality,artifact,weaponry;nogen
 hamlet|n|a community of people smaller than a village|We stayed in a tiny hamlet in the hills.|crossroads||isa=community,gathering,social group,group;nogen
-helm|n|steering mechanism for a vessel; also, a position of leadership|The President is at the helm of the Ship of State.|||kind=thing;isa=steering system,mechanism,device,instrumentality,artifact;partof=tugboat,sailing vessel,ship,motorboat;nogen
+helm|n|steering mechanism for a vessel; also, a position of leadership|The President is at the helm of the Ship of State.|||kind=thing;isa=steering system,mechanism,device,instrumentality,artifact;partof=sailing vessel,tugboat,ship,motorboat;nogen
 hugely|adv|extremely|The show was hugely popular.|tremendously, enormously, staggeringly||nogen
 hypocrisy|n|an expression of agreement that is not supported by real conviction|The voters were angry at the hypocrisy of the politicians.|lip service||isa=pretense,misrepresentation,falsehood,statement,message,communication;nogen
 inaccurate|adj|not exact|an inaccurate translation|away, wide, faulty, unfaithful|accurate|nogen
@@ -4071,7 +4070,7 @@ kin|n|a person having kinship with another or others|he's kin|family||kind=perso
 malaria|n|an infective disease caused by sporozoan parasites that are transmitted through the bite of an infected Anopheles mosquito|Mosquitoes spread malaria.|||isa=protozoal infection,infection,ill health,pathological state,physical condition,condition,state,attribute;has=ague;nogen
 manifesto|n|a public declaration of intentions|The party published its manifesto.|||plural=manifestoes;isa=declaration,statement,message,communication;nogen
 maze|n|complex system of paths or tunnels in which it is easy to get lost|We got lost in the hedge maze.|labyrinth||kind=thing;isa=system,instrumentality,artifact;nogen
-monastery|n|the residence of a religious community|The monks of the monastery make cheese.|||kind=thing;isa=religious residence,residence,house,dwelling,housing,structure,artifact,building;has=scriptorium,minster,cell;nogen
+monastery|n|the residence of a religious community|The monks of the monastery make cheese.|||kind=thing;isa=religious residence,residence,house,dwelling,housing,structure,artifact,building;has=cell,minster,scriptorium;nogen
 narrowly|adv|in a narrow manner; not allowing for exceptions|He interprets the law narrowly.||broadly|nogen
 negligence|n|failure to act with the prudence that a reasonable person would exercise under the same circumstances|The fire was caused by negligence.|neglect, carelessness||isa=nonaccomplishment,act,event,psychological feature;nogen
 nexus|n|the means of connection between things linked in series|The city is the nexus of the region's trade.|link||isa=linkage,connection,relation;nogen
@@ -4222,7 +4221,7 @@ reconsider|v|consider again; give new consideration to; usually with a view to c
 refrain|n|the part of a song where a soloist is joined by a group of singers|Everyone joined in the refrain.|chorus||isa=music,auditory communication,communication;partof=song;nogen
 reproduce|v|make a copy or equivalent of|reproduce the painting|||nogen
 rite|n|an established ceremony prescribed by a religion|the rite of baptism|||isa=religious ceremony,ceremony,activity,act,event,psychological feature;nogen
-rum|n|liquor distilled from fermented molasses|The cocktail is made with rum.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+rum|n|liquor distilled from fermented molasses|The cocktail is made with rum.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 scorer|n|a player who makes a score in a game or contest|She was the top scorer of the season.|||kind=person;isa=player,contestant,person,organism,living thing,causal agent;nogen
 shareholder|n|someone who holds shares of stock in a corporation|The shareholders voted on the merger.|stockholder||kind=person;isa=investor,capitalist,person,organism,living thing,causal agent;nogen
 soy|n|a source of oil; used for forage and soil improvement and as food|Soy is a good source of protein.|soybean||kind=nature;isa=bean,seed,fruit,reproductive structure,plant organ,plant part,natural object;nogen
@@ -4233,13 +4232,13 @@ subdivision|n|an area composed of subdivided lots|They live in a new subdivision
 tar|n|any of various dark heavy viscid substances obtained as a residue|They covered the road with tar.|pitch||isa=bitumen,hydrocarbon,organic compound,compound,chemical,material,substance,part,relation,matter;nogen
 temporal|adj|not eternal|Temporal matters of but fleeting moment.||permanent|nogen
 tracker|n|someone who tracks down game|The tracker followed the deer's footprints.|||kind=person;isa=hunter,skilled worker,worker,person,organism,living thing,causal agent;nogen
-turbine|n|rotary engine in which the kinetic energy of a moving fluid is converted into mechanical energy by causing a bladed rotor to rotate|The wind turbine turned slowly.|||kind=thing;isa=rotary engine,internal-combustion engine,heat engine,engine,motor,machine,device,instrumentality,artifact;has=stator,blade,rotor;nogen
+turbine|n|rotary engine in which the kinetic energy of a moving fluid is converted into mechanical energy by causing a bladed rotor to rotate|The wind turbine turned slowly.|||kind=thing;isa=rotary engine,internal-combustion engine,heat engine,engine,motor,machine,device,instrumentality,artifact;has=rotor,stator,blade;nogen
 unavailable|adj|not available or accessible or at hand|Fresh milk was unavailable during the emergency.|inaccessible|available|nogen
 universally|adv|everywhere|People universally agree on this.|||nogen
 warden|n|the chief official in charge of a prison|The prison warden refused to comment.|||kind=person;isa=lawman,defender,preserver,person,organism,living thing,causal agent;nogen
 warp|v|make false by mutilation or addition; as of a message or story|The heat warped the plastic.|distort, falsify||nogen
-whisky|n|a liquor made from fermented mash of grain|He poured a glass of whisky.|whiskey||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
-womb|n|a hollow muscular organ in the pelvic cavity of females; contains the developing fetus|The baby grows in its mother's womb.|uterus||kind=body;isa=female internal reproductive organ,reproductive organ,organ,body part,part,thing;has=myometrium,uterine artery,endometrium,cervix,uterine cavity,Fallopian tube,placenta;partof=female reproductive system;nogen
+whisky|n|a liquor made from fermented mash of grain|He poured a glass of whisky.|whiskey||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
+womb|n|a hollow muscular organ in the pelvic cavity of females; contains the developing fetus|The baby grows in its mother's womb.|uterus||kind=body;isa=female internal reproductive organ,reproductive organ,organ,body part,part,thing;has=cervix,uterine cavity,Fallopian tube,placenta,myometrium,uterine artery,endometrium;partof=female reproductive system;nogen
 alpine|adj|relating to or characteristic of alps|alpine sports|||nogen
 ambient|adj|completely enveloping|ambient sound|close|distant|nogen
 aquatic|adj|relating to or consisting of or being in water|an aquatic environment|||nogen
@@ -4288,7 +4287,7 @@ paperback|n|a book with paper covers|I bought the paperback because it was cheap
 paved|adj|covered with a firm surface|The paved road ends at the village.|made-up, sealed|unpaved|nogen
 pavilion|n|large and often sumptuous tent|The wedding party ate in a pavilion on the lawn.|marquee||kind=thing;isa=tent,shelter,structure,artifact;nogen
 peasant|n|a country person|The peasants worked the land for the lord.|provincial, bucolic||kind=person;isa=rustic,commoner,person,organism,living thing,causal agent;nogen
-pointer|n|a mark to indicate a direction or relation|The teacher used a pointer to show the map.|arrow||isa=mark,written symbol,symbol,signal,communication;has=shaft,point;nogen
+pointer|n|a mark to indicate a direction or relation|The teacher used a pointer to show the map.|arrow||isa=mark,written symbol,symbol,signal,communication;has=point,shaft;nogen
 presume|v|take to be the case or to be true; also, constitute reasonable evidence for|A restaurant bill presumes the consumption of food.|take for granted, assume||nogen
 rectangular|adj|having four right angles|A rectangular figure twice as long as it is wide.|angular|rounded|nogen
 regulator|n|any of various controls or devices for regulating or controlling fluid flow, pressure, temperature, etc|The regulator controls the flow of gas.|||kind=thing;isa=control,mechanism,device,instrumentality,artifact;nogen
@@ -4335,7 +4334,7 @@ freshly|adv|very recently|a freshly cleaned floor|new, fresh, newly||nogen
 gazette|n|a newspaper or official journal|The notice was printed in the local gazette.|||isa=newspaper,press,print media,medium,instrumentality,artifact;nogen
 homage|n|respectful deference|The film pays homage to old westerns.|court||isa=deference,politeness,action,act,event,psychological feature;nogen
 hostility|n|a hostile disposition|He could not conceal his hostility.|ill will||isa=unfriendliness,disposition,nature,trait,attribute;nogen
-hymn|n|a song of praise|The choir sang a hymn.|anthem||isa=religious song,song,musical composition,music,auditory communication,communication,religious music,music genre,expressive style;nogen
+hymn|n|a song of praise|The choir sang a hymn.|anthem||isa=religious song,religious music,music genre,music,auditory communication,communication,song,musical composition,expressive style;nogen
 hypothetical|adj|based primarily on surmise rather than adequate evidence|hypothetical situation|supposed, theoretical|empirical|nogen
 informative|adj|tending to increase knowledge or dissipate ignorance|The talk was very informative.|illuminating, enlightening||nogen
 infringement|n|an act that disregards an agreement or a right|Copying the song was an infringement of copyright.|violation||isa=wrongdoing,activity,act,event,psychological feature;nogen
@@ -4381,7 +4380,7 @@ unseen|adj|not observed|The thief slipped away unseen.|undetected, unobserved|de
 utmost|adj|of the greatest possible degree or extent or intensity|utmost contempt|extreme, intense|mild|nogen
 accusation|n|a formal charge of wrongdoing brought against a person; the act of imputing blame or guilt|He denied the accusation.|||isa=charge,pleading,statement,message,communication;nogen
 adjustable|adj|capable of being changed so as to match or fit|adjustable seat belts|adaptable||nogen
-adulthood|n|the period of time in your life after your physical growth has stopped and you are fully developed|The book follows her from childhood to adulthood.|maturity||kind=time;isa=time of life,time period,fundamental quantity,measure;has=drinking age,forties,middle age,teens,voting age,thirties,fifties,twenties;nogen
+adulthood|n|the period of time in your life after your physical growth has stopped and you are fully developed|The book follows her from childhood to adulthood.|maturity||kind=time;isa=time of life,time period,fundamental quantity,measure;has=voting age,thirties,fifties,majority,drinking age,twenties,middle age,teens;nogen
 agony|n|intense feelings of suffering; acute mental or physical pain|an agony of doubt|torture, torment||isa=suffering,pain,feeling,state,attribute;nogen
 attain|v|to gain with effort|She attained her goal of running a marathon.|reach, achieve, accomplish||nogen
 attendant|n|someone who waits on or tends to or attends to the needs of another|The parking attendant gave us a ticket.|tender||kind=person;isa=assistant,worker,person,organism,living thing,causal agent;nogen
@@ -4389,7 +4388,7 @@ authenticity|n|undisputed credibility|Experts doubted the authenticity of the pa
 backstage|n|a stage area out of sight of the audience|The fans waited backstage to meet the band.|wing, offstage||kind=thing;isa=stage,platform,horizontal surface,surface,artifact;nogen
 benchmark|n|a standard by which something can be measured or judged|His painting sets the benchmark of quality.|||isa=standard,system of measurement,measure;nogen
 bloc|n|a group of countries in special alliance|The trade bloc includes six countries.|axis||isa=alliance,organization,social group,group;nogen
-bourbon|n|whiskey distilled from a mash of corn and malt and rye and aged in charred oak barrels|He ordered a bourbon on ice.|||kind=food;isa=whiskey,liquor,alcohol,beverage,liquid,fluid,substance,part,relation,matter;nogen
+bourbon|n|whiskey distilled from a mash of corn and malt and rye and aged in charred oak barrels|He ordered a bourbon on ice.|||kind=food;isa=whiskey,liquor,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse;nogen
 breathtaking|adj|tending to cause suspension of regular breathing|breathtaking adventure|exciting, breathless|unexciting|nogen
 brutality|n|the trait of extreme cruelty|The film shows the brutality of war.|savagery, viciousness||isa=cruelty,malevolence,evil,immorality,quality,attribute;nogen
 caste|n|social status or position conferred by a system based on class|Lose caste by doing work beneath one's station.|||isa=status,state,attribute;nogen
@@ -4405,11 +4404,11 @@ consul|n|a diplomat appointed by a government to protect its commercial interest
 contender|n|the contestant you hope to defeat|She's a serious contender for the title.|competition, rival, competitor, challenger||kind=person;isa=contestant,person,organism,living thing,causal agent;nogen
 crimson|adj|of a color at the end of the color spectrum; also, characterized by violence or bloodshed|Fann'd by Conquest's crimson wing.|red, blood-red, cherry, cherry-red||nogen
 degradation|n|changing to a lower state|The degradation of the soil worries farmers.|||isa=change of state,change,action,act,event,psychological feature;nogen
-emerald|n|a green transparent form of beryl; highly valued as a gemstone|Her ring has a green emerald in the middle.|||isa=beryl,mineral,material,substance,part,relation,transparent gem,gem,crystal,solid;nogen
+emerald|n|a green transparent form of beryl; highly valued as a gemstone|Her ring has a green emerald in the middle.|||isa=beryl,mineral,material,substance,part,relation,matter,transparent gem,gem,crystal;nogen
 equilibrium|n|a stable situation in which forces cancel one another|The two forces are in equilibrium.||disequilibrium|plural=equilibria;isa=situation,state,attribute;nogen
 evidently|adv|unmistakably|She was in bed and evidently in great pain.|obviously, apparently, plain, plainly||nogen
 famed|adj|widely known and esteemed|a famed scientist|known, famous, noted, celebrated|unknown|nogen
-fetus|n|an unborn or unhatched vertebrate in the later stages of development showing the main recognizable features of the mature animal|The scan showed the fetus moving.|foetus||kind=animal;isa=vertebrate,chordate,animal,organism,living thing;has=umbilical cord,ductus arteriosus
+fetus|n|an unborn or unhatched vertebrate in the later stages of development showing the main recognizable features of the mature animal|The scan showed the fetus moving.|foetus||kind=animal;isa=vertebrate,chordate,animal,organism,living thing;has=ductus arteriosus,umbilical cord
 flaw|n|an imperfection in an object or machine|A flaw caused the crystal to shatter.|fault, defect||isa=imperfection,state,attribute;nogen
 flawless|adj|without a flaw|a flawless gemstone|perfect|imperfect|nogen
 granddaughter|n|a female grandchild|Her granddaughter is learning to walk.|||kind=person;isa=grandchild,offspring,relative,person,organism,living thing,causal agent;nogen
@@ -4456,7 +4455,7 @@ commence|v|take the first step or steps in carrying out an action|The ceremony w
 compatibility|n|a feeling of sympathetic understanding|Their compatibility is clear; they never argue.|||isa=sympathy,feeling,state,attribute;nogen
 conditional|adj|qualified by reservations; also, imposing or depending on or containing a condition|lent conditional support|qualified|unqualified|nogen
 congratulate|v|say something to someone that expresses praise|I called to congratulate her on the new job.|compliment||nogen
-cortex|n|the layer of unmyelinated neurons forming the cortex of the cerebrum|The cortex is the outer layer of the brain.|cerebral mantle||kind=body;plural=cortices;isa=neural structure,structure,body part,part,thing;has=frontal lobe,occipital lobe,parietal lobe,Golgi's cell,cortical area,prefrontal lobe,temporal lobe;partof=cerebrum;nogen
+cortex|n|the layer of unmyelinated neurons forming the cortex of the cerebrum|The cortex is the outer layer of the brain.|cerebral mantle||kind=body;plural=cortices;isa=neural structure,structure,body part,part,thing;has=frontal lobe,Golgi's cell,prefrontal lobe,occipital lobe,parietal lobe,cortical area,temporal lobe;partof=cerebrum;nogen
 courageous|adj|possessing or displaying courage; able to face and deal with danger or fear without flinching; - Herman Melville|A frank courageous heart...triumphed over pain.|game, brave, desperate, valiant||nogen
 crusade|n|a series of actions advancing a principle or tending toward a particular end|She led a crusade against plastic waste.|cause, drive, campaign, movement||isa=venture,undertaking,work,activity,act,event,psychological feature;nogen
 cynical|adj|believing the worst of human nature and motives; having a sneering disbelief in e.g. selflessness of others|He's cynical about politicians.|distrustful, misanthropic|trustful|nogen
@@ -4468,7 +4467,7 @@ elastic|adj|capable of resuming original shape after stretching or compression; 
 exposition|n|a systematic interpretation or explanation of a specific topic; also, an account that sets forth the meaning or intent of a writing or discourse|We would have understood the play better if there had been some initial exposition of the background.|||isa=interpretation,explanation,statement,message,communication;nogen
 fetish|n|a charm superstitiously believed to embody magical powers; also, excessive or irrational devotion to some activity|Made a fetish of cleanliness.|voodoo, juju, hoodoo||kind=thing;isa=charm;nogen
 fundraiser|n|someone who solicits financial contributions|The school held a fundraiser for new computers.|||kind=person;isa=solicitor,petitioner,applicant,person,organism,living thing,causal agent;nogen
-garment|n|an article of clothing|Garments of the finest silk.|||kind=thing;isa=clothing,consumer goods,commodity,artifact,covering;has=shoulder,liner,pocket,neck,hipline,bosom,buttonhole,band;nogen
+garment|n|an article of clothing|Garments of the finest silk.|||kind=thing;isa=clothing,consumer goods,commodity,artifact,covering;has=fly,buttonhole,band,dart,jag,gusset,skirt;nogen
 geometric|adj|characterized by simple geometric forms in design and decoration|A buffalo hide painted with red and black geometric designs.|geometrical|representational|nogen
 gracious|adj|characterized by charm, good taste, and generosity of spirit|gracious living|elegant, merciful||nogen
 heap|n|a collection of objects laid on top of each other|There's a heap of laundry on the bed.|pile, mound, cumulus||isa=collection,group;nogen
@@ -4476,11 +4475,11 @@ humility|n|a disposition to be humble; a lack of false pride|Not everyone regard
 impeachment|n|a formal document charging a public official with misconduct in office|The impeachment of the president began in March.|||isa=legal document,document,writing,written communication,communication;nogen
 inventor|n|someone who is the first to think of or make something|The inventor of the telephone was Alexander Graham Bell.|discoverer, artificer||kind=person;isa=creator,person,organism,living thing,causal agent;nogen
 lumber|n|the wood of trees cut and prepared for use as building material|We bought lumber to build a fence.|timber||isa=building material,artifact;nogen
-madam|n|a woman of refinement|Can I help you, madam?|lady, ma'am, dame||kind=person;isa=woman,adult,person,organism,living thing,female,causal agent;nogen
+madam|n|a woman of refinement|Can I help you, madam?|lady, ma'am, dame||kind=person;isa=woman,female,person,organism,living thing,adult,causal agent;nogen
 marital|adj|of or relating to the state of marriage|marital status|married, matrimonial||nogen
 multitude|n|a large indefinite number|A multitude of TV antennas.|large number, pack, battalion, plurality||isa=large indefinite quantity,indefinite quantity,measure;nogen
 muse|v|reflect deeply on a subject|The scientist must stop to observe and start to excogitate.|think over, reflect, chew over, speculate||nogen
-nucleus|n|a part of the cell containing DNA and RNA and responsible for growth and reproduction|The nucleus controls the cell.|||kind=body;plural=nuclei;isa=organelle,organ,body part,part,thing;has=nucleolus,chromatin,achromatin,chromosome,linin;partof=cell;nogen
+nucleus|n|a part of the cell containing DNA and RNA and responsible for growth and reproduction|The nucleus controls the cell.|||kind=body;plural=nuclei;isa=organelle,organ,body part,part,thing;has=chromatin,linin,achromatin,chromosome,nucleolus;partof=cell;nogen
 orbital|adj|of or relating to an orbit|orbital velocity|||nogen
 organism|n|a living thing that has the ability to act or function independently; also, a system considered analogous in structure or function to a living body|the social organism|being||isa=living thing;has=cell,body part;nogen
 overhaul|v|travel past; also, make repairs, renovations, revisions or adjustments to|Overhaul the health care system.|pass, overtake||nogen
@@ -4491,7 +4490,7 @@ poppy|n|annual or biennial or perennial herbs having showy flowers|Red poppies g
 readiness|n|the state of having been made ready or prepared for use or action|putting them in readiness|preparation, preparedness||isa=state,attribute;nogen
 redundant|adj|more than is needed, desired, or required|Skills made redundant by technological advance.|extra, spare, excess, unnecessary|necessary|nogen
 resemblance|n|similarity in appearance or external or superficial details|There's a strong family resemblance.|||isa=likeness,similarity,sameness,quality,attribute;nogen
-rib|n|support resembling the rib of an animal|He broke a rib when he fell.|||kind=thing;isa=support,device,instrumentality,artifact;partof=umbrella,hull,wing;nogen
+rib|n|support resembling the rib of an animal|He broke a rib when he fell.|||kind=thing;isa=support,device,instrumentality,artifact;partof=umbrella,wing,hull;nogen
 sermon|n|an address of a religious nature|The priest gave a short sermon.|discourse, preaching||isa=address,speech act,act,event,psychological feature;nogen
 slender|adj|being of delicate or slender build|She was slender as a willow shoot is slender.|thin, slight, slim, svelte|fat|nogen
 sloppy|adj|lacking neatness or order|a sloppy room|untidy|tidy|nogen
@@ -4523,7 +4522,7 @@ competence|n|the quality of being adequately or well qualified physically and in
 constituent|n|an artifact that is one of the individual parts of which a composite entity is made up|A component or constituent element of a system.|element, component||kind=thing;isa=part;nogen
 contagious|adj|easily diffused or spread as from one person to another|a contagious grin|infectious||nogen
 conveniently|adv|in a convenient manner|The switch was conveniently located.|handily|inconveniently|nogen
-courtroom|n|a room in which a lawcourt sits|Television cameras were admitted in the courtroom.|court||kind=thing;isa=room,area,structure,artifact;has=bench,witness box,bar,jury box;partof=courthouse;nogen
+courtroom|n|a room in which a lawcourt sits|Television cameras were admitted in the courtroom.|court||kind=thing;isa=room,area,structure,artifact;has=jury box,bench,witness box,bar;partof=courthouse;nogen
 cushion|v|protect from impact|cushion the blow|buffer, soften||nogen
 cyclist|n|a person who rides a bicycle|A cyclist rode past us on the hill.|wheeler, bicyclist||kind=person;isa=pedaler,rider,traveler,person,organism,living thing,causal agent;nogen
 dictate|v|issue commands or orders for; also, say out loud for the purpose of recording|He dictated a report to his secretary.|order, prescribe||nogen
@@ -4572,7 +4571,7 @@ blitz|v|attack suddenly and without warning|Hitler blitzed Poland|||nogen
 blockade|n|a war measure that isolates some area of importance to the enemy|The navy set up a blockade of the port.|encirclement||isa=military action,group action,act,event,psychological feature;nogen
 brightness|n|the location of a visual perception along a continuum from black to white|Turn down the brightness of your screen at night.||dullness|isa=light,visual property,property,attribute;nogen
 cartridge|n|ammunition consisting of a cylindrical casing containing an explosive charge and a bullet; also, a module designed to be inserted into a larger piece of equipment|He loaded a cartridge of fresh tape into the tape deck.|||kind=thing;isa=ammunition,weaponry,instrumentality,artifact;has=bullet;nogen
-cigar|n|a roll of tobacco for smoking|He smoked a cigar after dinner.|||kind=thing;isa=roll of tobacco,tobacco,plant product,plant material,material,substance,part,relation,matter,drug of abuse;has=cigar butt,filler;nogen
+cigar|n|a roll of tobacco for smoking|He smoked a cigar after dinner.|||kind=thing;isa=roll of tobacco,tobacco,plant product,plant material,material,substance,part,relation,drug of abuse,drug;has=filler,cigar butt;nogen
 cloak|n|anything that covers or conceals|The wizard wore a long black cloak.|||kind=thing;isa=covering,artifact;nogen
 cologne|n|a perfumed liquid made of essential oils and alcohol|He wears too much cologne.|||kind=thing;isa=perfume,toiletry,instrumentality,artifact;nogen
 colt|n|a young male horse under the age of four|The colt stayed close to its mother.|||kind=animal;isa=foal,young mammal,young,animal,organism,living thing,male
@@ -4606,7 +4605,7 @@ latitude|n|the angular distance between an imaginary line around a heavenly body
 libertarian|n|an advocate of libertarianism|He's a libertarian who wants less government.|||kind=person;isa=advocate,person,organism,living thing,causal agent;nogen
 majestic|adj|majestic in manner or bearing; superior to mundane matters|his majestic presence|superior, olympian|inferior|nogen
 mastery|n|great skillfulness and knowledge of some subject or activity; also, power to dominate or defeat|mastery of the seas|control, command||isa=skillfulness,state,attribute;nogen
-metropolis|n|a large and densely populated urban area; may include several independent administrative districts|Tokyo is a huge metropolis.|city, urban center||isa=municipality,administrative district,district,region,location,urban area,geographical area;has=inner city,concrete jungle,city center,civic center,financial center,medical center;nogen
+metropolis|n|a large and densely populated urban area; may include several independent administrative districts|Tokyo is a huge metropolis.|city, urban center||isa=municipality,urban area,geographical area,region,location,administrative district,district;has=concrete jungle,city center,financial center,civic center,medical center,inner city;nogen
 nominate|v|propose as a candidate for some honor; also, put forward|The President nominated her as head of the Civil Rights Commission.|put up, put forward||nogen
 offend|v|cause to feel resentment or indignation|Her tactless remark offended me.|pique||nogen
 orchard|n|garden consisting of a small cultivated wood without undergrowth|We picked apples in the orchard.|grove, plantation||kind=thing;isa=garden,plot,tract,geographical area,region,location;nogen
@@ -4634,7 +4633,7 @@ victorious|adj|having won|the victorious entry|winning, successful|unsuccessful|
 wary|adj|marked by keen caution and watchful prudence|Taught to be wary of strangers.|shy|unwary|nogen
 wellness|n|a healthy state of wellbeing free from disease|The company runs a wellness program for staff.|health|illness|isa=wellbeing,prosperity,good fortune,fortune,condition,state,attribute;nogen
 winger|n|player in wing position|The winger crossed the ball into the box.|||kind=person;isa=athlete,contestant,person,organism,living thing,causal agent;nogen
-abdomen|n|the region of the body of a vertebrate between the thorax and the pelvis|The doctor pressed gently on his abdomen.|stomach, belly, venter||kind=body;isa=body part,part,thing;has=abdominal cavity,intestine,navel,colic artery,abdominal aorta,abdominal wall,hypochondrium,abdominal;partof=torso;nogen
+abdomen|n|the region of the body of a vertebrate between the thorax and the pelvis|The doctor pressed gently on his abdomen.|stomach, belly, venter||kind=body;isa=body part,part,thing;has=navel,abdominal aorta,hypochondrium,abdominal,abdominal cavity,abdominal wall,intestine,colic artery;partof=torso;nogen
 abruptly|adv|quickly and without warning|The music stopped abruptly.|short, dead, suddenly||nogen
 asteroid|n|any of numerous small celestial bodies composed of rock and metal that move around the sun|An asteroid passed close to the earth.|||isa=minor planet,celestial body,natural object;nogen
 batter|v|strike against forcefully|Waves battered the coast all night.|knock about, buffet||nogen
@@ -4710,7 +4709,7 @@ bloke|n|a boy or man|he's a good bloke|fellow, lad, chap, fella||kind=person;isa
 blond|adj|being or having light colored skin and hair and usually blue or grey eyes|blond Scandinavians|fair, blonde, ash-blonde, light-haired|brunet|nogen
 blur|v|become glassy; also, to make less distinct or clear|The haze blurs the hills.|film over, glaze over||past=blurred;ing=blurring;nogen
 blur|n|a hazy or indistinct representation|It happened so fast it was just a blur.|fuzz||isa=representation,content,cognition,psychological feature;nogen
-boogie|n|an instrumental version of the blues|The band played a fast boogie.|boogie-woogie||isa=blues,folk song,folk music,popular music,music genre,music,auditory communication,communication,song,musical composition;nogen
+boogie|n|an instrumental version of the blues|The band played a fast boogie.|boogie-woogie||isa=blues,folk song,folk music,popular music,music genre,music,auditory communication,communication,expressive style,song;nogen
 brow|n|the part of the face above the eyes; also, the peak of a hill|The sun set behind the brow of distant hills.|forehead||kind=body;isa=feature,body part,part,thing;has=trichion;partof=face;nogen
 bureaucracy|n|nonelective government officials|Getting a visa means a lot of bureaucracy.|||isa=government officials,administration,body,social group,group;nogen
 cater|v|give what is desired or needed, especially support, food or sustenance|The hotel caters for families.|provide, supply, ply||nogen
@@ -4804,7 +4803,7 @@ dunk|v|immerse briefly into a liquid so as to wet, coat, or saturate; also, make
 ensuing|adj|following immediately and as a result of what went before|Ensuing events confirmed the prediction.|succeeding|preceding|nogen
 ethic|n|the principles of right and wrong that are accepted by an individual or a social group|the Puritan ethic|value-system, moral principle, value orientation||isa=principle,value,ideal,idea,content,cognition,psychological feature;nogen
 expire|v|lose validity|My passports expired last month.|run out||nogen
-fireplace|n|an open recess in a wall at the base of a chimney where a fire can be built|The fireplace was so large you could walk inside it.|hearth||kind=thing;isa=recess,enclosure,area,structure,artifact;has=fire iron,mantel,hearthstone,hearth,water back;partof=chimney;nogen
+fireplace|n|an open recess in a wall at the base of a chimney where a fire can be built|The fireplace was so large you could walk inside it.|hearth||kind=thing;isa=recess,enclosure,area,structure,artifact;has=mantel,hearthstone,hearth,water back,fire iron;partof=chimney;nogen
 flair|n|a natural talent|He has a flair for mathematics.|genius||isa=endowment,natural ability,aptitude,ability,cognition,psychological feature;nogen
 fugitive|n|someone who flees from an uncongenial situation|fugitives from the sweatshops|runaway||kind=person;isa=person,organism,living thing,causal agent;nogen
 haunt|v|follow stealthily or recur constantly and spontaneously to|The ghost of her mother haunted her.|stalk||nogen
@@ -4874,7 +4873,7 @@ evacuate|v|move out of an unsafe location into safety|After the earthquake, resi
 favourable|adj|encouraging or approving or pleasing|The reviews were favourable.|favorable, approving, indulgent||nogen
 flourish|v|grow vigorously|The plants flourished in the warm weather.|expand, boom, thrive||nogen
 fragrance|n|a distinctive odor that is pleasant|The fragrance of the flowers filled the room.|scent, perfume, aroma||isa=smell,sensation,perception,basic cognitive process,process,cognition,psychological feature;nogen
-fungus|n|an organism of the kingdom Fungi lacking chlorophyll and feeding on organic matter|A fungus is growing on the tree.|||kind=nature;plural=fungi;isa=organism,living thing;has=mycelium,hymenium,volva,cap;nogen
+fungus|n|an organism of the kingdom Fungi lacking chlorophyll and feeding on organic matter|A fungus is growing on the tree.|||kind=nature;plural=fungi;isa=organism,living thing;has=cap,mycelium,hymenium,volva;nogen
 gunfire|n|the act of shooting a gun|The gunfire endangered innocent bystanders.|gunshot||isa=shooting,propulsion,act,event,psychological feature;nogen
 heroine|n|the main good female character in a work of fiction|The heroine of the story saves her village.|||kind=person;isa=character,portrayal,acting,performing arts,humanistic discipline,discipline,knowledge domain,content,cognition,psychological feature;nogen
 hoax|n|something intended to deceive; deliberate trickery intended to gain an advantage|The bomb threat turned out to be a hoax.|put-on, fraud, humbug||isa=trickery,deception,falsification,wrongdoing,activity,act,event,psychological feature;nogen
@@ -4887,7 +4886,7 @@ lite|adj|having relatively few calories|light (or lite) beer|light, low-cal, cal
 madden|v|cause to go crazy; also, make mad|His behavior is maddening|craze||nogen
 maneuver|n|a military training exercise; also, a deliberate coordinated movement requiring dexterity and skill|He made a great maneuver.|simulated military operation, manoeuvre||isa=operation,activity,act,event,psychological feature;partof=military training;nogen
 maneuver|v|direct the course; also, act in order to achieve a certain goal|He maneuvered to get the chairmanship.|point, head, direct, guide||nogen
-marrow|n|the fatty network of connective tissue that fills the cavities of bones|The dog chewed the marrow out of the bone.|||kind=body;isa=connective tissue,animal tissue,tissue,body part,part,thing;partof=immune system,bone;nogen
+marrow|n|the fatty network of connective tissue that fills the cavities of bones|The dog chewed the marrow out of the bone.|||kind=body;isa=connective tissue,animal tissue,tissue,body part,part,thing;partof=bone,immune system;nogen
 medicinal|adj|having the properties of medicine|medicinal herbs|healthful||nogen
 overlook|v|look past, fail to notice; also, be oriented in a certain direction|The apartment overlooks the Hudson.|||nogen
 pediatric|adj|of or relating to the medical care of children|pediatric dentist|paediatric||nogen
@@ -5015,13 +5014,13 @@ auditorium|n|the area of a theater or concert hall where the audience sits|The a
 benign|adj|not dangerous to health; also, pleasant and beneficial in nature or influence|a benign smile||malignant|nogen
 bleach|n|the whiteness that results from removing the color from something|A complete bleach usually requires several applications.|||isa=white,achromatic color,color,visual property,property,attribute;nogen
 boast|v|show off|He boasted about his new car.|gas, shoot a line, blow, brag||nogen
-brandy|n|distilled from wine or fermented fruit juice|He warmed the brandy in his hands.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+brandy|n|distilled from wine or fermented fruit juice|He warmed the brandy in his hands.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 brink|n|a region marking a boundary; also, the limit beyond which something happens or changes|On the brink of bankruptcy.|threshold, verge||isa=boundary,line,shape,attribute;nogen
 coastline|n|the outline of a coast|The coastline is dotted with fishing villages.|||isa=outline,boundary,extremity,region,location;nogen
 cobra|n|venomous Asiatic and African elapid snakes that can expand the skin of the neck into a hood|The cobra raised its head and hissed.|||kind=animal;isa=elapid,snake,diapsid,reptile,vertebrate,chordate,animal,organism,living thing
 collaborate|v|work together on a common enterprise of project; also, cooperate as a traitor|He collaborated with the Nazis when they occupied Paris.|get together, join forces, cooperate||nogen
 comparatively|adv|in a relative manner; by comparison to something else|The test was comparatively easy.|relatively||nogen
-cosmos|n|everything that exists anywhere|The film explores our place in the cosmos.|world, universe, creation, existence||isa=natural object;has=extraterrestrial object,celestial body;nogen
+cosmos|n|everything that exists anywhere|The film explores our place in the cosmos.|world, universe, creation, existence||isa=natural object;has=celestial body,extraterrestrial object;nogen
 cuff|n|the lap consisting of a turned-back hem encircling the end of the sleeve or leg|There's a stain on the cuff of my shirt.|||kind=thing;isa=lap,flap,covering,artifact;has=facing;partof=leg,sleeve;nogen
 dedicate|v|give entirely to a specific person, activity, or cause; also, open to public use, as of a highway, park, or building|The Beauty Queen spends her time dedicating parks and nursing homes.|give, commit, devote, consecrate||nogen
 delusional|adj|suffering from or characterized by delusions|He's delusional if he thinks he'll win.|neurotic||nogen
@@ -5102,7 +5101,7 @@ cradle|n|a baby bed with sides and rockers; also, birth of a person|He was taugh
 decency|n|the quality of conforming to standards of propriety and morality|Have the decency to say sorry.||indecency|isa=propriety,demeanor,trait,attribute;nogen
 despise|v|look down on with disdain|He despises the people he has to work for.|disdain, scorn||nogen
 destroyer|n|a small fast lightly armored but heavily armed warship; also, a person who destroys or ruins or lays waste to|A destroyer of the environment.|||kind=vehicle;isa=warship,ship,vessel,craft,vehicle,conveyance,instrumentality,artifact,military vehicle;nogen
-diocese|n|the territorial jurisdiction of a bishop|The bishop visited every church in the diocese.|bishopric, episcopate||isa=jurisdiction,district,region,location;has=parish,see;nogen
+diocese|n|the territorial jurisdiction of a bishop|The bishop visited every church in the diocese.|bishopric, episcopate||isa=jurisdiction,district,region,location;has=see,parish;nogen
 doorstep|n|the sill of a door; a horizontal piece of wood or stone that forms the bottom of a doorway and offers support when passing through a doorway|A parcel was waiting on the doorstep.|threshold||kind=thing;isa=sill,structural member,support,device,instrumentality,artifact;partof=doorway;nogen
 equip|v|provide with usually for a specific purpose|The expedition was equipped with proper clothing, food, and other necessities.|fit, fit out, outfit||past=equipped;ing=equipping;nogen
 glamorous|adj|having an air of allure, romance and excitement|glamorous movie stars|exciting|unexciting|nogen
@@ -5116,7 +5115,7 @@ knowingly|adv|with full knowledge and deliberation|He knowingly broke the rules.
 legged|adj|having legs of a specified kind or number|a peg-legged man|three-legged, straight-legged|legless|nogen
 liberalism|n|a political orientation that favors social progress by reform and by changing laws rather than by revolution|The book traces the history of liberalism.|||isa=political orientation,orientation,attitude,cognition,psychological feature;nogen
 litre|n|a metric unit of capacity, formerly defined as the volume of one kilogram of pure water under standard conditions|Buy a litre of milk.|liter||isa=metric capacity unit,metric unit,unit of measurement,definite quantity,measure,volume unit;has=deciliter;partof=dekaliter;nogen
-locomotive|n|a wheeled vehicle consisting of a self-propelled engine that is used to draw trains along railway tracks|The steam locomotive pulled six carriages.|engine||kind=vehicle;isa=self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container;has=fender,footplate;nogen
+locomotive|n|a wheeled vehicle consisting of a self-propelled engine that is used to draw trains along railway tracks|The steam locomotive pulled six carriages.|engine||kind=vehicle;isa=self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container;has=footplate,fender;nogen
 mantra|n|a commonly repeated word or phrase|She repeated "So pleased with how its going' at intervals like a mantra.|||isa=motto,saying,speech,auditory communication,communication;nogen
 mesa|n|flat tableland with steep edges|The tribe was relatively safe on the mesa but they had to descend into the valley for water.|table||isa=tableland,highland,natural elevation,geological formation;nogen
 milky|adj|resembling milk in color not clear|milky glass|opaque, whitish|clear|nogen
@@ -5244,7 +5243,7 @@ bidder|n|someone who makes an offer|The house went to the highest bidder.|||kind
 blueprint|n|something intended as a guide for making something else|A blueprint for a house.|design, pattern||isa=plan,idea,content,cognition,psychological feature;nogen
 bowler|n|a cricketer who delivers the ball to the batsman in cricket|The bowler took three wickets.|||kind=person;isa=cricketer,athlete,contestant,person,organism,living thing,causal agent;nogen
 charismatic|adj|possessing an extraordinary ability to attract|a charismatic leader|attractive, magnetic|unattractive|nogen
-chromosome|n|a threadlike strand of DNA in the cell nucleus that carries the genes in a linear order|Humans have forty-six chromosomes.|||kind=body;isa=body,natural object;has=nucleolus organizer,gene,chromatin,telomere,centromere,chromatid;partof=nucleus;nogen
+chromosome|n|a threadlike strand of DNA in the cell nucleus that carries the genes in a linear order|Humans have forty-six chromosomes.|||kind=body;isa=body,natural object;has=gene,chromatin,centromere,nucleolus organizer,chromatid,telomere;partof=nucleus;nogen
 commencement|n|the time at which something is supposed to begin|The commencement of the course is in September.|first, get-go, start, starting time||kind=time;isa=point,measure;nogen
 concede|v|admit (to a wrongdoing); also, acknowledge defeat|The candidate conceded after enough votes had come in to show that he would lose.|confess, profess||nogen
 contestant|n|a person who participates in competitions|Each contestant had a minute to answer.|||kind=person;isa=person,organism,living thing,causal agent;nogen
@@ -5304,7 +5303,7 @@ squat|adj|short and thick; as e.g. having short legs and heavy musculature|a squ
 sublime|adj|inspiring awe; - M.S.Dworkin|The sublime beauty of the night.|glorious|inglorious|nogen
 sweetness|n|the taste experience when sugar dissolves in the mouth; also, the quality of giving pleasure|He was charmed by the sweetness of her manner.|sweet||isa=taste,sensation,perception,basic cognitive process,process,cognition,psychological feature;nogen
 teamwork|n|cooperative work done by a team|It will take money, good planning and, above all, teamwork.|||isa=cooperation,group action,act,event,psychological feature;nogen
-tequila|n|Mexican liquor made from fermented juices of an agave plant|They ordered a round of tequila.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+tequila|n|Mexican liquor made from fermented juices of an agave plant|They ordered a round of tequila.|||kind=food;isa=liquor,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 terrestrial|adj|of or relating to or inhabiting the land as opposed to the sea or air; also, of or relating to or characteristic of the planet Earth or its inhabitants|this terrestrial ball|||nogen
 thug|n|an aggressive and violent young criminal|A thug smashed the shop window.|tough, hood, punk, goon||kind=person;isa=criminal,principal,wrongdoer,bad person,person,organism,living thing,causal agent;nogen
 unnatural|adj|not in accordance with or determined by nature; contrary to nature|an unnatural death|violent|natural|nogen
@@ -5317,7 +5316,7 @@ aggravated|adj|made more severe or intense especially in law|aggravated assault|
 alto|n|a singer whose voice lies in the alto clef|She sings alto in the choir.|||kind=person;isa=singer,musician,performer,entertainer,person,organism,living thing,causal agent;nogen
 analyse|v|consider in detail and subject to an analysis in order to discover essential features or meaning|We analysed the results together.|study, examine, canvas, analyze||nogen
 anomaly|n|deviation from the normal or common order or form or rule|The cold summer was an anomaly.|||isa=abnormality,physical condition,condition,state,attribute;nogen
-aperture|n|a device that controls amount of light admitted|Use a wide aperture for portraits.|||kind=thing;isa=regulator,control,mechanism,device,instrumentality,artifact;partof=camera,telescope;nogen
+aperture|n|a device that controls amount of light admitted|Use a wide aperture for portraits.|||kind=thing;isa=regulator,control,mechanism,device,instrumentality,artifact;partof=telescope,camera;nogen
 apprenticeship|n|the position of apprentice|He did an apprenticeship as an electrician.|||isa=position,occupation,activity,act,event,psychological feature;nogen
 aspire|v|have an ambitious plan or a lofty goal|She aspires to be a doctor.|shoot for, aim, draw a bead on||nogen
 biodiversity|n|the diversity of plant and animal life in a particular habitat|A high level of biodiversity is desirable.|||isa=diverseness,heterogeneity,nonuniformity,dissimilarity,difference,quality,attribute;nogen
@@ -5351,7 +5350,7 @@ immersion|n|sinking until covered completely with water|Immersion in cold water 
 inconvenient|adj|not suited to your comfort, purpose or needs|The back hall is an inconvenient place for the telephone.|awkward|convenient|nogen
 intrinsic|adj|belonging to a thing by its very nature|Form was treated as something intrinsic, as the very essence of the thing.|built-in, inner|extrinsic|nogen
 irresistible|adj|impossible to resist; overpowering|irresistible (or resistless) impulses|overpowering||nogen
-landslide|n|an overwhelming electoral victory|Roosevelt defeated Hoover in a landslide.|||isa=victory,ending,happening,event,psychological feature,success;nogen
+landslide|n|an overwhelming electoral victory|Roosevelt defeated Hoover in a landslide.|||isa=victory,success,happening,event,psychological feature,ending;nogen
 leash|n|restraint consisting of a rope used to restrain an animal; also, a figurative restraint|He's always gotten a long leash.|lead, tether||kind=thing;isa=restraint,device,instrumentality,artifact;nogen
 makeover|n|an overall beauty treatment intended to change or improve a person's appearance; also, a complete reconstruction and renovation of something|The blighted neighborhood underwent a total makeover.|||isa=beauty treatment,beautification,change of state,change,action,act,event,psychological feature;nogen
 memorandum|n|a written proposal or reminder|The two countries signed a memorandum of understanding.|memo, memoranda||plural=memoranda;isa=note,written record,record,evidence,indication,communication;nogen
@@ -5363,7 +5362,7 @@ onstage|adj|situated or taking place on the area of a stage visible to the audie
 ordeal|n|a severe or trying experience|Getting lost in the mountains was a terrible ordeal.|||isa=experience,happening,event,psychological feature;nogen
 painfully|adv|unpleasantly|His ignorance was painfully obvious.|||nogen
 paranormal|adj|seemingly outside normal sensory channels; also, not in accordance with scientific laws|What seemed to be paranormal manifestations.|telepathic, clairvoyant||nogen
-piston|n|mechanical device that has a plunging or thrusting motion|The piston moves up and down inside the engine.|plunger||kind=thing;isa=mechanical device,mechanism,device,instrumentality,artifact;has=piston rod,piston ring;partof=reciprocating engine;nogen
+piston|n|mechanical device that has a plunging or thrusting motion|The piston moves up and down inside the engine.|plunger||kind=thing;isa=mechanical device,mechanism,device,instrumentality,artifact;has=piston ring,piston rod;partof=reciprocating engine;nogen
 pollen|n|the fine spores that contain male gametes and that are borne by an anther in a flowering plant|Bees carry pollen from flower to flower.|||kind=nature;isa=spore,agamete,reproductive structure,plant organ,plant part,natural object;nogen
 rbi|n|a run that is the result of the batter's performance|He had more than 100 rbi last season.|run batted in||isa=run,score,success,attainment,accomplishment,action,act,event,psychological feature;nogen
 reggae|n|popular music originating in the West Indies; repetitive bass riffs and regular chords played on the off beat by a guitar|They played reggae on the beach.|||isa=popular music,music genre,music,auditory communication,communication,expressive style;nogen
@@ -5437,7 +5436,7 @@ implicated|adj|culpably involved|Named three officials implicated in the plot.|i
 inefficient|adj|not producing desired results; wasteful|An inefficient campaign against drugs.||efficient|nogen
 instrumentation|n|an artifact that is instrumental in accomplishing some end|The plane's instrumentation failed in the storm.|instrumentality||kind=thing;isa=artifact;nogen
 intolerance|n|impatience with annoyances|his intolerance of interruptions|||isa=impatience,ill nature,disposition,nature,trait,attribute;nogen
-leukemia|n|malignant neoplasm of blood-forming tissues; characterized by abnormal proliferation of leukocytes; one of the four major types of cancer|He was treated for leukemia as a child.|cancer of the blood, leukaemia||isa=cancer,malignant tumor,tumor,growth,illness,ill health,pathological state,physical condition,condition,state;nogen
+leukemia|n|malignant neoplasm of blood-forming tissues; characterized by abnormal proliferation of leukocytes; one of the four major types of cancer|He was treated for leukemia as a child.|cancer of the blood, leukaemia||isa=cancer,malignant tumor,malignancy,disease,illness,ill health,pathological state,physical condition,condition,state;nogen
 lineage|n|the descendants of one individual|His entire lineage has been warriors.|line, blood, blood line, stock||isa=genealogy,kin,social group,group;nogen
 liter|n|a metric unit of capacity, formerly defined as the volume of one kilogram of pure water under standard conditions|The bottle holds a liter.|litre||isa=metric capacity unit,metric unit,unit of measurement,definite quantity,measure,volume unit;has=deciliter;nogen
 manpower|n|the force of workers available|We don't have the manpower to finish on time.|men, work force, hands, workforce||isa=force,organization,social group,group;has=shift;nogen
@@ -5449,7 +5448,7 @@ opium|n|an addictive narcotic extracted from seed capsules of the opium poppy|Op
 ovarian|adj|of or involving the ovaries|ovarian cancer|||nogen
 peck|v|hit lightly with a picking motion|The chickens pecked at the grain.|pick, beak||nogen
 penal|adj|of or relating to punishment|penal code|||nogen
-plank|n|a stout length of sawn timber; made in a wide variety of sizes and used for many purposes|We laid a plank across the stream.|board||isa=lumber,building material,artifact;has=knot,knothole;nogen
+plank|n|a stout length of sawn timber; made in a wide variety of sizes and used for many purposes|We laid a plank across the stream.|board||isa=lumber,building material,artifact;has=knothole,knot;nogen
 plight|n|a situation from which extrication is difficult especially an unpleasant or trying one|The woeful plight of homeless people.|predicament, quandary||isa=difficulty,condition,state,attribute;nogen
 propulsion|n|a propelling force|The rocket uses jet propulsion.|||isa=force,physical phenomenon,natural phenomenon,phenomenon,process;nogen
 raft|n|a flat float that can be used for transport or as a platform for swimmers|They floated down the river on a raft.|||kind=thing;isa=float,artifact;nogen
@@ -5670,7 +5669,7 @@ discreet|adj|marked by prudence or modesty and wise self-restraint|his trusted d
 duet|n|two items of the same kind|They sang a duet at the wedding.|couple, pair, duo, span||isa=two,digit,integer,number,definite quantity,measure;has=mate;nogen
 enact|v|order by virtue of superior authority; decree|The legislature enacted this law in 1985.|ordain||nogen
 expressive|adj|characterized by expression|a very expressive face|communicative||nogen
-fiddle|n|bowed stringed instrument that is the highest member of the violin family|He plays the fiddle in a folk band.|violin||kind=thing;isa=bowed stringed instrument,stringed instrument,musical instrument,device,instrumentality,artifact;has=chin rest,fiddlestick;nogen
+fiddle|n|bowed stringed instrument that is the highest member of the violin family|He plays the fiddle in a folk band.|violin||kind=thing;isa=bowed stringed instrument,stringed instrument,musical instrument,device,instrumentality,artifact;has=fiddlestick,chin rest;nogen
 fortified|adj|secured with bastions or fortifications; also, having something added to increase the strength|fortified wine|protected|unprotected|nogen
 generalized|adj|not biologically differentiated or adapted to a specific function or environment|The hedgehog is a primitive and generalized mammal.|generalised|specialized|nogen
 glossy|adj|having a surface made smooth and glossy especially by pressing between rollers|glossy paper|glazed||nogen
@@ -5690,7 +5689,7 @@ linguistics|n|the scientific study of language|She studied linguistics at univer
 logically|adv|according to logical reasoning|Logically, you should now do the same to him.|||nogen
 lyrical|adj|suitable for or suggestive of singing; also, expressing deep emotion|the dancer's lyrical performance|melodious||nogen
 manifestation|n|a clear appearance|A manifestation of great emotion.|||isa=appearance,happening,event,psychological feature;nogen
-mead|n|made of fermented honey and water|They drank mead at the medieval fair.|||kind=food;isa=brew,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse;nogen
+mead|n|made of fermented honey and water|They drank mead at the medieval fair.|||kind=food;isa=brew,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug;nogen
 migrate|v|move from one country or region to another and settle there|Many Germans migrated to South America in the mid-19th century.|||nogen
 mildly|adv|to a moderate degree|he was mildly interested|||nogen
 miraculous|adj|being or having the character of a miracle|She made a miraculous recovery.|supernatural, marvelous, marvellous|natural|nogen
@@ -5766,7 +5765,7 @@ footwear|n|clothing worn on a person's feet|Wear sturdy footwear for the hike.||
 handbag|n|a container used for carrying money and small personal items or accessories|She keeps her keys in her handbag.|bag, purse, pocketbook||kind=thing;isa=container,instrumentality,artifact;has=clasp;nogen
 haze|n|atmospheric moisture or dust or smoke that causes reduced visibility|A haze hung over the city.|||isa=aerosol,cloud,physical phenomenon,natural phenomenon,phenomenon,process;nogen
 helium|n|a very light colorless element that is one of the six inert gasses|The balloons are filled with helium.|||isa=noble gas,chemical element,substance,part,relation,gas,fluid,matter;nogen
-hemp|n|a plant fiber|The rope is made of hemp.|||isa=plant fiber,natural fiber,fiber,material,substance,part,relation,plant product,plant material,matter;nogen
+hemp|n|a plant fiber|The rope is made of hemp.|||isa=plant fiber,plant product,plant material,material,substance,part,relation,natural fiber,fiber,matter;nogen
 hitch|v|to hook or entangle|He hitched the horse to the cart.|catch||nogen
 incarnation|n|a new personification of a familiar idea|the incarnation of evil|avatar, embodiment||kind=person;isa=personification,person,organism,living thing,causal agent;nogen
 intrusion|n|any entry into an area not previously occupied|Sorry for the intrusion; I'll be quick.|invasion, encroachment||isa=entrance,change of location,movement,happening,event,psychological feature;nogen
@@ -5795,7 +5794,7 @@ redesign|v|design anew, make a new design for|They redesigned the website.|||nog
 reluctance|n|opposition to magnetic flux; also, a certain degree of unwillingness|A reluctance to commit himself.|||isa=electrical phenomenon,physical phenomenon,natural phenomenon,phenomenon,process;nogen
 reopen|v|open again or anew|They reopened the theater|||nogen
 replication|n|the act of making copies|Scientists need replication of the results.|reproduction||isa=copying,repetition,continuance,activity,act,event,psychological feature;nogen
-rotor|n|the rotating armature of a motor or generator; also, rotating mechanism consisting of an assembly of rotating airfoils|There are horizontal rotors on a helicopter or compressor rotors in a jet engine.||stator|kind=thing;isa=armature,coil,reactor,electrical device,device,instrumentality,artifact;partof=generator,electric motor,turbine;nogen
+rotor|n|the rotating armature of a motor or generator; also, rotating mechanism consisting of an assembly of rotating airfoils|There are horizontal rotors on a helicopter or compressor rotors in a jet engine.||stator|kind=thing;isa=armature,coil,reactor,electrical device,device,instrumentality,artifact;partof=turbine,generator,electric motor;nogen
 sediment|n|matter that has been deposited by some natural process|Sediment settled at the bottom of the river.|deposit||isa=matter;nogen
 solitude|n|a state of social isolation|She enjoys the solitude of the mountains.|||isa=isolation,separation,state,attribute;nogen
 standby|n|something that can be relied on when needed|Keep a flashlight as a standby in case the power goes out.|||kind=thing;isa=thing,artifact;nogen
@@ -5851,7 +5850,7 @@ evergreen|n|a plant having foliage that persists and remains green throughout th
 eviction|n|action by a landlord that compels a tenant to leave the premises; no physical expulsion or legal process is involved|They faced eviction for not paying the rent.|||isa=compulsion,causing,act,event,psychological feature;nogen
 expulsion|n|the act of forcing out someone or something|The child's expulsion from school.|exclusion, ejection, riddance||isa=banishment,rejection,act,event,psychological feature;nogen
 filth|n|any substance considered disgustingly foul or unpleasant|The kitchen was covered in filth.|skank, crud||isa=waste,material,substance,part,relation,matter;nogen
-foliage|n|the main organ of photosynthesis and transpiration in higher plants|The autumn foliage was beautiful.|leaf||kind=nature;isa=plant organ,plant part,natural object;has=venation,leaf shape,lobe;nogen
+foliage|n|the main organ of photosynthesis and transpiration in higher plants|The autumn foliage was beautiful.|leaf||kind=nature;isa=plant organ,plant part,natural object;has=leaf shape,venation,lobe;nogen
 foreclosure|n|the legal proceedings initiated by a creditor to repossess the collateral for loan that is in default|The bank began foreclosure on the house.|||isa=proceeding,due process,group action,act,event,psychological feature;nogen
 fortnight|n|a period of fourteen consecutive days|Most major tennis tournaments last a fortnight.|two weeks||kind=time;isa=time period,fundamental quantity,measure;nogen
 genie|n|an invisible spirit mentioned in the Koran and believed by Muslims to inhabit the earth and influence mankind by appearing in the form of humans or animals|The genie granted him three wishes.|djinn||kind=person;isa=spirit,spiritual being,belief,content,cognition,psychological feature;nogen
@@ -5898,7 +5897,7 @@ sentinel|n|a person employed to keep watch for some anticipated event|A sentinel
 solemn|adj|dignified and somber in manner or character and committed to keeping promises|a solemn promise|serious, grave, sober, sedate|frivolous|nogen
 substantive|adj|having a firm basis in reality and being therefore important, meaningful, or considerable; also, defining rights and duties as opposed to giving the rules by which rights and duties are established|substantive law|essential, substantial||nogen
 substitution|n|an event in which one thing is substituted for another; also, the act of putting one thing or person in the place of another|He sent Smith in for Jones but the substitution came too late to help.|switch, replacement, permutation, transposition||isa=variation,change,happening,event,psychological feature;nogen
-torso|n|the body excluding the head and neck and limbs|The statue has no arms, just a torso.|body, trunk||kind=body;plural=torsi;isa=body part,part,thing;has=side,thorax,abdomen,shoulder,back,loins,hip;partof=body;nogen
+torso|n|the body excluding the head and neck and limbs|The statue has no arms, just a torso.|body, trunk||kind=body;plural=torsi;isa=body part,part,thing;has=hip,buttocks,serratus,diaphragm,middle,loins,waist,haunch;partof=body;nogen
 tremendously|adv|extremely|The show was tremendously popular.|hugely, enormously, staggeringly||nogen
 trojan|n|a program that appears desirable but actually contains something harmful|The contents of a trojan can be a virus or a worm.|||isa=malevolent program,program,software,code,coding system,writing,written communication,communication;nogen
 tumble|v|fall down, as if collapsing|The tower of the World Trade Center tumbled after the plane hit it.|topple||nogen
@@ -5908,7 +5907,7 @@ untrue|adj|not according with the facts|Unfortunately the statement was simply u
 verbally|adv|as a verb|He had a habit of using nouns verbally.|||nogen
 vitality|n|an energetic style; also, the property of being able to survive and grow|The vitality of a seed.|verve||isa=energy,liveliness,animation,activeness,trait,attribute;nogen
 windshield|n|transparent screen to protect occupants of a vehicle|Rain streamed down the windshield.|windscreen||kind=thing;isa=screen,protective covering,covering,artifact;partof=airplane,motor vehicle,motorboat;nogen
-zodiac|n|a belt-shaped region in the heavens on either side to the ecliptic; divided into 12 constellations or signs for astrological purposes|There are twelve signs of the zodiac.|||isa=region,location;has=Cancer,Aries,Gemini,Pisces,exaltation,Libra,Leo,Scorpius;partof=celestial sphere;nogen
+zodiac|n|a belt-shaped region in the heavens on either side to the ecliptic; divided into 12 constellations or signs for astrological purposes|There are twelve signs of the zodiac.|||isa=region,location;has=Leo,Pisces,Scorpius,exaltation,Libra,Virgo,Capricornus,sign of the zodiac;partof=celestial sphere;nogen
 abandonment|n|the act of giving something up; also, withdrawing support or help despite allegiance or responsibility|His abandonment of his wife and children left them penniless.|desertion, forsaking||isa=rejection,act,event,psychological feature;nogen
 abyss|n|a bottomless gulf or pit; any unfathomable cavity or chasm or void extending below|He stared into the dark abyss.|||isa=chasm,opening,space,amorphous shape,shape,attribute,location;nogen
 accession|n|a process of increasing by addition|The art collection grew through accession.|||isa=increase,process;nogen
@@ -5946,7 +5945,7 @@ fetal|adj|of or relating to a fetus|fetal development|foetal||nogen
 gorge|v|overeat or eat immodestly; make a pig of oneself|We gorged on cake at the party.|stuff, pig out, scarf out, binge||nogen
 greenwood|n|woodlands in full leaf|The greenwood was Robin Hood's home.|||isa=forest,biome,community,group,land;nogen
 heartfelt|adj|earnest|heartfelt condolences|dear, sincere, earnest, devout|insincere|nogen
-housewife|n|a wife who manages a household while her husband earns the family income|She was a housewife before she went back to work.|woman of the house, lady of the house, homemaker||kind=person;plural=housewives;isa=wife,spouse,relative,person,organism,living thing,domestic partner,woman,adult,female;nogen
+housewife|n|a wife who manages a household while her husband earns the family income|She was a housewife before she went back to work.|woman of the house, lady of the house, homemaker||kind=person;plural=housewives;isa=wife,spouse,relative,person,organism,living thing,domestic partner,woman,female,adult;nogen
 hypocrite|n|a person who professes beliefs and opinions that he or she does not hold in order to conceal his or her real feelings or motives|He's a hypocrite who tells others to recycle but never does.|phony, pretender, phoney||kind=person;isa=deceiver,wrongdoer,bad person,person,organism,living thing,causal agent;nogen
 incorporation|n|consolidating two or more things; union in one body|The company celebrated ten years since its incorporation.|||isa=consolidation,combination,change of integrity,change,action,act,event,psychological feature;nogen
 insure|v|be careful or certain to do something; also, protect by insurance|The insurance won't cover this.|see, see to it, control, check||nogen
@@ -5975,10 +5974,10 @@ rampage|n|violently angry and destructive behavior|The bull went on a rampage.|v
 rebirth|n|after death the soul begins a new cycle of existence in another human body|Spring is a time of rebirth.|||isa=phenomenon,process;nogen
 recharge|v|load anew; also, charge anew|recharge a battery|reload||nogen
 reliably|adv|in a faithful manner|The old car runs reliably.|faithfully||nogen
-retina|n|the innermost light-sensitive membrane covering the back wall of the eyeball; it is continuous with the optic nerve|Light hits the retina at the back of the eye.|||kind=body;plural=retinae;isa=membrane,animal tissue,tissue,body part,part,thing;has=parafovea,cone,rod,visual cell,blind spot,macula,fovea,neuroepithelium;partof=eye;nogen
+retina|n|the innermost light-sensitive membrane covering the back wall of the eyeball; it is continuous with the optic nerve|Light hits the retina at the back of the eye.|||kind=body;plural=retinae;isa=membrane,animal tissue,tissue,body part,part,thing;has=rod,macula,fovea,visual cell,blind spot,neuroepithelium,parafovea,cone;partof=eye;nogen
 semantic|adj|of or relating to meaning or the study of meaning|semantic analysis|||nogen
 shear|n|a deformation of an object in which parallel planes remain parallel but are shifted in a direction parallel to themselves|The shear changed the quadrilateral into a parallelogram.|||isa=deformation,change,happening,event,psychological feature;nogen
-sherry|n|dry to sweet amber wine from the Jerez region of southern Spain or similar wines produced elsewhere; usually drunk as an aperitif|My grandmother likes a glass of sherry.|||kind=food;isa=fortified wine,wine,alcohol,beverage,liquid,fluid,substance,part,relation,matter;nogen
+sherry|n|dry to sweet amber wine from the Jerez region of southern Spain or similar wines produced elsewhere; usually drunk as an aperitif|My grandmother likes a glass of sherry.|||kind=food;isa=fortified wine,wine,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse;nogen
 silicone|n|any of a large class of siloxanes that are unusually stable over a wide range of temperatures|The baking mat is made of silicone.|||isa=polymer,compound,chemical,material,substance,part,relation,siloxane,matter;nogen
 skepticism|n|doubt about the truth of something|The claim was met with skepticism.|mental rejection, disbelief, incredulity||isa=doubt,cognitive state,psychological state,condition,state,attribute;nogen
 sly|adj|marked by skill in deception|sly as a fox|tricky, slick, cunning, dodgy|artless|nogen
@@ -5989,7 +5988,7 @@ strife|n|lack of agreement or harmony|The country was torn by strife.|discord||i
 stylist|n|an artist who is a master of a particular style|My stylist cut my hair short.|||kind=person;isa=artist,creator,person,organism,living thing,causal agent;nogen
 tenor|n|the adult male singing voice above baritone; also, a settled or prevailing or habitual course of a person's life|Nothing disturbed the even tenor of her ways.|||isa=singing voice,voice,communication;nogen
 traverse|v|travel across or pass over; also, to cover or extend over an area or time period|Rivers traverse the valley floor.|get over, get across, cut through, cover||nogen
-uterus|n|a hollow muscular organ in the pelvic cavity of females; contains the developing fetus|The baby grows in the uterus.|womb||kind=body;plural=uteri;isa=female internal reproductive organ,reproductive organ,organ,body part,part,thing;has=myometrium,uterine artery,endometrium,cervix,uterine cavity,Fallopian tube,placenta;partof=female reproductive system;nogen
+uterus|n|a hollow muscular organ in the pelvic cavity of females; contains the developing fetus|The baby grows in the uterus.|womb||kind=body;plural=uteri;isa=female internal reproductive organ,reproductive organ,organ,body part,part,thing;has=cervix,uterine cavity,Fallopian tube,placenta,myometrium,uterine artery,endometrium;partof=female reproductive system;nogen
 validate|v|declare or make legally valid; also, make valid or confirm the validity of|validate a ticket|formalize|invalidate|nogen
 vocalist|n|a person who sings|The band's vocalist has a powerful voice.|singer||kind=person;isa=musician,performer,entertainer,person,organism,living thing,causal agent;nogen
 aft|adv|at or near or toward the stern of a ship or tail of an airplane|stow the luggage aft|astern|fore|nogen
@@ -6090,7 +6089,7 @@ abrupt|adj|marked by sudden changes in subject and sharp transitions|abrupt pros
 acronym|n|a word formed from the initial letters of the several words in the name|NASA is an acronym.|||isa=form,word,language unit,part,relation;nogen
 adversity|n|a state of misfortune or affliction|Debt-ridden farmers struggling with adversity.|hard knocks, hardship||isa=misfortune,fortune,condition,state,attribute;nogen
 advertiser|n|someone whose business is advertising|The advertiser paid for the billboard.|||kind=person;isa=publicist,communicator,person,organism,living thing,causal agent;nogen
-affidavit|n|written declaration made under oath; a written statement sworn to be true before someone legally authorized to administer an oath|She signed an affidavit.|||isa=legal document,document,writing,written communication,communication,testimony,evidence,information,message;nogen
+affidavit|n|written declaration made under oath; a written statement sworn to be true before someone legally authorized to administer an oath|She signed an affidavit.|||isa=testimony,evidence,information,message,communication,legal document,document,writing,written communication;nogen
 astrology|n|a pseudoscience claiming divination by the positions of the planets and sun and moon|She reads her horoscope, but she doesn't believe in astrology.|star divination||isa=pseudoscience,fallacy,misconception,idea,content,cognition,psychological feature;nogen
 authorize|v|grant authorization or clearance for|The rock star never authorized this slanderous biography.|clear, pass, authorise||nogen
 baroness|n|a noblewoman who holds the rank of baron or who is the wife or widow of a baron|The baroness opened the garden to visitors.|||kind=person;isa=Lady,female aristocrat,aristocrat,leader,person,organism,living thing,causal agent;nogen
@@ -6195,7 +6194,7 @@ colonization|n|the act of colonizing; the establishment of colonies|The British 
 cosmopolitan|adj|growing or occurring in many parts of the world|a cosmopolitan herb|widely distributed|endemic|nogen
 diagonal|adj|connecting two nonadjacent corners of a plane figure or any two corners of a solid that are not in the same face|A diagonal line across the page.|oblique|parallel, perpendicular|nogen
 discredit|v|cause to be distrusted or disbelieved|The paper discredited the politician with its nasty commentary.|||nogen
-dresser|n|furniture with drawers for keeping clothes; also, a person who dresses in a particular way|she's an elegant dresser|chest, bureau, chest of drawers||kind=furniture;isa=furniture,furnishing,instrumentality,artifact;has=shelf,drawer;nogen
+dresser|n|furniture with drawers for keeping clothes; also, a person who dresses in a particular way|she's an elegant dresser|chest, bureau, chest of drawers||kind=furniture;isa=furniture,furnishing,instrumentality,artifact;has=drawer,shelf;nogen
 dysfunctional|adj|impaired in function; also, failing to serve an adjustive purpose|dysfunctional behavior|impaired||nogen
 equitable|adj|fair to all parties as dictated by reason and conscience|Equitable treatment of all citizens.|just, honest|inequitable|nogen
 exert|v|put to use|Exert one's power or influence.|exercise||nogen
@@ -6249,7 +6248,7 @@ clerical|adj|of or relating to clerks|clerical work|||nogen
 collage|n|a paste-up made by sticking together pieces of paper or photographs to form an artistic image|He used his computer to make a collage of pictures superimposed on a map.|montage||kind=thing;isa=picture,representation,creation,artifact,paste-up,composition;nogen
 complimentary|adj|conveying or resembling a compliment|a complimentary remark|||nogen
 conjecture|n|a hypothesis that has been formed by speculating or conjecturing|He dismissed it as mere conjecture.|speculation||isa=hypothesis,concept,idea,content,cognition,psychological feature;nogen
-conspicuous|adj|obvious to the eye or mind|wore conspicuous neckties|big, attention-getting, crying, outstanding|inconspicuous|nogen
+conspicuous|adj|obvious to the eye or mind|wore conspicuous neckties|big, attention-getting, crying, marked|inconspicuous|nogen
 continual|adj|occurring without interruption; chiefly restricted to what recurs regularly or frequently in a prolonged and closely spaced series|The continual banging of the shutters.|running, persistent, recurring, perennial|sporadic|nogen
 elongated|adj|drawn out or made longer spatially|Picasso's elongated Don Quixote|long, extended, prolonged, lengthened|short|nogen
 escalate|v|increase in extent or intensity|The Allies escalated the bombing.|step up, intensify|de-escalate|nogen
@@ -6357,7 +6356,7 @@ invoke|v|summon into action or bring into existence, often as if by magic; also,
 joyous|adj|full of or characterized by joy|joyous laughter|gay, ecstatic, elated|joyless|nogen
 mend|v|restore by replacing a part or putting together what is torn or broken; also, heal or recover|My broken leg is mending.|touch on, doctor, fix, repair||nogen
 microbial|adj|of or involving or caused by or being microbes|microbial warfare|||nogen
-mitt|n|the extremity of the superior limb|he extended his mitt|hand, paw, manus||kind=body;isa=extremity,external body part,body part,part,thing;has=palm,ball,metacarpal vein,digital arteries,metacarpus,finger,metacarpal artery,intercapitular vein;partof=arm,homo;nogen
+mitt|n|the extremity of the superior limb|he extended his mitt|hand, paw, manus||kind=body;isa=extremity,external body part,body part,part,thing;has=metacarpal vein,finger,metacarpus,metacarpal artery,intercapitular vein,palm,ball,digital arteries;partof=homo,arm;nogen
 negligent|adj|characterized by neglect and undue lack of concern|negligent parents|hit-and-run, lax, derelict, inattentive|diligent|nogen
 nil|n|a quantity of no importance|Reduced to nil all the work we had done.|nothing, zero, zip, goose egg||isa=relative quantity,measure;nogen
 optimize|v|make optimal; get the most out of; use best|optimize your resources|optimise||nogen
@@ -6396,7 +6395,7 @@ elective|adj|subject to popular election|elective official|elected, electoral||n
 escalation|n|an increase to counteract a perceived discrepancy|Higher wages caused an escalation of prices.|||isa=increase,change of magnitude,change,action,act,event,psychological feature;nogen
 ethos|n|the distinctive spirit of a culture or an era|the Greek ethos|||isa=attribute;nogen
 forfeit|v|lose or lose the right to by some error, offense, or crime|forfeited property|give up, throw overboard, waive, forgo|claim|nogen
-hinge|n|a joint that holds two parts together so that one can swing relative to the other; also, a circumstance upon which subsequent events depend|His absence is the hinge of our plan.|flexible joint||kind=thing;isa=joint,junction,connection,instrumentality,artifact;has=pintle;partof=exterior door,French door,bi-fold door,gate;nogen
+hinge|n|a joint that holds two parts together so that one can swing relative to the other; also, a circumstance upon which subsequent events depend|His absence is the hinge of our plan.|flexible joint||kind=thing;isa=joint,junction,connection,instrumentality,artifact;has=pintle;partof=gate,swing door,car door,exterior door;nogen
 intestinal|adj|of or relating to or inside the intestines|intestinal disease|enteric||nogen
 manic|adj|affected with or marked by frenzy or mania uncontrolled by reason|Outbursts of drunken violence and manic activity and creativity.|wild, frenzied|tame|nogen
 manifold|n|a pipe that has several lateral outlets to or from other pipes; also, a lightweight paper used with carbon paper to make multiple copies|An original and two manifolds.|||kind=thing;isa=pipe,tube,conduit,passage,way,artifact;nogen
@@ -6465,7 +6464,7 @@ unanswered|adj|not returned in kind|unrequited (unanswered) love|unrequited|reci
 unethical|adj|not conforming to approved standards of social or professional behavior|unethical business practices||ethical|nogen
 valiant|adj|having or showing valor|a valiant soldier|brave|cowardly|nogen
 attentive|adj|giving care or attention|an attentive suitor|captive, observant|inattentive|nogen
-ballpark|n|a facility in which ball games are played|Take me out to the ballpark.|park||kind=thing;isa=stadium,structure,artifact;has=stand,bullpen,ball field,dugout;nogen
+ballpark|n|a facility in which ball games are played|Take me out to the ballpark.|park||kind=thing;isa=stadium,structure,artifact;has=dugout,stand,bullpen,ball field;nogen
 broaden|v|make broader|broaden the road|||nogen
 conclusive|adj|forming an end or termination; especially putting an end to doubt or question|conclusive proof|definitive|inconclusive|nogen
 coo|v|speak softly or lovingly|The mother who held her baby was cooing softly.|||nogen
@@ -6941,7 +6940,7 @@ agrarian|adj|relating to rural matters|An agrarian (or agricultural) society.|ru
 airy|adj|open to or abounding in fresh air|airy rooms|aired, ventilated||nogen
 anew|adv|again but in a new or different way|Wanted to write the story anew.|afresh||nogen
 blatantly|adv|in a blatant manner|They blatantly violated the laws.|||nogen
-blowout|n|an easy victory; also, a sudden malfunction of a part or apparatus|The right front tire had a blowout.|runaway, romp, shoo-in||isa=victory,ending,happening,event,psychological feature,success;nogen
+blowout|n|an easy victory; also, a sudden malfunction of a part or apparatus|The right front tire had a blowout.|runaway, romp, shoo-in||isa=victory,success,happening,event,psychological feature,ending;nogen
 brisk|adj|quick and energetic|A brisk walk in the park.|alert, lively, merry, energetic|lethargic|nogen
 bubbly|adj|emitting or filled with bubbles as from carbonation or fermentation|bubbling champagne|bubbling, foaming, frothy, effervescent||nogen
 bummer|n|an experience that is irritating or frustrating or disappointing|Having to stand in line so long was a real bummer.|||isa=irritation,psychological state,condition,state,attribute;nogen
@@ -7189,7 +7188,7 @@ cancerous|adj|relating to or affected with cancer|a cancerous growth|malignant|b
 caveat|n|a warning against certain acts|A caveat against unfair practices.|caution||isa=warning,informing,speech act,act,event,psychological feature;nogen
 chairperson|n|the officer who presides at the meetings of an organization|Address your remarks to the chairperson.|president, chairman, chair, chairwoman||kind=person;isa=presiding officer,leader,person,organism,living thing,causal agent;nogen
 contrived|adj|showing effects of planning or manipulation|A novel with a contrived ending.|planned|unplanned|nogen
-corolla|n|the whorl of petals of a flower that collectively form an inner floral envelope or layer of the perianth|We cultivate the flower for its corolla.|||kind=nature;isa=coil,round shape,shape,attribute;has=corona,petal;partof=perianth;nogen
+corolla|n|the whorl of petals of a flower that collectively form an inner floral envelope or layer of the perianth|We cultivate the flower for its corolla.|||kind=nature;isa=coil,round shape,shape,attribute;has=petal,corona;partof=perianth;nogen
 corrugated|adj|shaped into alternating parallel grooves and ridges|The surface of the ocean was rippled and corrugated.|furrowed||nogen
 curvy|adj|having curves|A settee with only one curvy end.|curved|straight|nogen
 deteriorate|v|become worse or disintegrate|His mind deteriorated|||nogen
@@ -7297,7 +7296,7 @@ inexplicable|adj|incapable of being explained or accounted for|inexplicable erro
 inseparable|adj|not capable of being separated|inseparable pieces of rock|indivisible|divisible|nogen
 institutionalized|adj|officially placed in or committed to a specialized institution|Had hopes of rehabilitating the institutionalized juvenile delinquents.|institutionalised||nogen
 intravenous|adj|within or by means of a vein|intravenous feeding|||nogen
-kilo|n|one thousand grams; the basic unit of mass adopted under the Systeme International d'Unites|A kilogram is approximately 2.2 pounds.|kg, kilogram||isa=metric weight unit,mass unit,unit of measurement,definite quantity,measure,metric unit;has=hectogram;partof=myriagram;nogen
+kilo|n|one thousand grams; the basic unit of mass adopted under the Systeme International d'Unites|A kilogram is approximately 2.2 pounds.|kg, kilogram||isa=metric weight unit,metric unit,unit of measurement,definite quantity,measure,mass unit;has=hectogram;partof=myriagram;nogen
 kinship|n|a close connection marked by community of interests or similarity in nature or character|Anthropology's kinship with the humanities.|affinity||isa=relation;nogen
 lactose|n|a sugar comprising one glucose molecule linked to a galactose molecule; occurs only in milk|Cow's milk contains about 4.7% lactose.|milk sugar||isa=disaccharide,oligosaccharide,carbohydrate,macromolecule,organic compound,compound,chemical,material,substance,part;nogen
 lenient|adj|tolerant or lenient; also, not strict|lenient rules|soft, indulgent, permissive||nogen
@@ -7467,7 +7466,7 @@ footer|n|the height or length of something in feet|he is a six-footer|||isa=line
 grille|n|small opening through which business can be transacted; also, a framework of metal bars used as a partition or a grate|He cooked hamburgers on the grill.|wicket, lattice||kind=thing;isa=opening,artifact;has=stump;nogen
 gullible|adj|naive and easily deceived or tricked|At that early age she had been gullible and in love.|green, naive|sophisticated|nogen
 gust|n|a strong current of air|The tree was bent almost double by the gust.|blow, blast||isa=wind,weather,atmospheric phenomenon,physical phenomenon,natural phenomenon,phenomenon,process;nogen
-hearth|n|an open recess in a wall at the base of a chimney where a fire can be built|He laid a fire in the hearth and lit it.|fireplace, open fireplace||kind=thing;isa=recess,enclosure,area,structure,artifact;has=fire iron,mantel,hearthstone,hearth,water back;partof=chimney;nogen
+hearth|n|an open recess in a wall at the base of a chimney where a fire can be built|He laid a fire in the hearth and lit it.|fireplace, open fireplace||kind=thing;isa=recess,enclosure,area,structure,artifact;has=mantel,hearthstone,hearth,water back,fire iron;partof=chimney;nogen
 hereafter|adv|in a subsequent part of this document or statement or matter etc; also, in a future life or state|Hope to win salvation hereafter.|hereinafter, hereunder||nogen
 impeach|v|challenge the honesty or veracity of|The lawyers tried to impeach the credibility of the witnesses.|||nogen
 lawfully|adv|in a manner acceptable to common custom; also, by law|We are lawfully wedded now.|legitimately||nogen
@@ -7713,7 +7712,7 @@ assimilate|v|take up mentally; also, become similar to one's environment|Immigra
 asymmetrical|adj|characterized by asymmetry in the spatial arrangement or placement of parts or components; also, irregular in shape or outline|asymmetrical features|asymmetric, lopsided|symmetrical|nogen
 barter|n|an equal exchange|We had no money so we had to live by barter.|trade, swap||isa=exchange,commerce,transaction,group action,act,event,psychological feature;nogen
 bigoted|adj|blindly and obstinately attached to some creed or opinion and intolerant toward others|a bigoted person|intolerant|tolerant|nogen
-bod|n|alternative names for the body of a human being|Leonardo studied the human body.|form, human body, figure, build||kind=body;isa=body,natural object;partof=person,homo;nogen
+bod|n|alternative names for the body of a human being|Leonardo studied the human body.|form, human body, figure, build||kind=body;isa=body,natural object;partof=homo,person;nogen
 bosom|n|the chest considered as the place where secret thoughts are kept|His bosom was bursting with the secret.|||isa=privacy,isolation,separation,state,attribute;nogen
 complacency|n|the feeling you have when you are satisfied with yourself|His complacency was absolutely disgusting.|self-satisfaction, self-complacency||isa=satisfaction,contentment,happiness,feeling,state,attribute;nogen
 convoluted|adj|rolled longitudinally upon itself; also, highly complex or intricate and occasionally devious|convoluted reasoning|coiled||nogen
@@ -7797,7 +7796,6 @@ radiance|n|the amount of electromagnetic radiation leaving or arriving at a poin
 saltwater|n|water containing salts|The water in the ocean is all saltwater.|seawater, brine|fresh water|isa=water,binary compound,compound,chemical,material,substance,part,relation,matter,liquid;nogen
 shoddy|adj|cheap and shoddy; also, designed to deceive or mislead either deliberately or inadvertently|shoddy business practices|inferior, tawdry|superior|nogen
 sleazy|adj|of cloth; thin and loosely woven|The coat has a sleazy lining.|thin|thick|nogen
-streamer|n|light that streams|streamers of flames|||isa=light,actinic radiation,electromagnetic radiation,radiation,energy,physical phenomenon,natural phenomenon,phenomenon,process;partof=aurora;nogen
 stringer|n|a member of a squad on a team|a first stringer|||kind=person;isa=player,contestant,person,organism,living thing,causal agent;nogen
 supremely|adv|to the maximum degree|he was supremely confident|||nogen
 symbolize|v|express indirectly by an image, form, or model; be a symbol|What does the Statue of Liberty symbolize?|stand for, represent, symbolise||nogen
@@ -7857,7 +7855,7 @@ stingy|adj|unwilling to spend|She practices economy without being stingy.|mean, 
 stuffy|adj|lacking fresh air|Hot and stuffy and the air was blue with smoke.|close, airless|ventilated|nogen
 subversion|n|destroying someone's honesty or loyalty; undermining moral integrity|The big city's subversion of rural innocence.|corruption||isa=degradation,change of state,change,action,act,event,psychological feature;nogen
 sufficiency|n|sufficient resources to provide comfort and meet obligations|Her father questioned the young suitor's sufficiency.|||isa=wealth,financial condition,condition,state,attribute;nogen
-takedown|n|being brought to the mat from a standing position|A takedown counts two points.|||isa=fall,victory,ending,happening,event,psychological feature,success;partof=wrestling match;nogen
+takedown|n|being brought to the mat from a standing position|A takedown counts two points.|||isa=fall,victory,success,happening,event,psychological feature,ending;partof=wrestling match;nogen
 terminally|adv|at the end|terminally ill|||nogen
 truncated|adj|cut short in duration|an unsatisfactory truncated conversation|short, shortened, abbreviated|long|nogen
 twig|v|branch out in a twiglike manner|The lightning bolt twigged in several directions.|||past=twigged;ing=twigging;nogen
@@ -7900,7 +7898,7 @@ mythic|adj|relating to or having the nature of myth|A novel of almost mythic con
 outwardly|adv|with respect to the outside|Outwardly, the figure is smooth.|externally||nogen
 phonetic|adj|of or relating to speech sounds|phonetic transcription|||nogen
 pied|adj|having sections or patches colored differently and usually brightly|pied daisies|multi-color, painted, multi-colour, colored||nogen
-shag|n|a strong coarse tobacco that has been shredded; also, a matted tangle of hair or fiber|the dog's woolly shag|||isa=tobacco,plant product,plant material,material,substance,part,relation,matter,drug of abuse,drug;nogen
+shag|n|a strong coarse tobacco that has been shredded; also, a matted tangle of hair or fiber|the dog's woolly shag|||isa=tobacco,plant product,plant material,material,substance,part,relation,drug of abuse,drug,agent;nogen
 sift|v|move as if through a sieve|The soldiers sifted through the woods.|||nogen
 socialization|n|the action of establishing on a socialist basis|The socialization of medical services.|socialisation||isa=group action,act,event,psychological feature;nogen
 speck|n|a very small spot|The plane was just a speck in the sky.|pinpoint||isa=spot,marking,design,decoration,artifact;nogen
@@ -7919,7 +7917,7 @@ ambivalent|adj|uncertain or unable to decide about what course to follow|Was amb
 bovine|adj|of or relating to or belonging to the genus Bos; also, dull and slow-moving and stolid|showed a bovine apathy|||nogen
 catapult|v|shoot forth or launch, as if from a catapult|The enemy catapulted rocks towards the fort.|||nogen
 cheery|adj|bright and pleasant; promoting a feeling of cheer|a cheery hello|gay, sunny, cheerful|depressing|nogen
-chit|n|a dismissive term for a girl who is immature or who lacks respect|she's a saucy chit|||kind=person;isa=girl,woman,adult,person,organism,living thing,female,causal agent;nogen
+chit|n|a dismissive term for a girl who is immature or who lacks respect|she's a saucy chit|||kind=person;isa=girl,woman,female,person,organism,living thing,adult,causal agent;nogen
 cog|n|a subordinate who performs an important but routine function|He was a small cog in a large machine.|||kind=person;isa=subordinate,assistant,worker,person,organism,living thing,causal agent;nogen
 coloration|n|the timbre of a musical sound; also, appearance with regard to color|her healthy coloration|color, colour||isa=timbre,sound property,property,attribute;nogen
 connective|adj|connecting or tending to connect|connective tissue in animals|||nogen
@@ -7944,7 +7942,7 @@ implantation|n|the organic process whereby a fertilized egg becomes implanted in
 inanimate|adj|belonging to the class of nouns denoting nonliving things|The word "car' is inanimate.||animate|nogen
 inflate|v|exaggerate or make bigger|The charges were inflated|blow up, expand, amplify||nogen
 irreplaceable|adj|impossible to replace|irreplaceable antiques||replaceable|nogen
-kilogram|n|one thousand grams; the basic unit of mass adopted under the Systeme International d'Unites|A kilogram is approximately 2.2 pounds.|kg, kilo||isa=metric weight unit,mass unit,unit of measurement,definite quantity,measure,metric unit;has=hectogram;partof=myriagram;nogen
+kilogram|n|one thousand grams; the basic unit of mass adopted under the Systeme International d'Unites|A kilogram is approximately 2.2 pounds.|kg, kilo||isa=metric weight unit,metric unit,unit of measurement,definite quantity,measure,mass unit;has=hectogram;partof=myriagram;nogen
 legislate|v|make laws, bills, etc. or bring into effect by legislation|We cannot legislate how people spend their free time.|pass||nogen
 lingo|n|a characteristic language of a particular group|They don't speak our lingo.|cant, slang, jargon, vernacular||plural=lingoes;isa=non-standard speech,speech,auditory communication,communication;nogen
 meaty|adj|like or containing meat|Enough of vegetarianism; let's have a meaty meal.||meatless|nogen
@@ -8307,7 +8305,7 @@ docile|adj|willing to be taught or led or supervised or directed|The docile mass
 doctrinal|adj|relating to or involving or preoccupied with doctrine|quibbling over doctrinal minutiae|||nogen
 dogmatic|adj|characterized by assertion of unproved or unprovable principles; also, relating to or involving dogma|dogmatic writings|narrow-minded|broad-minded|nogen
 dryness|n|the condition of not containing or being covered by a liquid; also, objectivity and detachment|Her manner assumed a dispassion and dryness very unlike her usual tone.||wetness|isa=condition,state,attribute;nogen
-edifice|n|a structure that has a roof and walls and stands more or less permanently in one place|It was an imposing edifice.|building||kind=thing;isa=structure,artifact;has=annex,anteroom,upstairs,crawlspace,roof,cullis,shaft,heating system;nogen
+edifice|n|a structure that has a roof and walls and stands more or less permanently in one place|It was an imposing edifice.|building||kind=thing;isa=structure,artifact;has=shaft,corner,elevator,annex,anteroom,upstairs,crawlspace,roof;nogen
 embossed|adj|embellished with a raised pattern created by pressure or embroidery|embossed leather|raised, adorned|unadorned|nogen
 encircled|adj|confined on all sides|the encircled pioneers|surrounded, enclosed||nogen
 expertly|adv|in an expert manner|He repaired the TV set expertly.|like an expert||nogen
@@ -8729,7 +8727,7 @@ spontaneity|n|the quality of being spontaneous and coming from natural feelings 
 stateless|adj|without nationality or citizenship|stateless persons|homeless, unsettled|settled|nogen
 surly|adj|inclined to anger or bad feelings with overtones of menace|a surly waiter|ugly, ill-natured|good-natured|nogen
 tarnish|v|make dirty or spotty, as by exposure to air; also used metaphorically|The silver was tarnished by the long exposure to the air.|stain, sully, defile||nogen
-trouser|n|a garment extending from the waist to the knee or ankle, covering each leg separately|He had a sharp crease in his trousers.|pant||kind=thing;isa=garment,clothing,consumer goods,commodity,artifact,covering;has=trouser cuff,seat,pant leg,hip pocket,slide fastener,trouser,lap,leg;nogen
+trouser|n|a garment extending from the waist to the knee or ankle, covering each leg separately|He had a sharp crease in his trousers.|pant||kind=thing;isa=garment,clothing,consumer goods,commodity,artifact,covering;has=hip pocket,slide fastener,lap,leg,trouser cuff,seat,trouser,pant leg;nogen
 ult|adj|in or of the month preceding the present one|Your letter received on the 29th ult.|past, ultimo|present, future|nogen
 unbound|adj|not secured within a cover|an unbound book||bound|nogen
 undemocratic|adj|not in agreement with or according to democratic doctrine or practice or ideals|The union broke with its past undemocratic procedures.|authoritarian, totalitarian, despotic|democratic|nogen
@@ -8819,7 +8817,7 @@ psychoactive|adj|affecting the mind or mood or other mental processes|psychoacti
 reaffirm|v|affirm once again|He reaffirmed his faith in the church.|||nogen
 retrofit|v|provide with parts, devices, or equipment not available or in use at the time of the original manufacture|They car companies retrofitted all the old models with new carburetors.|||past=retrofitted;ing=retrofitting;nogen
 robustness|n|the property of being strong and healthy in constitution; also, the characteristic of being strong enough to withstand intellectual challenge|The lack of robustness in the findings may be due to the small size of the sample.|validity, hardiness||isa=strength,property,attribute;nogen
-seedy|adj|full of seeds|As seedy as a fig.|seeded, three-seeded, single-seeded, white-seeded|seedless|nogen
+seedy|adj|full of seeds|As seedy as a fig.|seeded, three-seeded, black-seeded, small-seeded|seedless|nogen
 spearhead|v|be the leader of|She spearheaded the effort to find a cure for the disease.|||nogen
 subcutaneous|adj|relating to or located below the epidermis|subcutaneous implant|hypodermic||nogen
 subservient|adj|compliant and obedient to authority; -G. B. Shaw|Editors and journalists who express opinions in print that are opposed to the interests of the rich are dismissed and replaced by subservient ones.|subordinate|insubordinate|nogen
@@ -8896,7 +8894,7 @@ ascetic|adj|pertaining to or characteristic of an ascetic or the practice of rig
 attenuation|n|weakening in force or intensity|Attenuation in the volume of the sound.|fading||isa=weakening,transformation,change,happening,event,psychological feature;nogen
 avionics|n|science and technology of electronic systems and devices for aeronautics and astronautics|Avionics has become even more important with the development of the space program.|||isa=aeronautics,physics,natural science,science,discipline,knowledge domain,content,cognition,psychological feature;nogen
 brahman|n|a member of a social and cultural elite|a Boston brahman|brahmin||kind=person;isa=aristocrat,leader,person,organism,living thing,causal agent;nogen
-burg|n|colloquial American term for a town|I've lived in this burg all my life.|||isa=town,municipality,administrative district,district,region,location,urban area,geographical area;nogen
+burg|n|colloquial American term for a town|I've lived in this burg all my life.|||isa=town,municipality,urban area,geographical area,region,location,administrative district,district;nogen
 citywide|adj|occurring or extending throughout a city|citywide bussing|comprehensive||nogen
 comatose|adj|relating to or associated with a coma|comatose state|||nogen
 concoction|n|any foodstuff made by combining different ingredients|He volunteered to taste her latest concoction.|mixture||kind=food;isa=foodstuff,food,substance,matter;nogen
@@ -9000,7 +8998,7 @@ lurch|v|walk as if unable to control one's movements; also, move abruptly|The sh
 magnificence|n|splendid or imposing in size or appearance; also, the quality of being magnificent or splendid or grand|For magnificence and personal service there is the Queen's hotel.|richness||isa=excellence,quality,attribute;nogen
 measly|adj|contemptibly small in amount|a measly tip|miserable, meager, paltry|ample|nogen
 muddle|n|a confused multitude of things; also, informal terms for a difficult situation|He made a muddle of his marriage.|clutter, smother, jumble, welter||isa=disorderliness,condition,state,attribute;nogen
-multidimensional|adj|having or involving or marked by several dimensions or aspects|multidimensional problems|dimensional, two-dimensional, three-dimensional, four-dimensional||nogen
+multidimensional|adj|having or involving or marked by several dimensions or aspects|multidimensional problems|dimensional, two-dimensional, four-dimensional, three-dimensional||nogen
 oeuvre|n|the total output of a writer or artist|He studied the entire Wagnerian oeuvre.|work, body of work||kind=thing;isa=end product,product,creation,artifact;nogen
 pare|v|decrease gradually or bit by bit; also, strip the skin off|pare apples|||nogen
 persecute|v|cause to suffer|Jews were persecuted in the former Soviet Union.|oppress||nogen
@@ -9026,7 +9024,7 @@ appreciable|adj|enough to be estimated or measured|Appreciable amounts of noxiou
 associative|adj|characterized by or causing or resulting from the process of bringing ideas or events together in memory or imagination|associative learning|||nogen
 assuredly|adv|without a doubt|The grammar schools were assuredly not intended for the gentry alone.|||nogen
 aural|adj|of or pertaining to hearing or the ear|An animal with a very sensitive aural apparatus.|||nogen
-bridle|n|headgear for a horse; also, the act of restraining power or action or limiting excess|His common sense is a bridle to his quick temper.|||kind=thing;isa=headgear,stable gear,gear,equipment,instrumentality,artifact;has=headstall,noseband,bit,cheekpiece,rein;partof=harness;nogen
+bridle|n|headgear for a horse; also, the act of restraining power or action or limiting excess|His common sense is a bridle to his quick temper.|||kind=thing;isa=headgear,stable gear,gear,equipment,instrumentality,artifact;has=headstall,bit,cheekpiece,rein,noseband;partof=harness;nogen
 caudal|adj|constituting or relating to a tail|caudal appendage||cephalic|nogen
 colonize|v|settle as a colony; of countries in the developing world|Europeans colonized Africa in the 17th century.|colonise||nogen
 condolence|n|an expression of sympathy with another's grief|they sent their condolences|||isa=acknowledgment,message,communication;nogen
@@ -9282,7 +9280,7 @@ fireside|n|an area near a fireplace; also, home symbolized as a part of the fire
 freemasonry|n|a natural or instinctive fellowship between people of similar interests|He enjoyed the freemasonry of the Press.|||isa=company,friendship,relationship,state,attribute;nogen
 glandular|adj|relating to or affecting or functioning as a gland|glandular malfunctions|||nogen
 gutsy|adj|marked by courage and determination in the face of difficulties or danger; robust and uninhibited; ; -Judith Crist|a gutsy red wine|plucky|gutless|nogen
-invigorating|adj|imparting strength and vitality|the invigorating mountain air|life-giving, renewing, bracing, exhilarating|debilitating|nogen
+invigorating|adj|imparting strength and vitality|the invigorating mountain air|life-giving, renewing, exhilarating, bracing|debilitating|nogen
 inwardly|adv|with respect to private feelings|inwardly, she was raging|inside|outwardly|nogen
 lanky|adj|tall and thin and having long slender limbs|A lanky kid transformed almost overnight into a handsome young man.|tall|short|nogen
 loveless|adj|without love|a loveless marriage||loving|nogen
@@ -10501,7 +10499,7 @@ decompress|v|restore to its uncompressed form|decompress data||compress|nogen
 detestable|adj|unequivocally detestable|detestable vices|hateful, abominable, odious|lovable|nogen
 disastrously|adv|in a disastrous manner|The real value of the trust capital may be disastrously less than when the trust began.|||nogen
 distill|v|remove impurities from, increase the concentration of, and separate through the process of distillation; also, extract by the process of distillation|Distill the essence of this compound.|make pure, purify||past=distilled;ing=distilling;nogen
-dorsum|n|the posterior part of a human body from the neck to the end of the spine; also, the back of the body of a vertebrate or any analogous surface|The dorsum of the foot.|back||kind=body;plural=dorsa;isa=body part,part,thing;has=latissimus dorsi,lumbar vertebra,saddle,thoracic vertebra,small;partof=torso;nogen
+dorsum|n|the posterior part of a human body from the neck to the end of the spine; also, the back of the body of a vertebrate or any analogous surface|The dorsum of the foot.|back||kind=body;plural=dorsa;isa=body part,part,thing;has=lumbar vertebra,thoracic vertebra,latissimus dorsi,small,saddle;partof=torso;nogen
 explosively|adv|suddenly and rapidly|The population in Central America is growing explosively.|||nogen
 flexibly|adv|with flexibility|Come whenever you are free,' he said flexibly.|||nogen
 formalize|v|make formal or official|We formalized the appointment and gave him a title.|||nogen
@@ -10594,25 +10592,27 @@ appreciably|adv|to a noticeable degree|They weather was appreciably colder.|||no
 arthritic|n|a person afflicted with arthritis|The hands of an elderly arthritic.|||kind=person;isa=patient,sick person,unfortunate,person,organism,living thing,case,causal agent;nogen
 coarsely|adv|in coarse pieces|The surfaces were coarsely granular.||finely|nogen
 contusion|n|an injury that doesn't break the skin but results in some discoloration; also, the action of bruising|The bruise resulted from a contusion.|bruise||isa=injury,ill health,pathological state,physical condition,condition,state,attribute;nogen
+crosstown|adj|going or extending across a town or city|the crosstown bus|cross-town, crossed||nogen
+deadlocked|adj|at a complete standstill because of opposition of two unrelenting forces or factions|The two factions are deadlocked over fringe benefits.|obstructed|unobstructed|nogen
 James|n|a river that rises in North Dakota and flows southward across South Dakota to the Missouri|They sailed along the James for a week.|||nogen;isa=river,stream,body of water,thing;partof=South Dakota,North Dakota
-Washington|n|the capital of the United States in the District of Columbia and a tourist mecca|The flight to Washington was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=District of Columbia
+Washington|n|the capital of the United States in the District of Columbia and a tourist mecca|The flight to Washington was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=District of Columbia
 California|n|a state in the western United States on the Pacific; the 3rd largest state; known for earthquakes|California is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Southwest
 New River|n|a river in the southeastern United States that flows northward from North Carolina to West Virginia where it empties into the Kanawha River|They sailed along the New River for a week.|||nogen;isa=river,stream,body of water,thing;partof=United States
-South America|n|a continent in the western hemisphere connected to North America by the Isthmus of Panama|My cousin spent a year living in South America.|||kind=place;at=in;nogen;isa=continent,landmass,land;partof=southern hemisphere,America
-North America|n|a continent in the western hemisphere connected to South America by the Isthmus of Panama|My cousin spent a year living in North America.|||kind=place;at=in;nogen;isa=continent,landmass,land;partof=northern hemisphere,America
-Little Rock|n|the state capital and largest city of Arkansas in the central part of Arkansas on the Arkansas River|My friend just moved to Little Rock for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Arkansas
+South America|n|a continent in the western hemisphere connected to North America by the Isthmus of Panama|My cousin spent a year living in South America.|||kind=place;at=in;nogen;isa=continent,landmass,land;partof=America,West
+North America|n|a continent in the western hemisphere connected to South America by the Isthmus of Panama|My cousin spent a year living in North America.|||kind=place;at=in;nogen;isa=continent,landmass,land;partof=America,West
+Little Rock|n|the state capital and largest city of Arkansas in the central part of Arkansas on the Arkansas River|My friend just moved to Little Rock for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Arkansas
 Long Island|n|an island in southeastern New York; Brooklyn and Queens are on its western end|She sent me a postcard from Long Island.|||kind=place;at=in;nogen;isa=island,land;partof=New York
 Russia|n|a federation in northeastern Europe and northern Asia; formerly Soviet Russia; since 1991 an independent state|She sent me a postcard from Russia.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Eurasia
 Black Sea|n|a sea between Europe and Asia; a popular resort area of eastern Europeans|They sailed along the Black Sea for a week.|||nogen;isa=sea,body of water,thing
-Male|n|the capital of Maldives in the center of the islands|We walked all over Male on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Maldives
+Male|n|the capital of Maldives in the center of the islands|We walked all over Male on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Maldives
 Texas|n|the second largest state; located in southwestern United States on the Gulf of Mexico|My cousin spent a year living in Texas.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Gulf States
 North Sea|n|an arm of the North Atlantic between the British Isles and Scandinavia; oil was discovered under the North Sea in 1970|The North Sea looked calm from the bridge.|||nogen;isa=sea,body of water,thing;partof=Atlantic
-Long Beach|n|a city in southern California located on 8.5 miles of Pacific beachfront; was a resort until oil was discovered in 1921|We walked all over Long Beach on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=California
+Long Beach|n|a city in southern California located on 8.5 miles of Pacific beachfront; was a resort until oil was discovered in 1921|We walked all over Long Beach on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=California
 Red Sea|n|a long arm of the Indian Ocean between northeast Africa and Arabia; linked to the Mediterranean at the north end by the Suez Canal|The Red Sea looked calm from the bridge.|||nogen;isa=sea,body of water,thing;partof=Indian Ocean
 South Island|n|the larger but less populous of two main islands of New Zealand; separated from North Island by Cook Strait|We watched a documentary about South Island last night.|||kind=place;at=in;nogen;isa=island,land;partof=New Zealand
-Holy See|n|the smallest sovereign state in the world|My cousin spent a year living in Holy See.|||kind=place;at=in;nogen;isa=see,seat,center,area,region,location,European country,country,administrative district,district;partof=Rome
+Holy See|n|the smallest sovereign state in the world|My cousin spent a year living in Holy See.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location,see,seat,center,area;partof=Rome
 North Island|n|the smaller but more populous of two main islands of New Zealand; separated from South Island by Cook Strait|We watched a documentary about North Island last night.|||kind=place;at=in;nogen;isa=island,land;partof=New Zealand
-Chicago|n|largest city in Illinois; a bustling Great Lakes port that extends 26 miles along the southwestern shoreline of Lake Michigan|The flight to Chicago was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Illinois
+Chicago|n|largest city in Illinois; a bustling Great Lakes port that extends 26 miles along the southwestern shoreline of Lake Michigan|The flight to Chicago was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Illinois
 Israel|n|Jewish republic in southwestern Asia at eastern end of Mediterranean; formerly part of Palestine|Israel is high on my list of places to visit.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Middle East
 Charles|n|a river in eastern Massachusetts that empties into Boston Harbor and that separates Cambridge from Boston|They sailed along the Charles for a week.|||nogen;isa=river,stream,body of water,thing;partof=Massachusetts
 Florida|n|a state in southeastern United States between the Atlantic and the Gulf of Mexico; one of the Confederate states during the American Civil War|My cousin spent a year living in Florida.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Gulf States
@@ -10621,27 +10621,27 @@ New Mexico|n|a state in southwestern United States on the Mexican border|She sen
 Russian River|n|a river in northern California|We read about the Russian River in geography class.|||nogen;isa=river,stream,body of water,thing;partof=California
 East Germany|n|a republic in north central Europe on the Baltic; established by the Soviet Union in 1954; reunified with West Germany in 1990|East Germany is high on my list of places to visit.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location
 New Britain|n|the largest island in the Bismarck Archipelago; part of Papua New Guinea|She sent me a postcard from New Britain.|||kind=place;at=in;nogen;isa=island,land;partof=Bismarck Archipelago
-Canadian|n|a river rising in northeastern New Mexico and flowing eastward across the Texas panhandle to become a tributary of the Arkansas River in Oklahoma|We read about the Canadian in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Oklahoma,New Mexico
+Canadian|n|a river rising in northeastern New Mexico and flowing eastward across the Texas panhandle to become a tributary of the Arkansas River in Oklahoma|We read about the Canadian in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Texas,New Mexico
 Republican|n|a tributary of the Kansas River that flows from eastern Colorado eastward through Nebraska and Kansas|We read about the Republican in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Kansas,Colorado
 Sun River|n|a river in western Montana that flows south and east to join the Missouri River|They sailed along the Sun River for a week.|||nogen;isa=river,stream,body of water,thing;partof=Montana
-Mexico City|n|the capital and largest city of Mexico is a political and cultural and commercial and industrial center; one of the world's largest cities|The flight to Mexico City was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Mexico
+Mexico City|n|the capital and largest city of Mexico is a political and cultural and commercial and industrial center; one of the world's largest cities|The flight to Mexico City was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Mexico
 Great Britain|n|an island comprising England and Scotland and Wales|Great Britain is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=British Isles
-Boston|n|state capital and largest city of Massachusetts; a major center for banking and financial services|My friend just moved to Boston for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Massachusetts
+Boston|n|state capital and largest city of Massachusetts; a major center for banking and financial services|My friend just moved to Boston for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Massachusetts
 Grand River|n|a river in southern Michigan that flows northwest to empty into Lake Michigan|We read about the Grand River in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Michigan
-Split|n|an old Croatian city on the Adriatic Sea|We spent a few days in Split last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Croatia
+Split|n|an old Croatian city on the Adriatic Sea|We spent a few days in Split last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Croatia
 New Ireland|n|an island in the Bismarck Archipelago; part of Papua New Guinea|My cousin spent a year living in New Ireland.|||kind=place;at=in;nogen;isa=island,land;partof=Bismarck Archipelago
-New Jersey|n|a Mid-Atlantic state on the Atlantic; one of the original 13 colonies|New Jersey is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Mid-Atlantic states
+New Jersey|n|a Mid-Atlantic state on the Atlantic; one of the original 13 colonies|New Jersey is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Mid-Atlantic states,United States
 Channel Island|n|any of a group of British islands in the English Channel off the northern coast of France|Channel Island is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=British Isles,English Channel
 Iran|n|a theocratic Islamic republic in the Middle East in western Asia|We watched a documentary about Iran last night.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Gulf States,Middle East
 Virginia|n|a state in the eastern United States; one of the original 13 colonies; one of the Confederate States in the American Civil War|My cousin spent a year living in Virginia.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,South
-Jersey City|n|a city in northeastern New Jersey|We walked all over Jersey City on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New Jersey
+Jersey City|n|a city in northeastern New Jersey|We walked all over Jersey City on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New Jersey
 Ohio|n|a midwestern state in north central United States in the Great Lakes region|She sent me a postcard from Ohio.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
 Don|n|a European river in southwestern Russia; flows into the Sea of Azov|They sailed along the Don for a week.|||nogen;isa=river,stream,body of water,thing;partof=Russia
 Pacific|n|the largest ocean in the world|We read about the Pacific in geography class.|||nogen;isa=ocean,body of water,thing
 South Korea|n|a republic in the southern half of the Korean Peninsula; established in 1948|My cousin spent a year living in South Korea.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Korea,Asia
-Jackson|n|capital of the state of Mississippi on the Pearl River|My friend just moved to Jackson for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Mississippi
-Independence|n|a city in western Missouri; the beginning of the Santa Fe Trail|The flight to Independence was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Missouri
-Green Bay|n|a city of eastern Wisconsin on an arm of Lake Michigan|My friend just moved to Green Bay for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Wisconsin
+Jackson|n|capital of the state of Mississippi on the Pearl River|My friend just moved to Jackson for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Mississippi
+Independence|n|a city in western Missouri; the beginning of the Santa Fe Trail|The flight to Independence was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Missouri
+Green Bay|n|a city of eastern Wisconsin on an arm of Lake Michigan|My friend just moved to Green Bay for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Wisconsin
 Wake Island|n|an island in the western Pacific between Guam and Hawaii|She sent me a postcard from Wake Island.|||kind=place;at=in;nogen;isa=island,land;partof=Pacific
 North Korea|n|a communist country in the northern half of the Korean Peninsula; established in 1948|My cousin spent a year living in North Korea.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Korea,Asia
 Pakistan|n|a Muslim republic that occupies the heartland of ancient south Asian civilization in the Indus River valley|She sent me a postcard from Pakistan.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia
@@ -10649,555 +10649,555 @@ Amazon|n|a major South American river; arises in the Andes and flows eastward in
 Michigan|n|a midwestern state in north central United States in the Great Lakes region|Michigan is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
 West Virginia|n|a state in east central United States|West Virginia is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
 Yellow Sea|n|part of the Pacific off the east coast of Asia|They sailed along the Yellow Sea for a week.|||nogen;isa=sea,body of water,thing;partof=Pacific
-Sydney|n|the largest Australian city located in southeastern Australia on the Tasman Sea; state capital of New South Wales; Australia's chief port|We spent a few days in Sydney last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=New South Wales
-Manchester|n|a city in northwestern England; heart of the most densely populated area of England|The flight to Manchester was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
+Sydney|n|the largest Australian city located in southeastern Australia on the Tasman Sea; state capital of New South Wales; Australia's chief port|We spent a few days in Sydney last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=New South Wales
+Manchester|n|a city in northwestern England; heart of the most densely populated area of England|The flight to Manchester was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
 Jordan|n|an Arab kingdom in southwestern Asia on the Red Sea|We watched a documentary about Jordan last night.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Middle East,Asia
 Fox River|n|a river in Wisconsin that flows into Lake Michigan|They sailed along the Fox River for a week.|||nogen;isa=river,stream,body of water,thing;partof=Wisconsin
 Zealand|n|the largest island of Denmark and the site of Copenhagen|She sent me a postcard from Zealand.|||kind=place;at=in;nogen;isa=island,land;partof=Denmark
 Indian Ocean|n|the 3rd largest ocean; bounded by Africa on the west, Asia on the north, Australia on the east and merging with the Antarctic Ocean to the south|We read about the Indian Ocean in geography class.|||nogen;isa=ocean,body of water,thing
-Port Louis|n|capital and chief port of Mauritius; located on the northwestern coast of the island|My friend just moved to Port Louis for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Mauritius
-Miami|n|a city and resort in southeastern Florida on Biscayne Bay; the best known city in Florida; a haven for retirees and a refuge for Cubans fleeing Castro|My friend just moved to Miami for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=Florida
-South Carolina|n|a state in the Deep South; one of the original 13 colonies|South Carolina is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Deep South,United States
-Georgia|n|a state in southeastern United States; one of the Confederate states during the American Civil War|We watched a documentary about Georgia last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Deep South,United States
+Port Louis|n|capital and chief port of Mauritius; located on the northwestern coast of the island|My friend just moved to Port Louis for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Mauritius
+Miami|n|a city and resort in southeastern Florida on Biscayne Bay; the best known city in Florida; a haven for retirees and a refuge for Cubans fleeing Castro|My friend just moved to Miami for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=Florida
+South Carolina|n|a state in the Deep South; one of the original 13 colonies|South Carolina is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Carolina,United States
+Georgia|n|a state in southeastern United States; one of the Confederate states during the American Civil War|We watched a documentary about Georgia last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,South
 Colorado|n|a state in west central United States in the Rocky Mountains|She sent me a postcard from Colorado.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
-North Carolina|n|a state in southeastern United States; one of the original 13 colonies|North Carolina is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,South
-Los Angeles|n|a city in southern California; motion picture capital of the world; most populous city of California and second largest in the United States|My friend just moved to Los Angeles for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=California
-Victoria|n|port city and the capital of Seychelles|My friend just moved to Victoria for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Seychelles
-Northern Ireland|n|a division of the United Kingdom located on the northern part of the island of Ireland|She sent me a postcard from Northern Ireland.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe,United Kingdom
+North Carolina|n|a state in southeastern United States; one of the original 13 colonies|North Carolina is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Carolina,United States
+Los Angeles|n|a city in southern California; motion picture capital of the world; most populous city of California and second largest in the United States|My friend just moved to Los Angeles for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=California
+Victoria|n|port city and the capital of Seychelles|My friend just moved to Victoria for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Seychelles
+Northern Ireland|n|a division of the United Kingdom located on the northern part of the island of Ireland|She sent me a postcard from Northern Ireland.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=United Kingdom,Ireland
 Illinois|n|a midwestern state in north-central United States|She sent me a postcard from Illinois.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
-Virginia Beach|n|the largest city in Virginia|We spent a few days in Virginia Beach last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Virginia
-Liverpool|n|a large city in northwestern England; its port is the country's major outlet for industrial exports|We spent a few days in Liverpool last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=England
+Virginia Beach|n|the largest city in Virginia|We spent a few days in Virginia Beach last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Virginia
+Liverpool|n|a large city in northwestern England; its port is the country's major outlet for industrial exports|We spent a few days in Liverpool last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=England
 Iraq|n|a republic in the Middle East in western Asia; the ancient civilization of Mesopotamia was in the area now known as Iraq|My cousin spent a year living in Iraq.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Gulf States,Middle East
 Soviet Union|n|a former communist country in eastern Europe and northern Asia|She sent me a postcard from Soviet Union.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Eurasia
-Moscow|n|a city of central European Russia; formerly capital of both the Soviet Union and Soviet Russia; since 1991 the capital of the Russian Federation|We spent a few days in Moscow last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Russia
-Philadelphia|n|the largest city in Pennsylvania|My friend just moved to Philadelphia for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Pennsylvania
-Dallas|n|a large commercial and industrial city in northeastern Texas located in the heart of the northern Texas oil fields|My friend just moved to Dallas for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Texas
-Houston|n|the largest city in Texas; located in southeastern Texas near the Gulf of Mexico; site of the National Aeronautics and Space Administration|We spent a few days in Houston last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Texas
+Moscow|n|a city of central European Russia; formerly capital of both the Soviet Union and Soviet Russia; since 1991 the capital of the Russian Federation|We spent a few days in Moscow last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Russia
+Philadelphia|n|the largest city in Pennsylvania|My friend just moved to Philadelphia for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Pennsylvania
+Dallas|n|a large commercial and industrial city in northeastern Texas located in the heart of the northern Texas oil fields|My friend just moved to Dallas for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Texas
+Houston|n|the largest city in Texas; located in southeastern Texas near the Gulf of Mexico; site of the National Aeronautics and Space Administration|We spent a few days in Houston last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Texas
 Irish Sea|n|an arm of the North Atlantic between Great Britain and Ireland|The Irish Sea looked calm from the bridge.|||nogen;isa=sea,body of water,thing;partof=North Atlantic
 Syria|n|an Asian republic in the Middle East at the east end of the Mediterranean; site of some of the world's most ancient centers of civilization|Syria is high on my list of places to visit.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Middle East,Asia
-San Francisco|n|a port in western California near the Golden Gate that is one of the major industrial and transportation centers|The flight to San Francisco was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=California
-Pennsylvania|n|a Mid-Atlantic state; one of the original 13 colonies|Pennsylvania is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Mid-Atlantic states
-Columbia|n|capital and largest city in South Carolina; located in central South Carolina|We spent a few days in Columbia last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=South Carolina
+San Francisco|n|a port in western California near the Golden Gate that is one of the major industrial and transportation centers|The flight to San Francisco was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=California
+Pennsylvania|n|a Mid-Atlantic state; one of the original 13 colonies|Pennsylvania is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Mid-Atlantic states,United States
+Columbia|n|capital and largest city in South Carolina; located in central South Carolina|We spent a few days in Columbia last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=South Carolina
 Forth|n|a river in southern Scotland that flows eastward to the Firth of Forth|The Forth looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Scotland
-Cambridge|n|a city in eastern England on the River Cam; site of Cambridge University|The flight to Cambridge was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
-Gary|n|a city in northwest Indiana on Lake Michigan; steel production|We walked all over Gary on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=Indiana
-Seattle|n|a major port of entry and the largest city in Washington|The flight to Seattle was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=Washington
+Cambridge|n|a city in eastern England on the River Cam; site of Cambridge University|The flight to Cambridge was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
+Gary|n|a city in northwest Indiana on Lake Michigan; steel production|We walked all over Gary on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=Indiana
+Seattle|n|a major port of entry and the largest city in Washington|The flight to Seattle was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=Washington
 Atlantic|n|the 2nd largest ocean; separates North and South America on the west from Europe and Africa on the east|We read about the Atlantic in geography class.|||nogen;isa=ocean,body of water,thing
-Berlin|n|capital of Germany located in eastern Germany|We spent a few days in Berlin last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Germany
-Oxford|n|a city in southern England to the northwest of London; site of Oxford University|The flight to Oxford was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
+Berlin|n|capital of Germany located in eastern Germany|We spent a few days in Berlin last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Germany
+Oxford|n|a city in southern England to the northwest of London; site of Oxford University|The flight to Oxford was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
 Arizona|n|a state in southwestern United States; site of the Grand Canyon|Arizona is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Southwest
-Saint John|n|a port in eastern Canada; the largest city in New Brunswick|The flight to Saint John was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=New Brunswick
-Atlanta|n|state capital and largest city of Georgia|My friend just moved to Atlanta for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Georgia
+Saint John|n|a port in eastern Canada; the largest city in New Brunswick|The flight to Saint John was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=New Brunswick
+Atlanta|n|state capital and largest city of Georgia|My friend just moved to Atlanta for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Georgia
 Kansas|n|a state in midwestern United States|My cousin spent a year living in Kansas.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
-Atlantic City|n|a city on the Atlantic shore in southeastern New Jersey; a resort and gambling center|My friend just moved to Atlantic City for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New Jersey
-Fort Worth|n|a city in northeastern Texas; a major industrial center|We walked all over Fort Worth on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Texas
-Melbourne|n|the capital of Victoria state and 2nd largest Australian city; a financial and commercial center|My friend just moved to Melbourne for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Victoria
-Austin|n|state capital of Texas on the Colorado River; site of the University of Texas|We spent a few days in Austin last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Texas
+Atlantic City|n|a city on the Atlantic shore in southeastern New Jersey; a resort and gambling center|My friend just moved to Atlantic City for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New Jersey
+Fort Worth|n|a city in northeastern Texas; a major industrial center|We walked all over Fort Worth on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Texas
+Melbourne|n|the capital of Victoria state and 2nd largest Australian city; a financial and commercial center|My friend just moved to Melbourne for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Victoria
+Austin|n|state capital of Texas on the Colorado River; site of the University of Texas|We spent a few days in Austin last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Texas
 Wisconsin|n|a midwestern state in north central United States|My cousin spent a year living in Wisconsin.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
 Elizabeth River|n|a short river in southeastern Virginia flowing between Norfolk and Portsmouth into Hampton Roads|The Elizabeth River looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Virginia
-Singapore|n|the capital of Singapore; one of the world's biggest ports|We spent a few days in Singapore last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Singapore
-Kansas City|n|a city of northeast Kansas on the Missouri River adjacent to Kansas City, Missouri|The flight to Kansas City was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Kansas
-Detroit|n|the largest city in Michigan and a major Great Lakes port|We walked all over Detroit on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Michigan
-Miami Beach|n|a city in southeastern Florida on an island between Biscayne Bay and the Atlantic Ocean; known for fashionable resort hotels|We spent a few days in Miami Beach last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Florida
+Singapore|n|the capital of Singapore; one of the world's biggest ports|We spent a few days in Singapore last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Singapore
+Kansas City|n|a city of northeast Kansas on the Missouri River adjacent to Kansas City, Missouri|The flight to Kansas City was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Kansas
+Detroit|n|the largest city in Michigan and a major Great Lakes port|We walked all over Detroit on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Michigan
+Miami Beach|n|a city in southeastern Florida on an island between Biscayne Bay and the Atlantic Ocean; known for fashionable resort hotels|We spent a few days in Miami Beach last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Florida
 Illinois River|n|a river in Illinois that flows southwest to the Mississippi River|They sailed along the Illinois River for a week.|||nogen;isa=river,stream,body of water,thing;partof=Illinois
 Nigeria|n|a republic in West Africa on the Gulf of Guinea; gained independence from Britain in 1960; most populous African country|She sent me a postcard from Nigeria.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Iowa|n|a state in midwestern United States|Iowa is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Corn Belt,United States
+Iowa|n|a state in midwestern United States|Iowa is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
 Ukraine|n|a republic in southeastern Europe; formerly a European soviet; the center of the original Russian state which came into existence in the ninth century|She sent me a postcard from Ukraine.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Europe
-Saint Paul|n|capital of the state of Minnesota; located in southeastern Minnesota on the Mississippi river adjacent to Minneapolis; one of the Twin Cities|My friend just moved to Saint Paul for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Minnesota
-Hamilton|n|the capital of Bermuda|We spent a few days in Hamilton last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area
-Indiana|n|a state in midwestern United States|Indiana is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Corn Belt,United States
+Saint Paul|n|capital of the state of Minnesota; located in southeastern Minnesota on the Mississippi river adjacent to Minneapolis; one of the Twin Cities|My friend just moved to Saint Paul for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Minnesota
+Hamilton|n|the capital of Bermuda|We spent a few days in Hamilton last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district
+Indiana|n|a state in midwestern United States|Indiana is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
 Massachusetts|n|a state in New England; one of the original 13 colonies|Massachusetts is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,New England
 Minnesota|n|a midwestern state|We watched a documentary about Minnesota last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
-Lincoln|n|capital of the state of Nebraska; located in southeastern Nebraska; site of the University of Nebraska|We walked all over Lincoln on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Nebraska
+Lincoln|n|capital of the state of Nebraska; located in southeastern Nebraska; site of the University of Nebraska|We walked all over Lincoln on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Nebraska
 Ross Sea|n|an arm of the southern Pacific Ocean in Antarctica|They sailed along the Ross Sea for a week.|||nogen;isa=sea,body of water,thing;partof=Antarctica
-Madrid|n|the capital and largest city situated centrally in Spain; home of an outstanding art museum|My friend just moved to Madrid for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Spain
+Madrid|n|the capital and largest city situated centrally in Spain; home of an outstanding art museum|My friend just moved to Madrid for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Spain
 Kentucky|n|a state in east central United States; a border state during the American Civil War; famous for breeding race horses|We watched a documentary about Kentucky last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
 Oregon|n|a state in northwestern United States on the Pacific|We watched a documentary about Oregon last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
-New Delhi|n|the capital of India is a division of the old city of Delhi|We spent a few days in New Delhi last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Delhi
-Delhi|n|a city in north central India|The flight to Delhi was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=India
-Philippines|n|a republic on the Philippine Islands; achieved independence from the United States in 1946|My cousin spent a year living in Philippines.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Southeast Asia,Philippines
+New Delhi|n|the capital of India is a division of the old city of Delhi|We spent a few days in New Delhi last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Delhi
+Delhi|n|a city in north central India|The flight to Delhi was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=India
+Philippines|n|a republic on the Philippine Islands; achieved independence from the United States in 1946|My cousin spent a year living in Philippines.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Philippines,Southeast Asia
 Malaysia|n|a constitutional monarchy in southeastern Asia on Borneo and the Malay Peninsula; achieved independence from the United Kingdom in 1957|My cousin spent a year living in Malaysia.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Indochina
 South Vietnam|n|a former country in southeastern Asia that existed from 1954 until 1975 when it was defeated and annexed by North Vietnam|She sent me a postcard from South Vietnam.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Vietnam
-Maryland|n|a Mid-Atlantic state; one of the original 13 colonies|Maryland is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,South
-Saint Louis|n|the largest city in Missouri|We walked all over Saint Louis on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Missouri
-Cleveland|n|the largest city in Ohio; located in northeastern Ohio on Lake Erie; a major Great Lakes port|The flight to Cleveland was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Ohio
+Maryland|n|a Mid-Atlantic state; one of the original 13 colonies|Maryland is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Mid-Atlantic states,United States
+Saint Louis|n|the largest city in Missouri|We walked all over Saint Louis on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Missouri
+Cleveland|n|the largest city in Ohio; located in northeastern Ohio on Lake Erie; a major Great Lakes port|The flight to Cleveland was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Ohio
 Oklahoma|n|a state in south central United States|Oklahoma is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
 North Vietnam|n|a former country in southeastern Asia that existed from 1954 until 1975 when South Vietnam collapsed at the end of the Vietnam War|She sent me a postcard from North Vietnam.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Vietnam
 Detroit River|n|a short river flowing from Lake St. Clair to Lake Erie along the border between the United States and Canada|The Detroit River looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Michigan
 Murray|n|a southeast Australian river; flows westward and then south into the Indian Ocean at Adelaide|They sailed along the Murray for a week.|||nogen;isa=river,stream,body of water,thing;partof=Australia,Australia
-Alabama|n|a state in the southeastern United States on the Gulf of Mexico; one of the Confederate states during the American Civil War|She sent me a postcard from Alabama.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location,South,geographical area;partof=Deep South,United States
-San Diego|n|a picturesque city of southern California on San Diego Bay near the Mexican border; site of an important naval base|The flight to San Diego was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=California
+Alabama|n|a state in the southeastern United States on the Gulf of Mexico; one of the Confederate states during the American Civil War|She sent me a postcard from Alabama.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location,South,geographical area;partof=United States,Gulf States
+San Diego|n|a picturesque city of southern California on San Diego Bay near the Mexican border; site of an important naval base|The flight to San Diego was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=California
 Missouri|n|a midwestern state in central United States|She sent me a postcard from Missouri.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
 Liberty Island|n|an island in New York Bay to the southwest of Manhattan where the Statue of Liberty stands|We watched a documentary about Liberty Island last night.|||kind=place;at=in;nogen;isa=island,land;partof=New York Bay,New York
 Indonesia|n|a republic in southeastern Asia on an archipelago including more than 13,000 islands|We watched a documentary about Indonesia last night.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Austronesia,Southeast Asia
-Cape Town|n|port city in southwestern South Africa; the seat of the legislative branch of the government of South Africa|My friend just moved to Cape Town for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=South Africa
-Oklahoma City|n|capital and largest city of Oklahoma; the economy is based on oil and livestock|My friend just moved to Oklahoma City for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Oklahoma
-Little Missouri|n|a river that rises in northeastern Wyoming and flows through Montana and South Dakota to join the Missouri River in North Dakota|They sailed along the Little Missouri for a week.|||nogen;isa=river,stream,body of water,thing;partof=South Dakota,North Dakota
+Cape Town|n|port city in southwestern South Africa; the seat of the legislative branch of the government of South Africa|My friend just moved to Cape Town for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=South Africa
+Oklahoma City|n|capital and largest city of Oklahoma; the economy is based on oil and livestock|My friend just moved to Oklahoma City for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Oklahoma
+Little Missouri|n|a river that rises in northeastern Wyoming and flows through Montana and South Dakota to join the Missouri River in North Dakota|They sailed along the Little Missouri for a week.|||nogen;isa=river,stream,body of water,thing;partof=Wyoming,Montana
 Saint Martin|n|an island in the western Leeward Islands; administered jointly by France and the Netherlands|We watched a documentary about Saint Martin last night.|||kind=place;at=in;nogen;isa=island,land;partof=Leeward Islands
 Poland|n|a republic in central Europe; the invasion of Poland by Germany in 1939 started World War II|We watched a documentary about Poland last night.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
 Afghanistan|n|a mountainous landlocked country in central Asia; bordered by Iran to the west and Russia to the north and Pakistan to the east and south|Afghanistan is high on my list of places to visit.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia
-Barcelona|n|a city in northeastern Spain on the Mediterranean|We walked all over Barcelona on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Spain
+Barcelona|n|a city in northeastern Spain on the Mediterranean|We walked all over Barcelona on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Spain
 Switzerland|n|a landlocked federal republic in central Europe|She sent me a postcard from Switzerland.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
-Denver|n|the state capital and largest city of Colorado; located in central Colorado on the South Platte river|We spent a few days in Denver last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Colorado
+Denver|n|the state capital and largest city of Colorado; located in central Colorado on the South Platte river|We spent a few days in Denver last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Colorado
 Utah|n|a state in the western United States; settled in 1847 by Mormons led by Brigham Young|We watched a documentary about Utah last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
-Baltimore|n|the largest city in Maryland; a major seaport and industrial center|We walked all over Baltimore on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Maryland
-Charlotte|n|the largest city in North Carolina; located in south central North Carolina|The flight to Charlotte was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=North Carolina
-Hong Kong|n|formerly a Crown Colony on the coast of southern China in Guangdong province|We walked all over Hong Kong on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=China
-Orleans|n|a city on the Loire river in north central France; site of the siege of Orleans by the English|We spent a few days in Orleans last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=France
+Baltimore|n|the largest city in Maryland; a major seaport and industrial center|We walked all over Baltimore on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Maryland
+Charlotte|n|the largest city in North Carolina; located in south central North Carolina|The flight to Charlotte was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=North Carolina
+Hong Kong|n|formerly a Crown Colony on the coast of southern China in Guangdong province|We walked all over Hong Kong on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=China
+Orleans|n|a city on the Loire river in north central France; site of the siege of Orleans by the English|We spent a few days in Orleans last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=France
 Hawaii|n|a state in the United States in the central Pacific on the Hawaiian Islands|She sent me a postcard from Hawaii.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Hawaiian Islands
-New Orleans|n|a port and largest city in Louisiana|The flight to New Orleans was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=Louisiana
+New Orleans|n|a port and largest city in Louisiana|The flight to New Orleans was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=Louisiana
 Tennessee|n|a state in east central United States|We watched a documentary about Tennessee last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,South
-Jerusalem|n|capital and largest city of the modern state of Israel|We spent a few days in Jerusalem last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Israel
-Glasgow|n|largest city in Scotland; a port on the Clyde in west central Scotland; one of the great shipbuilding centers of the world|We spent a few days in Glasgow last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Scotland
+Jerusalem|n|capital and largest city of the modern state of Israel|We spent a few days in Jerusalem last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Israel
+Glasgow|n|largest city in Scotland; a port on the Clyde in west central Scotland; one of the great shipbuilding centers of the world|We spent a few days in Glasgow last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Scotland
 Alaska|n|a state in northwestern North America; the 49th state admitted to the union|My cousin spent a year living in Alaska.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
-Louisiana|n|a state in southern United States on the Gulf of Mexico; one of the Confederate states during the American Civil War|My cousin spent a year living in Louisiana.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=South,Deep South
-Mississippi|n|a state in the Deep South on the gulf of Mexico; one of the Confederate States during the American Civil War|My cousin spent a year living in Mississippi.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=South,Deep South
-Birmingham|n|a city in central England; 2nd largest English city and an important industrial and transportation center|The flight to Birmingham was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
-Portland|n|largest city in Maine in the southwestern corner of the state|We spent a few days in Portland last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Maine
-Madison|n|capital of the state of Wisconsin; located in the southern part of state; site of the main branch of the University of Wisconsin|We walked all over Madison on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Wisconsin
-Vancouver|n|a port city in southwestern British Columbia on an arm of the Pacific Ocean opposite Vancouver Island|My friend just moved to Vancouver for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=British Columbia
+Louisiana|n|a state in southern United States on the Gulf of Mexico; one of the Confederate states during the American Civil War|My cousin spent a year living in Louisiana.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Gulf States
+Mississippi|n|a state in the Deep South on the gulf of Mexico; one of the Confederate States during the American Civil War|My cousin spent a year living in Mississippi.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Gulf States
+Birmingham|n|a city in central England; 2nd largest English city and an important industrial and transportation center|The flight to Birmingham was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
+Portland|n|largest city in Maine in the southwestern corner of the state|We spent a few days in Portland last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Maine
+Madison|n|capital of the state of Wisconsin; located in the southern part of state; site of the main branch of the University of Wisconsin|We walked all over Madison on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Wisconsin
+Vancouver|n|a port city in southwestern British Columbia on an arm of the Pacific Ocean opposite Vancouver Island|My friend just moved to Vancouver for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=British Columbia
 Maine|n|a state in New England|We watched a documentary about Maine last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,New England
 Belgium|n|a monarchy in northwestern Europe; headquarters for the European Union and for the North Atlantic Treaty Organization|My cousin spent a year living in Belgium.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
-San Jose|n|the capital and largest city of Costa Rica|We walked all over San Jose on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Costa Rica
-Nancy|n|a city in northeastern France in Lorraine|My friend just moved to Nancy for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=France
-Buffalo|n|a city on Lake Erie in western New York|We walked all over Buffalo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New York
+San Jose|n|the capital and largest city of Costa Rica|We walked all over San Jose on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Costa Rica
+Nancy|n|a city in northeastern France in Lorraine|My friend just moved to Nancy for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=France
+Buffalo|n|a city on Lake Erie in western New York|We walked all over Buffalo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New York
 Cuba|n|a communist state in the Caribbean on the island of Cuba|She sent me a postcard from Cuba.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Cuba,Caribbean
-New Haven|n|a city in southwestern Connecticut; site of Yale University|We spent a few days in New Haven last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Connecticut
-Pittsburgh|n|a city in southwestern Pennsylvania where the confluence of the Allegheny River and Monongahela River forms the Ohio River|We spent a few days in Pittsburgh last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Pennsylvania
-Beijing|n|capital of the People's Republic of China in the Hebei province in northeastern China; 2nd largest Chinese city|We spent a few days in Beijing last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=China
+New Haven|n|a city in southwestern Connecticut; site of Yale University|We spent a few days in New Haven last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Connecticut
+Pittsburgh|n|a city in southwestern Pennsylvania where the confluence of the Allegheny River and Monongahela River forms the Ohio River|We spent a few days in Pittsburgh last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Pennsylvania
+Beijing|n|capital of the People's Republic of China in the Hebei province in northeastern China; 2nd largest Chinese city|We spent a few days in Beijing last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=China
 Virgin Islands|n|a group of islands in northeastern West Indies discovered by Christopher Columbus in 1493; owned by United States and Britain|My cousin spent a year living in Virgin Islands.|||kind=place;at=in;nogen;isa=island,land;partof=West Indies
-Richmond|n|capital of the state of Virginia located in the east central part of the state; was capital of the Confederacy during the American Civil War|We spent a few days in Richmond last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Virginia
+Richmond|n|capital of the state of Virginia located in the east central part of the state; was capital of the Confederacy during the American Civil War|We spent a few days in Richmond last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Virginia
 Caribbean|n|an arm of the Atlantic Ocean between North and South America; the origin of the Gulf stream|The Caribbean looked calm from the bridge.|||nogen;isa=sea,body of water,thing
 Connecticut|n|a New England state; one of the original 13 colonies|She sent me a postcard from Connecticut.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,New England
-Fort Wayne|n|a city in northeastern Indiana|We walked all over Fort Wayne on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Indiana
-South Bend|n|a city in northern Indiana|We spent a few days in South Bend last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Indiana
-San Antonio|n|a city of south central Texas; site of the Alamo; site of several military bases and a popular haven for vacationers|The flight to San Antonio was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Texas
+Fort Wayne|n|a city in northeastern Indiana|We walked all over Fort Wayne on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Indiana
+South Bend|n|a city in northern Indiana|We spent a few days in South Bend last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Indiana
+San Antonio|n|a city of south central Texas; site of the Alamo; site of several military bases and a popular haven for vacationers|The flight to San Antonio was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Texas
 Vancouver Island|n|an island off southwestern Canada; the largest island off the west coast of North America|Vancouver Island is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=British Columbia
 Manhattan Island|n|an island at the north end of New York Bay where the borough of Manhattan is located|She sent me a postcard from Manhattan Island.|||kind=place;at=in;nogen;isa=island,land;partof=New York
 Cam|n|a river in east central England that flows past Cambridge to join the Ouse River|We read about the Cam in geography class.|||nogen;isa=river,stream,body of water,thing;partof=England
 Saint Francis|n|a tributary of the Mississippi River that rises in Missouri and flows southeastward through Arkansas|The Saint Francis looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Missouri,Arkansas
 Darling|n|an Australian river; tributary of the Murray River|We read about the Darling in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Australia
 Pearl River|n|a river in Mississippi that flows southward to the Gulf of Mexico|The Pearl River looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Mississippi
-Dublin|n|capital and largest city and major port of the Irish Republic|The flight to Dublin was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Ireland
-Dubai|n|port city in the United Arab Emirates on the Persian Gulf|My friend just moved to Dubai for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=United Arab Emirates
-Montreal|n|a city in southern Quebec province on the Saint Lawrence River|The flight to Montreal was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Quebec
+Dublin|n|capital and largest city and major port of the Irish Republic|The flight to Dublin was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Ireland
+Dubai|n|port city in the United Arab Emirates on the Persian Gulf|My friend just moved to Dubai for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=United Arab Emirates
+Montreal|n|a city in southern Quebec province on the Saint Lawrence River|The flight to Montreal was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Quebec
 Austria|n|a mountainous republic in central Europe|My cousin spent a year living in Austria.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
-Newcastle|n|a port city in northeastern England on the River Tyne; a center for coal exports|The flight to Newcastle was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=England
+Newcastle|n|a port city in northeastern England on the River Tyne; a center for coal exports|The flight to Newcastle was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=England
 South Dakota|n|a state in north central United States|She sent me a postcard from South Dakota.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Dakota
 Chile|n|a republic in southern South America on the western slopes of the Andes on the south Pacific coast|My cousin spent a year living in Chile.|||kind=place;at=in;nogen;isa=South American country,country,administrative district,district,region,location;partof=South America
-San Juan|n|the capital and largest city of Puerto Rico|We spent a few days in San Juan last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Puerto Rico
+San Juan|n|the capital and largest city of Puerto Rico|We spent a few days in San Juan last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Puerto Rico
 New Guinea|n|a Pacific island to the north of Australia|She sent me a postcard from New Guinea.|||kind=place;at=in;nogen;isa=island,land;partof=Pacific
 Guinea|n|a republic in western Africa on the Atlantic; formerly a French colony; achieved independence from France in 1958|My cousin spent a year living in Guinea.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
 North Dakota|n|a state of north central United States bordering on Canada|She sent me a postcard from North Dakota.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Dakota
-Saint Lawrence|n|a North American river; flows into the Gulf of Saint Lawrence and the North Atlantic|They sailed along the Saint Lawrence for a week.|||nogen;isa=river,stream,body of water,thing;partof=United States,Canada
-Milan|n|the capital of Lombardy in northern Italy; has been an international center of trade and industry since the Middle Ages|My friend just moved to Milan for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Lombardy
+Saint Lawrence|n|a North American river; flows into the Gulf of Saint Lawrence and the North Atlantic|They sailed along the Saint Lawrence for a week.|||nogen;isa=river,stream,body of water,thing;partof=Canada,United States
+Milan|n|the capital of Lombardy in northern Italy; has been an international center of trade and industry since the Middle Ages|My friend just moved to Milan for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Lombardy
 Marshall Islands|n|a republic on the Marshall Islands|We watched a documentary about Marshall Islands last night.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Marshall Islands
 Arkansas|n|a state in south central United States; one of the Confederate states during the American Civil War|Arkansas is high on my list of places to visit.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
 Montana|n|a state in northwestern United States on the Canadian border|We watched a documentary about Montana last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
-Shanghai|n|the largest city of China; located in the east on the Pacific; one of the largest ports in the world|We walked all over Shanghai on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=China
+Shanghai|n|the largest city of China; located in the east on the Pacific; one of the largest ports in the world|We walked all over Shanghai on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=China
 Taiwan|n|an island in southeastern Asia 100 miles off the coast of mainland China in the South China Sea|Taiwan is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=South China Sea
-Thunder Bay|n|a port city in Ontario on Lake Superior|The flight to Thunder Bay was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Ontario
-Orlando|n|a city in central Florida; site of Walt Disney World|We walked all over Orlando on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Florida
-Columbus|n|the state capital of Ohio; located in the center of the state; site of Ohio State University|The flight to Columbus was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Ohio
+Thunder Bay|n|a port city in Ontario on Lake Superior|The flight to Thunder Bay was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Ontario
+Orlando|n|a city in central Florida; site of Walt Disney World|We walked all over Orlando on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Florida
+Columbus|n|the state capital of Ohio; located in the center of the state; site of Ohio State University|The flight to Columbus was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Ohio
 Nevada|n|a state in the southwestern United States|She sent me a postcard from Nevada.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Southwest
-Las Vegas|n|largest city in Nevada|The flight to Las Vegas was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Nevada
-Bristol|n|an industrial city and port in southwestern England near the mouth of the River Avon|We walked all over Bristol on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=England
-Amsterdam|n|an industrial center and the nominal capital of the Netherlands|The flight to Amsterdam was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Netherlands
-Colorado Springs|n|a city in east central Colorado on the eastern edge of the Rocky Mountains; popular tourist center and site of the United States Air Force Academy|My friend just moved to Colorado Springs for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Colorado
+Las Vegas|n|largest city in Nevada|The flight to Las Vegas was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Nevada
+Bristol|n|an industrial city and port in southwestern England near the mouth of the River Avon|We walked all over Bristol on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=England
+Amsterdam|n|an industrial center and the nominal capital of the Netherlands|The flight to Amsterdam was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Netherlands
+Colorado Springs|n|a city in east central Colorado on the eastern edge of the Rocky Mountains; popular tourist center and site of the United States Air Force Academy|My friend just moved to Colorado Springs for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Colorado
 Hudson|n|a New York river; flows southward into New York Bay; explored by Henry Hudson early in the 17th century|They sailed along the Hudson for a week.|||nogen;isa=river,stream,body of water,thing;partof=New York
 Mercury|n|the smallest planet and the nearest to the sun|The probe sent back new photos of Mercury.|||nogen;isa=terrestrial planet,planet,celestial body,natural object,inferior planet
-Leeds|n|a city on the River Aire in West Yorkshire in northern England; a center of the clothing industry|My friend just moved to Leeds for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=West Yorkshire
+Leeds|n|a city on the River Aire in West Yorkshire in northern England; a center of the clothing industry|My friend just moved to Leeds for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=West Yorkshire
 Lebanon|n|an Asian republic at east end of Mediterranean|She sent me a postcard from Lebanon.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Middle East,Asia
 New Hampshire|n|a state in New England; one of the original 13 colonies|She sent me a postcard from New Hampshire.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,New England
-Milwaukee|n|largest city of Wisconsin|We spent a few days in Milwaukee last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Wisconsin
+Milwaukee|n|largest city of Wisconsin|We spent a few days in Milwaukee last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Wisconsin
 Java|n|an island in Indonesia to the south of Borneo; one of the world's most densely populated regions|We watched a documentary about Java last night.|||kind=place;at=in;nogen;isa=island,land;partof=Indonesia
 Saint Christopher|n|the largest of the islands comprising Saint Christopher-Nevis|We watched a documentary about Saint Christopher last night.|||kind=place;at=in;nogen;isa=island,land;partof=Saint Kitts and Nevis
-Geneva|n|a city in southwestern Switzerland at the western end of Lake Geneva; it is the headquarters of various international organizations|The flight to Geneva was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Switzerland
-Adelaide|n|the state capital of South Australia|My friend just moved to Adelaide for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=South Australia
-Jefferson City|n|capital of the state of Missouri; located in central Missouri on the Missouri river|We walked all over Jefferson City on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Missouri
+Geneva|n|a city in southwestern Switzerland at the western end of Lake Geneva; it is the headquarters of various international organizations|The flight to Geneva was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Switzerland
+Adelaide|n|the state capital of South Australia|My friend just moved to Adelaide for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=South Australia
+Jefferson City|n|capital of the state of Missouri; located in central Missouri on the Missouri river|We walked all over Jefferson City on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Missouri
 Mediterranean|n|the largest inland sea; between Europe and Africa and Asia|The Mediterranean looked calm from the bridge.|||nogen;isa=sea,body of water,thing
-Ottawa|n|the capital of Canada|We spent a few days in Ottawa last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Ontario
-Vienna|n|the capital and largest city of Austria|My friend just moved to Vienna for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Austria
+Ottawa|n|the capital of Canada|We spent a few days in Ottawa last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Ontario
+Vienna|n|the capital and largest city of Austria|My friend just moved to Vienna for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Austria
 Nebraska|n|a midwestern state on the Great Plains|She sent me a postcard from Nebraska.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Midwest
-Nashville|n|capital of the state of Tennessee; located in the north central part of the state on the Cumberland River; known for country music|The flight to Nashville was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Tennessee
-Brisbane|n|capital and largest city of Queensland state|The flight to Brisbane was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Queensland
+Nashville|n|capital of the state of Tennessee; located in the north central part of the state on the Cumberland River; known for country music|The flight to Nashville was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Tennessee
+Brisbane|n|capital and largest city of Queensland state|The flight to Brisbane was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Queensland
 Po|n|a European river; flows into the Adriatic Sea|The Po looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Italy
 Bangladesh|n|a Muslim republic in southern Asia bordered by India to the north and west and east and the Bay of Bengal to the south|My cousin spent a year living in Bangladesh.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia
-Mumbai|n|a city in western India just off the coast of the Arabian Sea; India's 2nd largest city; has the only natural deep-water harbor in western India|We walked all over Mumbai on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=India
-Cincinnati|n|a city in southern Ohio on the Ohio river|We spent a few days in Cincinnati last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Ohio
+Mumbai|n|a city in western India just off the coast of the Arabian Sea; India's 2nd largest city; has the only natural deep-water harbor in western India|We walked all over Mumbai on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=India
+Cincinnati|n|a city in southern Ohio on the Ohio river|We spent a few days in Cincinnati last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Ohio
 Colombia|n|a republic in northwestern South America with a coastline on the Pacific Ocean and the Caribbean Sea|We watched a documentary about Colombia last night.|||kind=place;at=in;nogen;isa=South American country,country,administrative district,district,region,location;partof=South America
-Munich|n|the capital and largest city of Bavaria in southwestern Germany|We spent a few days in Munich last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Bavaria
+Munich|n|the capital and largest city of Bavaria in southwestern Germany|We spent a few days in Munich last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Bavaria
 Finland|n|republic in northern Europe; achieved independence from Russia in 1917|Finland is high on my list of places to visit.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
-Troy|n|an ancient city in Asia Minor that was the site of the Trojan War|The flight to Troy was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Asia Minor
-Toyota|n|an industrial city of Japan in southern Honshu|We spent a few days in Toyota last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Honshu,Japan
+Troy|n|an ancient city in Asia Minor that was the site of the Trojan War|The flight to Troy was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Asia Minor
+Toyota|n|an industrial city of Japan in southern Honshu|We spent a few days in Toyota last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Japan,Honshu
 Saint Vincent|n|an island in the center of the Windward Islands; the largest of the islands comprising Saint Vincent and the Grenadines|We watched a documentary about Saint Vincent last night.|||kind=place;at=in;nogen;isa=island,land;partof=Saint Vincent and the Grenadines
-Pierre|n|capital of the state of South Dakota; located in central South Dakota on the Missouri river|We walked all over Pierre on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=South Dakota
+Pierre|n|capital of the state of South Dakota; located in central South Dakota on the Missouri river|We walked all over Pierre on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=South Dakota
 Arctic Ocean|n|ice covered waters surrounding the North Pole; mostly covered with solid ice or with ice floes and icebergs|We read about the Arctic Ocean in geography class.|||nogen;isa=ocean,body of water,thing
 Hudson Bay|n|an inland sea in northern Canada|The Hudson Bay looked calm from the bridge.|||nogen;isa=sea,body of water,thing;partof=Canada
 Chad|n|a landlocked desert republic in north-central Africa; was under French control until 1960|Chad is high on my list of places to visit.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Acre|n|a town and port in northwestern Israel in the eastern Mediterranean|We walked all over Acre on our first day.|||kind=place;at=in;nogen;isa=town,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Israel
-Venice|n|the provincial capital of Veneto|The flight to Venice was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Veneto
-Perth|n|the state capital of Western Australia|We walked all over Perth on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Western Australia
-Santa Cruz|n|a city in central Bolivia|We walked all over Santa Cruz on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Bolivia
-Leicester|n|an industrial city in Leicestershire in central England; built on the site of a Roman settlement|We spent a few days in Leicester last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Leicestershire,England
-Seoul|n|the capital of South Korea and the largest city of Asia; located in northwestern South Korea|We spent a few days in Seoul last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=South Korea
-Berkeley|n|a city in California on the eastern shore of San Francisco Bay; site of the University of California at Berkeley|We walked all over Berkeley on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=California
+Acre|n|a town and port in northwestern Israel in the eastern Mediterranean|We walked all over Acre on our first day.|||kind=place;at=in;nogen;isa=town,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Israel
+Venice|n|the provincial capital of Veneto|The flight to Venice was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Veneto
+Perth|n|the state capital of Western Australia|We walked all over Perth on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Western Australia
+Santa Cruz|n|a city in central Bolivia|We walked all over Santa Cruz on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Bolivia
+Leicester|n|an industrial city in Leicestershire in central England; built on the site of a Roman settlement|We spent a few days in Leicester last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England,Leicestershire
+Seoul|n|the capital of South Korea and the largest city of Asia; located in northwestern South Korea|We spent a few days in Seoul last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=South Korea
+Berkeley|n|a city in California on the eastern shore of San Francisco Bay; site of the University of California at Berkeley|We walked all over Berkeley on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=California
 Venezuela|n|a republic in northern South America on the Caribbean; achieved independence from Spain in 1811; rich in oil|She sent me a postcard from Venezuela.|||kind=place;at=in;nogen;isa=South American country,country,administrative district,district,region,location;partof=South America
-Leon|n|a city in central Mexico|The flight to Leon was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Mexico
+Leon|n|a city in central Mexico|The flight to Leon was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Mexico
 Jamaica|n|a country on the island of Jamaica; became independent of England in 1962; much poverty; the major industry is tourism|We watched a documentary about Jamaica last night.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Jamaica,Caribbean
-Athens|n|the capital and largest city of Greece; named after Athena|We walked all over Athens on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Greece
-Montgomery|n|the state capital of Alabama on the Mobile River|My friend just moved to Montgomery for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Alabama
-Oakland|n|a city in western California on San Francisco Bay opposite San Francisco; primarily and industrial urban center|The flight to Oakland was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=California
-Tampa|n|a resort city in western Florida; located on Tampa Bay on the Gulf of Mexico|We walked all over Tampa on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=Florida
+Athens|n|the capital and largest city of Greece; named after Athena|We walked all over Athens on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Greece
+Montgomery|n|the state capital of Alabama on the Mobile River|My friend just moved to Montgomery for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Alabama
+Oakland|n|a city in western California on San Francisco Bay opposite San Francisco; primarily and industrial urban center|The flight to Oakland was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=California
+Tampa|n|a resort city in western Florida; located on Tampa Bay on the Gulf of Mexico|We walked all over Tampa on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=Florida
 Norwegian Sea|n|the part of the Atlantic that lies off the Norwegian coast to the north of the North Sea|We read about the Norwegian Sea in geography class.|||nogen;isa=sea,body of water,thing;partof=Atlantic
-Sheffield|n|a steel manufacturing city in northern England famous for its cutlery industry|The flight to Sheffield was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=South Yorkshire
+Sheffield|n|a steel manufacturing city in northern England famous for its cutlery industry|The flight to Sheffield was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=South Yorkshire
 Hungary|n|a republic in central Europe|We watched a documentary about Hungary last night.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
 Idaho|n|a state in the Rocky Mountains|My cousin spent a year living in Idaho.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
 Ellis Island|n|an island in New York Bay that was formerly the principal immigration station for the United States|Ellis Island is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=New Jersey
 Ghana|n|a republic in West Africa on the Gulf of Guinea|She sent me a postcard from Ghana.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
 Saudi Arabia|n|an absolute monarchy occupying most of the Arabian Peninsula in southwest Asia; vast oil reserves dominate the economy|We watched a documentary about Saudi Arabia last night.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Gulf States,Middle East
 Sudan|n|a republic in northeastern Africa on the Red Sea; achieved independence from Egypt and the United Kingdom in 1956|She sent me a postcard from Sudan.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Delaware|n|a Mid-Atlantic state; one of the original 13 colonies|My cousin spent a year living in Delaware.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,Mid-Atlantic states
-Carson City|n|capital of the state of Nevada; located in western Nevada|We walked all over Carson City on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Nevada
-Memphis|n|an ancient city of Egypt on the Nile|We walked all over Memphis on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Egypt
-Manila|n|the capital and largest city of the Philippines; located on southern Luzon|The flight to Manila was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Philippines
+Delaware|n|a Mid-Atlantic state; one of the original 13 colonies|My cousin spent a year living in Delaware.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=Mid-Atlantic states,United States
+Carson City|n|capital of the state of Nevada; located in western Nevada|We walked all over Carson City on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Nevada
+Memphis|n|an ancient city of Egypt on the Nile|We walked all over Memphis on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Egypt
+Manila|n|the capital and largest city of the Philippines; located on southern Luzon|The flight to Manila was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Philippines
 Yemen|n|a republic on the southwestern shores of the Arabian Peninsula on the Indian Ocean; formed in 1990|We watched a documentary about Yemen last night.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia,Arabian Peninsula
-Minneapolis|n|largest city in Minnesota; located in southeastern Minnesota on the Mississippi river; noted for flour mills; one of the Twin Cities|We walked all over Minneapolis on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Minnesota
+Minneapolis|n|largest city in Minnesota; located in southeastern Minnesota on the Mississippi river; noted for flour mills; one of the Twin Cities|We walked all over Minneapolis on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Minnesota
 Trinity River|n|a river in eastern Texas that is formed near Dallas and flows generally southeastward to Galveston Bay|The Trinity River looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Texas
 Czech Republic|n|a landlocked republic in central Europe; separated from Slovakia in 1993|She sent me a postcard from Czech Republic.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
-San Sebastian|n|a city in northern Spain on the Bay of Biscay near the French border; a fashionable seaside resort|We spent a few days in San Sebastian last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Spain
-Sacramento|n|a city in north central California 75 miles to the northeast of San Francisco on the Sacramento River; capital of California|My friend just moved to Sacramento for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=California
-Panama City|n|the capital and largest city of Panama|We walked all over Panama City on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Panama
-Brighton|n|a city in East Sussex in southern England that is a popular resort; site of the University of Sussex|My friend just moved to Brighton for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
-Cairo|n|the capital of Egypt and the largest city in Africa; a major port just to the south of the Nile delta; formerly the home of the Pharaohs|The flight to Cairo was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Egypt
-Port Sudan|n|port city in Sudan on the Red Sea|We spent a few days in Port Sudan last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Sudan
-Bangkok|n|the capital and largest city and chief port of Thailand; a leading city in southeastern Asia; noted for Buddhist architecture|My friend just moved to Bangkok for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Thailand
-Louisville|n|the largest city in Kentucky; located in north central Kentucky on the Ohio river; site of the Kentucky Derby|We spent a few days in Louisville last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Kentucky
+San Sebastian|n|a city in northern Spain on the Bay of Biscay near the French border; a fashionable seaside resort|We spent a few days in San Sebastian last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Spain
+Sacramento|n|a city in north central California 75 miles to the northeast of San Francisco on the Sacramento River; capital of California|My friend just moved to Sacramento for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=California
+Panama City|n|the capital and largest city of Panama|We walked all over Panama City on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Panama
+Brighton|n|a city in East Sussex in southern England that is a popular resort; site of the University of Sussex|My friend just moved to Brighton for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
+Cairo|n|the capital of Egypt and the largest city in Africa; a major port just to the south of the Nile delta; formerly the home of the Pharaohs|The flight to Cairo was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Egypt
+Port Sudan|n|port city in Sudan on the Red Sea|We spent a few days in Port Sudan last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Sudan
+Bangkok|n|the capital and largest city and chief port of Thailand; a leading city in southeastern Asia; noted for Buddhist architecture|My friend just moved to Bangkok for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Thailand
+Louisville|n|the largest city in Kentucky; located in north central Kentucky on the Ohio river; site of the Kentucky Derby|We spent a few days in Louisville last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Kentucky
 Vermont|n|a state in New England|She sent me a postcard from Vermont.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,New England
-Norfolk|n|port city located in southeastern Virginia on the Elizabeth River at the mouth of Chesapeake Bay|We walked all over Norfolk on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Virginia
+Norfolk|n|port city located in southeastern Virginia on the Elizabeth River at the mouth of Chesapeake Bay|We walked all over Norfolk on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Virginia
 Nepal|n|a small landlocked Asian country high in the Himalayas between India and China|Nepal is high on my list of places to visit.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia
 Coral Sea|n|an arm of the South Pacific to the northeast of Australia|We read about the Coral Sea in geography class.|||nogen;isa=sea,body of water,thing;partof=Pacific
 Sacramento River|n|a river in northern California rising near Mount Shasta and flowing south to the San Francisco Bay|The Sacramento River looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=California
 Libya|n|a military dictatorship in northern Africa on the Mediterranean; consists almost entirely of desert; a major exporter of petroleum|My cousin spent a year living in Libya.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Wellington|n|the capital of New Zealand|We walked all over Wellington on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=New Zealand
-Indianapolis|n|the capital and largest city of Indiana; a major commercial center in the country's heartland; site of an annual 500-mile automobile race|We walked all over Indianapolis on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Indiana
-Rio Grande|n|a North American river; boundary between the United States and Mexico; flows into Gulf of Mexico|The Rio Grande looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=United States,Mexico
-Myanmar|n|a mountainous republic in southeastern Asia on the Bay of Bengal|My cousin spent a year living in Myanmar.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Malay Peninsula,Indochina
+Wellington|n|the capital of New Zealand|We walked all over Wellington on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=New Zealand
+Indianapolis|n|the capital and largest city of Indiana; a major commercial center in the country's heartland; site of an annual 500-mile automobile race|We walked all over Indianapolis on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Indiana
+Rio Grande|n|a North American river; boundary between the United States and Mexico; flows into Gulf of Mexico|The Rio Grande looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Mexico,United States
+Myanmar|n|a mountainous republic in southeastern Asia on the Bay of Bengal|My cousin spent a year living in Myanmar.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Indochina,Malay Peninsula
 Ivory Coast|n|a republic in western Africa on the Gulf of Guinea; one of the most prosperous and politically stable countries in Africa|She sent me a postcard from Ivory Coast.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
 Norfolk Island|n|an island territory of Australia in the Pacific Ocean off the eastern coast of Australia; formerly a British penal colony|We watched a documentary about Norfolk Island last night.|||kind=place;at=in;nogen;isa=island,land;partof=Australia
-Aberdeen|n|a city in northeastern Scotland on the North Sea|The flight to Aberdeen was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Scotland
-Albany|n|state capital of New York; located in eastern New York State on the west bank of the Hudson river|We walked all over Albany on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=New York
-Rochester|n|a city in western New York; a center of the photographic equipment industry|We walked all over Rochester on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New York
-Chester|n|a city of southeastern Pennsylvania on the Delaware river|The flight to Chester was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Pennsylvania
+Aberdeen|n|a city in northeastern Scotland on the North Sea|The flight to Aberdeen was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Scotland
+Albany|n|state capital of New York; located in eastern New York State on the west bank of the Hudson river|We walked all over Albany on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=New York
+Rochester|n|a city in western New York; a center of the photographic equipment industry|We walked all over Rochester on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New York
+Chester|n|a city of southeastern Pennsylvania on the Delaware river|The flight to Chester was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Pennsylvania
 Venus|n|the second nearest planet to the sun|The probe sent back new photos of Venus.|||nogen;isa=terrestrial planet,planet,celestial body,natural object,inferior planet
-Lyon|n|a city in east-central France on the Rhone River; a principal producer of silk and rayon|The flight to Lyon was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Lyonnais,France
-Santa Fe|n|capital of the state of New Mexico; located in north central New Mexico|The flight to Santa Fe was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=New Mexico
-Eugene|n|a city in western Oregon on the Willamette River; site of a university|My friend just moved to Eugene for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Oregon
-Providence|n|the capital and largest city of Rhode Island; located in northeastern Rhode Island on Narragansett Bay; site of Brown University|We walked all over Providence on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Rhode Island
+Lyon|n|a city in east-central France on the Rhone River; a principal producer of silk and rayon|The flight to Lyon was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=France,Lyonnais
+Santa Fe|n|capital of the state of New Mexico; located in north central New Mexico|The flight to Santa Fe was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=New Mexico
+Eugene|n|a city in western Oregon on the Willamette River; site of a university|My friend just moved to Eugene for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Oregon
+Providence|n|the capital and largest city of Rhode Island; located in northeastern Rhode Island on Narragansett Bay; site of Brown University|We walked all over Providence on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Rhode Island
 Inland Sea|n|an arm of the Pacific Ocean in southern Japan|The Inland Sea looked calm from the bridge.|||nogen;isa=sea,body of water,thing;partof=Pacific
 Trent|n|a river in central England that flows generally northeastward to join with the Ouse River and form the Humber|We read about the Trent in geography class.|||nogen;isa=river,stream,body of water,thing;partof=England
-Santa Ana|n|a city in western El Salvador|We walked all over Santa Ana on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=El Salvador
+Santa Ana|n|a city in western El Salvador|We walked all over Santa Ana on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=El Salvador
 Iceland|n|a volcanic island in the North Atlantic near the Arctic Circle|Iceland is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Atlantic
-Springfield|n|capital of the state of Illinois|We walked all over Springfield on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Illinois
+Springfield|n|capital of the state of Illinois|We walked all over Springfield on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Illinois
 Romania|n|a republic in southeastern Europe with a short coastline on the Black Sea|She sent me a postcard from Romania.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
-Calgary|n|the largest city in southern Alberta; an oil and gas center and a technology center for Alberta and most of western Canada|We walked all over Calgary on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Alberta
-Lancaster|n|a city in northwestern England|My friend just moved to Lancaster for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
-Newport|n|a port city in southeastern Wales|We walked all over Newport on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Wales
+Calgary|n|the largest city in southern Alberta; an oil and gas center and a technology center for Alberta and most of western Canada|We walked all over Calgary on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Alberta
+Lancaster|n|a city in northwestern England|My friend just moved to Lancaster for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
+Newport|n|a port city in southeastern Wales|We walked all over Newport on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Wales
 Qatar|n|an Arab country on the peninsula of Qatar; achieved independence from the United Kingdom in 1971; the economy is dominated by oil|My cousin spent a year living in Qatar.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Qatar,Gulf States
 Uganda|n|a landlocked republic in eastern Africa; achieved independence from the United Kingdom in 1962|Uganda is high on my list of places to visit.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=East Africa,Africa
-Durham|n|a city of north central North Carolina; site of Duke University|My friend just moved to Durham for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=North Carolina
+Durham|n|a city of north central North Carolina; site of Duke University|My friend just moved to Durham for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=North Carolina
 Wyoming|n|a state in the western United States; mountainous in the west and north with the Great Plains in the east|We watched a documentary about Wyoming last night.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States
-Vatican City|n|the capital of the State of the Vatican City|We walked all over Vatican City on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Holy See
-Alexandria|n|the chief port of Egypt|My friend just moved to Alexandria for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Egypt
-Beverly Hills|n|a city in southwestern California surrounded by Los Angeles; home of many Hollywood actors|My friend just moved to Beverly Hills for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=California
-Flint|n|a city in southeast central Michigan near Detroit; automobile manufacturing|My friend just moved to Flint for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Michigan
-Charleston|n|state capital of West Virginia in the central part of the state on the Kanawha river|We walked all over Charleston on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=West Virginia
-Newport News|n|a port city in southeastern Virginia at the mouth of the James River off Hampton Roads; large shipyards|We spent a few days in Newport News last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Virginia
-Stockholm|n|the capital and largest city of Sweden; located in southern Sweden on the Baltic|We spent a few days in Stockholm last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Sweden
+Vatican City|n|the capital of the State of the Vatican City|We walked all over Vatican City on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Holy See
+Alexandria|n|the chief port of Egypt|My friend just moved to Alexandria for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Egypt
+Beverly Hills|n|a city in southwestern California surrounded by Los Angeles; home of many Hollywood actors|My friend just moved to Beverly Hills for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=California
+Flint|n|a city in southeast central Michigan near Detroit; automobile manufacturing|My friend just moved to Flint for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Michigan
+Charleston|n|state capital of West Virginia in the central part of the state on the Kanawha river|We walked all over Charleston on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=West Virginia
+Newport News|n|a port city in southeastern Virginia at the mouth of the James River off Hampton Roads; large shipyards|We spent a few days in Newport News last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Virginia
+Stockholm|n|the capital and largest city of Sweden; located in southern Sweden on the Baltic|We spent a few days in Stockholm last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Sweden
 Rhode Island|n|a state in New England; one of the original 13 colonies; the smallest state|My cousin spent a year living in Rhode Island.|||kind=place;at=in;nogen;isa=American state,state,administrative district,district,region,location;partof=United States,New England
 Ping|n|a river in western Thailand; a major tributary of the Chao Phraya|The Ping looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Thailand
 Congo|n|a republic in west-central Africa; achieved independence from France in 1960|We watched a documentary about Congo last night.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Sofia|n|capital and largest city of Bulgaria located in western Bulgaria|The flight to Sofia was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Bulgaria
-Kingston|n|capital and largest city of Jamaica|My friend just moved to Kingston for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Jamaica
+Sofia|n|capital and largest city of Bulgaria located in western Bulgaria|The flight to Sofia was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Bulgaria
+Kingston|n|capital and largest city of Jamaica|My friend just moved to Kingston for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Jamaica
 Croatia|n|a republic in the western Balkans in south-central Europe in the eastern Adriatic coastal area|She sent me a postcard from Croatia.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Balkan Peninsula
-Istanbul|n|the largest city and former capital of Turkey|The flight to Istanbul was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Turkey
-Newark|n|the largest city in New Jersey; located in northeastern New Jersey|We spent a few days in Newark last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New Jersey
+Istanbul|n|the largest city and former capital of Turkey|The flight to Istanbul was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Turkey
+Newark|n|the largest city in New Jersey; located in northeastern New Jersey|We spent a few days in Newark last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New Jersey
 Saint Johns|n|a river in northeastern Florida that flows northward to Jacksonville and then eastward to empty into the Atlantic Ocean|They sailed along the Saint Johns for a week.|||nogen;isa=river,stream,body of water,thing;partof=Florida
 Ethiopia|n|Ethiopia is a republic in northeastern Africa on the Red Sea; formerly called Abyssinia|She sent me a postcard from Ethiopia.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa,Somali peninsula
-Windsor|n|a city in southeastern Ontario on the Detroit River opposite Detroit|The flight to Windsor was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area
+Windsor|n|a city in southeastern Ontario on the Detroit River opposite Detroit|The flight to Windsor was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district
 Solomon Islands|n|the southern Solomon Islands that since 1978 form an independent state in the British Commonwealth|My cousin spent a year living in Solomon Islands.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Solomons
-Arlington|n|a city in northern Texas between Dallas and Fort Worth|The flight to Arlington was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Texas
+Arlington|n|a city in northern Texas between Dallas and Fort Worth|The flight to Arlington was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Texas
 Zimbabwe|n|a landlocked republic in south central Africa formerly called Rhodesia; achieved independence from the United Kingdom in 1980|My cousin spent a year living in Zimbabwe.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
 Thames|n|the longest river in England; flows eastward through London to the North Sea|They sailed along the Thames for a week.|||nogen;isa=river,stream,body of water,thing;partof=England
 Haiti|n|a republic in the West Indies on the western part of the island of Hispaniola|She sent me a postcard from Haiti.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Caribbean,Hispaniola
-Santa Clara|n|a city of west central California; residential area with light industry|The flight to Santa Clara was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=California
+Santa Clara|n|a city of west central California; residential area with light industry|The flight to Santa Clara was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=California
 Clyde|n|a river in western Scotland that flows from the southern uplands into the Firth of Clyde; navigable by oceangoing vessels as far as Glasgow|The Clyde looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Scotland
 Cambodia|n|a nation in southeastern Asia; was part of Indochina under French rule until 1946|Cambodia is high on my list of places to visit.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Indochina
 Cyprus|n|a country on the island of Cyprus; 80% of the people are of Greek origin and 20% or Turkish origin|We watched a documentary about Cyprus last night.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Cyprus
-Cork|n|a port city in southern Ireland|We walked all over Cork on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Ireland
-San Salvador|n|the capital and largest city of El Salvador; has suffered from recurrent earthquakes|The flight to San Salvador was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=El Salvador
+Cork|n|a port city in southern Ireland|We walked all over Cork on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Ireland
+San Salvador|n|the capital and largest city of El Salvador; has suffered from recurrent earthquakes|The flight to San Salvador was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=El Salvador
 Puerto Rico|n|the smallest and easternmost of the Greater Antilles in the Caribbean|Puerto Rico is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Puerto Rico
-Santos|n|a port city in southwestern Brazil on an offshore island near Sao Paulo|We spent a few days in Santos last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Brazil
-Salem|n|capital of the state of Oregon in the northwestern part of the state on the Willamette River|The flight to Salem was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Oregon
-Sur|n|a port in southern Lebanon on the Mediterranean Sea; formerly a major Phoenician seaport famous for silks|The flight to Sur was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Lebanon
-Auckland|n|the largest city and principal port of New Zealand|We walked all over Auckland on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=New Zealand
+Santos|n|a port city in southwestern Brazil on an offshore island near Sao Paulo|We spent a few days in Santos last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Brazil
+Salem|n|capital of the state of Oregon in the northwestern part of the state on the Willamette River|The flight to Salem was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Oregon
+Sur|n|a port in southern Lebanon on the Mediterranean Sea; formerly a major Phoenician seaport famous for silks|The flight to Sur was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Lebanon
+Auckland|n|the largest city and principal port of New Zealand|We walked all over Auckland on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=New Zealand
 Uruguay|n|a South American republic on the southeast coast of South America; achieved independence from Brazil in 1825|We watched a documentary about Uruguay last night.|||kind=place;at=in;nogen;isa=South American country,country,administrative district,district,region,location;partof=South America
 Sri Lanka|n|a republic on the island of Ceylon; became independent of the United Kingdom in 1948|My cousin spent a year living in Sri Lanka.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location
-Bangalore|n|an industrial city in south central India|We walked all over Bangalore on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=India
+Bangalore|n|an industrial city in south central India|We walked all over Bangalore on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=India
 Bali|n|an island in Indonesia to the east of Java; striking volcanic scenery; culture is known for elaborate dances and rituals and for handicrafts|Bali is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Indonesia
-Jupiter|n|the largest planet and the 5th from the sun; has many satellites and is one of the brightest objects in the night sky|The probe sent back new photos of Jupiter.|||nogen;isa=Jovian planet,planet,celestial body,natural object,outer planet,superior planet
+Jupiter|n|the largest planet and the 5th from the sun; has many satellites and is one of the brightest objects in the night sky|The probe sent back new photos of Jupiter.|||nogen;isa=outer planet,planet,celestial body,natural object,superior planet,Jovian planet
 Uruguay River|n|a South American river that arises in southern Brazil and flows south to the Rio de la Plata|They sailed along the Uruguay River for a week.|||nogen;isa=river,stream,body of water,thing;partof=South America
-Copenhagen|n|the capital and largest city of Denmark; located on the island of Zealand|We spent a few days in Copenhagen last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Denmark
-Jakarta|n|capital and largest city of Indonesia; located on the island of Java; founded by the Dutch in 17th century|The flight to Jakarta was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Java
+Copenhagen|n|the capital and largest city of Denmark; located on the island of Zealand|We spent a few days in Copenhagen last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Denmark
+Jakarta|n|capital and largest city of Indonesia; located on the island of Java; founded by the Dutch in 17th century|The flight to Jakarta was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Java
 Somalia|n|a republic in extreme eastern Africa on the Somali peninsula; subject to tribal warfare|We watched a documentary about Somalia last night.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa,Somali peninsula
-Johannesburg|n|city in the northeastern part of South Africa near Pretoria; commercial center for diamond and gold industries|The flight to Johannesburg was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=South Africa
-Riverside|n|a city in southern California|My friend just moved to Riverside for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=California
-Kuwait|n|a seaport on the Persian Gulf and capital of Kuwait|My friend just moved to Kuwait for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Kuwait
+Johannesburg|n|city in the northeastern part of South Africa near Pretoria; commercial center for diamond and gold industries|The flight to Johannesburg was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=South Africa
+Riverside|n|a city in southern California|My friend just moved to Riverside for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=California
+Kuwait|n|a seaport on the Persian Gulf and capital of Kuwait|My friend just moved to Kuwait for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Kuwait
 Trinidad|n|an island in West Indies just off the northeastern coast of Venezuela|She sent me a postcard from Trinidad.|||kind=place;at=in;nogen;isa=island,land;partof=West Indies,Trinidad and Tobago
-Prague|n|the capital and largest city of the Czech Republic in the western part of the country; a cultural and commercial center since the 14th century|We spent a few days in Prague last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Czech Republic
-Kobe|n|a port city in Japan on Osaka Bay in southern Honshu; was damaged by an earthquake in 1995|My friend just moved to Kobe for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Honshu
-The Hague|n|the site of the royal residence and the de facto capital in the western part of the Netherlands; seat of the International Court of Justice|We walked all over The Hague on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Netherlands
+Prague|n|the capital and largest city of the Czech Republic in the western part of the country; a cultural and commercial center since the 14th century|We spent a few days in Prague last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Czech Republic
+Kobe|n|a port city in Japan on Osaka Bay in southern Honshu; was damaged by an earthquake in 1995|My friend just moved to Kobe for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Honshu
+The Hague|n|the site of the royal residence and the de facto capital in the western part of the Netherlands; seat of the International Court of Justice|We walked all over The Hague on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Netherlands
 Monaco|n|a constitutional monarchy in a tiny enclave on the French Riviera|My cousin spent a year living in Monaco.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location,principality,domain;partof=Europe
 Ecuador|n|a republic in northwestern South America; became independent from Spain in 1822; the landscape is dominated by the Andes|She sent me a postcard from Ecuador.|||kind=place;at=in;nogen;isa=South American country,country,administrative district,district,region,location;partof=South America
-Canberra|n|the capital of Australia; located in southeastern Australia|The flight to Canberra was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Australia
-Bam|n|an ancient city in southeastern Iran; destroyed by an earthquake in 2003|We spent a few days in Bam last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Iran
-Baghdad|n|capital and largest city of Iraq; located on the Tigris River|We walked all over Baghdad on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Iraq
-Lagos|n|chief port and economic center of Nigeria; located in southwestern Nigeria on the Gulf of Guinea; former capital of Nigeria|The flight to Lagos was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Nigeria
-Lisbon|n|capital and largest city and economic and cultural center of Portugal|We walked all over Lisbon on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Portugal
-Hartford|n|the state capital of Connecticut; located in central Connecticut on the Connecticut river; a center of the insurance business|The flight to Hartford was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Connecticut
+Canberra|n|the capital of Australia; located in southeastern Australia|The flight to Canberra was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Australia
+Bam|n|an ancient city in southeastern Iran; destroyed by an earthquake in 2003|We spent a few days in Bam last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Iran
+Baghdad|n|capital and largest city of Iraq; located on the Tigris River|We walked all over Baghdad on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Iraq
+Lagos|n|chief port and economic center of Nigeria; located in southwestern Nigeria on the Gulf of Guinea; former capital of Nigeria|The flight to Lagos was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Nigeria
+Lisbon|n|capital and largest city and economic and cultural center of Portugal|We walked all over Lisbon on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Portugal
+Hartford|n|the state capital of Connecticut; located in central Connecticut on the Connecticut river; a center of the insurance business|The flight to Hartford was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Connecticut
 Nile|n|the world's longest river|The Nile looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Egypt,Uganda
-Naples|n|a port and tourist center in southwestern Italy; capital of the Campania region|We walked all over Naples on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Campania
-Sunderland|n|a port and industrial city in northeastern England|We spent a few days in Sunderland last spring.|||kind=place;at=in;nogen;isa=town,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=England
-Helena|n|capital of the state of Montana; located in western Montana|My friend just moved to Helena for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Montana
+Naples|n|a port and tourist center in southwestern Italy; capital of the Campania region|We walked all over Naples on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Campania
+Sunderland|n|a port and industrial city in northeastern England|We spent a few days in Sunderland last spring.|||kind=place;at=in;nogen;isa=town,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=England
+Helena|n|capital of the state of Montana; located in western Montana|My friend just moved to Helena for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Montana
 Algeria|n|a republic in northwestern Africa on the Mediterranean Sea with a population that is predominantly Sunni Muslim|My cousin spent a year living in Algeria.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Maghreb
-Guatemala City|n|the capital and largest city of Guatemala|The flight to Guatemala City was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Guatemala
-Hamburg|n|a port city in northern Germany on the Elbe River that was founded by Charlemagne in the 9th century and is today the largest port in Germany|The flight to Hamburg was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Germany
-Syracuse|n|a city in southeastern Sicily that was founded by Corinthians in the 8th century BC|We walked all over Syracuse on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Sicily
-Swansea|n|a port city in southern Wales on an inlet of the Bristol Channel|The flight to Swansea was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Wales
-Valencia|n|a city in eastern Spain on the Mediterranean|We walked all over Valencia on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Spain
-Savannah|n|a port in eastern Georgia near the mouth of the Savannah river|We spent a few days in Savannah last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Georgia
-Grand Rapids|n|a city in west central Michigan; noted for manufacturing furniture|We walked all over Grand Rapids on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Michigan
+Guatemala City|n|the capital and largest city of Guatemala|The flight to Guatemala City was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Guatemala
+Hamburg|n|a port city in northern Germany on the Elbe River that was founded by Charlemagne in the 9th century and is today the largest port in Germany|The flight to Hamburg was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Germany
+Syracuse|n|a city in southeastern Sicily that was founded by Corinthians in the 8th century BC|We walked all over Syracuse on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Sicily
+Swansea|n|a port city in southern Wales on an inlet of the Bristol Channel|The flight to Swansea was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Wales
+Valencia|n|a city in eastern Spain on the Mediterranean|We walked all over Valencia on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Spain
+Savannah|n|a port in eastern Georgia near the mouth of the Savannah river|We spent a few days in Savannah last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Georgia
+Grand Rapids|n|a city in west central Michigan; noted for manufacturing furniture|We walked all over Grand Rapids on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Michigan
 Lena|n|a Russian river in Siberia; flows northward into the Laptev Sea|We read about the Lena in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Siberia
 Fiji|n|an independent state within the British Commonwealth located on the Fiji Islands|We watched a documentary about Fiji last night.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Fiji Islands
-Jacksonville|n|Florida's largest city; a port and important commercial center in northeastern Florida|My friend just moved to Jacksonville for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=Florida
-Omaha|n|largest city in Nebraska; located in eastern Nebraska on the Missouri river; a major transportation center of the Midwest|The flight to Omaha was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Nebraska
-Colon|n|a port city at the Caribbean entrance to the Panama Canal|We walked all over Colon on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Panama
+Jacksonville|n|Florida's largest city; a port and important commercial center in northeastern Florida|My friend just moved to Jacksonville for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=Florida
+Omaha|n|largest city in Nebraska; located in eastern Nebraska on the Missouri river; a major transportation center of the Midwest|The flight to Omaha was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Nebraska
+Colon|n|a port city at the Caribbean entrance to the Panama Canal|We walked all over Colon on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Panama
 Dominican Republic|n|a republic in the West Indies; located on the eastern two-thirds of the island of Hispaniola|Dominican Republic is high on my list of places to visit.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Caribbean,Hispaniola
-Portsmouth|n|a port city in southern England on the English Channel; Britain's major naval base|My friend just moved to Portsmouth for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=England
-Benghazi|n|port in northern Libya on the Gulf of Sidra; formerly a joint capital of Libya with Tripoli|We spent a few days in Benghazi last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Libya
-Fargo|n|largest city in North Dakota; located in eastern North Dakota on the Red river|We walked all over Fargo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=North Dakota
+Portsmouth|n|a port city in southern England on the English Channel; Britain's major naval base|My friend just moved to Portsmouth for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=England
+Benghazi|n|port in northern Libya on the Gulf of Sidra; formerly a joint capital of Libya with Tripoli|We spent a few days in Benghazi last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Libya
+Fargo|n|largest city in North Dakota; located in eastern North Dakota on the Red river|We walked all over Fargo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=North Dakota
 Bahrain|n|an island country in the Persian Gulf off the coast of Saudi Arabia; oil revenues funded progressive programs until reserves were exhausted in 1970s|My cousin spent a year living in Bahrain.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Gulf States,Asia
-Worcester|n|a cathedral city in west central England on the River Severn|The flight to Worcester was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
-Karachi|n|the largest city in Pakistan; located in southeastern Pakistan; an industrial center and seaport on the Arabian Sea; former capital of Pakistan|We walked all over Karachi on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Pakistan
-Zurich|n|the largest city in Switzerland; located in the northern part of the country|My friend just moved to Zurich for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Switzerland
-Augusta|n|the capital of the state of Maine|The flight to Augusta was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Maine
-Raleigh|n|capital of the state of North Carolina; located in the east central part of the North Carolina|We spent a few days in Raleigh last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=North Carolina
+Worcester|n|a cathedral city in west central England on the River Severn|The flight to Worcester was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
+Karachi|n|the largest city in Pakistan; located in southeastern Pakistan; an industrial center and seaport on the Arabian Sea; former capital of Pakistan|We walked all over Karachi on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Pakistan
+Zurich|n|the largest city in Switzerland; located in the northern part of the country|My friend just moved to Zurich for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Switzerland
+Augusta|n|the capital of the state of Maine|The flight to Augusta was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Maine
+Raleigh|n|capital of the state of North Carolina; located in the east central part of the North Carolina|We spent a few days in Raleigh last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=North Carolina
 Mackenzie|n|a Canadian river; flows into the Beaufort Sea|They sailed along the Mackenzie for a week.|||nogen;isa=river,stream,body of water,thing;partof=Canada
-Pee Dee|n|a river that flows through central North Carolina and northeastern South Carolina to the Atlantic Ocean|The Pee Dee looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=South Carolina,North Carolina
-Lima|n|capital and largest city and economic center of Peru|We walked all over Lima on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Peru
-Lexington|n|a city in eastern Kentucky; noted for raising thoroughbred horses|We spent a few days in Lexington last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Kentucky
-Cologne|n|a commercial center and river port in western Germany on the Rhine River; flourished during the 15th century as a member of the Hanseatic League|We walked all over Cologne on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Germany
+Pee Dee|n|a river that flows through central North Carolina and northeastern South Carolina to the Atlantic Ocean|The Pee Dee looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=North Carolina,South Carolina
+Lima|n|capital and largest city and economic center of Peru|We walked all over Lima on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Peru
+Lexington|n|a city in eastern Kentucky; noted for raising thoroughbred horses|We spent a few days in Lexington last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Kentucky
+Cologne|n|a commercial center and river port in western Germany on the Rhine River; flourished during the 15th century as a member of the Hanseatic League|We walked all over Cologne on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Germany
 British Isles|n|Great Britain and Ireland and adjacent islands in the north Atlantic|My cousin spent a year living in British Isles.|||kind=place;at=in;nogen;isa=island,land;partof=Atlantic
-Georgetown|n|port city and the capital and largest city of Guyana|My friend just moved to Georgetown for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Guyana
+Georgetown|n|port city and the capital and largest city of Guyana|My friend just moved to Georgetown for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Guyana
 Luxembourg|n|a grand duchy landlocked in northwestern Europe between France and Belgium and Germany; an international financial center|We watched a documentary about Luxembourg last night.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
 Kazakhstan|n|a landlocked republic to the south of Russia and to the northeast of the Caspian Sea|Kazakhstan is high on my list of places to visit.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia
 Tanzania|n|a republic in eastern Africa|We watched a documentary about Tanzania last night.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=East Africa,Africa
 Tunisia|n|a republic in northwestern Africa on the Mediterranean coast; achieved independence from France in 1956|My cousin spent a year living in Tunisia.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Maghreb
-Dover|n|the capital of the state of Delaware|We spent a few days in Dover last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Delaware
-Erie|n|a port city on Lake Erie in northwestern Pennsylvania|My friend just moved to Erie for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port;partof=Pennsylvania
+Dover|n|the capital of the state of Delaware|We spent a few days in Dover last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Delaware
+Erie|n|a port city on Lake Erie in northwestern Pennsylvania|My friend just moved to Erie for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port;partof=Pennsylvania
 Baltic|n|a sea in northern Europe; stronghold of the Russian navy|We read about the Baltic in geography class.|||nogen;isa=sea,body of water,thing
 Fiji Islands|n|a group of more than 800 islands in the southwestern Pacific|Fiji Islands is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Melanesia
-Winchester|n|a city in southern England; administrative center of Hampshire|We spent a few days in Winchester last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Hampshire
-Osaka|n|port city on southern Honshu on Osaka Bay; a commercial and industrial center of Japan|We walked all over Osaka on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Honshu,Japan
+Winchester|n|a city in southern England; administrative center of Hampshire|We spent a few days in Winchester last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Hampshire
+Osaka|n|port city on southern Honshu on Osaka Bay; a commercial and industrial center of Japan|We walked all over Osaka on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Japan,Honshu
 Armenia|n|a landlocked republic in southwestern Asia|My cousin spent a year living in Armenia.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Transcaucasia
-Budapest|n|capital and largest city of Hungary; located on the Danube River in north-central Hungary|We spent a few days in Budapest last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Hungary
-Babylon|n|the chief city of ancient Mesopotamia and capital of the ancient kingdom of Babylonia|We walked all over Babylon on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Mesopotamia
-Nairobi|n|the capital and largest city of Kenya; a center for tourist safaris|We spent a few days in Nairobi last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Kenya
+Budapest|n|capital and largest city of Hungary; located on the Danube River in north-central Hungary|We spent a few days in Budapest last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Hungary
+Babylon|n|the chief city of ancient Mesopotamia and capital of the ancient kingdom of Babylonia|We walked all over Babylon on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Mesopotamia
+Nairobi|n|the capital and largest city of Kenya; a center for tourist safaris|We spent a few days in Nairobi last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Kenya
 Malta|n|a republic on the island of Malta in the Mediterranean; achieved independence from the United Kingdom in 1964|She sent me a postcard from Malta.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Malta
-Tucson|n|a city in southeastern Arizona ringed by mountain ranges|We spent a few days in Tucson last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Arizona
+Tucson|n|a city in southeastern Arizona ringed by mountain ranges|We spent a few days in Tucson last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Arizona
 Kara Sea|n|part of the Arctic Ocean to the north of Siberia and to the east of the Barents Sea; icebound most of the year|We read about the Kara Sea in geography class.|||nogen;isa=sea,body of water,thing;partof=Arctic Ocean
-Saturn|n|a giant planet that is surrounded by three planar concentric rings of ice particles; the 6th planet from the sun|The probe sent back new photos of Saturn.|||nogen;isa=Jovian planet,planet,celestial body,natural object,outer planet,superior planet
+Saturn|n|a giant planet that is surrounded by three planar concentric rings of ice particles; the 6th planet from the sun|The probe sent back new photos of Saturn.|||nogen;isa=outer planet,planet,celestial body,natural object,superior planet,Jovian planet
 Cameroon|n|a republic on the western coast of central Africa; was under French and British control until 1960|Cameroon is high on my list of places to visit.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Havana|n|the capital and largest city of Cuba; located in western Cuba; one of the oldest cities in the Americas|We walked all over Havana on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Cuba
+Havana|n|the capital and largest city of Cuba; located in western Cuba; one of the oldest cities in the Americas|We walked all over Havana on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Cuba
 Rwanda|n|a landlocked republic in central Africa; formerly a German colony|My cousin spent a year living in Rwanda.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=East Africa,Africa
 Tasmania|n|an island off the southeastern coast of Australia|We watched a documentary about Tasmania last night.|||kind=place;at=in;nogen;isa=island,land;partof=Australia
 Bahamas|n|island country in the Atlantic to the east of Florida and Cuba; a popular winter resort|My cousin spent a year living in Bahamas.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Caribbean,West Indies
 Bolivia|n|a landlocked republic in central South America; Simon Bolivar founded Bolivia in 1825 after winning independence from Spain|We watched a documentary about Bolivia last night.|||kind=place;at=in;nogen;isa=South American country,country,administrative district,district,region,location;partof=South America
-Gloucester|n|a city in southwestern England in Gloucestershire on the Severn|My friend just moved to Gloucester for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
+Gloucester|n|a city in southwestern England in Gloucestershire on the Severn|My friend just moved to Gloucester for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
 Mali|n|a landlocked republic in northwestern Africa|She sent me a postcard from Mali.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Camden|n|a city in southwestern New Jersey on the Delaware River near Philadelphia|We spent a few days in Camden last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New Jersey
+Camden|n|a city in southwestern New Jersey on the Delaware River near Philadelphia|We spent a few days in Camden last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New Jersey
 Antarctica|n|an extremely cold continent at the south pole almost entirely below the Antarctic Circle; covered by an ice cap up to 13,000 feet deep|We watched a documentary about Antarctica last night.|||kind=place;at=in;nogen;isa=continent,landmass,land;partof=Antarctic
-Antarctic Ocean|n|the southern waters surrounding Antarctica|The Antarctic Ocean looked calm from the bridge.|||nogen;isa=ocean,body of water,thing;partof=Indian Ocean,Pacific
+Antarctic Ocean|n|the southern waters surrounding Antarctica|The Antarctic Ocean looked calm from the bridge.|||nogen;isa=ocean,body of water,thing;partof=Atlantic,Antarctic
 Bermuda|n|a group of islands in the Atlantic off the Carolina coast; British colony; a popular resort|Bermuda is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Atlantic
-Chennai|n|a city in Tamil Nadu on the Bay of Bengal; formerly Madras|The flight to Chennai was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=India
+Chennai|n|a city in Tamil Nadu on the Bay of Bengal; formerly Madras|The flight to Chennai was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=India
 Tibet|n|an autonomous region of the Peoples Republic of China; located in the Himalayas|Tibet is high on my list of places to visit.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia
-Toledo|n|a city in central Spain on the Tagus river; famous for steel and swords since the first century|We walked all over Toledo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Spain
-Reno|n|a city in western Nevada at the foot of the Sierra Nevada Mountains; known for gambling casinos and easy divorce and remarriage|We spent a few days in Reno last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Nevada
-Huntington|n|a city of western West Virginia on the Ohio river at the mouth of the Kanawha|The flight to Huntington was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=West Virginia
+Toledo|n|a city in central Spain on the Tagus river; famous for steel and swords since the first century|We walked all over Toledo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Spain
+Reno|n|a city in western Nevada at the foot of the Sierra Nevada Mountains; known for gambling casinos and easy divorce and remarriage|We spent a few days in Reno last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Nevada
+Huntington|n|a city of western West Virginia on the Ohio river at the mouth of the Kanawha|The flight to Huntington was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=West Virginia
 Arabian Sea|n|a northwestern arm of the Indian Ocean between India and Arabia|We read about the Arabian Sea in geography class.|||nogen;isa=sea,body of water,thing;partof=Indian Ocean
-Niagara|n|a river flowing from Lake Erie into Lake Ontario; forms boundary between Ontario and New York|They sailed along the Niagara for a week.|||nogen;isa=river,stream,body of water,thing;partof=United States,Canada
-Oslo|n|the capital and largest city of Norway; the country's main port; located at the head of a fjord on Norway's southern coast|My friend just moved to Oslo for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Norway
-Porto|n|port city in northwest Portugal; noted for port wine|We spent a few days in Porto last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Portugal
+Niagara|n|a river flowing from Lake Erie into Lake Ontario; forms boundary between Ontario and New York|They sailed along the Niagara for a week.|||nogen;isa=river,stream,body of water,thing;partof=Canada,United States
+Oslo|n|the capital and largest city of Norway; the country's main port; located at the head of a fjord on Norway's southern coast|My friend just moved to Oslo for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Norway
+Porto|n|port city in northwest Portugal; noted for port wine|We spent a few days in Porto last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Portugal
 Barbados|n|a parliamentary democracy on the island of Barbados; former British colony; a popular resort area|We watched a documentary about Barbados last night.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Barbados,Caribbean
 Yugoslavia|n|a former country of southeastern Europe bordering the Adriatic Sea|Yugoslavia is high on my list of places to visit.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location
-Hyderabad|n|a city in south central India in Andhra Pradesh|We spent a few days in Hyderabad last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=India
-Cannes|n|a port and resort city on the French Riviera; site of an annual film festival|We spent a few days in Cannes last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=France
+Hyderabad|n|a city in south central India in Andhra Pradesh|We spent a few days in Hyderabad last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=India
+Cannes|n|a port and resort city on the French Riviera; site of an annual film festival|We spent a few days in Cannes last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=France
 Liberia|n|a republic in West Africa|Liberia is high on my list of places to visit.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
 Sierra Leone|n|a republic in West Africa; achieved independence from the United Kingdom in 1961|My cousin spent a year living in Sierra Leone.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Mesa|n|a city in Arizona just to the east of Phoenix; originally a suburb of Phoenix|The flight to Mesa was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Arizona
-Honolulu|n|the capital and largest city of Hawaii; located on a large bay on the island of Oahu|The flight to Honolulu was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Oahu
-Albuquerque|n|the largest city in New Mexico; located in central New Mexico on the Rio Grande river|We spent a few days in Albuquerque last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New Mexico
-Dayton|n|a city in southwest Ohio; manufacturing center|We walked all over Dayton on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Ohio
-Burlington|n|the largest city in Vermont; located in northwestern Vermont on Lake Champlain; site of the University of Vermont|We spent a few days in Burlington last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Vermont
-Coventry|n|an industrial city in central England; devastated by air raids during World War II; remembered as the home of Lady Godiva in the 11th century|The flight to Coventry was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=England
-Northampton|n|the principal city of Northamptonshire|The flight to Northampton was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Northamptonshire
-Lahore|n|city in northeast Pakistan|We walked all over Lahore on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Pakistan
-Niagara Falls|n|a city in western New York State at the falls of the Niagara river; tourist attraction and honeymoon resort|My friend just moved to Niagara Falls for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New York
+Mesa|n|a city in Arizona just to the east of Phoenix; originally a suburb of Phoenix|The flight to Mesa was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Arizona
+Honolulu|n|the capital and largest city of Hawaii; located on a large bay on the island of Oahu|The flight to Honolulu was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Oahu
+Albuquerque|n|the largest city in New Mexico; located in central New Mexico on the Rio Grande river|We spent a few days in Albuquerque last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New Mexico
+Dayton|n|a city in southwest Ohio; manufacturing center|We walked all over Dayton on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Ohio
+Burlington|n|the largest city in Vermont; located in northwestern Vermont on Lake Champlain; site of the University of Vermont|We spent a few days in Burlington last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Vermont
+Coventry|n|an industrial city in central England; devastated by air raids during World War II; remembered as the home of Lady Godiva in the 11th century|The flight to Coventry was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=England
+Northampton|n|the principal city of Northamptonshire|The flight to Northampton was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Northamptonshire
+Lahore|n|city in northeast Pakistan|We walked all over Lahore on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Pakistan
+Niagara Falls|n|a city in western New York State at the falls of the Niagara river; tourist attraction and honeymoon resort|My friend just moved to Niagara Falls for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New York
 Azerbaijan|n|a landlocked republic in southwestern Asia; formerly an Asian soviet|She sent me a postcard from Azerbaijan.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Transcaucasia
-Tulsa|n|a major city of northeastern Oklahoma on the Arkansas river|My friend just moved to Tulsa for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Oklahoma
-Concord|n|capital of the state of New Hampshire; located in south central New Hampshire on the Merrimack river|We spent a few days in Concord last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=New Hampshire
+Tulsa|n|a major city of northeastern Oklahoma on the Arkansas river|My friend just moved to Tulsa for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Oklahoma
+Concord|n|capital of the state of New Hampshire; located in south central New Hampshire on the Merrimack river|We spent a few days in Concord last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=New Hampshire
 Sicily|n|the largest island in the Mediterranean|My cousin spent a year living in Sicily.|||kind=place;at=in;nogen;isa=island,land;partof=Mediterranean
 Belarus|n|a landlocked republic in eastern Europe; formerly a European soviet|We watched a documentary about Belarus last night.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
-Anaheim|n|a city in southern California; site of Disneyland|We walked all over Anaheim on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=California
-Garland|n|a city in northeastern Texas|My friend just moved to Garland for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Texas
+Anaheim|n|a city in southern California; site of Disneyland|We walked all over Anaheim on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=California
+Garland|n|a city in northeastern Texas|My friend just moved to Garland for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Texas
 Niger|n|a landlocked republic in West Africa; gained independence from France in 1960; most of the country is dominated by the Sahara Desert|My cousin spent a year living in Niger.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Pasadena|n|a city in southwestern California to the east of Los Angeles|My friend just moved to Pasadena for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=California
+Pasadena|n|a city in southwestern California to the east of Los Angeles|My friend just moved to Pasadena for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=California
 Avon|n|a river in central England that flows through Stratford-on-Avon and empties into the Severn|The Avon looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=England
-Cumberland|n|a river that rises in southeastern Kentucky and flows westward through northern Tennessee to become a tributary of the Ohio River in southwestern Kentucky|They sailed along the Cumberland for a week.|||nogen;isa=river,stream,body of water,thing;partof=Kentucky,Tennessee
-Sioux City|n|a city in northeastern Iowa where the Big Sioux River joins the Missouri|My friend just moved to Sioux City for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Iowa
-El Paso|n|a city in western Texas on the Mexican border; located on the northern bank of the Rio Grande across from the Mexican city of Juarez|We spent a few days in El Paso last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Texas
-Hobart|n|a port and state capital of Tasmania|We spent a few days in Hobart last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Tasmania
+Cumberland|n|a river that rises in southeastern Kentucky and flows westward through northern Tennessee to become a tributary of the Ohio River in southwestern Kentucky|They sailed along the Cumberland for a week.|||nogen;isa=river,stream,body of water,thing;partof=Tennessee,Kentucky
+Sioux City|n|a city in northeastern Iowa where the Big Sioux River joins the Missouri|My friend just moved to Sioux City for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Iowa
+El Paso|n|a city in western Texas on the Mexican border; located on the northern bank of the Rio Grande across from the Mexican city of Juarez|We spent a few days in El Paso last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Texas
+Hobart|n|a port and state capital of Tasmania|We spent a few days in Hobart last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Tasmania
 Admiralty Island|n|an Alaskan island in the Alexander Archipelago near Juneau|We watched a documentary about Admiralty Island last night.|||kind=place;at=in;nogen;isa=island,land;partof=Alexander Archipelago
-Wilmington|n|the largest city in Delaware|We spent a few days in Wilmington last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Delaware
-Wichita|n|the largest city in Kansas; located in southern Kansas on the Arkansas River|My friend just moved to Wichita for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Kansas
-Ann Arbor|n|a city in southern Michigan near Detroit; site of the University of Michigan|We walked all over Ann Arbor on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Michigan
+Wilmington|n|the largest city in Delaware|We spent a few days in Wilmington last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Delaware
+Wichita|n|the largest city in Kansas; located in southern Kansas on the Arkansas River|My friend just moved to Wichita for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Kansas
+Ann Arbor|n|a city in southern Michigan near Detroit; site of the University of Michigan|We walked all over Ann Arbor on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Michigan
 Zambia|n|a republic in central Africa|Zambia is high on my list of places to visit.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
 Ob|n|a major river of western Siberia; flows generally northward and westward to the Gulf of Ob and the Kara Sea|We read about the Ob in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Siberia
-Greenland|n|the largest island in the world; lies between the North Atlantic and the Arctic Ocean; a self-governing province of Denmark|Greenland is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Arctic Ocean,Atlantic
-Basel|n|a city in northwestern Switzerland|We walked all over Basel on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Switzerland
-Anchorage|n|a city in south central Alaska|We spent a few days in Anchorage last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Alaska
+Greenland|n|the largest island in the world; lies between the North Atlantic and the Arctic Ocean; a self-governing province of Denmark|Greenland is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Atlantic,Arctic Ocean
+Basel|n|a city in northwestern Switzerland|We walked all over Basel on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Switzerland
+Anchorage|n|a city in south central Alaska|We spent a few days in Anchorage last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Alaska
 Tobago|n|island in West Indies|Tobago is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=West Indies,Trinidad and Tobago
 Slovenia|n|a mountainous republic in central Europe; formerly part of the Habsburg monarchy and Yugoslavia; achieved independence in 1991|My cousin spent a year living in Slovenia.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location
-Natal|n|a port city in northeastern Brazil|We spent a few days in Natal last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Brazil
-Kyoto|n|a city in central Japan on southern Honshu; a famous cultural center that was once the capital of Japan|The flight to Kyoto was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Honshu,Japan
-Fresno|n|a city in south central California in the San Joaquin Valley; center of an important agricultural area and gateway to the Sierra Nevada Mountains|My friend just moved to Fresno for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=California
-Paterson|n|a city of northeastern New Jersey|We spent a few days in Paterson last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New Jersey
-Sioux Falls|n|largest city in South Dakota; located in southeastern South Dakota|The flight to Sioux Falls was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=South Dakota
+Natal|n|a port city in northeastern Brazil|We spent a few days in Natal last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Brazil
+Kyoto|n|a city in central Japan on southern Honshu; a famous cultural center that was once the capital of Japan|The flight to Kyoto was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Japan,Honshu
+Fresno|n|a city in south central California in the San Joaquin Valley; center of an important agricultural area and gateway to the Sierra Nevada Mountains|My friend just moved to Fresno for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=California
+Paterson|n|a city of northeastern New Jersey|We spent a few days in Paterson last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New Jersey
+Sioux Falls|n|largest city in South Dakota; located in southeastern South Dakota|The flight to Sioux Falls was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=South Dakota
 Greenland Sea|n|part of the Arctic Ocean to the north of Iceland|They sailed along the Greenland Sea for a week.|||nogen;isa=sea,body of water,thing;partof=Arctic Ocean
-Kabul|n|the capital and largest city of Afghanistan; located in eastern Afghanistan|We walked all over Kabul on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Afghanistan
+Kabul|n|the capital and largest city of Afghanistan; located in eastern Afghanistan|We walked all over Kabul on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Afghanistan
 Slovakia|n|a landlocked republic in central Europe; separated from the Czech Republic in 1993|We watched a documentary about Slovakia last night.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
 Saint Lucia|n|a country on the island of Saint Lucia; gained independence from Great Britain in 1979|My cousin spent a year living in Saint Lucia.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Windward Islands,Caribbean
 Canary Islands|n|a group of mountainous islands in the Atlantic off the northwest coast of Africa forming Spanish provinces|Canary Islands is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Spain
-Wichita Falls|n|a city in north central Texas near the Oklahoma border|We walked all over Wichita Falls on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Texas
-Dortmund|n|an industrial city in northwestern Germany; flourished from the 13th to 17th century as a member of the Hanseatic League|My friend just moved to Dortmund for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Germany
+Wichita Falls|n|a city in north central Texas near the Oklahoma border|We walked all over Wichita Falls on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Texas
+Dortmund|n|an industrial city in northwestern Germany; flourished from the 13th to 17th century as a member of the Hanseatic League|My friend just moved to Dortmund for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Germany
 Madagascar|n|an island in the Indian Ocean off the southeastern coast of Africa; the 4th largest island in the world|Madagascar is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Indian Ocean
 Samoa|n|a constitutional monarchy on the western part of the islands of Samoa in the South Pacific|My cousin spent a year living in Samoa.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Samoa
-Cedar Rapids|n|a city in eastern Iowa|The flight to Cedar Rapids was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Iowa
-Hanoi|n|the capital city of Vietnam; located in North Vietnam|We walked all over Hanoi on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Vietnam
+Cedar Rapids|n|a city in eastern Iowa|The flight to Cedar Rapids was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Iowa
+Hanoi|n|the capital city of Vietnam; located in North Vietnam|We walked all over Hanoi on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Vietnam
 Huang He|n|a major river of Asia in northern China; flows generally eastward into the Yellow Sea; carries large quantities of yellow silt to its delta|The Huang He looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=China
-Tel Aviv|n|the largest city and financial center of Israel; located in western Israel on the Mediterranean|We walked all over Tel Aviv on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Israel
+Tel Aviv|n|the largest city and financial center of Israel; located in western Israel on the Mediterranean|We walked all over Tel Aviv on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Israel
 Newfoundland|n|an island in the north Atlantic|My cousin spent a year living in Newfoundland.|||kind=place;at=in;nogen;isa=island,land;partof=Atlantic
 Senegal|n|a republic in northwestern Africa on the coast of the Atlantic; formerly a French colony but achieved independence in 1960|She sent me a postcard from Senegal.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Helsinki|n|the capital and largest city of Finland; located in southern Finland; a major port and commercial and cultural center|We walked all over Helsinki on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Finland
-Bordeaux|n|a port city in southwestern France; a major center of the wine trade|The flight to Bordeaux was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=France
-Oman|n|a strategically located monarchy on the southern and eastern coasts of the Arabian Peninsula; the economy is dominated by oil|She sent me a postcard from Oman.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Gulf States,Arabian Peninsula
-Ankara|n|the capital of Turkey; located in west-central Turkey; it was formerly known as Angora and is the home of Angora goats|The flight to Ankara was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Turkey
-Boise|n|the capital and largest city of Idaho|The flight to Boise was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Idaho
-Neptune|n|a giant planet with a ring of ice particles; the 8th planet from the sun is the most remote of the gas giants|The probe sent back new photos of Neptune.|||nogen;isa=Jovian planet,planet,celestial body,natural object,outer planet,superior planet
-Constantine|n|a walled city in northeastern Algeria to the east of Algiers; was destroyed in warfare in the 4th century and rebuilt by Constantine I|The flight to Constantine was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Algeria
-Sao Louis|n|a city on an offshore island in northeast Brazil|We walked all over Sao Louis on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Brazil
+Helsinki|n|the capital and largest city of Finland; located in southern Finland; a major port and commercial and cultural center|We walked all over Helsinki on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Finland
+Bordeaux|n|a port city in southwestern France; a major center of the wine trade|The flight to Bordeaux was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=France
+Oman|n|a strategically located monarchy on the southern and eastern coasts of the Arabian Peninsula; the economy is dominated by oil|She sent me a postcard from Oman.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia,Gulf States
+Ankara|n|the capital of Turkey; located in west-central Turkey; it was formerly known as Angora and is the home of Angora goats|The flight to Ankara was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Turkey
+Boise|n|the capital and largest city of Idaho|The flight to Boise was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Idaho
+Neptune|n|a giant planet with a ring of ice particles; the 8th planet from the sun is the most remote of the gas giants|The probe sent back new photos of Neptune.|||nogen;isa=outer planet,planet,celestial body,natural object,superior planet,Jovian planet
+Constantine|n|a walled city in northeastern Algeria to the east of Algiers; was destroyed in warfare in the 4th century and rebuilt by Constantine I|The flight to Constantine was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Algeria
+Sao Louis|n|a city on an offshore island in northeast Brazil|We walked all over Sao Louis on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Brazil
 Maldives|n|a republic on the Maldive Islands; achieved independence from the United Kingdom in 1965|My cousin spent a year living in Maldives.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Maldives
 Maui|n|the second largest of the Hawaiian Islands|Maui is high on my list of places to visit.|||kind=place;at=in;nogen;isa=island,land;partof=Hawaiian Islands
-Davenport|n|a city in eastern Iowa on the Mississippi River across from Moline and Rock Island|We walked all over Davenport on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Iowa
-Baton Rouge|n|capital of Louisiana|The flight to Baton Rouge was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Louisiana
-Akron|n|a city in northeastern Ohio; the heart of the United States rubber industry|We walked all over Akron on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Ohio
+Davenport|n|a city in eastern Iowa on the Mississippi River across from Moline and Rock Island|We walked all over Davenport on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Iowa
+Baton Rouge|n|capital of Louisiana|The flight to Baton Rouge was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Louisiana
+Akron|n|a city in northeastern Ohio; the heart of the United States rubber industry|We walked all over Akron on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Ohio
 Pluto|n|a small planet and the farthest known planet from the sun; it has the most elliptical orbit of all the planets|You can sometimes see Pluto in the night sky.|||nogen;isa=outer planet,planet,celestial body,natural object,superior planet
 Angola|n|a republic in southwestern Africa on the Atlantic Ocean; achieved independence from Portugal in 1975 and was the scene of civil war until 1990|We watched a documentary about Angola last night.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
 Laos|n|a mountainous landlocked communist state in southeastern Asia; achieved independence from France in 1949|She sent me a postcard from Laos.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Indochina
 Mongolia|n|a landlocked socialist republic in central Asia|We watched a documentary about Mongolia last night.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Mongolia,Asia
-Pretoria|n|city in the Transvaal; the seat of the executive branch of the government of South Africa|The flight to Pretoria was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=South Africa
+Pretoria|n|city in the Transvaal; the seat of the executive branch of the government of South Africa|The flight to Pretoria was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=South Africa
 Sao Francisco|n|a river in eastern Brazil flowing into the Atlantic Ocean|They sailed along the Sao Francisco for a week.|||nogen;isa=river,stream,body of water,thing;partof=Brazil
-Cali|n|city in southwestern Colombia in a rich agricultural area|My friend just moved to Cali for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Colombia
+Cali|n|city in southwestern Colombia in a rich agricultural area|My friend just moved to Cali for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Colombia
 Flanders|n|a medieval country in northern Europe that included regions now parts of northern France and Belgium and southwestern Netherlands|She sent me a postcard from Flanders.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location;partof=Europe
 Malawi|n|a landlocked republic in southern central Africa; achieved independence from the United Kingdom in 1964|She sent me a postcard from Malawi.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Des Moines|n|the capital and largest city in Iowa|We walked all over Des Moines on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Iowa
-Taipei|n|the capital of Nationalist China; located in northern Taiwan|We spent a few days in Taipei last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Taiwan
-Bergen|n|a port city in southwestern Norway|We walked all over Bergen on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Norway
-Nassau|n|the capital of the Bahamas|We walked all over Nassau on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Bahamas
-Islamabad|n|the capital of Pakistan in the north on a plateau; the site was chosen in 1959|The flight to Islamabad was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Pakistan
-Medina|n|a city in western Saudi Arabia; site of the tomb of Muhammad; the second most holy city of Islam|The flight to Medina was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Hejaz,Saudi Arabia
-Abu Dhabi|n|a sheikhdom of eastern Arabia and capital of the United Arab Emirates|We spent a few days in Abu Dhabi last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=United Arab Emirates
-Spokane|n|a city in eastern Washington near the Idaho border|My friend just moved to Spokane for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Washington
-Turin|n|capital city of the Piemonte region of northwestern Italy|The flight to Turin was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Piedmont
-Calais|n|a town in northern France on the Strait of Dover that serves as a ferry port to England|My friend just moved to Calais for work.|||kind=place;at=in;nogen;isa=town,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=France
-Beaumont|n|a city of southeastern Texas near Houston|We walked all over Beaumont on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Texas
-Potomac|n|a river in the east central United States|We read about the Potomac in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Maryland,Virginia
-Knoxville|n|a city in eastern Tennessee on the Tennessee River|We spent a few days in Knoxville last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Tennessee
-Kolkata|n|the largest city in India and one of the largest cities in the world; located in eastern India; suffers from poverty and overcrowding|We walked all over Kolkata on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=India
-Tripoli|n|the capital and chief port and largest city of Libya; in northwestern Libya on the Mediterranean Sea; founded by the Phoenicians in the 7th century BC|We walked all over Tripoli on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Libya
+Des Moines|n|the capital and largest city in Iowa|We walked all over Des Moines on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Iowa
+Taipei|n|the capital of Nationalist China; located in northern Taiwan|We spent a few days in Taipei last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Taiwan
+Bergen|n|a port city in southwestern Norway|We walked all over Bergen on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Norway
+Nassau|n|the capital of the Bahamas|We walked all over Nassau on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Bahamas
+Islamabad|n|the capital of Pakistan in the north on a plateau; the site was chosen in 1959|The flight to Islamabad was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Pakistan
+Medina|n|a city in western Saudi Arabia; site of the tomb of Muhammad; the second most holy city of Islam|The flight to Medina was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Saudi Arabia,Hejaz
+Abu Dhabi|n|a sheikhdom of eastern Arabia and capital of the United Arab Emirates|We spent a few days in Abu Dhabi last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=United Arab Emirates
+Spokane|n|a city in eastern Washington near the Idaho border|My friend just moved to Spokane for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Washington
+Turin|n|capital city of the Piemonte region of northwestern Italy|The flight to Turin was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Piedmont
+Calais|n|a town in northern France on the Strait of Dover that serves as a ferry port to England|My friend just moved to Calais for work.|||kind=place;at=in;nogen;isa=town,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=France
+Beaumont|n|a city of southeastern Texas near Houston|We walked all over Beaumont on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Texas
+Potomac|n|a river in the east central United States|We read about the Potomac in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Virginia,Maryland
+Knoxville|n|a city in eastern Tennessee on the Tennessee River|We spent a few days in Knoxville last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Tennessee
+Kolkata|n|the largest city in India and one of the largest cities in the world; located in eastern India; suffers from poverty and overcrowding|We walked all over Kolkata on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=India
+Tripoli|n|the capital and chief port and largest city of Libya; in northwestern Libya on the Mediterranean Sea; founded by the Phoenicians in the 7th century BC|We walked all over Tripoli on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Libya
 Mozambique|n|a republic on the southeastern coast of Africa on the Mozambique Channel; became independent from Portugal in 1975|We watched a documentary about Mozambique last night.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Fort Lauderdale|n|a city in southeast Florida on the Atlantic coast to the north of Miami; a favorite place for college students to go on their spring vacations|The flight to Fort Lauderdale was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Florida
-Trenton|n|capital of the state of New Jersey; located in western New Jersey on the Delaware river|The flight to Trenton was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=New Jersey
-Caracas|n|the capital and largest city of Venezuela|The flight to Caracas was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Venezuela
+Fort Lauderdale|n|a city in southeast Florida on the Atlantic coast to the north of Miami; a favorite place for college students to go on their spring vacations|The flight to Fort Lauderdale was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Florida
+Trenton|n|capital of the state of New Jersey; located in western New Jersey on the Delaware river|The flight to Trenton was delayed by an hour.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=New Jersey
+Caracas|n|the capital and largest city of Venezuela|The flight to Caracas was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Venezuela
 Labrador Sea|n|an arm of the northern Atlantic between Labrador and southern Greenland|They sailed along the Labrador Sea for a week.|||nogen;isa=sea,body of water,thing;partof=Atlantic
-Buenos Aires|n|capital and largest city of Argentina; located in eastern Argentina near Uruguay; Argentina's chief port and industrial and cultural center|We spent a few days in Buenos Aires last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Argentina
-Versailles|n|a city in north central France near Paris; site of the Palace of Versailles that was built by Louis XIV in the 17th century|The flight to Versailles was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=France
-Greenville|n|a city in eastern North Carolina; tobacco market|My friend just moved to Greenville for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=North Carolina
-Tacoma|n|a city in west central Washington on an arm of Puget Sound to the south of Seattle|My friend just moved to Tacoma for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Washington
-Clinch River|n|a river that rises in southwestern Virginia and flows generally southwestward across eastern Tennessee to the Tennessee River|The Clinch River looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Virginia,Tennessee
-Rhine|n|a major European river carrying more traffic than any other river in the world; flows into the North Sea|They sailed along the Rhine for a week.|||nogen;isa=river,stream,body of water,thing;partof=Netherlands,Switzerland
-Yellowstone|n|a tributary of the Missouri River that flows through the Yellowstone National Park|They sailed along the Yellowstone for a week.|||nogen;isa=river,stream,body of water,thing;partof=Montana,Wyoming
-Colombo|n|the capital and largest city of Sri Lanka; has one of the largest harbors in the world; is located on the western coast of the island of Ceylon|We walked all over Colombo on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Sri Lanka
-Leipzig|n|a city in southeastern Germany famous for fairs; formerly a music and publishing center|We spent a few days in Leipzig last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Germany
+Buenos Aires|n|capital and largest city of Argentina; located in eastern Argentina near Uruguay; Argentina's chief port and industrial and cultural center|We spent a few days in Buenos Aires last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Argentina
+Versailles|n|a city in north central France near Paris; site of the Palace of Versailles that was built by Louis XIV in the 17th century|The flight to Versailles was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=France
+Greenville|n|a city in eastern North Carolina; tobacco market|My friend just moved to Greenville for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=North Carolina
+Tacoma|n|a city in west central Washington on an arm of Puget Sound to the south of Seattle|My friend just moved to Tacoma for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Washington
+Clinch River|n|a river that rises in southwestern Virginia and flows generally southwestward across eastern Tennessee to the Tennessee River|The Clinch River looked calm from the bridge.|||nogen;isa=river,stream,body of water,thing;partof=Tennessee,Virginia
+Rhine|n|a major European river carrying more traffic than any other river in the world; flows into the North Sea|They sailed along the Rhine for a week.|||nogen;isa=river,stream,body of water,thing;partof=France,Netherlands
+Yellowstone|n|a tributary of the Missouri River that flows through the Yellowstone National Park|They sailed along the Yellowstone for a week.|||nogen;isa=river,stream,body of water,thing;partof=Wyoming,Montana
+Colombo|n|the capital and largest city of Sri Lanka; has one of the largest harbors in the world; is located on the western coast of the island of Ceylon|We walked all over Colombo on our first day.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Sri Lanka
+Leipzig|n|a city in southeastern Germany famous for fairs; formerly a music and publishing center|We spent a few days in Leipzig last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Germany
 Timor|n|an island in Indonesia in the Malay Archipelago; the largest and most eastern of the Lesser Sunda Islands|She sent me a postcard from Timor.|||kind=place;at=in;nogen;isa=island,land;partof=Indonesia
-Mosul|n|a city in northern Iraq on the Tigris across from the ruins of Nineveh|We spent a few days in Mosul last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Iraq
-Hiroshima|n|a port city on the southwestern coast of Honshu in Japan|We spent a few days in Hiroshima last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Honshu
-Cheyenne|n|the capital and largest city of Wyoming; located in the southeastern corner of the state|We walked all over Cheyenne on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Wyoming
-Guangzhou|n|a city on the Zhu Jiang delta in southern China; the capital of Guangdong province and a major deep-water port|We spent a few days in Guangzhou last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=China
+Mosul|n|a city in northern Iraq on the Tigris across from the ruins of Nineveh|We spent a few days in Mosul last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Iraq
+Hiroshima|n|a port city on the southwestern coast of Honshu in Japan|We spent a few days in Hiroshima last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Honshu
+Cheyenne|n|the capital and largest city of Wyoming; located in the southeastern corner of the state|We walked all over Cheyenne on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Wyoming
+Guangzhou|n|a city on the Zhu Jiang delta in southern China; the capital of Guangdong province and a major deep-water port|We spent a few days in Guangzhou last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=China
 East Timor|n|a former Portuguese colony that was annexed by Indonesia in 1976|East Timor is high on my list of places to visit.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Timor,Southeast Asia
 Guyana|n|a republic in northeastern South America; formerly part of the British Empire, but it achieved independence from the United Kingdom in 1966|My cousin spent a year living in Guyana.|||kind=place;at=in;nogen;isa=South American country,country,administrative district,district,region,location;partof=Guiana
-Christchurch|n|industrial city at the center of a rich agricultural region|The flight to Christchurch was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=New Zealand
-Lansing|n|capital of the state of Michigan; located in southern Michigan on the Grand River|We spent a few days in Lansing last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Michigan
-Billings|n|the largest city in Montana; located in southern Montana on the Yellowstone river|We spent a few days in Billings last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Montana
-Chattanooga|n|a city in eastern Tennessee|My friend just moved to Chattanooga for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Tennessee
-Olympia|n|capital of the state of Washington; located in western Washington on Puget Sound|We walked all over Olympia on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Washington
+Christchurch|n|industrial city at the center of a rich agricultural region|The flight to Christchurch was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=New Zealand
+Lansing|n|capital of the state of Michigan; located in southern Michigan on the Grand River|We spent a few days in Lansing last spring.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Michigan
+Billings|n|the largest city in Montana; located in southern Montana on the Yellowstone river|We spent a few days in Billings last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Montana
+Chattanooga|n|a city in eastern Tennessee|My friend just moved to Chattanooga for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Tennessee
+Olympia|n|capital of the state of Washington; located in western Washington on Puget Sound|We walked all over Olympia on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Washington
 Timor Sea|n|an arm of the eastern Indian Ocean between Timor and northern Australia|The Timor Sea looked calm from the bridge.|||nogen;isa=sea,body of water,thing;partof=Indian Ocean
 Balkans|n|the Balkan countries collectively|Balkans is high on my list of places to visit.|||kind=place;at=in;nogen;isa=European country,country,administrative district,district,region,location
 Namibia|n|a republic in southwestern Africa on the south Atlantic coast|My cousin spent a year living in Namibia.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
 Cape Verde|n|an island country in the Atlantic off the coast of Senegal|She sent me a postcard from Cape Verde.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Cape Verde Islands
-Guantanamo|n|a city in southeastern Cuba; site of a United States naval base|We walked all over Guantanamo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Cuba
-Dresden|n|a city in southeastern Germany on the Elbe River; it was almost totally destroyed by British air raids in 1945|My friend just moved to Dresden for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Germany
-Bologna|n|the capital of Emilia-Romagna; located in northern Italy to the east of the Apennines|The flight to Bologna was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Emilia-Romagna
+Guantanamo|n|a city in southeastern Cuba; site of a United States naval base|We walked all over Guantanamo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Cuba
+Dresden|n|a city in southeastern Germany on the Elbe River; it was almost totally destroyed by British air raids in 1945|My friend just moved to Dresden for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Germany
+Bologna|n|the capital of Emilia-Romagna; located in northern Italy to the east of the Apennines|The flight to Bologna was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Emilia-Romagna
 Guam|n|the largest and southernmost island in the Marianas which is administered as a territory of the United States|We watched a documentary about Guam last night.|||kind=place;at=in;nogen;isa=island,land;partof=Mariana Islands
-Gran Santiago|n|the capital and largest city of Chile; located in central Chile; one of the largest cities in South America|The flight to Gran Santiago was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Chile
+Gran Santiago|n|the capital and largest city of Chile; located in central Chile; one of the largest cities in South America|The flight to Gran Santiago was delayed by an hour.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Chile
 Botswana|n|a landlocked republic in south-central Africa that became independent from British control in the 1960s|She sent me a postcard from Botswana.|||kind=place;at=in;nogen;isa=African country,country,administrative district,district,region,location;partof=Africa
-Marseille|n|a port city in southeastern France on the Mediterranean|The flight to Marseille was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=France
-Durban|n|a port city in eastern South Africa on the Indian Ocean; resort and industrial center|We spent a few days in Durban last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=South Africa
+Marseille|n|a port city in southeastern France on the Mediterranean|The flight to Marseille was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=France
+Durban|n|a port city in eastern South Africa on the Indian Ocean; resort and industrial center|We spent a few days in Durban last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=South Africa
 Paraguay|n|a landlocked republic in south central South America; achieved independence from Spain in 1811|We watched a documentary about Paraguay last night.|||kind=place;at=in;nogen;isa=South American country,country,administrative district,district,region,location;partof=South America
 Uzbekistan|n|a landlocked republic in west central Asia; formerly an Asian soviet|Uzbekistan is high on my list of places to visit.|||kind=place;at=in;nogen;isa=Asian country,country,administrative district,district,region,location;partof=Asia
-Pueblo|n|a city in Colorado to the south of Colorado Springs|We walked all over Pueblo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Colorado
-Annapolis|n|state capital of Maryland; site of the United States Naval Academy|My friend just moved to Annapolis for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Maryland
+Pueblo|n|a city in Colorado to the south of Colorado Springs|We walked all over Pueblo on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Colorado
+Annapolis|n|state capital of Maryland; site of the United States Naval Academy|My friend just moved to Annapolis for work.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Maryland
 Galveston Island|n|an island at the entrance of Galveston Bay|We watched a documentary about Galveston Island last night.|||kind=place;at=in;nogen;isa=island,land;partof=Texas
 Ceylon|n|an island in the Indian Ocean off the southeastern coast of India|We watched a documentary about Ceylon last night.|||kind=place;at=in;nogen;isa=island,land;partof=Indian Ocean
-Sao Paulo|n|an ultramodern city in southeastern Brazil; the largest city in South America|We spent a few days in Sao Paulo last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Brazil
-Galway|n|a port city in western Ireland on Galway Bay|My friend just moved to Galway for work.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Ireland
-Toulouse|n|a city on the Garonne River in southern France to the southeast of Bordeaux; a cultural center of medieval Europe|We spent a few days in Toulouse last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=France
-San Marino|n|the capital and only city of San Marino|We spent a few days in San Marino last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=San Marino
-Granada|n|a city in southeastern Spain that was the capital of the Moorish kingdom until it was captured by Ferdinand and Isabella in 1492|The flight to Granada was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Andalusia
+Sao Paulo|n|an ultramodern city in southeastern Brazil; the largest city in South America|We spent a few days in Sao Paulo last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Brazil
+Galway|n|a port city in western Ireland on Galway Bay|My friend just moved to Galway for work.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Ireland
+Toulouse|n|a city on the Garonne River in southern France to the southeast of Bordeaux; a cultural center of medieval Europe|We spent a few days in Toulouse last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=France
+San Marino|n|the capital and only city of San Marino|We spent a few days in San Marino last spring.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=San Marino
+Granada|n|a city in southeastern Spain that was the capital of the Moorish kingdom until it was captured by Ferdinand and Isabella in 1492|The flight to Granada was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Andalusia
 Sabine|n|a river in eastern Texas that flows south into the Gulf of Mexico|We read about the Sabine in geography class.|||nogen;isa=river,stream,body of water,thing;partof=Texas
-Chihuahua|n|a city in northern Mexico in the state of Chihuahua; commercial center of northern Mexico|We spent a few days in Chihuahua last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Chihuahua
-Halle|n|a city in the Saxony region of Germany on the Saale River; a member of the Hanseatic League during the 13th and 14th centuries|The flight to Halle was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Germany
+Chihuahua|n|a city in northern Mexico in the state of Chihuahua; commercial center of northern Mexico|We spent a few days in Chihuahua last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Chihuahua
+Halle|n|a city in the Saxony region of Germany on the Saale River; a member of the Hanseatic League during the 13th and 14th centuries|The flight to Halle was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Germany
 Mauritius|n|a parliamentary state on the island of Mauritius|She sent me a postcard from Mauritius.|||kind=place;at=in;nogen;isa=country,administrative district,district,region,location;partof=Mauritius
-Wheeling|n|a city in the northern panhandle of West Virginia on the Ohio river|We walked all over Wheeling on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=West Virginia
-Stuttgart|n|a city in southwestern Germany famous for innovative architecture|The flight to Stuttgart was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Germany
+Wheeling|n|a city in the northern panhandle of West Virginia on the Ohio river|We walked all over Wheeling on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=West Virginia
+Stuttgart|n|a city in southwestern Germany famous for innovative architecture|The flight to Stuttgart was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Germany
 Crete|n|the largest Greek island in the Mediterranean; site of the Minoan civilization that reached its peak in 1600 BC|She sent me a postcard from Crete.|||kind=place;at=in;nogen;isa=island,land;partof=Greece,Mediterranean
-Dhaka|n|the capital and largest city of Bangladesh|My friend just moved to Dhaka for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Bangladesh
+Dhaka|n|the capital and largest city of Bangladesh|My friend just moved to Dhaka for work.|||kind=place;at=in;nogen;isa=national capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Bangladesh
 Okinawa|n|the largest island of the central Ryukyu Islands|We watched a documentary about Okinawa last night.|||kind=place;at=in;nogen;isa=island,land;partof=Ryukyu Islands
 Cebu|n|one of the Visayan islands of the central Philippines; important for its fine harbor|She sent me a postcard from Cebu.|||kind=place;at=in;nogen;isa=island,land;partof=Philippines
-Odessa|n|a port city of south central Ukraine on an arm of the Black Sea|We walked all over Odessa on our first day.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Ukraine
-Sevilla|n|a city in southwestern Spain; a major port and cultural center; the capital of bullfighting in Spain|We spent a few days in Sevilla last spring.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area,port,geographic point;partof=Spain
-Tallahassee|n|capital of the state of Florida; located in northern Florida|We walked all over Tallahassee on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,administrative district;partof=Florida
-Casper|n|a city of east central Wyoming on the North Platte river|The flight to Casper was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,administrative district,district,region,location,urban area,geographical area;partof=Wyoming
+Odessa|n|a port city of south central Ukraine on an arm of the Black Sea|We walked all over Odessa on our first day.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Ukraine
+Sevilla|n|a city in southwestern Spain; a major port and cultural center; the capital of bullfighting in Spain|We spent a few days in Sevilla last spring.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district,port,geographic point;partof=Spain
+Tallahassee|n|capital of the state of Florida; located in northern Florida|We walked all over Tallahassee on our first day.|||kind=place;at=in;nogen;isa=state capital,capital,seat,center,area,region,location,city,municipality,urban area;partof=Florida
+Casper|n|a city of east central Wyoming on the North Platte river|The flight to Casper was delayed by an hour.|||kind=place;at=in;nogen;isa=city,municipality,urban area,geographical area,region,location,administrative district,district;partof=Wyoming
 `,
 		// word|pos|is a kind of (nearest first)|has parts|is part of|forms, for the hand-written core
 		core: `
@@ -11213,36 +11213,36 @@ pilot|n|aviator,skilled worker,worker,person,organism,living thing,causal agent|
 farmer|n|creator,person,organism,living thing,causal agent|||
 cat|n|feline,carnivore,placental,mammal,vertebrate,chordate,animal,organism,living thing|||
 dog|n|canine,carnivore,placental,mammal,vertebrate,chordate,animal,organism,living thing,domestic animal|flag||
-bird|n|vertebrate,chordate,animal,organism,living thing|uropygium,bird,air sac,pennon,beak,bird's foot,wing,hindquarters||
-horse|n|equine,odd-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism,living thing|horsemeat,horseback,withers,gaskin,poll,horse's foot,encolure||
+bird|n|vertebrate,chordate,animal,organism,living thing|beak,hindquarters,syrinx,feather,wing,uropygial gland,furcula,air sac||
+horse|n|equine,odd-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism,living thing|withers,poll,horseback,gaskin,encolure,horse's foot,horsemeat||
 owl|n|bird of prey,bird,vertebrate,chordate,animal,organism,living thing|||
 fox|n|canine,carnivore,placental,mammal,vertebrate,chordate,animal,organism,living thing|||
 rabbit|n|leporid,lagomorph,placental,mammal,vertebrate,chordate,animal,organism,living thing|scut||
 whale|n|cetacean,aquatic mammal,placental,mammal,vertebrate,chordate,animal,organism,living thing|||
 bee|n|hymenopterous insect,insect,arthropod,invertebrate,animal,organism,living thing|||
-book|n|product,creation,artifact|binding,fore edge,spine||
+book|n|product,creation,artifact|fore edge,binding,spine||
 chair|n|seat,furniture,furnishing,instrumentality,artifact|leg,back||
 lamp|n|source of illumination,device,instrumentality,artifact|||
 key|n|device,instrumentality,artifact|shank,bit||
-umbrella|n|canopy,shelter,protective covering,covering,artifact|handle,rib,gore||
+umbrella|n|canopy,shelter,protective covering,covering,artifact|handle,gore,rib||
 clock|n|timepiece,measuring instrument,instrument,device,instrumentality,artifact|movement,fusee drive,clock face||
-bottle|n|vessel,container,instrumentality,artifact|mouth,bottlecap||
-letter|n|document,representation,creation,artifact,text,matter,writing,written communication,communication|line,address,postscript|mail,correspondence|
+bottle|n|vessel,container,instrumentality,artifact|bottlecap,mouth||
+letter|n|document,representation,creation,artifact,text,matter,writing,written communication,communication|postscript,line,address|correspondence,mail|
 phone|n|electro-acoustic transducer,transducer,electrical device,device,instrumentality,artifact|||
-window|n|framework,supporting structure,structure,artifact|pane,casing,mullion,windowpane,window frame,sash fastener,sash|building|
+window|n|framework,supporting structure,structure,artifact|window frame,sash fastener,sash,pane,casing,windowpane,mullion|building|
 door|n|movable barrier,barrier,obstruction,structure,artifact|lock||
 candle|n|lamp,source of illumination,device,instrumentality,artifact|wick,candlewick||
 map|n|representation,creation,artifact|||
 blanket|n|bedclothes,cloth covering,covering,artifact|||
-bicycle|n|wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|bicycle seat,kickstand,sprocket,coaster brake,pedal,chain,mudguard,bicycle wheel||
+bicycle|n|wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|sprocket,coaster brake,pedal,mudguard,bicycle wheel,chain,handlebar,kickstand||
 kite|n|plaything,artifact|kite tail||
-camera|n|photographic equipment,equipment,instrumentality,artifact|diaphragm,delayed action,camera lens,shutter,aperture,sprocket,magazine,finder||
+camera|n|photographic equipment,equipment,instrumentality,artifact|camera lens,aperture,finder,hood,sprocket,magazine,diaphragm,delayed action||
 mirror|n|reflector,device,instrumentality,artifact|||
 ladder|n|stairs,stairway,way,artifact|rundle||
 hammer|n|hand tool,tool,implement,instrumentality,artifact|hammerhead,head||
 box|n|container,instrumentality,artifact|lid,base||
 light|n|actinic radiation,electromagnetic radiation,radiation,energy,physical phenomenon,natural phenomenon,phenomenon,process||electromagnetic spectrum|
-watch|n|timepiece,measuring instrument,instrument,device,instrumentality,artifact|crystal,face,movement,watch case||
+watch|n|timepiece,measuring instrument,instrument,device,instrumentality,artifact|face,crystal,movement,watch case||
 apple|n|edible fruit,fruit,reproductive structure,plant organ,plant part,natural object,pome,produce,food,solid|||
 sandwich|n|snack food,dish,nutriment,food,substance,matter|bread|meal|
 cake|n|baked goods,food,solid,matter|||
@@ -11257,9 +11257,9 @@ library|n|room,area,structure,artifact||house|
 park|n|tract,geographical area,region,location|||
 kitchen|n|room,area,structure,artifact||dwelling|
 beach|n|geological formation||shore|
-mountain|n|natural elevation,geological formation|mountainside,mountain peak||
+mountain|n|natural elevation,geological formation|mountain peak,mountainside||
 river|n|stream,body of water,thing|waterfall,estuary,rapid|water system|
-city|n|municipality,administrative district,district,region,location,urban area,geographical area|inner city,concrete jungle,city center,civic center,financial center,medical center||
+city|n|municipality,urban area,geographical area,region,location,administrative district,district|concrete jungle,city center,financial center,civic center,medical center,inner city||
 village|n|settlement,geographical area,region,location|||
 garden|n|plot,tract,geographical area,region,location|||
 island|n|land|||
@@ -11346,11 +11346,11 @@ uncle|n|kinsman,relative,person,organism,living thing,causal agent|||
 cousin|n|relative,person,organism,living thing,causal agent|||
 nephew|n|kinsman,relative,person,organism,living thing,causal agent|||
 niece|n|kinswoman,relative,person,organism,living thing,causal agent|||
-wife|n|spouse,relative,person,organism,living thing,domestic partner,woman,adult,female,causal agent|||
+wife|n|spouse,relative,person,organism,living thing,domestic partner,woman,female,adult,causal agent|||
 husband|n|spouse,relative,person,organism,living thing,domestic partner,causal agent|||
 partner|n|relative,person,organism,living thing,domestic partner,causal agent|||
 boyfriend|n|man,adult,person,organism,living thing,male,lover,causal agent|||
-girlfriend|n|woman,adult,person,organism,living thing,female,lover,causal agent|||
+girlfriend|n|woman,female,person,organism,living thing,adult,lover,causal agent|||
 family|n|kin,social group,group|||
 baby|n|child,offspring,relative,person,organism,living thing,causal agent|||
 toddler|n|child,juvenile,person,organism,living thing,causal agent|||
@@ -11360,7 +11360,7 @@ adult|n|person,organism,living thing,causal agent|adult body||
 person|n|organism,living thing,causal agent|personality,human body||
 people|n|group|||
 man|n|adult,person,organism,living thing,male,causal agent|adult male body||
-woman|n|adult,person,organism,living thing,female,causal agent|adult female body||
+woman|n|female,person,organism,living thing,adult,causal agent|adult female body||
 boy|n|male offspring,child,offspring,relative,person,organism,living thing,male,causal agent|||
 girl|n|female offspring,child,offspring,relative,person,organism,living thing,female,causal agent|||
 boss|n|supervisor,superior,leader,person,organism,living thing,causal agent|||
@@ -11407,20 +11407,20 @@ rat|n|rodent,placental,mammal,vertebrate,chordate,animal,organism,living thing||
 hamster|n|rodent,placental,mammal,vertebrate,chordate,animal,organism,living thing|||
 parrot|n|bird,vertebrate,chordate,animal,organism,living thing|||
 chicken|n|domestic fowl,gallinaceous bird,bird,vertebrate,chordate,animal,organism,living thing|chicken||
-duck|n|anseriform bird,waterfowl,aquatic bird,bird,vertebrate,chordate,animal,organism,living thing|duck,duck down||
-goose|n|anseriform bird,waterfowl,aquatic bird,bird,vertebrate,chordate,animal,organism,living thing|goose,goose down||
+duck|n|anseriform bird,waterfowl,aquatic bird,bird,vertebrate,chordate,animal,organism,living thing|duck down,duck||
+goose|n|anseriform bird,waterfowl,aquatic bird,bird,vertebrate,chordate,animal,organism,living thing|goose down,goose||
 swan|n|aquatic bird,bird,vertebrate,chordate,animal,organism,living thing|swan's down||
 pigeon|n|columbiform bird,gallinaceous bird,bird,vertebrate,chordate,animal,organism,living thing|||
 crow|n|corvine bird,oscine,passerine,bird,vertebrate,chordate,animal,organism,living thing|||
 eagle|n|bird of prey,bird,vertebrate,chordate,animal,organism,living thing|||
 penguin|n|sphenisciform seabird,seabird,aquatic bird,bird,vertebrate,chordate,animal,organism,living thing|||
 cow|n|cattle,bovine,bovid,ruminant,even-toed ungulate,ungulate,placental,mammal,vertebrate,chordate|poll,udder||
-pig|n|swine,even-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism,living thing|trotter,pork||
+pig|n|swine,even-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism,living thing|pork,trotter||
 sheep|n|bovid,ruminant,even-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism|withers,trotter||
 lamb|n|young mammal,young,animal,organism,living thing|||
 goat|n|bovid,ruminant,even-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism|beard,horn||
 donkey|n|ass,equine,odd-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism|||
-deer|n|ruminant,even-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism,living thing|withers,antler,scut,flag||
+deer|n|ruminant,even-toed ungulate,ungulate,placental,mammal,vertebrate,chordate,animal,organism,living thing|withers,antler,flag,scut||
 bear|n|carnivore,placental,mammal,vertebrate,chordate,animal,organism,living thing|||
 wolf|n|canine,carnivore,placental,mammal,vertebrate,chordate,animal,organism,living thing|||
 lion|n|big cat,feline,carnivore,placental,mammal,vertebrate,chordate,animal,organism,living thing|mane||
@@ -11445,7 +11445,7 @@ shark|n|elasmobranch,cartilaginous fish,fish,aquatic vertebrate,vertebrate,chord
 dolphin|n|toothed whale,whale,cetacean,aquatic mammal,placental,mammal,vertebrate,chordate,animal,organism|||
 octopus|n|octopod,cephalopod,mollusk,invertebrate,animal,organism,living thing|octopus||
 crab|n|decapod crustacean,crustacean,arthropod,invertebrate,animal,organism,living thing|||
-fish|n|aquatic vertebrate,vertebrate,chordate,animal,organism,living thing|fin,milt,fish scale,fishbone,lateral line,tail fin,roe||
+fish|n|aquatic vertebrate,vertebrate,chordate,animal,organism,living thing|fish scale,fishbone,lateral line,roe,tail fin,milt,fin||
 goldfish|n|cyprinid,cypriniform fish,soft-finned fish,teleost fish,bony fish,fish,aquatic vertebrate,vertebrate,chordate,animal|||
 butterfly|n|lepidopterous insect,insect,arthropod,invertebrate,animal,organism,living thing|||
 ant|n|hymenopterous insect,insect,arthropod,invertebrate,animal,organism,living thing|||
@@ -11468,7 +11468,7 @@ burrito|n|dish,nutriment,food,substance,matter|||
 sushi|n|dish,nutriment,food,substance,matter|||
 salad|n|dish,nutriment,food,substance,matter|||
 steak|n|cut,meat,food,solid,matter|||
-egg|n|foodstuff,food,substance,matter|shell,egg yolk,egg white||
+egg|n|foodstuff,food,substance,matter|egg white,shell,egg yolk||
 bacon|n|cut of pork,cut,meat,food,solid,matter|bacon rind||
 sausage|n|meat,food,solid,matter|||
 toast|n|bread,starches,foodstuff,food,substance,matter,baked goods,solid|||
@@ -11536,7 +11536,7 @@ sauce|n|condiment,flavorer,ingredient,foodstuff,food,substance,matter||dish|
 curry|n|dish,nutriment,food,substance,matter|||
 dumpling|n|pasta,food,solid,matter|||
 snack|n|meal,nutriment,food,substance,matter|||
-meal|n|nutriment,food,substance,matter|sandwich,dish,side dish,course,helping||
+meal|n|nutriment,food,substance,matter|course,helping,dish,side dish,sandwich||
 breakfast|n|meal,nutriment,food,substance,matter|||
 lunch|n|meal,nutriment,food,substance,matter|||
 dinner|n|meal,nutriment,food,substance,matter|||
@@ -11547,14 +11547,14 @@ vegetable|n|herb,vascular plant,plant,organism,living thing|||
 meat|n|food,solid,matter|||
 recipe|n|direction,message,communication|||
 pen|n|writing implement,implement,instrumentality,artifact|nib||
-pencil|n|writing implement,implement,instrumentality,artifact|point,rubber eraser||
+pencil|n|writing implement,implement,instrumentality,artifact|rubber eraser,point||
 paper|n|material,substance,part,relation,matter|||
 notebook|n|book,product,creation,artifact|||
 bag|n|container,instrumentality,artifact|||
 backpack|n|bag,container,instrumentality,artifact|||
 wallet|n|case,container,instrumentality,artifact|||
 purse|n|bag,container,instrumentality,artifact|purse string||
-coin|n|coinage,currency,medium of exchange,standard,system of measurement,measure|reverse,tail,obverse,head||
+coin|n|coinage,currency,medium of exchange,standard,system of measurement,measure|reverse,head,tail,obverse||
 money|n|medium of exchange,standard,system of measurement,measure|||
 ticket|n|commercial document,document,writing,written communication,communication|||
 card|n|paper,material,substance,part,relation,matter|||
@@ -11566,16 +11566,16 @@ doll|n|plaything,artifact|||
 puzzle|n|game,game equipment,equipment,instrumentality,artifact|||
 game|n|game equipment,equipment,instrumentality,artifact|||
 guitar|n|stringed instrument,musical instrument,device,instrumentality,artifact|fingerboard||
-piano|n|keyboard instrument,musical instrument,device,instrumentality,artifact,percussion instrument,stringed instrument|keyboard,fallboard,soft pedal,sustaining pedal,piano action,piano keyboard,sounding board||
+piano|n|keyboard instrument,musical instrument,device,instrumentality,artifact,percussion instrument,stringed instrument|sustaining pedal,piano action,piano keyboard,fallboard,sounding board,soft pedal,keyboard||
 drum|n|percussion instrument,musical instrument,device,instrumentality,artifact|drumhead||
-violin|n|bowed stringed instrument,stringed instrument,musical instrument,device,instrumentality,artifact|chin rest,fiddlestick||
+violin|n|bowed stringed instrument,stringed instrument,musical instrument,device,instrumentality,artifact|fiddlestick,chin rest||
 laptop|n|portable computer,personal computer,digital computer,computer,machine,device,instrumentality,artifact|||
-computer|n|machine,device,instrumentality,artifact|cathode-ray tube,peripheral,keyboard,monitor,data converter,central processing unit,chip,busbar|platform|
+computer|n|machine,device,instrumentality,artifact|chip,busbar,computer circuit,data converter,computer accessory,diskette,memory,hardware|platform|
 tablet|n|cake,block,artifact|||
 screen|n|surface,artifact|||
 television|n|receiver,set,electronic equipment,equipment,instrumentality,artifact|kinescope||
 radio|n|communication system,system,instrumentality,artifact|radio receiver,radio transmitter||
-battery|n|electrical device,device,instrumentality,artifact|electrode,terminal||
+battery|n|electrical device,device,instrumentality,artifact|terminal,electrode||
 charger|n|device,instrumentality,artifact|||
 plate|n|flatware,tableware,ware,article,artifact|||
 bowl|n|dish,crockery,tableware,ware,article,artifact,container,instrumentality|||
@@ -11584,28 +11584,28 @@ mug|n|drinking vessel,vessel,container,instrumentality,artifact|handle||
 glass|n|container,instrumentality,artifact|glass||
 spoon|n|cutlery,tableware,ware,article,artifact,container,instrumentality|||
 fork|n|tool,implement,instrumentality,artifact|prong||
-knife|n|edge tool,cutter,cutting implement,tool,implement,instrumentality,artifact|haft,knife blade,blade,point||
+knife|n|edge tool,cutter,cutting implement,tool,implement,instrumentality,artifact|blade,haft,knife blade,point||
 pan|n|container,instrumentality,artifact|panhandle||
 pot|n|cooking utensil,kitchen utensil,utensil,implement,instrumentality,artifact,vessel,container|||
 kettle|n|pot,cooking utensil,kitchen utensil,utensil,implement,instrumentality,artifact,vessel,container|||
 oven|n|kitchen appliance,home appliance,appliance,durables,consumer goods,commodity,artifact|||
-fridge|n|refrigerator,white goods,home appliance,appliance,durables,consumer goods,commodity,artifact|ice maker,electric motor||
+fridge|n|refrigerator,white goods,home appliance,appliance,durables,consumer goods,commodity,artifact|electric motor,ice maker||
 towel|n|piece of cloth,fabric,artifact,piece,part|||
 soap|n|cleansing agent,formulation,compound,chemical,material,substance,part,relation,matter|||
 toothbrush|n|brush,implement,instrumentality,artifact,toiletry|||
 pillow|n|cushion,padding,artifact|||
 bed|n|bedroom furniture,furniture,furnishing,instrumentality,artifact|bedstead,mattress||
 sofa|n|seat,furniture,furnishing,instrumentality,artifact|||
-table|n|furniture,furnishing,instrumentality,artifact|tabletop,leg,tableware||
+table|n|furniture,furnishing,instrumentality,artifact|tableware,tabletop,leg||
 desk|n|table,furniture,furnishing,instrumentality,artifact|drawer||
-shelf|n|support,device,instrumentality,artifact||grocery store,bookcase,buffet,etagere|
-drawer|n|storage space,area,structure,artifact,container,instrumentality|lock|buffet,chiffonier,desk|
+shelf|n|support,device,instrumentality,artifact||bookcase,chest of drawers,cabinet,etagere|
+drawer|n|storage space,area,structure,artifact,container,instrumentality|lock|chiffonier,buffet,desk|
 curtain|n|blind,protective covering,covering,artifact,furnishing,instrumentality|eyelet||
-rug|n|furnishing,instrumentality,artifact,floor cover,covering|edging||
+rug|n|floor cover,covering,artifact,furnishing,instrumentality|edging||
 plant|n|organism,living thing|plant part,hood||
-flower|n|reproductive structure,plant organ,plant part,natural object|carpel,perianth,stamen,ovary,pistil,floral leaf|angiosperm|
-tree|n|woody plant,vascular plant,plant,organism,living thing|burl,limb,trunk,stump,crown||
-leaf|n|plant organ,plant part,natural object|venation,leaf shape,lobe||
+flower|n|reproductive structure,plant organ,plant part,natural object|stamen,ovary,pistil,floral leaf,carpel,perianth|angiosperm|
+tree|n|woody plant,vascular plant,plant,organism,living thing|limb,stump,burl,crown,trunk||
+leaf|n|plant organ,plant part,natural object|leaf shape,venation,lobe||
 rock|n|popular music,music genre,music,auditory communication,communication,expressive style|backbeat||
 stone|n|building material,artifact|||
 shell|n|housing,protective covering,covering,artifact||grandfather clock|
@@ -11623,14 +11623,14 @@ flag|n|emblem,design,decoration,artifact|||
 hat|n|headdress,clothing,consumer goods,commodity,artifact,covering|crown,brim,hatband||
 cap|n|headdress,clothing,consumer goods,commodity,artifact,covering|earflap||
 scarf|n|garment,clothing,consumer goods,commodity,artifact,covering|||
-glove|n|handwear,clothing,consumer goods,commodity,artifact,covering|thumb,finger||
-coat|n|overgarment,garment,clothing,consumer goods,commodity,artifact,covering|breast pocket,hemline,coat button,coattail||
+glove|n|handwear,clothing,consumer goods,commodity,artifact,covering|finger,thumb||
+coat|n|overgarment,garment,clothing,consumer goods,commodity,artifact,covering|coattail,breast pocket,hemline,coat button||
 jacket|n|coat,overgarment,garment,clothing,consumer goods,commodity,artifact,covering|||
 sweater|n|garment,clothing,consumer goods,commodity,artifact,covering|neckband,neckline||
-shirt|n|garment,clothing,consumer goods,commodity,artifact,covering|dickey,shirt button,shirtfront,shirtsleeve,shirttail||
+shirt|n|garment,clothing,consumer goods,commodity,artifact,covering|shirtsleeve,shirttail,shirt button,shirtfront,dickey||
 dress|n|woman's clothing,clothing,consumer goods,commodity,artifact,covering|bodice,slide fastener,hemline,neckline||
-shoe|n|footwear,covering,artifact|throat,saddle,instep,lace,toe box,upper,shoelace,toecap||
-boot|n|footwear,covering,artifact|bootleg,instep,toe box,upper,spur,bootlace,toecap,tongue||
+shoe|n|footwear,covering,artifact|toe box,shoelace,toecap,upper,counter,tongue,outsole,collar||
+boot|n|footwear,covering,artifact|upper,toecap,spur,counter,bootlace,tongue,outsole,collar||
 sock|n|hosiery,footwear,clothing,consumer goods,commodity,artifact,covering|||
 clothes|n|clothing,consumer goods,commodity,artifact,covering|||
 ring|n|jewelry,adornment,decoration,artifact|||
@@ -11643,26 +11643,26 @@ bucket|n|vessel,container,instrumentality,artifact||waterwheel|
 broom|n|cleaning implement,implement,instrumentality,artifact|broomstick||
 email|n|electronic communication,transmission,communication,act,event,psychological feature|||
 message|n|communication|||
-text|n|matter,writing,written communication,communication|chapter,foreword,book,word order,paragraph,passage|publication|
+text|n|matter,writing,written communication,communication|chapter,paragraph,book,foreword,word order,passage|publication|
 website|n|computer,machine,device,instrumentality,artifact|||
 internet|n|computer network,network,system,instrumentality,artifact|||
 video|n|recording,memory device,device,instrumentality,artifact|||
 song|n|musical composition,music,auditory communication,communication|lyric,refrain||
-movie|n|product,creation,artifact,show,social event,event,psychological feature|credit,sequence,scene,credits,subtitle||
+movie|n|product,creation,artifact,show,social event,event,psychological feature|credits,scene,subtitle,sequence,credit||
 film|n|wrapping,covering,artifact,sheet|||
 show|n|social event,event,psychological feature|||
 novel|n|fiction,literary composition,writing,written communication,communication|||
-poem|n|literary composition,writing,written communication,communication|rhyme,canto,poetic rhythm,verse,stanza,line of poetry||
+poem|n|literary composition,writing,written communication,communication|poetic rhythm,verse,stanza,line of poetry,rhyme,canto||
 joke|n|wit,message,communication|punch line||
 riddle|n|problem,question,subject,message,communication|||
-car|n|motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|sunroof,automobile horn,fender,rear window,buffer,floorboard,glove compartment,car window||
+car|n|motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|air bag,automobile engine,hood,roof,gasoline engine,auto accessory,sunroof,automobile horn||
 bus|n|public transport,conveyance,instrumentality,artifact|roof,window||
 train|n|public transport,conveyance,instrumentality,artifact|||
-truck|n|motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|roof,tailgate,bumper,stabilizer bar||
+truck|n|motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|stabilizer bar,roof,tailgate,bumper||
 boat|n|vessel,craft,vehicle,conveyance,instrumentality,artifact|boat whistle||
-ship|n|vessel,craft,vehicle,conveyance,instrumentality,artifact|ratline,fin,log,bulwark,top,sheet,winch,helm||
-plane|n|heavier-than-air craft,aircraft,craft,vehicle,conveyance,instrumentality,artifact|landing gear,wing,hood,navigation light,pod,fuselage,escape hatch,windshield||
-motorcycle|n|motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|kickstand,kick starter,mudguard||
+ship|n|vessel,craft,vehicle,conveyance,instrumentality,artifact|davit,topside,cargo area,gyrostabilizer,forecastle,ratline,fin,log||
+plane|n|heavier-than-air craft,aircraft,craft,vehicle,conveyance,instrumentality,artifact|hood,fuselage,windshield,pod,escape hatch,radome,accelerator,landing gear||
+motorcycle|n|motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|kickstand,mudguard,kick starter||
 scooter|n|wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|||
 skateboard|n|wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container,board,sheet|||
 helicopter|n|heavier-than-air craft,aircraft,craft,vehicle,conveyance,instrumentality,artifact|blade,rotor,landing skid||
@@ -11672,8 +11672,8 @@ subway|n|railway,line,carrier,business,enterprise,organization,social group,grou
 tractor|n|self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|||
 school|n|building,structure,artifact|classroom||
 office|n|place of business,establishment,structure,artifact|||
-hospital|n|medical building,building,structure,artifact|ward,clinic,burn center,hospital room||
-airport|n|airfield,facility,artifact|airdock,control tower,air terminal||
+hospital|n|medical building,building,structure,artifact|burn center,hospital room,clinic,ward||
+airport|n|airfield,facility,artifact|air terminal,airdock,control tower||
 station|n|facility,artifact|||
 restaurant|n|building,structure,artifact|||
 cafe|n|restaurant,building,structure,artifact|||
@@ -11685,8 +11685,8 @@ mall|n|mercantile establishment,place of business,establishment,structure,artifa
 bank|n|slope,geological formation|||
 hotel|n|building,structure,artifact|hotel room||
 cinema|n|theater,building,structure,artifact|||
-theater|n|building,structure,artifact|greenroom,orchestra,orchestra pit,theater stage,stage,circle,parquet circle,parquet||
-stadium|n|structure,artifact|playing field,field house,stand,standing room,tiered seat||
+theater|n|building,structure,artifact|stage,orchestra,circle,parquet,parquet circle,standing room,theater stage,tiered seat||
+stadium|n|structure,artifact|stand,standing room,tiered seat,playing field,field house||
 gym|n|athletic facility,facility,artifact|||
 pool|n|body of water,thing|||
 zoo|n|facility,artifact|||
@@ -11695,34 +11695,34 @@ forest|n|vegetation,collection,group|||
 desert|n|tract,geographical area,region,location,biome,community,group|oasis||
 lake|n|body of water,thing|inlet,floor||
 ocean|n|body of water,thing||hydrosphere|
-sea|n|body of water,thing|gulf,inlet,bay|hydrosphere|
+sea|n|body of water,thing|bay,inlet,gulf|hydrosphere|
 valley|n|natural depression,geological formation|||
 hill|n|natural elevation,geological formation|hillside||
-cave|n|geological formation|stalactite,roof,floor,stalagmite,wall||
+cave|n|geological formation|roof,floor,stalagmite,wall,stalactite||
 field|n|land|||
 jungle|n|forest,vegetation,collection,group|||
 castle|n|fortification,defensive structure,structure,artifact|turret,keep||
 bridge|n|structure,artifact|arch,trestle,pier|transportation system|
 street|n|thoroughfare,road,way,artifact|||
-road|n|way,artifact|intersection,shoulder,traffic circle,turnout,crown,turnaround,roadbed,bend||
-town|n|municipality,administrative district,district,region,location,urban area,geographical area|city limit||
+road|n|way,artifact|turnaround,roadbed,shoulder,traffic circle,bend,crown,intersection,turnout||
+town|n|municipality,urban area,geographical area,region,location,administrative district,district|city limit||
 country|n|administrative district,district,region,location|domain,midland||
-house|n|dwelling,housing,structure,artifact,building|porch,loft,library,study||
+house|n|dwelling,housing,structure,artifact,building|porch,study,loft,library||
 home|n|residence,address,geographic point,point,location|||
 apartment|n|housing,structure,artifact|kitchenette||
-room|n|area,structure,artifact|room light,wall,floor,ceiling|building|
+room|n|area,structure,artifact|ceiling,wall,room light,floor|building|
 bedroom|n|room,area,structure,artifact|bed|dwelling|
 bathroom|n|room,area,structure,artifact|toilet,washbasin,bathtub,shower stall|dwelling|
 garage|n|repair shop,shop,mercantile establishment,place of business,establishment,structure,artifact|||
 attic|n|floor,structure,artifact||house|
 basement|n|floor,structure,artifact|||
-playground|n|yard,field,tract,geographical area,region,location|slide,seesaw,swing||
+playground|n|yard,field,tract,geographical area,region,location|slide,swing,seesaw||
 university|n|establishment,structure,artifact|||
 classroom|n|room,area,structure,artifact||school|
-church|n|place of worship,building,structure,artifact|apse,narthex,amen corner,lady chapel,chancel,rood screen,vestry,presbytery||
-harbor|n|port,geographic point,point,location|landing,anchorage,dock|seafront|
-world|n|natural object|extraterrestrial object,celestial body||
-space|n|space,attribute,location|interstellar space,deep space,intergalactic space,interplanetary space||
+church|n|place of worship,building,structure,artifact|chancel,vestry,presbytery,side chapel,transept,nave,church tower,apse||
+harbor|n|port,geographic point,point,location|anchorage,dock,landing|seafront|
+world|n|natural object|celestial body,extraterrestrial object||
+space|n|space,attribute,location|interplanetary space,deep space,interstellar space,intergalactic space||
 birthday|n|anniversary,day,calendar day,time period,fundamental quantity,measure|||
 party|n|social gathering,gathering,social group,group|||
 wedding|n|ceremony,affair,social event,event,psychological feature|||
@@ -11735,7 +11735,7 @@ concert|n|performance,show,social event,event,psychological feature|||
 festival|n|celebration,diversion,activity,act,event,psychological feature|||
 picnic|n|meal,nutriment,food,substance,matter|||
 reunion|n|union,combination,change of integrity,change,action,act,event,psychological feature|||
-date|n|calendar year,year,time period,fundamental quantity,measure,calendar month,calendar day|||
+date|n|calendar year,year,time period,fundamental quantity,measure,calendar day,calendar month|||
 sleepover|n|affair,social event,event,psychological feature|||
 celebration|n|affair,social event,event,psychological feature|||
 exam|n|communication,act,event,psychological feature|||
@@ -11750,14 +11750,14 @@ competition|n|social event,event,psychological feature|||
 race|n|contest,social event,event,psychological feature|||
 match|n|contest,social event,event,psychological feature|||
 audition|n|test,attempt,activity,act,event,psychological feature|||
-surgery|n|medical procedure,procedure,activity,act,event,psychological feature|hemostasis,incision,suturing||
+surgery|n|medical procedure,procedure,activity,act,event,psychological feature|suturing,hemostasis,incision||
 recital|n|performance,show,social event,event,psychological feature|||
 funeral|n|ceremony,affair,social event,event,psychological feature|||
 class|n|gathering,social group,group|||
 lesson|n|teaching,education,profession,occupation,activity,act,event,psychological feature||course|
 practice|n|training,activity,act,event,psychological feature|||
 rehearsal|n|exercise,training,activity,act,event,psychological feature|||
-weekend|n|time period,fundamental quantity,measure|Saturday,Sunday|week|
+weekend|n|time period,fundamental quantity,measure|Sunday,Saturday|week|
 ride|v||||pp=ridden
 fly|v||||pp=flown
 lie|v||||pp=lain
@@ -11827,8 +11827,8 @@ day|n|time,time period,fundamental quantity,measure|||
 night|n|dark,illumination,state,attribute|||
 morning|n|time period,fundamental quantity,measure|early-morning hour|day|
 afternoon|n|day,time period,fundamental quantity,measure|midafternoon||
-evening|n|day,time period,fundamental quantity,measure|twilight,sunset||
-week|n|time period,fundamental quantity,measure|day of the week,weekend,calendar day||
+evening|n|day,time period,fundamental quantity,measure|sunset,twilight||
+week|n|time period,fundamental quantity,measure|calendar day,day of the week,weekend||
 month|n|time period,fundamental quantity,measure|week||
 year|n|time period,fundamental quantity,measure||decade|
 season|n|time period,fundamental quantity,measure||year|
@@ -11836,10 +11836,10 @@ spring|n|season,time period,fundamental quantity,measure|vernal equinox||
 summer|n|season,time period,fundamental quantity,measure|summer solstice,dog days||
 autumn|n|season,time period,fundamental quantity,measure|autumnal equinox,Indian summer||
 winter|n|season,time period,fundamental quantity,measure|midwinter,winter solstice||
-sun|n|star,celestial body,natural object|chromosphere,photosphere||
+sun|n|star,celestial body,natural object|photosphere,chromosphere||
 moon|n|satellite,celestial body,natural object|||
 star|n|celestial body,natural object|||
-sky|n|atmosphere,gas,fluid,matter|rainbow,cloud|Earth|
+sky|n|atmosphere,gas,fluid,matter|cloud,rainbow|Earth|
 cloud|n|atmospheric phenomenon,physical phenomenon,natural phenomenon,phenomenon,process||sky|
 rainbow|n|bow,curve,line,shape,attribute||sky|
 snowflake|n|crystal,solid,matter||snow|
@@ -11872,42 +11872,42 @@ Thursday|n|weekday,day of the week,calendar day,time period,fundamental quantity
 Friday|n|weekday,day of the week,calendar day,time period,fundamental quantity,measure|||
 Saturday|n|weekday,day of the week,calendar day,time period,fundamental quantity,measure||weekend|
 Sunday|n|rest day,day of the week,calendar day,time period,fundamental quantity,measure||weekend|
-January|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Tet,Inauguration Day,New Year's Day,Epiphany,Twelfth night,Saint Agnes's Eve,Christmas,Martin Luther King Jr's Birthday|Gregorian calendar|
-February|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Washington's Birthday,Lincoln's Birthday,Groundhog Day,Valentine Day,Presidents' Day,Candlemas,mid-February,leap day|Gregorian calendar|
+January|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Christmas,New Year's Day,mid-January,Inauguration Day,Martin Luther King Jr's Birthday,Solemnity of Mary,Tet,Epiphany|Gregorian calendar|
+February|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Lincoln's Birthday,Groundhog Day,Candlemas,Valentine Day,leap day,Presidents' Day,mid-February,Washington's Birthday|Gregorian calendar|
 March|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Texas Independence Day,Saint Joseph,Annunciation,mid-March,vernal equinox|Gregorian calendar|
-April|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Patriot's Day,April Fools',mid-April,Pan American Day|Gregorian calendar|
-May|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Commonwealth Day,May Day,Armed Forces Day,Mother's Day,Memorial Day,mid-May|Gregorian calendar|
-June|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|summer solstice,Saints Peter and Paul,Jefferson Davis' Birthday,Midsummer Day,Flag Day,Father's Day,Midsummer Eve,mid-June|Gregorian calendar|
-July|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Independence Day,Bastille Day,Dominion Day,mid-July|Gregorian calendar|
-August|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|mid-August,Dormition,Assumption|Gregorian calendar|
-September|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|mid-September,Citizenship Day,autumnal equinox,Michaelmas,Labor Day,9/11,American Indian Day|Gregorian calendar|
-October|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|United Nations Day,Columbus Day,mid-October|Gregorian calendar|
-November|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|All Saints' Day,All Souls' Day,Martinmas,Veterans Day,mid-November,November 5,Thanksgiving|Gregorian calendar|
-December|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|mid-December,New Year's Eve,Christmas|Gregorian calendar|
-head|n|external body part,body part,part,thing|brain,ear,temple,basilar artery,muzzle,skull,face|body,animal|
-face|n|external body part,body part,part,thing|eyebrow,beard,facial,brow,jowl,mouth,nose,facial muscle|head,homo|
-eye|n|sense organ,organ,body part,part,thing|lens,lacrimal apparatus,lacrimal artery,retina,uveoscleral pathway,uvea,ciliary body,choroid|visual system,face|
-ear|n|sense organ,organ,body part,part,thing|vestibule of the ear,eardrum,fenestra,organ of hearing,auricular artery|vestibular apparatus,head,auditory system|
-nose|n|chemoreceptor,sense organ,organ,body part,part,thing|ethmoidal artery,internasal suture,nasal cavity,bridge,turbinate bone,nostril|face,upper respiratory tract|
-mouth|n|orifice,passage,structure,body part,part,thing|mouth,lip,lingual artery,lingual vein|face|
-tooth|n|bone,connective tissue,animal tissue,tissue,body part,part,thing|dentine,crown,pulp cavity,pulp,root,stump,cusp||
+April|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Pan American Day,Patriot's Day,mid-April,April Fools'|Gregorian calendar|
+May|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Memorial Day,mid-May,Mother's Day,May Day,Commonwealth Day,Armed Forces Day|Gregorian calendar|
+June|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Jefferson Davis' Birthday,Flag Day,Saints Peter and Paul,Father's Day,Midsummer Eve,Midsummer Day,summer solstice,mid-June|Gregorian calendar|
+July|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|mid-July,Independence Day,Bastille Day,Dominion Day|Gregorian calendar|
+August|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Assumption,mid-August,Dormition|Gregorian calendar|
+September|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Citizenship Day,Michaelmas,9/11,American Indian Day,autumnal equinox,mid-September,Labor Day|Gregorian calendar|
+October|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|mid-October,United Nations Day,Columbus Day|Gregorian calendar|
+November|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|mid-November,November 5,Thanksgiving,All Souls' Day,Martinmas,Veterans Day,All Saints' Day|Gregorian calendar|
+December|n|Gregorian calendar month,calendar month,time period,fundamental quantity,measure|Christmas,mid-December,New Year's Eve|Gregorian calendar|
+head|n|external body part,body part,part,thing|muzzle,skull,face,brain,temple,ear,basilar artery|animal,body|
+face|n|external body part,body part,part,thing|mouth,facial muscle,jaw,facial vein,cheek,eye,feature,beard|homo,head|
+eye|n|sense organ,organ,body part,part,thing|pupillary sphincter,nictitating membrane,aperture,cornea,lacrimal vein,lens,lacrimal apparatus,lacrimal artery|visual system,face|
+ear|n|sense organ,organ,body part,part,thing|eardrum,fenestra,organ of hearing,auricular artery,vestibule of the ear|auditory system,vestibular apparatus,head|
+nose|n|chemoreceptor,sense organ,organ,body part,part,thing|internasal suture,nasal cavity,bridge,turbinate bone,nostril,ethmoidal artery|upper respiratory tract,face|
+mouth|n|orifice,passage,structure,body part,part,thing|lingual vein,lip,mouth,lingual artery|face|
+tooth|n|bone,connective tissue,animal tissue,tissue,body part,part,thing|pulp,root,stump,dentine,cusp,crown,pulp cavity||
 tongue|n|articulator,speech organ,organ,body part,part,thing|tastebud|mouth,throat|
-throat|n|tubular cavity,cavity,structure,body part,part,thing|pharyngeal tonsil,tongue,oropharynx,nasopharynx,pharyngeal recess,laryngopharynx,tastebud|neck,upper respiratory tract,alimentary canal|
-neck|n|external body part,body part,part,thing|nape,cervical artery,throat,thymus gland,cervical vertebra,carotid artery,jugular vein,dewlap|body|
+throat|n|tubular cavity,cavity,structure,body part,part,thing|pharyngeal tonsil,tongue,oropharynx,nasopharynx,pharyngeal recess,laryngopharynx,tastebud|upper respiratory tract,neck,alimentary canal|
+neck|n|external body part,body part,part,thing|thymus gland,throat,cervical vertebra,jugular vein,carotid artery,trachea,dewlap,sternocleidomastoid|body|
 shoulder|n|body part,part,thing|teres,armpit|torso|
-arm|n|limb,extremity,external body part,body part,part,thing|cephalic vein,hand,forearm,elbow,arm bone,wrist,humerus,biceps brachii|body,homo|
-hand|n|extremity,external body part,body part,part,thing|palm,ball,metacarpal vein,digital arteries,metacarpus,finger,metacarpal artery,intercapitular vein|arm,homo|
-finger|n|digit,extremity,external body part,body part,part,thing|pad,fingernail,knuckle,fingertip|hand|
-back|n|body part,part,thing|latissimus dorsi,lumbar vertebra,saddle,thoracic vertebra,small|torso|
-stomach|n|internal organ,organ,body part,part,thing|gastric artery,gastric vein,pit of the stomach,gastroomental vein|alimentary canal|
-heart|n|internal organ,organ,body part,part,thing|valve,cardiac muscle,coronary artery,heart valve|circulatory system|
-leg|n|limb,extremity,external body part,body part,part,thing|foot,tibialis,sciatic nerve,saphenous vein,knock-knee,peroneal vein,tibia,thigh|body|
+arm|n|limb,extremity,external body part,body part,part,thing|elbow,ulnar nerve,triceps brachii,brachial artery,forearm,wrist,hand,cephalic vein|homo,body|
+hand|n|extremity,external body part,body part,part,thing|metacarpal vein,finger,metacarpus,metacarpal artery,intercapitular vein,palm,ball,digital arteries|homo,arm|
+finger|n|digit,extremity,external body part,body part,part,thing|knuckle,pad,fingernail,fingertip|hand|
+back|n|body part,part,thing|lumbar vertebra,thoracic vertebra,latissimus dorsi,small,saddle|torso|
+stomach|n|internal organ,organ,body part,part,thing|gastric artery,gastroomental vein,gastric vein,pit of the stomach|alimentary canal|
+heart|n|internal organ,organ,body part,part,thing|coronary artery,heart valve,valve,cardiac muscle|circulatory system|
+leg|n|limb,extremity,external body part,body part,part,thing|thigh,tibial vein,crus,saphenous nerve,ankle,shank,fibula,knock-knee|body|
 knee|n|hinge joint,synovial joint,joint,body part,part,thing|patella,musculus articularis genus,genicular vein|leg|
-foot|n|vertebrate foot,extremity,external body part,body part,part,thing|sole,heelbone,digital arteries,metatarsal artery,heel,big toe,toe,metatarsal vein|leg,homo|
+foot|n|vertebrate foot,extremity,external body part,body part,part,thing|heel,metatarsal vein,metatarsal artery,arcuate artery,sole,toe,instep,big toe|homo,leg|
 toe|n|digit,extremity,external body part,body part,part,thing|toenail,tiptoe|foot|
-skin|n|connective tissue,animal tissue,tissue,body part,part,thing,body covering,covering,natural object|freckle,whitehead,blackhead,free nerve ending,macule,pressure point,wrinkle,dermis|integumentary system|
-hair|n|body covering,covering,natural object|part,hairline|integumentary system|
-brain|n|neural structure,structure,body part,part,thing|midbrain,brain cell,ventricle,communicating artery,hindbrain,neencephalon,forebrain,brainstem|central nervous system,head|
+skin|n|connective tissue,animal tissue,tissue,body part,part,thing,body covering,covering,natural object|liver spot,pressure point,epidermis,dermis,blackhead,sweat gland,skin cell,scab|integumentary system|
+hair|n|body covering,covering,natural object|hairline,part|integumentary system|
+brain|n|neural structure,structure,body part,part,thing|forebrain,communicating artery,neencephalon,hindbrain,brainstem,midbrain,circle of Willis,brain cell|head,central nervous system|
 headache|n|ache,pain,symptom,evidence,information,cognition,psychological feature|||
 cold|n|communicable disease,disease,illness,ill health,pathological state,physical condition,condition,state,attribute,respiratory disease|rhinorrhea||
 flu|n|contagious disease,communicable disease,disease,illness,ill health,pathological state,physical condition,condition,state,attribute|||
@@ -11984,7 +11984,7 @@ professor|n|academician,educator,professional,adult,person,organism,living thing
 principal|n|educator,professional,adult,person,organism,living thing,causal agent|||
 tutor|n|teacher,educator,professional,adult,person,organism,living thing,causal agent|||
 babysitter|n|keeper,defender,preserver,person,organism,living thing,causal agent|||
-nanny|n|keeper,defender,preserver,person,organism,living thing,woman,adult,female,causal agent|||
+nanny|n|keeper,defender,preserver,person,organism,living thing,woman,female,adult,causal agent|||
 receptionist|n|secretary,assistant,worker,person,organism,living thing,causal agent|||
 secretary|n|head,leader,person,organism,living thing,causal agent|||
 accountant|n|businessperson,capitalist,person,organism,living thing,causal agent|||
@@ -12156,7 +12156,7 @@ hummus|n|spread,condiment,flavorer,ingredient,foodstuff,food,substance,matter|||
 cream|n|dairy product,foodstuff,food,substance,matter|||
 cottage cheese|n|cheese,dairy product,foodstuff,food,substance,matter,solid|||
 beef|n|meat,food,solid,matter|beef loin,cut of beef|cattle|
-pork|n|meat,food,solid,matter|cut of pork,pork loin|hog|
+pork|n|meat,food,solid,matter|pork loin,cut of pork|hog|
 ham|n|cut of pork,cut,meat,food,solid,matter|||
 meatball|n|dish,nutriment,food,substance,matter|||
 stew|n|dish,nutriment,food,substance,matter|||
@@ -12170,7 +12170,7 @@ apricot|n|edible fruit,fruit,reproductive structure,plant organ,plant part,natur
 plum|n|fruit tree,angiospermous tree,tree,woody plant,vascular plant,plant,organism,living thing|plum||
 kiwi|n|edible fruit,fruit,reproductive structure,plant organ,plant part,natural object,produce,food,solid,matter||Chinese gooseberry|
 melon|n|edible fruit,fruit,reproductive structure,plant organ,plant part,natural object,produce,food,solid,matter|||
-raspberry|n|berry,edible fruit,fruit,reproductive structure,plant organ,plant part,natural object,drupelet,drupe,produce|||
+raspberry|n|drupelet,drupe,fruit,reproductive structure,plant organ,plant part,natural object,berry,edible fruit,produce|||
 blackberry|n|bramble bush,bramble,woody plant,vascular plant,plant,organism,living thing|||
 cranberry|n|berry,edible fruit,fruit,reproductive structure,plant organ,plant part,natural object,produce,food,solid|||
 fig|n|edible fruit,fruit,reproductive structure,plant organ,plant part,natural object,produce,food,solid,matter|||
@@ -12191,7 +12191,7 @@ celery|n|vegetable,produce,food,solid,matter|celery stick||
 asparagus|n|vegetable,produce,food,solid,matter|||
 zucchini|n|summer squash,squash,vegetable,produce,food,solid,matter|||
 eggplant|n|solanaceous vegetable,vegetable,produce,food,solid,matter|||
-pumpkin|n|squash,vine,vascular plant,plant,organism,living thing|pumpkin,pumpkin seed||
+pumpkin|n|squash,vine,vascular plant,plant,organism,living thing|pumpkin seed,pumpkin||
 sweet potato|n|root vegetable,vegetable,produce,food,solid,matter|||
 beet|n|root vegetable,vegetable,produce,food,solid,matter|||
 radish|n|root vegetable,vegetable,produce,food,solid,matter,cruciferous vegetable|||
@@ -12206,8 +12206,8 @@ latte|n|espresso,coffee,beverage,liquid,fluid,substance,part,relation,matter,foo
 cappuccino|n|coffee,beverage,liquid,fluid,substance,part,relation,matter,food|||
 milkshake|n|drink,helping,small indefinite quantity,indefinite quantity,measure|||
 cola|n|soft drink,beverage,liquid,fluid,substance,part,relation,matter,food|||
-wine|n|alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse,drug|||
-beer|n|brew,alcohol,beverage,liquid,fluid,substance,part,relation,matter,drug of abuse|||
+wine|n|alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug,agent|||
+beer|n|brew,alcohol,beverage,liquid,fluid,substance,part,relation,drug of abuse,drug|||
 broth|n|soup,dish,nutriment,food,substance,matter|||
 leftovers|n|food,solid,matter|||
 takeout|n|convenience food,food,solid,matter|||
@@ -12228,14 +12228,14 @@ closet|n|room,area,structure,artifact|shelf||
 wardrobe|n|furniture,furnishing,instrumentality,artifact|||
 bookcase|n|furniture,furnishing,instrumentality,artifact|shelf||
 mattress|n|pad,padding,artifact||bed|
-carpet|n|furnishing,instrumentality,artifact,floor cover,covering|edging||
-floor|n|horizontal surface,surface,artifact||hallway,room|
-wall|n|partition,structure,artifact|pier,header,course,arch,doorway,paneling,wainscot,wall panel|hallway,building,room|
-ceiling|n|upper surface,side,surface,artifact||hallway,room|
-roof|n|protective covering,covering,artifact|eaves,roof peak|building|
+carpet|n|floor cover,covering,artifact,furnishing,instrumentality|edging||
+floor|n|horizontal surface,surface,artifact||room,hallway|
+wall|n|partition,structure,artifact|paneling,capstone,wainscot,wall panel,header,arch,pier,course|building,hallway,room|
+ceiling|n|upper surface,side,surface,artifact||room,hallway|
+roof|n|protective covering,covering,artifact|roof peak,eaves|building|
 stairs|n|stairway,way,artifact|||
 fence|n|barrier,obstruction,structure,artifact|||
-gate|n|movable barrier,barrier,obstruction,structure,artifact|lock,hinge||
+gate|n|movable barrier,barrier,obstruction,structure,artifact|hinge,lock||
 mailbox|n|box,container,instrumentality,artifact|||
 doorbell|n|push button,switch,control,mechanism,device,instrumentality,artifact|||
 sink|n|plumbing fixture,fixture,artifact|drain basket||
@@ -12259,7 +12259,7 @@ vacuum|n|home appliance,appliance,durables,consumer goods,commodity,artifact|dus
 mop|n|cleaning implement,implement,instrumentality,artifact|mop handle||
 sponge|n|absorbent material,sorbent,material,substance,part,relation,matter|||
 bin|n|container,instrumentality,artifact|||
-trash|n|amphetamine,stimulant,drug,agent,substance,matter,drug of abuse,controlled substance,causal agent|||
+trash|n|amphetamine,drug of abuse,drug,agent,substance,matter,stimulant,causal agent,controlled substance|||
 jar|n|vessel,container,instrumentality,artifact|lid,mouth||
 can|n|container,instrumentality,artifact|||
 tissue|n|paper,material,substance,part,relation,matter|||
@@ -12271,13 +12271,13 @@ water bottle|n|bottle,vessel,container,instrumentality,artifact|||
 cutting board|n|board,sheet,artifact|||
 whisk|n|mixer,kitchen utensil,utensil,implement,instrumentality,artifact|||
 key ring|n|hoop,band,strip,artifact|||
-lock|n|fastener,restraint,device,instrumentality,artifact|bolt,tumbler,keyhole|gate,lid,door,drawer|
+lock|n|fastener,restraint,device,instrumentality,artifact|tumbler,bolt,keyhole|drawer,gate,lid,door|
 alarm clock|n|clock,timepiece,measuring instrument,instrument,device,instrumentality,artifact|||
 calendar|n|table,array,arrangement,group|||
 diary|n|journal,book,product,creation,artifact|||
 journal|n|book,product,creation,artifact|||
-magazine|n|press,print media,medium,instrumentality,artifact,publication,work,product,creation|center spread,magazine article,feature||
-newspaper|n|press,print media,medium,instrumentality,artifact|comic strip,sports section,feature,headline,news article,rotogravure,column,news item||
+magazine|n|press,print media,medium,instrumentality,artifact,publication,work,product,creation|feature,center spread,magazine article||
+newspaper|n|press,print media,medium,instrumentality,artifact|feature,news article,headline,news item,rotogravure,column,comic strip,sports section||
 comic|n|performer,entertainer,person,organism,living thing,causal agent|||
 envelope|n|wrapping,covering,artifact|||
 stamp|n|token,symbol,signal,communication|||
@@ -12291,10 +12291,10 @@ folder|n|covering,artifact|||
 stapler|n|machine,device,instrumentality,artifact|||
 tape|n|strip,artifact|||
 string|n|cord,line,artifact|||
-needle|n|implement,instrumentality,artifact|point,eye||
+needle|n|implement,instrumentality,artifact|eye,point||
 thread|n|cord,line,artifact|||
 button|n|fastener,restraint,device,instrumentality,artifact|||
-zipper|n|fastener,restraint,device,instrumentality,artifact||trouser,skirt,cardigan,dress|
+zipper|n|fastener,restraint,device,instrumentality,artifact||cardigan,dress,trouser,skirt|
 pocket|n|pouch,bag,container,instrumentality,artifact|pocket flap|garment|
 belt|n|accessory,clothing,consumer goods,commodity,artifact,covering|belt buckle||
 tie|n|neckwear,garment,clothing,consumer goods,commodity,artifact,covering|||
@@ -12320,7 +12320,7 @@ comb|n|device,instrumentality,artifact|tooth||
 hairbrush|n|brush,implement,instrumentality,artifact|||
 razor|n|edge tool,cutter,cutting implement,tool,implement,instrumentality,artifact|razorblade||
 suitcase|n|baggage,case,container,instrumentality,artifact|||
-luggage|n|case,container,instrumentality,artifact|handle,strap||
+luggage|n|case,container,instrumentality,artifact|strap,handle||
 passport|n|legal document,document,writing,written communication,communication|visa||
 sunscreen|n|cream,toiletry,instrumentality,artifact|||
 sunglasses|n|spectacles,optical instrument,instrument,device,instrumentality,artifact|Polaroid||
@@ -12334,19 +12334,19 @@ hammock|n|bed,bedroom furniture,furniture,furnishing,instrumentality,artifact|||
 balloon|n|lighter-than-air craft,aircraft,craft,vehicle,conveyance,instrumentality,artifact|envelope,ripcord||
 candlestick|n|holder,holding device,device,instrumentality,artifact|pricket||
 vase|n|jar,vessel,container,instrumentality,artifact|||
-frame|n|supporting structure,structure,artifact||ship,building,aircraft|
+frame|n|supporting structure,structure,artifact||building,ship,aircraft|
 screwdriver|n|hand tool,tool,implement,instrumentality,artifact|||
 wrench|n|hand tool,tool,implement,instrumentality,artifact|jaw||
-saw|n|hand tool,tool,implement,instrumentality,artifact|tooth,sawtooth||
-drill|n|tool,implement,instrumentality,artifact|chuck,bit||
-nail|n|fastener,restraint,device,instrumentality,artifact|nailhead,clinch,shank,head||
+saw|n|hand tool,tool,implement,instrumentality,artifact|sawtooth,tooth||
+drill|n|tool,implement,instrumentality,artifact|bit,chuck||
+nail|n|fastener,restraint,device,instrumentality,artifact|head,nailhead,clinch,shank||
 screw|n|inclined plane,machine,mechanical device,mechanism,device,instrumentality,artifact|||
 shovel|n|hand tool,tool,implement,instrumentality,artifact|||
 rake|n|tool,implement,instrumentality,artifact|rake handle||
 hose|n|tube,conduit,passage,way,artifact|||
 watering can|n|container,instrumentality,artifact|spout,handle||
 wheelbarrow|n|handcart,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|||
-keyboard|n|device,instrumentality,artifact|action|terminal,organ,typesetting machine,piano|
+keyboard|n|device,instrumentality,artifact|action|organ,terminal,typesetting machine,piano|
 monitor|n|display,electronic device,device,instrumentality,artifact|oscilloscope|computer|
 printer|n|machine,device,instrumentality,artifact|||
 speaker|n|electro-acoustic transducer,transducer,electrical device,device,instrumentality,artifact||public address system|
@@ -12365,15 +12365,15 @@ cartoon|n|short subject,movie,product,creation,artifact,show,social event,event,
 documentary|n|movie,product,creation,artifact,show,social event,event,psychological feature|||
 board game|n|parlor game,game,activity,act,event,psychological feature|||
 chess|n|board game,parlor game,game,activity,act,event,psychological feature|checkerboard,chess move||
-cards|n|game,activity,act,event,psychological feature|cut,deal,lead,call,doubling,shuffle,revoke,discard||
-jigsaw|n|power saw,power tool,machine,device,instrumentality,artifact,tool,implement|||
+cards|n|game,activity,act,event,psychological feature|call,doubling,revoke,shuffle,lead,discard,deal,cut||
+jigsaw|n|power saw,power tool,tool,implement,instrumentality,artifact,machine,device|||
 teddy bear|n|plaything,artifact|||
 swing|n|mechanical device,mechanism,device,instrumentality,artifact,plaything||playground|
 slide|n|plaything,artifact||playground|
 trampoline|n|gymnastic apparatus,sports equipment,equipment,instrumentality,artifact|||
 living room|n|room,area,structure,artifact||dwelling|
 dining room|n|room,area,structure,artifact|dining-room table,buffet|dwelling|
-hallway|n|corridor,passageway,passage,way,artifact|wall,floor,ceiling||
+hallway|n|corridor,passageway,passage,way,artifact|ceiling,wall,floor||
 porch|n|structure,artifact||house|
 balcony|n|structure,artifact|bannister||
 backyard|n|yard,field,tract,geographical area,region,location|||
@@ -12389,14 +12389,14 @@ port|n|geographic point,point,location|||
 dock|n|landing,structure,artifact||seaport|
 marina|n|dock,landing,structure,artifact|||
 coast|n|shore,geological formation|foreshore||
-shore|n|geological formation|beach,shoreline||
+shore|n|geological formation|shoreline,beach||
 cliff|n|geological formation|||
 bay|n|body of water,thing||sea|
 waterfall|n|body of water,thing||river|
-stream|n|body of water,thing|ford,midstream,meander||
+stream|n|body of water,thing|meander,ford,midstream||
 pond|n|lake,body of water,thing|||
 volcano|n|crack,opening,space,amorphous shape,shape,attribute,location|||
-glacier|n|ice mass,geological formation|icefall,neve,moraine||
+glacier|n|ice mass,geological formation|moraine,neve,icefall||
 canyon|n|ravine,valley,natural depression,geological formation|canyonside||
 meadow|n|grassland,tract,geographical area,region,location,biome,community,group|||
 woods|n|vegetation,collection,group|||
@@ -12435,7 +12435,7 @@ nightclub|n|spot,place of business,establishment,structure,artifact|||
 bowling alley|n|building,structure,artifact|||
 arcade|n|passageway,passage,way,artifact|||
 amusement park|n|park,tract,geographical area,region,location|ride||
-aquarium|n|tank,vessel,container,instrumentality,artifact,vivarium,enclosure,area,structure|||
+aquarium|n|vivarium,enclosure,area,structure,artifact,tank,vessel,container,instrumentality|||
 gallery|n|room,area,structure,artifact|||
 concert hall|n|hall,room,area,structure,artifact|||
 studio|n|workplace,geographic point,point,location|||
@@ -12449,10 +12449,10 @@ trail|n|track,road,way,artifact|||
 path|n|way,artifact|||
 highway|n|road,way,artifact|interchange,traffic lane||
 tunnel|n|passageway,passage,way,artifact|shaft||
-continent|n|landmass,land|craton,subcontinent||
+continent|n|landmass,land|subcontinent,craton||
 planet|n|celestial body,natural object|biosphere||
-earth|n|terrestrial planet,planet,celestial body,natural object|hydrosphere,lithosphere,atmosphere,sky,land,hemisphere,Van Allen belt||
-universe|n|natural object|extraterrestrial object,celestial body||
+earth|n|terrestrial planet,planet,celestial body,natural object|lithosphere,land,atmosphere,hemisphere,sky,Van Allen belt,hydrosphere||
+universe|n|natural object|celestial body,extraterrestrial object||
 housewarming|n|party,social gathering,gathering,social group,group|||
 engagement|n|meeting,social gathering,gathering,social group,group|||
 honeymoon|n|vacation,leisure,time off,time period,fundamental quantity,measure|||
@@ -12466,10 +12466,10 @@ parade|n|procession,group action,act,event,psychological feature,collection,grou
 fair|n|show,entertainment,diversion,activity,act,event,psychological feature|midway||
 carnival|n|festival,celebration,diversion,activity,act,event,psychological feature|||
 gig|n|engagement,employment,occupation,activity,act,event,psychological feature|||
-play|n|dramatic composition,writing,written communication,communication|stage direction,act||
-musical|n|movie,product,creation,artifact,play,show,social event,event,psychological feature|||
-opera|n|classical music,music genre,music,auditory communication,communication,expressive style|act,aria,supertitle||
-ballet|n|stage dancing,dancing,performing arts,humanistic discipline,discipline,knowledge domain,content,cognition,psychological feature,diversion|pas de trois,pas de quatre,act,pas de deux||
+play|n|dramatic composition,writing,written communication,communication|act,stage direction||
+musical|n|movie,product,creation,artifact,show,social event,event,psychological feature,play|||
+opera|n|classical music,music genre,music,auditory communication,communication,expressive style|supertitle,act,aria||
+ballet|n|stage dancing,dancing,performing arts,humanistic discipline,discipline,knowledge domain,content,cognition,psychological feature,diversion|act,pas de deux,pas de trois,pas de quatre||
 exhibition|n|presentation,show,entertainment,diversion,activity,act,event,psychological feature|||
 conference|n|meeting,gathering,social group,group|||
 seminar|n|conference,meeting,gathering,social group,group|||
@@ -12482,7 +12482,7 @@ final|n|match,contest,social event,event,psychological feature||elimination tour
 tournament|n|contest,social event,event,psychological feature|||
 marathon|n|footrace,race,contest,social event,event,psychological feature|||
 tryout|n|test,attempt,activity,act,event,psychological feature|||
-operation|n|medical procedure,procedure,activity,act,event,psychological feature|hemostasis,incision,suturing||
+operation|n|medical procedure,procedure,activity,act,event,psychological feature|suturing,hemostasis,incision||
 vaccination|n|immunization,protection,activity,act,event,psychological feature|||
 haircut|n|cut,shortening,decrease,change of magnitude,change,action,act,event,psychological feature|||
 move|n|decision,choice,action,act,event,psychological feature|||
@@ -12492,10 +12492,10 @@ memorial|n|structure,artifact|||
 accident|n|mishap,misfortune,trouble,happening,event,psychological feature|||
 loss|n|failure,nonaccomplishment,act,event,psychological feature|||
 emergency|n|crisis,juncture,happening,event,psychological feature|||
-basketball|n|court game,athletic game,sport,diversion,activity,act,event,psychological feature,game|half,basketball play,rebound,tip-off,basketball shot||
+basketball|n|court game,athletic game,sport,diversion,activity,act,event,psychological feature,game|rebound,tip-off,basketball shot,half,basketball play||
 baseball|n|ball game,field game,outdoor game,athletic game,sport,diversion,activity,act,event,psychological feature|||
 soccer|n|football,field game,outdoor game,athletic game,sport,diversion,activity,act,event,psychological feature|headshot||
-tennis|n|court game,athletic game,sport,diversion,activity,act,event,psychological feature,game|set point,footfault,advantage,service break,return||
+tennis|n|court game,athletic game,sport,diversion,activity,act,event,psychological feature,game|set point,service break,advantage,footfault,return||
 volleyball|n|court game,athletic game,sport,diversion,activity,act,event,psychological feature,game|||
 golf|n|outdoor game,athletic game,sport,diversion,activity,act,event,psychological feature,game|||
 hockey|n|field game,outdoor game,athletic game,sport,diversion,activity,act,event,psychological feature,game|||
@@ -12564,7 +12564,7 @@ honesty|n|righteousness,morality,quality,attribute|||
 loyalty|n|fidelity,quality,attribute|||
 relationship|n|state,attribute|||
 marriage|n|marital status,legal status,status,state,attribute|||
-childhood|n|time of life,time period,fundamental quantity,measure|phallic stage,anal stage,latency stage,prepuberty||
+childhood|n|time of life,time period,fundamental quantity,measure|latency stage,prepuberty,anal stage,phallic stage||
 tradition|n|content,cognition,psychological feature|||
 culture|n|taste,discrimination,basic cognitive process,process,cognition,psychological feature|||
 religion|n|theological virtue,cardinal virtue,virtue,good,morality,quality,attribute,belief,content,cognition|||
@@ -12631,14 +12631,14 @@ argument|n|dispute,disagreement,speech act,act,event,psychological feature|||
 conversation|n|speech,auditory communication,communication|||
 chat|n|conversation,speech,auditory communication,communication|||
 discussion|n|communication,act,event,psychological feature|||
-speech|n|speech act,act,event,psychological feature|introduction,conclusion,body||
+speech|n|speech act,act,event,psychological feature|body,introduction,conclusion||
 rumor|n|gossip,report,informing,speech act,act,event,psychological feature|||
 information|n|message,communication|||
 detail|n|fact,information,cognition,psychological feature|||
 example|n|ideal,idea,content,cognition,psychological feature|||
 instruction|n|message,communication|||
 warning|n|advice,proposal,message,communication|||
-address|n|speech act,act,event,psychological feature|introduction,conclusion,body||
+address|n|speech act,act,event,psychological feature|body,introduction,conclusion||
 direction|n|inclination,attitude,cognition,psychological feature|||
 distance|n|spacing,placement,position,relation|||
 traffic|n|commerce,transaction,group action,act,event,psychological feature|||
@@ -12656,7 +12656,7 @@ jet lag|n|fatigue,temporary state,state,attribute|||
 nightmare|n|dream,imagination,representational process,basic cognitive process,process,cognition,psychological feature|||
 daydream|n|dream,imagination,creativity,ability,cognition,psychological feature|||
 challenge|n|situation,state,attribute|||
-victory|n|ending,happening,event,psychological feature,success|||
+victory|n|success,happening,event,psychological feature,ending|||
 defeat|n|disappointment,dissatisfaction,discontentment,longing,desire,feeling,state,attribute|||
 prize|n|award,symbol,signal,communication|||
 award|n|grant,allotment,distribution,act,event,psychological feature|||
@@ -12708,11 +12708,11 @@ noon|n|hour,clock time,reading,datum,information,cognition,psychological feature
 dawn|n|hour,clock time,reading,datum,information,cognition,psychological feature|||
 dusk|n|hour,clock time,reading,datum,information,cognition,psychological feature||evening|
 decade|n|time period,fundamental quantity,measure|year|century|
-century|n|time period,fundamental quantity,measure|quarter-century,half-century,decade|millennium|
-Christmas|n|holy day of obligation,Christian holy day,religious holiday,holiday,day,calendar day,time period,fundamental quantity,measure,quarter day||December|
+century|n|time period,fundamental quantity,measure|half-century,quarter-century,decade|millennium|
+Christmas|n|quarter day,Christian holy day,religious holiday,holiday,day,calendar day,time period,fundamental quantity,measure,holy day of obligation||December|
 Halloween|n|day,calendar day,time period,fundamental quantity,measure|||
 New Year|n|year,time period,fundamental quantity,measure|||
-Thanksgiving|n|legal holiday,holiday,day,calendar day,time period,fundamental quantity,measure,feast day||November|
+Thanksgiving|n|feast day,holiday,day,calendar day,time period,fundamental quantity,measure,legal holiday||November|
 Easter|n|movable feast,feast day,holiday,day,calendar day,time period,fundamental quantity,measure|||
 Valentine's Day|n|day,calendar day,time period,fundamental quantity,measure||February|
 Hanukkah|n|Jewish holy day,religious holiday,holiday,day,calendar day,time period,fundamental quantity,measure||Kislev,Tebet|
@@ -12747,13 +12747,13 @@ pebble|n|rock,natural object|||
 crystal|n|solid,matter|||
 diamond|n|parallelogram,quadrilateral,polygon,plane figure,figure,shape,attribute|||
 gold|n|precious metal,valuable,treasure,wealth,material resource,assets,possession,relation|||
-silver|n|noble metal,metallic element,chemical element,substance,part,relation,conductor,material,matter|||
+silver|n|noble metal,metallic element,chemical element,substance,part,relation,matter,conductor,material|||
 metal|n|chemical element,substance,part,relation,matter|||
 iron|n|home appliance,appliance,durables,consumer goods,commodity,artifact|||
-steel|n|weapon,instrument,device,instrumentality,artifact|point,forte,foible,blade,haft,hilt||
+steel|n|weapon,instrument,device,instrumentality,artifact|haft,hilt,blade,point,forte,foible||
 wood|n|plant material,material,substance,part,relation,matter|||
 plastic|n|solid,matter|||
-cotton|n|plant fiber,natural fiber,fiber,material,substance,part,relation,plant product,plant material,matter|||
+cotton|n|plant fiber,plant product,plant material,material,substance,part,relation,natural fiber,fiber,matter|||
 wool|n|fabric,artifact|||
 silk|n|fabric,artifact|||
 leather|n|animal skin,animal product,animal material,material,substance,part,relation,matter|||
@@ -12761,7 +12761,7 @@ rubber|n|latex,exudate,discharge,material,substance,part,relation,matter|||
 concrete|n|building material,artifact,paving|||
 brick|n|ceramic,instrumentality,artifact,building material|||
 clay|n|soil,earth,material,substance,part,relation,matter|||
-fabric|n|artifact|hem,edging||
+fabric|n|artifact|edging,hem||
 electricity|n|stir,agitation,feeling,state,attribute|||
 fuel|n|substance,matter|||
 gas|n|hydrocarbon,organic compound,compound,chemical,material,substance,part,relation,matter,fuel|||
@@ -12769,13 +12769,13 @@ experiment|n|scientific research,research,investigation,work,activity,act,event,
 theory|n|concept,idea,content,cognition,psychological feature|||
 discovery|n|act,event,psychological feature|||
 invention|n|creativity,ability,cognition,psychological feature|||
-atom|n|substance,part,relation,matter|elementary particle,nucleus|chemical element,molecule|
+atom|n|substance,part,relation,matter|nucleus,elementary particle|molecule,chemical element|
 gravity|n|attraction,force,physical phenomenon,natural phenomenon,phenomenon,process|||
 magnet|n|device,instrumentality,artifact|core,pole||
 robot|n|mechanism,device,instrumentality,artifact|||
 machine|n|device,instrumentality,artifact|||
-engine|n|motor,machine,device,instrumentality,artifact|gearing,camshaft||
-wheel|n|machine,mechanical device,mechanism,device,instrumentality,artifact|rim,felloe||
+engine|n|motor,machine,device,instrumentality,artifact|camshaft,gearing||
+wheel|n|machine,mechanical device,mechanism,device,instrumentality,artifact|felloe,rim||
 tool|n|implement,instrumentality,artifact|||
 technology|n|profession,occupation,activity,act,event,psychological feature,application,use|||
 science fiction|n|fantasy,fiction,literary composition,writing,written communication,communication|||
@@ -12791,25 +12791,25 @@ economics|n|social science,science,discipline,knowledge domain,content,cognition
 psychology|n|science,discipline,knowledge domain,content,cognition,psychological feature|||
 philosophy|n|humanistic discipline,discipline,knowledge domain,content,cognition,psychological feature|||
 chin|n|feature,body part,part,thing|goatee|face|
-cheek|n|feature,body part,part,thing|cheek muscle,buccal artery|face|
+cheek|n|feature,body part,part,thing|buccal artery,cheek muscle|face|
 forehead|n|feature,body part,part,thing|trichion|face|
 lip|n|articulator,speech organ,organ,body part,part,thing,external body part|labial artery,labial vein|mouth|
 eyebrow|n|hair,body covering,covering,natural object|venae palpebrales|face|
 eyelash|n|hair,body covering,covering,natural object||eyelid|
 jaw|n|bone,connective tissue,animal tissue,tissue,body part,part,thing|alveolar ridge,alveolar arch|skull|
-elbow|n|hinge joint,synovial joint,joint,body part,part,thing|funny bone,musculus articularis cubiti|arm|
+elbow|n|hinge joint,synovial joint,joint,body part,part,thing|musculus articularis cubiti,funny bone|arm|
 wrist|n|gliding joint,synovial joint,joint,body part,part,thing|carpal bone,carpal tunnel|arm|
 thumb|n|finger,digit,extremity,external body part,body part,part,thing|musculus abductor pollicis,thumbnail||
 fingernail|n|nail,horny structure,structure,body part,part,thing||finger|
-chest|n|body part,part,thing|area of cardiac dullness,sternum,breast,thoracic aorta,chest cavity,gallbladder,pectoral,thoracic vein|torso,vertebrate|
-belly|n|body part,part,thing|abdominal cavity,intestine,navel,colic artery,abdominal aorta,abdominal wall,hypochondrium,abdominal|torso|
+chest|n|body part,part,thing|chest cavity,thoracic vein,gallbladder,rib cage,pectoral,sternum,breast,area of cardiac dullness|vertebrate,torso|
+belly|n|body part,part,thing|navel,abdominal aorta,hypochondrium,abdominal,abdominal cavity,abdominal wall,intestine,colic artery|torso|
 hip|n|body part,part,thing|gluteal artery|torso|
 ankle|n|gliding joint,synovial joint,joint,body part,part,thing|anklebone|leg|
 heel|n|skeletal structure,structure,body part,part,thing|Achilles tendon|foot|
 muscle|n|contractile organ,organ,body part,part,thing|muscle cell||
-bone|n|connective tissue,animal tissue,tissue,body part,part,thing|lamella,coronoid process,socket,matrix,marrow,bone cell,condyle|endoskeleton|
+bone|n|connective tissue,animal tissue,tissue,body part,part,thing|socket,lamella,coronoid process,marrow,bone cell,matrix,condyle|endoskeleton|
 blood|n|liquid body substance,body substance,substance,part,relation,matter|blood cell||
-lung|n|respiratory organ,internal organ,organ,body part,part,thing|bronchial artery,lobe of the lung,alveolus,alveolar bed,pulmonary vein|lower respiratory tract|
+lung|n|respiratory organ,internal organ,organ,body part,part,thing|alveolus,alveolar bed,pulmonary vein,bronchial artery,lobe of the lung|lower respiratory tract|
 voice|n|sound,happening,event,psychological feature|||
 body|n|natural object|||
 mind|n|cognition,psychological feature|||
@@ -12861,47 +12861,47 @@ step|n|locomotion,motion,change,action,act,event,psychological feature|||
 way|n|property,attribute|||
 free time|n|leisure,time off,time period,fundamental quantity,measure|||
 leisure|n|rest,inactivity,act,event,psychological feature|||
-hometown|n|town,municipality,administrative district,district,region,location,urban area,geographical area|||
+hometown|n|town,municipality,urban area,geographical area,region,location,administrative district,district|||
 homeland|n|country,administrative district,district,region,location|||
 seaside|n|seashore,shore,geological formation|||
-France|n|European country,country,administrative district,district,region,location|Toulon,Brest,Provence,Rhone,Ile-de-France,Bordeaux,Savoy,Auvergne|Europe|
-Spain|n|European country,country,administrative district,district,region,location|Leon,Sevilla,Valencia,Catalonia,Cantabrian Mountains,Jerez,Cordoba,Cape Trafalgar|Europe,Iberian Peninsula|
-Italy|n|European country,country,administrative district,district,region,location|Dolomite Alps,Tyrolean Alps,Arno,Piedmont,Brindisi,Lombardy,Savoy,Tivoli|Europe|
-Germany|n|European country,country,administrative district,district,region,location|Bremerhaven,Essen,Neckar,Chemnitz,Leipzig,Frankfurt on the Main,Lubeck,Palatinate|Europe|
-Portugal|n|European country,country,administrative district,district,region,location|Madeira Islands,Tagus,Braga,Lusitania,Setubal,Lisbon,Porto,Azores|Europe,Iberian Peninsula|
-Greece|n|Balkan country,European country,country,administrative district,district,region,location|Dodecanese,Parnassus,Peloponnese,Argos,Lemnos,Thessalia,Saronic Gulf,Delphi|Europe|
-England|n|European country,country,administrative district,district,region,location|Newcastle,Coventry,Avon,Worcester,Lancashire,Marston Moor,Aire,Northamptonshire|United Kingdom,Europe|
-Scotland|n|European country,country,administrative district,district,region,location|Lothian Region,Antonine Wall,Firth of Forth,Galloway,Aberdeen,Shetland,Hebrides,Loch Linnhe|Europe,United Kingdom,Great Britain|
-Ireland|n|European country,country,administrative district,district,region,location|Limerick,Dublin,Cork,Galway,Tara,Waterford|Europe|
-Netherlands|n|European country,country,administrative district,district,region,location|Meuse,Apeldoorn,Eindhoven,Leiden,Hook of Holland,Rhine,Nijmegen,Frisian Islands|Europe|
-Sweden|n|Scandinavian country,European country,country,administrative district,district,region,location|Lund,Goteborg,Malmo,Stockholm,Lake Vanern,Uppsala,Gota Canal||
-Norway|n|Scandinavian country,European country,country,administrative district,district,region,location|Trondheim,Trondheim Fjord,Svalbard,Lofoten,Oslo,Stavanger,Bergen,Lindesnes||
-Japan|n|archipelago,land|Osaka Bay,Kyushu,Shikoku,Honshu,Hokkaido|Pacific|
-China|n|Asian country,country,administrative district,district,region,location|Shenyang,Chongqing,Tien Shan,Nanchang,Szechwan,Chang Jiang,Bo Hai,Amur|Asia|
+France|n|European country,country,administrative district,district,region,location|Nice,Scheldt,Paris,Bretagne,Avignon,Marseille,Vichy,Lascaux|Europe|
+Spain|n|European country,country,administrative district,district,region,location|Barcelona,Majorca,Canary Islands,Cadiz,Leon,Sierra Nevada,Valencia,Sevilla|Europe,Iberian Peninsula|
+Italy|n|European country,country,administrative district,district,region,location|Rome,Brenner Pass,Abruzzi,Etruria,Emilia-Romagna,Dolomite Alps,Latium,Arno|Europe|
+Germany|n|European country,country,administrative district,district,region,location|Stuttgart,Weimar,Hannover,Ruhr,Rostock,Prussia,Leipzig,Bremerhaven|Europe|
+Portugal|n|European country,country,administrative district,district,region,location|Lusitania,Setubal,Lisbon,Porto,Azores,Tagus,Madeira Islands,Braga|Europe,Iberian Peninsula|
+Greece|n|Balkan country,European country,country,administrative district,district,region,location|Corinth,Laconia,Aegina,Epirus,Achaea,Cyclades,Athos,Dodecanese|Europe|
+England|n|European country,country,administrative district,district,region,location|Humber,Essex,Avon,Cheddar,West Yorkshire,Tyne,Manchester,Bristol|United Kingdom,Europe|
+Scotland|n|European country,country,administrative district,district,region,location|Glasgow,Caledonia,Highlands,Firth of Clyde,Orkney Islands,Lothian Region,Cheviots,Antonine Wall|United Kingdom,Great Britain,Europe|
+Ireland|n|European country,country,administrative district,district,region,location|Dublin,Galway,Tara,Waterford,Cork,Limerick|Europe|
+Netherlands|n|European country,country,administrative district,district,region,location|Frisian Islands,IJssel,Utrecht,The Hague,IJsselmeer,Arnhem,Hook of Holland,Friesland|Europe|
+Sweden|n|Scandinavian country,European country,country,administrative district,district,region,location|Goteborg,Stockholm,Uppsala,Lake Vanern,Gota Canal,Lund,Malmo||
+Norway|n|Scandinavian country,European country,country,administrative district,district,region,location|Lofoten,Oslo,Svalbard,Stavanger,Bergen,Trondheim,Lindesnes,Trondheim Fjord||
+Japan|n|archipelago,land|Osaka Bay,Shikoku,Hokkaido,Honshu,Kyushu|Pacific|
+China|n|Asian country,country,administrative district,district,region,location|Nanjing,Luda,Luoyang,Brahmaputra,Grand Canal,Wuhan,Gansu,Tangshan|Asia|
 Korea|n|peninsula,land|South Korea,North Korea|Asia|
-India|n|Asian country,country,administrative district,district,region,location|Hindustan,Goa,West Bengal,Tien Shan,Karnataka,Kolkata,Agra,Lucknow|Asia|
-Thailand|n|Asian country,country,administrative district,district,region,location|Ping,Bangkok,Chao Phraya,Mekong,Nan|Malay Peninsula,Indochina|
-Vietnam|n|Asian country,country,administrative district,district,region,location|Ho Chi Minh City,North Vietnam,Haiphong,Hanoi,South Vietnam|Indochina|
-Australia|n|country,administrative district,district,region,location|Great Sandy Desert,Great Australian Bight,Eyre Peninsula,Australian state,Queensland,New South Wales,Gibson Desert,Great Barrier Reef||
-New Zealand|n|island,land|New Zealand,North Island,South Island|Pacific|
-Canada|n|North American country,country,administrative district,district,region,location|Saskatchewan,Saint Lawrence,Mackenzie,British Columbia,Great Lakes,Alberta,Ontario,Outaouais|North America|
-America|n|North American country,country,administrative district,district,region,location|Indiana,District of Columbia,Virginia,Rhode Island,North Carolina,Rio Grande,New England,West Virginia||
-Mexico|n|North American country,country,administrative district,district,region,location|Villahermosa,Tepic,Mazatlan,Ciudad Juarez,Gulf of California,Tabasco,Santa Maria del Tule,Colima|Mesoamerica|
-Brazil|n|South American country,country,administrative district,district,region,location|Sao Jose dos Campos,Parana,Paulo Afonso,Sao Bernardo do Campo,Joao Pessoa,Para,Curitiba,Sao Goncalo|South America|
-Argentina|n|South American country,country,administrative district,district,region,location|Ojos del Salado,Parana,El Muerto,Aconcagua,Laudo,Tupungato,Patagonia,Mercedario|South America|
-Peru|n|South American country,country,administrative district,district,region,location|Huainaputina,El Misti,Amazon,Yerupaja,Coropuna,Arequipa,Huascaran,Andes|South America|
-Egypt|n|African country,country,administrative district,district,region,location|El Alamein,Nile,Arabian Desert,Alexandria,Suez Canal,Thebes,Saqqara,Luxor|Africa,Middle East|
-Kenya|n|African country,country,administrative district,district,region,location|Mombasa,Kisumu,Nakuru,Nairobi|East Africa,Africa|
-South Africa|n|African country,country,administrative district,district,region,location|Cape Town,Kalahari,Pretoria,Kimberley,Natal,Cape Province,Limpopo,Bloemfontein|Africa|
-Morocco|n|African country,country,administrative district,district,region,location|Fez,Oujda,Marrakesh,El Aaium,Rabat,Jebel Musa,Atlas Mountains,Western Sahara|Maghreb|
-Africa|n|continent,landmass,land|Central African Republic,Zambia,Libya,Roman Empire,Great Rift Valley,Somalia,Togo,Angola|eastern hemisphere|
-Europe|n|continent,landmass,land|Scandinavia,San Marino,England,Lappland,Switzerland,Balkan Peninsula,Bulgaria,France|Eurasia,West|
-Asia|n|continent,landmass,land|Afghanistan,Iran,Tibet,Mongolia,Great Rift Valley,Parthia,Tartary,Uzbekistan||
-Paris|n|national capital,capital,seat,center,area,region,location,city,municipality,administrative district|Paris University,Tuileries,Bastille,Ile-St-Louis,Orly,Montmartre,Right Bank|France|
-London|n|national capital,capital,seat,center,area,region,location,city,municipality,administrative district|Westminster,Tower of London,Old Bailey,City of London,Wembley,Big Ben,Soho,Fleet Street|England|
-New York|n|city,municipality,administrative district,district,region,location,urban area,geographical area,port of entry,port|Empire State Building,Greenwich Village,Cooper Union,New York Bay,Manhattan,Harlem River,Brooklyn Bridge,Queensboro Bridge||
-Tokyo|n|national capital,capital,seat,center,area,region,location,city,municipality,administrative district||Honshu,Japan|
-Rome|n|national capital,capital,seat,center,area,region,location,city,municipality,administrative district|Sistine Chapel,Seven Hills of Rome,Holy See,Colosseum,Lateran|Italy|
+India|n|Asian country,country,administrative district,district,region,location|Gujarat,Brahmaputra,Jabalpur,Tamil Nadu,Hindustan,Goa,Tien Shan,Andhra Pradesh|Asia|
+Thailand|n|Asian country,country,administrative district,district,region,location|Chao Phraya,Nan,Ping,Bangkok,Mekong|Indochina,Malay Peninsula|
+Vietnam|n|Asian country,country,administrative district,district,region,location|Haiphong,Hanoi,North Vietnam,South Vietnam,Ho Chi Minh City|Indochina|
+Australia|n|country,administrative district,district,region,location|Northern Territory,Cape York Peninsula,Gulf of Carpentaria,Murrumbidgee,Great Australian Bight,Great Sandy Desert,Australian state,Eyre Peninsula||
+New Zealand|n|island,land|South Island,New Zealand,North Island|Pacific|
+Canada|n|North American country,country,administrative district,district,region,location|Niagara,Baffin Island,Saskatchewan,Newfoundland and Labrador,Saint Lawrence,Mackenzie,Great Lakes,British Columbia|North America|
+America|n|North American country,country,administrative district,district,region,location|Michigan,Connecticut,New Hampshire,Twin,Arizona,Nebraska,Louisiana Purchase,South||
+Mexico|n|North American country,country,administrative district,district,region,location|Nogales,Culiacan,Coahuila,Gulf of Tehuantepec,San Luis Potosi,Yucatan,Tampico,Chihuahuan Desert|Mesoamerica|
+Brazil|n|South American country,country,administrative district,district,region,location|Tocantins,Limeira,Brasilia,Sao Paulo,Rio de Janeiro,Natal,Acre,Triple Frontier|South America|
+Argentina|n|South American country,country,administrative district,district,region,location|Nacimiento,Bonete,Ojos del Salado,Triple Frontier,Tierra del Fuego,Aconcagua,Parana,El Muerto|South America|
+Peru|n|South American country,country,administrative district,district,region,location|Arequipa,Andes,Machu Picchu,Lima,Huainaputina,El Misti,Yerupaja,Coropuna|South America|
+Egypt|n|African country,country,administrative district,district,region,location|Libyan Desert,Upper Egypt,Lower Egypt,Cairo,Aswan High Dam,El Alamein,Nile,Suez|Africa,Middle East|
+Kenya|n|African country,country,administrative district,district,region,location|Kisumu,Mombasa,Nairobi,Nakuru|East Africa,Africa|
+South Africa|n|African country,country,administrative district,district,region,location|Durban,Bloemfontein,Free State,Transvaal,Kalahari,Soweto,Limpopo,Johannesburg|Africa|
+Morocco|n|African country,country,administrative district,district,region,location|Jebel Musa,Rabat,Atlas Mountains,Casablanca,Western Sahara,Oujda,Tangier,Fez|Maghreb|
+Africa|n|continent,landmass,land|Malawi,Ghana,Kenya,Egypt,Sudan,Roman Empire,South Africa,Lake Chad|eastern hemisphere|
+Europe|n|continent,landmass,land|Scotland,Latvia,Romania,Roman Empire,Ottoman Empire,Scandinavia,Bulgaria,Balkan Peninsula|Eurasia,West|
+Asia|n|continent,landmass,land|Palestine,Oman,Kura,Yemen,Jordan,South Korea,Mongolia,Turkistan||
+Paris|n|national capital,capital,seat,center,area,region,location,city,municipality,urban area|Bastille,Right Bank,Montmartre,Orly,Eiffel Tower,Champs Elysees,Left Bank,Paris University|France|
+London|n|national capital,capital,seat,center,area,region,location,city,municipality,urban area|Old Bailey,City of London,Wembley,Big Ben,Greenwich,Soho,West End,Wimbledon|England|
+New York|n|city,municipality,urban area,geographical area,region,location,administrative district,district,port of entry,port|Verrazano-Narrows Bridge,World Trade Center,ground zero,Bronx-Whitestone Bridge,New Amsterdam,Queens,Empire State Building,Greenwich Village||
+Tokyo|n|national capital,capital,seat,center,area,region,location,city,municipality,urban area||Japan,Honshu|
+Rome|n|national capital,capital,seat,center,area,region,location,city,municipality,urban area|Seven Hills of Rome,Holy See,Colosseum,Lateran,Sistine Chapel|Italy|
 English|n|West Germanic,Germanic,Indo-European,natural language,language,communication|||
 Spanish|n|Romance,Latin,Italic,Indo-European,natural language,language,communication|||
 French|n|Romance,Latin,Italic,Indo-European,natural language,language,communication|||
@@ -12928,7 +12928,7 @@ pop|n|popular music,music genre,music,auditory communication,communication,expre
 rock music|n|popular music,music genre,music,auditory communication,communication,expressive style|backbeat||
 classical music|n|music genre,music,auditory communication,communication,expressive style|||
 country music|n|folk music,popular music,music genre,music,auditory communication,communication,expressive style|||
-blues|n|folk song,folk music,popular music,music genre,music,auditory communication,communication,song,musical composition,expressive style|blue note||
+blues|n|folk song,folk music,popular music,music genre,music,auditory communication,communication,expressive style,song,musical composition|blue note||
 folk|n|popular music,music genre,music,auditory communication,communication,expressive style|||
 melody|n|music,auditory communication,communication|phrase||
 rhythm|n|cyclicity,regularity,quality,attribute|||
@@ -12953,14 +12953,14 @@ vocabulary|n|frame of reference,system,method,know-how,ability,cognition,psychol
 phrase|n|construction,constituent,syntagma,string of words,string,sequence,series,ordering,arrangement,group|modifier,headword||
 paragraph|n|writing,written communication,communication||text|
 chapter|n|section,music,auditory communication,communication,writing,written communication||text|
-page|n|leaf,sheet,paper,material,substance,part,relation,matter|margin,dog-ear,pagination||
+page|n|leaf,sheet,paper,material,substance,part,relation,matter|dog-ear,margin,pagination||
 title|n|name,language unit,part,relation|||
 name|n|language unit,part,relation|||
 nickname|n|appellation,name,language unit,part,relation|||
 gift wrap|n|wrapping paper,paper,material,substance,part,relation,matter|||
 costume|n|attire,clothing,consumer goods,commodity,artifact,covering|wardrobe||
 mask|n|disguise,attire,clothing,consumer goods,commodity,artifact,covering|||
-crown|n|jewelled headdress,headdress,clothing,consumer goods,commodity,artifact,crown jewels,regalia,gear,equipment|||
+crown|n|crown jewels,regalia,gear,equipment,instrumentality,artifact,jewelled headdress,headdress,clothing,consumer goods|||
 treasure|n|collection,group|||
 kindergarten|n|preschool,educational institution,institution,organization,social group,group|||
 college|n|building complex,structure,artifact|||
@@ -13032,28 +13032,28 @@ tank|n|tracked vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance
 index|n|list,database,information,message,communication|key word|back matter|
 arc|n|curve,line,shape,attribute||circle,sector|
 outfit|n|attire,clothing,consumer goods,commodity,artifact,covering|||
-suspension|n|mechanical system,system,instrumentality,artifact|shock absorber|motor vehicle,car|
+suspension|n|mechanical system,system,instrumentality,artifact|shock absorber|car,motor vehicle|
 execution|n|court order,writ,legal document,document,writing,written communication,communication|||
 input|n|information,cognition,psychological feature|||
-arena|n|structure,artifact|playing field,field house,stand,standing room,tiered seat||
+arena|n|structure,artifact|stand,standing room,tiered seat,playing field,field house||
 feedback|n|answer,statement,message,communication|||
 favour|n|advantage,asset,quality,attribute|||
 concentration|n|attention,faculty,ability,cognition,psychological feature|||
 idiot|n|simpleton,person,organism,living thing,causal agent|||
-semi|n|truck,motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|trailer,semitrailer||
+semi|n|truck,motor vehicle,self-propelled vehicle,wheeled vehicle,vehicle,conveyance,instrumentality,artifact,container|semitrailer,trailer||
 rep|n|congressman,legislator,politician,leader,person,organism,living thing,lawgiver,causal agent|||
 suite|n|apartment,housing,structure,artifact|||
 aviation|n|art,superior skill,ability,cognition,psychological feature|||
 barrel|n|tube,conduit,passage,way,artifact||gun|
 tattoo|n|design,decoration,artifact|||
-arrow|n|projectile,weapon,instrument,device,instrumentality,artifact|vane,arrowhead||
+arrow|n|projectile,weapon,instrument,device,instrumentality,artifact|arrowhead,vane||
 valve|n|control,mechanism,device,instrumentality,artifact|handwheel||
 ace|n|playing card,card,paper,material,substance,part,relation,matter|||
 defender|n|preserver,person,organism,living thing,causal agent|||
 booth|n|table,furniture,furnishing,instrumentality,artifact|||
 derby|n|hat,headdress,clothing,consumer goods,commodity,artifact,covering|||
 facial|n|beauty treatment,beautification,change of state,change,action,act,event,psychological feature,skin care,care|||
-hull|n|structure,artifact|keelson,rib,rider plate,keel|vessel|
+hull|n|structure,artifact|keel,keelson,rib,rider plate|vessel|
 pulse|n|periodic event,happening,event,psychological feature|||
 comeback|n|reply,speech act,act,event,psychological feature|||
 hack|n|tool,implement,instrumentality,artifact|||
@@ -13076,7 +13076,7 @@ fare|n|agenda,plan,idea,content,cognition,psychological feature|||
 trio|n|set,collection,group|||
 conjunction|n|function word,word,language unit,part,relation|||
 desktop|n|screen,display,electronic device,device,instrumentality,artifact|||
-runway|n|paved surface,horizontal surface,surface,artifact||airstrip,airfield|
+runway|n|paved surface,horizontal surface,surface,artifact||airfield,airstrip|
 shepherd|n|herder,hired hand,laborer,workman,employee,worker,person,organism,living thing,causal agent|||
 transparency|n|clearness,quality,attribute|||
 cod|n|saltwater fish,seafood,food,solid,matter|||
@@ -13089,7 +13089,7 @@ coral|n|anthozoan,coelenterate,invertebrate,animal,organism,living thing|||
 judgement|n|opinion,belief,content,cognition,psychological feature|||
 censorship|n|counterintelligence,intelligence,information gathering,operation,activity,act,event,psychological feature|||
 renewal|n|restoration,repair,improvement,change of state,change,action,act,event,psychological feature|||
-reactor|n|apparatus,equipment,instrumentality,artifact|moderator,control rod,core||
+reactor|n|apparatus,equipment,instrumentality,artifact|control rod,core,moderator||
 assassination|n|murder,homicide,killing,termination,change of state,change,action,act,event,psychological feature|||
 bot|n|larva,animal,organism,living thing|||
 metabolism|n|organic process,process|||
@@ -13105,7 +13105,7 @@ fin|n|extremity,external body part,body part,part,thing|ray|fish|
 coaster|n|protective covering,covering,artifact|||
 stigma|n|symbol,signal,communication|||
 gill|n|respiratory organ,internal organ,organ,body part,part,thing|||
-pedal|n|lever,bar,implement,instrumentality,artifact||organ,motor vehicle,bicycle|
+pedal|n|lever,bar,implement,instrumentality,artifact||bicycle,organ,motor vehicle|
 dummy|n|simpleton,person,organism,living thing,causal agent|||
 nerd|n|expert,person,organism,living thing,causal agent|||
 pike|n|percoid fish,spiny-finned fish,teleost fish,bony fish,fish,aquatic vertebrate,vertebrate,chordate,animal,organism|pike||
@@ -13141,7 +13141,7 @@ pawn|n|chessman,man,game equipment,equipment,instrumentality,artifact|||
 canopy|n|covering,artifact||cockpit|
 subscriber|n|customer,consumer,user,person,organism,living thing,causal agent|||
 viola|n|bowed stringed instrument,stringed instrument,musical instrument,device,instrumentality,artifact|||
-denim|n|trouser,garment,clothing,consumer goods,commodity,artifact,workwear,apparel,covering|||
+denim|n|workwear,apparel,clothing,consumer goods,commodity,artifact,trouser,garment,covering|||
 roach|n|dictyopterous insect,insect,arthropod,invertebrate,animal,organism,living thing|||
 torpedo|n|armament,weaponry,instrumentality,artifact|||
 canary|n|finch,oscine,passerine,bird,vertebrate,chordate,animal,organism,living thing|||
@@ -13169,14 +13169,18 @@ novice|n|unskilled person,person,organism,living thing,causal agent|||
 moderator|n|presiding officer,leader,person,organism,living thing,causal agent|||
 thrift|n|frugality,prudence,natural virtue,cardinal virtue,virtue,good,morality,quality,attribute,discretion|||
 turnaround|n|change of direction,change,action,act,event,psychological feature|||
+wearable|n|consumer goods,commodity,artifact,covering|wardrobe||
+hotspot|n|spot,place of business,establishment,structure,artifact|||
+streamer|n|flag,emblem,design,decoration,artifact|||
+emoticon|n|facial expression,gesture,visual communication,communication|||
 alligator|n|crocodilian reptile,diapsid,reptile,vertebrate,chordate,animal,organism,living thing|||
 mammal|n|vertebrate,chordate,animal,organism,living thing|hair,coat||
 reptile|n|vertebrate,chordate,animal,organism,living thing|||
 amphibian|n|vertebrate,chordate,animal,organism,living thing|lateral line||
-insect|n|arthropod,invertebrate,animal,organism,living thing|thorax,air sac,clypeus,mentum,wing,ala||
+insect|n|arthropod,invertebrate,animal,organism,living thing|wing,ala,mentum,thorax,air sac,clypeus||
 rodent|n|placental,mammal,vertebrate,chordate,animal,organism,living thing|||
 primate|n|placental,mammal,vertebrate,chordate,animal,organism,living thing|||
-vertebrate|n|chordate,animal,organism,living thing|thorax,caudal appendage,rib,tail,vertebrate foot,belly,digit||
+vertebrate|n|chordate,animal,organism,living thing|digit,rib,caudal appendage,tail,vertebrate foot,thorax,belly||
 `,
 		// word|pronunciation (IPA, General American; ˈ marks the stressed syllable)
 		pron: `
@@ -13784,6 +13788,7 @@ apologize|əpˈɑlədʒaɪz
 apology|əpˈɑlədʒi
 apostle|əpˈɑsəl
 app|æp
+app store|æp stɔr
 appalling|əpˈɔlɪŋ
 apparatus|æpɚˈætəs
 apparel|əpˈærəl
@@ -14210,8 +14215,8 @@ bally|ˈbæli
 balmy|ˈbɑmi
 Baltic|ˈbɔltɪk
 Baltimore|ˈbɔltəmɔr
-bam|bæm
 Bam|bæm
+bam|bæm
 bamboo|bæmbˈu
 ban|bæn
 banana|bənˈænə
@@ -14441,6 +14446,7 @@ bin|bɪn
 binary|ˈbaɪnɚi
 bind|baɪnd
 binge|bɪndʒ
+binge-watch|bɪndʒ wɑtʃ
 bingo|ˈbɪŋɡoʊ
 binocular|bənˈɑkjəlɚ
 binoculars|bənˈɑkjəlɚz
@@ -14790,8 +14796,8 @@ budget|ˈbʌdʒɪt
 budgetary|ˈbʌdʒɪtɛri
 Buenos Aires|ˈbweɪnoʊs ˈɛriz
 buff|bʌf
-buffalo|ˈbʌfəloʊ
 Buffalo|ˈbʌfəloʊ
+buffalo|ˈbʌfəloʊ
 buffet|ˈbʌfət
 bug|bʌɡ
 build|bɪld
@@ -15009,6 +15015,7 @@ carnivorous|kɑrnˈɪvɚəs
 carol|ˈkærəl
 carpenter|ˈkɑrpəntɚ
 carpet|ˈkɑrpət
+carpool|ˈkɑrpul
 carriage|ˈkærɪdʒ
 carrier|ˈkæriɚ
 carrot|ˈkærət
@@ -15478,8 +15485,8 @@ collide|kəlˈaɪd
 collision|kəlˈɪʒən
 colloquial|kəlˈoʊkwiəl
 collusion|kəlˈuʒən
-Cologne|kəlˈoʊn
 cologne|kəlˈoʊn
+Cologne|kəlˈoʊn
 Colombia|kəlˈʌmbiə
 Colombo|kəlˈʌmboʊ
 Colon|ˈkoʊlən
@@ -16113,6 +16120,7 @@ croquet|kroʊkˈeɪ
 cross|krɔs
 crossover|ˈkrɔsoʊvɚ
 crossroads|ˈkrɔsroʊdz
+crosstown|ˈkrɔstaʊn
 crosswalk|ˈkrɑswɑk
 crotch|krɑtʃ
 crouch|kraʊtʃ
@@ -16281,6 +16289,7 @@ deacon|ˈdikən
 deactivate|diˈæktɪveɪt
 dead|dɛd
 deadline|ˈdɛdlaɪn
+deadlocked|ˈdɛdlɑkt
 deadly|ˈdɛdli
 deadpan|ˈdɛdpæn
 deaf|dɛf
@@ -17081,6 +17090,9 @@ dynamite|ˈdaɪnəmaɪt
 dynasty|ˈdaɪnəsti
 dysfunction|dɪsfˈʌŋkʃən
 dysfunctional|dɪsfˈʌŋkʃənəl
+e-book|i bʊk
+e-reader|i ˈridɚ
+e-scooter|i ˈskutɚ
 each|itʃ
 eager|ˈiɡɚ
 eagerly|ˈiɡɚli
@@ -17281,6 +17293,7 @@ eminent|ˈɛmənənt
 eminently|ˈɛmənəntli
 emission|ɪmˈɪʃən
 emit|ɪmˈɪt
+emoticon|əmˈoʊtəkɑn
 emotion|ɪmˈoʊʃən
 emotional|ɪmˈoʊʃənəl
 emotionally|ɪmˈoʊʃnəli
@@ -18035,8 +18048,8 @@ flimsy|ˈflɪmzi
 flinch|flɪntʃ
 flinders|ˈflɪndɚz
 fling|flɪŋ
-Flint|flɪnt
 flint|flɪnt
+Flint|flɪnt
 flip|flɪp
 flirt|flɝt
 flit|flɪt
@@ -18166,8 +18179,8 @@ Fort Lauderdale|fɔrt ˈlɔdɚdeɪl
 Fort Wayne|fɔrt weɪn
 Fort Worth|fɔrt wɝθ
 forte|ˈfɔrteɪ
-forth|fɔrθ
 Forth|fɔrθ
+forth|fɔrθ
 forthcoming|ˈfɔrθkˈʌmɪŋ
 forthright|ˈfɔrˈθraɪt
 forthwith|ˈfɔrˈθwɪθ
@@ -18356,6 +18369,7 @@ Galway|ˈɡɑlweɪ
 gamble|ˈɡæmbəl
 game|ɡeɪm
 game night|ɡeɪm naɪt
+gamer|ˈɡeɪmɚ
 gaming|ˈɡeɪmɪŋ
 gamma|ˈɡæmə
 gamut|ˈɡæmət
@@ -18539,6 +18553,7 @@ glue stick|ɡlu stɪk
 glum|ɡlʌm
 glut|ɡlʌt
 gluten|ˈɡlutən
+gluten-free|ˈɡlutən fri
 gnarly|ˈnɑrli
 gnaw|nɔ
 go|ɡoʊ
@@ -20688,8 +20703,8 @@ mar|mɑr
 marathon|ˈmɛrəθɑn
 marauding|mɚˈɔdɪŋ
 marble|ˈmɑrbəl
-march|mɑrtʃ
 March|mɑrtʃ
+march|mɑrtʃ
 mare|mɛr
 margin|ˈmɑrdʒən
 marginal|ˈmɑrdʒənəl
@@ -20864,8 +20879,8 @@ mercifully|ˈmɝsɪfəli
 merciless|ˈmɝsələs
 mercilessly|ˈmɝsələsli
 mercurial|mɚˈkjʊriəl
-mercury|ˈmɝkjɚi
 Mercury|ˈmɝkjɚi
+mercury|ˈmɝkjɚi
 mercy|ˈmɝsi
 mere|mɪr
 merely|ˈmɪrli
@@ -21281,8 +21296,8 @@ Nashville|ˈnæʃvɪl
 Nassau|ˈnæsɔ
 nastiness|ˈnæstinəs
 nasty|ˈnæsti
-Natal|ˈneɪtəl
 natal|ˈneɪtəl
+Natal|ˈneɪtəl
 nation|ˈneɪʃən
 national|ˈnæʃənəl
 nationalism|ˈnæʃənəlɪzəm
@@ -21925,8 +21940,8 @@ oxymoron|ɑksˈimˈɔrɑn
 oyster|ˈɔɪstɚ
 ozone|ˈoʊzoʊn
 pace|peɪs
-pacific|pəsˈɪfɪk
 Pacific|pəsˈɪfɪk
+pacific|pəsˈɪfɪk
 pacification|pæsəfəkˈeɪʃən
 pacify|ˈpæsəfaɪ
 pack|pæk
@@ -22381,6 +22396,7 @@ planetary|ˈplænətɛri
 plank|plæŋk
 planner|ˈplænɚ
 plant|plænt
+plant-based|plænt beɪst
 plantation|plæntˈeɪʃən
 plaque|plæk
 plasma|ˈplæzmə
@@ -23994,8 +24010,8 @@ sausage|ˈsɔsədʒ
 saute|sɔtˈeɪ
 savagely|ˈsævɪdʒli
 savagery|ˈsævɪdʒɛri
-savannah|səvˈænə
 Savannah|səvˈænə
+savannah|səvˈænə
 save|seɪv
 savings|ˈseɪvɪŋz
 savior|ˈseɪvjɚ
@@ -24807,8 +24823,8 @@ splendor|ˈsplɛndɚ
 splice|splaɪs
 splint|splɪnt
 splinter|ˈsplɪntɚ
-Split|splɪt
 split|splɪt
+Split|splɪt
 splurge|splɝdʒ
 spoil|spɔɪl
 spoiler|ˈspɔɪlɚ
@@ -25526,6 +25542,7 @@ teenage|ˈtineɪdʒ
 teenager|ˈtineɪdʒɚ
 Tel Aviv|tɛl ɑvˈiv
 telecom|ˈtɛləkɑm
+telecommute|ˈtɛləkəmjut
 telegram|ˈtɛləɡræm
 telegraph|ˈtɛləɡræf
 telephone|ˈtɛləfoʊn
@@ -26914,6 +26931,7 @@ wealthy|ˈwɛlθi
 wean|win
 weapon|ˈwɛpən
 wear|wɛr
+wearable|ˈwɛrəbəl
 wearer|ˈwɛrɚ
 weariness|ˈwɪrinəs
 weary|ˈwɪri

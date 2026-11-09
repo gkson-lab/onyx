@@ -1,0 +1,19 @@
+The Spanish word list in src/translations/onyx-translations-es.js is derived from the Spanish wordnet of the
+Multilingual Central Repository 3.0 (http://adimen.si.ehu.es/web/MCR/), as distributed in the Open Multilingual
+Wordnet 1.4 (https://omwn.org/), under the Creative Commons Attribution 3.0 Unported license (CC BY 3.0,
+https://creativecommons.org/licenses/by/3.0/). Onyx changed it: it chose, for each English word, the Spanish words
+most common in Spanish (ranked with wordfreq), and the most common English words for each Spanish word.
+
+A. Gonzalez-Agirre, E. Laparra and G. Rigau. Multilingual Central Repository version 3.0: upgrading a very large
+lexical knowledge base. Proceedings of the 6th Global WordNet Conference (GWC 2012), Matsue.
+
+The MCR's own notice:
+
+  The contents of this package are distributed under different open licenses. If you want to redistribute this
+  software, part of it, or derived works based on it or on any of its parts, make sure you are doing so under the
+  terms stated in the license applying to each of the involved modules.
+
+  1.- English WordNet synset and relation data, contained in folder engWN/ are distributed under the original
+      WordNet license. You can find it at http://wordnet.princeton.edu/wordnet/license
+  2.- All other data in this package are distributed under Attribution 3.0 Unported (CC BY 3.0) license. You can
+      find it at http://creativecommons.org/licenses/by/3.0/
