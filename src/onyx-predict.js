@@ -164,5 +164,44 @@
 		return beams.slice(0, n).map((b) => b.words.map(shown).join(' ')).filter(Boolean);
 	}
 
-	Omni.onyxPredict = { next, complete, suggest, tokens, get report() { return load() ? net.report : null; }, get size() { return load() ? net.vocab.length : 0; } };
+	/**
+	 * Lets the network run on from `text`, choosing each next word at random in proportion to how likely it finds it
+	 * (sharpened by `temperature` below 1). It has no plan and no memory beyond four words, so it wanders.
+	 */
+	function sample(text, words = 24, temperature = 0.7, rand = Math.random) {
+		if (!load()) return '';
+		const seq = tokens(text);
+		const out = [];
+		for (let i = 0; i < words; i++) {
+			const pr = probabilities(ids(seq));
+			let total = 0;
+			const w = new Float32Array(net.vocab.length);
+			for (let v = 1; v < net.vocab.length; v++) {
+				if (v === 2) continue;
+				// The end of a sentence only once there is something to end.
+				if (v === 1 && out.length < 4) continue;
+				total += w[v] = Math.pow(pr[v], 1 / temperature);
+			}
+			let r = rand() * total;
+			let pickV = 1;
+			for (let v = 1; v < net.vocab.length; v++) {
+				r -= w[v];
+				if (r <= 0) {
+					pickV = v;
+					break;
+				}
+			}
+			if (pickV === 1) {
+				if (out.length >= words - 6) break;
+				out.push('.');
+				seq.length = 0;
+				continue;
+			}
+			seq.push(net.vocab[pickV]);
+			out.push(shown(net.vocab[pickV]));
+		}
+		return out.join(' ').replace(/ \./g, '.').replace(/(^|\. )([a-zà-ÿ])/g, (m, a, c) => a + c.toUpperCase()).replace(/\.$/, '') + '.';
+	}
+
+	Omni.onyxPredict = { next, complete, suggest, sample, tokens, get report() { return load() ? net.report : null; }, get size() { return load() ? net.vocab.length : 0; } };
 })(typeof window !== 'undefined' ? window : globalThis);

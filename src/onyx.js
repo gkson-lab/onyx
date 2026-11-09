@@ -1531,6 +1531,8 @@
 		// After a dictionary answer, a failed lookup still leaves that answer in place.
 		if (!r) return answer(`${more && lead ? lead + '\n\n' : ''}${netWords(lang).failed(sourceOf(request.kind))}`, { miss: !more, offer: { kind: 'online', request, ask: netWords(lang).retry, retry: true } });
 		if (typeof r.text === 'string') return answer(r.text.trim());
+		// "Write an essay about black holes": the article that came back becomes the essay.
+		if (request.compose && r.data && r.data.kind === 'article' && r.data.found !== false) return showPiece(Omni.onyxCompose.fromArticle(request.compose, r.data), request.compose) || showOnline(r.data, request);
 		return showOnline(r.data, request);
 	}
 
@@ -1753,12 +1755,65 @@
 
 	const WRITE_LIMITS = 'Long writing like essays or songs, and big programs, are beyond me. I can write short things: a haiku, a rhyming poem, an acrostic, a short story, a message for a card, a description of something, a summary of a text, or a small program in Python, JavaScript, Rust, C, C#, C++, HTML or HTTP.';
 
+	/* ---------- Longer writing, from a prompt ---------- */
+
+	/** A composed piece as a reply: its title, the text, and where it came from. */
+	function showPiece(w, job) {
+		if (!w) return null;
+		convo.writing = job;
+		convo.lastKind = 'writing';
+		convo.lastOutput = w.text;
+		trace('compose', `planned ${w.plan.length} parts: ${w.plan.join(', ')}`);
+		const source = w.from === 'article' ? `\n\nBuilt from the Wikipedia article, mostly in its own words: ${w.url}` : w.from === 'dictionary' ? '\n\n(Written from my dictionary alone.)' : '';
+		return answer(`**${w.title}**\n\n${w.text}${source}`, { piece: { form: w.form, title: w.title, plan: w.plan } });
+	}
+
+	/** Essays, stories, emails, speeches and product descriptions; null when the message isn't asking for one. */
+	async function composeReply(body, mem) {
+		const C = Omni.onyxCompose;
+		if (!C) return null;
+		const job = C.parse(body);
+		if (!job) return null;
+		// A plain "story about a dragon" is the short writer's; one with a hero, a wish or a place is written out in full.
+		if (job.form === 'story' && !job.rich && job.size !== 'long') return null;
+		if (job.form === 'essay' && !job.topic) {
+			const it = convo.subject || (convo.research && convo.research.title);
+			if (!it) return answer('About what? Say something like "write an essay about volcanoes".');
+			job.topic = it;
+		}
+		trace('understand', `a request for ${job.form === 'email' ? `${C.FORMS.includes(job.kind) ? job.kind : job.kind || 'an email'} (${job.purpose})` : `${job.size === 'medium' ? '' : job.size + ' '}${job.form}`}${job.topic ? ` about ${job.topic}` : ''}`);
+		if (job.form === 'essay') {
+			// What Onyx read last, if this is about it; then the dictionary; then, with permission, Wikipedia.
+			const r = convo.research;
+			if (r && r.text && r.title.toLowerCase() === String(job.topic).toLowerCase()) return showPiece(C.fromArticle(job, r), job);
+			const online = { kind: 'research', query: job.topic, topic: job.topic, lang: 'en', compose: job };
+			const w = C.write(job, Math.random, mem.name);
+			if (!w) {
+				trace('recall', `"${job.topic}" isn't in my dictionary`);
+				return (await lookOnline(online, { lead: `I don't know enough about ${job.topic} to write that from my dictionary.` })) || answer(`I don't know enough about ${job.topic} to write that from my dictionary${netReady() ? ', and I\'m set to stay offline' : ', and I can\'t look it up here'}. I can write about anything my dictionary has: try "write an essay about volcanoes".`);
+			}
+			trace('recall', `"${job.topic}" is in my dictionary: wrote from what it says`);
+			const shown = showPiece(w, job);
+			if (netReady() && settings().internet === 'on') return (await lookOnline(online, { granted: true })) || shown;
+			if (netReady() && settings().internet === 'ask') return Object.assign(shown, { offer: { kind: 'online', request: online, ask: 'Want a fuller one, from Wikipedia? (yes or no)' } });
+			return shown;
+		}
+		return showPiece(C.write(job, Math.random, mem.name), job) || answer('I couldn\'t make that one work. Tell me a little more about what it should say.');
+	}
+
 	/* ---------- Predicting what people say ---------- */
 
 	/** "Finish this sentence: I have an exam on", "what comes after 'how do you say'": the network's guesses. */
 	function predictReply(body) {
 		const P = Omni.onyxPredict;
 		if (!P) return null;
+		// "Freestyle about the sea": the network writes on its own, one likely word after another.
+		const free = body.trim().match(/^(?:freestyle|ramble|improvi[sz]e|let (?:your|the) (?:neural )?network (?:write|talk|speak|run|go)|let it (?:write|run))(?: about| on| from| with)?\s*[:,-]?\s*["'“]?(.*?)["'”]?[.!?]*$/i);
+		if (free && P.sample) {
+			const start = free[1].trim() || 'i';
+			convo.lastKind = null;
+			return answer(`**${start}** ${P.sample(start + ' ', 28)}\n\n(That was my prediction network on its own: one likely word after another, with no plan. For writing that holds together, ask for an essay, a story or an email.)`);
+		}
 		const m = body.trim().match(/^(?:(?:can you |please )?(?:finish|complete|continue|end) (?:this|my|the)(?: (?:sentence|phrase|thought)|(?=\s*:))|predict(?: the next words?| what comes next)?|what comes (?:next|after)|guess (?:the )?next words?|what(?:'s| is| would| will)? (?:i |come |be )?(?:say |next )?(?:after|next after))\s*[:,-]?\s*["'“]?(.+?)["'”]?\s*$/i);
 		if (!m || !P.tokens(m[1]).length) return null;
 		const text = m[1].replace(/[.!?]+$/, '');
@@ -1824,6 +1879,10 @@
 	/* ---------- Deciding the reply ---------- */
 
 	const answer = (text, extra) => Object.assign({ text }, extra || {});
+	/** Adds a step to the thinking trace of the message being answered (see onyx-mind.js). */
+	const trace = (step, detail) => {
+		if (convo.trace) convo.trace.push({ step, detail });
+	};
 	/** A reply that admits Onyx didn't understand, so a message of several sentences can leave it out. */
 	const answer2 = (text) => answer(text, { miss: true });
 	const asksMeaning = /^(?:what(?: is| are| does)|whats|define|definition of|explain|meaning of|tell me about|what do you mean by|whats an?)\s+(?:an?\s+|the\s+)?(.+?)(?:\s+mean|\s+stand for)?\s*[?.!]*$/i;
@@ -2040,6 +2099,9 @@ ${r.offer.ask}` : '');
 			const choice = options[Math.floor(Math.random() * options.length)];
 			return withGreet(answer(`Go with **${choice}**. I picked at random, so if your stomach disagrees, listen to it.`));
 		}
+		// Longer writing from a prompt: essays, stories, emails, speeches, product descriptions.
+		const piece = await composeReply(body, mem);
+		if (piece) return withGreet(piece);
 		// "Finish this sentence: I have an exam on": the prediction network.
 		const predicted = predictReply(body);
 		if (predicted) return withGreet(predicted);
@@ -2199,6 +2261,7 @@ ${r.offer.ask}` : '');
 				if (convo.lastKind === 'command' && convo.lastCommand) return { text: '', command: convo.lastCommand };
 				if (['joke', 'tip', 'fact'].includes(convo.lastKind)) return draw(convo.lastKind, Omni.onyxData[{ joke: 'JOKES', tip: 'TIPS', fact: 'FACTS' }[convo.lastKind]]);
 				if (convo.lastKind === 'sentence') return nextSentence(convo.sentence.word);
+				if (convo.lastKind === 'writing' && convo.writing && convo.writing.form) return showPiece(Omni.onyxCompose.write(convo.writing, Math.random, mem.name), convo.writing) || 'I\'m out of ideas for that one.';
 				if (convo.lastKind === 'writing' && convo.writing) return compose(convo.writing) || 'I\'m out of ideas for that one.';
 				return 'Another what? I can do jokes, tips, facts, sentences, or repeat the last command.';
 			},
