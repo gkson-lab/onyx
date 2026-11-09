@@ -1,10 +1,25 @@
-# Onyx 2
+# Onyx 2.5
 
 **Thinks deeper. Answers faster. Sees the whole picture. And it's still free.**
 
-Onyx is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool), and Onyx 2 is its second generation. It runs on your device: no account, no model download, and nothing leaves it unless you say so. Open weights, open source: yours to run, study and build on.
+Onyx is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool), and Onyx 2.5 is the latest of its second generation. It runs on your device: no account, no model download, and nothing leaves it unless you say so. Open weights, open source: yours to run, study and build on.
 
-This repository is the engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool. Earlier versions live on their own branches: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1), [`onyx-1.2`](../../tree/onyx-1.2), [`onyx-1.3`](../../tree/onyx-1.3) and [`onyx-2.0`](../../tree/onyx-2.0).
+This repository is the engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool. Earlier versions live on their own branches: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1), [`onyx-1.2`](../../tree/onyx-1.2), [`onyx-1.3`](../../tree/onyx-1.3), [`onyx-2.0`](../../tree/onyx-2.0) and [`onyx-2.1`](../../tree/onyx-2.1).
+
+## What's new in Onyx 2.5
+
+| | Onyx 2.1 | Onyx 2.5 |
+|---|---|---|
+| Words | 14,390 | **147,561**: all 147,306 words and phrases in WordNet, in 117,659 senses, behind 14,459 everyday ones |
+| Translation | 3,536 words, one at a time | **Spanish for 29,179 English words and French for 43,738**, both ways; 139 phrases; **simple sentences**, with grammar |
+| Neural networks | one, for what you mean | **two**: the new one predicts your next word as you type |
+| Code | none | **small programs in Python, JavaScript, Rust, C, C#, C++, HTML and HTTP**: 26 tasks, 149 programs, each compiled and run by a checker |
+| Held-out accuracy | 96.8% (90 of 93) | **97.8%** (91 of 93) |
+
+- **All of WordNet.** "define sesquipedalian", "what does defenestration mean", "define narwhals" (*the plural of narwhal*), "is a narwhal a mammal?" (*narwhal → whale → cetacean → aquatic mammal → placental → mammal*), "name some cetaceans", "where is Timbuktu?", "who was Mozart?" (answered offline, then Wikipedia offered for more), "all meanings of set" (45 of them). Plus 70 words from after WordNet was finished in 2006, written for Onyx: selfie, emoji, phishing, deepfake... [More below.](#the-dictionary-147561-words)
+- **Translation of sentences, not just words.** "translate 'I don't have a car' to French" (*Je n'ai pas de voiture.*), "how do you say 'the old man reads a book' in Spanish" (*El hombre viejo lee un libro.*), "what does 'mi hermano juega al fútbol' mean?" (*My brother plays football.*). Articles, gender, plurals, agreement, adjective order and the present tense, both ways; anything beyond that is translated word by word, and Onyx says so. [More below.](#translation)
+- **Predicting what you'll say.** A second small network, trained on what people say to Onyx, guesses your next word as you type (the demo shows its guesses; Tab takes the first), and "finish this sentence: I have an exam on" lets you watch it think. [More below.](#predicting-what-youll-say)
+- **Small programs in eight languages.** "fizzbuzz in rust", "a class Book with title, author and price in C#", "a GET request to https://... in JavaScript", "an HTML form with name and email", "a raw HTTP POST with title and pages", then "now in Python". [More below.](#code)
 
 ## What's new in Onyx 2.1
 
@@ -30,35 +45,53 @@ This repository is the engine on its own, the same source files OmniTool ships, 
 
 Onyx is not a large language model. It is a deliberately small assistant built from plain, inspectable parts:
 
-- **Two models that vote.** A phrase matcher compares your message with 1,100 example phrases (761 English, 171 Spanish, 168 French), using word and word-pair features weighted by how rare each word is (TF-IDF), and counts a match only for as much of your sentence as it explains. A small neural network reads the same message as words, word pairs and three-letter pieces of words, so "helo" still looks like "hello". It has two layers and 200,380 parameters. Its weights are in [`src/onyx-weights.js`](src/onyx-weights.js) and [`tools/train.js`](tools/train.js) retrains them in a minute and a half, deterministically. Each scores every intent; Onyx blends the two (65% phrases, 35% network).
+- **Two models that vote.** A phrase matcher compares your message with 1,102 example phrases (763 English, 171 Spanish, 168 French), using word and word-pair features weighted by how rare each word is (TF-IDF), and counts a match only for as much of your sentence as it explains. A small neural network reads the same message as words, word pairs and three-letter pieces of words, so "helo" still looks like "hello". It has two layers and 200,380 parameters. Its weights are in [`src/onyx-weights.js`](src/onyx-weights.js) and [`tools/train.js`](tools/train.js) retrains them in a minute and a half, deterministically. Each scores every intent; Onyx blends the two (65% phrases, 35% network).
 - **A dictionary it reasons with.** See below. When no fixed reply fits, Onyx reads your message with it and answers the specific thing you said.
+- **A third network that predicts.** It reads the last four words and scores every word that could come next. See [below](#predicting-what-youll-say).
+- **Templates, grammar and checks, not a language model, for translation and code.** Each sentence pattern and each program was written for Onyx and is filled in with what you ask; every program is compiled and run by `tools/check-code.js`.
 - **A memory of the conversation.** What you've told it, the names of your pets and people, what you're talking about, and the language you're writing in.
 - **Typo tolerance**, **math of its own**, **word tricks**, **settings** and a **memory** that stays on your device, as in Onyx 1.
 
-## The dictionary: 14,390 words
+## The dictionary: 147,561 words
 
-- **3,411 everyday words written by hand for Onyx** (3,544 entries): a plain definition, an example sentence, similar and opposite words, and the hints Onyx reads conversations with: whether a word is a feeling and how it sits (good, bad, heavy), whether an event calls for good luck, congratulations or sympathy, what kind of thing a noun is. New in Onyx 2: the little words that hold sentences together ("the", "which", "despite", "be" with is/am/are/was/were/been), numbers, and 188 common words whose usual meaning WordNet gets wrong ("trailer", "police", "server").
-- **10,979 more from [Princeton WordNet 3.0](https://wordnet.princeton.edu/)**, the most common English words not already covered (ranked with [wordfreq](https://github.com/rspeer/wordfreq)): definitions, examples, synonyms and opposites, irregular forms ("began", "begun", "analyses"), plus 604 countries, states, cities, rivers and planets. WordNet has no example sentence for many common words, so 2,346 were written for Onyx (in [`tools/examples.txt`](tools/examples.txt)). Names, abbreviations, slurs and sexual or vulgar senses are left out.
-- **Pronunciations** for 14,362 entries from the [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict), in IPA, which give syllables and rhymes.
-- **What things are.** 6,893 nouns know what they're a kind of (a whale → cetacean → aquatic mammal → mammal), 737 know their parts and 1,033 what they're part of.
+Two layers. The **everyday dictionary**, 14,459 words, is what Onyx talks and reasons with:
 
-Ask "define serendipity", "what does ephemeral mean", "another word for happy", "opposite of brave", "is quickly an adverb", "use curious in a sentence". New:
+- **3,480 everyday words written by hand for Onyx** (3,613 entries): a plain definition, an example sentence, similar and opposite words, and the hints Onyx reads conversations with: whether a word is a feeling and how it sits (good, bad, heavy), whether an event calls for good luck, congratulations or sympathy, what kind of thing a noun is. New in Onyx 2.5: 70 words from after 2006 (selfie, emoji, hashtag, phishing, ransomware, influencer, deepfake, QR code...).
+- **10,979 more from [Princeton WordNet 3.0](https://wordnet.princeton.edu/)**, the most common English words not already covered (ranked with [wordfreq](https://github.com/rspeer/wordfreq)): definitions, examples, synonyms and opposites, irregular forms ("began", "begun", "analyses"), plus 604 countries, states, cities, rivers and planets. WordNet has no example sentence for many common words, so 2,346 were written for Onyx (in [`tools/examples.txt`](tools/examples.txt)). Names, abbreviations, slurs and sexual or vulgar senses are left out of this layer.
+- **Pronunciations** for 14,376 entries from the [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict), in IPA, which give syllables and rhymes.
+- **What things are.** Nouns know what they're a kind of (a whale → cetacean → aquatic mammal → mammal), their parts and what they're part of.
 
-- **Thinking with words**: "is a whale a mammal?" (*Yes: whale → cetacean → aquatic mammal → placental → mammal*), "is a bat a bird?" (*No, a bat is a kind of mammal*), "what kind of animal is a salmon?", "name some reptiles", "what's the difference between a frog and a toad?" (both definitions, and *Both are amphibians*), "what do a lion and a tiger have in common?", "what are the parts of a flower?", "where is Paris?".
+Behind it, the **full dictionary** ([`src/english/`](src/english), built by [`tools/build-full.py`](tools/build-full.py)) is all of WordNet 3.0: **147,306 words and phrases in 117,659 senses**, each with its definition, examples, synonyms, opposites, what it is a kind of and its parts, plus 81,689 pronunciations and WordNet's 5,952 irregular forms. Onyx turns to it for any word the everyday dictionary doesn't have, and for "is a X a Y" and "name some X" when the everyday words don't reach. As in a printed dictionary nothing is left out: offensive senses are kept and marked *Offensive*, informal ones *Informal*. People and places in WordNet answer "who was..." and "where is..." offline, with a note that WordNet was finished in 2006 (and an offer to look it up online, if Onyx can). Word games, made-up sentences and the conversation stay with everyday words, so a rare sense never shapes a reply.
+
+It is about 18 MB in five files. A page loads them last; Onyx uses them as soon as they arrive, reads the index on first use (about 0.15 seconds) and each block of senses when it's first needed. Without them, Onyx simply has its 14,459 everyday words.
+
+Ask "define serendipity", "what does ephemeral mean", "another word for happy", "opposite of brave", "is quickly an adverb", "use curious in a sentence", "all meanings of run". And:
+
+- **Thinking with words**: "is a whale a mammal?" (*Yes: whale → cetacean → aquatic mammal → placental → mammal*), "is a platypus a bird?" (*No, a platypus is a kind of mammal*), "name some cetaceans", "is a bat a bird?" (*No, a bat is a kind of mammal*), "what kind of animal is a salmon?", "name some reptiles", "what's the difference between a frog and a toad?" (both definitions, and *Both are amphibians*), "what do a lion and a tiger have in common?", "what are the parts of a flower?", "where is Paris?".
 - **How words sound**: "how do you pronounce whale" (*/weɪl/*), "how many syllables in banana", "what rhymes with moon".
 - **Words by their letters**: "words that start with qu", "words ending in tion", "anagram of listen" (*silent, tinsel*), "word of the day".
 - "it" follows the conversation: after "where is Paris?", "define it" defines Paris.
 
 ## Spanish and French
 
-Write to Onyx in either and it answers in the same language; it tells them apart by their common words, their accents, and the 14,000 English and 3,500 Spanish and French words it knows ("¿cómo estás?", "ça va ?"). Or say "speak Spanish", "parle français", "habla inglés".
-
-- **Translation, every direction**, for the 3,536 everyday words of the hand-written dictionary, each translated for Onyx with its article so the gender shows: "how do you say happy in French?" (*heureux*), "what does gato mean?" (*cat*, with its definition), "¿cómo se dice perro en francés?" (*le chien*), "comment dit-on chat en espagnol ?" (*el gato*). It knows word forms in both languages, so "cansada" finds *cansado*, "parlons" finds *parler*, "chiens" finds *chien*.
+Write to Onyx in either and it answers in the same language; it tells them apart by their common words, their accents, and the English, Spanish and French words it knows ("¿cómo estás?", "ça va ?"). Or say "speak Spanish", "parle français", "habla inglés". Translation has [its own section](#translation).
 - **Conversation**: greetings, how are you, thanks, goodbye, who Onyx is, help, jokes and facts in each language, the time and date, your name ("me llamo Ana", "je m'appelle Léa"), and how you feel ("estoy muy cansada" gets *Siento que estés cansada*, in your own words).
 - **Math in words**: "¿cuánto es doce por siete?", "combien font quatre-vingt-dix-neuf plus un ?".
 - **Care**: a message about self-harm gets a reply in the same language with people who can help: 024 in Spain, 3114 in France, 988 in the US, findahelpline.com elsewhere.
 
-What it doesn't do yet in Spanish and French: definitions come in English, and beyond feelings, the replies built from what you say (events, plans, pets) are English-only for now.
+What it doesn't do yet in Spanish and French: definitions come in English; beyond feelings, the replies built from what you say (events, plans, pets) are English-only; and writing and code are asked for in English.
+
+## Translation
+
+Between English, Spanish and French, every direction (Spanish to French goes through English). Ask in any of the three: "how do you say 'where are my keys' in Spanish", "translate tengo dos gatos negros", "what does 'je suis fatiguée' mean", "¿cómo se dice 'I am hungry' en francés?", "comment dit-on 'where is the station' en espagnol ?".
+
+**Words.** First the **3,536 everyday words translated by hand for Onyx**, with their articles so the gender shows (*el perro*, *la maison*, *l'arbre (m.)*). Then the **large lists** in [`src/translations/`](src/translations), built by [`tools/build-translations.py`](tools/build-translations.py) from the Open Multilingual Wordnet: **Spanish for 29,179 English words** (and 23,312 Spanish words back to English) from the Multilingual Central Repository, and **French for 43,738** (and 34,849 back) from WOLF, the Wordnet Libre du Français. For each English word Onyx takes the translations of its most used senses and prefers the one most common in Spanish or French (ranked with wordfreq), passing over English words that merely turn up in Spanish or French text. These lists are built automatically, so Onyx says when an answer comes from them, and guesses a noun's gender from its ending when it must (and says so). WOLF is the noisier of the two.
+
+**Phrases.** A phrasebook of 139 everyday phrases, written for Onyx in all three languages: greetings, thanks, apologies, directions, restaurants, shops, health, the weather, emergencies.
+
+**Sentences.** A small grammar, written for Onyx, for the sentences people most often want: where is X, how much is X, I want / I'd like / I need / I have / I like X, there is X, I am (hungry, tired, a teacher, 30 years old), X is Y, I am going to X, can I have X, do you have X, my name is, I'm from, I live in, I (don't) speak, and any simple "someone does something" sentence (*I eat apples*, *the children play football*, *my sister doesn't eat meat*), with a place on the end (*in the garden*, *on the table*). It handles articles (including *du*, *de la* and *de* after a negation in French), gender and number agreement, adjectives after the noun (and *beau*, *petit*, *grand*... before it in French), contractions (*al*, *del*, *au*, *aux*), *ser* and *estar*, *tener hambre* and *avoir faim*, *jugar al* and *tocar el* for sports and instruments, and the present tense of regular verbs and about 60 irregular ones. The other way, it reads Spanish and French sentences of the same shapes back into English.
+
+Anything else is **translated word by word**, and Onyx says the grammar may be off and which words it didn't know. "translate 'the quick brown fox jumps over the lazy dog'" gets that treatment. When it doesn't know whether "I" is a man or a woman, it gives both: *No estoy cansado (o cansada).*
 
 ## The whole conversation
 
@@ -93,7 +126,7 @@ Say "settings" to see them, or just ask:
 - **Small talk with care**, jokes, tips and facts, and **memory** of your name and anything you ask it to remember, on this device only.
 - **Inside OmniTool only:** a tool finder and commands that run OmniTool's tools, asking before anything is saved.
 
-What Onyx can't do, by design: write long pieces (essays, songs, code), or answer general knowledge questions on its own. It says so plainly instead of guessing, and with your permission it looks the question up.
+What Onyx can't do, by design: write long pieces (essays, songs, big programs), fix your code, or answer general knowledge questions beyond its dictionary on its own. It says so plainly instead of guessing, and with your permission it looks the question up.
 
 ## The internet, with your permission
 
@@ -141,6 +174,22 @@ Omni.net = {
 
 **In Node**, `host/net.js` uses the built-in `fetch` (Node 18 and later). Behind an HTTP proxy, recent versions of Node use the `HTTPS_PROXY` variable when `NODE_USE_ENV_PROXY=1` is set.
 
+## Code
+
+Onyx writes small, complete programs in **Python, JavaScript, Rust, C, C#, C++, HTML and raw HTTP**, for 26 everyday tasks: hello world, counting, FizzBuzz, a function (add, multiply, square, average... or your own: "a function called area that takes w and h and returns w * h"), reversing a string, palindromes, factorials, Fibonacci numbers, primes, sorting a list (up or down), sum and average, looping over a list, reading and writing files, counting words, a class or struct with the fields you name (Onyx works out their types: *age* is a whole number, *price* a decimal, *is_available* true or false), HTTP GET and POST requests, a tiny web server, asking for a name, a number guessing game, temperature conversion, and web pages, tables, forms and buttons. Each comes with what it does and how to run it, and "now in Rust" (or "what about C#?") writes the same thing in another language. Say "can you code?" for the list.
+
+It isn't a language model. Each task is written for Onyx in each language, in that language's usual style, and filled in with what you asked: the numbers, names, fields, file names, URLs and text. That keeps every program correct: [`tools/check-code.js`](tools/check-code.js) writes all 26 tasks in every language they support, with their defaults and with 1 to 3 variations each (284 programs), compiles them with warnings treated as errors (`gcc` and `g++ -Wall -Wextra -Werror`, `rustc -D warnings`, `mcs -warnaserror+`), runs them, feeds the interactive ones their input, starts the servers and sends them a request, sends the raw HTTP to a local server, checks the HTML is well formed, and checks that FizzBuzz, a factorial or a sorted list comes out the same in every language. All 284 pass. The Rust HTTP examples use the `reqwest` crate, and the C and C++ ones libcurl; requests to the internet are compiled but not sent.
+
+Big programs, and fixing your own code, are beyond Onyx, and it says so.
+
+## Predicting what you'll say
+
+A second small neural network guesses the next word of what you're typing. In the demo its guesses sit above the text box: the end of the word you're typing ("write a hai" → *haiku*), or the next word ("is a whale a" → *mammal*, "fizzbuzz in" → *Python*, *JavaScript*, *C*). Tab takes the first. "finish this sentence: I have an exam on" shows its best ending and its top three guesses.
+
+It reads the last four words, each as 48 numbers (an embedding), passes them through a hidden layer of 192, projects back into the embedding space and scores all 6,000 words it knows against their embeddings: 340,320 numbers in all, in [`src/onyx-predict-weights.js`](src/onyx-predict-weights.js) as 8-bit integers. [`tools/train-predict.py`](tools/train-predict.py) trains it with NumPy in about five minutes, the same weights every time, on what people say to Onyx and nothing scraped: Onyx's example phrases in three languages, its dictionary's example sentences, the phrasebook, and requests for everything Onyx does, made from templates ("write a haiku about...", "how do you say... in French", "...in Rust"). Dropout, and stopping when a separate validation slice stops improving, keep it from memorizing.
+
+Measured honestly, on 1,995 sentences it never saw, counting only real next words (the end of a sentence isn't a suggestion, and a word it doesn't know is a miss): **its first guess is right 24.3% of the time, and one of its first three 33.3%.** Counting which word most often follows the last two words gets 21.3% and 30.9%, so the network is better, but modestly: it is small, and so is what it learned from. A network 40% bigger did no better.
+
 ## Writing
 
 Onyx writes short pieces from its dictionary, using templates, the dictionary's pronunciations and what it knows about each word. It is not a language model: the pieces are short and simple, and different every time ("another one").
@@ -162,30 +211,47 @@ Long writing (essays, songs, code) is beyond Onyx, and it says so. Writing is in
 
 | | Result |
 |---|---|
-| English intent accuracy on 93 held-out phrasings | 96.8% (90 of 93); Onyx 2: 98.9% |
+| English intent accuracy on 93 held-out phrasings | 97.8% (91 of 93); Onyx 2.1: 96.8% |
 | Spanish, 20 held-out phrasings | intent 100%, language recognized 100% |
-| French, 20 held-out phrasings | intent 90%, language recognized 100%; Onyx 2: 95% |
+| French, 20 held-out phrasings | intent 95%, language recognized 100% |
 | English phrasings taken for Spanish or French | 0 of 93 |
-| The neural network on its own | 89 of 93 held-out phrasings; Onyx 2: 91 |
-| Conversation checks | 158 of 158 |
-| Dictionary data checks (no duplicates; every feeling has a mood, every event a type, every example uses its word) | 14,730 entries pass |
+| The intent network on its own | 88 of 93 held-out phrasings |
+| Conversation checks | 159 of 159 |
+| Dictionary data checks (no duplicates; every feeling has a mood, every event a type, every example uses its word) | 14,799 entries pass |
+| The full dictionary: every word's senses exist, every sense has a definition | 147,306 words, 117,659 senses |
+| Full-dictionary questions (word forms, kinds, people, places, all meanings, pronunciations) | 15 of 15 |
+| Sentences translated exactly as a person would write them (both ways, three languages) | 40 of 40 |
+| Translation in conversation (phrases, the large lists, quoted Spanish and French) | 6 of 6 |
+| Programs written for every task in every language it supports | 149 of 149 |
+| Code requests read right (task and language), and things that aren't code requests left alone | 21 of 21 |
+| Code in conversation (follow-ups, other languages, the list) | 9 of 9 |
+| Prediction network, on held-out sentences: right first / in the first three | 24.3% / 33.3% (counting: 21.3% / 30.9%) |
+| The JavaScript gives the trainer's own numbers on its sample of held-out sentences | 23.23% / 32.98%, exactly |
+| `node tools/check-code.js`: programs compiled with warnings as errors, run, and compared across languages | 284 of 284 |
 | Spanish and French word list (every word in the dictionary, both languages present) | 3,536 words pass |
 | Internet permission checks (off without a connector; asks first; yes, no, "always", "try again", "stay offline") | 9 of 9 |
 | Lookups through `host/net.js`, replaying recorded answers from Wikipedia, Open-Meteo and the Free Dictionary API, in three languages | 17 of 17 |
 | The connector contacts only its four services | yes |
 | Writing checks (haiku syllables, rhymes, acrostics, stories, messages, descriptions, summaries) | 11 of 11 |
-| Deciding a reply, on average over 240 messages | about 0.3 ms |
+| Deciding a reply, on average over 240 messages | about 0.4 ms |
+| Predicting the next word | about 3 ms |
 | Network requests from the demo page before you say yes | 0 |
 
-On the same machine and messages, choosing an intent takes 0.11 ms (Onyx 1.3: 0.24 ms) and a whole reply 0.25 ms (0.38 ms). Loading takes longer than before, about 0.2 seconds instead of 0.04, because the dictionary is almost five times bigger.
+Loading the engine and everything but the full dictionary takes about 0.24 seconds in Node; the full dictionary's files about 0.15 more, and reading its index another 0.15, the first time an unusual word comes up. A page loads the full dictionary last, so it's ready to talk first.
 
-Onyx 2.1 is a little less accurate on the held-out phrasings than Onyx 2: the network was retrained with the new news and writing phrases, and now misses "tell me who you are", "i need some rest" and "work is overwhelming". These are reported as they are, not tuned away. The misses are listed by the test itself, so you can see exactly where it is wrong.
+The intent network was retrained for Onyx 2.5 (the examples gained two "what's new in 2.5" phrases) and now misses "i need some rest" and "work is overwhelming". These are reported as they are, not tuned away. The misses are listed by the test itself, so you can see exactly where it is wrong.
 
 The recorded answers in `test/fixtures` keep the tests offline and repeatable. Live, with this connector, research, weather, definitions and the news were each checked against the real services on 2026-11-07.
 
 ## Run it
 
 **In a browser:** open `demo/index.html`. Everything runs in the page, and it goes online only for a lookup you allow.
+
+**Check every program Onyx can write** (needs python3, node, rustc, gcc, g++, and mcs and mono for C#; cargo and libcurl's headers for the HTTP examples; whatever isn't installed is skipped and listed):
+
+```bash
+node tools/check-code.js
+```
 
 **In Node:**
 
@@ -206,15 +272,27 @@ node test/test.js
 <script src="src/onyx-model.js"></script>
 <script src="src/onyx-weights.js"></script>
 <script src="src/onyx-write.js"></script>    <!-- optional: haiku, poems, stories, messages -->
+<script src="src/translations/onyx-translations-es.js"></script>  <!-- optional: the large word lists -->
+<script src="src/translations/onyx-translations-fr.js"></script>
+<script src="src/onyx-translate.js"></script>                     <!-- optional: phrases and sentences -->
+<script src="src/onyx-code.js"></script>                          <!-- optional: small programs -->
+<script src="src/onyx-predict-weights.js"></script>               <!-- optional: the prediction network -->
+<script src="src/onyx-predict.js"></script>
 <script src="src/onyx.js"></script>
 <script>
   Omni.onyx.respond('hi').then((reply) => console.log(reply.text));
 </script>
+<!-- optional, and best loaded last: the full dictionary, about 18 MB -->
+<script src="src/english/onyx-english-index.js"></script>
+<script src="src/english/onyx-english-nouns-1.js"></script>
+<script src="src/english/onyx-english-nouns-2.js"></script>
+<script src="src/english/onyx-english-verbs.js"></script>
+<script src="src/english/onyx-english-modifiers.js"></script>
 ```
 
-The lexicon, languages, weights, writer and connector are optional: without them Onyx falls back to the hand-written dictionary, English, its phrase matcher alone, no writing, and no internet.
+Everything marked optional is: without it Onyx falls back to less (the hand-written dictionary, English, its phrase matcher alone, no writing, no translation of sentences, no code, no predictions, no internet), and says so when asked for what's missing.
 
-`respond(text)` returns `{ text, offer?, expect?, action?, command? }`. `offer` is a yes/no question Onyx is waiting on, `action` is something the host should do (open a tool, switch the theme), and `command` is a request for OmniTool's tools, which only exist inside OmniTool. `Omni.onyx.context()` shows what Onyx has gathered from the conversation, and `Omni.onyx.detect(text)` the language of a message.
+`respond(text)` returns `{ text, offer?, expect?, action?, command? }`. `offer` is a yes/no question Onyx is waiting on, `action` is something the host should do (open a tool, switch the theme), and `command` is a request for OmniTool's tools, which only exist inside OmniTool. `Omni.onyx.context()` shows what Onyx has gathered from the conversation, `Omni.onyx.detect(text)` the language of a message, and `Omni.onyx.predict(text)` the likeliest next words (`[{ word, p }]`). The parts can be used on their own too: `Omni.onyxTranslate.text('I want two coffees', 'en', 'es')`, `Omni.onyxCode.write(Omni.onyxCode.parse('fizzbuzz in rust'))`, `Omni.onyxDictionary.define('sesquipedalian')`.
 
 ## Study it, build on it
 
@@ -237,6 +315,22 @@ cd ../.. && python3 tools/build-lexicon.py --data nltk_data
 
 The build is deterministic too: the same inputs give the same `src/onyx-lexicon.js`.
 
+**Rebuild the full dictionary and the large word lists** from the same nltk_data folder (the word lists also need the Open Multilingual Wordnet, `omw-1.4.zip`, from the same place):
+
+```bash
+python3 tools/build-full.py --data nltk_data            # src/english/, about 35 seconds
+python3 tools/build-translations.py --data nltk_data    # src/translations/, about 45 seconds
+```
+
+**Retrain the prediction network** after changing the examples, the dictionary or its templates:
+
+```bash
+pip install numpy
+python3 tools/train-predict.py      # src/onyx-predict-weights.js and test/fixtures/predict-heldout.txt, about 5 minutes
+```
+
+All of them give the same output every time.
+
 ## Files
 
 ```
@@ -250,14 +344,26 @@ src/onyx-languages.js  Spanish and French: the word list, what Onyx understands 
 src/onyx-math.js       math: number words, a safe parser, equations, percentages, statistics, number facts
 src/onyx-data.js       English intents and replies, jokes, tips, facts, glossary
 src/onyx-write.js      writing: haiku, rhyming poems, acrostics, stories, messages, descriptions, summaries
+src/onyx-translate.js  translation: the phrasebook, and the grammar for sentences in English, Spanish and French
+src/onyx-code.js       code: 26 tasks in Python, JavaScript, Rust, C, C#, C++, HTML and HTTP, and reading requests
+src/onyx-predict.js    the prediction network: running it (next words, word endings, likely endings)
+src/onyx-predict-weights.js  its open weights (generated by tools/train-predict.py)
+src/english/           the full dictionary: all of WordNet 3.0, in five files (generated by tools/build-full.py)
+src/translations/      the large Spanish and French word lists (generated by tools/build-translations.py)
 host/host.js           a minimal host (storage, randomness) so Onyx runs outside OmniTool
 host/net.js            the internet connector: Wikipedia, Open-Meteo, the Free Dictionary API
 demo/index.html        a standalone chat page
-test/test.js           held-out accuracy in three languages, the network, conversations, the internet port, the
-                       connector, writing, data checks, speed
-test/fixtures/         answers recorded from the three services, so the connector's tests run offline
-tools/train.js         trains the neural network
+test/test.js           held-out accuracy in three languages, the networks, conversations, the internet port, the
+                       connector, writing, the full dictionary, translation, code, predictions, data checks, speed
+test/fixtures/         answers recorded from the three services, so the connector's tests run offline; held-out
+                       sentences for the prediction network
+tools/train.js         trains the intent network
+tools/train-predict.py trains the prediction network
 tools/build-lexicon.py builds the lexicon from WordNet and CMUdict
+tools/build-full.py    builds the full dictionary from WordNet and CMUdict
+tools/build-translations.py  builds the large word lists from the Open Multilingual Wordnet
+tools/onyx_wordnet.py  what the three builders share: text cleaning, filters, pronunciations
+tools/check-code.js    compiles and runs every program Onyx can write
 tools/examples.txt     example sentences written for Onyx, for common words WordNet has none for
 ```
 
@@ -269,11 +375,15 @@ The data files in `src/` are not secret and can't be: anything a web page runs c
 
 ## Licenses and credits
 
-Onyx is MIT licensed (see [LICENSE](LICENSE)). The generated lexicon includes data from **Princeton WordNet 3.0** (WordNet 3.0 Copyright 2006 by Princeton University, all rights reserved; see [LICENSE-WORDNET](LICENSE-WORDNET)) and the **CMU Pronouncing Dictionary** (Copyright (C) 1993-2008 Carnegie Mellon University, all rights reserved; see [LICENSE-CMUDICT](LICENSE-CMUDICT)). [wordfreq](https://github.com/rspeer/wordfreq) was used to choose which words to include; none of its data is in this repository. The Spanish and French translations, the Spanish and French conversation, and 2,346 example sentences were written for Onyx.
+Onyx is MIT licensed (see [LICENSE](LICENSE)), except the French word list (below). The generated lexicon and the full dictionary include data from **Princeton WordNet 3.0** (WordNet 3.0 Copyright 2006 by Princeton University, all rights reserved; see [LICENSE-WORDNET](LICENSE-WORDNET)) and the **CMU Pronouncing Dictionary** (Copyright (C) 1993-2008 Carnegie Mellon University, all rights reserved; see [LICENSE-CMUDICT](LICENSE-CMUDICT)). [wordfreq](https://github.com/rspeer/wordfreq) was used to choose which words to include; none of its data is in this repository. The hand-written Spanish and French translations, the phrasebook and the sentence grammar, the Spanish and French conversation, the code for every task, and 2,346 example sentences were written for Onyx.
+
+The large word lists come from the **Open Multilingual Wordnet 1.4**: the Spanish from the **Multilingual Central Repository 3.0** (Gonzalez-Agirre, Laparra and Rigau, 2012), under CC BY 3.0 (see [LICENSE-MCR](LICENSE-MCR)), and the French from **WOLF, the Wordnet Libre du Français** (Sagot and Fišer, 2008), under the CeCILL-C license (see [LICENSE-WOLF](LICENSE-WOLF)). `src/translations/onyx-translations-fr.js`, being derived from WOLF, is distributed under CeCILL-C; the rest of Onyx is not affected. The prediction network learned only from Onyx's own text.
 
 What Onyx looks up online comes from [Wikipedia](https://www.wikipedia.org/) (text under CC BY-SA 4.0), [Open-Meteo](https://open-meteo.com/) (weather data under CC BY 4.0) and the [Free Dictionary API](https://dictionaryapi.dev/) (Wiktionary text under CC BY-SA 3.0). Onyx names the source and links to it in every reply that uses them. The recorded answers in `test/fixtures` are test data from the same services, under the same licenses.
 
 ## Version
+
+**Onyx 2.5** (2026-11-09): all of WordNet 3.0 behind the everyday dictionary (147,561 words in all), and 70 newer words written for Onyx; translation of simple sentences both ways, a phrasebook, and Spanish and French for tens of thousands of words from the Open Multilingual Wordnet; a second neural network, which predicts the next word as you type; and small programs in Python, JavaScript, Rust, C, C#, C++, HTML and HTTP, every one compiled and run by a checker. Held-out accuracy is 97.8% (Onyx 2.1: 96.8%). Onyx 2.1 is on the [`onyx-2.1`](../../tree/onyx-2.1) branch.
 
 **Onyx 2.1** (2026-11-07): the internet, with permission: research briefs, answers and the news from Wikipedia in English, Spanish and French, weather from Open-Meteo, and definitions from the Free Dictionary API, through the new `host/net.js` connector. Onyx asks before every lookup until you say "always", and "stay offline" keeps it offline. Also new: short pieces of writing (haiku, rhyming poems, acrostics, stories, messages for 17 occasions, descriptions and summaries). Held-out accuracy is 96.8% (Onyx 2: 98.9%). Onyx 2 is on the [`onyx-2.0`](../../tree/onyx-2.0) branch.
 

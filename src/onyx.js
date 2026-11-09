@@ -1,7 +1,8 @@
-// Onyx 2.1: Omni Agent's local engine. Two intent models that vote (a TF-IDF phrase matcher and a small neural network
-// with open weights), a 14,000-word dictionary it reasons with, English, Spanish and French, a memory of the whole
-// conversation, short pieces of writing, a glossary, a tool finder and OmniTool's offline commands. Runs on this
-// device, with no model download. The engine has no network code: it goes online only through a host's internet port
+// Onyx 2.5: Omni Agent's local engine. Two intent models that vote (a TF-IDF phrase matcher and a small neural network
+// with open weights); a 14,000-word everyday dictionary it reasons with, and all of WordNet behind it; English, Spanish
+// and French, with translation; a memory of the whole conversation; short writing and small programs; a second network
+// that predicts what people will say; a glossary, a tool finder and OmniTool's offline commands. Runs on this device,
+// with no model download. The engine has no network code: it goes online only through a host's internet port
 // (host/net.js is one), and only with the person's permission.
 (function () {
 	'use strict';

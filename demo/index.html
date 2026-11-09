@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Onyx 2</title>
+	<title>Onyx 2.5</title>
 	<style>
 		/* After the Onyx II trailer: black, silver, quiet. System fonts only: the page goes online only for a lookup the
 		   person has allowed, to Wikipedia, Open-Meteo or the Free Dictionary API (see host/net.js). */
@@ -16,6 +16,7 @@
 			--line: #26262b;
 			--accent: #c7c9d3;
 			--glow: rgba(200, 210, 235, 0.16);
+			--code: #0a0a0d;
 			color-scheme: dark;
 		}
 		@media (prefers-color-scheme: light) {
@@ -28,6 +29,7 @@
 				--line: #dcdce2;
 				--accent: #3b3f4c;
 				--glow: rgba(60, 70, 100, 0.08);
+				--code: #fbfbfc;
 				color-scheme: light;
 			}
 		}
@@ -56,9 +58,10 @@
 		h1 span { background: linear-gradient(180deg, var(--fg) 30%, var(--mute)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 		.lang { font-size: 0.78rem; font-weight: 600; color: var(--mute); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
 		.intro { margin: 0 0 10px; color: var(--mute); font-size: 0.92rem; }
-		.chips { display: flex; gap: 8px; min-width: 0; overflow-x: auto; padding: 2px 0 12px; border-bottom: 1px solid var(--line); scrollbar-width: none; }
-		.chips::-webkit-scrollbar { display: none; }
-		.chips button {
+		.chips, .suggest { display: flex; gap: 8px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+		.chips { padding: 2px 0 12px; border-bottom: 1px solid var(--line); }
+		.chips::-webkit-scrollbar, .suggest::-webkit-scrollbar { display: none; }
+		.chips button, .suggest button {
 			flex: none;
 			min-height: 34px;
 			padding: 0 12px;
@@ -70,7 +73,11 @@
 			font-family: inherit;
 			cursor: pointer;
 		}
-		.chips button:hover { border-color: var(--accent); }
+		.chips button:hover, .suggest button:hover { border-color: var(--accent); }
+		.suggest { min-height: 0; padding: 0 0 8px; }
+		.suggest:empty { display: none; }
+		.suggest button { min-height: 30px; color: var(--mute); }
+		.suggest button:first-child { color: var(--fg); }
 		#log { overflow-y: auto; padding: 18px 0; }
 		.msg { margin: 0 0 16px; animation: in 260ms cubic-bezier(0.16, 0.8, 0.2, 1) both; }
 		.who { font-size: 0.72rem; font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; color: var(--mute); margin-bottom: 3px; }
@@ -81,8 +88,13 @@
 		.body ul { margin: 6px 0; padding-left: 20px; }
 		.body strong { font-weight: 650; }
 		.body a { color: var(--fg); text-decoration-color: var(--mute); text-underline-offset: 2px; }
+		.code { margin: 8px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--code); overflow: hidden; }
+		.code-head { display: flex; justify-content: space-between; align-items: center; padding: 4px 6px 4px 12px; border-bottom: 1px solid var(--line); color: var(--mute); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+		.code-head button { border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--fg); font: 500 0.75rem inherit; font-family: inherit; padding: 3px 9px; cursor: pointer; text-transform: none; letter-spacing: 0; }
+		.code pre { margin: 0; padding: 10px 12px; overflow-x: auto; font: 0.84rem/1.5 ui-monospace, Menlo, Consolas, monospace; overflow-wrap: normal; white-space: pre; }
 		.wait { color: var(--mute); }
-		form { display: flex; gap: 8px; padding: 12px 0 18px; border-top: 1px solid var(--line); }
+		.composer { padding: 10px 0 18px; border-top: 1px solid var(--line); }
+		form { display: flex; gap: 8px; }
 		input {
 			flex: 1;
 			min-width: 0;
@@ -113,18 +125,21 @@
 <body>
 	<main>
 		<header>
-			<div class="brand"><span class="mark">[gk]</span><h1><span>Onyx 2</span></h1></div>
+			<div class="brand"><span class="mark">[gk]</span><h1><span>Onyx 2.5</span></h1></div>
 			<span class="lang" id="lang" aria-live="polite">English</span>
 		</header>
 		<div>
-			<p class="intro">Thinks deeper. Answers faster. Sees the whole picture. Onyx runs in this page: a 14,000-word dictionary, English, Spanish and French, a small open-weights model, and short pieces of writing. It can look things up on Wikipedia, Open-Meteo and the Free Dictionary API, but only after you say yes.</p>
+			<p class="intro">Thinks deeper. Answers faster. Sees the whole picture. Onyx runs in this page: every word in WordNet, English, Spanish and French with sentence translation, two small open-weights networks (one guesses what you'll type next), short writing, and small programs in eight languages. It looks things up on Wikipedia, Open-Meteo and the Free Dictionary API only after you say yes.</p>
 			<div class="chips" id="chips" aria-label="Things to try"></div>
 		</div>
 		<div id="log" role="log" aria-live="polite" aria-label="Conversation"></div>
-		<form id="form">
-			<input id="text" autocomplete="off" aria-label="Message to Onyx" placeholder="Say something to Onyx, in English, español or français">
-			<button type="submit">Send</button>
-		</form>
+		<div class="composer">
+			<div class="suggest" id="suggest" aria-label="Suggested next words"></div>
+			<form id="form">
+				<input id="text" autocomplete="off" aria-label="Message to Onyx" placeholder="Say something to Onyx, in English, español or français">
+				<button type="submit">Send</button>
+			</form>
+		</div>
 	</main>
 	<script src="../host/host.js"></script>
 	<script src="../host/net.js"></script>
@@ -136,6 +151,12 @@
 	<script src="../src/onyx-model.js"></script>
 	<script src="../src/onyx-weights.js"></script>
 	<script src="../src/onyx-write.js"></script>
+	<script src="../src/translations/onyx-translations-es.js"></script>
+	<script src="../src/translations/onyx-translations-fr.js"></script>
+	<script src="../src/onyx-translate.js"></script>
+	<script src="../src/onyx-code.js"></script>
+	<script src="../src/onyx-predict-weights.js"></script>
+	<script src="../src/onyx-predict.js"></script>
 	<script src="../src/onyx.js"></script>
 	<script>
 		(function () {
@@ -144,11 +165,20 @@
 			const form = document.getElementById('form');
 			const input = document.getElementById('text');
 			const langEl = document.getElementById('lang');
+			const suggestEl = document.getElementById('suggest');
 			const NAMES = { en: 'English', es: 'Español', fr: 'Français' };
-			const TRY = ["Hi! I'm Sam. I have an exam on Friday and I'm nervous.", 'research Ada Lovelace', 'write a haiku about the sea', "what's the weather in Austin?", 'write a birthday message for my mom', 'tell me a story about a dragon', 'is a whale a mammal?', 'what rhymes with moon?', 'how do you say happy in French?', '¿qué significa gato?', 'je suis fatiguée', "what's in the news?", 'word of the day', 'what is 15% off 80'];
+			const TRY = ["Hi! I'm Sam. I have an exam on Friday and I'm nervous.", 'fizzbuzz in rust', "translate 'I don't have a car' to French", 'is a narwhal a mammal?', 'define sesquipedalian', 'finish this sentence: I have an exam on', 'a class Book with title, author and price in C#', 'who was Mozart?', 'write a haiku about the sea', "what does 'tengo hambre' mean?", 'research Ada Lovelace', "what's the weather in Austin?", 'an HTML form with name and email', 'write a birthday message for my mom', 'je suis fatiguée', 'what is 15% off 80'];
 			const escape = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-			// Just enough Markdown for Onyx's replies: bold, italics, code, links, bullet lists and line breaks.
+			// Just enough Markdown for Onyx's replies: code blocks, bold, italics, code, links, bullet lists, line breaks.
 			function render(text) {
+				return text.split(/```(\w*)\n([\s\S]*?)\n```/).map((part, i, all) => {
+					if (i % 3 === 1) return '';
+					if (i % 3 === 2) return `<div class="code"><div class="code-head"><span>${escape(all[i - 1] || 'code')}</span><button type="button" data-copy>Copy</button></div><pre><code>${escape(part)}</code></pre></div>`;
+					return prose(part.replace(/^\n+|\n+$/g, ''));
+				}).join('');
+			}
+			function prose(text) {
+				if (!text) return '';
 				const links = [];
 				const marked = escape(text).replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)]/g, (url) => `\u0000${links.push(url) - 1}\u0000`);
 				const lines = marked.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*\n]+)\*/g, '<em>$1</em>').replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\u0000(\d+)\u0000/g, (m, i) => `<a href="${links[i]}" target="_blank" rel="noopener">${links[i]}</a>`).split('\n');
@@ -175,14 +205,25 @@
 				log.scrollTop = log.scrollHeight;
 				return el;
 			}
+			log.addEventListener('click', (e) => {
+				const b = e.target.closest('[data-copy]');
+				if (!b) return;
+				const code = b.closest('.code').querySelector('code').textContent;
+				const done = () => {
+					b.textContent = 'Copied';
+					setTimeout(() => (b.textContent = 'Copy'), 1200);
+				};
+				if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, () => {});
+			});
 			async function send(text) {
 				add('You', text, true);
+				showSuggestions('');
 				// Most replies take a millisecond; a lookup online takes a second or two, so say so while it runs.
 				let wait = null;
 				const timer = setTimeout(() => {
-					wait = add('Onyx', 'Looking it up…');
+					wait = add('Onyx', 'One moment…');
 					wait.querySelector('.body').classList.add('wait');
-				}, 150);
+				}, 250);
 				const r = await Omni.onyx.respond(text);
 				clearTimeout(timer);
 				if (wait) wait.remove();
@@ -193,6 +234,37 @@
 				langEl.textContent = NAMES[lang] || 'English';
 				document.documentElement.lang = lang;
 			}
+			// Suggestions as you type, from the prediction network: the end of the word being typed, or the next word.
+			function showSuggestions(text) {
+				suggestEl.textContent = '';
+				if (!text.trim() || !Omni.onyx.predict) return;
+				const list = Omni.onyx.predict(text, 4).filter((x) => x.p > 0.02).slice(0, 4);
+				for (const s of list) {
+					const b = document.createElement('button');
+					b.type = 'button';
+					b.textContent = s.word;
+					b.addEventListener('click', () => accept(s));
+					suggestEl.appendChild(b);
+				}
+			}
+			function accept(s) {
+				const v = input.value;
+				input.value = (s.completes ? v.slice(0, v.length - s.completes.length) : v.replace(/\s*$/, ' ')) + s.word + ' ';
+				input.focus();
+				showSuggestions(input.value);
+			}
+			let pending = 0;
+			input.addEventListener('input', () => {
+				cancelAnimationFrame(pending);
+				pending = requestAnimationFrame(() => showSuggestions(input.value));
+			});
+			input.addEventListener('keydown', (e) => {
+				// Tab takes the first suggestion.
+				if (e.key === 'Tab' && !e.shiftKey && suggestEl.firstChild && input.value.trim()) {
+					e.preventDefault();
+					suggestEl.firstChild.click();
+				}
+			});
 			form.addEventListener('submit', (e) => {
 				e.preventDefault();
 				const text = input.value.trim();
@@ -211,9 +283,19 @@
 				});
 				chips.appendChild(b);
 			}
-			add('Onyx', 'Hi, I\'m **Onyx 2.1**. Talk to me in English, Spanish or French, or tap something above to try. I\'ll ask before I go online.');
+			add('Onyx', 'Hi, I\'m **Onyx 2.5**. Talk to me in English, Spanish or French, or tap something above to try. As you type, I\'ll guess your next word (Tab takes it). I\'ll ask before I go online.');
 			input.focus();
 		})();
+	</script>
+	<!-- The full dictionary (about 18 MB) loads last, so the page is ready first; Onyx uses it as soon as it arrives. -->
+	<script src="../src/english/onyx-english-index.js"></script>
+	<script src="../src/english/onyx-english-nouns-1.js"></script>
+	<script src="../src/english/onyx-english-nouns-2.js"></script>
+	<script src="../src/english/onyx-english-verbs.js"></script>
+	<script src="../src/english/onyx-english-modifiers.js"></script>
+	<script>
+		// Read the index while the page is idle, so the first unusual word doesn't wait for it.
+		(window.requestIdleCallback || setTimeout)(() => Omni.onyxDictionary && Omni.onyxDictionary.full && Omni.onyxDictionary.full.has('onyx'));
 	</script>
 </body>
 </html>

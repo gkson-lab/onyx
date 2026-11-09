@@ -1,4 +1,4 @@
-// Onyx 2's two new languages, Spanish and French. Three parts: a word list that pairs each of the dictionary's
+// Onyx's two other languages, Spanish and French (new in Onyx 2). Three parts: a word list that pairs each of the dictionary's
 // hand-written everyday words with its Spanish and French (written for Onyx, articles included so the gender shows),
 // what Onyx understands and says in each language, and the small grammar it needs to find "cansada" under "cansado"
 // or "parlons" under "parler". The engine (onyx.js) detects the language of each message and replies in it.
@@ -3756,7 +3756,7 @@ turnaround|el cambio de rumbo|le revirement
 				{ id: 'user_good', examples: ['bien', 'muy bien', 'estoy bien', 'todo bien gracias', 'genial', 'bien y tu', 'muy bien gracias'], reply: ['¡Me alegro{name}!', 'Qué bien. ¿En qué te puedo ayudar?'] },
 				{ id: 'thanks', examples: ['gracias', 'muchas gracias', 'mil gracias', 'te lo agradezco', 'gracias onyx', 'muy amable'], reply: ['¡De nada{name}!', 'Un placer.', 'Para eso estoy.'] },
 				{ id: 'bye', examples: ['adios', 'hasta luego', 'nos vemos', 'chao', 'hasta manana', 'me voy', 'hasta pronto', 'buenas noches me voy a dormir'], reply: ['¡Hasta luego{name}!', '¡Nos vemos!', '¡Adiós! Que te vaya bien.'] },
-				{ id: 'identity', examples: ['quien eres', 'como te llamas', 'cual es tu nombre', 'que eres', 'presentate'], reply: ['Soy Onyx 2, un pequeño asistente que funciona en tu dispositivo y solo se conecta a internet si me lo permites. Hablo inglés, español y francés.'] },
+				{ id: 'identity', examples: ['quien eres', 'como te llamas', 'cual es tu nombre', 'que eres', 'presentate'], reply: ['Soy Onyx 2.5, un pequeño asistente que funciona en tu dispositivo y solo se conecta a internet si me lo permites. Hablo inglés, español y francés.'] },
 				{ id: 'creator', examples: ['quien te creo', 'quien te hizo', 'quien te programo', 'de donde vienes'], reply: ['Me hizo GK Labs, en Austin (Texas). Mi código es abierto: cualquiera puede leerlo y mejorarlo.'] },
 				{ id: 'is_ai', examples: ['eres un robot', 'eres una inteligencia artificial', 'eres humano', 'eres real', 'eres una ia', 'eres chatgpt'], reply: ['Soy un programa, no una persona: un modelo pequeño y abierto que funciona en tu dispositivo. No soy un modelo de lenguaje grande.'] },
 				{ id: 'languages', examples: ['hablas espanol', 'que idiomas hablas', 'hablas ingles', 'hablas frances', 'cuantos idiomas hablas', 'en que idiomas hablas'], reply: ['Hablo inglés, español y francés. Escríbeme en el que prefieras y te respondo en el mismo.'] },
@@ -3826,7 +3826,7 @@ turnaround|el cambio de rumbo|le revirement
 				{ id: 'user_good', examples: ['ca va bien', 'tres bien', 'bien merci', 'super', 'je vais bien', 'ca va et toi', 'tres bien merci'], reply: ['Tant mieux{name} !', 'Super. Je peux t\'aider avec quelque chose ?'] },
 				{ id: 'thanks', examples: ['merci', 'merci beaucoup', 'merci bien', 'je te remercie', 'merci onyx', 'c est gentil'], reply: ['De rien{name} !', 'Avec plaisir.', 'Je t\'en prie.'] },
 				{ id: 'bye', examples: ['au revoir', 'a plus', 'a bientot', 'salut a plus tard', 'bonne nuit', 'a demain', 'ciao', 'je dois y aller', 'bye'], reply: ['Au revoir{name} !', 'À bientôt !', 'Bonne journée !'] },
-				{ id: 'identity', examples: ['qui es tu', 'comment tu t appelles', 'quel est ton nom', 'tu es quoi', 'presente toi'], reply: ['Je suis Onyx 2, un petit assistant qui fonctionne sur ton appareil et ne va sur internet que si tu me le permets. Je parle anglais, espagnol et français.'] },
+				{ id: 'identity', examples: ['qui es tu', 'comment tu t appelles', 'quel est ton nom', 'tu es quoi', 'presente toi'], reply: ['Je suis Onyx 2.5, un petit assistant qui fonctionne sur ton appareil et ne va sur internet que si tu me le permets. Je parle anglais, espagnol et français.'] },
 				{ id: 'creator', examples: ['qui t a cree', 'qui t a fait', 'qui t a programme', 'tu viens d ou'], reply: ['C\'est GK Labs, à Austin (Texas), qui m\'a créé. Mon code est ouvert : tout le monde peut le lire et l\'améliorer.'] },
 				{ id: 'is_ai', examples: ['tu es un robot', 'tu es une intelligence artificielle', 'tu es humain', 'es tu reel', 'tu es une ia', 'tu es chatgpt'], reply: ['Je suis un programme, pas une personne : un petit modèle ouvert qui fonctionne sur ton appareil. Je ne suis pas un grand modèle de langage.'] },
 				{ id: 'languages', examples: ['tu parles francais', 'quelles langues parles tu', 'tu parles anglais', 'tu parles espagnol', 'combien de langues parles tu'], reply: ['Je parle anglais, espagnol et français. Écris-moi dans la langue de ton choix et je te réponds dans la même.'] },

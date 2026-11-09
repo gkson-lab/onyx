@@ -200,7 +200,7 @@ What?|¿Qué?|Quoi ?
 				if (!en) continue;
 				for (const k of new Set([w.toLowerCase(), strip(w)])) if (!to.has(k)) to.set(k, en.split(','));
 			}
-			big[lang] = { from, to, source: T.source };
+			big[lang] = { from, to, source: T.source, back: T.to.trim().split('\n').length };
 		}
 		return big[lang];
 	}
@@ -1236,7 +1236,7 @@ What?|¿Qué?|Quoi ?
 		const out = {};
 		for (const lang of ['es', 'fr']) {
 			const b = lists(lang);
-			out[lang] = b ? { words: b.from.size, back: b.to.size, source: b.source } : null;
+			out[lang] = b ? { words: b.from.size, back: b.back, source: b.source } : null;
 		}
 		return out;
 	}
