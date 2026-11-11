@@ -1,17 +1,156 @@
-# Onyx 2.5
+# Onyx 3
 
-**Thinks deeper. Answers faster. Sees the whole picture. And it's still free.**
+**Thinks in steps you can follow. Still free. Still open source.**
 
-Onyx is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool), and Onyx 2.5 is the latest of its second generation. It runs on your device: no account, no model download, and nothing leaves it unless you say so. Open weights, open source: yours to run, study and build on.
+Onyx is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool), and Onyx 3 is its third generation. It plans what you ask before it answers, shows the steps it took with every reply, writes text and code from a prompt, and has dictionaries for 31 languages besides English. It runs on your device: no account, no model download, and it goes online only when its internet switch says it may. Open weights, open source: yours to run, study and build on.
 
-This repository is the engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool. Earlier versions live on their own branches: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1), [`onyx-1.2`](../../tree/onyx-1.2), [`onyx-1.3`](../../tree/onyx-1.3), [`onyx-2.0`](../../tree/onyx-2.0) and [`onyx-2.1`](../../tree/onyx-2.1).
+This repository is the engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool. Earlier versions live on their own branches: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1), [`onyx-1.2`](../../tree/onyx-1.2), [`onyx-1.3`](../../tree/onyx-1.3), [`onyx-2.0`](../../tree/onyx-2.0), [`onyx-2.1`](../../tree/onyx-2.1) and [`onyx-2.5`](../../tree/onyx-2.5).
+
+## What's new in Onyx 3
+
+| | Onyx 2.5 | Onyx 3 |
+|---|---|---|
+| Thinking | one message, one answer | **a plan**: one step or several, each able to use the one before, with the steps and a confidence returned with every reply |
+| Languages | English, Spanish, French | the same three to talk in, and **dictionaries for 31**: 594,242 translations in all |
+| Writing | a haiku, a poem, a card | **essays, stories, emails, letters, speeches, toasts and product descriptions from a prompt**, then shorter, longer, more formal |
+| Code | 26 ready-made programs | those, plus **programs composed from a description** in six languages, **web pages** from the sections you name, **HTTP requests** from their parts |
+| Uses | words, math, OmniTool | plus **documents** you can ask about, **quizzes**, **units**, **dates** |
+| Internet | asks each time | **a switch**: off, on, or on and asking first |
+| Held-out accuracy | 97.8% (91 of 93) | 97.8% (91 of 93) |
+
+Onyx 3 also has a new look: a cut stone with three bands across it. Onyx the stone is made of bands laid down one at a time, and Onyx 3 thinks in steps laid down one at a time, so the bands are the mark, and the same colours mark the steps of its thinking. The app opens with the bands parting.
+
+## What Onyx 3 is, honestly
+
+Still not a large language model. There is no model to download because there isn't one: Onyx is a planner, two small neural networks (200,380 and 340,320 weights), dictionaries, and a set of skills written by hand. That is why it fits in a page and answers in about a millisecond, and it is also where its limits are:
+
+- Its **writing** is assembled from patterns and from what its dictionary says about the topic. It is well formed and on topic, and plainer than a person's or a large model's.
+- Its **code from a prompt** covers one family of programs well (take a list of numbers or words; keep, drop, change, sort, count or add them up; print the result), plus pages and requests. It shows the plan it read from your prompt, so a misreading is visible. It does not write arbitrary programs or fix yours.
+- For **29 of the 31 other languages** it has a dictionary and no grammar. It translates words into them, and says so rather than produce a broken sentence.
+- It **does not see images** or hear. It reads text you paste or a text file you give it, and in a browser that can speak it can read replies aloud.
+- It knows what its dictionaries know. Anything else it looks up, if the switch allows, or says it doesn't know.
+
+## The mind
+
+Every message goes through four stages, in [`src/onyx-mind.js`](src/onyx-mind.js) and `respond` in [`src/onyx.js`](src/onyx.js):
+
+1. **Read**: how long the message is, whether it asks or tells, what it points back to.
+2. **Plan**: one step, or several. "Write a haiku about the sea, then translate it into Spanish" is two steps. "How do you say cat in French, German and Japanese" is three. "Take the numbers 1 to 10, add 5 to each one, then keep those above 12" is one program, whatever its "then".
+3. **Act**: each step goes to the skill that fits it. A step can work on the result of the one before ("translate it", "double it", "summarize it").
+4. **Check**: how far the answer can be trusted, from what happened on the way: computed exactly, taken from a hand-written dictionary, taken from one built automatically, assembled from patterns, fetched from a site it can't verify, or not understood.
+
+The steps come back with the reply:
+
+```js
+const r = await Omni.onyx.respond('what is the square root of 144, then double it');
+r.text        // 'sqrt(144) = **12**\n\n12 × 2 = **24**'
+r.confidence  // 'sure'   ('sure', 'fair' or 'unsure')
+r.thinking    // [{ step: 'read', detail: '10 words: a question, pointing back at something said before' },
+              //  { step: 'plan', detail: '2 steps, each free to use the result before it: (1) what is the square root of 144 (2) double it' },
+              //  { step: 'step', detail: '1 of 2: "what is the square root of 144"' },
+              //  { step: 'skill', detail: 'arithmetic' }, { step: 'exact', detail: 'computed, not recalled' }, ...
+              //  { step: 'check', detail: 'Confident: computed, not recalled.' }]
+```
+
+In conversation, "how did you get that?" shows the same steps in words. After any result: "translate it to French", "make it shorter", "make it longer", "more formal", "how many words is that", "explain it" (for code), "read it aloud".
+
+## Dictionaries for 31 languages
+
+"How do you say water in Japanese", "what does Schmetterling mean in German", "translate casa from Italian to Finnish", "how do you say good morning in Greek". English plus these thirty-one, each from its language's open wordnet, linked to the English dictionary through Princeton WordNet's meanings:
+
+| Language | | English words translated | From |
+|---|---|---|---|
+| Spanish | español | 28,107 | Multilingual Central Repository 3.0 (CC BY 3.0) |
+| French | français | 41,517 | WOLF (Wordnet Libre du Français) (CeCILL-C) |
+| German | Deutsch | 17,627 | OdeNet, the Open German WordNet 1.4 (CC BY-SA 4.0) |
+| Italian | italiano | 24,642 | MultiWordNet (CC BY 3.0) |
+| Portuguese | português | 29,014 | OpenWN-PT (CC BY-SA) |
+| Dutch | Nederlands | 21,617 | Open Dutch WordNet (CC BY-SA 4.0) |
+| Catalan | català | 27,843 | Multilingual Central Repository 3.0 (CC BY 3.0) |
+| Galician | galego | 15,594 | Multilingual Central Repository 3.0 (CC BY 3.0) |
+| Basque | euskara | 20,395 | Multilingual Central Repository 3.0 (CC BY 3.0) |
+| Romanian | română | 19,622 | Romanian Wordnet (CC BY-SA) |
+| Polish | polski | 20,738 | plWordNet (the WordNet license) |
+| Swedish | svenska | 8,280 | Swedish wordnet (SALDO) (CC BY 3.0) |
+| Danish | dansk | 5,487 | DanNet (the WordNet license) |
+| Norwegian | norsk | 5,977 | Norwegian Wordnet (Bokmål) (the WordNet license) |
+| Norwegian Nynorsk | nynorsk | 5,187 | Norwegian Wordnet (Nynorsk) (the WordNet license) |
+| Finnish | suomi | 45,463 | FinnWordNet (CC BY 3.0) |
+| Icelandic | íslenska | 6,127 | IceWordNet (CC BY 3.0) |
+| Lithuanian | lietuvių | 9,611 | Lithuanian WordNet (CC BY-SA 3.0) |
+| Croatian | hrvatski | 14,974 | Croatian Wordnet (CC BY 3.0) |
+| Slovenian | slovenščina | 21,973 | sloWNet (CC BY-SA 3.0) |
+| Slovak | slovenčina | 16,825 | Slovak WordNet (CC BY-SA 3.0) |
+| Bulgarian | български | 6,086 | BulTreeBank Wordnet (CC BY 3.0) |
+| Greek | ελληνικά | 11,291 | Greek Wordnet (Apache 2.0) |
+| Albanian | shqip | 5,706 | Albanet (CC BY 3.0) |
+| Arabic | العربية | 10,167 | Arabic WordNet (CC BY-SA 3.0) |
+| Hebrew | עברית | 4,916 | Hebrew Wordnet (the WordNet license) |
+| Chinese | 中文 | 24,111 | Chinese Open Wordnet (the WordNet license) |
+| Japanese | 日本語 | 37,492 | Japanese Wordnet (the Japanese WordNet license) |
+| Thai | ไทย | 40,940 | Thai Wordnet (the WordNet license) |
+| Indonesian | Bahasa Indonesia | 23,624 | Wordnet Bahasa (MIT) |
+| Malay | Bahasa Melayu | 23,289 | Wordnet Bahasa (MIT) |
+
+Each dictionary is one file in [`src/translations/`](src/translations) (41 MB in all), loaded the first time its language is asked for, and built by [`tools/build-translations.py`](tools/build-translations.py). When a meaning has several words, the commonest comes first, ranked with [wordfreq](https://github.com/rspeer/wordfreq)'s word counts. German also has a core of 230 everyday words written by hand, because its wordnet misses or misranks some of them.
+
+These are **dictionaries, not translators**. Built automatically, they are less sure than Onyx's hand-written Spanish and French: a reply from one says where the word came from. Onyx knows ten everyday phrases in every language (hello, thank you, I love you...), translates other phrases word by word and says the grammar will be rough, and for anything longer gives the main words rather than a sentence it can't vouch for. Whole sentences it translates between English, Spanish and French ([below](#translation)).
+
+## Writing from a prompt
+
+[`src/onyx-compose.js`](src/onyx-compose.js) reads what a prompt asks for and writes it in parts:
+
+- **Essays**: "write an essay about volcanoes", "a short essay about friendship", "a long essay on the French Revolution". Written from what the dictionary knows: what the thing is, what kind of thing, its parts, its kinds, how the word is used. With the internet on, an essay about something the dictionary doesn't cover is built from the Wikipedia article, mostly in its own sentences, with the link.
+- **Stories**: "tell me a story about a shy dragon who wants to sing", "a story about Mia who loses her kite at the beach". The hero, the wish and the place come from the prompt.
+- **Emails and letters**: "write an email to my landlord about the broken heater", "a formal letter resigning from my job", "an email thanking Sam for the gift". Requests, thanks, apologies, invitations, complaints, follow-ups, resignations, congratulations, news.
+- **Speeches and toasts**, and **product descriptions**: "a toast for my sister's wedding", "a product description for a waterproof backpack".
+
+Then "make it shorter", "longer", "more formal", "casual", "another", or "translate it to Spanish". Card messages, haiku, poems and acrostics are still written by [`src/onyx-write.js`](src/onyx-write.js). Songs, and anything book-length, are beyond it.
+
+## Code from a prompt
+
+> **You:** a rust program that takes the numbers 1 to 20, keeps the even ones, squares them and prints the sum
+> **Onyx:** **A program in Rust**, composed from your prompt. This is how I read it:
+> 1. Start with the numbers 1 to 20
+> 2. Keep the ones that are even
+> 3. Square each one
+> 4. Print their sum
+
+```rust
+fn main() {
+    let numbers: Vec<i64> = (1..=20).collect();
+    let numbers: Vec<i64> = numbers.into_iter().filter(|&n| n % 2 == 0).collect();
+    let numbers: Vec<i64> = numbers.iter().map(|&n| n * n).collect();
+    println!("{}", numbers.iter().sum::<i64>());
+}
+```
+
+[`src/onyx-synth.js`](src/onyx-synth.js) reads a prompt into a small plan (where the data comes from, the steps, what to print) and writes the plan in **Python, JavaScript, Rust, C, C# or C++**. Then "now in Python", or "explain it".
+
+- **Where the data comes from**: numbers you list, a range, a file of numbers, the keyboard; words you list, the words of a sentence, the lines of a file.
+- **Steps**: keep or drop (even, odd, above 12, divisible by 3, longer than 4 letters, starting with "a"...), change (square, double, add 5, capitals, backwards, lengths), sort, drop repeats, take or skip the first few, reverse.
+- **Results**: each one, the sum, average, product, count, largest, smallest, longest, shortest, or all on one line.
+
+It also composes **web pages** from the sections you name ("a landing page for a bakery called Sweet Crumbs with a hero, three features, a contact form and a footer": navigation, hero, about, features, gallery, pricing, menu, customers' words, questions, hours, contact, footer; a colour; dark) and **HTTP requests** from their parts ("a PUT request to https://api.example.com/users/42 with a bearer token and a JSON body with name Sam and age 30": method, address, headers, query, a JSON body with the right Content-Length, and the same thing as a curl command).
+
+[`tools/check-synth.js`](tools/check-synth.js) checks it the hard way: every plan is written in all six languages, compiled with warnings as errors, run, and what each program prints is compared with the answer worked out independently from the plan. The 26 ready-made programs of Onyx 2.5 are all still there ([below](#code)).
+
+## Documents, quizzes, units and dates
+
+[`src/onyx-uses.js`](src/onyx-uses.js):
+
+- **Documents.** Paste a long text, say "read this: ...", or hand Onyx a text file (`Omni.onyx.read(text, name)`; the demo has a button). It says how long it is and what words it keeps coming back to, then answers "summarize it", "what does it say about carbon", "how many times does it mention forest", "key words", "the first sentence". Summaries and answers are the document's own sentences: Onyx measures and searches a text exactly, and doesn't understand it the way a reader does.
+- **Quizzes.** "Quiz me on German", "a math quiz with 10 questions", "quiz me on word meanings". Vocabulary in any of the dictionaries, arithmetic that gets harder as you get it right, or which word fits a definition. "Skip" passes, "stop" ends, and it keeps the score.
+- **Units.** "5 miles in km", "how many cups in a liter", "72 F to C", "2.5 GB to MB", "100 kph to mph": length, mass, volume, area, speed, time, data, energy and temperature. Kitchen measures are US ones, and it says so.
+- **Dates.** "How many days until Christmas", "what day of the week is March 1, 2027", "what day was July 4 1776", "3 weeks from now", "is 2028 a leap year", "how many days between March 1 and May 1".
+- **Runs of numbers.** "The sum of the numbers from 1 to 100" (5,050, by the formula), "the product of 1 to 6", "add up the even numbers from 1 to 20".
 
 ## What's new in Onyx 2.5
 
 | | Onyx 2.1 | Onyx 2.5 |
 |---|---|---|
 | Words | 14,390 | **147,561**: all 147,306 words and phrases in WordNet, in 117,659 senses, behind 14,459 everyday ones |
-| Translation | 3,536 words, one at a time | **Spanish for 29,179 English words and French for 43,738**, both ways; 139 phrases; **simple sentences**, with grammar |
+| Translation | 3,536 words, one at a time | **Spanish for 29,179 English words and French for 43,738** (28,107 and 41,517 since Onyx 3 ranks them differently), both ways; 139 phrases; **simple sentences**, with grammar |
 | Neural networks | one, for what you mean | **two**: the new one predicts your next word as you type |
 | Code | none | **small programs in Python, JavaScript, Rust, C, C#, C++, HTML and HTTP**: 26 tasks, 149 programs, each compiled and run by a checker |
 | Held-out accuracy | 96.8% (90 of 93) | **97.8%** (91 of 93) |
@@ -41,9 +180,9 @@ This repository is the engine on its own, the same source files OmniTool ships, 
 | Conversation | the last question | **everything you've said**: "when is my exam?", "what's my dog's name?" |
 | Reasoning | | **with the dictionary**: "is a whale a mammal?", "name some birds" |
 
-## What Onyx is, honestly
+## How it understands you
 
-Onyx is not a large language model. It is a deliberately small assistant built from plain, inspectable parts:
+Under the mind, the parts that read a single message are the ones Onyx 2 introduced. They are plain and inspectable:
 
 - **Two models that vote.** A phrase matcher compares your message with 1,102 example phrases (763 English, 171 Spanish, 168 French), using word and word-pair features weighted by how rare each word is (TF-IDF), and counts a match only for as much of your sentence as it explains. A small neural network reads the same message as words, word pairs and three-letter pieces of words, so "helo" still looks like "hello". It has two layers and 200,380 parameters. Its weights are in [`src/onyx-weights.js`](src/onyx-weights.js) and [`tools/train.js`](tools/train.js) retrains them in a minute and a half, deterministically. Each scores every intent; Onyx blends the two (65% phrases, 35% network).
 - **A dictionary it reasons with.** See below. When no fixed reply fits, Onyx reads your message with it and answers the specific thing you said.
@@ -130,6 +269,8 @@ What Onyx can't do, by design: write long pieces (essays, songs, big programs), 
 
 ## The internet, with your permission
 
+**The switch.** Onyx has one setting for the internet, with three positions: **off** (never online, and it won't offer), **ask** (it says what it would look up and where, and waits for your yes) and **on** (it looks things up without asking). The demo puts it on the side as a switch with an "ask me before each lookup" box, and a first visit starts with it off. In code it is `Omni.onyx.settings.set('internet', 'off' | 'ask' | 'on')`; in conversation, "stay offline", "ask first" and "you can go online" do the same. When a reply used the internet, or would have, its thinking says so.
+
 The engine itself has no network code. It goes online only through a host's internet port, and [`host/net.js`](host/net.js) is a ready-made one: load it after `host/host.js` (the demo page does) and Onyx can look things up. Without it, Onyx stays offline and says so.
 
 **It asks first, every time**, until you say otherwise:
@@ -176,7 +317,7 @@ Omni.net = {
 
 ## Code
 
-Onyx writes small, complete programs in **Python, JavaScript, Rust, C, C#, C++, HTML and raw HTTP**, for 26 everyday tasks: hello world, counting, FizzBuzz, a function (add, multiply, square, average... or your own: "a function called area that takes w and h and returns w * h"), reversing a string, palindromes, factorials, Fibonacci numbers, primes, sorting a list (up or down), sum and average, looping over a list, reading and writing files, counting words, a class or struct with the fields you name (Onyx works out their types: *age* is a whole number, *price* a decimal, *is_available* true or false), HTTP GET and POST requests, a tiny web server, asking for a name, a number guessing game, temperature conversion, and web pages, tables, forms and buttons. Each comes with what it does and how to run it, and "now in Rust" (or "what about C#?") writes the same thing in another language. Say "can you code?" for the list.
+Besides [composing programs from a prompt](#code-from-a-prompt), Onyx writes small, complete programs in **Python, JavaScript, Rust, C, C#, C++, HTML and raw HTTP**, for 26 everyday tasks: hello world, counting, FizzBuzz, a function (add, multiply, square, average... or your own: "a function called area that takes w and h and returns w * h"), reversing a string, palindromes, factorials, Fibonacci numbers, primes, sorting a list (up or down), sum and average, looping over a list, reading and writing files, counting words, a class or struct with the fields you name (Onyx works out their types: *age* is a whole number, *price* a decimal, *is_available* true or false), HTTP GET and POST requests, a tiny web server, asking for a name, a number guessing game, temperature conversion, and web pages, tables, forms and buttons. Each comes with what it does and how to run it, and "now in Rust" (or "what about C#?") writes the same thing in another language. Say "can you code?" for the list.
 
 It isn't a language model. Each task is written for Onyx in each language, in that language's usual style, and filled in with what you asked: the numbers, names, fields, file names, URLs and text. That keeps every program correct: [`tools/check-code.js`](tools/check-code.js) writes all 26 tasks in every language they support, with their defaults and with 1 to 3 variations each (284 programs), compiles them with warnings treated as errors (`gcc` and `g++ -Wall -Wextra -Werror`, `rustc -D warnings`, `mcs -warnaserror+`), runs them, feeds the interactive ones their input, starts the servers and sends them a request, sends the raw HTTP to a local server, checks the HTML is well formed, and checks that FizzBuzz, a factorial or a sorted list comes out the same in every language. All 284 pass. The Rust HTTP examples use the `reqwest` crate, and the C and C++ ones libcurl; requests to the internet are compiled but not sent.
 
@@ -207,51 +348,52 @@ Long writing (essays, songs, code) is beyond Onyx, and it says so. Writing is in
 
 ## Measured
 
-`node test/test.js` checks Onyx against phrasings that are **not** in its examples, plus two scripted conversations:
+`node test/test.js` checks Onyx against phrasings that are **not** in its examples, plus scripted conversations. All 281 checks pass:
 
 | | Result |
 |---|---|
-| English intent accuracy on 93 held-out phrasings | 97.8% (91 of 93); Onyx 2.1: 96.8% |
+| English intent accuracy on 93 held-out phrasings | 97.8% (91 of 93), as in Onyx 2.5 |
 | Spanish, 20 held-out phrasings | intent 100%, language recognized 100% |
 | French, 20 held-out phrasings | intent 95%, language recognized 100% |
 | English phrasings taken for Spanish or French | 0 of 93 |
-| The intent network on its own | 88 of 93 held-out phrasings |
-| Conversation checks | 159 of 159 |
+| The intent network on its own | 89 of 93 held-out phrasings |
+| **New in Onyx 3** | |
+| The planner: messages split into the right steps, or rightly left whole | 13 of 13 |
+| Follow-ups read as the right thing to do to the last result | 10 of 10 |
+| A conversation using what is new (steps, other languages, writing, code, a document) | 33 of 33 |
+| Replies that come with their thinking and a confidence | 33 of 33 |
+| Programs from a prompt: read, written in JavaScript and run, with the right answer | 9 of 9, plus a page and a request |
+| `node tools/check-synth.js 300`: 19 prompts and 300 random plans, each written in six languages, compiled with warnings as errors, run and compared with the answer; 5 pages; 5 requests sent to a local server | 1,943 of 1,943 |
+| Units, runs of numbers and dates | 18 of 18 |
+| Quizzes (a math quiz marked right, a German one asked) and a document read from a file | pass |
+| The internet switch: on, an essay is built from Wikipedia; off, nothing is fetched or offered | pass |
+| Dictionaries: Spanish for 28,107 English words, French for 41,517, and 29 more languages | 594,242 translations |
+| **As before** | |
+| Conversation checks from Onyx 1 and 2 | all pass |
 | Dictionary data checks (no duplicates; every feeling has a mood, every event a type, every example uses its word) | 14,799 entries pass |
 | The full dictionary: every word's senses exist, every sense has a definition | 147,306 words, 117,659 senses |
 | Full-dictionary questions (word forms, kinds, people, places, all meanings, pronunciations) | 15 of 15 |
 | Sentences translated exactly as a person would write them (both ways, three languages) | 40 of 40 |
-| Translation in conversation (phrases, the large lists, quoted Spanish and French) | 6 of 6 |
-| Programs written for every task in every language it supports | 149 of 149 |
 | Code requests read right (task and language), and things that aren't code requests left alone | 21 of 21 |
-| Code in conversation (follow-ups, other languages, the list) | 9 of 9 |
 | Prediction network, on held-out sentences: right first / in the first three | 24.3% / 33.3% (counting: 21.3% / 30.9%) |
 | The JavaScript gives the trainer's own numbers on its sample of held-out sentences | 23.23% / 32.98%, exactly |
-| `node tools/check-code.js`: programs compiled with warnings as errors, run, and compared across languages | 284 of 284 |
-| Spanish and French word list (every word in the dictionary, both languages present) | 3,536 words pass |
-| Internet permission checks (off without a connector; asks first; yes, no, "always", "try again", "stay offline") | 9 of 9 |
-| Lookups through `host/net.js`, replaying recorded answers from Wikipedia, Open-Meteo and the Free Dictionary API, in three languages | 17 of 17 |
+| `node tools/check-code.js`: the ready-made programs compiled with warnings as errors, run, and compared across languages | 284 of 284 |
+| Internet permission checks, and lookups replaying recorded answers from Wikipedia, Open-Meteo and the Free Dictionary API | all pass |
 | The connector contacts only its four services | yes |
 | Writing checks (haiku syllables, rhymes, acrostics, stories, messages, descriptions, summaries) | 11 of 11 |
-| Deciding a reply, on average over 240 messages | about 0.4 ms |
-| Predicting the next word | about 3 ms |
-| Network requests from the demo page before you say yes | 0 |
+| Deciding a reply, on average over 240 messages | about 0.7 ms (0.4 in Onyx 2.5: planning and the trace cost the difference) |
+| Predicting the next word | about 2.5 ms |
+| Network requests from the demo page with the switch off | 0 |
 
-Loading the engine and everything but the full dictionary takes about 0.24 seconds in Node; the full dictionary's files about 0.15 more, and reading its index another 0.15, the first time an unusual word comes up. A page loads the full dictionary last, so it's ready to talk first.
+What isn't measured, because there is no fair way to put a number on it here: how good the essays, stories and emails are. They are well formed and on topic; read a few and judge. The same goes for the word-by-word translations into the 29 dictionary-only languages, which is why Onyx labels them.
 
-The intent network was retrained for Onyx 2.5 (the examples gained two "what's new in 2.5" phrases) and now misses "i need some rest" and "work is overwhelming". These are reported as they are, not tuned away. The misses are listed by the test itself, so you can see exactly where it is wrong.
+The intent network was retrained for Onyx 3 (the examples about its version changed) and still misses "i need some rest" and "work is overwhelming". These are reported as they are, not tuned away. The misses are listed by the test itself, so you can see exactly where it is wrong.
 
-The recorded answers in `test/fixtures` keep the tests offline and repeatable. Live, with this connector, research, weather, definitions and the news were each checked against the real services on 2026-11-07.
+The recorded answers in `test/fixtures` keep the tests offline and repeatable.
 
 ## Run it
 
-**In a browser:** open `demo/index.html`. Everything runs in the page, and it goes online only for a lookup you allow.
-
-**Check every program Onyx can write** (needs python3, node, rustc, gcc, g++, and mcs and mono for C#; cargo and libcurl's headers for the HTTP examples; whatever isn't installed is skipped and listed):
-
-```bash
-node tools/check-code.js
-```
+**In a browser:** open `demo/index.html`. Everything runs in the page, and it goes online only when the switch on the side is on.
 
 **In Node:**
 
@@ -259,30 +401,43 @@ node tools/check-code.js
 node test/test.js
 ```
 
+**Check the code it writes** (needs python3, node, rustc, gcc, g++, and mcs and mono for C#; cargo and libcurl's headers for the ready-made HTTP examples; whatever isn't installed is skipped and listed):
+
+```bash
+node tools/check-synth.js        # programs composed from a prompt: 19 prompts and 40 random plans, in six languages
+node tools/check-synth.js 300    # more random plans
+node tools/check-code.js         # the 26 ready-made programs in every language
+```
+
 **In your own page:** load the scripts in order, then ask:
 
 ```html
 <script src="host/host.js"></script>
-<script src="host/net.js"></script>          <!-- optional: lookups online, with permission -->
+<script src="host/net.js"></script>          <!-- optional: lookups online, when the switch allows -->
 <script src="src/onyx-math.js"></script>
 <script src="src/onyx-lexicon.js"></script>
 <script src="src/onyx-dictionary.js"></script>
+<script src="src/onyx-tongues.js"></script>  <!-- the 31 languages' names and everyday phrases -->
 <script src="src/onyx-languages.js"></script>
 <script src="src/onyx-data.js"></script>
 <script src="src/onyx-model.js"></script>
 <script src="src/onyx-weights.js"></script>
-<script src="src/onyx-write.js"></script>    <!-- optional: haiku, poems, stories, messages -->
-<script src="src/translations/onyx-translations-es.js"></script>  <!-- optional: the large word lists -->
+<script src="src/onyx-write.js"></script>    <!-- optional: haiku, poems, cards, summaries -->
+<script src="src/translations/onyx-translations-es.js"></script>  <!-- optional: the others load when asked for -->
 <script src="src/translations/onyx-translations-fr.js"></script>
-<script src="src/onyx-translate.js"></script>                     <!-- optional: phrases and sentences -->
-<script src="src/onyx-code.js"></script>                          <!-- optional: small programs -->
+<script src="src/onyx-translate.js"></script>                     <!-- optional: phrases, sentences, the dictionaries -->
+<script src="src/onyx-compose.js"></script>                       <!-- optional: essays, stories, emails, speeches -->
+<script src="src/onyx-code.js"></script>                          <!-- optional: ready-made programs -->
+<script src="src/onyx-synth.js"></script>                         <!-- optional: programs, pages and requests from a prompt -->
+<script src="src/onyx-uses.js"></script>                          <!-- optional: documents, quizzes, units, dates -->
+<script src="src/onyx-mind.js"></script>                          <!-- optional: planning in steps, and the thinking -->
 <script src="src/onyx-predict-weights.js"></script>               <!-- optional: the prediction network -->
 <script src="src/onyx-predict.js"></script>
 <script src="src/onyx.js"></script>
 <script>
-  Omni.onyx.respond('hi').then((reply) => console.log(reply.text));
+  Omni.onyx.respond('hi').then((reply) => console.log(reply.text, reply.thinking));
 </script>
-<!-- optional, and best loaded last: the full dictionary, about 18 MB -->
+<!-- optional, and best loaded last: the full English dictionary, about 18 MB -->
 <script src="src/english/onyx-english-index.js"></script>
 <script src="src/english/onyx-english-nouns-1.js"></script>
 <script src="src/english/onyx-english-nouns-2.js"></script>
@@ -290,9 +445,9 @@ node test/test.js
 <script src="src/english/onyx-english-modifiers.js"></script>
 ```
 
-Everything marked optional is: without it Onyx falls back to less (the hand-written dictionary, English, its phrase matcher alone, no writing, no translation of sentences, no code, no predictions, no internet), and says so when asked for what's missing.
+Everything marked optional is: without it Onyx falls back to less (one message at a time and no thinking trace, the hand-written dictionary, English, its phrase matcher alone, no writing, no code, no predictions, no internet), and says so when asked for what's missing. The other 29 dictionaries are fetched from `src/translations/`, next to wherever `host/host.js` was loaded from, the first time each is needed (`Omni.languages.load('de')`).
 
-`respond(text)` returns `{ text, offer?, expect?, action?, command? }`. `offer` is a yes/no question Onyx is waiting on, `action` is something the host should do (open a tool, switch the theme), and `command` is a request for OmniTool's tools, which only exist inside OmniTool. `Omni.onyx.context()` shows what Onyx has gathered from the conversation, `Omni.onyx.detect(text)` the language of a message, and `Omni.onyx.predict(text)` the likeliest next words (`[{ word, p }]`). The parts can be used on their own too: `Omni.onyxTranslate.text('I want two coffees', 'en', 'es')`, `Omni.onyxCode.write(Omni.onyxCode.parse('fizzbuzz in rust'))`, `Omni.onyxDictionary.define('sesquipedalian')`.
+`respond(text)` returns `{ text, thinking, confidence, ms, offer?, expect?, action?, command?, code?, plan?, piece?, speak? }`. `thinking` is the list of steps and `confidence` is `'sure'`, `'fair'` or `'unsure'`. `offer` is a yes/no question Onyx is waiting on, `action` is something the host should do (open a tool, switch the theme), `command` is a request for OmniTool's tools, which only exist inside OmniTool, `code` is the program in a reply, and `speak` is text the host should read aloud (set `Omni.speech = { say(text, lang) }` to offer a voice). `Omni.onyx.read(text, name)` hands it a document, `Omni.onyx.thinking()` gives the steps behind the last reply, `Omni.onyx.context()` shows what Onyx has gathered from the conversation, `Omni.onyx.detect(text)` the language of a message, and `Omni.onyx.predict(text)` its guesses for the next word.
 
 ## Study it, build on it
 
@@ -315,11 +470,12 @@ cd ../.. && python3 tools/build-lexicon.py --data nltk_data
 
 The build is deterministic too: the same inputs give the same `src/onyx-lexicon.js`.
 
-**Rebuild the full dictionary and the large word lists** from the same nltk_data folder (the word lists also need the Open Multilingual Wordnet, `omw-1.4.zip`, from the same place):
+**Rebuild the full dictionary and the large word lists** from the same nltk_data folder (the dictionaries also need the Open Multilingual Wordnet, `omw-1.4.zip`, from the same place, and for German the [OdeNet](https://github.com/hdaSprachtechnologie/odenet) file `deWordNet.xml` with the CILI map `ili-map-pwn30.tab`, in the folder given as `--odenet`):
 
 ```bash
 python3 tools/build-full.py --data nltk_data            # src/english/, about 35 seconds
-python3 tools/build-translations.py --data nltk_data    # src/translations/, about 45 seconds
+python3 tools/build-translations.py --data nltk_data --odenet odenet    # src/translations/, all 31 languages
+python3 tools/build-translations.py --data nltk_data --only it,ja       # or just some
 ```
 
 **Retrain the prediction network** after changing the examples, the dictionary or its templates:
@@ -334,54 +490,64 @@ All of them give the same output every time.
 ## Files
 
 ```
-src/onyx.js            the engine: text, the two models, reading what people say, the conversation, reasoning, languages
-src/onyx-model.js      the neural network: features and the forward pass (no training code)
+src/onyx.js            the engine: the plan, the skills, the conversation, the thinking trace
+src/onyx-mind.js       the mind: reading a message, planning its steps, what can be done to a result, how sure
+src/onyx-model.js      the intent network: features and the forward pass (no training code)
 src/onyx-weights.js    its open weights (generated by tools/train.js)
 src/onyx-dictionary.js the hand-written dictionary (format documented at the top), word forms, sentences, and the
                        reasoning on top: kinds of things, rhymes, syllables, anagrams
 src/onyx-lexicon.js    the generated part of the dictionary: WordNet, pronunciations (generated by tools/build-lexicon.py)
+src/onyx-tongues.js    the 31 languages: their names, ten everyday phrases in each, a hand-written German core
 src/onyx-languages.js  Spanish and French: the word list, what Onyx understands and says, their grammar and numbers
 src/onyx-math.js       math: number words, a safe parser, equations, percentages, statistics, number facts
 src/onyx-data.js       English intents and replies, jokes, tips, facts, glossary
-src/onyx-write.js      writing: haiku, rhyming poems, acrostics, stories, messages, descriptions, summaries
-src/onyx-translate.js  translation: the phrasebook, and the grammar for sentences in English, Spanish and French
-src/onyx-code.js       code: 26 tasks in Python, JavaScript, Rust, C, C#, C++, HTML and HTTP, and reading requests
+src/onyx-write.js      short writing: haiku, rhyming poems, acrostics, stories, messages, descriptions, summaries
+src/onyx-compose.js    writing from a prompt: essays, stories, emails, letters, speeches, product descriptions
+src/onyx-translate.js  translation: the phrasebook, the grammar for sentences in English, Spanish and French, and
+                       the other dictionaries
+src/onyx-code.js       ready-made programs: 26 tasks in Python, JavaScript, Rust, C, C#, C++, HTML and HTTP
+src/onyx-synth.js      code from a prompt: plans, written in six languages; web pages; HTTP requests
+src/onyx-uses.js       units, runs of numbers, dates, documents, quizzes
 src/onyx-predict.js    the prediction network: running it (next words, word endings, likely endings)
 src/onyx-predict-weights.js  its open weights (generated by tools/train-predict.py)
 src/english/           the full dictionary: all of WordNet 3.0, in five files (generated by tools/build-full.py)
-src/translations/      the large Spanish and French word lists (generated by tools/build-translations.py)
-host/host.js           a minimal host (storage, randomness) so Onyx runs outside OmniTool
+src/translations/      the dictionaries of 31 languages, one file each (generated by tools/build-translations.py)
+licenses/              the license of each wordnet the dictionaries come from
+host/host.js           a minimal host (storage, randomness, loading a language) so Onyx runs outside OmniTool
 host/net.js            the internet connector: Wikipedia, Open-Meteo, the Free Dictionary API
-demo/index.html        a standalone chat page
-test/test.js           held-out accuracy in three languages, the networks, conversations, the internet port, the
-                       connector, writing, the full dictionary, translation, code, predictions, data checks, speed
+demo/index.html        the app: the conversation, and on the side the internet switch and the thinking
+test/test.js           held-out accuracy in three languages, the networks, the planner, conversations, the internet
+                       port and switch, writing, dictionaries, translation, code, predictions, data checks, speed
 test/fixtures/         answers recorded from the three services, so the connector's tests run offline; held-out
                        sentences for the prediction network
 tools/train.js         trains the intent network
 tools/train-predict.py trains the prediction network
 tools/build-lexicon.py builds the lexicon from WordNet and CMUdict
 tools/build-full.py    builds the full dictionary from WordNet and CMUdict
-tools/build-translations.py  builds the large word lists from the Open Multilingual Wordnet
+tools/build-translations.py  builds the 31 dictionaries from the Open Multilingual Wordnet and OdeNet
 tools/onyx_wordnet.py  what the three builders share: text cleaning, filters, pronunciations
-tools/check-code.js    compiles and runs every program Onyx can write
+tools/check-code.js    compiles and runs every ready-made program
+tools/check-synth.js   compiles and runs programs composed from prompts and from random plans, in six languages
 tools/examples.txt     example sentences written for Onyx, for common words WordNet has none for
 ```
 
 ## Privacy
 
-The engine has no network code. Without `host/net.js` (or a host's own connector), nothing is sent anywhere. With it, Onyx sends only the words being looked up, only to the services in the table above, and only after you agree, or after you've said "always". The connector stores nothing and sends no account, key or cookie. The only things Onyx stores are your name, the facts you ask it to keep and your settings (including your choice about going online), in your browser's local storage (or in memory under Node). What you tell it during a conversation stays in memory and is gone when the page closes.
+The engine has no network code. Without `host/net.js` (or a host's own connector), nothing is sent anywhere. With it, Onyx sends only the words being looked up, only to the services in the table above, and only when the internet switch allows it: after you agree, in its "ask" position, or without asking once you've turned it fully on. The connector stores nothing and sends no account, key or cookie. The only things Onyx stores are your name, the facts you ask it to keep and your settings (including your choice about going online), in your browser's local storage (or in memory under Node). What you tell it during a conversation stays in memory and is gone when the page closes.
 
 The data files in `src/` are not secret and can't be: anything a web page runs can be read by whoever opens it. That is fine, because they contain no personal data, keys or passwords. Anything private belongs in a `private/` folder, which `.gitignore` keeps out of this repository.
 
 ## Licenses and credits
 
-Onyx is MIT licensed (see [LICENSE](LICENSE)), except the French word list (below). The generated lexicon and the full dictionary include data from **Princeton WordNet 3.0** (WordNet 3.0 Copyright 2006 by Princeton University, all rights reserved; see [LICENSE-WORDNET](LICENSE-WORDNET)) and the **CMU Pronouncing Dictionary** (Copyright (C) 1993-2008 Carnegie Mellon University, all rights reserved; see [LICENSE-CMUDICT](LICENSE-CMUDICT)). [wordfreq](https://github.com/rspeer/wordfreq) was used to choose which words to include; none of its data is in this repository. The hand-written Spanish and French translations, the phrasebook and the sentence grammar, the Spanish and French conversation, the code for every task, and 2,346 example sentences were written for Onyx.
+Onyx is MIT licensed (see [LICENSE](LICENSE)), except the dictionaries in `src/translations/` (below). The generated lexicon and the full dictionary include data from **Princeton WordNet 3.0** (WordNet 3.0 Copyright 2006 by Princeton University, all rights reserved; see [LICENSE-WORDNET](LICENSE-WORDNET)) and the **CMU Pronouncing Dictionary** (Copyright (C) 1993-2008 Carnegie Mellon University, all rights reserved; see [LICENSE-CMUDICT](LICENSE-CMUDICT)). [wordfreq](https://github.com/rspeer/wordfreq) was used to choose which words to include; none of its data is in this repository. The hand-written Spanish and French translations, the phrasebook and the sentence grammar, the Spanish and French conversation, the code for every task, and 2,346 example sentences were written for Onyx.
 
-The large word lists come from the **Open Multilingual Wordnet 1.4**: the Spanish from the **Multilingual Central Repository 3.0** (Gonzalez-Agirre, Laparra and Rigau, 2012), under CC BY 3.0 (see [LICENSE-MCR](LICENSE-MCR)), and the French from **WOLF, the Wordnet Libre du Français** (Sagot and Fišer, 2008), under the CeCILL-C license (see [LICENSE-WOLF](LICENSE-WOLF)). `src/translations/onyx-translations-fr.js`, being derived from WOLF, is distributed under CeCILL-C; the rest of Onyx is not affected. The prediction network learned only from Onyx's own text.
+The 31 dictionaries in `src/translations/` come from the **Open Multilingual Wordnet 1.4** and, for German, **OdeNet**. **Each file is derived from its language's wordnet and is distributed under that wordnet's license, not under MIT**; the [table above](#dictionaries-for-31-languages) names each one, every file says so at its top, and [`licenses/`](licenses) has each license with the wordnet's citation. Several are share-alike (CC BY-SA), and the French one, from **WOLF, the Wordnet Libre du Français** (Sagot and Fišer, 2008), is under CeCILL-C. The Spanish, Catalan, Galician and Basque come from the **Multilingual Central Repository 3.0** (Gonzalez-Agirre, Laparra and Rigau, 2012), under CC BY 3.0. The rest of Onyx is not affected by these licenses: leave a file out and that language is simply not there. The hand-written German core and the everyday phrases in `src/onyx-tongues.js` were written for Onyx. The prediction network learned only from Onyx's own text.
 
 What Onyx looks up online comes from [Wikipedia](https://www.wikipedia.org/) (text under CC BY-SA 4.0), [Open-Meteo](https://open-meteo.com/) (weather data under CC BY 4.0) and the [Free Dictionary API](https://dictionaryapi.dev/) (Wiktionary text under CC BY-SA 3.0). Onyx names the source and links to it in every reply that uses them. The recorded answers in `test/fixtures` are test data from the same services, under the same licenses.
 
 ## Version
+
+**Onyx 3** (2026-11-11): a mind that plans each message as one step or several, lets a step use the result of the one before, and returns its thinking and a confidence with every reply; dictionaries for 31 languages besides English, 594,242 translations, each under its wordnet's license; essays, stories, emails, letters, speeches and product descriptions written from a prompt; programs composed from a description in Python, JavaScript, Rust, C, C# and C++, web pages from named sections and HTTP requests from their parts, all checked by compiling and running them; documents that can be read and questioned; quizzes, unit conversion, dates and sums of runs of numbers; follow-ups on the last result (translate it, shorter, longer, more formal, explain it, read it aloud); the internet setting as a switch; and a new look, with an app that opens on its bands parting. Held-out accuracy 97.8% (91 of 93), unchanged.
 
 **Onyx 2.5** (2026-11-09): all of WordNet 3.0 behind the everyday dictionary (147,561 words in all), and 70 newer words written for Onyx; translation of simple sentences both ways, a phrasebook, and Spanish and French for tens of thousands of words from the Open Multilingual Wordnet; a second neural network, which predicts the next word as you type; and small programs in Python, JavaScript, Rust, C, C#, C++, HTML and HTTP, every one compiled and run by a checker. Held-out accuracy is 97.8% (Onyx 2.1: 96.8%). Onyx 2.1 is on the [`onyx-2.1`](../../tree/onyx-2.1) branch.
 

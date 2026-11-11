@@ -29,7 +29,9 @@
 		const t = String(text).trim();
 		const words = (t.match(/[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu) || []).length;
 		const sentences = Math.max(1, (t.match(/[.!?。！？]+(?:\s|$)/g) || []).length);
-		const kind = REQUEST.test(t) ? 'a request' : QUESTION.test(t) ? 'a question' : words <= 3 ? 'a short remark' : 'a statement';
+		// "A python program that ...", "fizzbuzz in rust": a thing named is a thing asked for.
+		const named = /^(?:an? |the |some )?(?:\S+ ){0,3}(?:programs?|scripts?|functions?|pages?|websites?|requests?|quiz|essays?|stor(?:y|ies)|poems?|haikus?|emails?|letters?|speech|toast|class|struct)\b/i.test(t) || /\bin (?:python|javascript|rust|c\+\+|c#|c|html)[.!?]*$/i.test(t);
+		const kind = REQUEST.test(t) ? 'a request' : QUESTION.test(t) ? 'a question' : named ? 'a request, named by what it wants' : words <= 3 ? 'a short remark' : 'a statement';
 		const script = /[぀-ヿ一-鿿]/.test(t) ? 'Chinese or Japanese writing' : /[Ѐ-ӿ]/.test(t) ? 'Cyrillic writing' : /[֐-׿]/.test(t) ? 'Hebrew writing' : /[؀-ۿ]/.test(t) ? 'Arabic writing' : /[฀-๿]/.test(t) ? 'Thai writing' : /[Ͱ-Ͽ]/.test(t) ? 'Greek writing' : null;
 		const pointsBack = words <= 14 && POINTS_BACK.test(t);
 		return { words, sentences, kind, pointsBack, script, summary: `${count(words, 'word')}${sentences > 1 ? ` in ${sentences} sentences` : ''}: ${kind}${script ? `, in ${script}` : ''}${pointsBack ? ', pointing back at something said before' : ''}` };

@@ -411,7 +411,7 @@ const SCRIPT_2 = [
 		if (!ok) failed++;
 		console.log(`${ok ? 'PASS' : 'FAIL'} online: "${say}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
 	}
-	const polite = fetched.filter((f) => /wikipedia/.test(f.url)).every((f) => /^Onyx\/2/.test(f.init.headers['User-Agent'] || ''));
+	const polite = fetched.filter((f) => /wikipedia/.test(f.url)).every((f) => /^Onyx\/3 /.test(f.init.headers['User-Agent'] || ''));
 	const hosts = [...new Set(fetched.map((f) => new URL(f.url).hostname))].sort();
 	const onlyThese = hosts.every((h) => /^(en|es|fr)\.wikipedia\.org$|^(geocoding-)?api\.open-meteo\.com$|^api\.dictionaryapi\.dev$/.test(h));
 	if (!polite || !onlyThese) failed++;

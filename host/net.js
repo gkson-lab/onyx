@@ -15,7 +15,7 @@
 (function (root) {
 	'use strict';
 
-	const AGENT = 'Onyx/2.1 (https://github.com/gkson-lab/onyx; on-device assistant)';
+	const AGENT = 'Onyx/3 (https://github.com/gkson-lab/onyx; on-device assistant)';
 	const TIMEOUT = 6000;
 	const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 	const enc = encodeURIComponent;
