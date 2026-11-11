@@ -13647,7 +13647,6 @@ HN|hydrogen azide,azoimide,hydrazoic acid
 بشكل حسي|perceptually
 بشكل خاص|especially,particularly,specially
 بشكل ش|deadly,insanely,madly
-بشكل ش�|deadly,insanely,madly
 بشكل ضار|detrimentally,harmfully,noxiously
 بشكل عادي|usually,normally,commonly
 بشكل عمودي|vertically
@@ -13656,7 +13655,6 @@ HN|hydrogen azide,azoimide,hydrazoic acid
 بشكل معبر|expressively
 بشكل معجمي|lexically
 بشكل مميز|especially,particularly,specially
-بشكل م�|deadly,insanely,madly
 بشكل نعتي|adjectively
 بشكل نوعي|qualitatively
 بشكل هدام|destructively

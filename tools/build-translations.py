@@ -125,6 +125,9 @@ def load_omw(folder, name):
         key = parts[0].replace('-s', '-a')
         # Hebrew and Arabic as they are normally written, without the optional vowel marks.
         word = re.sub('[\u0591-\u05c7\u064b-\u065f\u0670]', '', parts[2]).strip().replace('_', ' ').replace('+', ' ')
+        # A few entries in the source files are damaged (they hold the Unicode replacement character): left out.
+        if '\ufffd' in word:
+            continue
         if not word or re.search(r'[0-9|`\\]', word) or len(word) > 40:
             continue
         senses.setdefault(key, [])
