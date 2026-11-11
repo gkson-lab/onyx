@@ -1826,7 +1826,7 @@
 
 	/* ---------- Code ---------- */
 
-	const CODE_MENU = 'I can write small programs in Python, JavaScript, Rust, C, C#, C++, and HTML or raw HTTP: hello world, counting, FizzBuzz, a function (add, multiply, square... or your own, like "a function called area that takes w and h and returns w * h"), reversing a string, palindromes, factorials, Fibonacci numbers, primes, sorting a list, sum and average, looping over a list, reading and writing files, counting words, a class or struct with the fields you name, HTTP GET and POST requests, a tiny web server, asking for a name, a number guessing game, temperature conversion, and web pages, tables, forms and buttons. Try "fizzbuzz in rust" or "a class Book with title, author and price in C#".';
+	const CODE_MENU = 'I can write small programs in Python, JavaScript, Rust, C, C#, C++, and HTML or raw HTTP: hello world, counting, FizzBuzz, a function (add, multiply, square... or your own, like "a function called area that takes w and h and returns w * h"), reversing a string, palindromes, factorials, Fibonacci numbers, primes, sorting a list, sum and average, looping over a list, reading and writing files, counting words, a class or struct with the fields you name, HTTP GET and POST requests, a tiny web server, asking for a name, a number guessing game, temperature conversion, and web pages, tables, forms and buttons. I also compose programs from a description of what to do with a list of numbers or words (keep, drop, change, sort, count, add up), whole web pages from the sections you name, and HTTP requests from their parts. Try "fizzbuzz in rust", "a class Book with title, author and price in C#", or "a python program that takes the numbers 1 to 20, keeps the even ones, squares them and prints the sum".';
 
 	/** A program as a reply: what it does, the code, and how to run it. */
 	function showCode(job) {
@@ -1851,19 +1851,81 @@
 		].filter(Boolean).join('\n\n'), { code: { lang: job.lang, text: w.code } });
 	}
 
+	/**
+	 * A program, page or request composed from the prompt (onyx-synth.js): the plan Onyx read from it, step by step,
+	 * then the code that carries the plan out.
+	 */
+	function showSynth(plan, lang, defaulted) {
+		const S = Omni.onyxSynth;
+		const L = Omni.onyxCode.LANGS;
+		const w = S.write(plan, lang);
+		if (!w) return null;
+		convo.code = { synth: plan, lang };
+		convo.lastKind = 'code';
+		convo.lastOutput = w.code;
+		trace('plan', w.plan.join(' → '));
+		const steps = w.plan.map((p, i) => `${i + 1}. ${p[0].toUpperCase()}${p.slice(1)}`).join('\n');
+		const fence = '```' + L[w.lang].fence + '\n' + w.code.replace(/\r\n/g, '\n').replace(/\n$/, '') + '\n```';
+		if (plan.kind === 'page') return answer([`**${w.title}**, put together from what you asked for:`, steps, fence, 'Save it as `index.html` and open it in a browser. The words in it are placeholders: put your own in.'].join('\n\n'), { code: { lang: 'html', text: w.code }, plan: w.plan });
+		if (plan.kind === 'request') return answer([`**${w.title}**, built from its parts:`, steps, fence, 'The same thing with curl:\n```bash\n' + w.curl + '\n```', /YOUR_/.test(w.code) ? 'Put your real key or token where it says YOUR_….' : ''].filter(Boolean).join('\n\n'), { code: { lang: 'http', text: w.code }, plan: w.plan });
+		const others = S.LANGS.filter((l) => l !== lang).map((l) => L[l].name);
+		const file = plan.source.file ? ` It reads \`${plan.source.file}\`, which should be in the same folder.` : plan.source.type === 'input-nums' ? ' It reads the numbers you type (or pipe in) until the input ends.' : '';
+		return answer([
+			`**A program in ${L[lang].name}**, composed from your prompt. This is how I read it:`,
+			steps,
+			fence,
+			(L[lang].project || `Save it as \`${L[lang].file}\`, then run \`${L[lang].run}\`.`) + file,
+			defaulted ? `(Say "in ${others[1]}" or another language for a different one, or tell me if I read a step wrong.)` : `I can also write it in ${listOf(others)}.`,
+		].join('\n\n'), { code: { lang, text: w.code }, plan: w.plan });
+	}
+
+	/** Reads a prompt as something to compose (a data program, a page with sections, a request with its parts), or null. */
+	function synthPlan(t, job, lang) {
+		const S = Omni.onyxSynth;
+		if (!S) return null;
+		const codey = lang || /\b(?:programs?|code|scripts?|functions?|snippets?)\b/i.test(t);
+		const pageTask = job && /^(?:htmlpage|table|form|button)$/.test(job.task || '');
+		if (lang === 'html' || pageTask || (!lang && /\b(?:landing |home ?|web ?)page\b|\bwebsite\b|\bsite for\b/i.test(t))) {
+			const page = S.page(t);
+			// One thing on a page (a form, a table) is the small writer's job; several sections is a page to compose.
+			return page && page.sections.length >= 2 && page.strength >= 3 ? { plan: page, lang: 'html' } : null;
+		}
+		if (lang === 'http' || (!lang && /\b(?:GET|POST|PUT|PATCH|DELETE|HEAD)\b/.test(t) && /\brequest\b|https?:\/\//i.test(t))) {
+			const req = S.request(t);
+			return req && req.strength >= 1 ? { plan: req, lang: 'http' } : null;
+		}
+		if (!codey || lang === 'html' || lang === 'http') return null;
+		const p = S.pipeline(t);
+		if (!p) return null;
+		// Two steps or more is a plan of its own; one step only when no ready-made program fits.
+		const generic = !(job && job.task) || (/^(?:count|loop|sort|stats|wordcount)$/.test(job.task) && p.steps.some((x) => x.op === 'filter' || x.op === 'map'));
+		return p.strength >= 2 || (p.strength >= 1 && generic) ? { plan: p, lang: lang || 'python', defaulted: !lang } : null;
+	}
+
 	/** Code requests and follow-ups ("now in Rust"); null when the message isn't about code. */
 	function codeReply(body) {
 		const C = Omni.onyxCode;
 		if (!C) return null;
 		const t = body.trim();
+		if (convo.code && convo.code.synth && convo.lastKind === 'code') {
+			const m = t.match(/^(?:ok(?:ay)?,? |and |now |great,? |thanks,? |cool,? )?(?:now |also )?(?:what about|how about|same(?: thing| one)?|do (?:it|that)|write (?:it|that)|show (?:it|me)|translate (?:it|that)|convert (?:it|that)|port (?:it|that)|rewrite (?:it|that)|can you do (?:it|that)|and)?\s*(?:in|to|into|using|for)?\s*(.+?)(?:\s+(?:version|please|instead|too|now))?[.?!]*$/i);
+			const lang = m && m[1].split(/\s+/).length <= 3 && C.langOf(`in ${m[1]}`);
+			if (lang && !/\b(?:spanish|french|english|german|italian)\b/i.test(t)) {
+				const plan = convo.code.synth;
+				if (plan.kind === 'pipeline' && Omni.onyxSynth.LANGS.includes(lang)) return showSynth(plan, lang, false);
+				return answer(plan.kind === 'pipeline' ? `That one is a program, so not ${C.LANGS[lang].name}: I can write it in ${listOf(Omni.onyxSynth.LANGS.map((l) => C.LANGS[l].name))}.` : `A ${plan.kind === 'page' ? 'web page is HTML' : 'raw request is HTTP'}, whatever sends it. Ask me for "an HTTP ${plan.kind === 'page' ? 'server' : plan.method === 'POST' ? 'POST' : 'GET'} in ${C.LANGS[lang].name}" for code that does it.`);
+			}
+		}
 		// "Now in Rust", "same in C#", "what about JavaScript?", "translate it to C++".
-		if (convo.code && convo.lastKind === 'code') {
+		if (convo.code && !convo.code.synth && convo.lastKind === 'code') {
 			const m = t.match(/^(?:ok(?:ay)?,? |and |now |great,? |thanks,? |cool,? )?(?:now |also )?(?:what about|how about|same(?: thing| one)?|do (?:it|that)|write (?:it|that)|show (?:it|me)|translate (?:it|that)|convert (?:it|that)|port (?:it|that)|rewrite (?:it|that)|can you do (?:it|that)|and)?\s*(?:in|to|into|using|for)?\s*(.+?)(?:\s+(?:version|please|instead|too|now))?[.?!]*$/i);
 			const lang = m && m[1].split(/\s+/).length <= 3 && C.langOf(`in ${m[1]}`);
 			if (lang && !/\b(?:spanish|french|english)\b/i.test(t)) return showCode(Object.assign({}, convo.code, { lang, defaulted: false }));
 			if (/^(?:java|go|golang|kotlin|swift|ruby|php|typescript|perl|scala|haskell|lua|r|matlab|bash|shell|sql)\b/i.test(t.replace(/^(?:now |what about |how about |same in |in |and )+/i, ''))) return answer(`I don't write that language yet. I can write it in ${listOf(C.languagesFor(convo.code.task).map((l) => C.LANGS[l].name))}.`);
 		}
 		const job = C.parse(t);
+		const made = synthPlan(t, job, C.langOf(t));
+		if (made) return showSynth(made.plan, made.lang, made.defaulted);
 		if (!job) return null;
 		if (!job.task) return answer(CODE_MENU);
 		return showCode(job);
