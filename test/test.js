@@ -1,4 +1,4 @@
-// Tests Onyx 2 on its own, in Node: intent accuracy on phrasings it was not built with (in English, Spanish and
+// Tests Onyx on its own, in Node: intent accuracy on phrasings it was not built with (in English, Spanish and
 // French), the neural model, a long conversation, the dictionary's data, the word list, the internet port and speed.
 //   node test/test.js
 'use strict';
@@ -16,7 +16,11 @@ require('../src/onyx-write.js');
 require('../src/translations/onyx-translations-es.js');
 require('../src/translations/onyx-translations-fr.js');
 require('../src/onyx-translate.js');
+require('../src/onyx-compose.js');
 require('../src/onyx-code.js');
+require('../src/onyx-synth.js');
+require('../src/onyx-uses.js');
+require('../src/onyx-mind.js');
 require('../src/onyx-predict-weights.js');
 require('../src/onyx-predict.js');
 require('../src/onyx.js');
@@ -182,7 +186,7 @@ const SCRIPT = [
 	['write 1234 in words', /one thousand, two hundred and thirty-four/],
 	['should i take the bus or walk', /Go with \*\*(take the bus|walk)\*\*/],
 	['write me a poem', (r) => /^\*\*.+\*\*\n\n/.test(r.text) && r.text.split('\n').length >= 6],
-	['write an essay about the war', /beyond me|short things/],
+	['write an essay about the war', (r) => /^\*\*Wars?\*\*\n\n/.test(r.text) && r.piece && r.piece.form === 'essay'],
 	['who won the world cup in 1998', /don't know|outside what I know|No idea/],
 	['I forgot my password', /can't recover passwords/],
 	['helo', /Hi|Hello|Hey|Good/],
@@ -227,7 +231,7 @@ const SCRIPT_2 = [
 	['define analyses', /form of \*\*analysis\*\* and of \*\*analyse\*\*/],
 	['define begun', /past participle of \*\*begin\*\*/],
 	['define police', /keep order/],
-	['what version are you?', /Onyx 2/],
+	['what version are you?', /Onyx 3/],
 	// Spanish and French, in both directions.
 	['how do you say happy in French?', /\*\*heureux\*\*/],
 	['what does gato mean?', /\*\*cat\*\* in English/],
@@ -572,7 +576,7 @@ const SCRIPT_2 = [
 		['now in rust', /^I write an HTML form in HTML, not Rust\./],
 		['can you code?', /^I can write small programs in Python, JavaScript, Rust, C, C#, C\+\+/],
 		['is 29 prime?', /^Yes, 29 is prime\./],
-		['write an essay', /beyond me/],
+		['write an essay', /^About what\?/],
 	];
 	for (const [say, expect] of CODE_CHAT) {
 		const r = await Omni.onyx.respond(say);
@@ -621,6 +625,193 @@ const SCRIPT_2 = [
 	const finOk = /^\*\*I have an exam on\*\* \*\w+day\b/.test(fin.text) && /My guesses for the next word/.test(fin.text);
 	if (!finOk) failed++;
 	console.log(`${finOk ? 'PASS' : 'FAIL'} "finish this sentence: I have an exam on" -> ${JSON.stringify(fin.text).slice(0, 80)}`);
+
+	/* ---------- Onyx 3 ---------- */
+
+	// The planner on its own: what is one thing, what is several, and what is done to the last result.
+	const MIND = Omni.onyxMind;
+	const PLANS = [
+		['write a haiku about the sea then translate it to spanish', ['write a haiku about the sea', 'translate it to spanish']],
+		['how do you say cat in french, german and japanese', ['how do you say cat in french', 'how do you say cat in german', 'how do you say cat in japanese']],
+		['define serendipity and translate it to French', ['define serendipity', 'translate it to French']],
+		['what is the square root of 144, then double it', ['what is the square root of 144', 'double it']],
+		['define brave, kind and curious', ['define brave', 'define kind', 'define curious']],
+		['look up Ada Lovelace, then summarize it, then translate it to french', ['look up Ada Lovelace', 'summarize it', 'translate it to french']],
+		['write a python program that prints the even numbers from 1 to 10, then show it in rust', ['write a python program that prints the even numbers from 1 to 10', 'show it in rust']],
+		// One program, however many "then"s it has; and things that only look like lists.
+		['take the numbers 1 to 10, add 5 to each one, then keep those greater than 12 and print them on one line in python', null],
+		['i went to the shop and then i went home', null],
+		['salt and pepper', null],
+		['how do you say "cats and dogs" in german', null],
+		['generate 5 uuids and save them to a file', null],
+		['what is the difference between a crocodile and an alligator', null],
+	];
+	const badPlan = PLANS.filter(([t, want]) => JSON.stringify((MIND.plan(t) || {}).steps || null) !== JSON.stringify(want)).map(([t]) => `${t} -> ${JSON.stringify(MIND.plan(t))}`);
+	const OPS = [['make it shorter', 'shorten'], ['translate that into Japanese please', 'translate'], ['in french', 'translate'], ['how many words is that', 'count'], ['explain it', 'explain'], ['read it aloud', 'speak'], ['make it more formal', 'tone'], ['summarize it', 'summarize'], ['what is it', null], ['shorter days', null]];
+	const badOp = OPS.filter(([t, want]) => ((MIND.operation(t) || {}).op || null) !== want).map(([t]) => `${t} -> ${JSON.stringify(MIND.operation(t))}`);
+	const mindOk = !badPlan.length && !badOp.length;
+	if (!mindOk) failed++;
+	console.log(`${mindOk ? 'PASS' : 'FAIL'} the planner: ${PLANS.length - badPlan.length} of ${PLANS.length} messages planned right, ${OPS.length - badOp.length} of ${OPS.length} follow-ups read right${[...badPlan, ...badOp].map((x) => '\n     ' + x).join('')}`);
+
+	// Units, runs of numbers and dates, with the date fixed so the answers don't move.
+	const USES = Omni.onyxUses;
+	const day0 = new Date(2026, 10, 11);
+	const TOOLS = [
+		[USES.convert('convert 5 miles to km'), /^5 miles = \*\*8\.04672 kilometers\*\*\.$/],
+		[USES.convert('how many cups in a liter'), /^1 liter = \*\*4\.22675 US cups\*\*\.$/],
+		[USES.convert('72 f to c'), /22\.2222 degrees Celsius/],
+		[USES.convert('how many seconds in a day'), /\*\*86,400 seconds\*\*/],
+		[USES.convert('2.5 gb to mb'), /\*\*2,500 megabytes\*\*/],
+		[USES.convert('convert 3 hours to meters'), /one measures time and the other length/],
+		[USES.convert('what is 12 times 7') || { text: 'null' }, /^null$/],
+		[USES.series('what is the sum of the numbers from 1 to 100'), /= \*\*5,050\*\*/],
+		[USES.series('sum of the first 50 odd numbers'), /= \*\*2,500\*\*/],
+		[USES.series('product of the numbers from 1 to 6'), /= \*\*720\*\*/],
+		[USES.series('add up the even numbers from 1 to 20'), /= \*\*110\*\*/],
+		[USES.dates('how many days until christmas', day0), /in \*\*44 days\*\*: Friday, December 25, 2026/],
+		[USES.dates('what day of the week is 2027-03-01', day0), /will be a \*\*Monday\*\*/],
+		[USES.dates('what day was july 4 1776', day0), /was a \*\*Thursday\*\*/],
+		[USES.dates('3 weeks from now', day0), /\*\*Wednesday, December 2, 2026\*\*/],
+		[USES.dates('is 1900 a leap year', day0), /^No: 1900 isn't a leap year/],
+		[USES.dates('how many days between march 1 and may 1', day0), /\*\*61 days\*\*/],
+		[USES.dates('what day is it', day0) || { text: 'null' }, /^null$/],
+	];
+	const badTool = TOOLS.filter(([r, re]) => !r || !re.test(r.text)).map(([r, re]) => `${re} <- ${r && r.text}`);
+	if (badTool.length) failed++;
+	console.log(`${badTool.length ? 'FAIL' : 'PASS'} units, sums and dates: ${TOOLS.length - badTool.length} of ${TOOLS.length} right${badTool.map((x) => '\n     ' + x).join('')}`);
+
+	// Programs composed from a prompt: the plan is read, written in JavaScript and run here; tools/check-synth.js
+	// compiles and runs the same plans in all six languages.
+	const SY = Omni.onyxSynth;
+	const PROGRAMS = [
+		['take the numbers 1 to 20, keep the even ones, square them and print the sum', '1540'],
+		['the sum of the squares of the odd numbers from 1 to 9', '165'],
+		['take the list 4, 8, 15, 16, 23, 42, remove the even ones and print the average', '19'],
+		['given the numbers 5, 3, 9, 3, 5, 1, remove the duplicates, sort them in descending order and print them separated by commas', '9, 5, 3, 1'],
+		['the three largest numbers in 12, 7, 31, 4, 18, 25', '31\n25\n18'],
+		['take the numbers 1 to 10, add 5 to each one, then keep those greater than 12 and print them on one line', '13, 14, 15'],
+		['take the words apple, kiwi, banana, fig and cherry, keep the ones longer than 4 letters, put them in capitals and sort them', 'APPLE\nBANANA\nCHERRY'],
+		['take the words in "one fish two fish red fish blue fish", remove the repeats and join them with dashes', 'one-fish-two-red-blue'],
+		['take the numbers 1 to 12, skip the first 3, keep the ones that are not divisible by 2 and print the smallest', '5'],
+	];
+	const badProgram = [];
+	for (const [prompt, want] of PROGRAMS) {
+		const plan = SY.parse(prompt, 'javascript');
+		let got = 'not read as a plan';
+		if (plan) {
+			const out = [];
+			new Function('console', SY.write(plan, 'javascript').code)({ log: (...a) => out.push(a.join(' ')) }); // eslint-disable-line no-new-func
+			got = out.join('\n');
+		}
+		if (got !== want) badProgram.push(`${prompt} -> ${JSON.stringify(got)}`);
+	}
+	const pageOut = SY.write(SY.parse('a landing page for a bakery called Sweet Crumbs with a hero, three features, a contact form and a footer', 'html'), 'html');
+	const reqOut = SY.write(SY.parse('a PUT request to https://api.example.com/users/42 with a bearer token and a JSON body with name Sam and age 30', 'http'), 'http');
+	const synthOk = !badProgram.length && /<title>Sweet Crumbs<\/title>[\s\S]*<form method="post">[\s\S]*<footer>/.test(pageOut.code) && reqOut.code === 'PUT /users/42 HTTP/1.1\r\nHost: api.example.com\r\nAuthorization: Bearer YOUR_TOKEN\r\nContent-Type: application/json\r\nContent-Length: 26\r\nConnection: close\r\n\r\n{"name": "Sam", "age": 30}';
+	if (!synthOk) failed++;
+	console.log(`${synthOk ? 'PASS' : 'FAIL'} code from a prompt: ${PROGRAMS.length - badProgram.length} of ${PROGRAMS.length} programs read, written and run right; a page and a request composed${badProgram.map((x) => '\n     ' + x).join('')}`);
+
+	// A conversation that uses what is new: steps, the thinking trace, other languages, writing, code, a document.
+	Omni.onyx.reset();
+	Omni.onyx.settings.reset();
+	Omni.onyx.settings.set('internet', 'off');
+	const AMAZON = 'The Amazon rainforest is the largest tropical rainforest on Earth. It covers much of the Amazon basin in South America. The forest is home to millions of species of insects, plants, birds and fish. Scientists say the rainforest stores huge amounts of carbon. Deforestation threatens the forest: farms and roads replace the trees. Many groups now work to protect the rainforest and the people who live in it.';
+	const SCRIPT_3 = [
+		['write a haiku about the sea, then translate it into Spanish', (r) => /^\*\*Haiku: Sea\*\*/.test(r.text) && /\n\nIn Spanish:\n\n/.test(r.text) && r.steps === 2 && r.thinking.some((x) => x.step === 'plan') && r.confidence === 'fair'],
+		['how do you say cat in French, German and Japanese', (r) => /le chat[\s\S]*Katze[\s\S]*Japanese: \*\*/.test(r.text) && r.steps === 3],
+		['what is the square root of 144, then double it', (r) => /\*\*12\*\*[\s\S]*\*\*24\*\*/.test(r.text) && r.confidence === 'sure'],
+		['add 10', /= \*\*34\*\*/],
+		['how did you get that?', /^Here is how I got there:\n1\. \*\*Read\*\*: 2 words: a request\n2\. \*\*Skill\*\*: arithmetic/],
+		['what is the sum of the numbers from 1 to 100', /= \*\*5,050\*\*/],
+		['how many cups in a liter', /4\.22675 US cups/],
+		['what does Schmetterling mean in German', /butterfly/],
+		['how do you say water in Japanese', /水/],
+		['what does acqua mean in Italian', /\*\*water\*\*/],
+		['translate casa from Italian to Finnish', /\*\*casa\*\* in Finnish: \*\*/],
+		['write a python program that takes the numbers 1 to 20, keeps the even ones, squares them and prints the sum', (r) => /^\*\*A program in Python\*\*, composed from your prompt/.test(r.text) && r.code.lang === 'python' && r.code.text.includes('if n % 2 == 0') && r.plan.length === 4],
+		['now in rust', (r) => /^\*\*A program in Rust\*\*/.test(r.text) && /fn main\(\) \{/.test(r.code.text)],
+		['explain it', /^It works in 4 steps, and the code follows them in order:\n1\. Start with the numbers 1 to 20\./],
+		['make a landing page for a bakery called Sweet Crumbs with a hero, three features, a contact form and a footer', (r) => r.code && r.code.lang === 'html' && /<title>Sweet Crumbs<\/title>/.test(r.code.text)],
+		['fizzbuzz in rust', /^\*\*FizzBuzz in Rust\*\*/],
+		['write an email to my boss asking for friday off', (r) => r.piece && r.piece.form === 'email' && /\*\*Subject:\*\*/.test(r.text) && /Friday off/.test(r.text)],
+		['make it more formal', /Sincerely,/],
+		['how many words is that', /^\*\*\d+ words\*\*, \d+ characters/],
+		['tell me a story about a shy dragon who wants to sing', (r) => r.piece && r.piece.form === 'story' && r.text.split(/\s+/).length > 120],
+		['write a short essay about volcanoes', (r) => r.piece && r.piece.form === 'essay' && /^\*\*Volcanoes\*\*/.test(r.text)],
+		['make it longer', (r) => r.piece && r.text.split(/\s+/).length > 60],
+		['translate it to italian', /^I have an Italian dictionary but not its grammar[\s\S]* → vulcano/],
+		[`Read this: ${AMAZON}`, /^I've read it: 68 words in 6 sentences, about 1 minute of reading\. The words it comes back to most are \*\*rainforest\*\*/],
+		['summarize it', /^\*\*The document, in short\*\*\n- The Amazon rainforest is the largest/],
+		['what does it say about carbon', /^About \*\*carbon\*\*, it says:\n> Scientists say the rainforest stores huge amounts of carbon\.$/],
+		['how many times does it mention forest', /\*\*2 times\*\*/],
+		['key words', /^Its key words: \*\*rainforest\*\* \(4\)/],
+		['quiz me', /^On what\? I can quiz you on \*\*math\*\*/],
+		['i have a quiz tomorrow', (r) => !r.quiz && !/question/.test(r.text)],
+		['what can you do', /\*\*Think in steps\*\*[\s\S]*\*\*Code from a prompt\*\*[\s\S]*What I can't do: see images/],
+		['who are you', /I'm Onyx 3/],
+	];
+	let traced = 0;
+	for (const [say, expect] of SCRIPT_3) {
+		const r = await Omni.onyx.respond(say);
+		const ok = !!r && (typeof expect === 'function' ? !!expect(r) : expect.test(r.text));
+		if (r && Array.isArray(r.thinking) && r.thinking.length >= 2 && r.thinking[0].step === 'read' && r.thinking[r.thinking.length - 1].step === 'check' && /^(?:sure|fair|unsure)$/.test(r.confidence)) traced++;
+		if (!ok) failed++;
+		console.log(`${ok ? 'PASS' : 'FAIL'} onyx 3: "${say.slice(0, 70)}" -> ${r ? JSON.stringify(r.text).slice(0, 90) : 'no reply'}`);
+	}
+	const tracedOk = traced === SCRIPT_3.length;
+	if (!tracedOk) failed++;
+	console.log(`${tracedOk ? 'PASS' : 'FAIL'} every reply comes with its thinking and a confidence: ${traced} of ${SCRIPT_3.length}`);
+
+	// A math quiz, answered by working each question out here: all right, then one wrong.
+	Omni.onyx.reset();
+	let q = await Omni.onyx.respond('give me a math quiz with 4 questions');
+	const solve = (text) => {
+		const m = text.match(/\*\*(\d+)(?: ([+−×÷]) |% of )(\d+)\*\*\?$/);
+		return m[2] ? { '+': +m[1] + +m[3], '−': m[1] - m[3], '×': m[1] * m[3], '÷': m[1] / m[3] }[m[2]] : (m[1] * m[3]) / 100;
+	};
+	let quizOk = q.expect === 'quiz' && /^Math: 4 questions\./.test(q.text);
+	for (let i = 0; i < 3 && quizOk; i++) {
+		q = await Omni.onyx.respond(String(solve(q.text)));
+		quizOk = /^(?:Right!|Correct\.|Yes!|That's it\.|Exactly\.)\n\n\*\*\d\.\*\* What is/.test(q.text);
+	}
+	q = quizOk ? await Omni.onyx.respond(String(solve(q.text) + 1)) : q;
+	quizOk = quizOk && /^Not quite: it's [\d.,]+\.\n\nThat's the quiz: \*\*3 of 4\*\*/.test(q.text) && q.quiz.done;
+	// And a vocabulary quiz in another language asks a real question about a real word.
+	const vq = await Omni.onyx.respond('quiz me on German with 2 questions');
+	const vOk = vq.expect === 'quiz' && /^German vocabulary: 2 questions\.[\s\S]*\*\*1\.\*\* (?:How do you say \*\*\w+\*\* in German\?|What does the German word \*\*\S+\*\* mean in English\?)$/.test(vq.text);
+	const stopped = await Omni.onyx.respond('stop');
+	if (!quizOk || !vOk || !/^Okay, no quiz\.$/.test(stopped.text)) failed++;
+	console.log(`${quizOk && vOk ? 'PASS' : 'FAIL'} quizzes: a math quiz marked right (3 of 4), a German one asked -> ${JSON.stringify(vq.text.split('\n').pop())}`);
+
+	// A file handed over by the host.
+	const fileRead = await Omni.onyx.read(AMAZON, 'amazon.txt');
+	const fileAsk = await Omni.onyx.respond('what does the document say about roads');
+	const fileOk = /^I've read \*\*amazon\.txt\*\*: 68 words/.test(fileRead.text) && /> Deforestation threatens the forest: farms and roads replace the trees\./.test(fileAsk.text);
+	if (!fileOk) failed++;
+	console.log(`${fileOk ? 'PASS' : 'FAIL'} a document from a file: read, then searched -> ${JSON.stringify(fileAsk.text).slice(0, 90)}`);
+
+	// With the switch on, an essay about something outside the dictionary is built from the article that comes back.
+	Omni.onyx.reset();
+	delete require.cache[require.resolve('../host/net.js')];
+	require('../host/net.js');
+	Omni.net.fetch = async (url, init) => {
+		fetched.push({ url, init });
+		const route = ROUTES.find(([re]) => re.test(url));
+		const body = route ? JSON.parse(fs.readFileSync(path.join(FIX, route[1]), 'utf8')) : { title: 'Not found' };
+		return { ok: !!route, status: route ? 200 : 404, json: async () => body };
+	};
+	Omni.onyx.settings.set('internet', 'on');
+	fetched.length = 0;
+	const essay = await Omni.onyx.respond('write an essay about Ada Lovelace');
+	const essayOk = essay.piece && essay.piece.form === 'essay' && /Built from the Wikipedia article/.test(essay.text) && fetched.length > 0 && essay.thinking.some((x) => x.step === 'online') && essay.confidence === 'fair';
+	Omni.onyx.settings.set('internet', 'off');
+	fetched.length = 0;
+	const switchedOff = await Omni.onyx.respond('what is the weather in Austin?');
+	const offOk = !fetched.length && !switchedOff.offer;
+	if (!essayOk || !offOk) failed++;
+	console.log(`${essayOk && offOk ? 'PASS' : 'FAIL'} the internet switch: on, an essay is built from Wikipedia; off, nothing is fetched or offered -> ${JSON.stringify(switchedOff.text).slice(0, 70)}`);
+	Omni.net = { enabled: false, ask: async () => null };
+	Omni.onyx.settings.reset();
 
 	// Speed: deciding a reply, averaged over the held-out phrasings and the conversation, after the first.
 	Omni.onyx.reset();

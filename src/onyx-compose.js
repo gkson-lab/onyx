@@ -21,7 +21,7 @@
 
 	/* ---------- Reading the prompt ---------- */
 
-	const ASK = '(?:please |can you |could you |would you |will you |i want |i need |i would like |i\'d like )?(?:you to )?(?:write|compose|draft|make|give|create|generate|type|prepare|do)(?: me| us| up)?\\s+';
+	const ASK = '(?:please |can you |could you |would you |will you |i want |i need |i would like |i\'d like )?(?:you to )?(?:write|compose|draft|make|give|create|generate|type|prepare|do|tell|make up|invent)(?: me| us| up)?\\s+';
 	const SIZE = '(?:(?:a|an|the|another|one|some|my)\\s+)?((?:(?:very |really )?(?:short|brief|quick|little|small|long|longer|detailed|full|simple|formal|informal|casual|friendly|polite|professional|funny|kind|warm|five[- ]paragraph|three[- ]paragraph|one[- ]paragraph)\\s+)*)';
 	const FORMS = [
 		['essay', /^(?:essays?|articles?|reports?|blog ?posts?|papers?|compositions?|write-?ups?|paragraphs?|texts?|pieces?|overviews?|explanations?|introductions?)\b/],
