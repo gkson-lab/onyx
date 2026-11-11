@@ -2,6 +2,8 @@
 
 **Thinks in steps you can follow. Still free. Still open source.**
 
+**Try it: [gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/)**. Free to use, with no account and nothing to install.
+
 Onyx is the small conversational engine inside [OmniTool](https://github.com/gkson-lab/omnitool), and Onyx 3 is its third generation. It plans what you ask before it answers, shows the steps it took with every reply, writes text and code from a prompt, and has dictionaries for 31 languages besides English. It runs on your device: no account, no model download, and it goes online only when its internet switch says it may. Open weights, open source: yours to run, study and build on.
 
 This repository is the engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool. Earlier versions live on their own branches: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1), [`onyx-1.2`](../../tree/onyx-1.2), [`onyx-1.3`](../../tree/onyx-1.3), [`onyx-2.0`](../../tree/onyx-2.0), [`onyx-2.1`](../../tree/onyx-2.1) and [`onyx-2.5`](../../tree/onyx-2.5).
@@ -383,7 +385,7 @@ Long writing (essays, songs, code) is beyond Onyx, and it says so. Writing is in
 | Writing checks (haiku syllables, rhymes, acrostics, stories, messages, descriptions, summaries) | 11 of 11 |
 | Deciding a reply, on average over 240 messages | about 0.7 ms (0.4 in Onyx 2.5: planning and the trace cost the difference) |
 | Predicting the next word | about 2.5 ms |
-| Network requests from the demo page with the switch off | 0 |
+| Network requests from the app to other sites with the switch off | 0 |
 
 What isn't measured, because there is no fair way to put a number on it here: how good the essays, stories and emails are. They are well formed and on topic; read a few and judge. The same goes for the word-by-word translations into the 29 dictionary-only languages, which is why Onyx labels them.
 
@@ -393,7 +395,9 @@ The recorded answers in `test/fixtures` keep the tests offline and repeatable.
 
 ## Run it
 
-**In a browser:** open `demo/index.html`. Everything runs in the page, and it goes online only when the switch on the side is on.
+**On the web:** [gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/). It is this repository served as it is by GitHub Pages, from the `gh-pages` branch: the page and its files are downloaded once, and after that everything runs in your browser.
+
+**From a copy of the repository:** open `index.html`. Everything runs in the page, and it goes online only when the switch on the side is on.
 
 **In Node:**
 
@@ -515,7 +519,9 @@ src/translations/      the dictionaries of 31 languages, one file each (generate
 licenses/              the license of each wordnet the dictionaries come from
 host/host.js           a minimal host (storage, randomness, loading a language) so Onyx runs outside OmniTool
 host/net.js            the internet connector: Wikipedia, Open-Meteo, the Free Dictionary API
-demo/index.html        the app: the conversation, and on the side the internet switch and the thinking
+index.html             the app, and the website's front page: the conversation, and on the side the internet
+                       switch and the thinking
+.nojekyll              tells GitHub Pages to serve the files as they are
 test/test.js           held-out accuracy in three languages, the networks, the planner, conversations, the internet
                        port and switch, writing, dictionaries, translation, code, predictions, data checks, speed
 test/fixtures/         answers recorded from the three services, so the connector's tests run offline; held-out

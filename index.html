@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="claude:viewport-fit-sides" content="cover">
+	<title>Onyx 3</title>
+	<meta name="description" content="Onyx 3 is a free, open-source assistant that runs in your browser. It plans in steps, shows its thinking, writes text and code from a prompt, and has dictionaries for 31 languages.">
+	<meta property="og:title" content="Onyx 3">
+	<meta property="og:description" content="A free, open-source assistant that runs in your browser and thinks in steps you can follow.">
+	<meta property="og:type" content="website">
+	<meta name="theme-color" content="#101613">
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3CclipPath id='c'%3E%3Cpath d='M24 2c16 0 22 6 22 22s-6 22-22 22S2 40 2 24 8 2 24 2z'/%3E%3C/clipPath%3E%3C/defs%3E%3Cpath fill='%23101613' d='M24 2c16 0 22 6 22 22s-6 22-22 22S2 40 2 24 8 2 24 2z'/%3E%3Cg clip-path='url(%23c)' fill='none' stroke-linecap='round'%3E%3Cpath stroke='%23ede8dc' stroke-width='7' d='M-4 31C10 23 22 35 52 21'/%3E%3Cpath stroke='%23dba23e' stroke-width='3.6' d='M-4 20C12 12 24 24 52 9'/%3E%3Cpath stroke='%234fb893' stroke-width='3' d='M-4 41C10 34 26 45 52 32'/%3E%3C/g%3E%3C/svg%3E">
+	<style>
+		/*
+		 * Onyx 3's look. Onyx the stone is made of bands laid down one at a time, and Onyx the assistant thinks in
+		 * steps laid down one at a time: the bands are the brand. The mark is a cut stone with three bands across it,
+		 * the same four colours (stone, milk, honey, green) mark the steps of the thinking trace, and nothing else on
+		 * the page is decorated.
+		 *
+		 * Layout: one screen. The conversation on the left; on the side, the internet switch and the thinking.
+		 *
+		 * No web fonts: Onyx doesn't go online without being allowed to, so its page loads nothing from anywhere else.
+		 */
+		:root {
+			--ground: #f1f3ed;
+			--surface: #fafbf7;
+			--raise: #ffffff;
+			--ink: #101613;
+			--muted: #57625b;
+			--line: #d6dbd1;
+			--honey: #a8650f;
+			--honey-soft: #f3e3c4;
+			--green: #1c7557;
+			--green-soft: #d5ebe0;
+			--rose: #b0432c;
+			--rose-soft: #f5d9d0;
+			/* The stone and its bands keep their colours in both themes: they are the mark. */
+			--stone: #101613;
+			--milk: #ede8dc;
+			--band-honey: #dba23e;
+			--band-green: #4fb893;
+			--display: "Avenir Next", "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
+			--body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+			--mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, "Liberation Mono", monospace;
+			--ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+		}
+		@media (prefers-color-scheme: dark) {
+			:root:not([data-theme="light"]) { --ground: #0a0e0c; --surface: #111714; --raise: #18201c; --ink: #eceee8; --muted: #97a29a; --line: #27322b; --honey: #e2ab4e; --honey-soft: #3a2c12; --green: #62cba6; --green-soft: #143327; --rose: #f08c73; --rose-soft: #3d1c14; color-scheme: dark; }
+		}
+		:root[data-theme="dark"] { --ground: #0a0e0c; --surface: #111714; --raise: #18201c; --ink: #eceee8; --muted: #97a29a; --line: #27322b; --honey: #e2ab4e; --honey-soft: #3a2c12; --green: #62cba6; --green-soft: #143327; --rose: #f08c73; --rose-soft: #3d1c14; color-scheme: dark; }
+
+		* { box-sizing: border-box; }
+		html, body { height: 100%; }
+		body {
+			margin: 0;
+			padding-left: max(16px, env(safe-area-inset-left, 0px));
+			padding-right: max(16px, env(safe-area-inset-right, 0px));
+			background: var(--ground);
+			color: var(--ink);
+			font: 15px/1.55 var(--body);
+			overflow: hidden;
+		}
+		button, input { font: inherit; color: inherit; }
+		button { cursor: pointer; }
+		:focus-visible { outline: 2px solid var(--honey); outline-offset: 2px; }
+		h1, h2, h3, p { margin: 0; }
+		[hidden] { display: none !important; }
+
+		/* ---------- The shell ---------- */
+		.app { height: 100%; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 20px; }
+		.main { min-width: 0; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+		.top { display: flex; align-items: center; gap: 12px; padding-block: 14px 10px; }
+		.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; text-decoration: none; color: inherit; }
+		.mark { width: 34px; height: 34px; flex: none; }
+		.wordmark { height: 22px; width: auto; overflow: visible; }
+		.wordmark path, .wordmark circle { fill: none; stroke: currentColor; stroke-width: 5.2; stroke-linecap: round; stroke-linejoin: round; }
+		.version { font: 700 13px/1 var(--mono); padding: 5px 7px; border-radius: 6px; background: var(--stone); color: var(--band-honey); }
+		.pill { font: 600 12px/1 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: none; white-space: nowrap; }
+		.pill.net { display: inline-flex; align-items: center; gap: 7px; }
+		.pill.net::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+		.pill.net[data-state="ask"]::before { background: var(--honey); }
+		.pill.net[data-state="on"]::before { background: var(--green); }
+		.panel-open { display: none; }
+
+		/* ---------- The mark: a stone with three bands ---------- */
+		.mark .stone { fill: var(--stone); }
+		.mark .band { fill: none; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+		.mark .b1 { stroke: var(--milk); stroke-width: 7; }
+		.mark .b2 { stroke: var(--band-honey); stroke-width: 3.6; }
+		.mark .b3 { stroke: var(--band-green); stroke-width: 3; }
+		.mark .rim { fill: none; stroke: var(--line); stroke-width: 1; }
+		/* While Onyx is working, the bands are laid down again, one after another. */
+		.mark.thinking .band { animation: lay 0.9s var(--ease) infinite; }
+		.mark.thinking .b2 { animation-delay: 0.12s; }
+		.mark.thinking .b3 { animation-delay: 0.24s; }
+		@keyframes lay { 0% { stroke-dashoffset: 1; } 55%, 100% { stroke-dashoffset: 0; } }
+
+		/* ---------- The conversation ---------- */
+		#log { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 4px 12px 0; display: flex; flex-direction: column; gap: 14px; scrollbar-width: thin; }
+		.hero { position: relative; overflow: hidden; border-radius: 18px; background: var(--stone); color: var(--milk); padding: 26px 24px 20px; display: grid; gap: 14px; flex: none; }
+		.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.55; pointer-events: none; }
+		.hero > :not(canvas) { position: relative; }
+		.hero h1 { font: 650 clamp(26px, 4.6vw, 42px)/1.06 var(--display); letter-spacing: -0.025em; text-wrap: balance; max-width: 16ch; }
+		.hero h1 em { font-style: normal; color: var(--band-honey); }
+		.hero p { max-width: 60ch; color: #c9cdc3; text-wrap: pretty; }
+		.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+		.tabs button { border: 1px solid #39443d; background: none; color: #c9cdc3; padding: 6px 12px; border-radius: 999px; font: 600 12px/1 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; }
+		.tabs button[aria-selected="true"] { background: var(--milk); border-color: var(--milk); color: var(--stone); }
+		.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+		.chips button { text-align: left; border: 0; border-radius: 10px; padding: 9px 12px; background: #1c2520; color: var(--milk); line-height: 1.35; max-width: 100%; transition: background 0.15s, transform 0.15s var(--ease); }
+		.chips button:hover { background: #26322b; transform: translateY(-1px); }
+
+		.msg { display: grid; gap: 4px; max-width: min(100%, 76ch); animation: rise 0.35s var(--ease) both; }
+		.msg .who { font: 600 11px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+		.msg .body { overflow-wrap: anywhere; min-width: 0; }
+		.msg.you { align-self: flex-end; justify-items: end; }
+		.msg.you .body { background: var(--stone); color: var(--milk); padding: 9px 14px; border-radius: 16px 16px 4px 16px; }
+		.msg.onyx .body { background: var(--surface); border: 1px solid var(--line); padding: 12px 16px; border-radius: 4px 16px 16px 16px; }
+		.msg .body ul, .msg .body ol { margin: 6px 0; padding-left: 22px; }
+		.msg .body blockquote { margin: 6px 0; padding: 2px 0 2px 12px; border-left: 3px solid var(--band-honey); color: var(--ink); }
+		.msg .body code { font: 0.92em var(--mono); background: var(--ground); padding: 1px 5px; border-radius: 5px; }
+		.msg .body a { color: var(--green); }
+		.wait { display: inline-flex; gap: 5px; align-items: center; height: 22px; }
+		.wait i { width: 18px; height: 4px; border-radius: 2px; background: var(--muted); animation: pulse 0.9s ease-in-out infinite; }
+		.wait i:nth-child(2) { background: var(--band-honey); animation-delay: 0.15s; }
+		.wait i:nth-child(3) { background: var(--band-green); animation-delay: 0.3s; }
+		@keyframes pulse { 0%, 100% { transform: scaleX(0.45); opacity: 0.5; } 50% { transform: scaleX(1); opacity: 1; } }
+		.code { margin: 10px 0; border-radius: 10px; overflow: hidden; background: var(--stone); color: #e6e9e1; }
+		.code-head { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px 6px 12px; font: 600 11px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: #9aa59d; border-bottom: 1px solid #27322b; }
+		.code-head button { border: 1px solid #39443d; background: none; color: #e6e9e1; border-radius: 6px; padding: 4px 9px; font: 600 11px/1 var(--mono); }
+		.code pre { margin: 0; padding: 12px; overflow-x: auto; font: 13px/1.5 var(--mono); tab-size: 4; }
+		.msg .body .code pre code { background: none; padding: 0; font: inherit; color: inherit; }
+
+		/* The thinking under a reply: the same steps as on the side, kept with the message. */
+		.trace { font-size: 13px; }
+		.trace summary { cursor: pointer; display: inline-flex; align-items: center; gap: 8px; color: var(--muted); list-style: none; padding: 2px 0; }
+		.trace summary::-webkit-details-marker { display: none; }
+		.trace summary::before { content: ""; width: 14px; height: 8px; border-block: 2px solid var(--band-honey); box-shadow: 0 4px 0 -1px var(--band-green); flex: none; }
+		.sure { color: var(--green); } .fair { color: var(--honey); } .unsure { color: var(--rose); }
+		.steps { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+		.steps li { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 10px; padding: 7px 10px 7px 12px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--muted); }
+		.steps .k { font: 600 11px/1.7 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+		.steps .d { overflow-wrap: anywhere; }
+		.steps li[data-step="plan"], .steps li[data-step="step"] { border-left-color: var(--band-honey); }
+		.steps li[data-step="skill"], .steps li[data-step="exact"], .steps li[data-step="understood"], .steps li[data-step="recall"] { border-left-color: var(--band-green); }
+		.steps li[data-step="rough"], .steps li[data-step="assumed"], .steps li[data-step="generated"], .steps li[data-step="online"], .steps li[data-step="offline"] { border-left-color: var(--honey); }
+		.steps li[data-step="failed"], .steps li[data-step="miss"] { border-left-color: var(--rose); }
+		.steps li[data-step="check"] { border-left-color: var(--stone); background: var(--raise); }
+		.side .steps li { grid-template-columns: 1fr; gap: 0; animation: band 0.4s var(--ease) both; animation-delay: calc(var(--i) * 80ms); }
+		@keyframes band { from { opacity: 0; transform: translateX(14px); } }
+		@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+
+		/* ---------- Writing to Onyx ---------- */
+		.composer { padding-block: 8px 14px; display: grid; gap: 8px; }
+		.suggest { display: flex; gap: 6px; min-height: 28px; flex-wrap: wrap; }
+		.suggest button { border: 1px dashed var(--line); background: none; border-radius: 8px; padding: 3px 9px; color: var(--muted); font-size: 13px; }
+		.suggest button:first-child { border-style: solid; color: var(--ink); }
+		form { display: flex; gap: 8px; }
+		form input { flex: 1; min-width: 0; min-height: 48px; padding: 0 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--raise); }
+		form button { min-height: 48px; padding: 0 20px; border: 0; border-radius: 14px; background: var(--stone); color: var(--milk); font-weight: 650; }
+
+		/* ---------- The side ---------- */
+		.side { min-height: 0; overflow-y: auto; padding-block: 14px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; }
+		.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 10px; }
+		.card h2 { font: 650 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+		.card .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+		.card p { font-size: 13.5px; color: var(--muted); }
+		.card p strong { color: var(--ink); }
+		.card a { color: var(--green); font-weight: 600; }
+		.switch { position: relative; width: 54px; height: 30px; flex: none; border-radius: 999px; border: 1px solid var(--line); background: var(--ground); padding: 0; transition: background 0.25s; }
+		.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--muted); transition: transform 0.3s var(--ease), background 0.25s; }
+		.switch[aria-checked="true"] { background: var(--green-soft); border-color: var(--green); }
+		.switch[aria-checked="true"]::after { transform: translateX(24px); background: var(--green); }
+		.switch:disabled { opacity: 0.5; cursor: not-allowed; }
+		.check { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+		.check input { width: 16px; height: 16px; accent-color: var(--green); }
+		.quiet { border: 1px solid var(--line); background: var(--raise); border-radius: 10px; padding: 9px 12px; text-align: left; font-weight: 600; }
+		.quiet:hover { border-color: var(--muted); }
+		.verdict { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; font-size: 13.5px; }
+		.verdict b { font-weight: 650; }
+		.verdict span { color: var(--muted); font: 12px var(--mono); }
+		.langs { display: flex; flex-wrap: wrap; gap: 5px; }
+		.langs span { font-size: 12px; padding: 2px 7px; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); transition: background 0.4s, color 0.4s, border-color 0.4s; }
+		.langs span.loaded { background: var(--green-soft); border-color: var(--green); color: var(--ink); }
+		details.card summary { cursor: pointer; font: 650 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+		.side-close { display: none; }
+
+		/* ---------- The opening: five bands part, and the stone is cut ---------- */
+		.curtain { position: fixed; inset: 0; z-index: 50; display: grid; grid-template-rows: 14fr 7fr 58fr 7fr 14fr; animation: gone 0s linear 2.1s forwards; }
+		.curtain .strip { animation: part 0.7s var(--ease) forwards; }
+		.curtain .strip:nth-child(1) { background: var(--milk); animation-delay: 1.34s; --to: -101%; }
+		.curtain .strip:nth-child(2) { background: var(--band-honey); animation-delay: 1.26s; --to: 101%; }
+		.curtain .strip:nth-child(3) { background: var(--stone); animation-delay: 1.4s; --to: -101%; display: grid; place-items: center; }
+		.curtain .strip:nth-child(4) { background: var(--band-green); animation-delay: 1.26s; --to: 101%; }
+		.curtain .strip:nth-child(5) { background: var(--milk); animation-delay: 1.34s; --to: 101%; }
+		.curtain .lockup { display: grid; justify-items: center; gap: 18px; color: var(--milk); padding: 0 24px; text-align: center; }
+		.curtain .row { display: flex; align-items: center; gap: 16px; }
+		.curtain .mark { width: 76px; height: 76px; }
+		.curtain .mark .rim { stroke: #39443d; }
+		.curtain .mark .band { stroke-dashoffset: 1; animation: draw 0.55s var(--ease) forwards; }
+		.curtain .mark .b1 { animation-delay: 0.1s; }
+		.curtain .mark .b2 { animation-delay: 0.26s; }
+		.curtain .mark .b3 { animation-delay: 0.42s; }
+		.curtain .wordmark { height: 46px; }
+		.curtain .wordmark > * { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 0.5s var(--ease) forwards; }
+		.curtain .wordmark > :nth-child(1) { animation-delay: 0.35s; }
+		.curtain .wordmark > :nth-child(2) { animation-delay: 0.47s; }
+		.curtain .wordmark > :nth-child(3) { animation-delay: 0.59s; }
+		.curtain .wordmark > :nth-child(4) { animation-delay: 0.71s; }
+		.curtain .version { font-size: 22px; padding: 8px 11px; border-radius: 9px; background: var(--band-honey); color: var(--stone); animation: pop 0.4s var(--ease) 0.85s both; }
+		.curtain .line { font: 600 13px/1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: #9aa59d; animation: rise 0.45s var(--ease) 0.95s both; }
+		@keyframes draw { to { stroke-dashoffset: 0; } }
+		@keyframes pop { from { opacity: 0; transform: scale(0.6); } }
+		@keyframes part { to { transform: translateX(var(--to)); } }
+		@keyframes gone { to { visibility: hidden; pointer-events: none; } }
+		.curtain.skip { display: none; }
+		/* What is behind the bands arrives as they part. */
+		.top, .hero, .composer, .side .card { animation: rise 0.6s var(--ease) both; animation-delay: 1.5s; }
+		.side .card:nth-child(3) { animation-delay: 1.6s; }
+		.side .card:nth-child(4) { animation-delay: 1.7s; }
+		.side .card:nth-child(5) { animation-delay: 1.8s; }
+		.side .card:nth-child(6) { animation-delay: 1.9s; }
+		.side .card:nth-child(7) { animation-delay: 2s; }
+		.hero { animation-delay: 1.58s; }
+		.composer { animation-delay: 1.66s; }
+		body.opened .top, body.opened .hero, body.opened .composer, body.opened .side .card { animation: none; }
+
+		@media (max-width: 880px) {
+			.app { grid-template-columns: minmax(0, 1fr); }
+			.panel-open { display: inline-flex; }
+			.pill.lang { display: none; }
+			.side { position: fixed; inset: 0 0 0 auto; z-index: 20; width: min(400px, 100%); background: var(--ground); border-left: 1px solid var(--line); padding: calc(14px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(14px + env(safe-area-inset-bottom, 0px)) 16px; transform: translateX(101%); visibility: hidden; transition: transform 0.35s var(--ease), visibility 0s 0.35s; }
+			.side.open { transform: none; visibility: visible; transition: transform 0.35s var(--ease); }
+			.side-close { display: block; align-self: flex-end; }
+			.hero { padding: 20px 16px 16px; }
+			.steps li { grid-template-columns: 1fr; gap: 0; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			.curtain { display: none; }
+			*, *::before, *::after { animation: none !important; transition: none !important; }
+		}
+	</style>
+</head>
+<body>
+	<!-- The opening. It is all CSS, so it always finishes; a tap skips it. -->
+	<div class="curtain" id="curtain" aria-hidden="true">
+		<div class="strip"></div>
+		<div class="strip"></div>
+		<div class="strip">
+			<div class="lockup">
+				<div class="row">
+					<svg class="mark" viewBox="0 0 48 48"><defs><clipPath id="cut-a"><path d="M24 2c16 0 22 6 22 22s-6 22-22 22S2 40 2 24 8 2 24 2z"/></clipPath></defs><path class="stone" d="M24 2c16 0 22 6 22 22s-6 22-22 22S2 40 2 24 8 2 24 2z"/><g clip-path="url(#cut-a)"><path class="band b1" pathLength="1" d="M-4 31C10 23 22 35 52 21"/><path class="band b2" pathLength="1" d="M-4 20C12 12 24 24 52 9"/><path class="band b3" pathLength="1" d="M-4 41C10 34 26 45 52 32"/></g><path class="rim" d="M24 2c16 0 22 6 22 22s-6 22-22 22S2 40 2 24 8 2 24 2z"/></svg>
+					<svg class="wordmark" viewBox="-3 0 106 36" role="img" aria-label="onyx"><circle pathLength="1" cx="12" cy="14" r="10"/><path pathLength="1" d="M32 4v20M32 14a8.5 8.5 0 0 1 17 0v10"/><path pathLength="1" d="M57 4l9 20M75 4L62 33"/><path pathLength="1" d="M83 4l16 20M99 4L83 24"/></svg>
+					<span class="version">3</span>
+				</div>
+				<div class="line">Thinks in steps you can follow</div>
+			</div>
+		</div>
+		<div class="strip"></div>
+		<div class="strip"></div>
+	</div>
+
+	<div class="app">
+		<main class="main">
+			<header class="top">
+				<div class="brand">
+					<svg class="mark" id="mark" viewBox="0 0 48 48" aria-hidden="true"><defs><clipPath id="cut-b"><path d="M24 2c16 0 22 6 22 22s-6 22-22 22S2 40 2 24 8 2 24 2z"/></clipPath></defs><path class="stone" d="M24 2c16 0 22 6 22 22s-6 22-22 22S2 40 2 24 8 2 24 2z"/><g clip-path="url(#cut-b)"><path class="band b1" pathLength="1" d="M-4 31C10 23 22 35 52 21"/><path class="band b2" pathLength="1" d="M-4 20C12 12 24 24 52 9"/><path class="band b3" pathLength="1" d="M-4 41C10 34 26 45 52 32"/></g><path class="rim" d="M24 2c16 0 22 6 22 22s-6 22-22 22S2 40 2 24 8 2 24 2z"/></svg>
+					<svg class="wordmark" viewBox="-3 0 106 36" role="img" aria-label="Onyx"><circle cx="12" cy="14" r="10"/><path d="M32 4v20M32 14a8.5 8.5 0 0 1 17 0v10"/><path d="M57 4l9 20M75 4L62 33"/><path d="M83 4l16 20M99 4L83 24"/></svg>
+					<span class="version" aria-label="version 3">3</span>
+				</div>
+				<span class="pill lang" id="lang" aria-live="polite">English</span>
+				<button type="button" class="pill net panel-open" id="panel-open" data-state="off" aria-controls="side" aria-expanded="false">Offline</button>
+			</header>
+
+			<div id="log" role="log" aria-live="polite" aria-label="Conversation">
+				<section class="hero" aria-label="About Onyx 3">
+					<canvas id="strata" aria-hidden="true"></canvas>
+					<h1>Thinks in <em>steps</em> you can follow.</h1>
+					<p>Onyx 3 runs in this page. It plans what you ask, shows its thinking with every reply, writes text and code from a prompt, and has dictionaries for 31 languages besides English. It goes online only when the internet switch says it may.</p>
+					<div class="tabs" id="tabs" role="tablist" aria-label="Things to try"></div>
+					<div class="chips" id="chips" role="tabpanel"></div>
+				</section>
+			</div>
+
+			<div class="composer">
+				<div class="suggest" id="suggest" aria-label="Suggested next words"></div>
+				<form id="form">
+					<input id="text" autocomplete="off" aria-label="Message to Onyx" placeholder="Ask Onyx for one thing, or several">
+					<button type="submit">Send</button>
+				</form>
+			</div>
+		</main>
+
+		<aside class="side" id="side" aria-label="Internet, thinking and tools">
+			<button type="button" class="quiet side-close" id="side-close">Close</button>
+
+			<section class="card" aria-labelledby="net-title">
+				<div class="head">
+					<h2 id="net-title">Internet</h2>
+					<button type="button" class="switch" id="net-switch" role="switch" aria-checked="false" aria-labelledby="net-title"></button>
+				</div>
+				<p id="net-status"><strong>Off.</strong> Everything stays on this device.</p>
+				<label class="check" id="net-ask-row" hidden><input type="checkbox" id="net-ask" checked> Ask me before each lookup</label>
+				<p id="net-fine">When on, Onyx can ask Wikipedia, Open-Meteo and the Free Dictionary API, and sends only the words to look up.</p>
+			</section>
+
+			<section class="card" aria-labelledby="think-title">
+				<div class="head"><h2 id="think-title">Thinking</h2></div>
+				<div class="verdict" id="verdict"><span>The steps behind each reply appear here.</span></div>
+				<ol class="steps" id="steps"></ol>
+			</section>
+
+			<section class="card" aria-labelledby="doc-title">
+				<h2 id="doc-title">Documents</h2>
+				<p id="doc-status">Give Onyx a text file, or paste a long text into the chat, then ask about it.</p>
+				<button type="button" class="quiet" id="doc-pick">Choose a text file</button>
+				<input type="file" id="doc-file" accept=".txt,.md,.markdown,.csv,.log,.json,.html,.rtf,text/*" hidden>
+			</section>
+
+			<section class="card" id="voice-card" aria-labelledby="voice-title" hidden>
+				<h2 id="voice-title">Voice</h2>
+				<label class="check"><input type="checkbox" id="voice"> Read replies aloud</label>
+			</section>
+
+			<details class="card" id="langs-card">
+				<summary>31 dictionaries</summary>
+				<p>Onyx talks in English, Spanish and French, and translates words between all of these. Each dictionary loads the first time it is asked for.</p>
+				<div class="langs" id="langs"></div>
+			</details>
+
+			<section class="card" aria-labelledby="free-title">
+				<h2 id="free-title">Free to use</h2>
+				<p>Onyx 3 is free and open source. No account, no key, no tracking: it runs in this page, on your device.</p>
+				<p><a href="https://github.com/gkson-lab/onyx">Source and licenses on GitHub</a></p>
+			</section>
+		</aside>
+	</div>
+
+	<script src="host/host.js"></script>
+	<script src="host/net.js"></script>
+	<script src="src/onyx-math.js"></script>
+	<script src="src/onyx-lexicon.js"></script>
+	<script src="src/onyx-dictionary.js"></script>
+	<script src="src/onyx-tongues.js"></script>
+	<script src="src/onyx-languages.js"></script>
+	<script src="src/onyx-data.js"></script>
+	<script src="src/onyx-model.js"></script>
+	<script src="src/onyx-weights.js"></script>
+	<script src="src/onyx-write.js"></script>
+	<script src="src/translations/onyx-translations-es.js"></script>
+	<script src="src/translations/onyx-translations-fr.js"></script>
+	<script src="src/onyx-translate.js"></script>
+	<script src="src/onyx-compose.js"></script>
+	<script src="src/onyx-code.js"></script>
+	<script src="src/onyx-synth.js"></script>
+	<script src="src/onyx-uses.js"></script>
+	<script src="src/onyx-mind.js"></script>
+	<script src="src/onyx-predict-weights.js"></script>
+	<script src="src/onyx-predict.js"></script>
+	<script src="src/onyx.js"></script>
+	<script>
+		(function () {
+			'use strict';
+			const $ = (id) => document.getElementById(id);
+			const log = $('log');
+			const input = $('text');
+			const suggestEl = $('suggest');
+			const mark = $('mark');
+			const side = $('side');
+			const NAMES = { en: 'English', es: 'Español', fr: 'Français' };
+			const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+			const escape = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+			/* ---------- The opening ---------- */
+			const curtain = $('curtain');
+			const opened = () => {
+				curtain.classList.add('skip');
+				document.body.classList.add('opened');
+			};
+			curtain.addEventListener('pointerdown', opened);
+			setTimeout(opened, reduced ? 0 : 2700);
+
+			/* ---------- Things to try ---------- */
+			const TRY = {
+				Think: ['write a haiku about the sea, then translate it into Spanish', 'how do you say cat in French, German and Japanese', 'what is the square root of 144, then double it', 'define serendipity and translate it to French'],
+				Write: ['write an email to my landlord about the broken heater', 'tell me a story about a shy dragon who wants to sing', 'write an essay about volcanoes', 'write a toast for my sister\'s wedding'],
+				Code: ['a python program that takes the numbers 1 to 20, keeps the even ones, squares them and prints the sum', 'a landing page for a bakery called Sweet Crumbs with a hero, three features, a contact form and a footer', 'a PUT request to https://api.example.com/users/42 with a bearer token and a JSON body with name Sam and age 30', 'fizzbuzz in rust'],
+				Languages: ['what does Schmetterling mean in German', 'how do you say water in Japanese', 'translate casa from Italian to Finnish', 'je suis fatiguée'],
+				Tools: ['quiz me on German', 'how many days until Christmas', 'how many cups in a liter', 'the sum of the numbers from 1 to 100', 'is a narwhal a mammal?'],
+			};
+			const tabs = $('tabs');
+			const chips = $('chips');
+			function showTab(name) {
+				for (const b of tabs.children) b.setAttribute('aria-selected', String(b.textContent === name));
+				chips.textContent = '';
+				for (const t of TRY[name]) {
+					const b = document.createElement('button');
+					b.type = 'button';
+					b.textContent = t;
+					b.addEventListener('click', () => send(t));
+					chips.appendChild(b);
+				}
+			}
+			for (const name of Object.keys(TRY)) {
+				const b = document.createElement('button');
+				b.type = 'button';
+				b.setAttribute('role', 'tab');
+				b.textContent = name;
+				b.addEventListener('click', () => showTab(name));
+				tabs.appendChild(b);
+			}
+			showTab('Think');
+
+			/* ---------- Replies: just enough Markdown ---------- */
+			function render(text) {
+				return String(text).split(/```(\w*)\n([\s\S]*?)\n```/).map((part, i, all) => {
+					if (i % 3 === 1) return '';
+					if (i % 3 === 2) return `<div class="code"><div class="code-head"><span>${escape(all[i - 1] || 'code')}</span><button type="button" data-copy>Copy</button></div><pre><code>${escape(part)}</code></pre></div>`;
+					return prose(part.replace(/^\n+|\n+$/g, ''));
+				}).join('');
+			}
+			function prose(text) {
+				if (!text) return '';
+				const links = [];
+				const marked = escape(text).replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)]/g, (url) => `\u0000${links.push(url) - 1}\u0000`);
+				const lines = marked.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*\n]+)\*/g, '<em>$1</em>').replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\u0000(\d+)\u0000/g, (m, i) => `<a href="${links[i]}" target="_blank" rel="noopener">${links[i]}</a>`).split('\n');
+				let html = '';
+				let open = '';
+				const close = () => {
+					if (open) html += `</${open}>`;
+					open = '';
+				};
+				for (const line of lines) {
+					const kind = /^- /.test(line) ? 'ul' : /^\d+\. /.test(line) ? 'ol' : /^&gt; /.test(line) ? 'blockquote' : '';
+					if (kind !== open) {
+						close();
+						if (kind) html += `<${kind}>`;
+						open = kind;
+					}
+					if (kind === 'ul' || kind === 'ol') html += `<li>${line.replace(/^(?:- |\d+\. )/, '')}</li>`;
+					else if (kind === 'blockquote') html += `${line.slice(5)}<br>`;
+					else html += line ? `${line}<br>` : '<br>';
+				}
+				close();
+				return html.replace(/(?:<br>)+$/, '');
+			}
+			function add(who, html, mine) {
+				const el = document.createElement('div');
+				el.className = 'msg ' + (mine ? 'you' : 'onyx');
+				el.innerHTML = `<div class="who">${who}</div><div class="body">${html}</div>`;
+				log.appendChild(el);
+				log.scrollTop = log.scrollHeight;
+				return el;
+			}
+			log.addEventListener('click', (e) => {
+				const b = e.target.closest('[data-copy]');
+				if (!b) return;
+				const code = b.closest('.code').querySelector('code');
+				const done = () => {
+					b.textContent = 'Copied';
+					setTimeout(() => (b.textContent = 'Copy'), 1200);
+				};
+				const select = () => {
+					const range = document.createRange();
+					range.selectNodeContents(code);
+					getSelection().removeAllRanges();
+					getSelection().addRange(range);
+				};
+				if (navigator.clipboard) navigator.clipboard.writeText(code.textContent).then(done, select);
+				else select();
+			});
+
+			/* ---------- The thinking ---------- */
+			const LABEL = { read: 'Read', plan: 'Plan', step: 'Step', skill: 'Skill', understood: 'Understood', recall: 'Memory', online: 'Internet', offline: 'Internet', exact: 'Exact', rough: 'Caveat', assumed: 'Assumed', generated: 'Caveat', failed: 'Problem', miss: 'No match', check: 'Check' };
+			const SURE = { sure: 'Confident', fair: 'Fairly confident', unsure: 'Not confident' };
+			const stepsHTML = (thinking) => thinking.map((s, i) => `<li data-step="${escape(s.step)}" style="--i:${i}"><span class="k">${LABEL[s.step] || escape(s.step)}</span><span class="d">${escape(s.detail)}</span></li>`).join('');
+			function showThinking(r) {
+				if (!r.thinking || !r.thinking.length) return '';
+				const n = r.thinking.length;
+				$('steps').innerHTML = stepsHTML(r.thinking);
+				$('verdict').innerHTML = `<b class="${r.confidence}">${SURE[r.confidence] || ''}</b><span>${n} steps · ${r.ms < 1 ? 'under 1' : r.ms} ms</span>`;
+				return `<details class="trace"><summary>Thought in ${n} steps · <span class="${r.confidence}">${(SURE[r.confidence] || '').toLowerCase()}</span></summary><ol class="steps">${stepsHTML(r.thinking)}</ol></details>`;
+			}
+
+			/* ---------- Talking ---------- */
+			let busy = false;
+			async function send(text) {
+				if (busy) return;
+				busy = true;
+				add('You', escape(text), true);
+				showSuggestions('');
+				mark.classList.add('thinking');
+				// Most replies take a millisecond; a lookup online or a dictionary loading takes longer, so show the wait.
+				let wait = null;
+				const timer = setTimeout(() => (wait = add('Onyx', '<span class="wait" aria-label="Thinking"><i></i><i></i><i></i></span>')), 200);
+				let r = null;
+				try {
+					r = await Omni.onyx.respond(text);
+				} catch (e) {
+					r = { text: 'Something went wrong on my side while answering that. Try saying it another way.' };
+				}
+				clearTimeout(timer);
+				if (wait) wait.remove();
+				setTimeout(() => mark.classList.remove('thinking'), reduced ? 0 : 900);
+				busy = false;
+				if (!r) return;
+				show(r);
+			}
+			function show(r) {
+				const reply = r.command ? 'That is a command for OmniTool\'s tools, which only run inside OmniTool.' : r.text + (r.offer ? '\n\n' + r.offer.ask : '');
+				const el = add('Onyx', render(reply || 'Okay.'));
+				const trace = showThinking(r);
+				if (trace) el.insertAdjacentHTML('beforeend', trace);
+				log.scrollTop = log.scrollHeight;
+				const lang = Omni.onyx.context().lang;
+				$('lang').textContent = NAMES[lang] || 'English';
+				document.documentElement.lang = lang;
+				syncNet();
+				syncLangs();
+				if (r.speak) say(r.speak.text, r.speak.lang);
+				else if ($('voice').checked && r.text) say(r.text, lang);
+			}
+
+			/* ---------- Suggestions as you type, from the prediction network ---------- */
+			function showSuggestions(text) {
+				suggestEl.textContent = '';
+				if (!text.trim() || !Omni.onyx.predict) return;
+				for (const s of Omni.onyx.predict(text, 4).filter((x) => x.p > 0.02).slice(0, 4)) {
+					const b = document.createElement('button');
+					b.type = 'button';
+					b.textContent = s.word;
+					b.addEventListener('click', () => {
+						const v = input.value;
+						input.value = (s.completes ? v.slice(0, v.length - s.completes.length) : v.replace(/\s*$/, ' ')) + s.word + ' ';
+						input.focus();
+						showSuggestions(input.value);
+					});
+					suggestEl.appendChild(b);
+				}
+			}
+			let frame = 0;
+			input.addEventListener('input', () => {
+				cancelAnimationFrame(frame);
+				frame = requestAnimationFrame(() => showSuggestions(input.value));
+			});
+			input.addEventListener('keydown', (e) => {
+				// Tab takes the first suggestion.
+				if (e.key === 'Tab' && !e.shiftKey && suggestEl.firstChild && input.value.trim()) {
+					e.preventDefault();
+					suggestEl.firstChild.click();
+				}
+			});
+			$('form').addEventListener('submit', (e) => {
+				e.preventDefault();
+				const text = input.value.trim();
+				if (!text) return;
+				input.value = '';
+				send(text);
+			});
+
+			/* ---------- The internet switch ---------- */
+			// "off": never online. "ask": online after a yes, each time. "on": online without asking.
+			const netSwitch = $('net-switch');
+			const netAsk = $('net-ask');
+			const canNet = !!(Omni.net && Omni.net.enabled === true) && !window.ONYX_PREVIEW;
+			const settings = Omni.onyx.settings;
+			function syncNet() {
+				const mode = canNet ? settings.get().internet : 'off';
+				netSwitch.setAttribute('aria-checked', String(mode !== 'off'));
+				netAsk.checked = mode !== 'on';
+				$('net-ask-row').hidden = !canNet || mode === 'off';
+				$('net-status').innerHTML = !canNet ? '<strong>Not available here.</strong> This copy of the page can\'t reach other sites, so Onyx stays on this device. Use the switch at gkson-lab.github.io/onyx, or open index.html from the repository.' : mode === 'off' ? '<strong>Off.</strong> Everything stays on this device.' : mode === 'ask' ? '<strong>On, asking first.</strong> Onyx says what it would look up and where, and waits for your yes.' : '<strong>On.</strong> Onyx looks things up without asking.';
+				const pill = $('panel-open');
+				pill.dataset.state = mode;
+				pill.textContent = mode === 'off' ? 'Offline' : mode === 'ask' ? 'Online: asks' : 'Online';
+			}
+			if (canNet) {
+				// A first visit starts offline: going online is the person's choice to make.
+				let seen = false;
+				try {
+					seen = localStorage.getItem('onyx3:opened') === '1';
+					localStorage.setItem('onyx3:opened', '1');
+				} catch (e) {
+					seen = false;
+				}
+				if (!seen) settings.set('internet', 'off');
+				netSwitch.addEventListener('click', () => {
+					settings.set('internet', netSwitch.getAttribute('aria-checked') === 'true' ? 'off' : netAsk.checked ? 'ask' : 'on');
+					syncNet();
+				});
+				netAsk.addEventListener('change', () => {
+					settings.set('internet', netAsk.checked ? 'ask' : 'on');
+					syncNet();
+				});
+			} else {
+				netSwitch.disabled = true;
+				$('net-fine').hidden = true;
+				settings.set('internet', 'off');
+			}
+			syncNet();
+
+			/* ---------- The side, on a small screen ---------- */
+			const openSide = (yes) => {
+				side.classList.toggle('open', yes);
+				$('panel-open').setAttribute('aria-expanded', String(yes));
+			};
+			$('panel-open').addEventListener('click', () => openSide(!side.classList.contains('open')));
+			$('side-close').addEventListener('click', () => openSide(false));
+			document.addEventListener('keydown', (e) => e.key === 'Escape' && openSide(false));
+
+			/* ---------- Documents ---------- */
+			async function readFile(file) {
+				if (!file) return;
+				if (file.size > 2e6) return void ($('doc-status').textContent = `${file.name} is too big for me: I read text files up to 2 MB.`);
+				const text = await file.text();
+				if (/\u0000/.test(text.slice(0, 2000))) return void ($('doc-status').textContent = `${file.name} isn't a text file. I read plain text: .txt, .md, .csv and the like.`);
+				const r = await Omni.onyx.read(text, file.name);
+				if (!r) return;
+				$('doc-status').textContent = `Reading ${file.name}. Ask "summarize it" or "what does it say about ...".`;
+				add('You', escape(`(a file: ${file.name})`), true);
+				show(Object.assign({ confidence: 'sure', ms: 0 }, r));
+				openSide(false);
+			}
+			$('doc-pick').addEventListener('click', () => $('doc-file').click());
+			$('doc-file').addEventListener('change', (e) => {
+				readFile(e.target.files[0]);
+				e.target.value = '';
+			});
+			document.addEventListener('dragover', (e) => e.preventDefault());
+			document.addEventListener('drop', (e) => {
+				e.preventDefault();
+				readFile(e.dataTransfer.files[0]);
+			});
+
+			/* ---------- Voice: the browser's own, when it has one ---------- */
+			const synth = window.speechSynthesis;
+			function say(text, lang) {
+				if (!synth) return;
+				const plain = String(text).replace(/```[\s\S]*?```/g, ' ').replace(/[*`>#]/g, '').replace(/https?:\/\/\S+/g, '').slice(0, 1200);
+				if (!plain.trim()) return;
+				synth.cancel();
+				const u = new SpeechSynthesisUtterance(plain);
+				u.lang = lang || 'en';
+				synth.speak(u);
+			}
+			if (synth) {
+				$('voice-card').hidden = false;
+				Omni.speech = { say };
+				$('voice').addEventListener('change', (e) => !e.target.checked && synth.cancel());
+			}
+
+			/* ---------- The dictionaries, lighting up as they load ---------- */
+			const G = Omni.onyxTongues;
+			function syncLangs() {
+				const have = Omni.onyxTranslations || {};
+				for (const el of $('langs').children) el.classList.toggle('loaded', !!have[el.dataset.code]);
+			}
+			if (G) {
+				$('langs').innerHTML = G.LIST.filter((l) => l.code !== 'en').map((l) => `<span data-code="${l.code}" title="${escape(l.name)}">${escape(l.native)}</span>`).join('');
+				syncLangs();
+			}
+
+			/* ---------- The strata: slow bands across the stone ---------- */
+			const canvas = $('strata');
+			const ctx = canvas.getContext('2d');
+			const BANDS = ['#ede8dc', '#dba23e', '#4fb893', '#39443d', '#ede8dc', '#39443d', '#dba23e', '#39443d', '#4fb893', '#39443d'];
+			let visible = true;
+			function strata(t) {
+				const w = canvas.clientWidth;
+				const h = canvas.clientHeight;
+				const dpr = Math.min(2, window.devicePixelRatio || 1);
+				if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+					canvas.width = Math.round(w * dpr);
+					canvas.height = Math.round(h * dpr);
+				}
+				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+				ctx.clearRect(0, 0, w, h);
+				const time = t / 9000;
+				// The bands sit on the right, away from the words, and bend like the ones inside a stone.
+				BANDS.forEach((color, i) => {
+					ctx.beginPath();
+					const base = h * (0.08 + i * 0.105);
+					for (let x = w * 0.42; x <= w + 8; x += 8) {
+						const u = x / w;
+						const y = base + Math.sin(u * 5.2 + time * 2 + i * 0.7) * 10 * u + Math.sin(u * 11 - time * 3 + i) * 3 + (u - 0.42) * -46;
+						if (x === w * 0.42) ctx.moveTo(x, y);
+						else ctx.lineTo(x, y);
+					}
+					const fade = ctx.createLinearGradient(w * 0.42, 0, w, 0);
+					fade.addColorStop(0, 'rgba(16, 22, 19, 0)');
+					fade.addColorStop(0.5, color);
+					ctx.strokeStyle = fade;
+					ctx.lineWidth = i % 3 === 0 ? 5 : 1.6;
+					ctx.lineCap = 'round';
+					ctx.stroke();
+				});
+			}
+			function loop(t) {
+				if (visible && !document.hidden) strata(t);
+				if (!reduced) requestAnimationFrame(loop);
+			}
+			if ('IntersectionObserver' in window) new IntersectionObserver((entries) => (visible = entries[0].isIntersecting)).observe(canvas);
+			requestAnimationFrame(loop);
+			addEventListener('resize', () => reduced && strata(0));
+
+			add('Onyx', render('Hi, I\'m **Onyx 3**. Ask for one thing or several at once ("write a haiku about the sea, then translate it into Spanish") and I\'ll plan it in steps. Every reply comes with the steps I took, and "how did you get that?" shows them in full.'));
+			log.scrollTop = 0;
+			if (matchMedia('(min-width: 881px)').matches) input.focus({ preventScroll: true });
+		})();
+	</script>
+	<!-- The full English dictionary (about 18 MB) loads last, so the page is ready first; Onyx uses it as soon as it arrives. -->
+	<script src="src/english/onyx-english-index.js"></script>
+	<script src="src/english/onyx-english-nouns-1.js"></script>
+	<script src="src/english/onyx-english-nouns-2.js"></script>
+	<script src="src/english/onyx-english-verbs.js"></script>
+	<script src="src/english/onyx-english-modifiers.js"></script>
+	<script>
+		// Read the index while the page is idle, so the first unusual word doesn't wait for it.
+		(window.requestIdleCallback || setTimeout)(() => Omni.onyxDictionary && Omni.onyxDictionary.full && Omni.onyxDictionary.full.has('onyx'));
+	</script>
+</body>
+</html>
