@@ -1,0 +1,16 @@
+# Keeps the website (gkson-lab.github.io/onyx) the same as main: GitHub Pages serves the gh-pages branch, and this
+# moves that branch to each new commit on main.
+name: Publish the website
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git push origin HEAD:refs/heads/gh-pages
