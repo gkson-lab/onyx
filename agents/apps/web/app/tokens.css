@@ -1,0 +1,31 @@
+/*
+ * Onyx by GK Labs: design tokens. This file is the whole visual system; the Tailwind theme only points at it.
+ *
+ * Decisions, with their reasons (the antislop rule each answers is in brackets):
+ * - Near-monochrome on near-black. Onyx Agents is an operator's console for watching agents work, used for long
+ *   stretches, and the owner specified this palette: dark is a decision here, not a default. [R-21]
+ * - One accent, cold white, used only for what is selected or needs acting on. [R-29, one deliberate accent]
+ * - One semantic colour outside the palette: --bad, for failures, because a failed run must not look like a
+ *   finished one. Nothing else is coloured.
+ * - Two radii: 0 for layout, 6px for controls. No pills except tier badges, which are a label shape. [R-11]
+ * - No shadows, no glow, no blur, no gradients, no background texture: hierarchy comes from alignment, weight
+ *   and 1px lines. [R-10, R-12, R-13, R-07]
+ * - Geist and Geist Mono, chosen by the owner. Mono is for what is literally machine text: model IDs, token
+ *   counts, tool calls, logs. It is never used for headings. [R-06]
+ * - Motion is 120 to 200 ms and marks real state only: text streaming in, a node pulsing while its agent is
+ *   actually running. Nothing loops on an idle screen. [R-19]
+ */
+:root {
+	--bg: #0a0a0a;
+	--surface: #121212;
+	--line: #1f1f1f;
+	--text: #ededed;
+	--muted: #8a8a8a;
+	--accent: #ffffff;
+	--bad: #e5484d;
+	--radius: 6px;
+	--fast: 120ms;
+	--slow: 200ms;
+	--tap: 44px;
+	color-scheme: dark;
+}

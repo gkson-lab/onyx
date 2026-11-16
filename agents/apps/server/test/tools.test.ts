@@ -23,6 +23,8 @@ describe('tools', () => {
 		expect(got!.input).toBe('print("hi")');
 		const none = await testApp({}, {}, { tool: { exec: async () => ({ code: null, out: '', err: 'spawn docker ENOENT', timedOut: false }) } });
 		expect(await none.app.tools.get('run_code')!.run({ language: 'python', code: 'x' }, ctx())).toMatch(/needs Docker.*NOT run/s);
+		const stopped = await testApp({}, {}, { tool: { exec: async () => ({ code: 1, out: '', err: 'failed to connect to the docker API at unix:///var/run/docker.sock', timedOut: false }) } });
+		expect(await stopped.app.tools.get('run_code')!.run({ language: 'python', code: 'x' }, ctx())).toMatch(/not running.*NOT run/s);
 	});
 
 	it('web_fetch refuses this machine and private networks, and labels what it reads as untrusted', async () => {

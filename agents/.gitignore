@@ -3,3 +3,5 @@ node_modules/
 data/*.db*
 dist/
 .next/
+out/
+next-env.d.ts

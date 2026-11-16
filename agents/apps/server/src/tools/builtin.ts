@@ -155,7 +155,7 @@ export const runCode = (d: ToolDeps): Tool<{ language: 'python' | 'javascript'; 
 		const r = await exec('docker', ['run', '--rm', '-i', '--network', 'none', '--read-only', '--tmpfs', '/tmp:rw,size=64m', '--memory', '256m', '--memory-swap', '256m', '--cpus', '1', '--pids-limit', '64', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--workdir', '/tmp', img.image, ...img.cmd], code, 30000, ctx.signal);
 		if (r.code === null) return 'Error: the code sandbox needs Docker, and Docker did not start. Install Docker Desktop and make sure it is running. The code was NOT run.';
 		if (r.timedOut) return `Error: stopped after 30 seconds.\n${r.out.slice(0, 2000)}`;
-		if (r.code === 125 || /Cannot connect to the Docker daemon|docker daemon is not running/i.test(r.err)) return `Error: Docker is installed but not running, so the code was NOT run. ${r.err.slice(0, 300)}`;
+		if (r.code === 125 || /cannot connect to the docker daemon|failed to connect to the docker api|docker daemon is not running|error during connect/i.test(r.err)) return 'Error: Docker is installed but not running, so the code was NOT run. Start Docker Desktop and try again.';
 		const out = r.out.slice(0, 6000);
 		const err = r.err.slice(0, 3000);
 		return `exit code ${r.code}\n--- output ---\n${out || '(nothing printed)'}${err ? `\n--- errors ---\n${err}` : ''}`;

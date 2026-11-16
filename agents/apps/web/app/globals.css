@@ -1,0 +1,26 @@
+@import './tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 15px; line-height: 24px; -webkit-font-smoothing: antialiased; overscroll-behavior: none; }
+* { border-color: var(--line); }
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+::selection { background: var(--accent); color: var(--bg); }
+button, a, input, select, textarea { transition: background-color var(--fast), color var(--fast), border-color var(--fast), opacity var(--fast); }
+input, select, textarea { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); color: var(--text); padding: 8px 10px; min-height: 36px; font: inherit; }
+input:focus, select:focus, textarea:focus { border-color: var(--muted); outline: none; }
+textarea { resize: vertical; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--line); }
+
+/* A running agent's marker pulses. It stops the moment the agent does. */
+@keyframes pulse { 50% { opacity: 0.35; } }
+.running { animation: pulse 1.4s ease-in-out infinite; }
+/* Text that is still being worked out. */
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.thinking { background: linear-gradient(90deg, var(--muted) 40%, var(--text) 50%, var(--muted) 60%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 1.6s linear infinite; }
+/* The Max badge's border moves only while a Max run is in progress. */
+@keyframes dash { to { stroke-dashoffset: -24; } }
+@media (prefers-reduced-motion: reduce) { .running, .thinking { animation: none; } .thinking { color: var(--muted); background: none; } *, *::before, *::after { transition: none !important; } }
