@@ -1,0 +1,51 @@
+# Which model backs each tier. Edit this file to swap models; no code changes needed.
+# Run `pnpm models:sync` afterwards: it checks every model here against what each provider really has.
+#
+# Everything runs locally through Ollama by default. Providers marked `local: false` are only used when
+# ONYX_CLOUD=on is set in .env AND their API key is present. Otherwise they are skipped, not tried.
+version: 1
+
+providers:
+  ollama:
+    base_url: http://localhost:11434/v1
+    base_url_env: OLLAMA_BASE_URL
+    local: true
+  moonshot:
+    base_url: https://api.moonshot.ai/v1
+    base_url_env: MOONSHOT_BASE_URL
+    api_key_env: MOONSHOT_API_KEY
+    local: false
+
+# price: USD per million tokens. Local models cost nothing per call. `price: null` means "not known":
+# the call is logged with no cost rather than a made-up one.
+models:
+  qwen-lite:     { provider: ollama, id: "qwen3:4b",  family: qwen, price: { input: 0, output: 0 }, system_suffix: "/no_think" }
+  qwen-standard: { provider: ollama, id: "qwen3:8b",  family: qwen, price: { input: 0, output: 0 }, system_suffix: "/no_think" }
+  qwen-pro:      { provider: ollama, id: "qwen3:14b", family: qwen, price: { input: 0, output: 0 }, system_suffix: "/no_think" }
+  qwen-max:      { provider: ollama, id: "qwen3:30b", family: qwen, price: { input: 0, output: 0 }, system_suffix: "/think" }
+  # Opt-in. IDs and prices come from third-party pages (checked 2026-11-16), not from Moonshot itself:
+  # confirm both with `pnpm models:sync` and Moonshot's pricing page before relying on the cost figures.
+  kimi-pro:      { provider: moonshot, id: kimi-k2.7-code, family: kimi, price: { input: 0.95, output: 4.0 } }
+  kimi-max:      { provider: moonshot, id: kimi-k3,        family: kimi, price: { input: 3.0,  output: 15.0 } }
+
+# Models are tried in the order listed. A cloud model that isn't enabled is skipped.
+tiers:
+  lite:     { label: Lite,     use_for: "routing, classification, quick replies, formatting", models: [qwen-lite] }
+  standard: { label: Standard, use_for: "normal chat, summaries, most agent steps",           models: [qwen-standard] }
+  pro:      { label: Pro,      use_for: "coding, tool use, multi-step planning",              models: [kimi-pro, qwen-pro] }
+  max:      { label: Max,      use_for: "hardest reasoning, long tasks, think-hard mode",     models: [kimi-max, qwen-max] }
+
+plans:
+  free: { tiers: [lite, standard],           daily_tokens: 200000 }
+  pro:  { tiers: [lite, standard, pro],      daily_tokens: 2000000 }
+  max:  { tiers: [lite, standard, pro, max], daily_tokens: 10000000 }
+
+fallback:
+  retries: 2          # extra tries on the same model after a rate limit, a server error or a timeout
+  backoff_ms: 500     # doubled on each retry
+  drop_tier: true     # when every model in a tier has failed, try the tier below
+  timeout_ms: 120000  # local models on a CPU are slow; raise this if long answers get cut off
+
+router:
+  tier: lite
+  timeout_ms: 20000
