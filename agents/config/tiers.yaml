@@ -46,6 +46,12 @@ fallback:
   drop_tier: true     # when every model in a tier has failed, try the tier below
   timeout_ms: 120000  # local models on a CPU are slow; raise this if long answers get cut off
 
+# Turns saved facts into vectors so Memory can recall by meaning. Pull it with: ollama pull qwen3-embedding:0.6b
+# Without it, Memory still works, matching on words.
+embeddings:
+  provider: ollama
+  model: "qwen3-embedding:0.6b"
+
 router:
   tier: lite
   timeout_ms: 20000

@@ -2,9 +2,8 @@
 // each provider really has; `pnpm onyx tiers` prints the tiers.
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
-import type { ChatMessage } from '@onyx/shared';
 import { createApp } from '../app.ts';
-import { AllModelsFailed, LimitError } from '../models/gateway.ts';
+import { receive } from '../index.ts';
 import { listModels } from '../models/provider.ts';
 
 const dim = (s: string) => (stdout.isTTY ? `\x1b[2m${s}\x1b[0m` : s);
@@ -44,9 +43,21 @@ async function tiers(): Promise<number> {
 }
 
 async function chatLoop(): Promise<number> {
-	const app = await createApp({ onFallback: (f) => console.log(dim(`  fallback (${f.kind}): ${f.from} -> ${f.to}: ${f.reason}`)) });
+	const app = await createApp();
 	const rl = createInterface({ input: stdin, output: stdout });
-	const history: ChatMessage[] = [{ role: 'system', content: 'You are Onyx, an assistant by GK Labs. Be direct and brief. Say so when you do not know.' }];
+	let wrote = false;
+	// The same events the app shows live, printed as they happen.
+	app.bus.on((e) => {
+		const who = e.agentId ?? '';
+		const pad = '  '.repeat(e.parentId ? 2 : 1);
+		if (e.type === 'routed') console.log(dim(`  route (${e.data.via}): ${e.data.tier}: ${e.data.reason}`));
+		else if (e.type === 'delta') (wrote = true), stdout.write(String(e.data.text));
+		else if (e.type === 'tool_call') console.log(dim(`${wrote ? '\n' : ''}${pad}${who} -> ${e.data.tool} ${JSON.stringify(e.data.args).slice(0, 160)}`)), (wrote = false);
+		else if (e.type === 'tool_result') console.log(dim(`${pad}${who} <- ${e.data.ok ? 'ok' : 'failed'} ${String(e.data.result).replace(/\s+/g, ' ').slice(0, 160)} (${e.data.ms} ms)`));
+		else if (e.type === 'fallback') console.log(dim(`${pad}fallback (${e.data.kind}): ${e.data.from} -> ${e.data.to}: ${e.data.reason}`));
+		else if (e.type === 'started' && e.parentId) console.log(dim(`${pad}${who} started (${e.data.tier})`));
+		else if ((e.type === 'finished' || e.type === 'error') && e.parentId) console.log(dim(`${pad}${who} ${e.data.status}${e.data.error ? `: ${e.data.error}` : ''} (${e.data.ms} ms)`));
+	});
 	console.log('Onyx. Type a message. Start with /lite, /standard, /pro or /max to choose the tier. /quit to leave.\n');
 	for (;;) {
 		let line: string;
@@ -57,19 +68,10 @@ async function chatLoop(): Promise<number> {
 		}
 		if (!line) continue;
 		if (/^\/(quit|exit)$/i.test(line)) break;
-		try {
-			const d = await app.router.route(app.owner, line);
-			console.log(dim(`  route (${d.via}): ${d.tier}: ${d.reason}`));
-			history.push({ role: 'user', content: d.text });
-			let shown = false;
-			const r = await app.gateway.complete({ userId: app.owner, tier: d.tier, messages: history, onDelta: (t) => ((shown = true), stdout.write(t)) });
-			if (!shown) stdout.write(r.content);
-			history.push({ role: 'assistant', content: r.content });
-			console.log(`\n${inv(app.config.file.tiers[r.tier].label.toUpperCase())} ${r.model}${dim(`  ${r.usage.input}+${r.usage.output} tokens${r.usage.estimated ? ' (estimated)' : ''} · ${money(r.costUsd)} · ${r.latencyMs} ms`)}\n`);
-		} catch (e) {
-			if (history.at(-1)?.role === 'user') history.pop();
-			console.log(e instanceof LimitError || e instanceof AllModelsFailed ? `\n${e.message}\n` : `\nError: ${(e as Error).message}\n`);
-		}
+		wrote = false;
+		const r = await receive(app, { userId: app.owner, text: line, channel: 'terminal' });
+		if (!wrote || r.status !== 'done') stdout.write(r.reply);
+		console.log(`\n${r.tier ? `${inv(app.config.file.tiers[r.tier].label.toUpperCase())} ${r.model}` : ''}${dim(`  ${r.tokens} tokens · ${money(r.costUsd)}`)}\n`);
 	}
 	rl.close();
 	return 0;

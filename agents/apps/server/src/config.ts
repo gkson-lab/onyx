@@ -35,6 +35,7 @@ export const TiersFile = z
 		plans: z.record(Plan, PlanDef),
 		fallback: z.object({ retries: z.number().int().min(0).max(5), backoff_ms: z.number().int().min(0), drop_tier: z.boolean(), timeout_ms: z.number().int().positive() }),
 		router: z.object({ tier: Tier, timeout_ms: z.number().int().positive() }),
+		embeddings: z.object({ provider: z.string(), model: z.string() }).optional(),
 	})
 	.superRefine((f, ctx) => {
 		for (const [key, m] of Object.entries(f.models)) if (!f.providers[m.provider]) ctx.addIssue({ code: 'custom', message: `model "${key}" names a provider that isn't defined: ${m.provider}` });
@@ -62,7 +63,12 @@ export function loadTiers(path = resolve(ROOT, 'config/tiers.yaml')): TiersFile 
 }
 
 export class Config {
-	constructor(public readonly file: TiersFile, private readonly env: Env = process.env) {}
+	constructor(public file: TiersFile, private readonly env: Env = process.env) {}
+
+	/** Swaps in an edited tiers file (already validated). */
+	replace(file: TiersFile): void {
+		this.file = file;
+	}
 
 	get cloud(): boolean {
 		return /^(on|1|true|yes)$/i.test(this.env.ONYX_CLOUD ?? '');

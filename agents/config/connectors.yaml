@@ -1,0 +1,16 @@
+# Connectors: MCP servers whose tools agents can use. A connector is off until `enabled: true`.
+# Give an agent a connector's tools by adding `connector:<name>` to its tools (Agents screen, or agents in the database).
+# Tokens are named here and kept in .env; never write a token in this file.
+connectors:
+  github:
+    transport: http
+    # The /readonly address serves read tools only. Remove "/readonly" to let agents write (issues, comments, PRs).
+    url: https://api.githubcopilot.com/mcp/readonly
+    token_env: GITHUB_MCP_TOKEN   # a fine-grained personal access token, limited to the repositories you choose
+    enabled: false
+  # A local server, started as a program on this PC. This one gives agents one folder of your files.
+  # files:
+  #   transport: stdio
+  #   command: npx
+  #   args: ["-y", "@modelcontextprotocol/server-filesystem", "C:/Users/you/Documents/onyx-files"]
+  #   enabled: false

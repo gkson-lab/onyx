@@ -54,3 +54,40 @@ export const Fallback = z.object({
 	reason: z.string(),
 });
 export type Fallback = z.infer<typeof Fallback>;
+
+/* ---------- Agents, runs and the event stream ---------- */
+
+export const CHANNELS = ['web', 'whatsapp', 'sms', 'terminal'] as const;
+export const Channel = z.enum(CHANNELS);
+export type Channel = z.infer<typeof Channel>;
+
+export const AgentDef = z.object({
+	id: z.string().regex(/^[a-z][a-z0-9_-]{1,30}$/),
+	name: z.string().min(1).max(40),
+	description: z.string().max(300).default(''),
+	system_prompt: z.string().min(1).max(8000),
+	tier: Tier,
+	tools: z.array(z.string()).default([]),
+	enabled: z.boolean().default(true),
+	max_steps: z.number().int().min(1).max(30).default(8),
+	token_budget: z.number().int().min(500).max(2_000_000).default(40_000),
+	time_budget_ms: z.number().int().min(5_000).max(3_600_000).default(300_000),
+	builtin: z.boolean().default(false),
+});
+export type AgentDef = z.infer<typeof AgentDef>;
+
+export const RunStatus = z.enum(['running', 'done', 'error', 'killed']);
+export type RunStatus = z.infer<typeof RunStatus>;
+
+export const EVENT_TYPES = ['routed', 'started', 'thinking', 'delta', 'tool_call', 'tool_result', 'delegated', 'fallback', 'finished', 'error', 'message', 'channel'] as const;
+/** One thing that happened in a run. The same shape goes over the WebSocket and into the step log. */
+export const AgentEvent = z.object({
+	type: z.enum(EVENT_TYPES),
+	at: z.string(),
+	runId: z.string().nullable(),
+	rootId: z.string().nullable(),
+	parentId: z.string().nullable(),
+	agentId: z.string().nullable(),
+	data: z.record(z.unknown()),
+});
+export type AgentEvent = z.infer<typeof AgentEvent>;

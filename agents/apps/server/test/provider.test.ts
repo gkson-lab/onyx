@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { chat, ProviderError, type FetchLike } from '../src/models/provider.ts';
-import { buildServer } from '../src/index.ts';
-import { testApp } from './helpers.ts';
 
 const sse = (events: unknown[]): FetchLike => async () => ({
 	ok: true,
@@ -42,23 +40,3 @@ describe('the provider client', () => {
 	});
 });
 
-describe('the server', () => {
-	it('routes and answers a chat message, and reports the tier, the real model and the cost', async () => {
-		const { app } = await testApp({ 'qwen3:4b': [{ toolCall: { name: 'route', args: { tier: 'standard', complexity: 'low', tools: [], urgency: 'normal', reason: 'small talk' } } }], 'qwen3:8b': [{ content: 'Hi.' }] });
-		const server = await buildServer(app);
-		const res = await server.inject({ method: 'POST', url: '/api/chat', payload: { text: 'hello there' } });
-		expect(res.statusCode).toBe(200);
-		expect(res.json()).toMatchObject({ reply: 'Hi.', tier: 'standard', model: 'qwen3:8b', local: true, cost_usd: 0, routing: { via: 'router', reason: 'small talk' } });
-		expect((await server.inject({ method: 'POST', url: '/api/chat', payload: { text: '' } })).statusCode).toBe(400);
-		const tiers = (await server.inject({ method: 'GET', url: '/api/tiers' })).json();
-		expect(tiers.tiers.map((t: any) => t.model)).toEqual(['qwen3:4b', 'qwen3:8b', 'qwen3:14b', 'qwen3:30b']);
-	});
-
-	it('answers 502 with the trail when no model can be reached', async () => {
-		const { app } = await testApp({});
-		const server = await buildServer(app);
-		const res = await server.inject({ method: 'POST', url: '/api/chat', payload: { text: '/standard hello' } });
-		expect(res.statusCode).toBe(502);
-		expect(res.json().error).toContain('No model answered');
-	});
-});

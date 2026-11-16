@@ -11,6 +11,13 @@ export interface Tables {
 	model_calls: { id: Generated<number>; user_id: string; run_id: string | null; purpose: string; tier: string; model_key: string; provider: string; model_id: string; status: string; error: string | null; input_tokens: number; output_tokens: number; usage_estimated: number; cost_usd: number | null; latency_ms: number; attempt: number; created_at: string };
 	fallbacks: { id: Generated<number>; user_id: string; run_id: string | null; kind: string; from_ref: string; to_ref: string; reason: string; created_at: string };
 	usage_daily: { user_id: string; day: string; tokens: number; cost_usd: number };
+	agents: { id: string; name: string; description: string; system_prompt: string; tier: string; tools: string; enabled: number; max_steps: number; token_budget: number; time_budget_ms: number; builtin: number };
+	runs: { id: string; parent_id: string | null; root_id: string; depth: number; user_id: string; agent_id: string; channel: string; status: string; input: string; output: string | null; error: string | null; tier: string | null; model: string | null; provider: string | null; tokens_in: number; tokens_out: number; cost_usd: number | null; steps: number; routing: string | null; started_at: string; finished_at: string | null };
+	steps: { id: Generated<number>; run_id: string; root_id: string; n: number; type: string; data: string; created_at: string };
+	messages: { id: Generated<number>; user_id: string; channel: string; direction: string; text: string; run_id: string | null; status: string; error: string | null; created_at: string };
+	memories: { id: Generated<number>; user_id: string; text: string; embedding: string | null; created_at: string };
+	schedules: { id: Generated<number>; user_id: string; text: string; next_fire: string; repeat: string; channel: string | null; status: string; last_fired: string | null; created_at: string };
+	settings: { key: string; value: string };
 }
 export type DB = Kysely<Tables>;
 
@@ -38,6 +45,19 @@ const MIGRATIONS: ((db: Kysely<any>) => Promise<void>)[] = [
 		await db.schema.createTable('fallbacks').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('run_id', 'text').addColumn('kind', 'text', (c) => c.notNull()).addColumn('from_ref', 'text', (c) => c.notNull()).addColumn('to_ref', 'text', (c) => c.notNull()).addColumn('reason', 'text', (c) => c.notNull()).addColumn('created_at', 'text', (c) => c.notNull()).execute();
 		await db.schema.createTable('usage_daily').addColumn('user_id', 'text', (c) => c.notNull()).addColumn('day', 'text', (c) => c.notNull()).addColumn('tokens', 'integer', (c) => c.notNull()).addColumn('cost_usd', 'real', (c) => c.notNull()).addPrimaryKeyConstraint('usage_daily_pk', ['user_id', 'day']).execute();
 		await db.schema.createIndex('model_calls_user_day').on('model_calls').columns(['user_id', 'created_at']).execute();
+	},
+	async (db) => {
+		const t = (name: string) => db.schema.createTable(name);
+		await t('agents').addColumn('id', 'text', (c) => c.primaryKey()).addColumn('name', 'text', (c) => c.notNull()).addColumn('description', 'text', (c) => c.notNull()).addColumn('system_prompt', 'text', (c) => c.notNull()).addColumn('tier', 'text', (c) => c.notNull()).addColumn('tools', 'text', (c) => c.notNull()).addColumn('enabled', 'integer', (c) => c.notNull()).addColumn('max_steps', 'integer', (c) => c.notNull()).addColumn('token_budget', 'integer', (c) => c.notNull()).addColumn('time_budget_ms', 'integer', (c) => c.notNull()).addColumn('builtin', 'integer', (c) => c.notNull()).execute();
+		await t('runs').addColumn('id', 'text', (c) => c.primaryKey()).addColumn('parent_id', 'text').addColumn('root_id', 'text', (c) => c.notNull()).addColumn('depth', 'integer', (c) => c.notNull()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('agent_id', 'text', (c) => c.notNull()).addColumn('channel', 'text', (c) => c.notNull()).addColumn('status', 'text', (c) => c.notNull()).addColumn('input', 'text', (c) => c.notNull()).addColumn('output', 'text').addColumn('error', 'text').addColumn('tier', 'text').addColumn('model', 'text').addColumn('provider', 'text').addColumn('tokens_in', 'integer', (c) => c.notNull()).addColumn('tokens_out', 'integer', (c) => c.notNull()).addColumn('cost_usd', 'real').addColumn('steps', 'integer', (c) => c.notNull()).addColumn('routing', 'text').addColumn('started_at', 'text', (c) => c.notNull()).addColumn('finished_at', 'text').execute();
+		await db.schema.createIndex('runs_root').on('runs').column('root_id').execute();
+		await db.schema.createIndex('runs_started').on('runs').column('started_at').execute();
+		await t('steps').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('run_id', 'text', (c) => c.notNull()).addColumn('root_id', 'text', (c) => c.notNull()).addColumn('n', 'integer', (c) => c.notNull()).addColumn('type', 'text', (c) => c.notNull()).addColumn('data', 'text', (c) => c.notNull()).addColumn('created_at', 'text', (c) => c.notNull()).execute();
+		await db.schema.createIndex('steps_run').on('steps').column('run_id').execute();
+		await t('messages').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('channel', 'text', (c) => c.notNull()).addColumn('direction', 'text', (c) => c.notNull()).addColumn('text', 'text', (c) => c.notNull()).addColumn('run_id', 'text').addColumn('status', 'text', (c) => c.notNull()).addColumn('error', 'text').addColumn('created_at', 'text', (c) => c.notNull()).execute();
+		await t('memories').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('text', 'text', (c) => c.notNull()).addColumn('embedding', 'text').addColumn('created_at', 'text', (c) => c.notNull()).execute();
+		await t('schedules').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('text', 'text', (c) => c.notNull()).addColumn('next_fire', 'text', (c) => c.notNull()).addColumn('repeat', 'text', (c) => c.notNull()).addColumn('channel', 'text').addColumn('status', 'text', (c) => c.notNull()).addColumn('last_fired', 'text').addColumn('created_at', 'text', (c) => c.notNull()).execute();
+		await t('settings').addColumn('key', 'text', (c) => c.primaryKey()).addColumn('value', 'text', (c) => c.notNull()).execute();
 	},
 ];
 
