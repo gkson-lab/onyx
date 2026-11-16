@@ -32,6 +32,7 @@ export const TiersFile = z
 		providers: z.record(Provider),
 		models: z.record(Model),
 		tiers: z.object({ lite: TierDef, standard: TierDef, pro: TierDef, max: TierDef }),
+		billing: z.object({ enabled: z.boolean() }).default({ enabled: false }),
 		plans: z.record(Plan, PlanDef),
 		fallback: z.object({ retries: z.number().int().min(0).max(5), backoff_ms: z.number().int().min(0), drop_tier: z.boolean(), timeout_ms: z.number().int().positive() }),
 		router: z.object({ tier: Tier, timeout_ms: z.number().int().positive() }),

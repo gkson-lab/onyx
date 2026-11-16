@@ -1,12 +1,12 @@
 'use client';
 import { useState } from 'react';
 import { api, fmtTime, useData } from '@/lib/api';
-import { Button, ChannelIcon, Loading, Page, Problem, Section } from '@/components/ui';
+import { Button, ChannelIcon, Code, Loading, Page, Problem, Section } from '@/components/ui';
 
 interface Ch { id: string; ok: boolean; detail: string; last: { direction: string; text: string; at: string } | null; errors: { error: string; created_at: string }[] }
 
 export default function Channels() {
-	const { data, error, reload } = useData<{ channels: Ch[]; preferred: string[] }>('/channels');
+	const { data, error, reload } = useData<{ channels: Ch[]; preferred: string[]; public_url: string | null }>('/channels');
 	const [result, setResult] = useState<Record<string, string>>({});
 	const test = async (id: string) => {
 		setResult((r) => ({ ...r, [id]: 'Sending' }));
@@ -24,7 +24,7 @@ export default function Channels() {
 			{!data && !error && <Loading what="channels" />}
 			{data && (
 				<>
-					<ul className="border-t">
+					<ul className="rows border-t">
 						{data.channels.map((c) => (
 							<li key={c.id} className="grid gap-3 border-b py-4 md:grid-cols-[10rem_1fr_auto] md:items-start">
 								<div><ChannelIcon channel={c.id} label /><p className={`mt-1 text-sm ${c.ok ? 'text-muted' : 'text-bad'}`}>{c.ok ? 'Ready' : 'Not ready'}</p></div>
@@ -43,6 +43,16 @@ export default function Channels() {
 					<Section title="Order Onyx tries when it texts you first">
 						<p className="font-mono text-sm">{data.preferred.join(' → ')}</p>
 						<p className="mt-1 text-sm text-muted">Only channels that are set up appear here. Change the order in Settings.</p>
+					</Section>
+					<Section title="Webhook addresses">
+						{data.public_url ? (
+							<ul className="space-y-1 font-mono text-xs">
+								<li><span className="text-muted">WhatsApp </span>{data.public_url}/webhooks/whatsapp</li>
+								<li><span className="text-muted">SMS </span>{data.public_url}/webhooks/sms</li>
+							</ul>
+						) : (
+							<p className="max-w-2xl text-sm text-muted">Meta and Twilio deliver your texts to a public address. Start a tunnel to this PC, put its address in <Code>PUBLIC_URL</Code> in <Code>.env</Code>, and restart Onyx. SETUP_WHATSAPP.md and SETUP_SMS.md walk through it.</p>
+						)}
 					</Section>
 					<Section title="iMessage">
 						<p className="max-w-2xl text-sm text-muted">Not available. Apple has no iMessage API; sending and receiving needs a Mac signed in to Messages, kept on. This machine is a PC, so Onyx uses WhatsApp, SMS and this app instead.</p>

@@ -100,13 +100,17 @@ export class Gateway {
 
 	async complete(req: CompleteRequest): Promise<CompleteResult> {
 		const fb = this.config.file.fallback;
+		// Plans and limits apply only when billing is on. With it off, every tier is open; tokens are still counted.
+		const billing = this.config.file.billing.enabled;
 		const plan = await this.plan(req.userId);
-		const limit = this.config.file.plans[plan]!.daily_tokens;
-		const used = await this.usedToday(req.userId);
-		if (used >= limit) throw new LimitError(`Daily limit reached: ${used.toLocaleString('en-US')} of ${limit.toLocaleString('en-US')} tokens used today on the ${plan} plan. It resets at midnight UTC.`);
+		if (billing) {
+			const limit = this.config.file.plans[plan]!.daily_tokens;
+			const used = await this.usedToday(req.userId);
+			if (used >= limit) throw new LimitError(`Daily limit reached: ${used.toLocaleString('en-US')} of ${limit.toLocaleString('en-US')} tokens used today on the ${plan} plan. It resets at midnight UTC.`);
+		}
 
 		const trail: Fallback[] = [];
-		let tier = this.clamp(plan, req.tier);
+		let tier = billing ? this.clamp(plan, req.tier) : req.tier;
 		if (tier !== req.tier) await this.note(req, trail, { kind: 'plan', from: req.tier, to: tier, reason: `the ${plan} plan doesn't include the ${req.tier} tier` });
 		const purpose = req.purpose ?? 'chat';
 		const errors: string[] = [];
@@ -141,7 +145,7 @@ export class Gateway {
 				const next = candidates[i + 1];
 				if (next) await this.note(req, trail, { kind: 'provider', from: `${model.provider}/${model.id}`, to: `${next.provider}/${next.id}`, reason: last });
 			}
-			const lower = tierRank(tier) > 0 ? this.clamp(plan, TIERS[tierRank(tier) - 1]!) : null;
+			const lower = tierRank(tier) > 0 ? (billing ? this.clamp(plan, TIERS[tierRank(tier) - 1]!) : TIERS[tierRank(tier) - 1]!) : null;
 			if (!fb.drop_tier || req.allowTierDrop === false || !lower || lower === tier) break;
 			await this.note(req, trail, { kind: 'tier', from: tier, to: lower, reason: `every model in the ${tier} tier failed` });
 			tier = lower;

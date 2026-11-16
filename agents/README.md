@@ -6,9 +6,8 @@ open-weight **Qwen** models served locally by [Ollama](https://ollama.com); "Ony
 
 This folder is separate from the Onyx 3 site at the top of the repository, which is unchanged.
 
-**Status: milestones (a) to (c) of six.** Built: the model layer, the agent runtime with subagents, tools,
-reminders, MCP connectors, and the web app. Still to come: WhatsApp, SMS and push notifications. iMessage is not
-planned: it needs a Mac.
+**Status:** built: the model layer, the agent runtime with subagents, tools, reminders, MCP connectors, the web
+app, WhatsApp, SMS, sign-in and push notifications. iMessage is not planned: it needs a Mac.
 
 ## Run it
 
@@ -29,7 +28,7 @@ pnpm models:sync     # checks every model in config/tiers.yaml against what Olla
 pnpm build           # builds the web app (once, and again after pulling changes)
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 35 tests, no model or network needed
+pnpm test            # 45 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -56,8 +55,11 @@ a wait of many seconds before `qwen3:30b` starts answering. If that is too slow,
   are logged and shown. Start a message with `/lite`, `/standard`, `/pro`, `/max` or `/think` to choose yourself.
 - **Fallbacks.** A failed call is retried, then the next model in the tier is tried, then the tier below. Each step
   is logged and printed. If nothing answers, you get an error listing everything that was tried.
-- **Plans.** Free has Lite and Standard; Pro adds Pro; Max has all four. Each has a daily token limit, enforced on
-  the server. `ONYX_PLAN` in `.env` sets the plan of the owner account.
+- **No limits.** Everything is local, so every tier is open and tokens are only counted (Usage screen).
+- **Billing, if you ever charge.** Set `billing: { enabled: true }` in `tiers.yaml` and each account's plan decides
+  its tiers and daily tokens (Free: Lite and Standard; Pro adds Pro; Max: all four). `GET /api/billing` reports what
+  each account used this month and what it cost you; `PUT /api/billing/users/:id` sets a plan. Taking payment is not
+  built: point a payment provider's webhook at that route when you need it.
 - **Cost.** Local models cost nothing per call. A model with `price: null` is logged with no cost, not a guess.
 
 ### Kimi, if you want it
@@ -95,11 +97,25 @@ child. Edit any agent, or add your own, on the Agents screen.
   `enabled: true`, put a fine-grained token in `GITHUB_MCP_TOKEN`, and tick `connector:github` in an agent's tools.
   It uses GitHub's read-only address by default.
 
+## From your phone
+
+- **WhatsApp** (Meta's official Cloud API) and **SMS** (Twilio): see `SETUP_WHATSAPP.md` and `SETUP_SMS.md`. Both
+  need a tunnel to this PC, because the providers deliver your texts to a public address.
+- **Who gets in.** Only numbers on the allowlist, and only after the number is linked: Onyx shows a six-digit code
+  and you text it from that phone. Everyone else is ignored without a reply. Every webhook is checked against the
+  provider's signature first, and one number can send at most 20 messages in five minutes.
+- **Onyx texting first.** Reminders go to your preferred channels in order and end with the app. On WhatsApp,
+  outside 24 hours of your last message, only an approved template can be sent.
+- **The app on your phone.** Open your tunnel's address, sign in, and add it to the Home Screen. Settings has a
+  button to turn notifications on for that device.
+- **Sign-in.** From this PC the app needs no password. Anything arriving through a tunnel needs `ONYX_PASSWORD`;
+  with no password set, the server refuses everything that isn't this PC.
+
 ## The app
 
 Nine screens: Chat, Agent graph, Runs, Agents, Channels, Connectors, Models, Usage, Settings. Everything shown is
 read from the database or the live event stream; there is no sample data. The server listens on this PC only
-(127.0.0.1), and there is no sign-in yet: do not expose the port to a network until the channels milestone adds it.
+(127.0.0.1); a tunnel running on this PC is what makes it reachable from your phone.
 
 The look is defined in one file, `apps/web/app/tokens.css`, with the reason for each decision. It follows the
 [antislop UI rules](https://github.com/miqdadbadjuber/anti-slop): one accent, no gradients, glow, blur or shadows,
@@ -112,8 +128,8 @@ fallback, plan and limit enforcement, streaming, tool-call assembly, the agent l
 switch, reminders, delivery fallback, connectors and the API. The app was driven in a browser against the real
 server with a stand-in model, at desktop and phone sizes.
 
-**Nothing here has yet been run against a real Qwen model, a real Docker sandbox, a live web search or a real MCP
-server**: the machine this was written on has none of them. The first run on your PC is that test. The part most
+**Nothing here has yet been run against a real Qwen model, a real Docker sandbox, a live web search, a real MCP
+server, Meta, Twilio or a real push service**: the machine this was written on has none of them. The first run on your PC is that test. The part most
 likely to need adjusting is how reliably the smaller Qwen models call tools.
 
 ## Files
@@ -127,7 +143,8 @@ apps/server/src/db.ts         the database (SQLite now; the queries also run on 
 apps/server/src/models/       provider client, gateway (fallbacks, limits, cost), router
 apps/server/src/agents/       the runtime (loop, subagents, budgets, kill switch) and the built-in agents
 apps/server/src/tools/        built-in tools, the tool registry, MCP connectors
-apps/server/src/channels/     channel adapters, delivery with fallback, per-channel formatting
+apps/server/src/channels/     channel adapters (web, WhatsApp, SMS), delivery with fallback, formatting
+apps/server/src/push.ts       push notifications for the installed app
 apps/server/src/scheduler.ts  fires reminders
 apps/server/src/bus.ts        the event stream
 apps/server/src/index.ts      the server: API, WebSocket, and the built app

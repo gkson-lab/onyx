@@ -7,6 +7,8 @@ const BASE = process.env.NEXT_PUBLIC_API ?? '';
 export async function api<T = any>(path: string, init?: { method?: string; body?: unknown }): Promise<T> {
 	const res = await fetch(`${BASE}/api${path}`, { method: init?.method ?? 'GET', headers: init?.body !== undefined ? { 'content-type': 'application/json' } : undefined, body: init?.body !== undefined ? JSON.stringify(init.body) : undefined });
 	const data = await res.json().catch(() => ({ error: `The server answered ${res.status} with something that is not JSON.` }));
+	// Reached through a tunnel without a session: go and sign in.
+	if (res.status === 401 && !path.startsWith('/login') && !path.startsWith('/session') && typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) window.location.replace('/login');
 	if (!res.ok) throw new Error(data.error ?? `The server answered ${res.status}.`);
 	return data as T;
 }

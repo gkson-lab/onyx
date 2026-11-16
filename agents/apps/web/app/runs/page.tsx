@@ -34,7 +34,7 @@ export default function Runs() {
 			{!data && !error && <Loading what="runs" />}
 			{data && !data.runs.length && (filtered ? <Empty title="No runs match these filters.">Set a filter back to Any to widen the list.</Empty> : <Empty title="No runs yet.">A run is recorded each time Onyx handles a message. Send one in <Link href="/" className="text-text underline">Chat</Link>.</Empty>)}
 			{data && data.runs.length > 0 && (
-				<ul className="border-t">
+				<ul className="rows border-t">
 					{data.runs.map((r) => (
 						<li key={r.id}>
 							<Link href={`/graph?run=${r.id}`} className="grid min-h-14 grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 border-b py-3 hover:bg-surface md:grid-cols-[minmax(0,1fr)_9rem_11rem_6rem]">

@@ -24,7 +24,7 @@ export default function Connectors() {
 			{!data && !error && <Loading what="connectors" />}
 			{data && !data.connectors.length && <Empty title="No connectors are listed.">Add one to <Code>config/connectors.yaml</Code>, then press Reconnect all. The file ships with GitHub, switched off, and a commented example of a local file server.</Empty>}
 			{data && data.connectors.length > 0 && (
-				<ul className="border-t">
+				<ul className="rows border-t">
 					{data.connectors.map((c) => (
 						<li key={c.id} className="grid gap-2 border-b py-4 md:grid-cols-[12rem_1fr]">
 							<div><p className="text-sm font-medium">{c.id}</p><p className={`text-sm ${c.state === 'error' || c.state === 'needs_token' ? 'text-bad' : 'text-muted'}`}>{STATE[c.state]}</p></div>

@@ -87,7 +87,7 @@ export default function Agents() {
 			{data && open === '+' && <div className="mb-8 border-y py-6"><h2 className="mb-4 text-sm font-medium">New agent</h2><Editor agent={BLANK} data={data} tiers={models} isNew onSaved={done} onCancel={() => setOpen(null)} /></div>}
 			{data && !data.agents.length && <Empty title="No agents.">The built-in agents are created when the server starts. Restart it with pnpm start.</Empty>}
 			{data && (
-				<ul className="border-t">
+				<ul className="rows border-t">
 					{data.agents.map((a) => (
 						<li key={a.id} className="border-b">
 							<button type="button" aria-expanded={open === a.id} onClick={() => setOpen(open === a.id ? null : a.id)} className="grid min-h-14 w-full grid-cols-[1fr_auto] items-center gap-4 py-3 text-left hover:bg-surface md:grid-cols-[14rem_1fr_auto]">

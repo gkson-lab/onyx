@@ -49,7 +49,7 @@ export function RunTree({ tree, routing, live = false }: { tree: RunNode[]; rout
 						Routed to <span className="text-text">{routing.tier}</span> by {routing.via === 'override' ? 'you' : routing.via === 'heuristic' ? 'rules (the router model failed)' : 'the Lite model'}: {routing.reason}
 					</p>
 				)}
-				<ul role="tree" aria-label="Agents in this run" className="border-t">
+				<ul role="tree" aria-label="Agents in this run" className="rows border-t">
 					{tree.map((n) => (
 						<li key={n.id} role="treeitem" aria-selected={n.id === node.id} aria-level={n.depth + 1}>
 							<button type="button" onClick={() => setPicked(n.id)} className={`flex min-h-12 w-full items-center gap-2 border-b py-2 pr-2 text-left ${n.id === node.id ? 'bg-surface' : 'hover:bg-surface'}`} style={{ paddingLeft: 8 + n.depth * 20 }}>
@@ -79,7 +79,7 @@ export function RunTree({ tree, routing, live = false }: { tree: RunNode[]; rout
 				<h3 className="text-sm font-medium">{node.name}</h3>
 				<p className="mt-1 whitespace-pre-wrap text-sm text-muted">{node.input}</p>
 				<div className="mt-4 space-y-2 border-t pt-4">
-					{node.log.filter((l) => l.type !== 'finished').map((l, i) => <Entry key={i} e={l} />)}
+					{node.log.filter((l) => l.type !== 'finished').map((l, i) => <div key={i} className="enter"><Entry e={l} /></div>)}
 					{node.status === 'running' && <p className="thinking font-mono text-xs">working, step {node.step}</p>}
 					{!node.log.some((l) => l.type === 'tool_call') && node.status !== 'running' && <p className="font-mono text-xs text-muted">answered without tools</p>}
 				</div>
@@ -105,7 +105,7 @@ export function Activity({ tree, routing, live }: { tree: RunNode[]; routing?: R
 				{sum.tools.length > 0 && <span className="inline-flex items-center gap-1 font-mono"><Wrench {...ICON} size={12} aria-hidden />{sum.tools.join(' ')}</span>}
 				<span className="font-mono">{fmtTokens(sum.tokens)} tok{root.ms != null ? ` · ${fmtMs(root.ms)}` : ''}</span>
 			</button>
-			{open && <div className="mt-3 border-l pl-4"><RunTree tree={tree} routing={routing} live={live} /></div>}
+			<div className="reveal" data-open={open}><div>{open && <div className="mt-3 border-l pl-4"><RunTree tree={tree} routing={routing} live={live} /></div>}</div></div>
 		</div>
 	);
 }

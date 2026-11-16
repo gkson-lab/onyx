@@ -47,6 +47,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
 		return () => window.removeEventListener('keydown', key);
 	}, [sheet]);
 
+	useEffect(() => {
+		if ('serviceWorker' in navigator) void navigator.serviceWorker.register('/sw.js').catch(() => {});
+	}, []);
+	if (path.startsWith('/login')) return <main className="h-full">{children}</main>;
+
 	const row = (i: (typeof ALL)[number], big = false) => {
 		const on = isCurrent(path, i.href);
 		const Icon = i.icon;
@@ -80,7 +85,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 					<Mark />
 					{!live.connected && <span className="text-xs text-bad">Server not connected</span>}
 				</header>
-				<main className="min-h-0 flex-1 overflow-y-auto">{children}</main>
+				<main className="min-h-0 flex-1 overflow-y-auto"><div key={path} className="enter h-full">{children}</div></main>
 				<nav aria-label="Main" className="grid grid-cols-5 border-t md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
 					{ALL.filter((i) => BOTTOM.includes(i.href)).map((i) => {
 						const on = isCurrent(path, i.href);
@@ -100,8 +105,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
 			</div>
 
 			{sheet && (
-				<div id="more-sheet" role="dialog" aria-modal="true" aria-label="More" className="fixed inset-0 z-20 flex flex-col justify-end bg-bg/80 md:hidden" onClick={() => setSheet(false)}>
-					<div className="border-t bg-bg px-3 pt-3" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }} onClick={(e) => e.stopPropagation()}>
+				<div id="more-sheet" role="dialog" aria-modal="true" aria-label="More" className="fade fixed inset-0 z-20 flex flex-col justify-end bg-bg/80 md:hidden" onClick={() => setSheet(false)}>
+					<div className="sheet border-t bg-bg px-3 pt-3" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }} onClick={(e) => e.stopPropagation()}>
 						<div className="mb-1 flex items-center justify-between px-3">
 							<p className="text-xs text-muted">System</p>
 							<button type="button" aria-label="Close" onClick={() => (setSheet(false), trigger.current?.focus())} className="flex h-11 w-11 items-center justify-center text-muted"><X {...ICON} /></button>

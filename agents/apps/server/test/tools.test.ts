@@ -163,7 +163,7 @@ describe('the server', () => {
 		expect(settings.json().keys.find((k: any) => k.name === 'MOONSHOT_API_KEY')).toEqual({ name: 'MOONSHOT_API_KEY', set: true });
 		expect(settings.body).not.toContain('sk-very-secret');
 		expect((await server.inject({ method: 'PUT', url: '/api/settings', payload: { preferred_channels: ['sms', 'web'] } })).statusCode).toBe(200);
-		expect(await app.outbox.preferred()).toEqual(['web']);
+		expect(await app.outbox.preferred()).toEqual(['sms', 'web']);
 		expect((await server.inject({ method: 'GET', url: '/api/channels' })).json().channels.map((c: any) => `${c.id}:${c.ok}`)).toEqual(['web:true', 'whatsapp:false', 'sms:false']);
 	});
 });

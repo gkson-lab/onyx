@@ -1,6 +1,6 @@
 // The server: the API the app uses, and a WebSocket that carries every agent event as it happens. It listens on this
 // machine only (127.0.0.1). Keys never leave the server: the API reports whether one is set, never its value.
-import { randomUUID } from 'node:crypto';
+import { randomBytes, randomInt, randomUUID, timingSafeEqual } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import Fastify, { type FastifyInstance } from 'fastify';
@@ -8,15 +8,16 @@ import websocket from '@fastify/websocket';
 import fastifyStatic from '@fastify/static';
 import { sql } from 'kysely';
 import { z } from 'zod';
-import { AgentDef, Channel, CHANNELS, TIERS, type ChatMessage } from '@onyx/shared';
+import { AgentDef, Channel, TIERS, type ChatMessage } from '@onyx/shared';
 import { createApp, type App } from './app.ts';
 import { parseTiers, ROOT } from './config.ts';
 import { now, today } from './db.ts';
 import { listModels } from './models/provider.ts';
+import { e164 } from './channels/phone.ts';
 
 const ChatBody = z.object({ text: z.string().trim().min(1).max(20000) });
 const SettingsBody = z.object({ preferred_channels: z.array(Channel).min(1).max(4).optional(), allowlist: z.array(z.string().trim().min(3).max(64)).max(50).optional() });
-const KEYS = ['MOONSHOT_API_KEY', 'BRAVE_API_KEY', 'GITHUB_MCP_TOKEN', 'WHATSAPP_TOKEN', 'TWILIO_AUTH_TOKEN'];
+const KEYS = ['ONYX_PASSWORD', 'MOONSHOT_API_KEY', 'BRAVE_API_KEY', 'GITHUB_MCP_TOKEN', 'WHATSAPP_TOKEN', 'WHATSAPP_APP_SECRET', 'TWILIO_AUTH_TOKEN'];
 
 /** Takes a message in, runs it, stores both sides, and sends the answer out on the channel it came from. */
 export async function receive(app: App, o: { userId: string; text: string; channel: Channel; runId?: string }) {
@@ -30,12 +31,163 @@ export async function receive(app: App, o: { userId: string; text: string; chann
 	return { ...r, reply };
 }
 
+/** At most `max` events per `windowMs` for each key. In memory: it resets when the server restarts. */
+export function limiter(max: number, windowMs: number, clock: () => number = Date.now) {
+	const hits = new Map<string, number[]>();
+	return (key: string): boolean => {
+		const t = clock();
+		const recent = (hits.get(key) ?? []).filter((x) => t - x < windowMs);
+		if (recent.length >= max) return hits.set(key, recent), false;
+		recent.push(t);
+		hits.set(key, recent);
+		return true;
+	};
+}
+const allowInbound = limiter(20, 5 * 60 * 1000);
+
+/**
+ * A message from a phone. Only numbers on the allowlist get anywhere; everyone else is ignored without a reply.
+ * A number is linked to the account by texting the code shown in Settings, which proves the phone is yours.
+ */
+export async function inbound(app: App, channel: 'whatsapp' | 'sms', from: string, text: string | null, kind = 'text'): Promise<'ignored' | 'verified' | 'unverified' | 'limited' | 'unsupported' | 'handled'> {
+	const handle = e164(from);
+	const row = await app.db.selectFrom('settings').select('value').where('key', '=', 'allowlist').executeTakeFirst();
+	const allow: string[] = row ? JSON.parse(row.value) : [];
+	if (!allow.includes(handle)) return 'ignored';
+	const adapter = channel === 'whatsapp' ? app.whatsapp : app.sms;
+	const id = await app.db.selectFrom('identities').selectAll().where('channel', '=', channel).where('handle', '=', handle).executeTakeFirst();
+	if (!id) return 'ignored';
+	await app.db.updateTable('identities').set({ last_inbound: now() }).where('id', '=', id.id).execute();
+	if (!id.verified_at) {
+		const ok = !!id.code && !!text && text.trim() === id.code && !!id.code_expires && Date.parse(id.code_expires) > Date.now();
+		if (!ok) return 'unverified';
+		await app.db.updateTable('identities').set({ verified_at: now(), code: null, code_expires: null }).where('id', '=', id.id).execute();
+		await adapter.sendTo(handle, ['This number is now linked to Onyx. Text me anything.']).catch(() => {});
+		return 'verified';
+	}
+	if (!allowInbound(`${channel}:${handle}`)) return 'limited';
+	if (text === null || !text.trim()) {
+		await adapter.sendTo(handle, [`I can only read text messages for now, not ${kind === 'audio' ? 'voice notes' : `${kind} messages`}.`]).catch(() => {});
+		return 'unsupported';
+	}
+	// The run can take a while, so it goes on after the webhook has been answered.
+	void receive(app, { userId: id.user_id, text: text.slice(0, 20000), channel }).catch(() => {});
+	return 'handled';
+}
+
 export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string } = {}): Promise<FastifyInstance> {
 	const server = Fastify({ logger: false, bodyLimit: 1_000_000 });
 	await server.register(websocket);
 	const tiersPath = o.tiersPath ?? resolve(ROOT, 'config/tiers.yaml');
 	const db = app.db;
 	const bad = (reply: any, e: z.ZodError) => reply.code(400).send({ error: e.issues.map((i) => `${i.path.join('.') || 'body'}: ${i.message}`).join('; ') });
+
+	// Bodies are kept as text too: the webhook signatures are computed over the exact bytes that arrived.
+	server.addContentTypeParser('application/json', { parseAs: 'string' }, (req, body, done) => {
+		(req as any).rawBody = body;
+		try {
+			done(null, body ? JSON.parse(body as string) : {});
+		} catch {
+			done(Object.assign(new Error('The body is not valid JSON.'), { statusCode: 400 }));
+		}
+	});
+	server.addContentTypeParser('application/x-www-form-urlencoded', { parseAs: 'string' }, (_req, body, done) => done(null, Object.fromEntries(new URLSearchParams(body as string))));
+
+	/* ---------- who may use the API ---------- */
+	// From this PC, directly: open. Through a tunnel or from another machine: only with the password's session.
+	const password = app.env.ONYX_PASSWORD ?? '';
+	const tryLogin = limiter(5, 60 * 1000);
+	const cookie = (req: any): string | null => (String(req.headers.cookie ?? '').match(/(?:^|;\s*)onyx_session=([a-f0-9]{64})/) ?? [])[1] ?? null;
+	const remote = (req: any): boolean => !['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.ip) || ['x-forwarded-for', 'cf-connecting-ip', 'x-real-ip', 'forwarded'].some((h) => req.headers[h] !== undefined);
+	const signedIn = async (req: any): Promise<boolean> => {
+		const token = cookie(req);
+		return !!token && !!(await db.selectFrom('sessions').select('token').where('token', '=', token).executeTakeFirst());
+	};
+	server.addHook('onRequest', async (req, reply) => {
+		const path = req.url.split('?')[0]!;
+		if (!(path.startsWith('/api/') || path === '/ws') || path === '/api/login' || path === '/api/session') return;
+		if (!remote(req) || (await signedIn(req))) return;
+		return reply.code(401).send({ error: password ? 'Sign in first.' : 'This server has no password, so it only answers this PC. Set ONYX_PASSWORD in .env to use it from elsewhere.' });
+	});
+	server.get('/api/session', async (req) => ({ signed_in: !remote(req) || (await signedIn(req)), needs_password: remote(req), has_password: !!password }));
+	server.post('/api/login', async (req, reply) => {
+		const body = z.object({ password: z.string().min(1).max(200) }).safeParse(req.body);
+		if (!body.success) return bad(reply, body.error);
+		if (!tryLogin(req.ip)) return reply.code(429).send({ error: 'Too many tries. Wait a minute.' });
+		const a = Buffer.from(body.data.password);
+		const b = Buffer.from(password);
+		if (!password || a.length !== b.length || !timingSafeEqual(a, b)) return reply.code(401).send({ error: password ? 'That is not the password.' : 'No password is set on the server.' });
+		const token = randomBytes(32).toString('hex');
+		await db.insertInto('sessions').values({ token, user_id: app.owner, created_at: now() }).execute();
+		reply.header('set-cookie', `onyx_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=2592000${req.headers['x-forwarded-proto'] === 'https' || req.protocol === 'https' ? '; Secure' : ''}`);
+		return { signed_in: true };
+	});
+	server.post('/api/logout', async (req, reply) => {
+		const token = cookie(req);
+		if (token) await db.deleteFrom('sessions').where('token', '=', token).execute();
+		reply.header('set-cookie', 'onyx_session=; Path=/; HttpOnly; Max-Age=0');
+		return { signed_in: false };
+	});
+
+	/* ---------- webhooks: checked by signature, not by session ---------- */
+	server.get('/webhooks/whatsapp', async (req, reply) => {
+		const challenge = app.whatsapp.verify(req.query as Record<string, string>);
+		return challenge === null ? reply.code(403).send('forbidden') : reply.type('text/plain').send(challenge);
+	});
+	server.post('/webhooks/whatsapp', async (req, reply) => {
+		if (!app.whatsapp.signed(String((req as any).rawBody ?? ''), req.headers['x-hub-signature-256'] as string | undefined)) return reply.code(401).send({ error: 'bad signature' });
+		for (const m of app.whatsapp.parse(req.body)) await inbound(app, 'whatsapp', m.from, m.text, m.kind);
+		return { ok: true };
+	});
+	server.post('/webhooks/sms', async (req, reply) => {
+		const params = (req.body ?? {}) as Record<string, string>;
+		if (!app.sms.signed('/webhooks/sms', params, req.headers['x-twilio-signature'] as string | undefined)) return reply.code(401).send({ error: 'bad signature' });
+		await inbound(app, 'sms', String(params.From ?? ''), typeof params.Body === 'string' ? params.Body : null);
+		// An empty reply: Onyx answers with a message of its own when the run is done.
+		return reply.type('text/xml').send('<Response></Response>');
+	});
+
+	/* ---------- phone numbers linked to the account ---------- */
+	server.get('/api/identities', async () => ({ identities: await db.selectFrom('identities').select(['id', 'channel', 'handle', 'verified_at', 'code', 'code_expires']).where('user_id', '=', app.owner).execute() }));
+	server.post('/api/identities', async (req, reply) => {
+		const body = z.object({ channel: z.enum(['whatsapp', 'sms']), handle: z.string().transform(e164).pipe(z.string().regex(/^\+\d{8,15}$/, 'write the number in international form: + then 8 to 15 digits')) }).safeParse(req.body);
+		if (!body.success) return bad(reply, body.error);
+		const code = String(randomInt(100000, 1000000));
+		const row = { user_id: app.owner, channel: body.data.channel, handle: body.data.handle, verified_at: null, code, code_expires: new Date(Date.now() + 15 * 60 * 1000).toISOString(), last_inbound: null };
+		await db.insertInto('identities').values(row).onConflict((c) => c.columns(['channel', 'handle']).doUpdateSet({ code, code_expires: row.code_expires, verified_at: null })).execute();
+		// Linking a number also puts it on the allowlist: otherwise its code would be ignored.
+		const cur = await db.selectFrom('settings').select('value').where('key', '=', 'allowlist').executeTakeFirst();
+		const list = JSON.stringify([...new Set([...(cur ? JSON.parse(cur.value) : []), body.data.handle])]);
+		await db.insertInto('settings').values({ key: 'allowlist', value: list }).onConflict((c) => c.column('key').doUpdateSet({ value: list })).execute();
+		return { code, expires: row.code_expires, handle: body.data.handle };
+	});
+	server.delete('/api/identities/:id', async (req) => ({ removed: Number((await db.deleteFrom('identities').where('id', '=', Number((req.params as { id: string }).id)).where('user_id', '=', app.owner).executeTakeFirst()).numDeletedRows) }));
+
+	/* ---------- notifications for the installed app ---------- */
+	server.get('/api/push', async () => ({ public_key: await app.push.publicKey(), devices: await app.push.count(app.owner) }));
+	server.post('/api/push', async (req, reply) => {
+		const body = z.object({ endpoint: z.string().url() }).passthrough().safeParse(req.body);
+		if (!body.success) return bad(reply, body.error);
+		await app.push.subscribe(app.owner, body.data);
+		return { devices: await app.push.count(app.owner) };
+	});
+	server.post('/api/push/test', async () => ({ sent: await app.push.notify(app.owner, 'Notifications from Onyx work on this device.') }));
+
+	/* ---------- billing: off unless tiers.yaml turns it on ---------- */
+	// Kept small on purpose. It answers "who used what, and what did it cost me", and lets a plan be set per account.
+	// Taking payment is not here: connect a payment provider's webhook to PUT /api/billing/users/:id when you need it.
+	server.get('/api/billing', async () => {
+		const month = new Date().toISOString().slice(0, 7);
+		const users = await db.selectFrom('users').selectAll().execute();
+		const used = await db.selectFrom('usage_daily').select('user_id').select((eb) => [eb.fn.sum<number>('tokens').as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd')]).where('day', '>=', `${month}-01`).groupBy('user_id').execute();
+		return { enabled: app.config.file.billing.enabled, month, plans: app.config.file.plans, users: users.map((u) => ({ id: u.id, name: u.name, plan: u.plan, tokens: used.find((x) => x.user_id === u.id)?.tokens ?? 0, cost_usd: used.find((x) => x.user_id === u.id)?.cost_usd ?? 0 })) };
+	});
+	server.put('/api/billing/users/:id', async (req, reply) => {
+		const body = z.object({ plan: z.enum(['free', 'pro', 'max']) }).safeParse(req.body);
+		if (!body.success) return bad(reply, body.error);
+		const r = await db.updateTable('users').set({ plan: body.data.plan }).where('id', '=', (req.params as { id: string }).id).executeTakeFirst();
+		return Number(r.numUpdatedRows) ? { plan: body.data.plan } : reply.code(404).send({ error: 'No account has that id.' });
+	});
 
 	server.get('/health', async () => ({ ok: true }));
 	server.get('/ws', { websocket: true }, (socket) => {
@@ -134,7 +286,7 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		const group = async (col: 'tier' | 'model_id' | 'purpose') => db.selectFrom('model_calls').select(col).select((eb) => [eb.fn.countAll<number>().as('calls'), eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.avg<number>('latency_ms').as('latency_ms')]).where('created_at', '>=', since).where('status', '=', 'ok').groupBy(col).execute();
 		const byDay = await db.selectFrom('model_calls').select(sql<string>`substr(created_at, 1, 10)`.as('day')).select((eb) => [eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.countAll<number>().as('calls')]).where('created_at', '>=', since).where('status', '=', 'ok').groupBy(sql`substr(created_at, 1, 10)`).orderBy('day').execute();
 		const plan = await app.gateway.plan(app.owner);
-		return { days, plan, limit: app.config.file.plans[plan]!.daily_tokens, used_today: await app.gateway.usedToday(app.owner), today: today(), by_day: byDay, by_tier: await group('tier'), by_model: await group('model_id'), by_agent: await group('purpose') };
+		return { days, billing: app.config.file.billing.enabled, plan, limit: app.config.file.billing.enabled ? app.config.file.plans[plan]!.daily_tokens : null, used_today: await app.gateway.usedToday(app.owner), today: today(), by_day: byDay, by_tier: await group('tier'), by_model: await group('model_id'), by_agent: await group('purpose') };
 	});
 
 	/* ---------- channels, connectors, schedules, settings ---------- */
@@ -145,8 +297,7 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 			return { id: a.id, ...(await a.status()), last: last ? { direction: last.direction, text: last.text.slice(0, 160), at: last.created_at } : null, errors };
 		}));
 		// Channels that exist in the product but aren't set up yet are listed too, so the screen says what is missing.
-		const missing = CHANNELS.filter((c) => c !== 'terminal' && !channels.some((x) => x.id === c)).map((c) => ({ id: c, ok: false, detail: 'Not built yet: this channel arrives in a later milestone.', last: null, errors: [] }));
-		return { channels: [...channels, ...missing], preferred: await app.outbox.preferred() };
+		return { channels, preferred: await app.outbox.preferred(), public_url: app.env.PUBLIC_URL ?? null };
 	});
 	server.post('/api/channels/:id/test', async (req, reply) => {
 		const id = Channel.safeParse((req.params as { id: string }).id);
@@ -207,6 +358,7 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
 	const app = await createApp();
 	const server = await buildServer(app);
 	const port = Number(process.env.PORT ?? 8787);
+	// It listens on this PC only. A tunnel (cloudflared) running on this PC is what makes it reachable from outside.
 	await server.listen({ port, host: '127.0.0.1' });
 	app.scheduler.start();
 	const connectors = await app.connectors.start();

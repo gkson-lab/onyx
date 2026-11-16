@@ -13,6 +13,8 @@ import { Connectors, type Connect } from './tools/mcp.ts';
 import { Outbox } from './channels/outbox.ts';
 import { Scheduler } from './scheduler.ts';
 import { embedder } from './embed.ts';
+import { SmsChannel, WhatsAppChannel } from './channels/phone.ts';
+import { Push } from './push.ts';
 import { Plan } from '@onyx/shared';
 
 export interface App {
@@ -27,6 +29,9 @@ export interface App {
 	outbox: Outbox;
 	scheduler: Scheduler;
 	connectors: Connectors;
+	whatsapp: WhatsAppChannel;
+	sms: SmsChannel;
+	push: Push;
 	/** The account of the person whose machine this is. */
 	owner: string;
 }
@@ -41,6 +46,9 @@ export interface AppOptions {
 	tool?: Partial<ToolDeps>;
 	clock?: () => Date;
 	connect?: Connect;
+	/** Used by the phone channels to reach Meta and Twilio; replaced in tests. */
+	phoneFetch?: typeof fetch;
+	pushSend?: ConstructorParameters<typeof Push>[1];
 	connectorsPath?: string;
 }
 
@@ -58,7 +66,14 @@ export async function createApp(o: AppOptions = {}): Promise<App> {
 	const runtime = new Runtime({ db, gateway, router, bus, tools, clock: o.clock });
 	await runtime.seed();
 	const outbox = new Outbox(db, bus);
+	const whatsapp = new WhatsAppChannel(db, env, o.phoneFetch);
+	const sms = new SmsChannel(db, env, o.phoneFetch);
+	outbox.add(whatsapp);
+	outbox.add(sms);
+	const push = new Push(db, o.pushSend);
+	// A message Onyx starts also goes to the installed app as a notification.
+	bus.on((e) => e.type === 'message' && e.data.proactive && void push.notify(String(e.data.userId), String(e.data.text)).catch(() => {}));
 	const scheduler = new Scheduler(db, outbox, o.clock);
 	const connectors = new Connectors(tools, env, o.connect, o.connectorsPath);
-	return { config, env, db, bus, gateway, router, tools, runtime, outbox, scheduler, connectors, owner: 'owner' };
+	return { config, env, db, bus, gateway, router, tools, runtime, outbox, scheduler, connectors, whatsapp, sms, push, owner: 'owner' };
 }

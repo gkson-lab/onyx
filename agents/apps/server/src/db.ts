@@ -18,6 +18,9 @@ export interface Tables {
 	memories: { id: Generated<number>; user_id: string; text: string; embedding: string | null; created_at: string };
 	schedules: { id: Generated<number>; user_id: string; text: string; next_fire: string; repeat: string; channel: string | null; status: string; last_fired: string | null; created_at: string };
 	settings: { key: string; value: string };
+	identities: { id: Generated<number>; user_id: string; channel: string; handle: string; verified_at: string | null; code: string | null; code_expires: string | null; last_inbound: string | null };
+	sessions: { token: string; user_id: string; created_at: string };
+	push_subscriptions: { endpoint: string; user_id: string; data: string; created_at: string };
 }
 export type DB = Kysely<Tables>;
 
@@ -58,6 +61,12 @@ const MIGRATIONS: ((db: Kysely<any>) => Promise<void>)[] = [
 		await t('memories').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('text', 'text', (c) => c.notNull()).addColumn('embedding', 'text').addColumn('created_at', 'text', (c) => c.notNull()).execute();
 		await t('schedules').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('text', 'text', (c) => c.notNull()).addColumn('next_fire', 'text', (c) => c.notNull()).addColumn('repeat', 'text', (c) => c.notNull()).addColumn('channel', 'text').addColumn('status', 'text', (c) => c.notNull()).addColumn('last_fired', 'text').addColumn('created_at', 'text', (c) => c.notNull()).execute();
 		await t('settings').addColumn('key', 'text', (c) => c.primaryKey()).addColumn('value', 'text', (c) => c.notNull()).execute();
+	},
+	async (db) => {
+		await db.schema.createTable('identities').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('channel', 'text', (c) => c.notNull()).addColumn('handle', 'text', (c) => c.notNull()).addColumn('verified_at', 'text').addColumn('code', 'text').addColumn('code_expires', 'text').addColumn('last_inbound', 'text').execute();
+		await db.schema.createIndex('identities_handle').on('identities').columns(['channel', 'handle']).unique().execute();
+		await db.schema.createTable('sessions').addColumn('token', 'text', (c) => c.primaryKey()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('created_at', 'text', (c) => c.notNull()).execute();
+		await db.schema.createTable('push_subscriptions').addColumn('endpoint', 'text', (c) => c.primaryKey()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('data', 'text', (c) => c.notNull()).addColumn('created_at', 'text', (c) => c.notNull()).execute();
 	},
 ];
 

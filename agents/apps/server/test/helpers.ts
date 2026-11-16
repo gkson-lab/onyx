@@ -20,6 +20,7 @@ tiers:
   standard: { label: Standard, models: [qwen-standard] }
   pro:      { label: Pro,      models: [kimi-pro, qwen-pro] }
   max:      { label: Max,      models: [qwen-max] }
+billing: { enabled: true }
 plans:
   free: { tiers: [lite, standard],           daily_tokens: 1000 }
   pro:  { tiers: [lite, standard, pro],      daily_tokens: 100000 }

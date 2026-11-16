@@ -35,6 +35,12 @@ tiers:
   pro:      { label: Pro,      use_for: "coding, tool use, multi-step planning",              models: [kimi-pro, qwen-pro] }
   max:      { label: Max,      use_for: "hardest reasoning, long tasks, think-hard mode",     models: [kimi-max, qwen-max] }
 
+# Billing is off: everything is local, so every tier is open and nothing is limited. Tokens are still counted.
+# If you ever charge for Onyx, set `enabled: true`: each account's plan then decides which tiers it may use and how
+# many tokens a day, and /api/billing reports what each account used and what it cost you.
+billing:
+  enabled: false
+
 plans:
   free: { tiers: [lite, standard],           daily_tokens: 200000 }
   pro:  { tiers: [lite, standard, pro],      daily_tokens: 2000000 }

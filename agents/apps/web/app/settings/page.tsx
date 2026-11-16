@@ -5,7 +5,91 @@ import { api, fmtTime, useData } from '@/lib/api';
 import { Button, Code, ICON, Loading, Page, Problem, Section, channelLabel } from '@/components/ui';
 
 interface S { preferred_channels: string[]; allowlist: string[]; keys: { name: string; set: boolean }[]; cloud: boolean }
-const KEY_USE: Record<string, string> = { MOONSHOT_API_KEY: 'Kimi models (only used when ONYX_CLOUD=on)', BRAVE_API_KEY: 'Web search for the Researcher', GITHUB_MCP_TOKEN: 'The GitHub connector', WHATSAPP_TOKEN: 'WhatsApp (arrives in a later milestone)', TWILIO_AUTH_TOKEN: 'SMS (arrives in a later milestone)' };
+const KEY_USE: Record<string, string> = { MOONSHOT_API_KEY: 'Kimi models (only used when ONYX_CLOUD=on)', BRAVE_API_KEY: 'Web search for the Researcher', GITHUB_MCP_TOKEN: 'The GitHub connector', ONYX_PASSWORD: 'Signing in to this app from outside this PC', WHATSAPP_TOKEN: 'Sending WhatsApp messages', WHATSAPP_APP_SECRET: 'Checking that WhatsApp webhooks come from Meta', TWILIO_AUTH_TOKEN: 'Sending SMS, and checking Twilio webhooks' };
+
+interface Identity { id: number; channel: string; handle: string; verified_at: string | null; code: string | null; code_expires: string | null }
+
+/** Linking a phone number: Onyx shows a code, you text it from that phone, and that proves the phone is yours. */
+function Phones() {
+	const { data, error, reload } = useData<{ identities: Identity[] }>('/identities');
+	const [channel, setChannel] = useState('whatsapp');
+	const [handle, setHandle] = useState('');
+	const [bad, setBad] = useState<string | null>(null);
+	const waiting = (data?.identities ?? []).some((i) => !i.verified_at);
+	// While a code is waiting to be texted, look again every few seconds so the row turns to "Linked" by itself.
+	useEffect(() => {
+		if (!waiting) return;
+		const t = setInterval(reload, 4000);
+		return () => clearInterval(t);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [waiting]);
+	const link = async () => {
+		setBad(null);
+		try {
+			await api('/identities', { method: 'POST', body: { channel, handle } });
+			setHandle('');
+			reload();
+		} catch (e) {
+			setBad((e as Error).message);
+		}
+	};
+	return (
+		<Section title="Your phone">
+			<p className="mb-3 max-w-2xl text-sm text-muted">Link the number you text from, once for each channel. Onyx gives you a six-digit code; text that code to Onyx from the phone, and the number is yours.</p>
+			{error && <Problem>{error}</Problem>}
+			{data && !data.identities.length && <p className="border-y py-3 text-sm text-muted">No number linked. Add yours below.</p>}
+			<ul className={data?.identities.length ? 'rows border-t' : ''}>
+				{(data?.identities ?? []).map((i) => (
+					<li key={i.id} className="flex min-h-12 flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b py-2">
+						<span><span className="font-mono text-sm">{i.handle}</span> <span className="text-xs text-muted">{channelLabel(i.channel)}</span></span>
+						<span className="flex items-center gap-3">
+							{i.verified_at ? <span className="text-sm text-muted">Linked {fmtTime(i.verified_at)}</span> : <span className="text-sm">Text <span className="font-mono text-base tracking-widest">{i.code}</span> to Onyx on {channelLabel(i.channel)}</span>}
+							<button type="button" aria-label={`Remove ${i.handle}`} onClick={() => void api(`/identities/${i.id}`, { method: 'DELETE' }).then(reload)} className="flex h-11 w-11 items-center justify-center text-muted hover:text-bad"><X {...ICON} /></button>
+						</span>
+					</li>
+				))}
+			</ul>
+			<form className="mt-3 flex flex-wrap gap-2" onSubmit={(e) => (e.preventDefault(), void link())}>
+				<label htmlFor="link-channel" className="sr-only">Channel</label>
+				<select id="link-channel" value={channel} onChange={(e) => setChannel(e.target.value)} className="text-sm"><option value="whatsapp">WhatsApp</option><option value="sms">SMS</option></select>
+				<label htmlFor="link-number" className="sr-only">Phone number</label>
+				<input id="link-number" value={handle} onChange={(e) => setHandle(e.target.value)} placeholder="+15125550123" inputMode="tel" className="w-48 font-mono text-sm" />
+				<Button type="submit" disabled={!handle.trim()}>Get a code</Button>
+			</form>
+			{bad && <div className="mt-2"><Problem>{bad}</Problem></div>}
+		</Section>
+	);
+}
+
+/** Notifications on this device, for when Onyx starts a message (a reminder, a finished task). */
+function Notifications() {
+	const { data, reload } = useData<{ public_key: string; devices: number }>('/push');
+	const [state, setState] = useState<string | null>(null);
+	const supported = typeof window !== 'undefined' && 'serviceWorker' in navigator && 'PushManager' in window;
+	const turnOn = async () => {
+		try {
+			if ((await Notification.requestPermission()) !== 'granted') return setState('Notifications are blocked for this site in the browser. Allow them in the site settings, then try again.');
+			const reg = await navigator.serviceWorker.ready;
+			const sub = (await reg.pushManager.getSubscription()) ?? (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: data!.public_key }));
+			await api('/push', { method: 'POST', body: sub.toJSON() });
+			const r = await api<{ sent: number }>('/push/test', { method: 'POST' });
+			setState(r.sent ? 'On. A test notification was sent to this device.' : 'Saved, but the test could not be sent. Push needs this PC to be online.');
+			reload();
+		} catch (e) {
+			setState(`Could not turn notifications on: ${(e as Error).message}`);
+		}
+	};
+	return (
+		<Section title="Notifications on this device">
+			<p className="mb-3 max-w-2xl text-sm text-muted">{supported ? 'When Onyx texts you first, this device shows a notification too. On an iPhone, add Onyx to the Home Screen first: iOS only allows notifications for installed apps.' : 'This browser cannot receive notifications here. They need a secure address (https, through your tunnel) or this PC itself, and on an iPhone, Onyx added to the Home Screen.'}</p>
+			<div className="flex flex-wrap items-center gap-3">
+				<Button onClick={() => void turnOn()} disabled={!supported || !data}>Turn on for this device</Button>
+				<span className="font-mono text-xs text-muted">{data ? `${data.devices} device${data.devices === 1 ? '' : 's'} subscribed` : ''}</span>
+			</div>
+			{state && <p role="status" className={`mt-2 text-sm ${state.startsWith('Could not') || state.includes('blocked') ? 'text-bad' : 'text-muted'}`}>{state}</p>}
+		</Section>
+	);
+}
 
 export default function Settings() {
 	const { data, error, reload } = useData<S>('/settings');
@@ -55,7 +139,7 @@ export default function Settings() {
 					</Section>
 
 					<Section title="Who may text Onyx">
-						<p className="mb-3 max-w-2xl text-sm text-muted">Phone numbers allowed to reach the agents over WhatsApp and SMS, in international form. Everyone else is ignored. It takes effect when those channels are added.</p>
+						<p className="mb-3 max-w-2xl text-sm text-muted">Phone numbers allowed to reach the agents over WhatsApp and SMS, in international form. Everyone else is ignored, without a reply. A number here must also be linked below before Onyx answers it.</p>
 						{allow.length === 0 && <p className="border-y py-3 text-sm text-muted">No numbers yet. Add yours below.</p>}
 						<ul className={allow.length ? 'border-t' : ''}>
 							{allow.map((n) => (
@@ -71,6 +155,9 @@ export default function Settings() {
 							<Button type="submit" disabled={!entry.trim()}>Add number</Button>
 						</form>
 					</Section>
+
+					<Phones />
+					<Notifications />
 
 					<Section title="Keys">
 						<p className="mb-3 max-w-2xl text-sm text-muted">Keys live in <Code>.env</Code> on this PC and are never sent to this page: it only knows whether each one is set. To change one, edit <Code>.env</Code> and restart Onyx.</p>

@@ -79,7 +79,7 @@ export default function Chat() {
 				)}
 				<ol className="space-y-6">
 					{messages.map((m) => (
-						<li key={m.id}>
+						<li key={m.id} className={Date.now() - Date.parse(m.created_at) < 4000 ? 'enter' : undefined}>
 							<p className="mb-1 flex items-center gap-2 text-xs text-muted">
 								{m.direction === 'in' ? 'You' : 'Onyx'}
 								{m.channel !== 'web' && <ChannelIcon channel={m.channel} />}
@@ -92,7 +92,7 @@ export default function Chat() {
 					{pending && (
 						<>
 							{!messages.some((m) => m.run_id === pending.runId && m.direction === 'in') && <li><p className="mb-1 text-xs text-muted">You</p><p className="whitespace-pre-wrap text-muted">{pending.text.replace(/^\/(lite|standard|pro|max|think)\s*/i, '')}</p></li>}
-							<li>
+							<li className="enter">
 								<p className="mb-1 text-xs text-muted">Onyx</p>
 								{streamed ? <p className="whitespace-pre-wrap">{streamed}</p> : <p className="thinking">{tree.length > 1 ? `${tree.filter((n) => n.status === 'running' && n.parentId).map((n) => n.name).join(', ') || 'Core'} working` : live.routing[pending.runId] ? 'Thinking' : 'Choosing a model'}</p>}
 								<Activity tree={tree} routing={live.routing[pending.runId]} live />
