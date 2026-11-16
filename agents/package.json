@@ -1,0 +1,15 @@
+{
+  "name": "onyx-agents",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Onyx Agents by GK Labs: local Qwen models, tiers, a router, and agents.",
+  "scripts": {
+    "dev": "pnpm --filter @onyx/server dev",
+    "onyx": "pnpm --filter @onyx/server onyx",
+    "models:sync": "pnpm --filter @onyx/server models:sync",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "engines": { "node": ">=22.13" },
+  "packageManager": "pnpm@10.28.0"
+}
