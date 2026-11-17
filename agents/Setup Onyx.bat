@@ -9,46 +9,37 @@ echo  Installs what is missing, builds Onyx, picks models for this PC and downlo
 echo  The model downloads are large (about 36 GB on a 16 GB graphics card). Safe to run again.
 echo.
 
-set "NEED_RESTART="
-where winget >nul 2>nul
-if errorlevel 1 (
-  where node >nul 2>nul || goto :manual
-  where ollama >nul 2>nul || goto :manual
-) else (
-  where node >nul 2>nul || call :install OpenJS.NodeJS.LTS "Node.js"
-  where git >nul 2>nul || call :install Git.Git "Git"
-  where ollama >nul 2>nul || call :install Ollama.Ollama "Ollama"
-)
-if defined NEED_RESTART (
-  echo.
-  echo  New programs were installed. Windows only sees them in a new window:
-  echo  close this window and run "Setup Onyx" again.
-  echo.
-  pause
-  exit /b 0
-)
+call :refresh_path
+call :need node OpenJS.NodeJS.LTS "Node.js" "https://nodejs.org (the LTS version)" || goto :stop
+call :need git Git.Git "Git" "https://git-scm.com" || goto :stop
+call :need ollama Ollama.Ollama "Ollama" "https://ollama.com" || goto :stop
 
-where pnpm >nul 2>nul
-if errorlevel 1 (
+call :find_pnpm
+if not defined PNPM (
   echo Installing pnpm...
-  call npm install -g pnpm || goto :fail
-  echo.
-  echo  pnpm was installed. Close this window and run "Setup Onyx" again.
-  pause
-  exit /b 0
+  call npm install -g pnpm
+  call :refresh_path
+  call :find_pnpm
 )
+if not defined PNPM (
+  echo.
+  echo  pnpm could not be installed. Open PowerShell, run:  npm install -g pnpm
+  echo  then run "Setup Onyx" again.
+  goto :stop
+)
+echo Found Node.js, Git, Ollama and pnpm.
 
 call :ollama_up
 
 echo.
 echo [1/4] Installing Onyx's packages...
-call pnpm install || goto :fail
+call "%PNPM%" install || goto :failed
 echo.
 echo [2/4] Building the app...
-call pnpm build || goto :fail
+call "%PNPM%" build || goto :failed
 echo.
 echo [3/4] Choosing models for this PC and downloading them...
-call pnpm onyx setup || goto :fail
+call "%PNPM%" onyx setup || goto :failed
 
 echo.
 echo [4/4] Restarting Ollama so its new settings apply...
@@ -65,33 +56,44 @@ echo.
 pause
 exit /b 0
 
-:install
-echo Installing %~2...
-winget install -e --id %1 --accept-package-agreements --accept-source-agreements
-set "NEED_RESTART=1"
+:need
+where %1 >nul 2>nul && exit /b 0
+where winget >nul 2>nul || goto :need_manual
+echo Installing %~3...
+winget install -e --id %2 --accept-package-agreements --accept-source-agreements
+call :refresh_path
+where %1 >nul 2>nul && exit /b 0
+:need_manual
+echo.
+echo  %~3 is needed, and it could not be installed or found automatically.
+echo  Install it from %~4, then run "Setup Onyx" again.
+exit /b 1
+
+:failed
+echo.
+echo  Setup stopped: the step above failed, and its message says why.
+echo  Send that message to whoever is helping you, or fix it and run "Setup Onyx" again.
+:stop
+echo.
+pause
+exit /b 1
+
+:refresh_path
+rem Windows only gives new program locations to windows opened after you sign in again. Read them fresh instead.
+for /f "usebackq delims=" %%P in (`powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')"`) do set "PATH=%%P;%ProgramFiles%\nodejs;%APPDATA%\npm;%ProgramFiles%\Git\cmd;%LOCALAPPDATA%\Programs\Ollama"
+exit /b 0
+
+:find_pnpm
+set "PNPM="
+for /f "delims=" %%X in ('where pnpm.cmd 2^>nul') do if not defined PNPM set "PNPM=%%X"
+if not defined PNPM for /f "delims=" %%X in ('where pnpm.exe 2^>nul') do if not defined PNPM set "PNPM=%%X"
+if not defined PNPM if exist "%APPDATA%\npm\pnpm.cmd" set "PNPM=%APPDATA%\npm\pnpm.cmd"
 exit /b 0
 
 :ollama_up
 tasklist /FI "IMAGENAME eq ollama.exe" 2>nul | find /I "ollama.exe" >nul
-if errorlevel 1 (
-  if exist "%LOCALAPPDATA%\Programs\Ollama\ollama app.exe" start "" "%LOCALAPPDATA%\Programs\Ollama\ollama app.exe"
-  timeout /t 6 /nobreak >nul
-)
+if not errorlevel 1 exit /b 0
+echo Starting Ollama...
+if exist "%LOCALAPPDATA%\Programs\Ollama\ollama app.exe" start "" "%LOCALAPPDATA%\Programs\Ollama\ollama app.exe"
+timeout /t 8 /nobreak >nul
 exit /b 0
-
-:manual
-echo.
-echo  Install these first, then run "Setup Onyx" again:
-echo    Node.js (the LTS version)  https://nodejs.org
-echo    Git                        https://git-scm.com
-echo    Ollama                     https://ollama.com
-echo.
-pause
-exit /b 1
-
-:fail
-echo.
-echo  Setup stopped: the step above failed. Its message says why. Fix that and run "Setup Onyx" again.
-echo.
-pause
-exit /b 1
