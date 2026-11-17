@@ -40,7 +40,7 @@ pnpm models:sync     # checks every model in config/tiers.yaml against what Olla
 pnpm build           # builds the web app (once, and again after pulling changes)
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 51 tests, no model or network needed
+pnpm test            # 57 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -96,6 +96,11 @@ the card and system memory. For another PC, run `pnpm onyx hardware`.
   each account used this month and what it cost you; `PUT /api/billing/users/:id` sets a plan. Taking payment is not
   built: point a payment provider's webhook at that route when you need it.
 - **Cost.** Local models cost nothing per call. A model with `price: null` is logged with no cost, not a guess.
+- **What it would cost hosted.** Every local call also records what the same work would have cost on a paid host
+  running the same Qwen model, from the prices in `config/equivalents.yaml` (Alibaba Model Studio for the 8B, 14B
+  and 30B; a third-party host for the 4B and 1.7B, labelled). It shows under each reply, in Runs, on the Models
+  screen with its source, and on Usage. A model missing from the file shows no figure rather than a guess. Calls
+  made before this was added have no figure.
 
 ### Kimi, if you want it
 
@@ -222,6 +227,7 @@ likely to need adjusting is how reliably the smaller Qwen models call tools.
 ```
 config/tiers.yaml             providers, models, tiers, plans, fallback settings
 config/connectors.yaml        MCP servers agents can use
+config/equivalents.yaml       what each local model would cost on a paid host
 packages/shared/              types shared across the system (zod schemas)
 apps/server/src/config.ts     reads tiers.yaml and .env
 apps/server/src/db.ts         the database (SQLite now; the queries also run on Postgres)

@@ -1,3 +1,244 @@
+# Onyx
+
+**By GK Labs, Austin, TX. Free and open source.**
+
+This repository holds two products that share a name, a history and a look:
+
+| | **Onyx 3** | **Onyx Agents** |
+|---|---|---|
+| What it is | A small assistant that runs entirely in a web page | A system of AI agents that runs on your own PC |
+| Intelligence | A planner, two small neural networks (200,380 and 340,320 weights), dictionaries and hand-written skills | Real open-weight **Qwen** language models, run locally by [Ollama](https://ollama.com) |
+| Needs | A browser. Nothing to install | A Windows PC with a graphics card (or any PC, more slowly), Node.js and Ollama |
+| Talk to it from | The website, or any page that loads its scripts | The Onyx app on the PC, your phone (through Tailscale), WhatsApp or SMS |
+| Goes online | Only when its internet switch allows: Wikipedia, Open-Meteo, a dictionary | Only for what you ask: web search, pages, GitHub and other connectors |
+| Where it lives | The top of this repository: [`index.html`](index.html), [`src/`](src), [`host/`](host) | [`agents/`](agents) |
+| Try it | **[gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/)** | [Quick start on Windows](#onyx-agents-quick-start-on-windows) |
+
+Pick **Onyx 3** to try Onyx in seconds, on any device, with nothing to install. Pick **Onyx Agents** for real
+conversations, writing and code from a language model, agents that use tools, reminders that reach your phone, and
+everything kept on your own machine.
+
+## Contents
+
+- [Onyx Agents](#onyx-agents)
+  - [Quick start on Windows](#onyx-agents-quick-start-on-windows)
+  - [How it works](#how-onyx-agents-works)
+  - [Models and tiers](#models-and-tiers)
+  - [Agents and tools](#agents-and-tools)
+  - [Using it from your phone](#using-it-from-your-phone)
+  - [What it would cost hosted](#what-it-would-cost-hosted)
+  - [Safety and privacy](#safety-and-privacy)
+  - [What has been tested](#what-has-been-tested)
+- [Onyx 3](#onyx-3)
+- [Repository map](#repository-map)
+- [Versions and branches](#versions-and-branches)
+- [Licenses](#licenses)
+
+---
+
+# Onyx Agents
+
+Onyx Agents turns Onyx into a team of AI agents on your own PC. A message goes to **Onyx Core**, which answers it
+or hands parts of it to specialists (a Researcher, a Coder, a Scheduler, a Messenger and a Memory agent), several
+at once when the task has parts, and then writes one answer. Every model runs on your PC through Ollama: there is
+no subscription and no per-message charge, and your conversations stay on your machine.
+
+The full documentation, including every setting, is in [`agents/README.md`](agents/README.md). This section is the
+overview.
+
+## Onyx Agents: quick start on Windows
+
+1. **Download this repository**: on [the repository page](https://github.com/gkson-lab/onyx) click **Code**, then
+   **Download ZIP**, and extract it. (Or, with Git: `git clone https://github.com/gkson-lab/onyx`. A clone can
+   update itself later; a ZIP copy cannot.)
+2. **Open the `agents` folder and double-click `Setup Onyx`.** It:
+   - installs what is missing (Node.js, Git and Ollama, through winget, and pnpm),
+   - builds Onyx,
+   - asks you for a password (used when you reach Onyx from your phone),
+   - reads your graphics card and memory, picks a model for each tier, and sets Ollama's settings to match,
+   - downloads the models (about 36 GB on a 16 GB graphics card; safe to stop and run again),
+   - puts an **Onyx** shortcut on your desktop.
+3. **Double-click the Onyx shortcut.** It starts Ollama if needed, starts Onyx, and opens it in your browser at
+   `http://127.0.0.1:8787`. Keep the black window open while you use Onyx.
+4. **To update later**, double-click `Update Onyx` (in a Git clone).
+
+On macOS or Linux, the same steps by hand: install Node.js 22.13+, pnpm and Ollama, then in `agents/` run
+`pnpm install`, `pnpm build`, `pnpm onyx setup` and `pnpm start`.
+
+Onyx runs only while your PC is on. Reminders that come due while it is off are sent when it is back, marked late.
+
+## How Onyx Agents works
+
+```mermaid
+flowchart LR
+  subgraph In[Messages in]
+    W[Onyx app<br/>on the PC or phone]
+    WA[WhatsApp]
+    S[SMS]
+    T[Terminal]
+  end
+  R{Router<br/>Lite model}
+  C[Onyx Core]
+  subgraph Sp[Specialists]
+    RE[Researcher]
+    CO[Coder]
+    SC[Scheduler]
+    ME[Memory]
+    MS[Messenger]
+  end
+  G[Model gateway<br/>tiers, fallbacks, usage]
+  O[(Ollama<br/>Qwen models)]
+  DB[(SQLite<br/>runs, steps, memory)]
+  In --> R --> C
+  R -. one specialist needed .-> Sp
+  C --> Sp
+  C --> G
+  Sp --> G --> O
+  C --> DB
+  Sp --> DB
+  C --> Out[Answer on the channel<br/>it came from]
+```
+
+- **The router.** The smallest model reads each message and picks a tier through a tool call, with a reason that is
+  logged and shown. Rules add needs the words make plain (a link to read, "remind me", "remember"), and work that
+  needs code, the web or a connector always gets at least the Pro tier. Start a message with `/lite`, `/standard`,
+  `/pro`, `/max` or `/think` to choose yourself.
+- **The agent loop.** Every agent runs the same loop: ask its model, run the tools it calls (real tool calls, not
+  text parsing), show it the results, repeat. Limits are enforced, not suggested: a cap on steps (the last step has
+  no tools, so the agent must answer), a token budget shared down the tree, a time budget, three levels of
+  subagents, and a stop button that reaches every child.
+- **Straight to a specialist.** A task that needs exactly one specialist goes to it directly, without Core in
+  between: faster, and in testing a small Core sometimes claimed to have done what it had not.
+- **Failures are never hidden.** Anything that failed along the way is listed under the answer, taken from the step
+  log rather than from what the model wrote.
+- **Everything is recorded.** Every run, step, tool call, routing decision, fallback, token count and latency is in
+  a local database, and streamed live to the app.
+
+## Models and tiers
+
+Four tiers, each backed by a model in [`agents/config/tiers.yaml`](agents/config/tiers.yaml). Setup chooses them for
+your PC and saves the choice in `config/tiers.local.yaml`, which updates never overwrite.
+
+| Tier | Used for | Default model | On an RTX 5060 Ti 16 GB (estimated) |
+|---|---|---|---|
+| **Lite** | routing, quick replies | `qwen3:4b-instruct` | on the card, about 130 tokens/s |
+| **Standard** | ordinary chat, most agent steps | `qwen3:8b` | on the card, about 65 tokens/s |
+| **Pro** | code, tools, multi-step work | `qwen3:14b` | on the card, about 36 tokens/s |
+| **Max** | hard reasoning, with thinking on | `qwen3:30b` (3B active per token) | split with system memory, about 26 tokens/s |
+
+- **For any other PC**, `pnpm onyx hardware` (or the Models screen) reads the graphics card and memory, works out
+  where each model fits and how fast it should run, and recommends a model per tier. The speeds are estimates from
+  memory bandwidth, give or take 40%.
+- **Thinking is switched off** for Lite, Standard and Pro: in a real run, Qwen's thinking used up the router's whole
+  allowance before it made its tool call. Max is the one tier that thinks.
+- **Fallbacks.** A failed call is retried, then the next model in the tier is tried, then the tier below. Each step
+  is logged and shown, and when nothing answers, the error lists everything that was tried.
+- **Ollama's context.** Setup sets `OLLAMA_CONTEXT_LENGTH` (16,384 tokens on a 16 GB card). Without it, Ollama may
+  give each model only 4,096 tokens, which cuts agents off as soon as a tool returns a page.
+- **Cloud models are optional and off.** Kimi (Moonshot AI) can back Pro and Max if you set `ONYX_CLOUD=on` and a
+  key. Nothing leaves your PC for a model unless you do.
+
+## Agents and tools
+
+| Agent | Tier | What it does | Tools |
+|---|---|---|---|
+| Onyx Core | set by the router | answers, plans, delegates, merges results | delegate, memory search, calculate |
+| Researcher | Pro | searches the web and reads pages, citing its sources | web search, web fetch |
+| Coder | Pro | writes code, runs it, reports the real output | run code (a Docker sandbox) |
+| Scheduler | Standard | reminders, one-off or repeating | create, list, cancel |
+| Messenger | Lite | fits a reply to its channel | format message |
+| Memory | Lite | keeps lasting facts about you | save, search |
+
+- **Edit any agent, or create your own**, on the Agents screen: its instructions, tier, tools, step limit and
+  budgets.
+- **Code runs in a Docker container** with no network, a read-only filesystem, no access to your files, 256 MB of
+  memory and 30 seconds. Without Docker Desktop running, the Coder says the code was not run.
+- **Web search** uses Brave Search with a key (`BRAVE_API_KEY`), or DuckDuckGo's plain page without one. Pages on
+  your PC or your home network are never fetched on a model's request.
+- **Connectors** are MCP servers: GitHub (read-only by default) and anything else that speaks MCP, listed in
+  `agents/config/connectors.yaml` and switched on per agent.
+- **Exact answers** (arithmetic, units, dates) come from Onyx 3's calculator, reused as a tool.
+
+### The app
+
+Nine screens, built for phone and desktop, in a near-monochrome look:
+
+| Screen | Shows |
+|---|---|
+| **Chat** | the conversation; under each reply, the tier, the real model, the agents and tools used, the time, and what it would have cost hosted |
+| **Agent graph** | the live tree of a run, with each agent's status, model, tokens and full step log; a stop button |
+| **Runs** | every message handled, filterable by channel, agent, tier and status, each one replayable |
+| **Agents** | the roster, to edit or create agents |
+| **Channels** | each channel's state, last message, errors and a test send |
+| **Connectors** | each MCP server's state and tools |
+| **Models** | every model with its calls, errors, latency, tokens and costs; what this PC can run; the tiers file editor |
+| **Usage** | tokens per day, tier, model and agent, and the hosted-equivalent cost |
+| **Settings** | where Onyx texts you first, linked phone numbers, notifications, keys (shown as set or not, never their values), reminders, and what Onyx remembers about you |
+
+Prefer the terminal? `pnpm onyx chat` in `agents/` shows the same events as text.
+
+## Using it from your phone
+
+- **The Onyx app, through Tailscale (recommended).** [Tailscale](https://tailscale.com) connects your phone to your
+  PC privately: only your own devices can reach Onyx, nothing is opened to the internet, and the address never
+  changes. Install Tailscale on both, turn on MagicDNS and HTTPS in its admin console, and run
+  `tailscale serve --bg 8787` once on the PC (the Onyx shortcut does it for you after that). Add the page to your
+  Home Screen, and turn on notifications in Settings to get reminders. Step by step:
+  [`agents/README.md`](agents/README.md#the-app-on-your-phone-through-tailscale).
+- **WhatsApp**, through Meta's official Cloud API: [`agents/SETUP_WHATSAPP.md`](agents/SETUP_WHATSAPP.md).
+- **SMS**, through Twilio: [`agents/SETUP_SMS.md`](agents/SETUP_SMS.md). US numbers need carrier registration
+  first, which can take days.
+
+Only numbers you link (by texting a six-digit code shown in Settings) get an answer; everyone else is ignored.
+Reminders go to your preferred channels in order and always end with the app, so none is dropped.
+
+Not supported: **iMessage**, which needs an always-on Mac, and carrier **email-to-text**, which most US carriers
+have shut down.
+
+## What it would cost hosted
+
+Your local models cost nothing per message. To show what that saves, every call records what the same work would
+have cost on a paid host running the same Qwen model, using the prices in
+[`agents/config/equivalents.yaml`](agents/config/equivalents.yaml): Alibaba Model Studio's published rates for the
+8B, 14B and 30B, and a third-party host's for the 4B, labelled as such. It appears under each reply, in Runs, on
+the Models screen and on Usage (today, this period and in all). Nothing is charged; edit the file to compare
+other prices.
+
+**Billing**, for the day Onyx is offered to others, exists and is off: set `billing: { enabled: true }` in the tiers
+file and each account's plan then limits its tiers and daily tokens. `GET /api/billing` reports each account's use
+and cost. Taking payment is not built.
+
+## Safety and privacy
+
+- **On your PC.** Models, conversations, memory, runs and settings stay on your PC. Keys live in `agents/.env` and
+  are never logged or sent to the app (it only learns whether each one is set).
+- **Who can reach it.** The server listens on your PC only. From the PC itself no password is needed; anything
+  arriving through a tunnel needs your password, and with none set it refuses everything that isn't your PC.
+- **Webhooks are verified.** WhatsApp and SMS webhooks are checked against the provider's signature before anything
+  in them is read, and one number can send at most 20 messages in five minutes.
+- **Untrusted text is labelled.** Pages and connector results are passed to the models as untrusted text, not as
+  instructions.
+
+## What has been tested
+
+- **57 automated tests** (`pnpm test` in `agents/`) cover:
+  - the router, fallbacks, plans and the agent loop;
+  - subagents, budgets and the kill switch;
+  - tools, reminders and delivery;
+  - every channel's webhook and signature check;
+  - sign-in, push, billing, the hosted-cost figures and the hardware planner.
+
+  They use a scripted stand-in for the models, so they need no graphics card or network.
+- **Generated code is checked for real.** `node tools/check-code.js` and `node tools/check-synth.js` at the top of
+  the repository compile and run every program Onyx 3 can write, in six languages.
+- **Against a real model.** Onyx Agents was run end to end against Qwen3 4B in Ollama on a processor. That run found
+  the thinking and honesty problems described above, which are fixed and covered by tests.
+- **On Windows.** It is set up and running on a Windows PC through `Setup Onyx`.
+- **Not yet tested live:** WhatsApp, Twilio, push notifications on a phone, and the GitHub connector. The code for
+  each is tested against recorded request shapes.
+
+---
+
 # Onyx 3
 
 **Thinks in steps you can follow. Still free. Still open source.**
@@ -8,7 +249,7 @@ Onyx is the small conversational engine inside [OmniTool](https://github.com/gks
 
 This repository is the engine on its own, the same source files OmniTool ships, plus a tiny host so you can run it without OmniTool. Earlier versions live on their own branches: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1), [`onyx-1.2`](../../tree/onyx-1.2), [`onyx-1.3`](../../tree/onyx-1.3), [`onyx-2.0`](../../tree/onyx-2.0), [`onyx-2.1`](../../tree/onyx-2.1) and [`onyx-2.5`](../../tree/onyx-2.5).
 
-## What's new in Onyx 3
+### What's new in Onyx 3
 
 | | Onyx 2.5 | Onyx 3 |
 |---|---|---|
@@ -22,7 +263,7 @@ This repository is the engine on its own, the same source files OmniTool ships, 
 
 Onyx 3 also has a new look: a cut stone with three bands across it. Onyx the stone is made of bands laid down one at a time, and Onyx 3 thinks in steps laid down one at a time, so the bands are the mark, and the same colours mark the steps of its thinking. The app opens with the bands parting.
 
-## What Onyx 3 is, honestly
+### What Onyx 3 is, honestly
 
 Still not a large language model. There is no model to download because there isn't one: Onyx is a planner, two small neural networks (200,380 and 340,320 weights), dictionaries, and a set of skills written by hand. That is why it fits in a page and answers in about a millisecond, and it is also where its limits are:
 
@@ -32,7 +273,7 @@ Still not a large language model. There is no model to download because there is
 - It **does not see images** or hear. It reads text you paste or a text file you give it, and in a browser that can speak it can read replies aloud.
 - It knows what its dictionaries know. Anything else it looks up, if the switch allows, or says it doesn't know.
 
-## The mind
+### The mind
 
 Every message goes through four stages, in [`src/onyx-mind.js`](src/onyx-mind.js) and `respond` in [`src/onyx.js`](src/onyx.js):
 
@@ -56,7 +297,7 @@ r.thinking    // [{ step: 'read', detail: '10 words: a question, pointing back a
 
 In conversation, "how did you get that?" shows the same steps in words. After any result: "translate it to French", "make it shorter", "make it longer", "more formal", "how many words is that", "explain it" (for code), "read it aloud".
 
-## Dictionaries for 31 languages
+### Dictionaries for 31 languages
 
 "How do you say water in Japanese", "what does Schmetterling mean in German", "translate casa from Italian to Finnish", "how do you say good morning in Greek". English plus these thirty-one, each from its language's open wordnet, linked to the English dictionary through Princeton WordNet's meanings:
 
@@ -98,7 +339,7 @@ Each dictionary is one file in [`src/translations/`](src/translations) (41 MB in
 
 These are **dictionaries, not translators**. Built automatically, they are less sure than Onyx's hand-written Spanish and French: a reply from one says where the word came from. Onyx knows ten everyday phrases in every language (hello, thank you, I love you...), translates other phrases word by word and says the grammar will be rough, and for anything longer gives the main words rather than a sentence it can't vouch for. Whole sentences it translates between English, Spanish and French ([below](#translation)).
 
-## Writing from a prompt
+### Writing from a prompt
 
 [`src/onyx-compose.js`](src/onyx-compose.js) reads what a prompt asks for and writes it in parts:
 
@@ -109,7 +350,7 @@ These are **dictionaries, not translators**. Built automatically, they are less 
 
 Then "make it shorter", "longer", "more formal", "casual", "another", or "translate it to Spanish". Card messages, haiku, poems and acrostics are still written by [`src/onyx-write.js`](src/onyx-write.js). Songs, and anything book-length, are beyond it.
 
-## Code from a prompt
+### Code from a prompt
 
 > **You:** a rust program that takes the numbers 1 to 20, keeps the even ones, squares them and prints the sum
 > **Onyx:** **A program in Rust**, composed from your prompt. This is how I read it:
@@ -137,7 +378,7 @@ It also composes **web pages** from the sections you name ("a landing page for a
 
 [`tools/check-synth.js`](tools/check-synth.js) checks it the hard way: every plan is written in all six languages, compiled with warnings as errors, run, and what each program prints is compared with the answer worked out independently from the plan. The 26 ready-made programs of Onyx 2.5 are all still there ([below](#code)).
 
-## Documents, quizzes, units and dates
+### Documents, quizzes, units and dates
 
 [`src/onyx-uses.js`](src/onyx-uses.js):
 
@@ -147,7 +388,7 @@ It also composes **web pages** from the sections you name ("a landing page for a
 - **Dates.** "How many days until Christmas", "what day of the week is March 1, 2027", "what day was July 4 1776", "3 weeks from now", "is 2028 a leap year", "how many days between March 1 and May 1".
 - **Runs of numbers.** "The sum of the numbers from 1 to 100" (5,050, by the formula), "the product of 1 to 6", "add up the even numbers from 1 to 20".
 
-## What's new in Onyx 2.5
+### What's new in Onyx 2.5
 
 | | Onyx 2.1 | Onyx 2.5 |
 |---|---|---|
@@ -162,13 +403,13 @@ It also composes **web pages** from the sections you name ("a landing page for a
 - **Predicting what you'll say.** A second small network, trained on what people say to Onyx, guesses your next word as you type (the demo shows its guesses; Tab takes the first), and "finish this sentence: I have an exam on" lets you watch it think. [More below.](#predicting-what-youll-say)
 - **Small programs in eight languages.** "fizzbuzz in rust", "a class Book with title, author and price in C#", "a GET request to https://... in JavaScript", "an HTML form with name and email", "a raw HTTP POST with title and pages", then "now in Python". [More below.](#code)
 
-## What's new in Onyx 2.1
+### What's new in Onyx 2.1
 
 - **The internet, with your permission.** Ask something Onyx doesn't know, or say "research black holes", "what's the weather in Austin?" or "what's in the news?", and it offers to look it up. It says exactly what it would send and where, then waits for a yes. Say "always" to stop being asked, or "stay offline" to never go online. It uses Wikipedia (in English, Spanish or French), Open-Meteo and the Free Dictionary API: no account, no key, nothing stored. [More below.](#the-internet-with-your-permission)
 - **Research briefs.** "research Ada Lovelace" gets Wikipedia's summary, key points picked from the whole article, related articles and the link. "tell me more" gives more points.
 - **Short pieces of writing.** Haiku of exactly 5, 7 and 5 syllables, rhyming poems, acrostics, short stories, messages for cards, descriptions and summaries, all built from the dictionary. After a lookup, "write a poem about it" uses what Onyx just read. [More below.](#writing)
 
-## What's new in Onyx 2
+### What's new in Onyx 2
 
 | | Onyx 1.3 | Onyx 2 |
 |---|---|---|
@@ -182,7 +423,7 @@ It also composes **web pages** from the sections you name ("a landing page for a
 | Conversation | the last question | **everything you've said**: "when is my exam?", "what's my dog's name?" |
 | Reasoning | | **with the dictionary**: "is a whale a mammal?", "name some birds" |
 
-## How it understands you
+### How it understands you
 
 Under the mind, the parts that read a single message are the ones Onyx 2 introduced. They are plain and inspectable:
 
@@ -193,7 +434,7 @@ Under the mind, the parts that read a single message are the ones Onyx 2 introdu
 - **A memory of the conversation.** What you've told it, the names of your pets and people, what you're talking about, and the language you're writing in.
 - **Typo tolerance**, **math of its own**, **word tricks**, **settings** and a **memory** that stays on your device, as in Onyx 1.
 
-## The dictionary: 147,561 words
+### The dictionary: 147,561 words
 
 Two layers. The **everyday dictionary**, 14,459 words, is what Onyx talks and reasons with:
 
@@ -213,7 +454,7 @@ Ask "define serendipity", "what does ephemeral mean", "another word for happy", 
 - **Words by their letters**: "words that start with qu", "words ending in tion", "anagram of listen" (*silent, tinsel*), "word of the day".
 - "it" follows the conversation: after "where is Paris?", "define it" defines Paris.
 
-## Spanish and French
+### Spanish and French
 
 Write to Onyx in either and it answers in the same language; it tells them apart by their common words, their accents, and the English, Spanish and French words it knows ("¿cómo estás?", "ça va ?"). Or say "speak Spanish", "parle français", "habla inglés". Translation has [its own section](#translation).
 - **Conversation**: greetings, how are you, thanks, goodbye, who Onyx is, help, jokes and facts in each language, the time and date, your name ("me llamo Ana", "je m'appelle Léa"), and how you feel ("estoy muy cansada" gets *Siento que estés cansada*, in your own words).
@@ -222,7 +463,7 @@ Write to Onyx in either and it answers in the same language; it tells them apart
 
 What it doesn't do yet in Spanish and French: definitions come in English; beyond feelings, the replies built from what you say (events, plans, pets) are English-only; and writing and code are asked for in English.
 
-## Translation
+### Translation
 
 Between English, Spanish and French, every direction (Spanish to French goes through English). Ask in any of the three: "how do you say 'where are my keys' in Spanish", "translate tengo dos gatos negros", "what does 'je suis fatiguée' mean", "¿cómo se dice 'I am hungry' en francés?", "comment dit-on 'where is the station' en espagnol ?".
 
@@ -234,18 +475,18 @@ Between English, Spanish and French, every direction (Spanish to French goes thr
 
 Anything else is **translated word by word**, and Onyx says the grammar may be off and which words it didn't know. "translate 'the quick brown fox jumps over the lazy dog'" gets that treatment. When it doesn't know whether "I" is a man or a woman, it gives both: *No estoy cansado (o cansada).*
 
-## The whole conversation
+### The whole conversation
 
 - **Several things in one message.** "Hi! I'm Sam. I have an exam on Friday and I'm nervous." gets *Hi! Nice to meet you, Sam. Feeling nervous before the exam is completely normal. Good luck on Friday, Sam!* Each sentence is answered, a greeting in front shrinks to "Hi!", and words like "also" are understood ("tell me a joke. also what is 2+2?").
 - **What you've said, later.** "what's my kitten's name?" (*Luna!*), "when is my exam?" (*You said the exam is on Friday*), "when is my dentist appointment?", "how am I feeling?", "what did I say about work?", and "what have I told you?" or "summarize our conversation", which list it all. "Puppy" finds "dog" too, through the dictionary. This is kept for the conversation only, in memory; "remember that..." is what saves to the device.
 
-## Replies built from what you say
+### Replies built from what you say
 
 When no fixed reply fits, Onyx reads the message with the dictionary and answers the specific thing in it: a feeling, including negation and whose it is ("my dog is sick"); an event with its timing ("I have an exam tomorrow" gets *Good luck with the exam tomorrow!*); an activity in the right tense; pets, food, places, family, aches and illness, good news; life events and how things went. Onyx remembers what it just asked: after "How did the exam go?", "pretty well" is answered about the exam; after "What's its name?", "Biscuit" gets *Biscuit is a great name for your new puppy!* A heavy feeling gets care and a gentle nudge toward someone who can help.
 
 New in Onyx 2: "the concert was amazing" (*Glad the concert was amazing! What was the best part?*, not "How was the concert?"), "I'm going to the dentist on Monday" (*Good luck at the dentist on Monday!*), "I adopted a kitten" (*A kitten! What's its name?*), "I have to deal with my landlord tomorrow" (*Good luck dealing with your landlord tomorrow*), and trips to any of 604 places ("I went to Kyoto last week"). Only the hand-written dictionary and WordNet nouns of a safe kind (animals, food, body parts, people, named places) shape these replies, so a rare WordNet sense never does.
 
-## Settings for those replies
+### Settings for those replies
 
 Say "settings" to see them, or just ask:
 
@@ -259,7 +500,7 @@ Say "settings" to see them, or just ask:
 
 "Reset settings" restores the defaults. A host can read and change them with `Omni.onyx.settings.get()` and `.set(key, value)`.
 
-## Everything else, as in Onyx 1
+### Everything else, as in Onyx 1
 
 - **Math**: sums with fractions, powers, roots, factorials, trigonometry, logarithms; equations in one unknown ("solve 2x + 3 = 11", "x^2 - 5x + 6 = 0") and checking a claim ("is 7 × 8 = 54"); percentages ("15% off 80", "20% tip on 45"); number facts and statistics. Follow-ups like "times 3" work. Nothing is run as code.
 - **Word tricks**: count letters or words, reverse, spell out, change case, palindromes, numbers in words.
@@ -269,7 +510,7 @@ Say "settings" to see them, or just ask:
 
 What Onyx can't do, by design: write long pieces (essays, songs, big programs), fix your code, or answer general knowledge questions beyond its dictionary on its own. It says so plainly instead of guessing, and with your permission it looks the question up.
 
-## The internet, with your permission
+### The internet, with your permission
 
 **The switch.** Onyx has one setting for the internet, with three positions: **off** (never online, and it won't offer), **ask** (it says what it would look up and where, and waits for your yes) and **on** (it looks things up without asking). The demo puts it on the side as a switch with an "ask me before each lookup" box, and a first visit starts with it off. In code it is `Omni.onyx.settings.set('internet', 'off' | 'ask' | 'on')`; in conversation, "stay offline", "ask first" and "you can go online" do the same. When a reply used the internet, or would have, its thinking says so.
 
@@ -317,7 +558,7 @@ Omni.net = {
 
 **In Node**, `host/net.js` uses the built-in `fetch` (Node 18 and later). Behind an HTTP proxy, recent versions of Node use the `HTTPS_PROXY` variable when `NODE_USE_ENV_PROXY=1` is set.
 
-## Code
+### Code
 
 Besides [composing programs from a prompt](#code-from-a-prompt), Onyx writes small, complete programs in **Python, JavaScript, Rust, C, C#, C++, HTML and raw HTTP**, for 26 everyday tasks: hello world, counting, FizzBuzz, a function (add, multiply, square, average... or your own: "a function called area that takes w and h and returns w * h"), reversing a string, palindromes, factorials, Fibonacci numbers, primes, sorting a list (up or down), sum and average, looping over a list, reading and writing files, counting words, a class or struct with the fields you name (Onyx works out their types: *age* is a whole number, *price* a decimal, *is_available* true or false), HTTP GET and POST requests, a tiny web server, asking for a name, a number guessing game, temperature conversion, and web pages, tables, forms and buttons. Each comes with what it does and how to run it, and "now in Rust" (or "what about C#?") writes the same thing in another language. Say "can you code?" for the list.
 
@@ -325,7 +566,7 @@ It isn't a language model. Each task is written for Onyx in each language, in th
 
 Big programs, and fixing your own code, are beyond Onyx, and it says so.
 
-## Predicting what you'll say
+### Predicting what you'll say
 
 A second small neural network guesses the next word of what you're typing. In the demo its guesses sit above the text box: the end of the word you're typing ("write a hai" → *haiku*), or the next word ("is a whale a" → *mammal*, "fizzbuzz in" → *Python*, *JavaScript*, *C*). Tab takes the first. "finish this sentence: I have an exam on" shows its best ending and its top three guesses.
 
@@ -333,7 +574,7 @@ It reads the last four words, each as 48 numbers (an embedding), passes them thr
 
 Measured honestly, on 1,995 sentences it never saw, counting only real next words (the end of a sentence isn't a suggestion, and a word it doesn't know is a miss): **its first guess is right 24.3% of the time, and one of its first three 33.3%.** Counting which word most often follows the last two words gets 21.3% and 30.9%, so the network is better, but modestly: it is small, and so is what it learned from. A network 40% bigger did no better.
 
-## Writing
+### Writing
 
 Onyx writes short pieces from its dictionary, using templates, the dictionary's pronunciations and what it knows about each word. It is not a language model: the pieces are short and simple, and different every time ("another one").
 
@@ -348,7 +589,7 @@ Onyx writes short pieces from its dictionary, using templates, the dictionary's 
 
 Long writing (essays, songs, code) is beyond Onyx, and it says so. Writing is in English for now; in Spanish and French, Onyx says so and suggests the English request.
 
-## Measured
+### Measured
 
 `node test/test.js` checks Onyx against phrasings that are **not** in its examples, plus scripted conversations. All 281 checks pass:
 
@@ -393,7 +634,7 @@ The intent network was retrained for Onyx 3 (the examples about its version chan
 
 The recorded answers in `test/fixtures` keep the tests offline and repeatable.
 
-## Run it
+### Run it
 
 **On the web:** [gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/). It is this repository served as it is by GitHub Pages, from the `gh-pages` branch: the page and its files are downloaded once, and after that everything runs in your browser.
 
@@ -453,7 +694,7 @@ Everything marked optional is: without it Onyx falls back to less (one message a
 
 `respond(text)` returns `{ text, thinking, confidence, ms, offer?, expect?, action?, command?, code?, plan?, piece?, speak? }`. `thinking` is the list of steps and `confidence` is `'sure'`, `'fair'` or `'unsure'`. `offer` is a yes/no question Onyx is waiting on, `action` is something the host should do (open a tool, switch the theme), `command` is a request for OmniTool's tools, which only exist inside OmniTool, `code` is the program in a reply, and `speak` is text the host should read aloud (set `Omni.speech = { say(text, lang) }` to offer a voice). `Omni.onyx.read(text, name)` hands it a document, `Omni.onyx.thinking()` gives the steps behind the last reply, `Omni.onyx.context()` shows what Onyx has gathered from the conversation, `Omni.onyx.detect(text)` the language of a message, and `Omni.onyx.predict(text)` its guesses for the next word.
 
-## Study it, build on it
+### Study it, build on it
 
 **Retrain the neural network** after changing any example phrases:
 
@@ -491,7 +732,7 @@ python3 tools/train-predict.py      # src/onyx-predict-weights.js and test/fixtu
 
 All of them give the same output every time.
 
-## Files
+### Files
 
 ```
 src/onyx.js            the engine: the plan, the skills, the conversation, the thinking trace
@@ -537,21 +778,61 @@ tools/check-synth.js   compiles and runs programs composed from prompts and from
 tools/examples.txt     example sentences written for Onyx, for common words WordNet has none for
 ```
 
-## Privacy
+### Privacy
 
 The engine has no network code. Without `host/net.js` (or a host's own connector), nothing is sent anywhere. With it, Onyx sends only the words being looked up, only to the services in the table above, and only when the internet switch allows it: after you agree, in its "ask" position, or without asking once you've turned it fully on. The connector stores nothing and sends no account, key or cookie. The only things Onyx stores are your name, the facts you ask it to keep and your settings (including your choice about going online), in your browser's local storage (or in memory under Node). What you tell it during a conversation stays in memory and is gone when the page closes.
 
 The data files in `src/` are not secret and can't be: anything a web page runs can be read by whoever opens it. That is fine, because they contain no personal data, keys or passwords. Anything private belongs in a `private/` folder, which `.gitignore` keeps out of this repository.
 
-## Licenses and credits
+---
 
-Onyx is MIT licensed (see [LICENSE](LICENSE)), except the dictionaries in `src/translations/` (below). The generated lexicon and the full dictionary include data from **Princeton WordNet 3.0** (WordNet 3.0 Copyright 2006 by Princeton University, all rights reserved; see [LICENSE-WORDNET](LICENSE-WORDNET)) and the **CMU Pronouncing Dictionary** (Copyright (C) 1993-2008 Carnegie Mellon University, all rights reserved; see [LICENSE-CMUDICT](LICENSE-CMUDICT)). [wordfreq](https://github.com/rspeer/wordfreq) was used to choose which words to include; none of its data is in this repository. The hand-written Spanish and French translations, the phrasebook and the sentence grammar, the Spanish and French conversation, the code for every task, and 2,346 example sentences were written for Onyx.
+## Repository map
 
-The 31 dictionaries in `src/translations/` come from the **Open Multilingual Wordnet 1.4** and, for German, **OdeNet**. **Each file is derived from its language's wordnet and is distributed under that wordnet's license, not under MIT**; the [table above](#dictionaries-for-31-languages) names each one, every file says so at its top, and [`licenses/`](licenses) has each license with the wordnet's citation. Several are share-alike (CC BY-SA), and the French one, from **WOLF, the Wordnet Libre du Français** (Sagot and Fišer, 2008), is under CeCILL-C. The Spanish, Catalan, Galician and Basque come from the **Multilingual Central Repository 3.0** (Gonzalez-Agirre, Laparra and Rigau, 2012), under CC BY 3.0. The rest of Onyx is not affected by these licenses: leave a file out and that language is simply not there. The hand-written German core and the everyday phrases in `src/onyx-tongues.js` were written for Onyx. The prediction network learned only from Onyx's own text.
+```
+index.html             Onyx 3, the app and the website's front page (served by GitHub Pages from gh-pages)
+src/                   Onyx 3's engine: the mind, the skills, the dictionaries, the networks' weights
+host/                  Onyx 3's tiny host (storage, loading a language) and its internet connector
+test/, tools/          Onyx 3's tests, builders, trainers and code checkers
+licenses/              the license of each wordnet Onyx 3's dictionaries come from
+demo/                  an old address, kept so links to it still work
+agents/                Onyx Agents
+  Setup Onyx.bat         Windows: install, build, choose and download models, make a desktop shortcut
+  Start Onyx.bat         Windows: start Ollama and Onyx, open the app, share it through Tailscale
+  Update Onyx.bat        Windows: get the latest version and rebuild
+  config/                tiers and models, hosted-equivalent prices, MCP connectors
+  apps/server/           the server: model gateway, router, agent runtime, tools, channels, scheduler, API
+  apps/web/              the app (Next.js), exported as static files the server serves
+  packages/shared/       types shared by the server and the app
+  SETUP_WHATSAPP.md      WhatsApp setup
+  SETUP_SMS.md           SMS setup
+.github/workflows/     keeps the website in step with main
+```
 
-What Onyx looks up online comes from [Wikipedia](https://www.wikipedia.org/) (text under CC BY-SA 4.0), [Open-Meteo](https://open-meteo.com/) (weather data under CC BY 4.0) and the [Free Dictionary API](https://dictionaryapi.dev/) (Wiktionary text under CC BY-SA 3.0). Onyx names the source and links to it in every reply that uses them. The recorded answers in `test/fixtures` are test data from the same services, under the same licenses.
+## Versions and branches
 
-## Version
+Each version of Onyx 3 and before is kept on its own branch: [`onyx-1.0`](../../tree/onyx-1.0), [`onyx-1.1`](../../tree/onyx-1.1),
+[`onyx-1.2`](../../tree/onyx-1.2), [`onyx-1.3`](../../tree/onyx-1.3), [`onyx-2.0`](../../tree/onyx-2.0),
+[`onyx-2.1`](../../tree/onyx-2.1), [`onyx-2.5`](../../tree/onyx-2.5) and [`onyx-3.0`](../../tree/onyx-3.0). `main` holds
+the latest of both products; `gh-pages` is what the website serves.
+
+**Onyx Agents** (2026-11-16 to 2026-11-17), built in six milestones:
+
+- **Models:** a model gateway with four tiers of local Qwen models through Ollama, a router, fallbacks, and cost and
+  usage logging.
+- **Agents:** the agent runtime with subagents, budgets and a kill switch; tools, reminders and MCP connectors.
+- **The app:** nine screens and the live event stream.
+- **Phone:** WhatsApp, SMS, sign-in and push notifications; token limits replaced by counting, with billing kept
+  for later.
+- **This PC:** what it can run, SMS catch-up, and the list of accounts and keys.
+
+Since then:
+
+- fixes from the first run against a real Qwen model;
+- Windows setup, start and update scripts;
+- the hosted-equivalent cost on every answer.
+
+iMessage was dropped: it needs a Mac.
+
 
 **Onyx 3** (2026-11-11): a mind that plans each message as one step or several, lets a step use the result of the one before, and returns its thinking and a confidence with every reply; dictionaries for 31 languages besides English, 594,242 translations, each under its wordnet's license; essays, stories, emails, letters, speeches and product descriptions written from a prompt; programs composed from a description in Python, JavaScript, Rust, C, C# and C++, web pages from named sections and HTTP requests from their parts, all checked by compiling and running them; documents that can be read and questioned; quizzes, unit conversion, dates and sums of runs of numbers; follow-ups on the last result (translate it, shorter, longer, more formal, explain it, read it aloud); the internet setting as a switch; and a new look, with an app that opens on its bands parting. Held-out accuracy 97.8% (91 of 93), unchanged.
 
@@ -568,6 +849,16 @@ What Onyx looks up online comes from [Wikipedia](https://www.wikipedia.org/) (te
 **Onyx 1.1** (2026-10-22): math of its own, word tricks, and a bigger vocabulary.
 
 **Onyx 1** (2026-10-22): the first release, as shipped in OmniTool.
+
+## Licenses
+
+Onyx is MIT licensed (see [LICENSE](LICENSE)), except the dictionaries in `src/translations/` (below). The generated lexicon and the full dictionary include data from **Princeton WordNet 3.0** (WordNet 3.0 Copyright 2006 by Princeton University, all rights reserved; see [LICENSE-WORDNET](LICENSE-WORDNET)) and the **CMU Pronouncing Dictionary** (Copyright (C) 1993-2008 Carnegie Mellon University, all rights reserved; see [LICENSE-CMUDICT](LICENSE-CMUDICT)). [wordfreq](https://github.com/rspeer/wordfreq) was used to choose which words to include; none of its data is in this repository. The hand-written Spanish and French translations, the phrasebook and the sentence grammar, the Spanish and French conversation, the code for every task, and 2,346 example sentences were written for Onyx.
+
+The 31 dictionaries in `src/translations/` come from the **Open Multilingual Wordnet 1.4** and, for German, **OdeNet**. **Each file is derived from its language's wordnet and is distributed under that wordnet's license, not under MIT**; the [table above](#dictionaries-for-31-languages) names each one, every file says so at its top, and [`licenses/`](licenses) has each license with the wordnet's citation. Several are share-alike (CC BY-SA), and the French one, from **WOLF, the Wordnet Libre du Français** (Sagot and Fišer, 2008), is under CeCILL-C. The Spanish, Catalan, Galician and Basque come from the **Multilingual Central Repository 3.0** (Gonzalez-Agirre, Laparra and Rigau, 2012), under CC BY 3.0. The rest of Onyx is not affected by these licenses: leave a file out and that language is simply not there. The hand-written German core and the everyday phrases in `src/onyx-tongues.js` were written for Onyx. The prediction network learned only from Onyx's own text.
+
+What Onyx looks up online comes from [Wikipedia](https://www.wikipedia.org/) (text under CC BY-SA 4.0), [Open-Meteo](https://open-meteo.com/) (weather data under CC BY 4.0) and the [Free Dictionary API](https://dictionaryapi.dev/) (Wiktionary text under CC BY-SA 3.0). Onyx names the source and links to it in every reply that uses them. The recorded answers in `test/fixtures` are test data from the same services, under the same licenses.
+
+Onyx Agents (in `agents/`) is MIT licensed too. It runs models you download yourself through Ollama, under their own licenses (the Qwen3 models are Apache 2.0). Its hosted-cost figures come from the public price pages linked in `agents/config/equivalents.yaml`.
 
 ---
 
