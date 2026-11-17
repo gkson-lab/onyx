@@ -46,7 +46,7 @@ pnpm build           # builds the web app (once, and again after pulling changes
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 node scripts/launcher.mjs  # the same, restarting itself after an update
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 103 tests, no model or network needed
+pnpm test            # 104 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -104,6 +104,7 @@ The Models screen counts each model's tries and failed tries, and has two sectio
 | `no answer within … ms` | the model was too slow: loading, sharing the card, or partly in system memory | start Onyx with the shortcut, so Ollama has its settings; close games and other programs that use the graphics card |
 | `(not tried again: the agent's time budget had … s left)` or `out of time` | the agent had used its time, so another try could only fail | ask again; for long tasks, raise that agent's time budget on the Agents screen |
 | `its tool call was lost with thinking switched off (an Ollama bug …); asked again with thinking on` | Ollama 0.40 drops a tool call Qwen3 writes with thinking off (it takes the start of `<tool_call>` for a `<think>` tag) | nothing: Onyx asks again at once with thinking on, and the call comes through. This was most of the qwen3:8b failures |
+| `the stream ended with thinking but no answer` | the same Ollama bug, after the model's thinking: it happens about one time in three | nothing: it is tried again, and usually comes through on the next try |
 | `HTTP 500: … out of memory` | the graphics card was full | close other programs that use it, and try again |
 | `could not reach http://127.0.0.1:11434/v1` | Ollama is not running | start Onyx with the shortcut |
 | `HTTP 404: … not found` | the model is not downloaded | `ollama pull` it, or run Setup again |

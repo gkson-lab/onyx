@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { formatFor, plain, split } from '../src/channels/format.ts';
-import { isPrivate, nextFire } from '../src/tools/builtin.ts';
+import { isPrivate, localTime, nextFire } from '../src/tools/builtin.ts';
 import type { ToolContext } from '../src/tools/types.ts';
 import type { ChannelAdapter } from '../src/channels/outbox.ts';
 import { buildServer } from '../src/index.ts';
@@ -76,7 +76,11 @@ describe('reminders and delivery', () => {
 		const sms: ChannelAdapter = { id: 'sms', status: async () => (smsUp ? { ok: true, detail: 'ok' } : { ok: false, detail: 'Twilio is not set up' }), send: async () => {}, sendProactive: async (_u, parts) => void sent.push(...parts) };
 		app.outbox.add(sms);
 		const made = await app.tools.get('schedule_create')!.run({ text: 'call mom', at: '2026-11-16T16:00:00Z', repeat: 'daily' }, ctx());
-		expect(made).toMatch(/Created reminder #1/);
+		expect(made).toBe(`Created reminder #1: "call mom" for ${localTime(new Date('2026-11-16T16:00:00Z'))}, repeating daily.`);
+		// A time with no offset is the PC's own local time, which is what people mean.
+		const local = await app.tools.get('schedule_create')!.run({ text: 'stretch', at: '2026-11-18T09:00', repeat: 'none' }, ctx());
+		expect(local).toBe(`Created reminder #2: "stretch" for ${localTime(new Date(2026, 10, 18, 9, 0))}.`);
+		await app.db.deleteFrom('schedules').where('id', '=', 2).execute();
 		expect(await app.tools.get('schedule_create')!.run({ text: 'x', at: '2026-11-16T10:00:00Z', repeat: 'none' }, ctx())).toMatch(/in the past/);
 		expect(await app.scheduler.tick()).toBe(0);
 
@@ -97,7 +101,7 @@ describe('reminders and delivery', () => {
 		t = new Date('2026-11-20T09:00:00Z');
 		expect(await app.scheduler.tick()).toBe(1);
 		expect(sent).toHaveLength(1);
-		expect(sent[0]).toContain('Late: this was due at 2026-11-17T16:00:00.000Z');
+		expect(sent[0]).toContain(`Late: this was due ${localTime(new Date('2026-11-17T16:00:00Z'))}.`);
 		expect((await app.db.selectFrom('schedules').selectAll().executeTakeFirstOrThrow()).next_fire).toBe('2026-11-20T16:00:00.000Z');
 		expect(nextFire(new Date('2026-11-20T16:00:00Z'), 'none')).toBeNull();
 	});

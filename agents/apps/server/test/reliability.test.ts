@@ -90,6 +90,13 @@ describe("a tool call Ollama loses with thinking off", () => {
 		expect(seen[3]!.body.reasoning_effort).toBe('none');
 	});
 
+	it('thinking with no answer after it is not an answer either: it is tried again', async () => {
+		const { app } = await testApp({ 'qwen3:8b': [{ content: '<think>Two tasks: a reminder and a fact.</think>' }, { content: 'Done: both.' }] });
+		const r = await app.gateway.complete(ask('standard', { tools: TOOLS }));
+		expect(r.content).toBe('Done: both.');
+		expect(r.fallbacks.map((f) => f.reason)).toEqual(['the reply was empty; try 2 of 3']);
+	});
+
 	it('an empty reply without tools is an ordinary failed try, and a non-streamed one is no longer taken for an answer', async () => {
 		const { app, seen } = await testApp({ 'qwen3:8b': [{ content: '' }, { content: 'second try' }] }, {}, { tiers: parseTiers(THINK_OFF) });
 		const r = await app.gateway.complete(ask('standard'));

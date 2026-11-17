@@ -239,7 +239,7 @@ and cost. Taking payment is not built.
 
 ## What has been tested
 
-- **103 automated tests** (`pnpm test` in `agents/`) cover:
+- **104 automated tests** (`pnpm test` in `agents/`) cover:
   - the router, fallbacks, plans and the agent loop;
   - subagents, budgets and the kill switch;
   - tools, reminders and delivery;

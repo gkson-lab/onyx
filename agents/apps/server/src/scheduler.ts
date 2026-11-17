@@ -3,7 +3,7 @@
 // time in the future, so a long outage doesn't produce a burst of old ones.
 import { now, type DB } from './db.ts';
 import type { Outbox } from './channels/outbox.ts';
-import { nextFire, REPEATS } from './tools/builtin.ts';
+import { localTime, nextFire, REPEATS } from './tools/builtin.ts';
 import type { Channel } from '@onyx/shared';
 
 export class Scheduler {
@@ -26,7 +26,7 @@ export class Scheduler {
 		let fired = 0;
 		for (const s of due) {
 			const lateMin = Math.round((at.getTime() - Date.parse(s.next_fire)) / 60000);
-			const text = `Reminder: ${s.text}${lateMin >= 5 ? `\n(Late: this was due at ${s.next_fire}. Onyx was not running then.)` : ''}`;
+			const text = `Reminder: ${s.text}${lateMin >= 5 ? `\n(Late: this was due ${localTime(new Date(s.next_fire))}. Onyx was not running then.)` : ''}`;
 			let error: string | null = null;
 			try {
 				await this.outbox.deliver(s.user_id, text, { channel: s.channel as Channel | null, proactive: true });

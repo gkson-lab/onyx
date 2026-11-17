@@ -86,8 +86,9 @@ export async function chat(req: ChatRequest, fetchImpl: FetchLike = fetch as unk
 		const split = splitThinking(String(msg.content ?? ''));
 		const reasoning = String(msg.reasoning_content ?? msg.reasoning ?? '') || split.reasoning;
 		const u = data.usage;
-		// An answer with nothing in it is not an answer: an agent would otherwise finish with an empty result.
-		if (!split.content && !msg.tool_calls?.length && !reasoning) throw new ProviderError('the reply was empty', res.status, true, 'empty', Number(u?.completion_tokens ?? 0));
+		// An answer with nothing in it is not an answer, even after some thinking: an agent would otherwise finish with an
+		// empty result. (Ollama 0.40 sometimes drops the tool call that follows Qwen3's thinking, too.)
+		if (!split.content && !msg.tool_calls?.length) throw new ProviderError('the reply was empty', res.status, true, 'empty', Number(u?.completion_tokens ?? 0));
 		return {
 			content: split.content,
 			reasoning,
@@ -167,7 +168,7 @@ export async function chat(req: ChatRequest, fetchImpl: FetchLike = fetch as unk
 	}
 	const split = splitThinking(raw);
 	const toolCalls = calls.filter(Boolean).map((c, i) => ({ ...c, id: c.id || `call_${i}` }));
-	if (!split.content && !toolCalls.length && !reasoning && !split.reasoning) throw new ProviderError('the stream ended with nothing in it', res.status, true, 'empty', (usage as Usage | null)?.output ?? 0);
+	if (!split.content && !toolCalls.length) throw new ProviderError(reasoning || split.reasoning ? 'the stream ended with thinking but no answer' : 'the stream ended with nothing in it', res.status, true, 'empty', (usage as Usage | null)?.output ?? 0);
 	return { content: split.content, reasoning: reasoning || split.reasoning, toolCalls, finish, usage: usage ?? { input: estimate(promptText), output: estimate(raw + reasoning), estimated: true } };
 }
 

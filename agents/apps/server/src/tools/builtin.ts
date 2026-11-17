@@ -175,17 +175,24 @@ export function nextFire(from: Date, repeat: (typeof REPEATS)[number]): Date | n
 	else do d.setUTCDate(d.getUTCDate() + 1); while (d.getDay() === 0 || d.getDay() === 6);
 	return d;
 }
+/**
+ * A time as people say it, in this PC's own timezone: "Wed, Nov 18, 9:00 AM CST". Reminders are confirmed in these
+ * words: given back an ISO time in UTC ("15:00:00.000Z"), a small model told the person 3 PM for a 9 AM reminder.
+ */
+export const localTime = (at: Date, timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone): string =>
+	new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone, timeZoneName: 'short' }).format(at);
+
 export const scheduleCreate = (d: ToolDeps & { clock?: () => Date }): Tool<{ text: string; at: string; repeat: (typeof REPEATS)[number]; channel?: Channel }> => ({
 	name: 'schedule_create',
 	description: 'Create a reminder that is sent to the person at a set time. `at` is an ISO 8601 time with offset, in the future. `repeat` makes it recur.',
-	parameters: { type: 'object', properties: { text: { type: 'string', description: 'The message to send, written to the person.' }, at: { type: 'string', description: 'e.g. 2026-11-17T09:00:00-06:00' }, repeat: { type: 'string', enum: [...REPEATS] } }, required: ['text', 'at', 'repeat'] },
+	parameters: { type: 'object', properties: { text: { type: 'string', description: 'The message to send, written to the person.' }, at: { type: 'string', description: "When, in the person's local time, as YYYY-MM-DDTHH:MM with no offset (e.g. 2026-11-18T09:00 for 9 AM tomorrow, if today is the 17th)." }, repeat: { type: 'string', enum: [...REPEATS] } }, required: ['text', 'at', 'repeat'] },
 	schema: z.object({ text: z.string().min(1).max(1000), at: z.string().refine((s) => !Number.isNaN(Date.parse(s)), 'not a date and time'), repeat: z.enum(REPEATS).default('none'), channel: Channel.optional() }),
 	run: async (a, ctx) => {
 		const at = new Date(a.at);
 		const nowAt = (d.clock ?? (() => new Date()))();
-		if (at.getTime() < nowAt.getTime() - 60000) return `Error: ${a.at} is in the past. The current time is ${nowAt.toISOString()}.`;
+		if (at.getTime() < nowAt.getTime() - 60000) return `Error: ${localTime(at)} is in the past. It is now ${localTime(nowAt)}.`;
 		const row = await d.db.insertInto('schedules').values({ user_id: ctx.userId, text: a.text, next_fire: at.toISOString(), repeat: a.repeat, channel: a.channel ?? null, status: 'active', last_fired: null, created_at: now() }).returning('id').executeTakeFirstOrThrow();
-		return `Created reminder #${row.id}: "${a.text}" at ${at.toISOString()}${a.repeat === 'none' ? '' : `, repeating ${a.repeat}`}.`;
+		return `Created reminder #${row.id}: "${a.text}" for ${localTime(at)}${a.repeat === 'none' ? '' : `, repeating ${a.repeat}`}.`;
 	},
 });
 export const scheduleList = (d: ToolDeps): Tool<Record<string, never>> => ({
@@ -195,7 +202,7 @@ export const scheduleList = (d: ToolDeps): Tool<Record<string, never>> => ({
 	schema: z.object({}).passthrough() as never,
 	run: async (_a, ctx) => {
 		const rows = await d.db.selectFrom('schedules').selectAll().where('user_id', '=', ctx.userId).where('status', '=', 'active').orderBy('next_fire').execute();
-		return rows.length ? rows.map((r) => `#${r.id} ${r.next_fire}${r.repeat === 'none' ? '' : ` (${r.repeat})`}: ${r.text}`).join('\n') : 'There are no active reminders.';
+		return rows.length ? rows.map((r) => `#${r.id} ${localTime(new Date(r.next_fire))}${r.repeat === 'none' ? '' : ` (${r.repeat})`}: ${r.text}`).join('\n') : 'There are no active reminders.';
 	},
 });
 export const scheduleCancel = (d: ToolDeps): Tool<{ id: number }> => ({
