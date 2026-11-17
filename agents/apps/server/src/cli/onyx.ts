@@ -5,7 +5,8 @@ import { stdin, stdout } from 'node:process';
 import { createApp } from '../app.ts';
 import { receive } from '../index.ts';
 import { listModels } from '../models/provider.ts';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { ROOT, parseTiers } from '../config.ts';
 import { applyToTiers, bandwidthOf, detect, plan } from '../hardware.ts';
@@ -116,10 +117,59 @@ async function hardware(): Promise<number> {
 	return 0;
 }
 
+/**
+ * `pnpm onyx setup`: everything after the programs are installed, in one go, and safe to run again. Used by
+ * "Setup Onyx.bat". It makes .env, asks for a password, picks models for this PC, writes them into tiers.yaml, sets
+ * Ollama's settings (on Windows) and downloads the models.
+ */
+async function setup(): Promise<number> {
+	const env = resolve(ROOT, '.env');
+	if (!existsSync(env)) {
+		copyFileSync(resolve(ROOT, '.env.example'), env);
+		console.log('Made .env from .env.example.');
+	}
+	let text = readFileSync(env, 'utf8');
+	if (!/^ONYX_PASSWORD=\S+/m.test(text)) {
+		const rl = createInterface({ input: stdin, output: stdout });
+		let pw = '';
+		while (pw.length < 8) pw = (await rl.question('Choose a password for using Onyx from your phone (8 characters or more): ')).trim();
+		rl.close();
+		text = /^ONYX_PASSWORD=.*$/m.test(text) ? text.replace(/^ONYX_PASSWORD=.*$/m, `ONYX_PASSWORD=${pw}`) : `${text.trimEnd()}\nONYX_PASSWORD=${pw}\n`;
+		writeFileSync(env, text);
+		console.log('Saved the password in .env.');
+	} else console.log('A password is already set in .env.');
+
+	const hw = await detect();
+	const p = plan(hw);
+	console.log(`\n${hw.gpu ? `${hw.gpu.name}, ${hw.gpu.vramGb} GB` : 'No NVIDIA graphics card found'} · ${hw.ramGb} GB memory. Models: ${Object.entries(p.tiers).map(([t, m]) => `${t} ${m}`).join(', ')}.`);
+	const path = resolve(ROOT, 'config/tiers.yaml');
+	const r = await applyToTiers(readFileSync(path, 'utf8'), p.tiers);
+	parseTiers(r.yaml);
+	writeFileSync(path, r.yaml);
+	if (r.changed.length) console.log(`Updated config/tiers.yaml: ${r.changed.join(', ')}`);
+
+	if (process.platform === 'win32') {
+		for (const [k, v] of Object.entries(p.env)) spawnSync('setx', [k, v], { stdio: 'ignore' });
+		console.log(`Set Ollama's settings: ${Object.entries(p.env).map(([k, v]) => `${k}=${v}`).join(', ')}.`);
+	} else console.log(`Set these in Ollama's environment: ${Object.entries(p.env).map(([k, v]) => `${k}=${v}`).join(' ')}`);
+
+	const models = [...new Set(Object.values(p.tiers))].sort((a, b) => p.fits.find((f) => f.id === a)!.needGb - p.fits.find((f) => f.id === b)!.needGb);
+	for (const m of models) {
+		console.log(`\nDownloading ${m} (safe to stop and run again: it picks up where it left off)`);
+		const pull = spawnSync('ollama', ['pull', m], { stdio: 'inherit', shell: process.platform === 'win32' });
+		if (pull.status !== 0) {
+			console.log(`\nCould not download ${m}. Is Ollama running? Start it from the Start menu, then run setup again.`);
+			return 1;
+		}
+	}
+	console.log('\nSetup is done.');
+	return 0;
+}
+
 const cmd = process.argv[2] ?? 'chat';
-const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : null;
+const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : cmd === 'setup' ? setup : null;
 if (!run) {
-	console.log('Usage: pnpm onyx [chat | models | tiers | hardware]');
+	console.log('Usage: pnpm onyx [chat | models | tiers | hardware | setup]');
 	process.exit(2);
 }
 run().then((code) => process.exit(code), (e) => (console.error(e instanceof Error ? e.message : e), process.exit(1)));
