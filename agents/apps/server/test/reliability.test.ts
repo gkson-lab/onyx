@@ -3,7 +3,8 @@ import { plan, type Hardware } from '../src/hardware.ts';
 import { ollamaStatus } from '../src/ollama.ts';
 import { buildServer } from '../src/index.ts';
 import type { FetchLike } from '../src/models/provider.ts';
-import { testApp } from './helpers.ts';
+import { parseTiers } from '../src/config.ts';
+import { testApp, TIERS_YAML } from './helpers.ts';
 
 const ask = (tier: 'lite' | 'standard' | 'pro' | 'max', extra: object = {}) => ({ userId: 'owner', tier, messages: [{ role: 'user' as const, content: 'hi' }], ...extra });
 const pc: Hardware = { gpu: { name: 'NVIDIA GeForce RTX 5060 Ti', vramGb: 15.9, bandwidthGbs: 448 }, ramGb: 32, ramMts: 6000, cpu: 'AMD Ryzen 7 8700F', notes: [] };
@@ -66,6 +67,49 @@ describe('time budgets', () => {
 		const r = await app.gateway.complete(ask('standard', { deadline: Date.now() + 60_000, timeoutMs: 1000 }));
 		expect(r.content).toBe('second time lucky');
 		expect(r.fallbacks.map((f) => f.kind)).toEqual(['retry']);
+	});
+});
+
+describe("a tool call Ollama loses with thinking off", () => {
+	const THINK_OFF = TIERS_YAML.replace('qwen-standard: { provider: ollama, id: "qwen3:8b",  price: { input: 0, output: 0 } }', 'qwen-standard: { provider: ollama, id: "qwen3:8b",  price: { input: 0, output: 0 }, extra: { reasoning_effort: "none" } }');
+	const TOOLS = [{ type: 'function' as const, function: { name: 'delegate', description: 'hand work to an agent', parameters: { type: 'object', properties: {} } } }];
+
+	it('is asked for again with thinking on, at once and without using up a try; other calls keep thinking off', async () => {
+		// The first reply is empty although the model wrote tokens: what Ollama 0.40 returns for qwen3:8b.
+		const { app, seen } = await testApp({ 'qwen3:8b': [{ content: '' }, { toolCall: { name: 'delegate', args: { tasks: [] } } }, { toolCall: { name: 'delegate', args: { tasks: [] } } }, { content: 'plain words' }] }, {}, { tiers: parseTiers(THINK_OFF) });
+		const r = await app.gateway.complete(ask('standard', { tools: TOOLS }));
+		expect(r.toolCalls.map((t) => t.function.name)).toEqual(['delegate']);
+		expect(seen.map((x) => x.body.reasoning_effort)).toEqual(['none', undefined]);
+		expect(r.fallbacks).toEqual([expect.objectContaining({ kind: 'retry', reason: 'its tool call was lost with thinking off; asked again with thinking on' })]);
+		const failed = await app.db.selectFrom('model_calls').select(['status', 'error']).where('status', '=', 'error').execute();
+		expect(failed[0]!.error).toMatch(/^its tool call was lost with thinking switched off \(an Ollama bug: 5 tokens written, none delivered\); asked again with thinking on$/);
+		// Only that call thinks: the next starts with thinking off again (fast when the model just answers).
+		await app.gateway.complete(ask('standard', { tools: TOOLS }));
+		expect(seen[2]!.body.reasoning_effort).toBe('none');
+		expect((await app.gateway.complete(ask('standard'))).content).toBe('plain words');
+		expect(seen[3]!.body.reasoning_effort).toBe('none');
+	});
+
+	it('an empty reply without tools is an ordinary failed try, and a non-streamed one is no longer taken for an answer', async () => {
+		const { app, seen } = await testApp({ 'qwen3:8b': [{ content: '' }, { content: 'second try' }] }, {}, { tiers: parseTiers(THINK_OFF) });
+		const r = await app.gateway.complete(ask('standard'));
+		expect(r.content).toBe('second try');
+		expect(seen.map((x) => x.body.reasoning_effort)).toEqual(['none', 'none']);
+		expect(r.fallbacks.map((f) => f.reason)).toEqual(['the reply was empty; try 2 of 3']);
+	});
+});
+
+describe('waiting for the graphics card', () => {
+	it('does not use up the time budget: a call queued behind another still runs, and the wait is reported', async () => {
+		const { app } = await testApp({ 'qwen3:8b': [{ content: 'first', delayMs: 600 }, { content: 'second' }] });
+		const waits: number[] = [];
+		const first = app.gateway.complete(ask('standard'));
+		// 5.4 s of budget: without the wait given back, 0.6 s in the queue would leave under the 5 s a try needs.
+		const second = app.gateway.complete(ask('standard', { deadline: Date.now() + 5400, onWait: (ms: number) => waits.push(ms) }));
+		expect((await first).content).toBe('first');
+		expect((await second).content).toBe('second');
+		expect(waits).toHaveLength(1);
+		expect(waits[0]).toBeGreaterThan(450);
 	});
 });
 

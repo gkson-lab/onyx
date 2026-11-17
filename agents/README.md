@@ -46,7 +46,7 @@ pnpm build           # builds the web app (once, and again after pulling changes
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 node scripts/launcher.mjs  # the same, restarting itself after an update
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 99 tests, no model or network needed
+pnpm test            # 103 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -103,6 +103,7 @@ The Models screen counts each model's tries and failed tries, and has two sectio
 |---|---|---|
 | `no answer within … ms` | the model was too slow: loading, sharing the card, or partly in system memory | start Onyx with the shortcut, so Ollama has its settings; close games and other programs that use the graphics card |
 | `(not tried again: the agent's time budget had … s left)` or `out of time` | the agent had used its time, so another try could only fail | ask again; for long tasks, raise that agent's time budget on the Agents screen |
+| `its tool call was lost with thinking switched off (an Ollama bug …); asked again with thinking on` | Ollama 0.40 drops a tool call Qwen3 writes with thinking off (it takes the start of `<tool_call>` for a `<think>` tag) | nothing: Onyx asks again at once with thinking on, and the call comes through. This was most of the qwen3:8b failures |
 | `HTTP 500: … out of memory` | the graphics card was full | close other programs that use it, and try again |
 | `could not reach http://127.0.0.1:11434/v1` | Ollama is not running | start Onyx with the shortcut |
 | `HTTP 404: … not found` | the model is not downloaded | `ollama pull` it, or run Setup again |
@@ -131,8 +132,11 @@ and the 30B model, which uses 3B per token, runs split between the card and syst
 - **One call at a time.** A graphics card answers one call at a time, so Onyx queues its calls to Ollama instead of
   sending several at once, which would make Ollama swap models on and off the card. `max_concurrent` on a provider
   in `tiers.yaml` changes that.
-- **Time budgets.** Each agent has a time budget (Agents screen). A failed call is not tried again when less than
-  5 seconds of it are left, since that try could only fail as well.
+- **Time budgets.** Each agent has a time budget (Agents screen). Time spent waiting for the graphics card while
+  another agent uses it is given back, so agents working side by side do not run each other out of time. A failed
+  call is not tried again when less than 5 seconds of the budget are left, since that try could only fail as well.
+- **A helper that fails after doing its job** is reported with what it finished ("Saved: …"), so Core does not tell
+  you something failed that was done.
 - **No limits.** Everything is local, so every tier is open and tokens are only counted (Usage screen).
 - **Billing, if you ever charge.** Set `billing: { enabled: true }` in `tiers.yaml` and each account's plan decides
   its tiers and daily tokens (Free: Lite and Standard; Pro adds Pro; Max: all four). `GET /api/billing` reports what

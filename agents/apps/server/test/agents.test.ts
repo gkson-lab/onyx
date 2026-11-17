@@ -106,6 +106,20 @@ describe('the agent loop', () => {
 		expect(r.tokens).toBe(1200);
 	});
 
+	it('a helper that fails after doing its job: Core is told what it did, not only that it failed', async () => {
+		const { app, events } = await testApp({
+			'qwen3:8b': [{ toolCall: { name: 'delegate', args: { tasks: [{ agent: 'memory', task: 'remember that I take my coffee black' }] } } }, { content: 'Saved: you take your coffee black.' }],
+			// Memory saves the fact, then cannot write its answer.
+			'qwen3:4b': [{ toolCall: { name: 'memory_save', args: { fact: 'Takes coffee black' } } }, { status: 500, content: 'the runner stopped' }],
+		});
+		const r = await app.runtime.run({ agentId: 'core', input: 'remember that I take my coffee black', userId: app.owner, channel: 'web', tier: 'standard' });
+		expect(r.status).toBe('done');
+		const back = events.find((e) => e.type === 'tool_result' && e.data.tool === 'delegate')!;
+		expect(back.data.result).toMatch(/"ok":false/);
+		expect(back.data.result).toMatch(/Before that, it did finish: memory_save: Saved: Takes coffee black/);
+		expect((await app.db.selectFrom('memories').select('text').execute()).map((m) => m.text)).toEqual(['Takes coffee black']);
+	});
+
 	it(`subagents stop at depth ${MAX_DEPTH}: the deepest one is not offered delegate at all`, async () => {
 		const down = (agent: string) => ({ toolCall: { name: 'delegate', args: { tasks: [{ agent, task: 'go deeper' }] } } });
 		const { app, seen } = await testApp({ 'qwen3:8b': [down('researcher'), { content: 'core done' }], 'qwen3:14b': [down('coder'), down('researcher'), { content: 'bottom' }, { content: 'coder done' }, { content: 'researcher done' }] });

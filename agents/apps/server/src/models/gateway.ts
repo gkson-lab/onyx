@@ -26,6 +26,11 @@ export interface CompleteRequest {
 	allowTierDrop?: boolean;
 	/** Call this one model (a key under models), not the tier's: the image reader, for one. */
 	modelKey?: string;
+	/**
+	 * Told how long the call waited for its turn on the graphics card. That wait is given back: it does not count
+	 * against the caller's time budget (see deadline), and the caller can give it back to its own budget too.
+	 */
+	onWait?: (ms: number) => void;
 }
 export interface CompleteResult {
 	content: string;
@@ -63,6 +68,12 @@ export interface GatewayOptions {
 
 // Less time than this left in the budget: another try could not finish, so it is not made.
 const MIN_TRY_MS = 5000;
+/** A model's extra settings switch thinking off (Qwen3 through Ollama: reasoning_effort "none"). */
+const thinkingOff = (extra: Record<string, unknown> | undefined) => extra?.reasoning_effort === 'none';
+const thinkingOn = (extra: Record<string, unknown> | undefined) => {
+	const { reasoning_effort: _, ...rest } = extra ?? {};
+	return rest;
+};
 
 export class Gateway {
 	private readonly config: Config;
@@ -160,7 +171,8 @@ export class Gateway {
 		const purpose = req.purpose ?? 'chat';
 		const errors: string[] = [];
 		let outOfTime = false;
-		const left = () => (req.deadline === undefined ? Infinity : req.deadline - Date.now());
+		let deadline = req.deadline;
+		const left = () => (deadline === undefined ? Infinity : deadline - Date.now());
 
 		for (;;) {
 			// A model that cannot call tools is no use to a call that offers them.
@@ -168,17 +180,30 @@ export class Gateway {
 			if (!candidates.length) errors.push(`${tier}: no usable model is configured`);
 			for (const [i, model] of candidates.entries()) {
 				let last = '';
+				// Ollama 0.40 loses a tool call that Qwen3 writes with thinking off: it pre-fills an empty <think></think>, then
+				// takes the "<t" of "<tool_call>" for the start of another <think> tag, and the call never arrives (an empty
+				// answer, though the model wrote it; qwen3:8b, seen in real runs). With thinking on it comes through. So such a
+				// call is asked again with thinking on, for that call only: plain answers, most of what Core writes, stay fast.
+				let thinkNow = false;
 				for (let attempt = 0; attempt <= fb.retries; attempt++) {
 					if (left() < MIN_TRY_MS) {
 						outOfTime = true;
 						last = `out of time: the agent's time budget had ${Math.max(0, Math.round(left() / 1000))} s left`;
 						break;
 					}
+					const asked = Date.now();
 					const release = await this.acquire(model.provider, req.signal);
+					// Time spent waiting for another call to finish on the graphics card is not this call's: on a slow PC, an
+					// agent working beside another could spend its whole budget in the queue (seen in a real run).
+					const waited = Date.now() - asked;
+					if (waited > 20) {
+						if (deadline !== undefined) deadline += waited;
+						req.onWait?.(waited);
+					}
 					const started = Date.now();
 					const messages = model.system_suffix ? withSuffix(req.messages, model.system_suffix) : req.messages;
 					try {
-						const r = await chat({ baseUrl: this.config.baseUrl(model.provider), apiKey: this.config.apiKey(model.provider), model: model.id, messages, tools: req.tools, toolChoice: req.toolChoice, maxTokens: req.maxTokens, temperature: req.temperature, extra: model.extra, timeoutMs: Math.max(1000, Math.min(req.timeoutMs ?? fb.timeout_ms, left())), signal: req.signal, onDelta: req.onDelta }, this.fetch);
+						const r = await chat({ baseUrl: this.config.baseUrl(model.provider), apiKey: this.config.apiKey(model.provider), model: model.id, messages, tools: req.tools, toolChoice: req.toolChoice, maxTokens: req.maxTokens, temperature: req.temperature, extra: thinkNow ? thinkingOn(model.extra) : model.extra, timeoutMs: Math.max(1000, Math.min(req.timeoutMs ?? fb.timeout_ms, left())), signal: req.signal, onDelta: req.onDelta }, this.fetch);
 						const latencyMs = Date.now() - started;
 						const costUsd = this.cost(model, r.usage);
 						const eq = this.config.file.providers[model.provider]!.local ? this.config.equivalents[model.id] : undefined;
@@ -189,9 +214,18 @@ export class Gateway {
 						return { ...r, costUsd, equivalentUsd, latencyMs, tier, requestedTier: req.tier, model: model.id, modelKey: model.key, provider: model.provider, local: this.config.file.providers[model.provider]!.local, fallbacks: trail };
 					} catch (e) {
 						const err = e instanceof ProviderError ? e : new ProviderError((e as Error).message, 0, false);
-						last = err.message;
-						await this.db.insertInto('model_calls').values({ user_id: req.userId, run_id: req.runId ?? null, purpose, tier, model_key: model.key, provider: model.provider, model_id: model.id, status: 'error', error: err.message, input_tokens: 0, output_tokens: 0, usage_estimated: 0, cost_usd: null, latency_ms: Date.now() - started, attempt, created_at: now() }).execute();
+						// A tool call lost to Ollama's thinking switch (above): ask again straight away, with thinking on.
+						const lost = err.kind === 'empty' && !!req.tools?.length && thinkingOff(model.extra) && !thinkNow;
+						last = lost ? `its tool call was lost with thinking switched off (an Ollama bug: ${err.generated ?? 0} tokens written, none delivered); asked again with thinking on` : err.message;
+						await this.db.insertInto('model_calls').values({ user_id: req.userId, run_id: req.runId ?? null, purpose, tier, model_key: model.key, provider: model.provider, model_id: model.id, status: 'error', error: last, input_tokens: 0, output_tokens: 0, usage_estimated: 0, cost_usd: null, latency_ms: Date.now() - started, attempt, created_at: now() }).execute();
 						if (err.status === 499) throw err;
+						if (lost) {
+							thinkNow = true;
+							await this.note(req, trail, { kind: 'retry', from: `${model.provider}/${model.id}`, to: `${model.provider}/${model.id}`, reason: 'its tool call was lost with thinking off; asked again with thinking on' });
+							// Not a try used up: the model did its part.
+							attempt--;
+							continue;
+						}
 						// With too little of the agent's time left, a retry, another provider or a lower tier would only fail
 						// again in a second or two, and count as more failures. Stop here and say why.
 						if (left() < MIN_TRY_MS) {

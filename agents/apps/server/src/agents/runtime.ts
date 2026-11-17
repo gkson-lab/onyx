@@ -32,6 +32,7 @@ interface Frame {
 	channel: Channel;
 	controller: AbortController;
 	deadline: number;
+	parent: Frame | null;
 	/** Tokens this run and its children may still spend. Shared down the tree, so a child can't outspend its parent. */
 	budget: { left: number };
 }
@@ -135,6 +136,7 @@ export class Runtime {
 		const f: Frame = {
 			runId, rootId: parent?.rootId ?? runId, parentId: parent?.runId ?? null, depth: parent ? parent.depth + 1 : 0, userId: o.userId, channel: o.channel, controller,
 			deadline: Math.min(parent?.deadline ?? Infinity, started + (agent?.time_budget_ms ?? 60000)),
+			parent,
 			budget: parent ? parent.budget : { left: agent?.token_budget ?? 20000 },
 		};
 		// A child gets its own cap as well as its parent's: whichever is smaller.
@@ -170,7 +172,14 @@ export class Runtime {
 				delegate: async (tasks) => {
 					await this.emit(f, agent.id, 'delegated', { tasks });
 					const results = await Promise.all(tasks.map((t) => this.run({ agentId: t.agent, input: t.task, userId: o.userId, channel: o.channel, parent: f })));
-					return results.map((r, i) => ({ agent: tasks[i]!.agent, ok: r.status === 'done', result: r.status === 'done' ? r.output : `FAILED: ${r.error}` }));
+					return Promise.all(results.map(async (r, i) => {
+						if (r.status === 'done') return { agent: tasks[i]!.agent, ok: true, result: r.output };
+						// What it finished before it failed, from its step log: a fact saved, a reminder made. Without this, Core
+						// told the person a fact could not be saved when it had been (seen in a real run).
+						const steps = await db.selectFrom('steps').select('data').where('run_id', '=', r.runId).where('type', '=', 'tool_result').execute();
+						const did = steps.map((s) => JSON.parse(s.data) as { ok: boolean; tool: string; result: string }).filter((d) => d.ok && d.tool !== 'delegate' && !String(d.result).startsWith('Error')).map((d) => `${d.tool}: ${String(d.result).slice(0, 200)}`);
+						return { agent: tasks[i]!.agent, ok: false, result: `FAILED: ${r.error}${did.length ? `. Before that, it did finish: ${did.join('; ')}` : ''}` };
+					}));
 				},
 			};
 
@@ -187,6 +196,10 @@ export class Runtime {
 					userId: o.userId, runId, purpose: agent.id, tier, messages, tools: last || !defs.length ? undefined : defs, signal: controller.signal,
 					timeoutMs: Math.max(1000, Math.min(f.deadline - Date.now(), 10 * 60 * 1000)),
 					deadline: f.deadline,
+					// The wait for the graphics card is given back to this agent and to every agent waiting on it.
+					onWait: (ms) => {
+						for (let x: Frame | null = f; x; x = x.parent) x.deadline += ms;
+					},
 					onDelta: f.depth === 0 ? (t) => ((streamed += t), this.d.bus.emit({ type: 'delta', at: now(), runId, rootId: f.rootId, parentId: null, agentId: agent.id, data: { text: t } })) : undefined,
 				});
 				const spent = r.usage.input + r.usage.output;

@@ -28,7 +28,8 @@ export interface ChatResult {
 }
 
 export class ProviderError extends Error {
-	constructor(message: string, public readonly status: number, public readonly retryable: boolean) {
+	/** `empty`: the reply had nothing in it, though the model may have written something (`generated` tokens). */
+	constructor(message: string, public readonly status: number, public readonly retryable: boolean, public readonly kind?: 'empty', public readonly generated?: number) {
 		super(message);
 	}
 }
@@ -85,6 +86,8 @@ export async function chat(req: ChatRequest, fetchImpl: FetchLike = fetch as unk
 		const split = splitThinking(String(msg.content ?? ''));
 		const reasoning = String(msg.reasoning_content ?? msg.reasoning ?? '') || split.reasoning;
 		const u = data.usage;
+		// An answer with nothing in it is not an answer: an agent would otherwise finish with an empty result.
+		if (!split.content && !msg.tool_calls?.length && !reasoning) throw new ProviderError('the reply was empty', res.status, true, 'empty', Number(u?.completion_tokens ?? 0));
 		return {
 			content: split.content,
 			reasoning,
@@ -164,7 +167,7 @@ export async function chat(req: ChatRequest, fetchImpl: FetchLike = fetch as unk
 	}
 	const split = splitThinking(raw);
 	const toolCalls = calls.filter(Boolean).map((c, i) => ({ ...c, id: c.id || `call_${i}` }));
-	if (!split.content && !toolCalls.length && !reasoning && !split.reasoning) throw new ProviderError('the stream ended with nothing in it', res.status, true);
+	if (!split.content && !toolCalls.length && !reasoning && !split.reasoning) throw new ProviderError('the stream ended with nothing in it', res.status, true, 'empty', (usage as Usage | null)?.output ?? 0);
 	return { content: split.content, reasoning: reasoning || split.reasoning, toolCalls, finish, usage: usage ?? { input: estimate(promptText), output: estimate(raw + reasoning), estimated: true } };
 }
 

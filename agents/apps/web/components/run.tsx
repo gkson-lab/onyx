@@ -1,4 +1,5 @@
 'use client';
+import { MessageText } from './message';
 import { useMemo, useState } from 'react';
 import { ChevronRight, CornerDownRight, Square, Wrench } from 'lucide-react';
 import { api, fmtCost, fmtHosted, fmtMs, fmtTokens, type LogEntry, type RunNode } from '@/lib/api';
@@ -83,7 +84,7 @@ export function RunTree({ tree, routing, live = false }: { tree: RunNode[]; rout
 					{node.status === 'running' && <p className="thinking font-mono text-xs">working, step {node.step}</p>}
 					{!node.log.some((l) => l.type === 'tool_call') && node.status !== 'running' && <p className="font-mono text-xs text-muted">answered without tools</p>}
 				</div>
-				{node.output && <div className="mt-4 border-t pt-4"><p className="mb-1 text-xs text-muted">Result</p><p className="whitespace-pre-wrap text-sm">{node.output}</p></div>}
+				{node.output && <div className="mt-4 border-t pt-4 text-sm"><p className="mb-1 text-xs text-muted">Result</p><MessageText text={node.output} /></div>}
 				{node.error && node.status !== 'running' && <p className="mt-4 text-sm text-bad">{node.error}</p>}
 			</div>
 		</div>

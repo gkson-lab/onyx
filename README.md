@@ -142,6 +142,8 @@ your PC and saves the choice in `config/tiers.local.yaml`, which updates never o
   ones worked out for your PC: 16,384 tokens of context on a 16 GB card (without it, Ollama may give 4,096 and
   silently drop the start of a conversation), the context's cache at half size so Lite and Standard fit on the card
   together, and 1 GB of the card kept free for Windows.
+- **Lost tool calls are recovered.** Ollama 0.40 drops a tool call Qwen3 writes with thinking off, which was most of
+  the qwen3:8b failures; Onyx now asks again at once with thinking on, and the call comes through.
 - **When something fails,** the Models screen lists the latest failed tries with what Ollama said, and shows which
   models are loaded, with their context and how much of each is on the graphics card. Calls to the card go one at a
   time, and a call is not tried again when the agent's time is nearly up. See
@@ -237,7 +239,7 @@ and cost. Taking payment is not built.
 
 ## What has been tested
 
-- **99 automated tests** (`pnpm test` in `agents/`) cover:
+- **103 automated tests** (`pnpm test` in `agents/`) cover:
   - the router, fallbacks, plans and the agent loop;
   - subagents, budgets and the kill switch;
   - tools, reminders and delivery;
