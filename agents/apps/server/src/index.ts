@@ -238,6 +238,7 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 			.select((eb) => [
 				eb.selectFrom('runs as c').select((e) => e.fn.sum<number>(sql`c.tokens_in + c.tokens_out`).as('t')).whereRef('c.root_id', '=', 'r.id').as('tokens'),
 				eb.selectFrom('runs as c').select((e) => e.fn.sum<number>('c.cost_usd').as('t')).whereRef('c.root_id', '=', 'r.id').as('cost_usd'),
+				eb.selectFrom('runs as c').select((e) => e.fn.sum<number>('c.equivalent_usd').as('t')).whereRef('c.root_id', '=', 'r.id').as('equivalent_usd'),
 				eb.selectFrom('runs as c').select((e) => e.fn.countAll<number>().as('t')).whereRef('c.root_id', '=', 'r.id').as('agents'),
 			])
 			.where('r.parent_id', 'is', null)
@@ -311,24 +312,28 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		return { changed: r.changed, tiers: app.config.publicTiers() };
 	});
 	server.get('/api/models', async () => {
-		const stats = await db.selectFrom('model_calls').select(['model_key']).select((eb) => [eb.fn.countAll<number>().as('calls'), eb.fn.sum<number>(sql`case when status = 'error' then 1 else 0 end`).as('errors'), eb.fn.avg<number>(sql`case when status = 'ok' then latency_ms end`).as('latency_ms'), eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.max('created_at').as('last_used')]).groupBy('model_key').execute();
+		const stats = await db.selectFrom('model_calls').select(['model_key']).select((eb) => [eb.fn.countAll<number>().as('calls'), eb.fn.sum<number>(sql`case when status = 'error' then 1 else 0 end`).as('errors'), eb.fn.avg<number>(sql`case when status = 'ok' then latency_ms end`).as('latency_ms'), eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.sum<number>('equivalent_usd').as('equivalent_usd'), eb.fn.max('created_at').as('last_used')]).groupBy('model_key').execute();
 		const available: Record<string, string[] | { error: string }> = {};
 		await Promise.all(Object.keys(app.config.file.providers).filter((p) => app.config.usable(p)).map(async (p) => {
 			available[p] = await listModels(app.config.baseUrl(p), app.config.apiKey(p)).catch((e) => ({ error: (e as Error).message }));
 		}));
 		const models = Object.entries(app.config.file.models).map(([key, m]) => {
 			const have = available[m.provider];
-			return { key, id: m.id, provider: m.provider, family: m.family, price: m.price, local: app.config.file.providers[m.provider]!.local, usable: app.config.usable(m.provider), tiers: TIERS.filter((t) => app.config.file.tiers[t].models.includes(key)), installed: Array.isArray(have) ? have.includes(m.id) || have.includes(`${m.id}:latest`) : null, provider_error: have && !Array.isArray(have) ? have.error : null, ...(stats.find((s) => s.model_key === key) ?? { calls: 0, errors: 0, latency_ms: null, tokens: 0, cost_usd: null, last_used: null }) };
+			return { key, id: m.id, provider: m.provider, family: m.family, price: m.price, equivalent: app.config.equivalents[m.id] ?? null, local: app.config.file.providers[m.provider]!.local, usable: app.config.usable(m.provider), tiers: TIERS.filter((t) => app.config.file.tiers[t].models.includes(key)), installed: Array.isArray(have) ? have.includes(m.id) || have.includes(`${m.id}:latest`) : null, provider_error: have && !Array.isArray(have) ? have.error : null, ...(stats.find((s) => s.model_key === key) ?? { calls: 0, errors: 0, latency_ms: null, tokens: 0, cost_usd: null, equivalent_usd: null, last_used: null }) };
 		});
 		return { models };
 	});
 	server.get('/api/usage', async (req) => {
 		const { days } = z.object({ days: z.coerce.number().int().min(1).max(90).default(14) }).parse(req.query);
 		const since = new Date(Date.now() - days * 86400000).toISOString();
-		const group = async (col: 'tier' | 'model_id' | 'purpose') => db.selectFrom('model_calls').select(col).select((eb) => [eb.fn.countAll<number>().as('calls'), eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.avg<number>('latency_ms').as('latency_ms')]).where('created_at', '>=', since).where('status', '=', 'ok').groupBy(col).execute();
-		const byDay = await db.selectFrom('model_calls').select(sql<string>`substr(created_at, 1, 10)`.as('day')).select((eb) => [eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.countAll<number>().as('calls')]).where('created_at', '>=', since).where('status', '=', 'ok').groupBy(sql`substr(created_at, 1, 10)`).orderBy('day').execute();
+		const group = async (col: 'tier' | 'model_id' | 'purpose') => db.selectFrom('model_calls').select(col).select((eb) => [eb.fn.countAll<number>().as('calls'), eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.sum<number>('equivalent_usd').as('equivalent_usd'), eb.fn.avg<number>('latency_ms').as('latency_ms')]).where('created_at', '>=', since).where('status', '=', 'ok').groupBy(col).execute();
+		const byDay = await db.selectFrom('model_calls').select(sql<string>`substr(created_at, 1, 10)`.as('day')).select((eb) => [eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.sum<number>('equivalent_usd').as('equivalent_usd'), eb.fn.countAll<number>().as('calls')]).where('created_at', '>=', since).where('status', '=', 'ok').groupBy(sql`substr(created_at, 1, 10)`).orderBy('day').execute();
 		const plan = await app.gateway.plan(app.owner);
-		return { days, billing: app.config.file.billing.enabled, plan, limit: app.config.file.billing.enabled ? app.config.file.plans[plan]!.daily_tokens : null, used_today: await app.gateway.usedToday(app.owner), today: today(), by_day: byDay, by_tier: await group('tier'), by_model: await group('model_id'), by_agent: await group('purpose') };
+		// What the same use would have cost on paid hosts: today, this period, and since Onyx started recording it.
+		const eqSum = async (from: string | null) => Number((await db.selectFrom('model_calls').select((eb) => eb.fn.sum<number>('equivalent_usd').as('t')).where('status', '=', 'ok').$if(!!from, (b) => b.where('created_at', '>=', from!)).executeTakeFirst())?.t ?? 0);
+		const first = await db.selectFrom('model_calls').select((eb) => eb.fn.min('created_at').as('t')).where('equivalent_usd', 'is not', null).executeTakeFirst();
+		const equivalent = { today: await eqSum(`${today()}T00:00:00`), period: await eqSum(since), all: await eqSum(null), since: (first?.t as string | null) ?? null };
+		return { equivalent, days, billing: app.config.file.billing.enabled, plan, limit: app.config.file.billing.enabled ? app.config.file.plans[plan]!.daily_tokens : null, used_today: await app.gateway.usedToday(app.owner), today: today(), by_day: byDay, by_tier: await group('tier'), by_model: await group('model_id'), by_agent: await group('purpose') };
 	});
 
 	/* ---------- channels, connectors, schedules, settings ---------- */

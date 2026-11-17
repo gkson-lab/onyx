@@ -21,6 +21,7 @@ export interface RunResult {
 	model: string | null;
 	tokens: number;
 	costUsd: number | null;
+	equivalentUsd: number | null;
 }
 interface Frame {
 	runId: string;
@@ -138,12 +139,12 @@ export class Runtime {
 		let own = agent?.token_budget ?? 20000;
 		await db.insertInto('runs').values({ id: runId, parent_id: f.parentId, root_id: f.rootId, depth: f.depth, user_id: o.userId, agent_id: o.agentId, channel: o.channel, status: 'running', input: o.input, output: null, error: null, tier: null, model: null, provider: null, tokens_in: 0, tokens_out: 0, cost_usd: null, steps: 0, routing: o.routing ? JSON.stringify(o.routing) : null, started_at: now(), finished_at: null }).execute();
 		this.live.set(runId, controller);
-		const totals = { in: 0, out: 0, cost: null as number | null, tier: null as Tier | null, model: null as string | null, provider: null as string | null, steps: 0 };
+		const totals = { in: 0, out: 0, cost: null as number | null, eq: null as number | null, tier: null as Tier | null, model: null as string | null, provider: null as string | null, steps: 0 };
 		const finish = async (status: RunResult['status'], output: string, error: string | null): Promise<RunResult> => {
 			this.live.delete(runId);
-			await db.updateTable('runs').set({ status, output, error, tier: totals.tier, model: totals.model, provider: totals.provider, tokens_in: totals.in, tokens_out: totals.out, cost_usd: totals.cost, steps: totals.steps, finished_at: now() }).where('id', '=', runId).execute();
-			await this.emit(f, o.agentId, status === 'done' ? 'finished' : 'error', { status, output, error, tokens_in: totals.in, tokens_out: totals.out, cost_usd: totals.cost, ms: Date.now() - started, tier: totals.tier, model: totals.model });
-			return { runId, status, output, error, tier: totals.tier, model: totals.model, tokens: totals.in + totals.out, costUsd: totals.cost };
+			await db.updateTable('runs').set({ status, output, error, tier: totals.tier, model: totals.model, provider: totals.provider, tokens_in: totals.in, tokens_out: totals.out, cost_usd: totals.cost, equivalent_usd: totals.eq, steps: totals.steps, finished_at: now() }).where('id', '=', runId).execute();
+			await this.emit(f, o.agentId, status === 'done' ? 'finished' : 'error', { status, output, error, tokens_in: totals.in, tokens_out: totals.out, cost_usd: totals.cost, equivalent_usd: totals.eq, ms: Date.now() - started, tier: totals.tier, model: totals.model });
+			return { runId, status, output, error, tier: totals.tier, model: totals.model, tokens: totals.in + totals.out, costUsd: totals.cost, equivalentUsd: totals.eq };
 		};
 
 		try {
@@ -191,6 +192,7 @@ export class Runtime {
 				totals.in += r.usage.input;
 				totals.out += r.usage.output;
 				if (r.costUsd != null) totals.cost = (totals.cost ?? 0) + r.costUsd;
+				if (r.equivalentUsd != null) totals.eq = (totals.eq ?? 0) + r.equivalentUsd;
 				totals.tier = r.tier;
 				totals.model = r.model;
 				totals.provider = r.provider;

@@ -33,7 +33,7 @@ export interface AgentEvent { type: string; at: string; runId: string | null; ro
 export interface LogEntry { type: string; at: string; data: Record<string, any> }
 export interface RunNode {
 	id: string; rootId: string; parentId: string | null; agentId: string; name: string; depth: number; status: 'running' | 'done' | 'error' | 'killed';
-	tier: Tier | null; model: string | null; input: string; output: string; error: string | null; tokens: number; cost: number | null; ms: number | null; step: number; log: LogEntry[]; startedAt: string;
+	tier: Tier | null; model: string | null; input: string; output: string; error: string | null; tokens: number; cost: number | null; equivalent: number | null; ms: number | null; step: number; log: LogEntry[]; startedAt: string;
 }
 export interface Live { connected: boolean; nodes: Record<string, RunNode>; routing: Record<string, any>; text: Record<string, string>; inbox: { text: string; at: string; channel: string }[]; lastRoot: string | null }
 
@@ -55,13 +55,13 @@ function reduce(s: Live, a: AgentEvent | { type: '_conn'; connected: boolean } |
 	if (e.type === 'delta') return { ...s, text: { ...s.text, [e.runId]: (s.text[e.runId] ?? '') + String(e.data.text) } };
 	const prev = s.nodes[e.runId];
 	if (e.type === 'started') {
-		const node: RunNode = { id: e.runId, rootId: e.rootId ?? e.runId, parentId: e.parentId, agentId: e.agentId ?? '', name: String(e.data.agent ?? e.agentId), depth: Number(e.data.depth ?? 0), status: 'running', tier: e.data.tier ?? null, model: null, input: String(e.data.input ?? ''), output: '', error: null, tokens: 0, cost: null, ms: null, step: 0, log: [], startedAt: e.at };
+		const node: RunNode = { id: e.runId, rootId: e.rootId ?? e.runId, parentId: e.parentId, agentId: e.agentId ?? '', name: String(e.data.agent ?? e.agentId), depth: Number(e.data.depth ?? 0), status: 'running', tier: e.data.tier ?? null, model: null, input: String(e.data.input ?? ''), output: '', error: null, tokens: 0, cost: null, equivalent: null, ms: null, step: 0, log: [], startedAt: e.at };
 		return { ...s, nodes: { ...s.nodes, [e.runId]: node }, lastRoot: e.parentId ? s.lastRoot : e.runId };
 	}
 	if (!prev) return s;
 	let node = prev;
 	if (e.type === 'thinking') node = { ...prev, step: Number(e.data.step) };
-	else if (e.type === 'finished' || e.type === 'error') node = { ...prev, status: e.data.status ?? (e.type === 'finished' ? 'done' : 'error'), output: String(e.data.output ?? ''), error: e.data.error ?? null, tokens: Number(e.data.tokens_in ?? 0) + Number(e.data.tokens_out ?? 0), cost: e.data.cost_usd ?? null, ms: e.data.ms ?? null, tier: e.data.tier ?? prev.tier, model: e.data.model ?? prev.model, log: [...prev.log, { type: e.type, at: e.at, data: e.data }] };
+	else if (e.type === 'finished' || e.type === 'error') node = { ...prev, status: e.data.status ?? (e.type === 'finished' ? 'done' : 'error'), output: String(e.data.output ?? ''), error: e.data.error ?? null, tokens: Number(e.data.tokens_in ?? 0) + Number(e.data.tokens_out ?? 0), cost: e.data.cost_usd ?? null, equivalent: e.data.equivalent_usd ?? null, ms: e.data.ms ?? null, tier: e.data.tier ?? prev.tier, model: e.data.model ?? prev.model, log: [...prev.log, { type: e.type, at: e.at, data: e.data }] };
 	else node = { ...prev, log: [...prev.log, { type: e.type, at: e.at, data: e.data }] };
 	// A tool that starts a new text segment: what was streamed before it was thinking aloud, not the answer.
 	const text = e.type === 'tool_call' && !prev.parentId ? { ...s.text, [e.runId]: '' } : s.text;
@@ -104,12 +104,14 @@ export function LiveProvider({ children }: { children: React.ReactNode }) {
 export function nodesFrom(run: { runs: any[]; steps: any[] }): RunNode[] {
 	return run.runs.map((r) => ({
 		id: r.id, rootId: r.root_id, parentId: r.parent_id, agentId: r.agent_id, name: String(run.steps.find((s) => s.run_id === r.id && s.type === 'started')?.data.agent ?? r.agent_id), depth: r.depth, status: r.status, tier: r.tier, model: r.model, input: r.input, output: r.output ?? '', error: r.error,
-		tokens: r.tokens_in + r.tokens_out, cost: r.cost_usd, ms: r.finished_at ? Date.parse(r.finished_at) - Date.parse(r.started_at) : null, step: r.steps, startedAt: r.started_at,
+		tokens: r.tokens_in + r.tokens_out, cost: r.cost_usd, equivalent: r.equivalent_usd ?? null, ms: r.finished_at ? Date.parse(r.finished_at) - Date.parse(r.started_at) : null, step: r.steps, startedAt: r.started_at,
 		log: run.steps.filter((s) => s.run_id === r.id && s.type !== 'started').map((s) => ({ type: s.type, at: s.created_at, data: s.data })),
 	}));
 }
 
 export const fmtTokens = (n: number | null | undefined) => (n == null ? '0' : n.toLocaleString('en-US'));
-export const fmtCost = (c: number | null | undefined) => (c == null ? 'no price' : c === 0 ? '$0' : c < 0.01 ? `$${c.toFixed(4)}` : `$${c.toFixed(2)}`);
+export const fmtCost = (c: number | null | undefined) => (c == null ? 'no price' : c === 0 ? '$0' : c < 0.0001 ? '<$0.0001' : c < 0.01 ? `$${c.toFixed(4)}` : `$${c.toFixed(2)}`);
+/** What the same work would have cost on a paid host. Empty when no equivalent price is known. */
+export const fmtHosted = (c: number | null | undefined) => (c == null ? '' : `${fmtCost(c)} if hosted`);
 export const fmtMs = (ms: number | null | undefined) => (ms == null ? '' : ms < 1000 ? `${Math.round(ms)} ms` : ms < 60000 ? `${(ms / 1000).toFixed(1)} s` : `${Math.floor(ms / 60000)} min ${Math.round((ms % 60000) / 1000)} s`);
 export const fmtTime = (iso: string) => new Date(iso).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });

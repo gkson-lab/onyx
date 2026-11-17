@@ -1,7 +1,7 @@
 // Puts the pieces together: config, database, gateway, router, tools, agents, channels, scheduler, connectors.
 // Used by the server, the terminal chat and the tests.
 import { resolve } from 'node:path';
-import { Config, loadDotEnv, loadTiers, ROOT, type Env, type TiersFile } from './config.ts';
+import { Config, loadDotEnv, loadEquivalents, loadTiers, ROOT, type Env, type Equivalent, type TiersFile } from './config.ts';
 import { ensureUser, open, type DB } from './db.ts';
 import { Gateway, type GatewayOptions } from './models/gateway.ts';
 import { Router } from './models/router.ts';
@@ -38,6 +38,7 @@ export interface App {
 
 export interface AppOptions {
 	tiers?: TiersFile;
+	equivalents?: Record<string, Equivalent>;
 	env?: Env;
 	dbPath?: string;
 	fetch?: GatewayOptions['fetch'];
@@ -55,7 +56,7 @@ export interface AppOptions {
 export async function createApp(o: AppOptions = {}): Promise<App> {
 	if (!o.env) loadDotEnv();
 	const env = o.env ?? process.env;
-	const config = new Config(o.tiers ?? loadTiers(), env);
+	const config = new Config(o.tiers ?? loadTiers(), env, o.equivalents ?? (o.tiers ? {} : loadEquivalents()));
 	const db = await open(o.dbPath ?? resolve(ROOT, env.ONYX_DB ?? './data/onyx.db'));
 	const plan = Plan.catch('max').parse(env.ONYX_PLAN);
 	await ensureUser(db, 'owner', 'Owner', plan);

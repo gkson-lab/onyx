@@ -45,6 +45,13 @@ export const TiersFile = z
 export type TiersFile = z.infer<typeof TiersFile>;
 export type ModelDef = z.infer<typeof Model> & { key: string };
 
+/** What a local model would cost on a paid host (config/equivalents.yaml), by Ollama model id. */
+export const Equivalents = z.object({ equivalents: z.record(z.object({ name: z.string(), input: z.number().nonnegative(), output: z.number().nonnegative(), source: z.string() })).default({}) });
+export type Equivalent = z.infer<typeof Equivalents>['equivalents'][string];
+export function loadEquivalents(path = resolve(ROOT, 'config/equivalents.yaml')): Record<string, Equivalent> {
+	return existsSync(path) ? Equivalents.parse(parse(readFileSync(path, 'utf8')) ?? {}).equivalents : {};
+}
+
 export type Env = Record<string, string | undefined>;
 
 /** Loads KEY=value lines from a .env file into process.env, without overriding what is already set. */
@@ -69,7 +76,7 @@ export function loadTiers(path = tiersPath()): TiersFile {
 }
 
 export class Config {
-	constructor(public file: TiersFile, private readonly env: Env = process.env) {}
+	constructor(public file: TiersFile, private readonly env: Env = process.env, public readonly equivalents: Record<string, Equivalent> = {}) {}
 
 	/** Swaps in an edited tiers file (already validated). */
 	replace(file: TiersFile): void {

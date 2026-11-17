@@ -1,7 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { ChevronRight, CornerDownRight, Square, Wrench } from 'lucide-react';
-import { api, fmtCost, fmtMs, fmtTokens, type LogEntry, type RunNode } from '@/lib/api';
+import { api, fmtCost, fmtHosted, fmtMs, fmtTokens, type LogEntry, type RunNode } from '@/lib/api';
 import { Button, ICON, Status, TierBadge } from './ui';
 
 export const treeOf = (nodes: Record<string, RunNode> | RunNode[], rootId: string): RunNode[] => {
@@ -11,7 +11,7 @@ export const treeOf = (nodes: Record<string, RunNode> | RunNode[], rootId: strin
 	walk(null);
 	return out;
 };
-export const totals = (tree: RunNode[]) => ({ tokens: tree.reduce((s, n) => s + n.tokens, 0), cost: tree.some((n) => n.cost != null) ? tree.reduce((s, n) => s + (n.cost ?? 0), 0) : null, tools: [...new Set(tree.flatMap((n) => n.log.filter((l) => l.type === 'tool_call').map((l) => String(l.data.tool))))] });
+export const totals = (tree: RunNode[]) => ({ tokens: tree.reduce((s, n) => s + n.tokens, 0), cost: tree.some((n) => n.cost != null) ? tree.reduce((s, n) => s + (n.cost ?? 0), 0) : null, equivalent: tree.some((n) => n.equivalent != null) ? tree.reduce((s, n) => s + (n.equivalent ?? 0), 0) : null, tools: [...new Set(tree.flatMap((n) => n.log.filter((l) => l.type === 'tool_call').map((l) => String(l.data.tool))))] });
 
 function Entry({ e }: { e: LogEntry }) {
 	const [open, setOpen] = useState(false);
@@ -59,7 +59,7 @@ export function RunTree({ tree, routing, live = false }: { tree: RunNode[]; rout
 										<span className={`truncate text-sm ${n.id === node.id ? 'font-medium' : ''}`}>{n.name}</span>
 										<TierBadge tier={n.tier} active={n.status === 'running'} inline />
 									</span>
-									<span className="block truncate font-mono text-xs text-muted">{n.model ?? (n.status === 'running' ? `step ${n.step}` : '')}{n.tokens ? ` · ${fmtTokens(n.tokens)} tok · ${fmtCost(n.cost)}` : ''}{n.ms != null ? ` · ${fmtMs(n.ms)}` : ''}</span>
+									<span className="block truncate font-mono text-xs text-muted">{n.model ?? (n.status === 'running' ? `step ${n.step}` : '')}{n.tokens ? ` · ${fmtTokens(n.tokens)} tok · ${fmtCost(n.cost)}${n.equivalent != null ? ` (${fmtHosted(n.equivalent)})` : ''}` : ''}{n.ms != null ? ` · ${fmtMs(n.ms)}` : ''}</span>
 								</span>
 								<Status status={n.status} />
 							</button>
@@ -67,7 +67,7 @@ export function RunTree({ tree, routing, live = false }: { tree: RunNode[]; rout
 					))}
 				</ul>
 				<p className="mt-3 font-mono text-xs text-muted">
-					{tree.length} agent{tree.length === 1 ? '' : 's'} · {fmtTokens(sum.tokens)} tokens · {fmtCost(sum.cost)}{root.ms != null ? ` · ${fmtMs(root.ms)}` : ''}
+					{tree.length} agent{tree.length === 1 ? '' : 's'} · {fmtTokens(sum.tokens)} tokens · {fmtCost(sum.cost)}{sum.equivalent != null ? ` · ${fmtHosted(sum.equivalent)}` : ''}{root.ms != null ? ` · ${fmtMs(root.ms)}` : ''}
 				</p>
 				{live && root.status === 'running' && (
 					<div className="mt-3">
@@ -103,7 +103,7 @@ export function Activity({ tree, routing, live }: { tree: RunNode[]; routing?: R
 				<TierBadge tier={root.tier} model={root.model} active={root.status === 'running'} inline />
 				<span>{tree.length === 1 ? 'Core alone' : tree.slice(1).map((n) => n.name).filter((v, i, a) => a.indexOf(v) === i).join(', ')}</span>
 				{sum.tools.length > 0 && <span className="inline-flex items-center gap-1 font-mono"><Wrench {...ICON} size={12} aria-hidden />{sum.tools.join(' ')}</span>}
-				<span className="font-mono">{fmtTokens(sum.tokens)} tok{root.ms != null ? ` · ${fmtMs(root.ms)}` : ''}</span>
+				<span className="font-mono">{fmtTokens(sum.tokens)} tok{root.ms != null ? ` · ${fmtMs(root.ms)}` : ''}{sum.equivalent != null ? ` · ${fmtHosted(sum.equivalent)}` : ''}</span>
 			</button>
 			<div className="reveal" data-open={open}><div>{open && <div className="mt-3 border-l pl-4"><RunTree tree={tree} routing={routing} live={live} /></div>}</div></div>
 		</div>

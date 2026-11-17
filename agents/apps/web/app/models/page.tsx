@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { api, fmtCost, fmtMs, fmtTokens, useData, type Tier } from '@/lib/api';
 import { Button, Code, Loading, Page, Problem, Section, TierBadge } from '@/components/ui';
 
-interface M { key: string; id: string; provider: string; family: string; price: { input: number; output: number } | null; local: boolean; usable: boolean; tiers: Tier[]; installed: boolean | null; provider_error: string | null; calls: number; errors: number; latency_ms: number | null; tokens: number; cost_usd: number | null }
+interface M { key: string; id: string; provider: string; family: string; price: { input: number; output: number } | null; equivalent: { name: string; input: number; output: number; source: string } | null; equivalent_usd: number | null; local: boolean; usable: boolean; tiers: Tier[]; installed: boolean | null; provider_error: string | null; calls: number; errors: number; latency_ms: number | null; tokens: number; cost_usd: number | null }
 
 interface Fit { id: string; params: string; needGb: number; where: 'gpu' | 'split' | 'cpu' | 'no'; gpuShare: number; tokensPerSec: number | null }
 interface HwData { hardware: { gpu: { name: string; vramGb: number } | null; ramGb: number; ramMts: number | null; cpu: string }; plan: { context: number; fits: Fit[]; tiers: Record<Tier, string>; reasons: Record<Tier, string>; env: Record<string, string>; warnings: string[] } }
@@ -82,14 +82,14 @@ export default function Models() {
 	const state = (m: M) => (!m.usable ? { text: 'Off (cloud)', bad: false } : m.provider_error ? { text: 'Provider unreachable', bad: true } : m.installed === false ? { text: 'Not installed', bad: true } : { text: 'Ready', bad: false });
 	const unreachable = [...new Set((data?.models ?? []).filter((m) => m.usable && m.provider_error).map((m) => `${m.provider}: ${m.provider_error}`))];
 	return (
-		<Page title="Models" note="Every model in the tiers file, with what Onyx has measured calling it. Latency is the average of successful calls.">
+		<Page title="Models" note={<>Every model in the tiers file, with what Onyx has measured calling it. Latency is the average of successful calls. &quot;If hosted&quot; is what the same calls would have cost on a paid host running the same model; the prices are in <Code>config/equivalents.yaml</Code>.</>}>
 			{error && <Problem>{error}</Problem>}
 			{unreachable.map((u) => <div key={u} className="mb-3"><Problem>{u}. If this is Ollama, start it, then reload this page.</Problem></div>)}
 			{!data && !error && <Loading what="models" />}
 			{data && (
 				<div className="overflow-x-auto">
-					<table className="w-full min-w-[44rem] border-t text-left text-sm">
-						<thead><tr className="border-b text-xs text-muted">{['Model', 'Backs', 'State', 'Calls', 'Errors', 'Latency', 'Tokens', 'Cost', 'Price per 1M in / out'].map((h) => <th key={h} className="py-2 pr-4 font-normal">{h}</th>)}</tr></thead>
+					<table className="w-full min-w-[52rem] border-t text-left text-sm">
+						<thead><tr className="border-b text-xs text-muted">{['Model', 'Backs', 'State', 'Calls', 'Errors', 'Latency', 'Tokens', 'Cost', 'If hosted', 'Price per 1M in / out'].map((h) => <th key={h} className="py-2 pr-4 font-normal">{h}</th>)}</tr></thead>
 						<tbody>
 							{data.models.map((m) => {
 								const s = state(m);
@@ -103,7 +103,8 @@ export default function Models() {
 										<td className="py-3 pr-4 font-mono text-xs">{m.latency_ms != null ? fmtMs(m.latency_ms) : 'not measured'}</td>
 										<td className="py-3 pr-4 font-mono text-xs">{fmtTokens(m.tokens)}</td>
 										<td className="py-3 pr-4 font-mono text-xs">{m.calls ? fmtCost(m.cost_usd) : ''}</td>
-										<td className="py-3 pr-4 font-mono text-xs text-muted">{m.price ? (m.price.input === 0 && m.price.output === 0 ? 'free, local' : `$${m.price.input} / $${m.price.output}`) : 'not set'}</td>
+										<td className="py-3 pr-4 font-mono text-xs">{m.equivalent_usd != null ? fmtCost(m.equivalent_usd) : ''}</td>
+										<td className="py-3 pr-4 font-mono text-xs text-muted">{m.price ? (m.price.input === 0 && m.price.output === 0 ? 'free, local' : `$${m.price.input} / $${m.price.output}`) : 'not set'}{m.equivalent && <a href={m.equivalent.source} target="_blank" rel="noopener" className="mt-1 block font-sans text-muted underline decoration-line underline-offset-2 hover:text-text">hosted: ${m.equivalent.input} / ${m.equivalent.output}, {m.equivalent.name}</a>}</td>
 									</tr>
 								);
 							})}

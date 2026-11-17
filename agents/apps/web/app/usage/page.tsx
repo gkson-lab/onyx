@@ -1,17 +1,17 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { fmtCost, fmtMs, fmtTokens, useData } from '@/lib/api';
+import { fmtCost, fmtMs, fmtTime, fmtTokens, useData } from '@/lib/api';
 import { Empty, Loading, Page, Problem, Section } from '@/components/ui';
 
-interface G { calls: number; tokens: number; cost_usd: number | null; latency_ms: number | null }
-interface U { days: number; billing: boolean; plan: string; limit: number | null; used_today: number; by_day: { day: string; tokens: number; calls: number; cost_usd: number | null }[]; by_tier: (G & { tier: string })[]; by_model: (G & { model_id: string })[]; by_agent: (G & { purpose: string })[] }
+interface G { calls: number; tokens: number; cost_usd: number | null; equivalent_usd: number | null; latency_ms: number | null }
+interface U { equivalent: { today: number; period: number; all: number; since: string | null }; days: number; billing: boolean; plan: string; limit: number | null; used_today: number; by_day: { day: string; tokens: number; calls: number; cost_usd: number | null }[]; by_tier: (G & { tier: string })[]; by_model: (G & { model_id: string })[]; by_agent: (G & { purpose: string })[] }
 
 function Table({ rows, first }: { rows: (G & { name: string })[]; first: string }) {
 	const max = Math.max(1, ...rows.map((r) => r.tokens));
 	return (
 		<table className="w-full border-t text-left text-sm">
-			<thead><tr className="border-b text-xs text-muted">{[first, 'Tokens', '', 'Calls', 'Cost', 'Average latency'].map((h, i) => <th key={i} className="py-2 pr-4 font-normal">{h}</th>)}</tr></thead>
+			<thead><tr className="border-b text-xs text-muted">{[first, 'Tokens', '', 'Calls', 'Cost', 'If hosted', 'Average latency'].map((h, i) => <th key={i} className="py-2 pr-4 font-normal">{h}</th>)}</tr></thead>
 			<tbody>
 				{rows.sort((a, b) => b.tokens - a.tokens).map((r) => (
 					<tr key={r.name} className="border-b">
@@ -20,6 +20,7 @@ function Table({ rows, first }: { rows: (G & { name: string })[]; first: string 
 						<td className="w-1/3 py-2 pr-4"><span className="bar block h-1.5 bg-text" style={{ width: `${Math.max(1, (100 * r.tokens) / max)}%` }} aria-hidden /></td>
 						<td className="py-2 pr-4 font-mono text-xs">{r.calls}</td>
 						<td className="py-2 pr-4 font-mono text-xs">{fmtCost(r.cost_usd)}</td>
+						<td className="py-2 pr-4 font-mono text-xs">{r.equivalent_usd != null ? fmtCost(r.equivalent_usd) : ''}</td>
 						<td className="py-2 pr-4 font-mono text-xs">{fmtMs(r.latency_ms)}</td>
 					</tr>
 				))}
@@ -56,6 +57,20 @@ export default function Usage() {
 							<p className="mt-2 max-w-2xl text-sm text-muted">There is no limit: the models run on this PC, so tokens cost nothing and are only counted. If you ever charge for Onyx, turn billing on in tiers.yaml and plans and limits apply.</p>
 						)}
 					</section>
+					<Section title="What this would cost on a paid host">
+						{data.equivalent.since ? (
+							<>
+								<dl className="grid grid-cols-3 gap-4 border-y py-4">
+									{([['Today', data.equivalent.today], [`Last ${days} days`, data.equivalent.period], ['In all', data.equivalent.all]] as const).map(([k, v]) => (
+										<div key={k}><dt className="text-xs text-muted">{k}</dt><dd className="mt-1 font-mono text-lg">{fmtCost(v)}</dd></div>
+									))}
+								</dl>
+								<p className="mt-2 max-w-2xl text-sm text-muted">What the same calls would have cost on a paid host running the same Qwen models, at the prices in config/equivalents.yaml. You pay nothing for them. Counted since {fmtTime(data.equivalent.since)}; earlier calls were not priced.</p>
+							</>
+						) : (
+							<p className="border-y py-3 text-sm text-muted">Nothing priced yet. From now on, every answer records what it would have cost on a paid host; send a message in Chat to see the first one.</p>
+						)}
+					</Section>
 					{!data.by_day.length ? (
 						<div className="mt-10"><Empty title={`No model calls in the last ${days} days.`}>Usage appears here after Onyx answers a message. Send one in <Link href="/" className="text-text underline">Chat</Link>.</Empty></div>
 					) : (

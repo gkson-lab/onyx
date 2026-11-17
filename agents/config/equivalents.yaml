@@ -1,0 +1,14 @@
+# What each local model would cost if you ran the same model on a paid host instead. Onyx records it with every call
+# (from the day this file was added), so the app can show the money your PC is saving you. Nothing is charged.
+#
+# USD per million tokens. Prices change: check the source before relying on them, and edit them here.
+# Checked 2026-11-17. Model Studio's "international" rates; a thinking model is priced at its thinking output rate.
+# A model missing from this list shows no equivalent cost.
+equivalents:
+  "qwen3:8b":          { name: qwen3-8b on Alibaba Model Studio,      input: 0.18, output: 0.70, source: "https://www.alibabacloud.com/help/en/model-studio/model-pricing" }
+  "qwen3:14b":         { name: qwen3-14b on Alibaba Model Studio,     input: 0.35, output: 1.40, source: "https://www.alibabacloud.com/help/en/model-studio/model-pricing" }
+  "qwen3:30b":         { name: qwen3-30b-a3b (thinking) on Alibaba Model Studio, input: 0.20, output: 2.40, source: "https://www.alibabacloud.com/help/en/model-studio/model-pricing" }
+  # Model Studio publishes no per-token price for the 4B or 1.7B. These are a third-party host's prices, from a price tracker.
+  "qwen3:4b-instruct": { name: Qwen3 4B on a third-party host,        input: 0.03, output: 0.03, source: "https://modelcompare.dev/ko/models/novita-ai/qwen3-4b" }
+  "qwen3:4b":          { name: Qwen3 4B on a third-party host,        input: 0.03, output: 0.03, source: "https://modelcompare.dev/ko/models/novita-ai/qwen3-4b" }
+  "qwen3:1.7b":        { name: Qwen3 1.7B on a third-party host,      input: 0.10, output: 0.10, source: "https://cloudprice.net/models/qwen3-1.7b-instruct" }

@@ -76,7 +76,7 @@ async function chatLoop(): Promise<number> {
 		wrote = false;
 		const r = await receive(app, { userId: app.owner, text: line, channel: 'terminal' });
 		if (!wrote || r.status !== 'done') stdout.write(r.reply);
-		console.log(`\n${r.tier ? `${inv(app.config.file.tiers[r.tier].label.toUpperCase())} ${r.model}` : ''}${dim(`  ${r.tokens} tokens · ${money(r.costUsd)}`)}\n`);
+		console.log(`\n${r.tier ? `${inv(app.config.file.tiers[r.tier].label.toUpperCase())} ${r.model}` : ''}${dim(`  ${r.tokens} tokens · ${money(r.costUsd)}${r.equivalentUsd != null ? ` · about $${r.equivalentUsd.toFixed(5)} if hosted` : ''}`)}\n`);
 	}
 	rl.close();
 	return 0;

@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { fmtCost, fmtMs, fmtTime, fmtTokens, useData } from '@/lib/api';
+import { fmtCost, fmtHosted, fmtMs, fmtTime, fmtTokens, useData } from '@/lib/api';
 import { ChannelIcon, Empty, Loading, Page, Problem, Status, TierBadge, channelLabel } from '@/components/ui';
 
-interface Row { id: string; channel: string; status: string; input: string; tier: any; model: string | null; started_at: string; finished_at: string | null; tokens: number | null; cost_usd: number | null; agents: number; error: string | null }
+interface Row { id: string; channel: string; status: string; input: string; tier: any; model: string | null; started_at: string; finished_at: string | null; tokens: number | null; cost_usd: number | null; equivalent_usd: number | null; agents: number; error: string | null }
 const FILTERS = { channel: ['web', 'whatsapp', 'sms', 'terminal'], tier: ['lite', 'standard', 'pro', 'max'], status: ['running', 'done', 'error', 'killed'] } as const;
 
 export default function Runs() {
@@ -43,7 +43,7 @@ export default function Runs() {
 									<span className="flex items-center gap-2 text-xs text-muted"><ChannelIcon channel={r.channel} /><time dateTime={r.started_at}>{fmtTime(r.started_at)}</time>{r.agents > 1 && <span>{r.agents} agents</span>}</span>
 								</span>
 								<span className="hidden md:block"><TierBadge tier={r.tier} model={r.model} /></span>
-								<span className="hidden font-mono text-xs text-muted md:block">{fmtTokens(r.tokens)} tok · {fmtCost(r.cost_usd)}{r.finished_at ? ` · ${fmtMs(Date.parse(r.finished_at) - Date.parse(r.started_at))}` : ''}</span>
+								<span className="hidden font-mono text-xs text-muted md:block">{fmtTokens(r.tokens)} tok · {fmtCost(r.cost_usd)}{r.equivalent_usd != null ? ` (${fmtHosted(r.equivalent_usd)})` : ''}{r.finished_at ? ` · ${fmtMs(Date.parse(r.finished_at) - Date.parse(r.started_at))}` : ''}</span>
 								<span className="justify-self-end"><Status status={r.status} /></span>
 							</Link>
 						</li>

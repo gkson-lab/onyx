@@ -8,11 +8,11 @@ import { dirname } from 'node:path';
 export interface Tables {
 	users: { id: string; name: string; plan: string; created_at: string };
 	routing_decisions: { id: Generated<number>; user_id: string; run_id: string | null; text: string; tier: string; via: string; reason: string; complexity: string; tools: string; urgency: string; latency_ms: number; created_at: string };
-	model_calls: { id: Generated<number>; user_id: string; run_id: string | null; purpose: string; tier: string; model_key: string; provider: string; model_id: string; status: string; error: string | null; input_tokens: number; output_tokens: number; usage_estimated: number; cost_usd: number | null; latency_ms: number; attempt: number; created_at: string };
+	model_calls: { id: Generated<number>; user_id: string; run_id: string | null; purpose: string; tier: string; model_key: string; provider: string; model_id: string; status: string; error: string | null; input_tokens: number; output_tokens: number; usage_estimated: number; cost_usd: number | null; equivalent_usd: Generated<number | null>; latency_ms: number; attempt: number; created_at: string };
 	fallbacks: { id: Generated<number>; user_id: string; run_id: string | null; kind: string; from_ref: string; to_ref: string; reason: string; created_at: string };
 	usage_daily: { user_id: string; day: string; tokens: number; cost_usd: number };
 	agents: { id: string; name: string; description: string; system_prompt: string; tier: string; tools: string; enabled: number; max_steps: number; token_budget: number; time_budget_ms: number; builtin: number };
-	runs: { id: string; parent_id: string | null; root_id: string; depth: number; user_id: string; agent_id: string; channel: string; status: string; input: string; output: string | null; error: string | null; tier: string | null; model: string | null; provider: string | null; tokens_in: number; tokens_out: number; cost_usd: number | null; steps: number; routing: string | null; started_at: string; finished_at: string | null };
+	runs: { id: string; parent_id: string | null; root_id: string; depth: number; user_id: string; agent_id: string; channel: string; status: string; input: string; output: string | null; error: string | null; tier: string | null; model: string | null; provider: string | null; tokens_in: number; tokens_out: number; cost_usd: number | null; steps: number; routing: string | null; started_at: string; finished_at: string | null; equivalent_usd: Generated<number | null> };
 	steps: { id: Generated<number>; run_id: string; root_id: string; n: number; type: string; data: string; created_at: string };
 	messages: { id: Generated<number>; user_id: string; channel: string; direction: string; text: string; run_id: string | null; status: string; error: string | null; created_at: string };
 	memories: { id: Generated<number>; user_id: string; text: string; embedding: string | null; created_at: string };
@@ -67,6 +67,11 @@ const MIGRATIONS: ((db: Kysely<any>) => Promise<void>)[] = [
 		await db.schema.createIndex('identities_handle').on('identities').columns(['channel', 'handle']).unique().execute();
 		await db.schema.createTable('sessions').addColumn('token', 'text', (c) => c.primaryKey()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('created_at', 'text', (c) => c.notNull()).execute();
 		await db.schema.createTable('push_subscriptions').addColumn('endpoint', 'text', (c) => c.primaryKey()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('data', 'text', (c) => c.notNull()).addColumn('created_at', 'text', (c) => c.notNull()).execute();
+	},
+	async (db) => {
+		// What a local call would have cost on a paid host. Null for calls made before this was added.
+		await db.schema.alterTable('model_calls').addColumn('equivalent_usd', 'real').execute();
+		await db.schema.alterTable('runs').addColumn('equivalent_usd', 'real').execute();
 	},
 ];
 

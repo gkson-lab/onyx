@@ -30,6 +30,8 @@ export interface CompleteResult {
 	finish: string;
 	usage: Usage;
 	costUsd: number | null;
+	/** What this call would have cost on a paid host running the same model. Null when not known or not local. */
+	equivalentUsd: number | null;
 	latencyMs: number;
 	tier: Tier;
 	requestedTier: Tier;
@@ -127,10 +129,12 @@ export class Gateway {
 						const r = await chat({ baseUrl: this.config.baseUrl(model.provider), apiKey: this.config.apiKey(model.provider), model: model.id, messages, tools: req.tools, toolChoice: req.toolChoice, maxTokens: req.maxTokens, temperature: req.temperature, extra: model.extra, timeoutMs: req.timeoutMs ?? fb.timeout_ms, signal: req.signal, onDelta: req.onDelta }, this.fetch);
 						const latencyMs = Date.now() - started;
 						const costUsd = this.cost(model, r.usage);
-						await this.db.insertInto('model_calls').values({ user_id: req.userId, run_id: req.runId ?? null, purpose, tier, model_key: model.key, provider: model.provider, model_id: model.id, status: 'ok', error: null, input_tokens: r.usage.input, output_tokens: r.usage.output, usage_estimated: r.usage.estimated ? 1 : 0, cost_usd: costUsd, latency_ms: latencyMs, attempt, created_at: now() }).execute();
+						const eq = this.config.file.providers[model.provider]!.local ? this.config.equivalents[model.id] : undefined;
+						const equivalentUsd = eq ? (r.usage.input * eq.input + r.usage.output * eq.output) / 1e6 : null;
+						await this.db.insertInto('model_calls').values({ user_id: req.userId, run_id: req.runId ?? null, purpose, tier, model_key: model.key, provider: model.provider, model_id: model.id, status: 'ok', error: null, input_tokens: r.usage.input, output_tokens: r.usage.output, usage_estimated: r.usage.estimated ? 1 : 0, cost_usd: costUsd, equivalent_usd: equivalentUsd, latency_ms: latencyMs, attempt, created_at: now() }).execute();
 						const tokens = r.usage.input + r.usage.output;
 						await this.db.insertInto('usage_daily').values({ user_id: req.userId, day: today(), tokens, cost_usd: costUsd ?? 0 }).onConflict((c) => c.columns(['user_id', 'day']).doUpdateSet((eb) => ({ tokens: eb('usage_daily.tokens', '+', tokens), cost_usd: eb('usage_daily.cost_usd', '+', costUsd ?? 0) }))).execute();
-						return { ...r, costUsd, latencyMs, tier, requestedTier: req.tier, model: model.id, modelKey: model.key, provider: model.provider, local: this.config.file.providers[model.provider]!.local, fallbacks: trail };
+						return { ...r, costUsd, equivalentUsd, latencyMs, tier, requestedTier: req.tier, model: model.id, modelKey: model.key, provider: model.provider, local: this.config.file.providers[model.provider]!.local, fallbacks: trail };
 					} catch (e) {
 						const err = e instanceof ProviderError ? e : new ProviderError((e as Error).message, 0, false);
 						last = err.message;
