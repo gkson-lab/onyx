@@ -24,6 +24,8 @@ const Model = z.object({
 	price: z.object({ input: z.number().nonnegative(), output: z.number().nonnegative() }).nullable().default(null),
 	system_suffix: z.string().optional(),
 	extra: z.record(z.unknown()).optional(),
+	/** False for a model that cannot call tools: it is skipped for any call that offers tools. */
+	tools: z.boolean().default(true),
 });
 const TierDef = z.object({ label: z.string(), use_for: z.string().default(''), models: z.array(z.string()).min(1) });
 const PlanDef = z.object({ tiers: z.array(Tier).min(1), daily_tokens: z.number().int().positive() });
@@ -39,6 +41,8 @@ export const TiersFile = z
 		fallback: z.object({ retries: z.number().int().min(0).max(5), backoff_ms: z.number().int().min(0), drop_tier: z.boolean(), timeout_ms: z.number().int().positive() }),
 		router: z.object({ tier: Tier, timeout_ms: z.number().int().positive() }),
 		embeddings: z.object({ provider: z.string(), model: z.string() }).optional(),
+		/** The model that reads attached images (a key under models). */
+		vision: z.object({ model: z.string() }).optional(),
 	})
 	.superRefine((f, ctx) => {
 		for (const [key, m] of Object.entries(f.models)) if (!f.providers[m.provider]) ctx.addIssue({ code: 'custom', message: `model "${key}" names a provider that isn't defined: ${m.provider}` });

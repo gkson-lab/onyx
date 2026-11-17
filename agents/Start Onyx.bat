@@ -14,8 +14,8 @@ call :ollama_restart
 rem Shares Onyx with your phone through Tailscale, once Tailscale is installed (Settings in the app shows how).
 where tailscale >nul 2>nul && call :tailscale_serve
 
-rem Opens the app in your browser once the server is up.
-start "" /min cmd /c "timeout /t 8 /nobreak >nul & start http://127.0.0.1:8787"
+rem Opens the app in your browser once the server is up; not when Windows starts Onyx at sign-in (/background).
+if /i not "%~1"=="/background" start "" /min cmd /c "timeout /t 8 /nobreak >nul & start http://127.0.0.1:8787"
 
 echo.
 echo  Onyx is starting at http://127.0.0.1:8787

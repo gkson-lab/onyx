@@ -14,7 +14,8 @@ app, WhatsApp, SMS, sign-in and push notifications. iMessage is not planned: it 
 1. Download this repository: `git clone https://github.com/gkson-lab/onyx` (or GitHub's "Download ZIP").
 2. In the `agents` folder, double-click **Setup Onyx**. It installs what is missing (Node.js, Git and Ollama, through
    winget), builds Onyx, asks you for a password, picks the models for your PC, downloads them, and puts an
-   **Onyx** shortcut on your desktop. If it installs a program, it asks you to run it once more.
+   **Onyx** shortcut on your desktop. Last, it asks whether Onyx should start by itself when you sign in to Windows.
+   If it installs a program, it asks you to run it once more.
 3. Double-click the **Onyx** shortcut to start. It restarts Ollama with the settings worked out for your PC, starts
    Onyx and opens it in your browser; keep the black window open while you use it.
 4. To get a newer version later, double-click **Update Onyx**.
@@ -26,11 +27,12 @@ Your PC's model choices are saved in `config/tiers.local.yaml`, which updates ne
 You need [Node 22.13 or newer](https://nodejs.org), [pnpm](https://pnpm.io) and [Ollama](https://ollama.com).
 
 ```bash
-# 1. The models (about 36 GB of downloads in all; start with the first two if you want to try it sooner)
+# 1. The models (about 40 GB of downloads in all; start with the first two if you want to try it sooner)
 ollama pull qwen3:4b-instruct
 ollama pull qwen3:8b
-ollama pull qwen3:14b
+ollama pull gpt-oss:20b
 ollama pull qwen3:30b
+ollama pull gemma3:12b          # optional: reads attached images
 
 # 2. Onyx
 cd agents
@@ -40,7 +42,7 @@ pnpm models:sync     # checks every model in config/tiers.yaml against what Olla
 pnpm build           # builds the web app (once, and again after pulling changes)
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 72 tests, no model or network needed
+pnpm test            # 80 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -109,12 +111,14 @@ The Models screen counts each model's tries and failed tries, and has two sectio
 |---|---|---|
 | Lite | routing, quick replies, formatting | `qwen3:4b-instruct` |
 | Standard | normal chat, summaries | `qwen3:8b` |
-| Pro | coding, tool use, planning | `qwen3:14b` |
+| Pro | coding, tool use, planning | `gpt-oss:20b` (OpenAI), then `qwen3:14b` |
 | Max | hardest reasoning, with thinking on | `qwen3:30b` |
+| Images | reads attached images and describes them for the others | `gemma3:12b` (Google) |
 
 These defaults suit a graphics card with 16 GB (an RTX 5060 Ti 16 GB, for one): Lite and Standard stay on the card
-together, 14B fits on it alone, and the 30B model, which only uses 3B of its weights per token, runs split between
-the card and system memory. For another PC, run `pnpm onyx hardware`.
+together; gpt-oss 20B, a mixture of experts that uses 3.6B of its weights per token, all but fits on the card alone;
+and the 30B model, which uses 3B per token, runs split between the card and system memory. For another PC, run
+`pnpm onyx hardware`.
 
 - **Router.** The Lite model reads each message and picks a tier through a tool call. The decision and its reason
   are logged and shown. Start a message with `/lite`, `/standard`, `/pro`, `/max` or `/think` to choose yourself.
@@ -142,6 +146,27 @@ the card and system memory. For another PC, run `pnpm onyx hardware`.
 Set `ONYX_CLOUD=on` and `MOONSHOT_API_KEY` in `.env`. Pro and Max then try Kimi first and fall back to local Qwen.
 The Kimi model IDs and prices in `tiers.yaml` came from third-party pages, not from Moonshot: run
 `pnpm models:sync` to check the IDs, and check the prices against Moonshot's pricing page.
+
+## Other models
+
+The Models screen's **More models** lists every model Onyx knows, with how much memory each needs on this PC, where
+it would run and how fast, and what the same model costs hosted. **Download** fetches one through Ollama with a
+progress bar; **Use for…** puts it on a tier, or makes it the one that reads images. The choice is saved in
+`config/tiers.local.yaml`.
+
+| Model | Maker | Good for | Calls tools |
+|---|---|---|---|
+| `qwen3:1.7b` … `qwen3:32b` | Alibaba | the default family, from routing to hard reasoning | yes |
+| `gpt-oss:20b` | OpenAI | reasoning and tool use: the default Pro | yes |
+| `qwen3-coder:30b` | Alibaba | writing code | yes |
+| `mistral-small3.2:24b` | Mistral | general chat and writing; reads images | yes |
+| `llama3.1:8b` | Meta | a fast everyday model | yes |
+| `gemma3:12b` | Google | reading images, other languages | no |
+| `deepseek-r1:14b` | DeepSeek | step-by-step reasoning | no |
+| `phi4:14b` | Microsoft | maths and logic | no |
+
+Every agent calls tools, so a model that cannot is refused for a tier; the gateway also skips it for any call that
+offers tools. gpt-oss cannot turn its thinking off, so it runs with `reasoning_effort: low`.
 
 ## Agents
 
@@ -222,7 +247,21 @@ To know:
 ## The app
 
 Nine screens: Chat, Agent graph, Runs, Agents, Channels, Connectors, Models, Usage, Settings. Everything shown is
-read from the database or the live event stream; there is no sample data. The server listens on this PC only
+read from the database or the live event stream; there is no sample data.
+
+- **Chat** keeps separate chats, each with its own history: search them all (Ctrl+K), start one (Ctrl+Shift+O), pin,
+  rename, delete, or export one as Markdown. Messages from your phone and reminders sit under **Phone and
+  reminders**. A menu by the send button picks the model (Auto lets the router choose). The paperclip, a drag or a
+  paste attaches up to five files of 10 MB: text and code are read as they are, a PDF's text is read, and an image is
+  described by the image model. **Stop** (or Esc) ends a run. Code blocks and answers have a copy button; `/` jumps to
+  the message box.
+- **Models loaded at start.** When Onyx starts, it loads Lite's and Standard's models onto the graphics card, so the
+  first message does not wait; Chat says when they are still loading. Ollama keeps them for 30 minutes after use.
+- **Models** has a **Health check** that asks every tier one small question and shows which answered, how fast, and
+  any error; and **More models** (above).
+- **Settings** has **Backups** (once a day, into a folder you choose, OneDrive suggested, keeping the newest seven;
+  or **Back up now**) and, on Windows, **Start with Windows** (Onyx starts minimized when you sign in, without opening
+  the browser; `pnpm onyx autostart on|off` does the same). The server listens on this PC only
 (127.0.0.1); a tunnel running on this PC is what makes it reachable from your phone.
 
 The look is defined in one file, `apps/web/app/tokens.css`, with the reason for each decision. It follows the
@@ -253,9 +292,9 @@ fallback, plan and limit enforcement, streaming, tool-call assembly, the agent l
 switch, reminders, delivery fallback, connectors and the API. The app was driven in a browser against the real
 server with a stand-in model, at desktop and phone sizes.
 
-**Nothing here has yet been run against a real Qwen model, a real Docker sandbox, a live web search, a real MCP
-server, Meta, Twilio or a real push service**: the machine this was written on has none of them. The first run on your PC is that test. The part most
-likely to need adjusting is how reliably the smaller Qwen models call tools.
+Onyx Agents was also run end to end against Qwen3 4B in Ollama on a processor. **Not yet run for real:** gpt-oss,
+Gemma's image reading, a Docker sandbox, a live web search, a real MCP server, Meta, Twilio, a push service,
+Tailscale, and starting with Windows. Each is tested against its documented request and answer shapes.
 
 ## Files
 
@@ -272,10 +311,13 @@ apps/server/src/tools/        built-in tools, the tool registry, MCP connectors
 apps/server/src/channels/     channel adapters (web, WhatsApp, SMS), delivery with fallback, formatting
 apps/server/src/push.ts       push notifications for the installed app
 apps/server/src/hardware.ts   which models this PC can run, and how fast
+apps/server/src/extras.ts     chats, attachments, warm-up, health check, model downloads, backups, start with Windows
+apps/server/src/ollama.ts     what Ollama has loaded, and warnings
+apps/server/src/tailscale.ts  Tailscale's status, for the phone
 apps/server/src/scheduler.ts  fires reminders
 apps/server/src/bus.ts        the event stream
 apps/server/src/index.ts      the server: API, WebSocket, and the built app
-apps/server/src/cli/onyx.ts   terminal: chat, models, tiers
+apps/server/src/cli/onyx.ts   terminal: chat, models, tiers, hardware, setup, errors, ollama-env, autostart
 apps/server/test/             tests with a scripted stand-in for the models
 apps/web/                     the app (Next.js, exported as static files the server serves)
 apps/web/app/tokens.css       the design tokens

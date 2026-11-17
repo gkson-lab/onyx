@@ -14,16 +14,30 @@ export interface Hardware {
 	notes: string[];
 }
 
-/** Qwen3 in Ollama, at its default Q4_K_M quantization. kvKb: KV cache per token at fp16 (2 x layers x KV heads x 128 x 2 bytes). */
-export const CATALOG = [
-	{ id: 'qwen3:1.7b', params: '1.7B', weightsGb: 1.4, activeGb: 1.4, kvKb: 112, moe: false },
-	{ id: 'qwen3:4b-instruct', params: '4B', weightsGb: 2.5, activeGb: 2.5, kvKb: 144, moe: false },
-	{ id: 'qwen3:8b', params: '8B', weightsGb: 5.2, activeGb: 5.2, kvKb: 144, moe: false },
-	{ id: 'qwen3:14b', params: '14B', weightsGb: 9.3, activeGb: 9.3, kvKb: 160, moe: false },
-	{ id: 'qwen3:30b', params: '30B MoE, 3B active', weightsGb: 19, activeGb: 2.1, kvKb: 96, moe: true },
-	{ id: 'qwen3:32b', params: '32B', weightsGb: 20, activeGb: 20, kvKb: 256, moe: false },
-] as const;
-export type ModelId = (typeof CATALOG)[number]['id'];
+/**
+ * Models in Ollama, at their default quantization (Q4_K_M; gpt-oss ships in MXFP4). kvKb: KV cache per token at fp16
+ * (2 x layers x KV heads x head size x 2 bytes; sliding-window models count less). tools: reliable tool calls, which
+ * every agent needs; a model without them is only offered for plain chat. vision: reads images.
+ * The first six are Qwen3, the default family; the planner picks tiers from them, plus gpt-oss for Pro.
+ */
+export interface CatalogEntry { id: string; maker: string; params: string; weightsGb: number; activeGb: number; kvKb: number; moe: boolean; tools: boolean; vision?: boolean; good: string; extra?: Record<string, unknown> }
+export const CATALOG: readonly CatalogEntry[] = [
+	{ id: 'qwen3:1.7b', maker: 'Alibaba', params: '1.7B', weightsGb: 1.4, activeGb: 1.4, kvKb: 112, moe: false, tools: true, good: 'routing on a slow PC', extra: { reasoning_effort: 'none' } },
+	{ id: 'qwen3:4b-instruct', maker: 'Alibaba', params: '4B', weightsGb: 2.5, activeGb: 2.5, kvKb: 144, moe: false, tools: true, good: 'routing and quick replies', extra: { reasoning_effort: 'none' } },
+	{ id: 'qwen3:8b', maker: 'Alibaba', params: '8B', weightsGb: 5.2, activeGb: 5.2, kvKb: 144, moe: false, tools: true, good: 'everyday chat and agent steps', extra: { reasoning_effort: 'none' } },
+	{ id: 'qwen3:14b', maker: 'Alibaba', params: '14B', weightsGb: 9.3, activeGb: 9.3, kvKb: 160, moe: false, tools: true, good: 'code and tool use', extra: { reasoning_effort: 'none' } },
+	{ id: 'qwen3:30b', maker: 'Alibaba', params: '30B MoE, 3B active', weightsGb: 19, activeGb: 2.1, kvKb: 96, moe: true, tools: true, good: 'hard reasoning, thinks first' },
+	{ id: 'qwen3:32b', maker: 'Alibaba', params: '32B', weightsGb: 20, activeGb: 20, kvKb: 256, moe: false, tools: true, good: 'hard reasoning on a big card' },
+	{ id: 'gpt-oss:20b', maker: 'OpenAI', params: '21B MoE, 3.6B active', weightsGb: 13, activeGb: 2.4, kvKb: 48, moe: true, tools: true, good: 'reasoning and tool use, a strong Pro', extra: { reasoning_effort: 'low' } },
+	{ id: 'qwen3-coder:30b', maker: 'Alibaba', params: '30B MoE, 3.3B active', weightsGb: 19, activeGb: 2.2, kvKb: 96, moe: true, tools: true, good: 'writing code' },
+	{ id: 'mistral-small3.2:24b', maker: 'Mistral', params: '24B', weightsGb: 15, activeGb: 15, kvKb: 160, moe: false, tools: true, vision: true, good: 'general chat and writing' },
+	{ id: 'gemma3:12b', maker: 'Google', params: '12B', weightsGb: 8.1, activeGb: 8.1, kvKb: 120, moe: false, tools: false, vision: true, good: 'reading images, other languages' },
+	{ id: 'deepseek-r1:14b', maker: 'DeepSeek', params: '14B', weightsGb: 9, activeGb: 9, kvKb: 192, moe: false, tools: false, good: 'step-by-step reasoning (chat only)' },
+	{ id: 'phi4:14b', maker: 'Microsoft', params: '14B', weightsGb: 9.1, activeGb: 9.1, kvKb: 200, moe: false, tools: false, good: 'maths and logic (chat only)' },
+	{ id: 'llama3.1:8b', maker: 'Meta', params: '8B', weightsGb: 4.9, activeGb: 4.9, kvKb: 128, moe: false, tools: true, good: 'a fast everyday model' },
+];
+export type ModelId = string;
+export const catalogEntry = (id: string): CatalogEntry | undefined => CATALOG.find((m) => m.id === id);
 
 // Memory bandwidth in GB/s of common NVIDIA cards. Generation speed follows it almost directly.
 const GPU_BANDWIDTH: [RegExp, number][] = [
@@ -48,6 +62,10 @@ const MOE_EFF = 0.5; // mixture-of-experts reads scattered experts, so it gets l
 
 export interface Fit {
 	id: ModelId;
+	maker: string;
+	tools: boolean;
+	vision: boolean;
+	good: string;
 	params: string;
 	needGb: number;
 	where: 'gpu' | 'split' | 'cpu' | 'no';
@@ -55,26 +73,29 @@ export interface Fit {
 	tokensPerSec: number | null;
 }
 
-export function fit(hw: Hardware, model: (typeof CATALOG)[number], context: number): Fit {
+export function fit(hw: Hardware, model: CatalogEntry, context: number): Fit {
+	const about = { maker: model.maker, tools: model.tools, vision: !!model.vision, good: model.good };
 	const needGb = Math.round((model.weightsGb + (model.kvKb * context * KV_FACTOR) / 1024 / 1024 + OVERHEAD_GB) * 10) / 10;
 	const gpuFree = hw.gpu ? Math.max(0, hw.gpu.vramGb - GPU_RESERVED_GB) : 0;
 	const ramFree = Math.max(0, hw.ramGb - RAM_RESERVED_GB);
 	const share = needGb <= gpuFree ? 1 : gpuFree / needGb;
 	const where = share === 1 ? 'gpu' : needGb > gpuFree + ramFree ? 'no' : share > 0 ? 'split' : 'cpu';
-	if (where === 'no') return { id: model.id, params: model.params, needGb, where, gpuShare: 0, tokensPerSec: null };
+	if (where === 'no') return { ...about, id: model.id, params: model.params, needGb, where, gpuShare: 0, tokensPerSec: null };
 	const gbw = (hw.gpu?.bandwidthGbs ?? 400) * GPU_EFF;
 	const rbw = ((hw.ramMts ?? 5600) * 8 * 2) / 1000 * RAM_EFF; // two memory channels, 8 bytes each
 	const seconds = (share * model.activeGb) / gbw + ((1 - share) * model.activeGb) / rbw;
 	let tps = 1 / seconds;
 	if (where === 'split') tps *= SPLIT_PENALTY;
 	if (model.moe) tps *= MOE_EFF;
-	return { id: model.id, params: model.params, needGb, where, gpuShare: Math.round(share * 100) / 100, tokensPerSec: Math.round(tps) };
+	return { ...about, id: model.id, params: model.params, needGb, where, gpuShare: Math.round(share * 100) / 100, tokensPerSec: Math.round(tps) };
 }
 
 export interface Plan {
 	context: number;
 	fits: Fit[];
 	tiers: { lite: ModelId; standard: ModelId; pro: ModelId; max: ModelId };
+	/** The model that reads attached images, if this PC can run it. */
+	vision: ModelId | null;
 	reasons: Record<'lite' | 'standard' | 'pro' | 'max', string>;
 	env: Record<string, string>;
 	warnings: string[];
@@ -98,6 +119,7 @@ function chooseContext(hw: Hardware): number {
 export function plan(hw: Hardware): Plan {
 	const context = chooseContext(hw);
 	const fits = CATALOG.map((m) => fit(hw, m, context));
+	const vision = fits.find((x) => x.id === 'gemma3:12b' && x.where !== 'no')?.id ?? null;
 	const f = (id: ModelId) => fits.find((x) => x.id === id)!;
 	const fast = (id: ModelId, min: number) => (f(id).tokensPerSec ?? 0) >= min;
 	const say = (id: ModelId) => `${f(id).tokensPerSec ?? '?'} tokens/s, ${f(id).where === 'gpu' ? 'all on the graphics card' : f(id).where === 'split' ? `${Math.round(f(id).gpuShare * 100)}% on the graphics card` : 'on the processor'}`;
@@ -106,7 +128,9 @@ export function plan(hw: Hardware): Plan {
 	const lite: ModelId = fast('qwen3:4b-instruct', 25) ? 'qwen3:4b-instruct' : 'qwen3:1.7b';
 	const standard: ModelId = fast('qwen3:8b', 20) ? 'qwen3:8b' : 'qwen3:4b-instruct';
 	// Pro does multi-step tool work: 14B is the strongest dense model that runs well; the 30B MoE when 14B would be slow.
-	const pro: ModelId = fast('qwen3:14b', 15) ? 'qwen3:14b' : fast('qwen3:30b', 15) ? 'qwen3:30b' : standard;
+	// OpenAI's gpt-oss 20B reasons and calls tools better than Qwen3 14B, and as a mixture of experts it stays quick
+	// even when a little of it spills into system memory.
+	const pro: ModelId = fast('gpt-oss:20b', 25) ? 'gpt-oss:20b' : fast('qwen3:14b', 15) ? 'qwen3:14b' : fast('qwen3:30b', 15) ? 'qwen3:30b' : standard;
 	// Max thinks before it answers, often for thousands of tokens, so it needs real speed: 32B only if it is quick.
 	const max: ModelId = fast('qwen3:32b', 12) ? 'qwen3:32b' : fast('qwen3:30b', 10) ? 'qwen3:30b' : pro;
 
@@ -122,6 +146,7 @@ export function plan(hw: Hardware): Plan {
 		context,
 		fits,
 		tiers: { lite, standard, pro, max },
+		vision,
 		reasons: { lite: say(lite), standard: say(standard), pro: say(pro), max: say(max) },
 		// Ollama's default context on a card under 24 GB can be as small as 4K, too little for agents reading tool results.
 		env: {
@@ -129,6 +154,8 @@ export function plan(hw: Hardware): Plan {
 			OLLAMA_FLASH_ATTENTION: '1',
 			OLLAMA_KV_CACHE_TYPE: 'q8_0',
 			OLLAMA_MAX_LOADED_MODELS: '3',
+			// Lite and Standard stay loaded for half an hour after use, not Ollama's default 5 minutes.
+			OLLAMA_KEEP_ALIVE: '30m',
 			// Ollama keeps this much of the card free for Windows and the browser, so a model that would not fit is split
 			// onto the processor instead of failing to load.
 			...(hw.gpu ? { OLLAMA_GPU_OVERHEAD: String(1024 ** 3) } : {}),
@@ -170,6 +197,9 @@ export async function applyToTiers(yamlText: string, tiers: Plan['tiers']): Prom
 		const key = data.tiers[tier]?.models.find((k) => data.providers[data.models[k]?.provider ?? '']?.local);
 		if (!key || data.models[key]!.id === id) continue;
 		doc.setIn(['models', key, 'id'], id);
+		const extra = catalogEntry(id)?.extra;
+		if (extra) doc.setIn(['models', key, 'extra'], doc.createNode(extra, { flow: true }));
+		else doc.deleteIn(['models', key, 'extra']);
 		changed.push(`${tier}: ${data.models[key]!.id} -> ${id}`);
 	}
 	// lineWidth 0 keeps each model on its one line, as written.

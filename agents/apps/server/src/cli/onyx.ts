@@ -197,10 +197,24 @@ async function errors(): Promise<number> {
 	return 0;
 }
 
+/** `pnpm onyx autostart on|off`: start Onyx, minimized, when you sign in to Windows. */
+async function autostart(): Promise<number> {
+	const { setAutostart, autostartOn } = await import('../extras.ts');
+	const on = process.argv[3] !== 'off';
+	try {
+		await setAutostart(on);
+		console.log(autostartOn() ? 'Onyx will start, minimized, when you sign in to Windows.' : 'Onyx will no longer start when you sign in.');
+		return 0;
+	} catch (e) {
+		console.log((e as Error).message);
+		return 1;
+	}
+}
+
 const cmd = process.argv[2] ?? 'chat';
-const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : cmd === 'setup' ? setup : cmd === 'ollama-env' ? ollamaEnv : cmd === 'errors' ? errors : null;
+const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : cmd === 'setup' ? setup : cmd === 'ollama-env' ? ollamaEnv : cmd === 'errors' ? errors : cmd === 'autostart' ? autostart : null;
 if (!run) {
-	console.log('Usage: pnpm onyx [chat | models | tiers | hardware | setup | ollama-env | errors]');
+	console.log('Usage: pnpm onyx [chat | models | tiers | hardware | setup | ollama-env | errors | autostart on|off]');
 	process.exit(2);
 }
 run().then((code) => process.exit(code), (e) => (console.error(e instanceof Error ? e.message : e), process.exit(1)));

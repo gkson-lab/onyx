@@ -7,7 +7,7 @@ describe('which models a PC can run', () => {
 	it('an RTX 5060 Ti 16 GB with 32 GB of DDR5-6000 runs every tier, with 14B fully on the card at 16K context', () => {
 		const p = plan(pc(15.9));
 		expect(p.context).toBe(16384);
-		expect(p.tiers).toEqual({ lite: 'qwen3:4b-instruct', standard: 'qwen3:8b', pro: 'qwen3:14b', max: 'qwen3:30b' });
+		expect(p.tiers).toEqual({ lite: 'qwen3:4b-instruct', standard: 'qwen3:8b', pro: 'gpt-oss:20b', max: 'qwen3:30b' });
 		const f = Object.fromEntries(p.fits.map((x) => [x.id, x]));
 		expect(f['qwen3:14b']).toMatchObject({ where: 'gpu' });
 		// Published llama.cpp results for Qwen3 14B on this card: about 33 tokens/s at 16K context, 41 at 4K.

@@ -77,7 +77,7 @@ describe('the planner', () => {
 		const f = Object.fromEntries(p.fits.map((x) => [x.id, x]));
 		// Lite and Standard together leave several GB of the card free.
 		expect(f['qwen3:4b-instruct']!.needGb + f['qwen3:8b']!.needGb).toBeLessThan(15.9 - 2 - 2);
-		expect(p.tiers).toEqual({ lite: 'qwen3:4b-instruct', standard: 'qwen3:8b', pro: 'qwen3:14b', max: 'qwen3:30b' });
+		expect(p.tiers).toEqual({ lite: 'qwen3:4b-instruct', standard: 'qwen3:8b', pro: 'gpt-oss:20b', max: 'qwen3:30b' });
 	});
 });
 

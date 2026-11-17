@@ -11,4 +11,12 @@ equivalents:
   # Model Studio publishes no per-token price for the 4B or 1.7B. These are a third-party host's prices, from a price tracker.
   "qwen3:4b-instruct": { name: Qwen3 4B on a third-party host,        input: 0.03, output: 0.03, source: "https://modelcompare.dev/ko/models/novita-ai/qwen3-4b" }
   "qwen3:4b":          { name: Qwen3 4B on a third-party host,        input: 0.03, output: 0.03, source: "https://modelcompare.dev/ko/models/novita-ai/qwen3-4b" }
+  # The other families, on the cheapest well-known host for each (checked 2026-11-17; prices move, so check them).
+  "gpt-oss:20b":          { name: gpt-oss-20b on a third-party host,  input: 0.05, output: 0.20, source: "https://openrouter.ai/openai/gpt-oss-20b" }
+  "gemma3:12b":           { name: Gemma 3 12B on a third-party host,  input: 0.05, output: 0.10, source: "https://openrouter.ai/google/gemma-3-12b-it" }
+  "qwen3-coder:30b":      { name: Qwen3 Coder 30B on a third-party host, input: 0.07, output: 0.27, source: "https://openrouter.ai/qwen/qwen3-coder-30b-a3b-instruct" }
+  "mistral-small3.2:24b": { name: Mistral Small 3.2 on a third-party host, input: 0.10, output: 0.30, source: "https://openrouter.ai/mistralai/mistral-small-3.2-24b-instruct" }
+  "deepseek-r1:14b":      { name: DeepSeek R1 Distill Qwen 14B on a third-party host, input: 0.15, output: 0.15, source: "https://openrouter.ai/deepseek/deepseek-r1-distill-qwen-14b" }
+  "phi4:14b":             { name: Phi-4 on a third-party host,         input: 0.07, output: 0.14, source: "https://openrouter.ai/microsoft/phi-4" }
+  "llama3.1:8b":          { name: Llama 3.1 8B on a third-party host,  input: 0.02, output: 0.03, source: "https://openrouter.ai/meta-llama/llama-3.1-8b-instruct" }
   "qwen3:1.7b":        { name: Qwen3 1.7B on a third-party host,      input: 0.10, output: 0.10, source: "https://cloudprice.net/models/qwen3-1.7b-instruct" }

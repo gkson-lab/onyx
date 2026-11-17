@@ -6,7 +6,7 @@ echo.
 echo  Onyx setup
 echo  ----------
 echo  Installs what is missing, builds Onyx, picks models for this PC and downloads them.
-echo  The model downloads are large (about 36 GB on a 16 GB graphics card). Safe to run again.
+echo  The model downloads are large (about 40 GB on a 16 GB graphics card). Safe to run again.
 echo.
 
 call :refresh_path
@@ -46,6 +46,10 @@ echo [4/4] Restarting Ollama with its new settings...
 call :ollama_restart
 
 powershell -NoProfile -Command "$s=(New-Object -ComObject WScript.Shell).CreateShortcut([Environment]::GetFolderPath('Desktop')+'\Onyx.lnk'); $s.TargetPath='%~dp0Start Onyx.bat'; $s.WorkingDirectory='%~dp0'; $s.Save()" >nul 2>nul && echo Put an "Onyx" shortcut on your desktop.
+
+rem Optional: start Onyx, minimized, whenever you sign in to Windows. Settings in the app turns it on or off later.
+choice /c YN /m "Start Onyx by itself when you sign in to Windows"
+if not errorlevel 2 call "%PNPM%" -s onyx autostart on
 
 echo.
 echo  Done. Start Onyx with the "Onyx" shortcut on your desktop, or "Start Onyx" in this folder.

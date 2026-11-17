@@ -56,8 +56,9 @@ overview.
    - builds Onyx,
    - asks you for a password (used when you reach Onyx from your phone),
    - reads your graphics card and memory, picks a model for each tier, and sets Ollama's settings to match,
-   - downloads the models (about 36 GB on a 16 GB graphics card; safe to stop and run again),
-   - puts an **Onyx** shortcut on your desktop.
+   - downloads the models (about 40 GB on a 16 GB graphics card; safe to stop and run again),
+   - puts an **Onyx** shortcut on your desktop,
+   - asks whether Onyx should start by itself, minimized, when you sign in to Windows.
 3. **Double-click the Onyx shortcut.** It starts Ollama if needed, starts Onyx, and opens it in your browser at
    `http://127.0.0.1:8787`. Keep the black window open while you use Onyx.
 4. **To update later**, double-click `Update Onyx` (in a Git clone).
@@ -123,8 +124,9 @@ your PC and saves the choice in `config/tiers.local.yaml`, which updates never o
 |---|---|---|---|
 | **Lite** | routing, quick replies | `qwen3:4b-instruct` | on the card, about 130 tokens/s |
 | **Standard** | ordinary chat, most agent steps | `qwen3:8b` | on the card, about 65 tokens/s |
-| **Pro** | code, tools, multi-step work | `qwen3:14b` | on the card, about 36 tokens/s |
-| **Max** | hard reasoning, with thinking on | `qwen3:30b` (3B active per token) | split with system memory, about 26 tokens/s |
+| **Pro** | code, tools, multi-step work | `gpt-oss:20b` (OpenAI, 3.6B active per token), then `qwen3:14b` | 99% on the card, about 54 tokens/s |
+| **Max** | hard reasoning, with thinking on | `qwen3:30b` (3B active per token) | split with system memory, about 25 tokens/s |
+| *Images* | reads attached images for the others | `gemma3:12b` (Google), optional | on the card, about 41 tokens/s |
 
 - **For any other PC**, `pnpm onyx hardware` (or the Models screen) reads the graphics card and memory, works out
   where each model fits and how fast it should run, and recommends a model per tier. The speeds are estimates from
@@ -141,6 +143,10 @@ your PC and saves the choice in `config/tiers.local.yaml`, which updates never o
   models are loaded, with their context and how much of each is on the graphics card. Calls to the card go one at a
   time, and a call is not tried again when the agent's time is nearly up. See
   [`agents/README.md`](agents/README.md#when-a-model-call-fails) for what each message means.
+- **Other models, two clicks away.** The Models screen lists 13 models (Qwen3, OpenAI's gpt-oss, Qwen3 Coder,
+  Mistral Small, Llama 3.1, Gemma 3, DeepSeek R1 and Phi-4), each with how it would run on this PC. **Download** one,
+  then **Use for…** a tier. Models that cannot call tools are for plain chat and never back a tier, since every agent
+  calls tools.
 - **Cloud models are optional and off.** Kimi (Moonshot AI) can back Pro and Max if you set `ONYX_CLOUD=on` and a
   key. Nothing leaves your PC for a model unless you do.
 
@@ -171,15 +177,15 @@ Nine screens, built for phone and desktop, in a near-monochrome look:
 
 | Screen | Shows |
 |---|---|
-| **Chat** | the conversation; under each reply, the tier, the real model, the agents and tools used, the time, and what it would have cost hosted |
+| **Chat** | separate chats you can search, pin, rename and export; a model picker; attached text, code, PDFs and images; a stop button; copy buttons; keyboard shortcuts. Under each reply: the tier, the real model, the agents and tools used, the time, and what it would have cost hosted |
 | **Agent graph** | the live tree of a run, with each agent's status, model, tokens and full step log; a stop button |
 | **Runs** | every message handled, filterable by channel, agent, tier and status, each one replayable |
 | **Agents** | the roster, to edit or create agents |
 | **Channels** | each channel's state, last message, errors and a test send |
 | **Connectors** | each MCP server's state and tools |
-| **Models** | every model with its tries, failures, latency, tokens and costs; the latest failed tries and what they said; what Ollama has loaded; what this PC can run; the tiers file editor |
+| **Models** | every model with its tries, failures, latency, tokens and costs; a health check of every tier; the latest failed tries and what they said; what Ollama has loaded; more models to download and use; what this PC can run; the tiers file editor |
 | **Usage** | tokens per day, tier, model and agent, and the hosted-equivalent cost |
-| **Settings** | where Onyx texts you first, Tailscale for your phone (with a QR code), linked phone numbers, notifications, keys (shown as set or not, never their values), reminders, and what Onyx remembers about you |
+| **Settings** | where Onyx texts you first, Tailscale for your phone (with a QR code), notifications, linked phone numbers, keys (shown as set or not, never their values), start with Windows, daily backups, reminders, and what Onyx remembers about you |
 
 Prefer the terminal? `pnpm onyx chat` in `agents/` shows the same events as text.
 
@@ -228,13 +234,15 @@ and cost. Taking payment is not built.
 
 ## What has been tested
 
-- **72 automated tests** (`pnpm test` in `agents/`) cover:
+- **80 automated tests** (`pnpm test` in `agents/`) cover:
   - the router, fallbacks, plans and the agent loop;
   - subagents, budgets and the kill switch;
   - tools, reminders and delivery;
   - every channel's webhook and signature check;
   - sign-in (also through Tailscale), push, billing, the hosted-cost figures and the hardware planner;
-  - calls to one graphics card going one at a time, time budgets, and the Ollama and Tailscale checks.
+  - calls to one graphics card going one at a time, time budgets, and the Ollama and Tailscale checks;
+  - chats and their search and export, attachments (text, PDF and images), the health check, putting a model on a
+    tier, loading models at start, and backups.
 
   They use a scripted stand-in for the models, so they need no graphics card or network.
 - **Generated code is checked for real.** `node tools/check-code.js` and `node tools/check-synth.js` at the top of

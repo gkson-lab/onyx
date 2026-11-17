@@ -18,7 +18,7 @@ export interface Tool<A = any> {
 	/** JSON Schema, sent to the model. */
 	parameters: Record<string, unknown>;
 	/** The same shape as a zod schema: what the model sends is checked against it before the tool runs. */
-	schema: z.ZodType<A>;
+	schema: z.ZodType<A, z.ZodTypeDef, unknown>;
 	run(args: A, ctx: ToolContext): Promise<string>;
 }
 export class ToolRegistry {

@@ -2,8 +2,9 @@
 import { useEffect, useState } from 'react';
 import { api, fmtCost, fmtMs, fmtTime, fmtTokens, useData, type Tier } from '@/lib/api';
 import { Button, Code, Loading, Page, Problem, Section, TierBadge } from '@/components/ui';
+import { HealthCheck, MoreModels } from '@/components/models-extra';
 
-interface M { key: string; id: string; provider: string; family: string; price: { input: number; output: number } | null; equivalent: { name: string; input: number; output: number; source: string } | null; equivalent_usd: number | null; local: boolean; usable: boolean; tiers: Tier[]; installed: boolean | null; provider_error: string | null; calls: number; errors: number; latency_ms: number | null; tokens: number; cost_usd: number | null }
+interface M { key: string; id: string; provider: string; family: string; price: { input: number; output: number } | null; equivalent: { name: string; input: number; output: number; source: string } | null; equivalent_usd: number | null; local: boolean; usable: boolean; tiers: Tier[]; vision: boolean; installed: boolean | null; provider_error: string | null; calls: number; errors: number; latency_ms: number | null; tokens: number; cost_usd: number | null }
 
 interface Fit { id: string; params: string; needGb: number; where: 'gpu' | 'split' | 'cpu' | 'no'; gpuShare: number; tokensPerSec: number | null }
 interface HwData { hardware: { gpu: { name: string; vramGb: number } | null; ramGb: number; ramMts: number | null; cpu: string }; plan: { context: number; fits: Fit[]; tiers: Record<Tier, string>; reasons: Record<Tier, string>; env: Record<string, string>; warnings: string[] } }
@@ -143,7 +144,7 @@ export default function Models() {
 								return (
 									<tr key={m.key} className="border-b align-top">
 										<td className="py-3 pr-4"><span className="block font-mono text-xs">{m.id}</span><span className="text-xs text-muted">{m.provider}{m.local ? ', on this PC' : ', cloud'}</span></td>
-										<td className="py-3 pr-4"><span className="flex flex-wrap gap-1">{m.tiers.length ? m.tiers.map((t) => <TierBadge key={t} tier={t} />) : <span className="text-xs text-muted">no tier</span>}</span></td>
+										<td className="py-3 pr-4"><span className="flex flex-wrap gap-1">{m.tiers.map((t) => <TierBadge key={t} tier={t} />)}{m.vision && <span className="rounded border px-1.5 py-0.5 font-mono text-[10px] tracking-wide">IMAGES</span>}{!m.tiers.length && !m.vision && <span className="text-xs text-muted">no tier</span>}</span></td>
 										<td className={`py-3 pr-4 ${s.bad ? 'text-bad' : 'text-muted'}`}>{s.text}{m.installed === false && m.provider === 'ollama' && <span className="mt-1 block font-mono text-xs text-text">ollama pull {m.id}</span>}</td>
 										<td className="py-3 pr-4 font-mono text-xs">{m.calls}</td>
 										<td className={`py-3 pr-4 font-mono text-xs ${m.errors ? 'text-bad' : ''}`}>{m.calls ? `${m.errors} (${Math.round((100 * m.errors) / m.calls)}%)` : '0'}</td>
@@ -164,8 +165,14 @@ export default function Models() {
 					<Failures rows={data.errors} />
 				</Section>
 			)}
+			<Section title="Health check">
+				<HealthCheck />
+			</Section>
 			<Section title="Ollama">
 				<Ollama />
+			</Section>
+			<Section title="More models" aside={<span className="text-xs text-muted">Download one, then put it on a tier. Chat-only models cannot back a tier, since every agent calls tools</span>}>
+				<MoreModels onChange={() => (reload(), raw.reload())} />
 			</Section>
 			<Section title="What this PC can run">
 				<ThisPc onApplied={() => (reload(), raw.reload())} />

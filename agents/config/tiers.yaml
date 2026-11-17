@@ -26,6 +26,11 @@ models:
   qwen-lite:     { provider: ollama, id: "qwen3:4b-instruct", family: qwen, price: { input: 0, output: 0 }, extra: { reasoning_effort: "none" } }
   qwen-standard: { provider: ollama, id: "qwen3:8b",  family: qwen, price: { input: 0, output: 0 }, extra: { reasoning_effort: "none" } }
   qwen-pro:      { provider: ollama, id: "qwen3:14b", family: qwen, price: { input: 0, output: 0 }, extra: { reasoning_effort: "none" } }
+  # OpenAI's open-weight model: better at reasoning and tool calls than Qwen3 14B, and quick as a mixture of experts.
+  # It cannot turn thinking off; "low" keeps it short.
+  oss-pro:       { provider: ollama, id: "gpt-oss:20b", family: gpt-oss, price: { input: 0, output: 0 }, extra: { reasoning_effort: "low" } }
+  # Reads attached images and describes them for the other models. It cannot call tools, so it never backs a tier.
+  gemma-vision:  { provider: ollama, id: "gemma3:12b", family: gemma, price: { input: 0, output: 0 }, tools: false }
   # Max is the one tier that should think: the 30B model always does.
   qwen-max:      { provider: ollama, id: "qwen3:30b", family: qwen, price: { input: 0, output: 0 } }
   # Opt-in. IDs and prices come from third-party pages (checked 2026-11-16), not from Moonshot itself:
@@ -37,7 +42,7 @@ models:
 tiers:
   lite:     { label: Lite,     use_for: "routing, classification, quick replies, formatting", models: [qwen-lite] }
   standard: { label: Standard, use_for: "normal chat, summaries, most agent steps",           models: [qwen-standard] }
-  pro:      { label: Pro,      use_for: "coding, tool use, multi-step planning",              models: [kimi-pro, qwen-pro] }
+  pro:      { label: Pro,      use_for: "coding, tool use, multi-step planning",              models: [kimi-pro, oss-pro, qwen-pro] }
   max:      { label: Max,      use_for: "hardest reasoning, long tasks, think-hard mode",     models: [kimi-max, qwen-max] }
 
 # Billing is off: everything is local, so every tier is open and nothing is limited. Tokens are still counted.
@@ -62,6 +67,9 @@ fallback:
 embeddings:
   provider: ollama
   model: "qwen3-embedding:0.6b"
+
+vision:
+  model: gemma-vision
 
 router:
   tier: lite

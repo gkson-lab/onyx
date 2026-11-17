@@ -24,6 +24,8 @@ export interface CompleteRequest {
 	onDelta?: (text: string) => void;
 	/** Set to false where a lower tier would be worse than an error (the router itself, for one). */
 	allowTierDrop?: boolean;
+	/** Call this one model (a key under models), not the tier's: the image reader, for one. */
+	modelKey?: string;
 }
 export interface CompleteResult {
 	content: string;
@@ -161,7 +163,8 @@ export class Gateway {
 		const left = () => (req.deadline === undefined ? Infinity : req.deadline - Date.now());
 
 		for (;;) {
-			const candidates = this.config.candidates(tier);
+			// A model that cannot call tools is no use to a call that offers them.
+			const candidates = req.modelKey ? [this.config.model(req.modelKey)] : this.config.candidates(tier).filter((m) => m.tools !== false || !req.tools?.length);
 			if (!candidates.length) errors.push(`${tier}: no usable model is configured`);
 			for (const [i, model] of candidates.entries()) {
 				let last = '';

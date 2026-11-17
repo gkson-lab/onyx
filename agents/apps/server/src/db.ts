@@ -14,7 +14,8 @@ export interface Tables {
 	agents: { id: string; name: string; description: string; system_prompt: string; tier: string; tools: string; enabled: number; max_steps: number; token_budget: number; time_budget_ms: number; builtin: number };
 	runs: { id: string; parent_id: string | null; root_id: string; depth: number; user_id: string; agent_id: string; channel: string; status: string; input: string; output: string | null; error: string | null; tier: string | null; model: string | null; provider: string | null; tokens_in: number; tokens_out: number; cost_usd: number | null; steps: number; routing: string | null; started_at: string; finished_at: string | null; equivalent_usd: Generated<number | null> };
 	steps: { id: Generated<number>; run_id: string; root_id: string; n: number; type: string; data: string; created_at: string };
-	messages: { id: Generated<number>; user_id: string; channel: string; direction: string; text: string; run_id: string | null; status: string; error: string | null; created_at: string };
+	messages: { id: Generated<number>; user_id: string; channel: string; direction: string; text: string; run_id: string | null; status: string; error: string | null; created_at: string; conversation_id: Generated<number | null> };
+	conversations: { id: Generated<number>; user_id: string; title: string; pinned: number; created_at: string; updated_at: string };
 	memories: { id: Generated<number>; user_id: string; text: string; embedding: string | null; created_at: string };
 	schedules: { id: Generated<number>; user_id: string; text: string; next_fire: string; repeat: string; channel: string | null; status: string; last_fired: string | null; created_at: string };
 	settings: { key: string; value: string };
@@ -72,6 +73,19 @@ const MIGRATIONS: ((db: Kysely<any>) => Promise<void>)[] = [
 		// What a local call would have cost on a paid host. Null for calls made before this was added.
 		await db.schema.alterTable('model_calls').addColumn('equivalent_usd', 'real').execute();
 		await db.schema.alterTable('runs').addColumn('equivalent_usd', 'real').execute();
+	},
+	async (db) => {
+		// Chats in the app are kept apart, each with its own history. Messages from phones and reminders have none.
+		await db.schema.createTable('conversations').addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement()).addColumn('user_id', 'text', (c) => c.notNull()).addColumn('title', 'text', (c) => c.notNull()).addColumn('pinned', 'integer', (c) => c.notNull().defaultTo(0)).addColumn('created_at', 'text', (c) => c.notNull()).addColumn('updated_at', 'text', (c) => c.notNull()).execute();
+		await db.schema.alterTable('messages').addColumn('conversation_id', 'integer').execute();
+		await db.schema.createIndex('messages_conversation').on('messages').columns(['conversation_id', 'id']).execute();
+		// Chats from before there were chats become one, "Earlier chats", so they stay where they were.
+		const users = await db.selectFrom('messages').select('user_id').distinct().where('channel', 'in', ['web', 'terminal']).execute();
+		for (const u of users) {
+			const at = new Date().toISOString();
+			const c = await db.insertInto('conversations').values({ user_id: u.user_id, title: 'Earlier chats', pinned: 0, created_at: at, updated_at: at }).returning('id').executeTakeFirstOrThrow();
+			await db.updateTable('messages').set({ conversation_id: c.id }).where('user_id', '=', u.user_id).where('channel', 'in', ['web', 'terminal']).execute();
+		}
 	},
 ];
 

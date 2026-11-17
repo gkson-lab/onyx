@@ -17,19 +17,26 @@ import { e164 } from './channels/phone.ts';
 import { applyToTiers, detect, plan as planFor, type Hardware } from './hardware.ts';
 import { ollamaStatus } from './ollama.ts';
 import { tailscaleStatus, type RunTailscale } from './tailscale.ts';
+import { Attachment, readAttachments, registerExtras, warmUp, type WarmState } from './extras.ts';
 
-const ChatBody = z.object({ text: z.string().trim().min(1).max(20000) });
+const ChatBody = z.object({ text: z.string().trim().max(20000).default(''), conversation_id: z.number().int().positive().optional(), tier: z.enum(['auto', ...TIERS]).default('auto'), attachments: z.array(Attachment).max(5).default([]) }).refine((b) => b.text || b.attachments.length, 'Write a message or attach a file.');
 const SettingsBody = z.object({ preferred_channels: z.array(Channel).min(1).max(4).optional(), allowlist: z.array(z.string().trim().min(3).max(64)).max(50).optional() });
 const KEYS = ['ONYX_PASSWORD', 'MOONSHOT_API_KEY', 'BRAVE_API_KEY', 'GITHUB_MCP_TOKEN', 'WHATSAPP_TOKEN', 'WHATSAPP_APP_SECRET', 'TWILIO_AUTH_TOKEN'];
 
 /** Takes a message in, runs it, stores both sides, and sends the answer out on the channel it came from. */
-export async function receive(app: App, o: { userId: string; text: string; channel: Channel; runId?: string }) {
-	const past = await app.db.selectFrom('messages').select(['direction', 'text']).where('user_id', '=', o.userId).where('status', '!=', 'failed').orderBy('id', 'desc').limit(10).execute();
+/**
+ * A message in, an answer out. `conversationId` keeps a chat's history apart from other chats' (null: phones and
+ * reminders). `attached` is what attached files say, given to the agents but not stored in the message itself.
+ */
+export async function receive(app: App, o: { userId: string; text: string; channel: Channel; runId?: string; conversationId?: number | null; attached?: string }) {
+	const conv = o.conversationId ?? null;
+	const past = await app.db.selectFrom('messages').select(['direction', 'text']).where('user_id', '=', o.userId).where('status', '!=', 'failed').where((eb) => (conv === null ? eb('conversation_id', 'is', null) : eb('conversation_id', '=', conv))).orderBy('id', 'desc').limit(10).execute();
 	const history: ChatMessage[] = past.reverse().map((m) => ({ role: m.direction === 'in' ? 'user' : 'assistant', content: m.text.slice(0, 4000) }));
-	await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'in', text: o.text, run_id: o.runId ?? null, status: 'received', error: null, created_at: now() }).execute();
-	const r = await app.runtime.handle({ userId: o.userId, text: o.text, channel: o.channel, history, runId: o.runId });
+	await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'in', text: o.text, run_id: o.runId ?? null, status: 'received', error: null, created_at: now(), conversation_id: conv }).execute();
+	if (conv !== null) await app.db.updateTable('conversations').set({ updated_at: now() }).where('id', '=', conv).execute();
+	const r = await app.runtime.handle({ userId: o.userId, text: o.attached ? `${o.text}\n\n${o.attached}` : o.text, channel: o.channel, history, runId: o.runId });
 	const reply = r.status === 'done' ? r.output : r.status === 'killed' ? 'Stopped.' : `That failed: ${r.error}`;
-	if (o.channel === 'web' || o.channel === 'terminal') await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'out', text: reply, run_id: r.runId, status: r.status === 'done' ? 'sent' : 'error', error: r.error, created_at: now() }).execute();
+	if (o.channel === 'web' || o.channel === 'terminal') await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'out', text: reply, run_id: r.runId, status: r.status === 'done' ? 'sent' : 'error', error: r.error, created_at: now(), conversation_id: conv }).execute();
 	else await app.outbox.deliver(o.userId, reply, { channel: o.channel, runId: r.runId });
 	return { ...r, reply };
 }
@@ -97,7 +104,7 @@ export async function catchUpSms(app: App): Promise<number> {
 	return missed.length;
 }
 
-export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware>; ollamaFetch?: typeof fetch; tailscale?: RunTailscale; port?: number } = {}): Promise<FastifyInstance> {
+export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware>; ollamaFetch?: typeof fetch; tailscale?: RunTailscale; port?: number; warm?: WarmState } = {}): Promise<FastifyInstance> {
 	const server = Fastify({ logger: false, bodyLimit: 1_000_000 });
 	await server.register(websocket);
 	// Read: this PC's own tiers file if there is one, else the shipped one. Write: always this PC's own.
@@ -222,15 +229,24 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 	});
 
 	/* ---------- chat ---------- */
-	server.post('/api/chat', async (req, reply) => {
+	// Attached files arrive inside the message, so this route takes up to 80 MB.
+	server.post('/api/chat', { bodyLimit: 80 * 1024 * 1024 }, async (req, reply) => {
 		const body = ChatBody.safeParse(req.body);
 		if (!body.success) return bad(reply, body.error);
 		const runId = randomUUID();
+		const b = body.data;
+		const names = b.attachments.map((a) => a.name);
+		// The tier picker is the same as typing /pro at the start.
+		const text = `${b.tier !== 'auto' && !/^\/(lite|standard|pro|max|think)\b/i.test(b.text) ? `/${b.tier} ` : ''}${b.text || 'Look at the attached file.'}${names.length ? `\n\n📎 ${names.join(', ')}` : ''}`;
+		if (b.conversation_id) await extras.nameChat(b.conversation_id, b.text || names.join(', '));
 		// The run goes on after this answers; its progress and its result arrive on the WebSocket and at /api/runs/:id.
-		void receive(app, { userId: app.owner, text: body.data.text, channel: 'web', runId }).catch((e) => app.bus.emit({ type: 'error', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { status: 'error', error: (e as Error).message } }));
+		void (async () => {
+			const att = b.attachments.length ? await readAttachments(app, b.attachments, b.text, { runId, userId: app.owner }) : null;
+			if (att) app.bus.emit({ type: 'attachments', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { notes: att.notes } });
+			return receive(app, { userId: app.owner, text, channel: 'web', runId, conversationId: b.conversation_id ?? null, attached: att?.text });
+		})().catch((e) => app.bus.emit({ type: 'error', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { status: 'error', error: (e as Error).message } }));
 		return reply.code(202).send({ runId });
 	});
-	server.get('/api/messages', async () => ({ messages: (await db.selectFrom('messages').selectAll().where('user_id', '=', app.owner).orderBy('id', 'desc').limit(60).execute()).reverse() }));
 
 	/* ---------- runs ---------- */
 	server.get('/api/runs', async (req) => {
@@ -301,6 +317,7 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		const hw = await hardware();
 		return { hardware: hw, plan: planFor(hw) };
 	});
+	const extras = registerExtras(server, app, { plan: async () => planFor(await hardware()), ollamaFetch: o.ollamaFetch, warm: o.warm ?? {}, readTiers, tiersOut });
 	server.get('/api/tailscale', async () => tailscaleStatus(o.port ?? Number(process.env.PORT ?? 8787), o.tailscale));
 	server.get('/api/ollama', async () => ollamaStatus(app.config, planFor(await hardware()), o.ollamaFetch));
 	server.post('/api/hardware/apply', async (_req, reply) => {
@@ -323,7 +340,7 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		}));
 		const models = Object.entries(app.config.file.models).map(([key, m]) => {
 			const have = available[m.provider];
-			return { key, id: m.id, provider: m.provider, family: m.family, price: m.price, equivalent: app.config.equivalents[m.id] ?? null, local: app.config.file.providers[m.provider]!.local, usable: app.config.usable(m.provider), tiers: TIERS.filter((t) => app.config.file.tiers[t].models.includes(key)), installed: Array.isArray(have) ? have.includes(m.id) || have.includes(`${m.id}:latest`) : null, provider_error: have && !Array.isArray(have) ? have.error : null, ...(stats.find((s) => s.model_key === key) ?? { calls: 0, errors: 0, latency_ms: null, tokens: 0, cost_usd: null, equivalent_usd: null, last_used: null }) };
+			return { key, id: m.id, provider: m.provider, family: m.family, price: m.price, equivalent: app.config.equivalents[m.id] ?? null, local: app.config.file.providers[m.provider]!.local, usable: app.config.usable(m.provider), tiers: TIERS.filter((t) => app.config.file.tiers[t].models.includes(key)), vision: app.config.file.vision?.model === key, installed: Array.isArray(have) ? have.includes(m.id) || have.includes(`${m.id}:latest`) : null, provider_error: have && !Array.isArray(have) ? have.error : null, ...(stats.find((s) => s.model_key === key) ?? { calls: 0, errors: 0, latency_ms: null, tokens: 0, cost_usd: null, equivalent_usd: null, last_used: null }) };
 		});
 		// The latest failures, with their messages: what went wrong, not just how often.
 		const errors = await db.selectFrom('model_calls').select(['created_at', 'model_id', 'purpose', 'attempt', 'error', 'latency_ms']).where('status', '=', 'error').orderBy('id', 'desc').limit(20).execute();
@@ -409,11 +426,14 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('index.ts')) {
 	const app = await createApp();
-	const server = await buildServer(app);
+	const warm: WarmState = {};
+	const server = await buildServer(app, { warm });
 	const port = Number(process.env.PORT ?? 8787);
 	// It listens on this PC only. A tunnel (cloudflared) running on this PC is what makes it reachable from outside.
 	await server.listen({ port, host: '127.0.0.1' });
 	app.scheduler.start();
+	// Load Lite's and Standard's models now, so the first message does not wait for them.
+	void warmUp(app, warm);
 	const connectors = await app.connectors.start();
 	const missed = await catchUpSms(app).catch((e) => (console.log(`  SMS catch-up failed: ${(e as Error).message}`), 0));
 	if (missed) console.log(`  answered ${missed} text${missed === 1 ? '' : 's'} sent while Onyx was off`);
