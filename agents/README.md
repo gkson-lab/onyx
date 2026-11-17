@@ -97,7 +97,40 @@ child. Edit any agent, or add your own, on the Agents screen.
   `enabled: true`, put a fine-grained token in `GITHUB_MCP_TOKEN`, and tick `connector:github` in an agent's tools.
   It uses GitHub's read-only address by default.
 
-## From your phone
+## The app on your phone, through Tailscale
+
+The simplest way to use Onyx from your phone. [Tailscale](https://tailscale.com) connects your phone to your PC
+privately: only devices signed in to your Tailscale account can reach Onyx, nothing on your PC is open to the
+internet, and the address never changes. It is free for personal use.
+
+1. **On your PC:** install Tailscale from [tailscale.com/download](https://tailscale.com/download) and sign in.
+2. **On your phone:** install the Tailscale app and sign in with the same account.
+3. **In the admin console** ([login.tailscale.com](https://login.tailscale.com)), on the DNS page: turn on
+   **MagicDNS** and **HTTPS Certificates**. HTTPS is what lets the installed app show notifications.
+4. **On your PC:** set `ONYX_PASSWORD` in `.env`, start Onyx with `pnpm start`, and in another window run, once:
+
+   ```bash
+   tailscale serve --bg 8787
+   ```
+
+   It prints your address, like `https://your-pc.tail1234.ts.net`, and keeps serving it in the background, also
+   after a restart.
+5. **On your phone:** open that address and sign in with your password if asked.
+6. **Add it to your Home Screen.** iPhone: in Safari, Share, then Add to Home Screen (iOS 16.4 or newer for
+   notifications). Android: in Chrome, the menu, then Install app.
+7. **Turn on notifications:** open Onyx from the Home Screen, go to More, Settings, and tap
+   **Turn on for this device**. A test notification should arrive.
+
+To know:
+
+- Tailscale must be connected on your phone while you use Onyx. You can leave it on: it only carries traffic to your
+  own devices, not your normal browsing.
+- Your PC must be on with Onyx running. Reminders due while it is off are sent when it is back, marked late.
+- To stop serving: `tailscale serve --https=443 off`.
+- This has not been tried end to end. Onyx may not ask for the password through Tailscale, because the requests can
+  look like they come from this PC. That is safe, since only your own devices can reach it.
+
+## From your phone, by message
 
 - **WhatsApp** (Meta's official Cloud API) and **SMS** (Twilio): see `SETUP_WHATSAPP.md` and `SETUP_SMS.md`. Both
   need a tunnel to this PC, because the providers deliver your texts to a public address.
@@ -106,9 +139,9 @@ child. Edit any agent, or add your own, on the Agents screen.
   provider's signature first, and one number can send at most 20 messages in five minutes.
 - **Onyx texting first.** Reminders go to your preferred channels in order and end with the app. On WhatsApp,
   outside 24 hours of your last message, only an approved template can be sent.
-- **The app on your phone.** Open your tunnel's address, sign in, and add it to the Home Screen. Settings has a
-  button to turn notifications on for that device.
-- **Sign-in.** From this PC the app needs no password. Anything arriving through a tunnel needs `ONYX_PASSWORD`;
+- **The app on your phone.** Easiest through Tailscale (above). With a public tunnel instead, open its address, sign
+  in, and add it to the Home Screen.
+- **Sign-in.** From this PC the app needs no password. Anything arriving through a public tunnel needs `ONYX_PASSWORD`;
   with no password set, the server refuses everything that isn't this PC.
 
 ## The app
