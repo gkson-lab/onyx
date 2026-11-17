@@ -130,10 +130,21 @@ async function setup(): Promise<number> {
 	}
 	let text = readFileSync(env, 'utf8');
 	if (!/^ONYX_PASSWORD=\S+/m.test(text)) {
-		const rl = createInterface({ input: stdin, output: stdout });
+		const rl = createInterface({ input: stdin, output: stdout, terminal: false });
+		const ask = () => stdout.write('Choose a password for using Onyx from your phone (8 characters or more): ');
 		let pw = '';
-		while (pw.length < 8) pw = (await rl.question('Choose a password for using Onyx from your phone (8 characters or more): ')).trim();
+		ask();
+		for await (const line of rl) {
+			pw = line.trim();
+			if (pw.length >= 8) break;
+			console.log('That is shorter than 8 characters.');
+			ask();
+		}
 		rl.close();
+		if (pw.length < 8) {
+			console.log('\nNo password was set, so setup stopped. Run it again and type one.');
+			return 1;
+		}
 		text = /^ONYX_PASSWORD=.*$/m.test(text) ? text.replace(/^ONYX_PASSWORD=.*$/m, `ONYX_PASSWORD=${pw}`) : `${text.trimEnd()}\nONYX_PASSWORD=${pw}\n`;
 		writeFileSync(env, text);
 		console.log('Saved the password in .env.');
