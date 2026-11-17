@@ -28,7 +28,7 @@ pnpm models:sync     # checks every model in config/tiers.yaml against what Olla
 pnpm build           # builds the web app (once, and again after pulling changes)
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 45 tests, no model or network needed
+pnpm test            # 51 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -36,6 +36,28 @@ sandbox needs [Docker Desktop](https://www.docker.com/products/docker-desktop/) 
 the code was not run.
 
 Onyx only runs while this PC is on and Ollama is running.
+
+## Which models your PC can run
+
+```bash
+pnpm onyx hardware            # reads your graphics card and memory, and recommends a model for each tier
+pnpm onyx hardware --apply    # and writes them into config/tiers.yaml
+```
+
+It works out each model's memory (weights, plus the context's cache, plus working memory) against your graphics
+card and then your system memory, and estimates speed from memory bandwidth. The Models screen shows the same, with
+a button to use the recommendation. The speeds are estimates, give or take 40%: `ollama run qwen3:14b --verbose`
+measures the real one. Pass `--vram 16 --ram 32 --ram-speed 6000` to override what it detects.
+
+**Set Ollama's context length.** On a card under 24 GB, Ollama may give each model only 4,096 tokens of context,
+which cuts agents off as soon as a tool returns a page. The hardware command prints the settings to use; on Windows,
+run them, then quit Ollama from the tray and start it again:
+
+```powershell
+setx OLLAMA_CONTEXT_LENGTH 16384
+setx OLLAMA_FLASH_ATTENTION 1
+setx OLLAMA_MAX_LOADED_MODELS 3
+```
 
 ## Tiers
 
@@ -48,8 +70,9 @@ Onyx only runs while this PC is on and Ollama is running.
 | Pro | coding, tool use, planning | `qwen3:14b` |
 | Max | hardest reasoning, with thinking on | `qwen3:30b` |
 
-On a PC with 32 GB of memory all four fit, one at a time. Without a graphics card the larger two are slow: expect
-a wait of many seconds before `qwen3:30b` starts answering. If that is too slow, point Max at `qwen3:14b`.
+These defaults suit a graphics card with 16 GB (an RTX 5060 Ti 16 GB, for one): Lite and Standard stay on the card
+together, 14B fits on it alone, and the 30B model, which only uses 3B of its weights per token, runs split between
+the card and system memory. For another PC, run `pnpm onyx hardware`.
 
 - **Router.** The Lite model reads each message and picks a tier through a tool call. The decision and its reason
   are logged and shown. Start a message with `/lite`, `/standard`, `/pro`, `/max` or `/think` to choose yourself.
@@ -154,6 +177,23 @@ The look is defined in one file, `apps/web/app/tokens.css`, with the reason for 
 [antislop UI rules](https://github.com/miqdadbadjuber/anti-slop): one accent, no gradients, glow, blur or shadows,
 flat rows instead of nested cards, motion only for real state, and empty states that say what to do next.
 
+## Accounts and keys
+
+Everything is optional except Node, pnpm and Ollama. Keys go in `agents/.env`, never anywhere else.
+
+| For | Where to get it | What goes in `.env` |
+|---|---|---|
+| The models | [ollama.com](https://ollama.com), then `ollama pull` the models `pnpm onyx hardware` lists | nothing (`OLLAMA_BASE_URL` only if Ollama runs elsewhere) |
+| The app on your phone | [Tailscale](https://tailscale.com), free for personal use | `ONYX_PASSWORD` |
+| Running code | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | nothing |
+| Better web search | [Brave Search API](https://brave.com/search/api/) | `BRAVE_API_KEY` |
+| GitHub connector | github.com, Settings, Developer settings, fine-grained personal access token | `GITHUB_MCP_TOKEN`, then `enabled: true` in `config/connectors.yaml` |
+| WhatsApp | [Meta for Developers](https://developers.facebook.com), see `SETUP_WHATSAPP.md` | `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_APP_SECRET`, `WHATSAPP_VERIFY_TOKEN`, `PUBLIC_URL` |
+| SMS | [Twilio](https://www.twilio.com), see `SETUP_SMS.md` (US numbers need registration) | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM`, `PUBLIC_URL` |
+| Kimi models in the cloud | [Moonshot AI platform](https://platform.moonshot.ai) | `MOONSHOT_API_KEY` and `ONYX_CLOUD=on` |
+
+Not supported: iMessage (it needs a Mac) and carrier email-to-text (most US carriers have shut it down).
+
 ## What has and hasn't been tested
 
 The tests replace the model with a scripted stand-in, so they prove the logic: routing, retries, provider and tier
@@ -178,6 +218,7 @@ apps/server/src/agents/       the runtime (loop, subagents, budgets, kill switch
 apps/server/src/tools/        built-in tools, the tool registry, MCP connectors
 apps/server/src/channels/     channel adapters (web, WhatsApp, SMS), delivery with fallback, formatting
 apps/server/src/push.ts       push notifications for the installed app
+apps/server/src/hardware.ts   which models this PC can run, and how fast
 apps/server/src/scheduler.ts  fires reminders
 apps/server/src/bus.ts        the event stream
 apps/server/src/index.ts      the server: API, WebSocket, and the built app

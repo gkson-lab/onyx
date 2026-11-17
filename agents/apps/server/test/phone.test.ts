@@ -165,3 +165,28 @@ describe('notifications and billing', () => {
 		expect((await server.inject({ method: 'PUT', url: '/api/billing/users/owner', payload: { plan: 'gold' } })).statusCode).toBe(400);
 	});
 });
+
+describe('SMS sent while the PC was off', () => {
+	it('on start, Onyx fetches the texts Twilio received, answers the ones it never saw, and only once', async () => {
+		const { catchUpSms } = await import('../src/index.ts');
+		const sent: string[] = [];
+		const phoneFetch = (async (url: string, init: any) => {
+			if (url.includes('Messages.json?')) return new Response(JSON.stringify({ messages: [
+				{ sid: 'SM_old', from: '+15125550123', body: 'already answered', direction: 'inbound', date_sent: 'Mon, 16 Nov 2026 10:00:00 +0000' },
+				{ sid: 'SM_missed', from: '+15125550123', body: 'are you there?', direction: 'inbound', date_sent: 'Mon, 16 Nov 2026 11:00:00 +0000' },
+				{ sid: 'SM_out', from: '+15005550006', body: 'a reply', direction: 'outbound-api', date_sent: 'Mon, 16 Nov 2026 11:01:00 +0000' },
+				{ sid: 'SM_stranger', from: '+19995550000', body: 'hello', direction: 'inbound', date_sent: 'Mon, 16 Nov 2026 11:02:00 +0000' },
+			] }), { status: 200 });
+			sent.push(String(init.body));
+			return new Response('{}', { status: 200 });
+		}) as unknown as typeof fetch;
+		const t = await testApp({ 'qwen3:4b': [routeLite, { content: 'Yes, I am back.' }] }, ENV, { phoneFetch });
+		await t.app.db.insertInto('identities').values({ user_id: 'owner', channel: 'sms', handle: '+15125550123', verified_at: new Date().toISOString(), code: null, code_expires: null, last_inbound: null }).execute();
+		await t.app.db.insertInto('settings').values({ key: 'allowlist', value: '["+15125550123"]' }).execute();
+		await t.app.db.insertInto('settings').values({ key: 'sms_seen', value: '["SM_old"]' }).execute();
+		expect(await catchUpSms(t.app)).toBe(2);
+		await settle();
+		expect(sent.map((b) => new URLSearchParams(b).get('Body'))).toEqual(['Yes, I am back.']);
+		expect(await catchUpSms(t.app)).toBe(0);
+	});
+});

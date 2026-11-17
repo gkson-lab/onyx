@@ -94,4 +94,16 @@ export class SmsChannel implements ChannelAdapter {
 	sendProactive(userId: string, parts: string[]): Promise<void> {
 		return this.send(userId, parts);
 	}
+	/**
+	 * Texts Twilio received in the last day. Twilio does not retry a webhook that failed, so a text sent while this PC
+	 * was off would be lost; on start, Onyx asks for these and answers the ones it never saw.
+	 */
+	async recent(): Promise<{ sid: string; from: string; body: string; at: string }[]> {
+		const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString().slice(0, 10);
+		const q = new URLSearchParams({ To: this.env.TWILIO_FROM ?? '', 'DateSent>': since, PageSize: '50' });
+		const res = await this.http(`https://api.twilio.com/2010-04-01/Accounts/${this.env.TWILIO_ACCOUNT_SID}/Messages.json?${q}`, { headers: { authorization: `Basic ${Buffer.from(`${this.env.TWILIO_ACCOUNT_SID}:${this.env.TWILIO_AUTH_TOKEN}`).toString('base64')}` }, signal: AbortSignal.timeout(15000) });
+		if (!res.ok) throw new Error(`Twilio answered HTTP ${res.status}.`);
+		const j: any = await res.json();
+		return (j.messages ?? []).filter((m: any) => m.direction === 'inbound').map((m: any) => ({ sid: String(m.sid), from: String(m.from), body: String(m.body ?? ''), at: new Date(m.date_sent ?? m.date_created).toISOString() }));
+	}
 }

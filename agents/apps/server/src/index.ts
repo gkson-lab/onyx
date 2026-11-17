@@ -14,6 +14,7 @@ import { parseTiers, ROOT } from './config.ts';
 import { now, today } from './db.ts';
 import { listModels } from './models/provider.ts';
 import { e164 } from './channels/phone.ts';
+import { applyToTiers, detect, plan as planFor, type Hardware } from './hardware.ts';
 
 const ChatBody = z.object({ text: z.string().trim().min(1).max(20000) });
 const SettingsBody = z.object({ preferred_channels: z.array(Channel).min(1).max(4).optional(), allowlist: z.array(z.string().trim().min(3).max(64)).max(50).optional() });
@@ -75,7 +76,26 @@ export async function inbound(app: App, channel: 'whatsapp' | 'sms', from: strin
 	return 'handled';
 }
 
-export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string } = {}): Promise<FastifyInstance> {
+async function seenSids(app: App): Promise<string[]> {
+	const row = await app.db.selectFrom('settings').select('value').where('key', '=', 'sms_seen').executeTakeFirst();
+	return row ? JSON.parse(row.value) : [];
+}
+async function markSeen(app: App, sids: string[]): Promise<void> {
+	const value = JSON.stringify([...new Set([...(await seenSids(app)), ...sids])].slice(-300));
+	await app.db.insertInto('settings').values({ key: 'sms_seen', value }).onConflict((c) => c.column('key').doUpdateSet({ value })).execute();
+}
+
+/** Answers texts that arrived through Twilio while this PC was off. Returns how many it picked up. */
+export async function catchUpSms(app: App): Promise<number> {
+	if (!(await app.sms.status()).ok) return 0;
+	const seen = new Set(await seenSids(app));
+	const missed = (await app.sms.recent()).filter((m) => !seen.has(m.sid)).sort((a, b) => a.at.localeCompare(b.at));
+	await markSeen(app, missed.map((m) => m.sid));
+	for (const m of missed) await inbound(app, 'sms', m.from, `${m.body}`);
+	return missed.length;
+}
+
+export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware> } = {}): Promise<FastifyInstance> {
 	const server = Fastify({ logger: false, bodyLimit: 1_000_000 });
 	await server.register(websocket);
 	const tiersPath = o.tiersPath ?? resolve(ROOT, 'config/tiers.yaml');
@@ -142,6 +162,7 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 	server.post('/webhooks/sms', async (req, reply) => {
 		const params = (req.body ?? {}) as Record<string, string>;
 		if (!app.sms.signed('/webhooks/sms', params, req.headers['x-twilio-signature'] as string | undefined)) return reply.code(401).send({ error: 'bad signature' });
+		if (params.MessageSid) await markSeen(app, [params.MessageSid]);
 		await inbound(app, 'sms', String(params.From ?? ''), typeof params.Body === 'string' ? params.Body : null);
 		// An empty reply: Onyx answers with a message of its own when the run is done.
 		return reply.type('text/xml').send('<Response></Response>');
@@ -268,6 +289,25 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 			return reply.code(400).send({ error: e instanceof z.ZodError ? e.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ') : `Not valid YAML: ${(e as Error).message}` });
 		}
 	});
+	/* ---------- what this PC can run ---------- */
+	let hwCache: Hardware | null = null;
+	const hardware = async () => (hwCache ??= await (o.detect ?? detect)());
+	server.get('/api/hardware', async () => {
+		const hw = await hardware();
+		return { hardware: hw, plan: planFor(hw) };
+	});
+	server.post('/api/hardware/apply', async (_req, reply) => {
+		const p = planFor(await hardware());
+		const r = await applyToTiers(readFileSync(tiersPath, 'utf8'), p.tiers);
+		try {
+			const file = parseTiers(r.yaml);
+			writeFileSync(tiersPath, r.yaml);
+			app.config.replace(file);
+		} catch (e) {
+			return reply.code(500).send({ error: `The new tiers file did not check out: ${(e as Error).message}` });
+		}
+		return { changed: r.changed, tiers: app.config.publicTiers() };
+	});
 	server.get('/api/models', async () => {
 		const stats = await db.selectFrom('model_calls').select(['model_key']).select((eb) => [eb.fn.countAll<number>().as('calls'), eb.fn.sum<number>(sql`case when status = 'error' then 1 else 0 end`).as('errors'), eb.fn.avg<number>(sql`case when status = 'ok' then latency_ms end`).as('latency_ms'), eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.max('created_at').as('last_used')]).groupBy('model_key').execute();
 		const available: Record<string, string[] | { error: string }> = {};
@@ -362,6 +402,8 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
 	await server.listen({ port, host: '127.0.0.1' });
 	app.scheduler.start();
 	const connectors = await app.connectors.start();
+	const missed = await catchUpSms(app).catch((e) => (console.log(`  SMS catch-up failed: ${(e as Error).message}`), 0));
+	if (missed) console.log(`  answered ${missed} text${missed === 1 ? '' : 's'} sent while Onyx was off`);
 	console.log(`Onyx Agents on http://127.0.0.1:${port}`);
 	for (const c of connectors.filter((x) => x.enabled)) console.log(`  connector ${c.id}: ${c.state}${c.error ? ` (${c.error})` : `, ${c.tools.length} tools`}`);
 }

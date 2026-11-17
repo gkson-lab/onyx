@@ -5,6 +5,10 @@ import { stdin, stdout } from 'node:process';
 import { createApp } from '../app.ts';
 import { receive } from '../index.ts';
 import { listModels } from '../models/provider.ts';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { ROOT, parseTiers } from '../config.ts';
+import { applyToTiers, bandwidthOf, detect, plan } from '../hardware.ts';
 
 const dim = (s: string) => (stdout.isTTY ? `\x1b[2m${s}\x1b[0m` : s);
 const inv = (s: string) => (stdout.isTTY ? `\x1b[7m ${s} \x1b[0m` : `[${s}]`);
@@ -77,10 +81,45 @@ async function chatLoop(): Promise<number> {
 	return 0;
 }
 
+/** `pnpm onyx hardware [--vram 16] [--ram 32] [--ram-speed 6000] [--gpu "RTX 5060 Ti"] [--apply]` */
+async function hardware(): Promise<number> {
+	const arg = (name: string) => {
+		const i = process.argv.indexOf(`--${name}`);
+		return i > 0 ? process.argv[i + 1] : undefined;
+	};
+	const hw = await detect();
+	if (arg('gpu') || arg('vram')) {
+		const name = arg('gpu') ?? hw.gpu?.name ?? 'unknown card';
+		hw.gpu = { name, vramGb: Number(arg('vram') ?? hw.gpu?.vramGb ?? 8), bandwidthGbs: bandwidthOf(name) ?? hw.gpu?.bandwidthGbs ?? null };
+	}
+	if (arg('ram')) hw.ramGb = Number(arg('ram'));
+	if (arg('ram-speed')) hw.ramMts = Number(arg('ram-speed'));
+	const p = plan(hw);
+	console.log(`${hw.gpu ? `${hw.gpu.name}, ${hw.gpu.vramGb} GB` : 'No NVIDIA graphics card found'} · ${hw.ramGb} GB memory${hw.ramMts ? ` at ${hw.ramMts} MT/s` : ''} · ${hw.cpu}`);
+	console.log(dim(`Context ${p.context.toLocaleString('en-US')} tokens. Estimates, +/- 40%: measure with ollama run <model> --verbose.\n`));
+	console.log(dim('Model        Needs     Where                Speed'));
+	for (const f of p.fits) console.log(`${f.id.padEnd(12)} ${`${f.needGb} GB`.padEnd(9)} ${(f.where === 'gpu' ? 'graphics card' : f.where === 'split' ? `split, ${Math.round(f.gpuShare * 100)}% on card` : f.where === 'cpu' ? 'processor' : "doesn't fit").padEnd(20)} ${f.tokensPerSec != null ? `${f.tokensPerSec} tokens/s` : ''}`);
+	console.log('\nRecommended tiers:');
+	for (const t of ['lite', 'standard', 'pro', 'max'] as const) console.log(`  ${inv(t.toUpperCase())} ${p.tiers[t]}${dim(`  ${p.reasons[t]}`)}`);
+	console.log('');
+	for (const w of p.warnings) console.log(dim(`- ${w}`));
+	console.log(`\nSet these for Ollama (Windows: run each, then quit Ollama from the tray and start it again):`);
+	for (const [k, v] of Object.entries(p.env)) console.log(`  setx ${k} ${v}`);
+	console.log(`\nPull the models:\n${[...new Set(Object.values(p.tiers))].map((m) => `  ollama pull ${m}`).join('\n')}`);
+	if (process.argv.includes('--apply')) {
+		const path = resolve(ROOT, 'config/tiers.yaml');
+		const r = await applyToTiers(readFileSync(path, 'utf8'), p.tiers);
+		parseTiers(r.yaml);
+		writeFileSync(path, r.yaml);
+		console.log(r.changed.length ? `\nUpdated config/tiers.yaml: ${r.changed.join(', ')}` : '\nconfig/tiers.yaml already uses these models.');
+	} else console.log(dim('\nAdd --apply to write these models into config/tiers.yaml.'));
+	return 0;
+}
+
 const cmd = process.argv[2] ?? 'chat';
-const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : null;
+const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : null;
 if (!run) {
-	console.log('Usage: pnpm onyx [chat | models | tiers]');
+	console.log('Usage: pnpm onyx [chat | models | tiers | hardware]');
 	process.exit(2);
 }
 run().then((code) => process.exit(code), (e) => (console.error(e instanceof Error ? e.message : e), process.exit(1)));

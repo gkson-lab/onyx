@@ -5,6 +5,62 @@ import { Button, Code, Loading, Page, Problem, Section, TierBadge } from '@/comp
 
 interface M { key: string; id: string; provider: string; family: string; price: { input: number; output: number } | null; local: boolean; usable: boolean; tiers: Tier[]; installed: boolean | null; provider_error: string | null; calls: number; errors: number; latency_ms: number | null; tokens: number; cost_usd: number | null }
 
+interface Fit { id: string; params: string; needGb: number; where: 'gpu' | 'split' | 'cpu' | 'no'; gpuShare: number; tokensPerSec: number | null }
+interface HwData { hardware: { gpu: { name: string; vramGb: number } | null; ramGb: number; ramMts: number | null; cpu: string }; plan: { context: number; fits: Fit[]; tiers: Record<Tier, string>; reasons: Record<Tier, string>; env: Record<string, string>; warnings: string[] } }
+
+/** What this PC can run, worked out from its graphics card and memory, with a button to use the recommendation. */
+function ThisPc({ onApplied }: { onApplied: () => void }) {
+	const { data, error } = useData<HwData>('/hardware');
+	const [note, setNote] = useState<string | null>(null);
+	const [bad, setBad] = useState<string | null>(null);
+	const apply = async () => {
+		setBad(null);
+		try {
+			const r = await api<{ changed: string[] }>('/hardware/apply', { method: 'POST' });
+			setNote(r.changed.length ? `Updated: ${r.changed.join(', ')}.` : 'The tiers already use these models.');
+			onApplied();
+		} catch (e) {
+			setBad((e as Error).message);
+		}
+	};
+	if (error) return <Problem>{error}</Problem>;
+	if (!data) return <Loading what="this PC's hardware" />;
+	const { hardware: hw, plan: p } = data;
+	const where = (f: Fit) => (f.where === 'gpu' ? 'Graphics card' : f.where === 'split' ? `Split, ${Math.round(f.gpuShare * 100)}% on card` : f.where === 'cpu' ? 'Processor' : "Doesn't fit");
+	const picked = new Set(Object.values(p.tiers));
+	return (
+		<>
+			<p className="text-sm">{hw.gpu ? `${hw.gpu.name}, ${hw.gpu.vramGb} GB` : 'No NVIDIA graphics card found'} <span className="text-muted">· {hw.ramGb} GB memory{hw.ramMts ? ` at ${hw.ramMts} MT/s` : ''} · {hw.cpu}</span></p>
+			<p className="mt-1 max-w-2xl text-sm text-muted">Worked out from published model sizes and this PC's memory bandwidth, at {p.context.toLocaleString('en-US')} tokens of context. Speeds are estimates, give or take 40%; <Code>ollama run model --verbose</Code> measures the real one.</p>
+			<div className="mt-4 overflow-x-auto">
+				<table className="w-full min-w-[36rem] border-t text-left text-sm">
+					<thead><tr className="border-b text-xs text-muted">{['Model', 'Size', 'Needs', 'Runs on', 'Speed', 'Recommended for'].map((h) => <th key={h} className="py-2 pr-4 font-normal">{h}</th>)}</tr></thead>
+					<tbody className="rows">
+						{p.fits.map((f) => (
+							<tr key={f.id} className={`border-b ${picked.has(f.id) ? '' : 'text-muted'}`}>
+								<td className="py-2 pr-4 font-mono text-xs">{f.id}</td>
+								<td className="py-2 pr-4 text-xs">{f.params}</td>
+								<td className="py-2 pr-4 font-mono text-xs">{f.needGb} GB</td>
+								<td className={`py-2 pr-4 text-xs ${f.where === 'no' ? 'text-bad' : ''}`}>{where(f)}</td>
+								<td className="py-2 pr-4 font-mono text-xs">{f.tokensPerSec != null ? `~${f.tokensPerSec} tok/s` : ''}</td>
+								<td className="py-2 pr-4"><span className="flex flex-wrap gap-1">{(Object.keys(p.tiers) as Tier[]).filter((t) => p.tiers[t] === f.id).map((t) => <TierBadge key={t} tier={t} />)}</span></td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+			<ul className="mt-3 space-y-1 text-sm text-muted">{p.warnings.map((w) => <li key={w}>{w}</li>)}</ul>
+			<p className="mt-4 text-sm">Ollama needs these settings, or it may cut agents off at 4,096 tokens. On Windows, run each line, then quit Ollama from the tray and start it again:</p>
+			<pre className="mt-2 overflow-x-auto rounded bg-surface p-3 font-mono text-xs">{Object.entries(p.env).map(([k, v]) => `setx ${k} ${v}`).join('\n')}</pre>
+			<div className="mt-4 flex flex-wrap items-center gap-3">
+				<Button kind="primary" onClick={() => void apply()}>Use these models</Button>
+				{note && <span role="status" className="text-sm text-muted">{note} Pull any that show as not installed above.</span>}
+			</div>
+			{bad && <div className="mt-2"><Problem>{bad}</Problem></div>}
+		</>
+	);
+}
+
 export default function Models() {
 	const { data, error, reload } = useData<{ models: M[] }>('/models');
 	const raw = useData<{ yaml: string }>('/tiers/raw');
@@ -55,6 +111,9 @@ export default function Models() {
 					</table>
 				</div>
 			)}
+			<Section title="What this PC can run">
+				<ThisPc onApplied={() => (reload(), raw.reload())} />
+			</Section>
 			<Section title="tiers.yaml">
 				<p className="mb-3 max-w-2xl text-sm text-muted">Which model backs each tier, in the order they are tried. Saving checks the file first: a tier that names a model that isn't defined is refused. This edits <Code>config/tiers.yaml</Code> on this PC.</p>
 				{raw.error && <Problem>{raw.error}</Problem>}

@@ -28,5 +28,6 @@ whose signature doesn't match.
 ## Limits to know
 
 - Long replies are split into numbered parts, at most four; beyond that the reply is cut and says so.
-- Twilio does not retry a webhook that fails. A text sent while this PC or the tunnel is down is lost; send it again.
+- Twilio does not retry a webhook that fails. When Onyx starts, it asks Twilio for the texts of the last 24 hours
+  and answers any it never saw, so a text sent while this PC was off is answered late rather than lost.
 - Each text costs money on Twilio's side. Onyx does not track that cost.
