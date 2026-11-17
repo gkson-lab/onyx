@@ -11,24 +11,35 @@ import type { FastifyInstance } from 'fastify';
 import { TIERS, type Tier } from '@onyx/shared';
 import type { App } from './app.ts';
 import { now } from './db.ts';
-import { applyToTiers, CATALOG, catalogEntry, type Plan } from './hardware.ts';
+import { applyToTiers, CATALOG, catalogEntry, familyOf, type Plan } from './hardware.ts';
 import { ROOT, parseTiers } from './config.ts';
 import { writeFileSync } from 'node:fs';
+import { inputBudget } from './context.ts';
 
 /* ---------- attachments ---------- */
 
 export const Attachment = z.object({ name: z.string().trim().min(1).max(200), type: z.string().max(100).default(''), data: z.string().max(14_000_000) });
 export type Attachment = z.infer<typeof Attachment>;
 const TEXTY = /\.(txt|md|markdown|csv|tsv|json|ya?ml|xml|html?|css|js|jsx|ts|tsx|py|rb|go|rs|java|c|cc|cpp|h|hpp|cs|php|sh|ps1|bat|sql|toml|ini|log)$/i;
-const MAX_CHARS = 30_000;
+export interface FileResult { name: string; ok: boolean; note: string }
+
+/** Text from a file's bytes: UTF-8, or UTF-16 when it starts with that byte-order mark (Windows Notepad's "Unicode"). */
+function decode(bytes: Buffer): string {
+	if (bytes[0] === 0xff && bytes[1] === 0xfe) return bytes.subarray(2).toString('utf16le');
+	if (bytes[0] === 0xfe && bytes[1] === 0xff) return Buffer.from(bytes.subarray(2)).swap16().toString('utf16le');
+	return bytes.toString('utf8').replace(/^\uFEFF/, '');
+}
 
 /**
  * Turns attached files into text the agents can read: text and code as they are, a PDF's text, and an image described
- * by the vision model. Returns that text, and a short note per file for the chat ("read 3 pages of report.pdf").
+ * by the vision model. The files share `maxChars` evenly, so together they fit the model's context. Returns that text,
+ * and what came of each file, for the message ("2 pages", "could not read: ...").
  */
-export async function readAttachments(app: App, files: Attachment[], question: string, o: { runId?: string; userId: string }): Promise<{ text: string; notes: string[] }> {
+export async function readAttachments(app: App, files: Attachment[], question: string, o: { runId?: string; userId: string; maxChars?: number }): Promise<{ text: string; files: FileResult[] }> {
 	const parts: string[] = [];
-	const notes: string[] = [];
+	const results: FileResult[] = [];
+	const share = Math.max(2000, Math.floor((o.maxChars ?? Math.round(inputBudget() * 0.75)) / Math.max(1, files.length)));
+	const fit = (t: string) => (t.length > share ? `${t.slice(0, share)}\n[cut short here, to fit the model's context]` : t);
 	for (const f of files) {
 		const bytes = Buffer.from(f.data, 'base64');
 		try {
@@ -38,32 +49,32 @@ export async function readAttachments(app: App, files: Attachment[], question: s
 				const { totalPages, text } = await extractText(pdf, { mergePages: true });
 				const t = String(text).trim();
 				if (!t) throw new Error('it has no text to read (a scanned PDF needs reading as images)');
-				parts.push(`[Attached PDF "${f.name}", ${totalPages} pages${t.length > MAX_CHARS ? ', cut short' : ''}]\n${t.slice(0, MAX_CHARS)}`);
-				notes.push(`read ${totalPages} page${totalPages === 1 ? '' : 's'} of ${f.name}`);
+				parts.push(`[Attached PDF "${f.name}", ${totalPages} page${totalPages === 1 ? '' : 's'}]\n${fit(t)}`);
+				results.push({ name: f.name, ok: true, note: `${totalPages} page${totalPages === 1 ? '' : 's'}${t.length > share ? ', the start' : ''}` });
 			} else if (f.type.startsWith('image/')) {
 				const key = app.config.file.vision?.model;
-				const how = 'on the Models screen, under More models, download gemma3:12b and choose "Reading images"';
-				if (!key || !app.config.file.models[key]) throw new Error(`no model that reads images is set up: ${how}`);
+				if (!key || !app.config.file.models[key]) throw new Error('no model that reads images is set up: on the Models screen, under More models, download gemma3:12b and choose "Reading images"');
 				const r = await app.gateway.complete({
 					userId: o.userId, runId: o.runId ?? null, tier: 'standard', modelKey: key, purpose: 'vision', allowTierDrop: false, maxTokens: 900,
 					// Ollama takes images the OpenAI way: a content list with the picture as a data URL.
 					messages: [{ role: 'user', content: [{ type: 'text', text: `Describe this image in detail for someone who cannot see it, so they can answer: "${question.slice(0, 500)}". Copy out any text in it exactly.` }, { type: 'image_url', image_url: { url: `data:${f.type};base64,${f.data}` } }] as never }],
 				});
-				parts.push(`[Attached image "${f.name}", as described by ${r.model}]\n${r.content.trim()}`);
-				notes.push(`${r.model} looked at ${f.name}`);
+				parts.push(`[Attached image "${f.name}", as described by ${r.model}]\n${fit(r.content.trim())}`);
+				results.push({ name: f.name, ok: true, note: `described by ${r.model}` });
 			} else if (f.type.startsWith('text/') || f.type === 'application/json' || TEXTY.test(f.name)) {
-				const t = bytes.toString('utf8');
-				parts.push(`[Attached file "${f.name}"${t.length > MAX_CHARS ? ', cut short' : ''}]\n${t.slice(0, MAX_CHARS)}`);
-				notes.push(`read ${f.name}`);
+				const t = decode(bytes);
+				parts.push(`[Attached file "${f.name}"]\n${fit(t)}`);
+				results.push({ name: f.name, ok: true, note: t.length > share ? 'read, the start' : 'read' });
 			} else throw new Error('only text, code, PDFs and images can be read');
 		} catch (e) {
 			let why = (e as Error).message;
-			if (f.type.startsWith('image/') && /not found/i.test(why)) why = `the image model is not downloaded: on the Models screen, under More models, download ${app.config.file.vision ? app.config.model(app.config.file.vision.model).id : 'gemma3:12b'}`;
+			const vision = app.config.file.vision?.model ? app.config.file.models[app.config.file.vision.model]?.id : undefined;
+			if (f.type.startsWith('image/') && /not found/i.test(why)) why = `the image model is not downloaded: on the Models screen, under More models, download ${vision ?? 'gemma3:12b'}`;
 			parts.push(`[Attached "${f.name}" could not be read: ${why}. Tell the person.]`);
-			notes.push(`could not read ${f.name}: ${why}`);
+			results.push({ name: f.name, ok: false, note: `could not read: ${why}` });
 		}
 	}
-	return { text: parts.join('\n\n'), notes };
+	return { text: parts.join('\n\n'), files: results };
 }
 
 /* ---------- loading models before the first message ---------- */
@@ -95,6 +106,8 @@ export async function pull(app: App, id: string, pulls: Pulls, fetchImpl: typeof
 	const base = app.config.baseUrl('ollama').replace(/\/v1\/?$/, '');
 	const p: Pulls[string] = { status: 'starting', done: 0, total: 0, error: null, finished: false };
 	pulls[id] = p;
+	// Ollama reports each layer of the model in turn; the total is all of them.
+	const layers = new Map<string, { total: number; done: number }>();
 	try {
 		const res = await fetchImpl(`${base}/api/pull`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ model: id, stream: true }) });
 		if (!res.ok || !res.body) throw new Error(`Ollama answered ${res.status}: ${(await res.text().catch(() => '')).slice(0, 200)}`);
@@ -110,10 +123,14 @@ export async function pull(app: App, id: string, pulls: Pulls, fetchImpl: typeof
 				const line = buf.slice(0, nl).trim();
 				buf = buf.slice(nl + 1);
 				if (!line) continue;
-				const m = JSON.parse(line) as { status?: string; total?: number; completed?: number; error?: string };
+				const m = JSON.parse(line) as { status?: string; digest?: string; total?: number; completed?: number; error?: string };
 				if (m.error) throw new Error(m.error);
 				p.status = m.status ?? p.status;
-				if (m.total) (p.total = m.total), (p.done = m.completed ?? 0);
+				if (m.total) {
+					layers.set(m.digest ?? 'one', { total: m.total, done: m.completed ?? 0 });
+					p.total = [...layers.values()].reduce((s, l) => s + l.total, 0);
+					p.done = [...layers.values()].reduce((s, l) => s + l.done, 0);
+				}
 			}
 		}
 		if (p.status !== 'success') throw new Error(`the download ended at "${p.status}"`);
@@ -178,7 +195,7 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 	server.get('/api/conversations', async (req) => {
 		const { q } = z.object({ q: z.string().trim().max(200).default('') }).parse(req.query);
 		const like = `%${q.replace(/[%_]/g, (c) => `\\${c}`)}%`;
-		let rows = db.selectFrom('conversations').selectAll().where('user_id', '=', app.owner);
+		let rows = db.selectFrom('conversations').selectAll().select((eb) => eb.selectFrom('messages').select((e) => e.fn.countAll<number>().as('n')).whereRef('messages.conversation_id', '=', 'conversations.id').as('messages')).where('user_id', '=', app.owner);
 		if (q) rows = rows.where((eb) => eb.or([eb('title', 'like', like), eb.exists(eb.selectFrom('messages').select('id').whereRef('messages.conversation_id', '=', 'conversations.id').where(sql<boolean>`text like ${like} escape '\\'`))]));
 		const list = await rows.orderBy('pinned', 'desc').orderBy('updated_at', 'desc').limit(200).execute();
 		// For a search, the first matching line of each chat, to show why it matched.
@@ -191,7 +208,7 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 			}
 		}
 		const other = await db.selectFrom('messages').select(['created_at']).where('user_id', '=', app.owner).where('conversation_id', 'is', null).orderBy('id', 'desc').executeTakeFirst();
-		return { conversations: list.map((c) => ({ ...c, pinned: !!c.pinned, match: hits[c.id] ?? null })), other: other ? { updated_at: other.created_at } : null };
+		return { conversations: list.map((c) => ({ ...c, pinned: !!c.pinned, messages: Number(c.messages ?? 0), match: hits[c.id] ?? null })), other: other ? { updated_at: other.created_at } : null };
 	});
 	server.post('/api/conversations', async () => {
 		const c = await db.insertInto('conversations').values({ user_id: app.owner, title: 'New chat', pinned: 0, created_at: now(), updated_at: now() }).returning('id').executeTakeFirstOrThrow();
@@ -218,12 +235,17 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 		if (!c) return reply.code(404).send({ error: 'No such chat.' });
 		const msgs = await db.selectFrom('messages').selectAll().where('user_id', '=', app.owner).where((eb) => (id ? eb('conversation_id', '=', id) : eb('conversation_id', 'is', null))).orderBy('id').execute();
 		const md = [`# ${c.title}`, '', ...msgs.flatMap((m) => [`**${m.direction === 'in' ? 'You' : 'Onyx'}**, ${m.created_at.slice(0, 16).replace('T', ' ')} UTC${m.channel !== 'web' ? ` (${m.channel})` : ''}`, '', m.text, ''])].join('\n');
-		const file = `${c.title.replace(/[^\w\- ]+/g, '').trim().slice(0, 50) || 'chat'}.md`;
-		return reply.type('text/markdown; charset=utf-8').header('content-disposition', `attachment; filename="${file}"`).send(md);
+		// Characters Windows refuses in file names become spaces; the plain-ASCII fallback spells é as e.
+		const name = c.title.replace(/[\\/:*?"<>|\x00-\x1f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60) || 'chat';
+		const ascii = name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^\x20-\x7e]+/g, '').trim() || 'chat';
+		return reply.type('text/markdown; charset=utf-8').header('content-disposition', `attachment; filename="${ascii}.md"; filename*=UTF-8''${encodeURIComponent(`${name}.md`)}`).send(md);
 	});
-	server.get('/api/messages', async (req) => {
-		const { conversation } = z.object({ conversation: Conv.optional() }).parse(req.query);
-		let q = db.selectFrom('messages').selectAll().where('user_id', '=', app.owner);
+	server.get('/api/messages', async (req, reply) => {
+		const query = z.object({ conversation: Conv.optional() }).safeParse(req.query);
+		if (!query.success) return reply.code(400).send({ error: 'conversation must be a chat number, or 0 for phone and reminders.' });
+		const { conversation } = query.data;
+		// Not `attached`: what files said can be long, and the app does not show it.
+		let q = db.selectFrom('messages').select(['id', 'channel', 'direction', 'text', 'run_id', 'status', 'error', 'created_at', 'conversation_id']).where('user_id', '=', app.owner);
 		if (conversation !== undefined) q = q.where((eb) => (conversation === 0 ? eb('conversation_id', 'is', null) : eb('conversation_id', '=', conversation)));
 		return { messages: (await q.orderBy('id', 'desc').limit(200).execute()).reverse() };
 	});
@@ -241,7 +263,7 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 		for (const tier of TIERS) {
 			const started = Date.now();
 			try {
-				const r = await app.gateway.complete({ userId: app.owner, tier, purpose: 'health', allowTierDrop: false, maxTokens: 400, deadline: Date.now() + 180_000, messages: [{ role: 'user', content: 'Reply with the single word: OK' }] });
+				const r = await app.gateway.complete({ userId: app.owner, tier, purpose: 'health', allowTierDrop: false, maxTokens: 1500, deadline: Date.now() + 180_000, messages: [{ role: 'user', content: 'Reply with the single word: OK' }] });
 				results.push({ tier, ok: true, model: r.model, ms: Date.now() - started, answer: r.content.trim().slice(0, 80), fallbacks: r.fallbacks.length, error: null });
 			} catch (e) {
 				results.push({ tier, ok: false, model: app.config.candidates(tier)[0]?.id ?? null, ms: Date.now() - started, answer: null, fallbacks: 0, error: (e as Error).message });
@@ -257,12 +279,13 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 	server.get('/api/models/catalog', async () => {
 		const p = await o.plan();
 		const base = app.config.baseUrl('ollama').replace(/\/v1\/?$/, '');
+		const downloads = structuredClone(pulls);
 		const installed = await (o.ollamaFetch ?? fetch)(`${base}/api/tags`, { signal: AbortSignal.timeout(5000) }).then((r) => r.json() as Promise<{ models?: { name: string }[] }>).then((j) => (j.models ?? []).map((m) => m.name.replace(/:latest$/, '')), () => null);
 		const using: Record<string, string[]> = {};
 		for (const t of TIERS) for (const m of app.config.candidates(t)) (using[m.id] ??= []).push(t);
 		const vision = app.config.file.vision?.model ? app.config.file.models[app.config.file.vision.model]?.id : undefined;
 		if (vision) (using[vision] ??= []).push('vision');
-		return { context: p.context, recommended: { ...p.tiers, vision: p.vision }, models: p.fits.map((f) => ({ ...f, installed: installed ? installed.includes(f.id) : null, using: using[f.id] ?? [], equivalent: app.config.equivalents[f.id] ?? null })), pulls };
+		return { context: p.context, recommended: { ...p.tiers, vision: p.vision }, models: p.fits.map((f) => ({ ...f, installed: installed ? installed.includes(f.id) : null, using: using[f.id] ?? [], equivalent: app.config.equivalents[f.id] ?? null })), pulls: downloads };
 	});
 	server.post('/api/models/pull', async (req, reply) => {
 		const body = z.object({ id: z.string() }).safeParse(req.body);
@@ -283,8 +306,8 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 			const { parseDocument } = await import('yaml');
 			const doc = parseDocument(yaml);
 			const key = app.config.file.vision?.model ?? 'vision';
-			if (!app.config.file.models[key]) doc.setIn(['models', key], doc.createNode({ provider: 'ollama', id: entry.id, family: entry.maker.toLowerCase(), price: { input: 0, output: 0 }, tools: false }, { flow: true }));
-			else doc.setIn(['models', key, 'id'], entry.id);
+			if (!app.config.file.models[key]) doc.setIn(['models', key], doc.createNode({ provider: 'ollama', id: entry.id, family: familyOf(entry.id), price: { input: 0, output: 0 }, tools: false }, { flow: true }));
+			else (doc.setIn(['models', key, 'id'], entry.id), doc.setIn(['models', key, 'family'], familyOf(entry.id)));
 			doc.setIn(['vision'], doc.createNode({ model: key }));
 			yaml = doc.toString({ lineWidth: 0 });
 		} else yaml = (await applyToTiers(yaml, { [body.data.use]: entry.id } as Plan['tiers'])).yaml;
@@ -315,14 +338,17 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 			return reply.code(400).send({ error: `The backup failed: ${(e as Error).message}` });
 		}
 	});
-	// Once a day, while Onyx runs: checked every hour.
-	const daily = setInterval(async () => {
+	// Once a day while Onyx runs: checked two minutes after it starts, then every hour.
+	const due = async () => {
 		const s = await backupSettings().catch(() => null);
 		const last = await setting<{ at: string } | null>('backup_last', null).catch(() => null);
 		if (s?.dir && (!last || Date.now() - Date.parse(last.at) > 23 * 3600_000)) await backupNow(app, s).catch((e) => console.log(`  backup failed: ${(e as Error).message}`));
-	}, 3600_000);
+	};
+	const daily = setInterval(() => void due(), 3600_000);
+	const first = setTimeout(() => void due(), 120_000);
 	daily.unref();
-	server.addHook('onClose', async () => clearInterval(daily));
+	first.unref();
+	server.addHook('onClose', async () => (clearInterval(daily), clearTimeout(first)));
 
 	/* Starting with Windows. */
 	server.get('/api/autostart', async () => ({ supported: autostartSupported(), on: autostartOn() }));

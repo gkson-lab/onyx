@@ -79,7 +79,7 @@ export type AgentDef = z.infer<typeof AgentDef>;
 export const RunStatus = z.enum(['running', 'done', 'error', 'killed']);
 export type RunStatus = z.infer<typeof RunStatus>;
 
-export const EVENT_TYPES = ['routed', 'started', 'thinking', 'delta', 'tool_call', 'tool_result', 'delegated', 'fallback', 'finished', 'error', 'message', 'channel', 'attachments'] as const;
+export const EVENT_TYPES = ['routed', 'started', 'thinking', 'delta', 'tool_call', 'tool_result', 'delegated', 'fallback', 'finished', 'error', 'message', 'channel', 'attachments', 'update'] as const;
 /** One thing that happened in a run. The same shape goes over the WebSocket and into the step log. */
 export const AgentEvent = z.object({
 	type: z.enum(EVENT_TYPES),

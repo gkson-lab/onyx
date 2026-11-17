@@ -1,19 +1,22 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowUp, Download, MessageSquarePlus, Paperclip, Pencil, Pin, PinOff, Search, Smartphone, Square, Trash2, X, PanelLeft } from 'lucide-react';
+import { ArrowUp, Download, MessageSquarePlus, PanelLeft, Paperclip, Pencil, Pin, PinOff, Search, Smartphone, Square, Trash2, X } from 'lucide-react';
 import { api, nodesFrom, useData, useLive, fmtTime, type RunNode } from '@/lib/api';
 import { Activity, treeOf } from '@/components/run';
 import { ChannelIcon, Empty, ICON, Problem } from '@/components/ui';
 import { CopyButton, MessageText } from '@/components/message';
 
 interface Msg { id: number; direction: 'in' | 'out'; text: string; run_id: string | null; channel: string; status: string; created_at: string }
-interface Conv { id: number; title: string; pinned: boolean; updated_at: string; match: string | null }
+interface Conv { id: number; title: string; pinned: boolean; updated_at: string; messages: number; match: string | null }
 interface File64 { name: string; type: string; data: string; size: number }
+interface Pending { runId: string; text: string; files: number }
 const TIERS = [['auto', 'Auto'], ['lite', 'Lite'], ['standard', 'Standard'], ['pro', 'Pro'], ['max', 'Max']] as const;
 type Pick = (typeof TIERS)[number][0];
 const MAX_FILE = 10 * 1024 * 1024;
-const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* private window */ } } };
+const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* a private window */ } } };
 const isMac = () => typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
+const wide = () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches;
+const PREFIX = /^\/(lite|standard|pro|max|think)\s*/i;
 
 /** The activity under a stored reply: loaded from the run log the first time it is shown. */
 function Stored({ runId }: { runId: string }) {
@@ -39,7 +42,7 @@ function Chats({ current, choose, fresh, searchRef, version }: { current: number
 	const [q, setQ] = useState('');
 	const [query, setQuery] = useState('');
 	useEffect(() => {
-		const t = setTimeout(() => setQuery(q), 250);
+		const t = setTimeout(() => setQuery(q.trim()), 250);
 		return () => clearTimeout(t);
 	}, [q]);
 	const { data, error } = useData<{ conversations: Conv[]; other: { updated_at: string } | null }>(`/conversations?q=${encodeURIComponent(query)}`, [version]);
@@ -59,12 +62,12 @@ function Chats({ current, choose, fresh, searchRef, version }: { current: number
 		<div className="flex h-full flex-col">
 			<button type="button" onClick={fresh} className="mb-3 flex min-h-10 items-center gap-2 rounded border px-3 text-sm hover:border-muted">
 				<MessageSquarePlus {...ICON} size={16} aria-hidden /> New chat
-				<kbd className="ml-auto font-mono text-[10px] text-muted">{isMac() ? '⌘⇧O' : 'Ctrl+Shift+O'}</kbd>
+				<kbd className="ml-auto hidden font-mono text-[10px] text-muted md:inline">{isMac() ? '⌘⇧O' : 'Ctrl+Shift+O'}</kbd>
 			</button>
 			<label className="relative mb-2 block">
 				<span className="sr-only">Search chats</span>
 				<Search {...ICON} size={15} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" aria-hidden />
-				<input ref={searchRef} value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === 'Escape' && setQ('')} placeholder={`Search  ${isMac() ? '⌘K' : 'Ctrl+K'}`} className="w-full pl-8 text-sm" />
+				<input ref={searchRef} type="search" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === 'Escape' && (e.stopPropagation(), setQ(''))} placeholder={wide() ? `Search  ${isMac() ? '⌘K' : 'Ctrl+K'}` : 'Search chats'} className="w-full pl-8 text-sm" />
 			</label>
 			{error && <Problem>{error}</Problem>}
 			<ul className="min-h-0 flex-1 space-y-0.5 overflow-y-auto">
@@ -78,25 +81,29 @@ function Chats({ current, choose, fresh, searchRef, version }: { current: number
 
 export default function Chat() {
 	const { live } = useLive();
+	// null: not chosen yet; -1: a new chat not created yet; 0: phone and reminders.
 	const [conv, setConv] = useState<number | null>(null);
 	const [version, setVersion] = useState(0);
 	const [panel, setPanel] = useState(false);
-	const { data, error, reload } = useData<{ messages: Msg[] }>(conv === null ? null : `/messages?conversation=${conv}`);
+	const { data, error, reload } = useData<{ messages: Msg[] }>(conv === null || conv < 0 ? null : `/messages?conversation=${conv}`);
 	const meta = useData<{ conversations: Conv[] }>('/conversations', [version]);
 	const warm = useData<{ ready: boolean; models: Record<string, string> }>('/warmup');
 	const [text, setText] = useState('');
 	const [tier, setTier] = useState<Pick>('auto');
 	const [files, setFiles] = useState<File64[]>([]);
-	const [pending, setPending] = useState<{ runId: string; text: string; files: number; conv: number } | null>(null);
+	// Each chat can have a message in progress of its own; another chat stays free to use meanwhile.
+	const [pending, setPending] = useState<Record<number, Pending>>({});
 	const [sendError, setSendError] = useState<string | null>(null);
 	const [renaming, setRenaming] = useState<string | null>(null);
+	const renamed = useRef(false);
 	const end = useRef<HTMLDivElement>(null);
 	const input = useRef<HTMLTextAreaElement>(null);
-	const search = useRef<HTMLInputElement>(null);
+	const searchSide = useRef<HTMLInputElement>(null);
+	const searchPanel = useRef<HTMLInputElement>(null);
 	const picker = useRef<HTMLInputElement>(null);
-	const messages = conv === null ? [] : data?.messages ?? [];
+	const messages = conv === null || conv < 0 ? [] : data?.messages ?? [];
 	const current = meta.data?.conversations.find((c) => c.id === conv) ?? null;
-	const mine = pending && pending.conv === conv ? pending : null;
+	const mine = conv !== null ? pending[conv] ?? null : null;
 	const tree: RunNode[] = mine ? treeOf(live.nodes, mine.runId) : [];
 	const root = tree[0];
 	const streamed = mine ? live.text[mine.runId] ?? '' : '';
@@ -107,13 +114,15 @@ export default function Chat() {
 		const saved = store.get('onyx.chat');
 		const last = saved === null ? NaN : Number(saved);
 		setConv(meta.data.conversations.some((c) => c.id === last) || last === 0 ? last : meta.data.conversations[0]?.id ?? -1);
+	}, [meta.data, conv]);
+	// The model picked last time. Saved when you change it, not on load, or the default would overwrite it.
+	useEffect(() => {
 		const t = store.get('onyx.tier') as Pick | null;
 		if (t && TIERS.some(([k]) => k === t)) setTier(t);
-	}, [meta.data, conv]);
+	}, []);
 	useEffect(() => {
 		if (conv !== null && conv >= 0) store.set('onyx.chat', String(conv));
 	}, [conv]);
-	useEffect(() => store.set('onyx.tier', tier), [tier]);
 	// Until the models are loaded, ask again every two seconds.
 	useEffect(() => {
 		if (!warm.data || warm.data.ready) return;
@@ -132,10 +141,12 @@ export default function Chat() {
 		const t = setInterval(reload, 400);
 		return () => clearInterval(t);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [finished]);
+	}, [finished, conv]);
 	useEffect(() => {
-		if (stored) (setPending(null), setVersion((v) => v + 1));
-	}, [stored]);
+		if (!stored || conv === null) return;
+		setPending(({ [conv]: _, ...rest }) => rest);
+		setVersion((v) => v + 1);
+	}, [stored, conv]);
 	useEffect(() => {
 		end.current?.scrollIntoView({ block: 'end' });
 	}, [messages.length, streamed, tree.length, conv]);
@@ -147,30 +158,34 @@ export default function Chat() {
 	const choose = (id: number) => (setConv(id), setPanel(false), setRenaming(null), setSendError(null));
 	const fresh = useCallback(async () => {
 		// An empty chat is reused rather than piling up.
-		const empty = meta.data?.conversations.find((c) => c.title === 'New chat');
+		const empty = meta.data?.conversations.find((c) => c.messages === 0 && !pending[c.id]);
 		const id = empty?.id ?? (await api<{ id: number }>('/conversations', { method: 'POST' })).id;
 		setVersion((v) => v + 1);
 		choose(id);
 		setTimeout(() => input.current?.focus(), 50);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [meta.data]);
+	}, [meta.data, pending]);
 	const stop = useCallback(() => {
-		if (pending) void api(`/runs/${pending.runId}/kill`, { method: 'POST' }).catch(() => {});
-	}, [pending]);
+		if (mine) void api(`/runs/${mine.runId}/kill`, { method: 'POST' }).catch(() => {});
+	}, [mine]);
 
-	// Keyboard: Ctrl/Cmd+K search, Ctrl/Cmd+Shift+O new chat, Esc stop, / to type.
+	// Keys: Ctrl/Cmd+K search, Ctrl/Cmd+Shift+O new chat, Esc stops the answer being written, / jumps to the message box.
 	useEffect(() => {
 		const key = (e: KeyboardEvent) => {
 			const mod = e.metaKey || e.ctrlKey;
-			const typing = e.target instanceof HTMLElement && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
-			if (mod && e.key.toLowerCase() === 'k') (e.preventDefault(), setPanel(true), setTimeout(() => search.current?.focus(), 30));
-			else if (mod && e.shiftKey && e.key.toLowerCase() === 'o') (e.preventDefault(), void fresh());
-			else if (e.key === 'Escape' && pending && !typing) (e.preventDefault(), stop());
+			const el = e.target instanceof HTMLElement ? e.target : null;
+			const typing = !!el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName);
+			if (mod && !e.shiftKey && e.key.toLowerCase() === 'k') {
+				e.preventDefault();
+				if (wide()) searchSide.current?.focus();
+				else (setPanel(true), setTimeout(() => searchPanel.current?.focus(), 30));
+			} else if (mod && e.shiftKey && e.key.toLowerCase() === 'o') (e.preventDefault(), void fresh());
+			else if (e.key === 'Escape' && mine && (!typing || el === input.current)) (e.preventDefault(), stop());
 			else if (e.key === '/' && !typing && !mod) (e.preventDefault(), input.current?.focus());
 		};
 		window.addEventListener('keydown', key);
 		return () => window.removeEventListener('keydown', key);
-	}, [fresh, stop, pending]);
+	}, [fresh, stop, mine]);
 
 	const attach = async (list: FileList | null) => {
 		setSendError(null);
@@ -179,25 +194,28 @@ export default function Chat() {
 			if (f.size > MAX_FILE) setSendError(`${f.name} is over 10 MB.`);
 			else add.push(await readFile(f));
 		}
+		if (files.length + add.length > 5) setSendError('Up to five files at a time.');
 		setFiles((x) => [...x, ...add].slice(0, 5));
 		if (picker.current) picker.current.value = '';
 	};
 
 	const send = async () => {
 		const t = text.trim();
-		if ((!t && !files.length) || pending) return;
+		if ((!t && !files.length) || mine) return;
 		setSendError(null);
-		let id = conv;
-		if (id === null || id < 0 || id === 0) {
-			id = (await api<{ id: number }>('/conversations', { method: 'POST' })).id;
-			setConv(id);
-		}
 		const sent = files;
 		setText('');
 		setFiles([]);
 		try {
+			// Phone and reminders, or a chat not created yet: the message starts a new chat.
+			let id = conv;
+			if (id === null || id <= 0) {
+				id = (await api<{ id: number }>('/conversations', { method: 'POST' })).id;
+				setConv(id);
+			}
 			const { runId } = await api<{ runId: string }>('/chat', { method: 'POST', body: { text: t, tier, conversation_id: id, attachments: sent.map(({ name, type, data }) => ({ name, type, data })) } });
-			setPending({ runId, text: t + (sent.length ? `\n\n📎 ${sent.map((f) => f.name).join(', ')}` : ''), files: sent.length, conv: id });
+			const chat = id;
+			setPending((p) => ({ ...p, [chat]: { runId, text: t + (sent.length ? `\n\n📎 ${sent.map((f) => f.name).join(' · ')}` : ''), files: sent.length } }));
 			setTimeout(() => setVersion((v) => v + 1), 300);
 		} catch (e) {
 			setText(t);
@@ -207,8 +225,11 @@ export default function Chat() {
 	};
 
 	const rename = async (title: string) => {
+		// Enter submits and then the input's blur would submit again.
+		if (renamed.current) return;
+		renamed.current = true;
 		setRenaming(null);
-		if (current && title.trim() && title.trim() !== current.title) await api(`/conversations/${current.id}`, { method: 'PATCH', body: { title: title.trim() } });
+		if (current && title.trim() && title.trim() !== current.title) await api(`/conversations/${current.id}`, { method: 'PATCH', body: { title: title.trim() } }).catch((e) => setSendError((e as Error).message));
 		setVersion((v) => v + 1);
 	};
 	const remove = async () => {
@@ -218,19 +239,19 @@ export default function Chat() {
 		setVersion((v) => v + 1);
 	};
 
-	const waiting = !warm.data?.ready && warm.data && Object.keys(warm.data.models).length > 0;
+	const waiting = !!warm.data && !warm.data.ready && Object.keys(warm.data.models).length > 0;
 	const label = !mine ? '' : tree.length > 1 ? `${tree.filter((n) => n.status === 'running' && n.parentId).map((n) => n.name).join(', ') || 'Core'} working` : live.routing[mine.runId] ? 'Thinking' : mine.files ? 'Reading the attached files' : waiting ? 'Loading models into the graphics card (the first message after starting)' : 'Choosing a model';
 	const iconBtn = 'flex h-9 w-9 items-center justify-center rounded text-muted hover:text-text';
 
 	return (
 		<div className="flex h-full">
 			<aside className="hidden w-64 shrink-0 border-r p-3 lg:block">
-				<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={search} version={version} />
+				<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={searchSide} version={version} />
 			</aside>
 			{panel && (
-				<div role="dialog" aria-modal="true" aria-label="Chats" className="fade fixed inset-0 z-30 flex bg-bg/80 lg:hidden" onClick={() => setPanel(false)}>
+				<div role="dialog" aria-modal="true" aria-label="Chats" className="fade fixed inset-0 z-30 flex bg-bg/80 lg:hidden" onClick={() => setPanel(false)} onKeyDown={(e) => e.key === 'Escape' && setPanel(false)}>
 					<div className="h-full w-80 max-w-[85vw] border-r bg-bg p-3" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }} onClick={(e) => e.stopPropagation()}>
-						<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={search} version={version} />
+						<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={searchPanel} version={version} />
 					</div>
 				</div>
 			)}
@@ -241,19 +262,19 @@ export default function Chat() {
 					{renaming !== null && current ? (
 						<form className="flex-1" onSubmit={(e) => (e.preventDefault(), void rename(renaming))}>
 							<label htmlFor="rename" className="sr-only">Chat name</label>
-							<input id="rename" autoFocus value={renaming} onChange={(e) => setRenaming(e.target.value)} onBlur={() => void rename(renaming)} onKeyDown={(e) => e.key === 'Escape' && setRenaming(null)} className="w-full text-sm" />
+							<input id="rename" autoFocus value={renaming} maxLength={120} onChange={(e) => setRenaming(e.target.value)} onBlur={() => void rename(renaming)} onKeyDown={(e) => e.key === 'Escape' && (e.stopPropagation(), (renamed.current = true), setRenaming(null))} className="w-full text-sm" />
 						</form>
 					) : (
 						<h1 className="min-w-0 flex-1 truncate text-sm font-medium">{conv === 0 ? 'Phone and reminders' : current?.title ?? 'New chat'}</h1>
 					)}
 					{current && renaming === null && (
 						<>
-							<button type="button" onClick={() => setRenaming(current.title)} aria-label="Rename" title="Rename" className={iconBtn}><Pencil {...ICON} size={16} aria-hidden /></button>
+							<button type="button" onClick={() => ((renamed.current = false), setRenaming(current.title))} aria-label="Rename" title="Rename" className={iconBtn}><Pencil {...ICON} size={16} aria-hidden /></button>
 							<button type="button" onClick={() => void api(`/conversations/${current.id}`, { method: 'PATCH', body: { pinned: !current.pinned } }).then(() => setVersion((v) => v + 1))} aria-label={current.pinned ? 'Unpin' : 'Pin'} title={current.pinned ? 'Unpin' : 'Pin'} className={iconBtn}>{current.pinned ? <PinOff {...ICON} size={16} aria-hidden /> : <Pin {...ICON} size={16} aria-hidden />}</button>
 						</>
 					)}
 					{conv !== null && conv >= 0 && messages.length > 0 && <a href={`/api/conversations/${conv}/export`} download aria-label="Export as Markdown" title="Export as Markdown" className={iconBtn}><Download {...ICON} size={16} aria-hidden /></a>}
-					{current && <button type="button" onClick={() => void remove()} aria-label="Delete chat" title="Delete chat" className={`${iconBtn} hover:text-bad`}><Trash2 {...ICON} size={16} aria-hidden /></button>}
+					{current && <button type="button" onClick={() => void remove()} disabled={!!mine} aria-label="Delete chat" title="Delete chat" className={`${iconBtn} hover:text-bad disabled:opacity-30`}><Trash2 {...ICON} size={16} aria-hidden /></button>}
 				</div>
 
 				<div className="min-h-0 flex-1 overflow-y-auto py-6" aria-live="polite">
@@ -266,13 +287,14 @@ export default function Chat() {
 					<ol className="space-y-6">
 						{messages.map((m) => (
 							<li key={m.id} className={`group ${Date.now() - Date.parse(m.created_at) < 4000 ? 'enter' : ''}`}>
-								<div className="mb-1 flex items-center gap-2 text-xs text-muted">
+								<div className="mb-1 flex min-h-8 items-center gap-2 text-xs text-muted">
 									{m.direction === 'in' ? 'You' : 'Onyx'}
 									{m.channel !== 'web' && <ChannelIcon channel={m.channel} />}
 									<time dateTime={m.created_at}>{fmtTime(m.created_at)}</time>
-									{m.direction === 'out' && <span className="opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100"><CopyButton text={m.text} label="Copy the answer" /></span>}
+									{/* On a phone there is no hover, so the button is always there. */}
+									{m.direction === 'out' && <span className="transition-opacity md:opacity-0 md:focus-within:opacity-100 md:group-hover:opacity-100"><CopyButton text={m.text} label="Copy the answer" /></span>}
 								</div>
-								<MessageText text={m.direction === 'in' ? m.text.replace(/^\/(lite|standard|pro|max|think)\s*/i, '') : m.text} className={`${m.direction === 'in' ? 'text-muted' : ''} ${m.status === 'error' ? 'text-bad' : ''}`} />
+								<MessageText text={m.direction === 'in' ? m.text.replace(PREFIX, '') : m.text} className={`${m.direction === 'in' ? 'text-muted' : ''} ${m.status === 'error' ? 'text-bad' : ''}`} />
 								{m.direction === 'out' && m.run_id && <Stored runId={m.run_id} />}
 							</li>
 						))}
@@ -309,12 +331,13 @@ export default function Chat() {
 						<input ref={picker} type="file" multiple hidden accept="image/*,application/pdf,text/*,.md,.csv,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.go,.rs,.java,.c,.cpp,.cs,.sh,.ps1,.sql,.html,.css" onChange={(e) => void attach(e.target.files)} />
 						<button type="button" onClick={() => picker.current?.click()} disabled={files.length >= 5} aria-label="Attach files" title="Attach text, code, PDFs or images" className="flex h-11 w-9 shrink-0 items-center justify-center text-muted hover:text-text disabled:opacity-30"><Paperclip {...ICON} aria-hidden /></button>
 						<label htmlFor="message" className="sr-only">Message to Onyx</label>
-						<textarea ref={input} id="message" rows={1} value={text} onChange={(e) => setText(e.target.value)} onPaste={(e) => e.clipboardData.files.length && (e.preventDefault(), void attach(e.clipboardData.files))} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), void send())} placeholder="Message Onyx" className="max-h-40 min-h-11 min-w-0 flex-1" />
+						{/* A pasted screenshot is attached; text copied from Word or Excel (which also carries a picture of itself) is pasted as text. */}
+						<textarea ref={input} id="message" rows={1} value={text} onChange={(e) => setText(e.target.value)} onPaste={(e) => e.clipboardData.files.length > 0 && !e.clipboardData.getData('text/plain') && (e.preventDefault(), void attach(e.clipboardData.files))} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && (e.preventDefault(), void send())} placeholder="Message Onyx" className="max-h-40 min-h-11 min-w-0 flex-1" />
 						<label htmlFor="tier" className="sr-only">Model</label>
-						<select id="tier" value={tier} onChange={(e) => setTier(e.target.value as Pick)} title="Which model answers. Auto lets the router choose." className="h-11 shrink-0 text-sm">
+						<select id="tier" value={tier} onChange={(e) => (setTier(e.target.value as Pick), store.set('onyx.tier', e.target.value))} title="Which model answers. Auto lets the router choose." className="h-11 shrink-0 text-sm">
 							{TIERS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
 						</select>
-						{pending ? (
+						{mine ? (
 							<button type="button" onClick={stop} aria-label="Stop" title="Stop (Esc)" className="flex h-11 w-11 shrink-0 items-center justify-center rounded border text-text hover:border-bad hover:text-bad"><Square {...ICON} size={16} fill="currentColor" aria-hidden /></button>
 						) : (
 							<button type="submit" disabled={!text.trim() && !files.length} aria-label="Send" className="flex h-11 w-11 shrink-0 items-center justify-center rounded bg-accent text-bg disabled:opacity-30"><ArrowUp {...ICON} aria-hidden /></button>

@@ -85,6 +85,18 @@ export function Shell({ children }: { children: React.ReactNode }) {
 					<Mark />
 					{!live.connected && <span className="text-xs text-bad">Server not connected</span>}
 				</header>
+				{(live.updating || live.updated) && (
+					<div role="status" className="flex min-h-11 flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b bg-surface px-4 py-2 text-sm">
+						{live.updated ? (
+							<>
+								<span>Onyx was updated to <span className="font-mono text-xs">{live.updated.slice(0, 7)}</span>. Reload to use the new version.</span>
+								<button type="button" onClick={() => window.location.reload()} className="min-h-9 rounded bg-accent px-3 text-sm font-medium text-bg hover:opacity-85">Reload</button>
+							</>
+						) : (
+							<span className="thinking">Onyx is updating to <span className="font-mono text-xs">{live.updating!.to.slice(0, 7)}</span>{live.updating!.message ? `: ${live.updating!.message}` : ''}. It is back in a minute or two.</span>
+						)}
+					</div>
+				)}
 				<main className="min-h-0 flex-1 overflow-y-auto"><div key={path} className="enter h-full">{children}</div></main>
 				<nav aria-label="Main" className="grid grid-cols-5 border-t md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
 					{ALL.filter((i) => BOTTOM.includes(i.href)).map((i) => {

@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
-import { ROOT, type Env } from '../config.ts';
+import { localOf, ROOT, type Env } from '../config.ts';
 import type { Tool, ToolRegistry } from './types.ts';
 
 const Connector = z.discriminatedUnion('transport', [
@@ -35,7 +35,8 @@ const realConnect: Connect = async (id, def, env) => {
 export class Connectors {
 	private readonly clients = new Map<string, McpClientLike>();
 	private readonly state = new Map<string, ConnectorStatus>();
-	constructor(private readonly registry: ToolRegistry, private readonly env: Env = process.env, private readonly connect: Connect = realConnect, private readonly path = resolve(ROOT, 'config/connectors.yaml')) {}
+	// config/connectors.local.yaml, when you have made one, is used instead of the shipped file: updates leave it alone.
+	constructor(private readonly registry: ToolRegistry, private readonly env: Env = process.env, private readonly connect: Connect = realConnect, private readonly path = existsSync(localOf(resolve(ROOT, 'config/connectors.yaml'))) ? localOf(resolve(ROOT, 'config/connectors.yaml')) : resolve(ROOT, 'config/connectors.yaml')) {}
 
 	load(): Record<string, ConnectorDef> {
 		if (!existsSync(this.path)) return {};

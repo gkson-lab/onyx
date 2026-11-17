@@ -1,8 +1,10 @@
 node_modules/
 .env
-data/*.db*
+# Your data (chats, memories, settings, backups made by the updater) and your own config files: never committed,
+# and never touched by updates.
+data/
 dist/
 .next/
 out/
 next-env.d.ts
-config/tiers.local.yaml
+config/*.local.yaml

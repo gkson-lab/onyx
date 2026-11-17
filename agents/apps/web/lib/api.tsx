@@ -21,7 +21,7 @@ export function useData<T>(path: string | null, deps: unknown[] = []) {
 	useEffect(() => {
 		if (!path) return;
 		let live = true;
-		api<T>(path).then((d) => live && (setData(d), setError(null)), (e) => live && setError(e.message === 'Failed to fetch' ? 'The Onyx server is not answering. Start it with: pnpm start' : e.message));
+		api<T>(path).then((d) => live && (setData(d), setError(null)), (e) => live && setError(e.message === 'Failed to fetch' ? 'The Onyx server is not answering. Start Onyx with its shortcut (or pnpm start).' : e.message));
 		return () => void (live = false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [path, n, ...deps]);
@@ -35,12 +35,14 @@ export interface RunNode {
 	id: string; rootId: string; parentId: string | null; agentId: string; name: string; depth: number; status: 'running' | 'done' | 'error' | 'killed';
 	tier: Tier | null; model: string | null; input: string; output: string; error: string | null; tokens: number; cost: number | null; equivalent: number | null; ms: number | null; step: number; log: LogEntry[]; startedAt: string;
 }
-export interface Live { connected: boolean; nodes: Record<string, RunNode>; routing: Record<string, any>; text: Record<string, string>; inbox: { text: string; at: string; channel: string }[]; lastRoot: string | null }
+export interface Live { connected: boolean; nodes: Record<string, RunNode>; routing: Record<string, any>; text: Record<string, string>; inbox: { text: string; at: string; channel: string }[]; lastRoot: string | null; updating: { to: string; message: string } | null; updated: string | null }
 
-const empty: Live = { connected: false, nodes: {}, routing: {}, text: {}, inbox: [], lastRoot: null };
+const empty: Live = { connected: false, nodes: {}, routing: {}, text: {}, inbox: [], lastRoot: null, updating: null, updated: null };
 
-function reduce(s: Live, a: AgentEvent | { type: '_conn'; connected: boolean } | { type: '_load'; nodes: RunNode[]; routing?: any }): Live {
+function reduce(s: Live, a: AgentEvent | { type: '_conn'; connected: boolean } | { type: '_load'; nodes: RunNode[]; routing?: any } | { type: '_updated'; sha: string }): Live {
 	if (a.type === '_conn') return { ...s, connected: (a as any).connected };
+	// Back after an update: the server runs a version this page was not loaded from.
+	if (a.type === '_updated') return { ...s, updated: (a as { sha: string }).sha, updating: null };
 	if (a.type === '_load') {
 		const l = a as { nodes: RunNode[]; routing?: any };
 		const nodes = { ...s.nodes };
@@ -49,6 +51,7 @@ function reduce(s: Live, a: AgentEvent | { type: '_conn'; connected: boolean } |
 		return { ...s, nodes, routing: root && l.routing ? { ...s.routing, [root.id]: l.routing } : s.routing };
 	}
 	const e = a as AgentEvent;
+	if (e.type === 'update' && e.data.phase === 'restarting') return { ...s, updating: { to: String(e.data.to), message: String(e.data.message ?? '') } };
 	if (e.type === 'message') return { ...s, inbox: [...s.inbox, { text: String(e.data.text), at: e.at, channel: String(e.data.channel) }].slice(-50) };
 	if (!e.runId) return s;
 	if (e.type === 'routed') return { ...s, routing: { ...s.routing, [e.runId]: e.data }, lastRoot: e.runId };
@@ -74,6 +77,7 @@ export const useLive = () => useContext(Ctx);
 export function LiveProvider({ children }: { children: React.ReactNode }) {
 	const [live, dispatch] = useReducer(reduce, empty);
 	const retry = useRef(0);
+	const version = useRef<string | null>(null);
 	useEffect(() => {
 		let ws: WebSocket | null = null;
 		let timer: ReturnType<typeof setTimeout>;
@@ -81,7 +85,16 @@ export function LiveProvider({ children }: { children: React.ReactNode }) {
 		const connect = () => {
 			const origin = BASE || window.location.origin;
 			ws = new WebSocket(`${origin.replace(/^http/, 'ws')}/ws`);
-			ws.onopen = () => ((retry.current = 0), dispatch({ type: '_conn', connected: true }));
+			ws.onopen = () => {
+				retry.current = 0;
+				dispatch({ type: '_conn', connected: true });
+				// The version the server runs: noted the first time, compared on every reconnect after.
+				api<{ sha: string | null }>('/version').then(({ sha }) => {
+					if (!sha) return;
+					if (version.current === null) version.current = sha;
+					else if (sha !== version.current) dispatch({ type: '_updated', sha });
+				}, () => {});
+			};
 			ws.onmessage = (m) => {
 				try {
 					dispatch(JSON.parse(m.data));

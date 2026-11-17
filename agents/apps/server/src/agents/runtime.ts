@@ -86,7 +86,7 @@ export class Runtime {
 	/* ---------- A message from a person ---------- */
 
 	/** Routes a message, runs Onyx Core on it, and returns its answer. `onDelta` receives the answer as it is written. */
-	async handle(o: { userId: string; text: string; channel: Channel; history?: ChatMessage[]; runId?: string }): Promise<RunResult & { routing: RoutingDecision }> {
+	async handle(o: { userId: string; text: string; channel: Channel; history?: ChatMessage[]; runId?: string; attached?: string }): Promise<RunResult & { routing: RoutingDecision }> {
 		const runId = o.runId ?? randomUUID();
 		const routing = await this.d.router.route(o.userId, o.text, runId);
 		this.d.bus.emit({ type: 'routed', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { ...routing } });
@@ -100,7 +100,9 @@ export class Runtime {
 		const only = routing.tools.length === 1 ? SPECIALIST[routing.tools[0]!] : undefined;
 		const specialist = only ? await this.agent(only) : null;
 		const agentId = specialist?.enabled ? specialist.id : 'core';
-		const r = await this.run({ agentId, input: routing.text, userId: o.userId, channel: o.channel, runId, tier: agentId === 'core' ? routing.tier : undefined, history: o.history, routing, noTools: direct && agentId === 'core' });
+		// The router decides from the question and the files' names; the agent also gets what the files say.
+		const input = o.attached ? `${routing.text}\n\n${o.attached}` : routing.text;
+		const r = await this.run({ agentId, input, userId: o.userId, channel: o.channel, runId, tier: agentId === 'core' ? routing.tier : undefined, history: o.history, routing, noTools: direct && agentId === 'core' });
 		return { ...r, output: r.status === 'done' ? r.output + (await this.notDone(runId)) : r.output, routing };
 	}
 

@@ -38,6 +38,8 @@ export const CATALOG: readonly CatalogEntry[] = [
 ];
 export type ModelId = string;
 export const catalogEntry = (id: string): CatalogEntry | undefined => CATALOG.find((m) => m.id === id);
+/** The family name tiers.yaml uses: qwen3:8b and qwen3-coder:30b are qwen, gpt-oss:20b is gpt-oss, gemma3:12b is gemma. */
+export const familyOf = (id: string): string => (id.startsWith('gpt-oss') ? 'gpt-oss' : id.replace(/[\d.]*[:-].*$/, '') || id);
 
 // Memory bandwidth in GB/s of common NVIDIA cards. Generation speed follows it almost directly.
 const GPU_BANDWIDTH: [RegExp, number][] = [
@@ -197,6 +199,7 @@ export async function applyToTiers(yamlText: string, tiers: Plan['tiers']): Prom
 		const key = data.tiers[tier]?.models.find((k) => data.providers[data.models[k]?.provider ?? '']?.local);
 		if (!key || data.models[key]!.id === id) continue;
 		doc.setIn(['models', key, 'id'], id);
+		doc.setIn(['models', key, 'family'], familyOf(id));
 		const extra = catalogEntry(id)?.extra;
 		if (extra) doc.setIn(['models', key, 'extra'], doc.createNode(extra, { flow: true }));
 		else doc.deleteIn(['models', key, 'extra']);

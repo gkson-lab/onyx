@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, Check, X } from 'lucide-react';
 import { api, fmtTime, useData } from '@/lib/api';
 import { Button, Code, ICON, Loading, Page, Problem, Section, channelLabel } from '@/components/ui';
 import { Autostart, Backups } from '@/components/settings-extra';
+import { Updates } from '@/components/updates';
 
 interface S { preferred_channels: string[]; allowlist: string[]; keys: { name: string; set: boolean }[]; cloud: boolean }
 const KEY_USE: Record<string, string> = { MOONSHOT_API_KEY: 'Kimi models (only used when ONYX_CLOUD=on)', BRAVE_API_KEY: 'Web search for the Researcher', GITHUB_MCP_TOKEN: 'The GitHub connector', ONYX_PASSWORD: 'Signing in to this app from outside this PC', WHATSAPP_TOKEN: 'Sending WhatsApp messages', WHATSAPP_APP_SECRET: 'Checking that WhatsApp webhooks come from Meta', TWILIO_AUTH_TOKEN: 'Sending SMS, and checking Twilio webhooks' };
@@ -232,6 +233,7 @@ export default function Settings() {
 						<p className="mt-3 text-sm text-muted">Cloud models are {data.cloud ? 'on' : 'off'}: <Code>ONYX_CLOUD={data.cloud ? 'on' : 'off'}</Code>. {data.cloud ? 'Pro and Max try Kimi first.' : 'Every model call stays on this PC.'}</p>
 					</Section>
 
+					<Updates />
 					<Autostart />
 					<Backups />
 

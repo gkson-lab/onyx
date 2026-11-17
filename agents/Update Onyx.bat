@@ -2,27 +2,24 @@
 setlocal EnableExtensions
 title Onyx update
 cd /d "%~dp0"
+rem Makes this copy the same as the newest Onyx on GitHub: new and changed files are downloaded, files GitHub no
+rem longer has are removed. Your password and keys (.env), chats and settings (data\) and model choices
+rem (config\*.local.yaml) stay. Works for a downloaded ZIP and for a git clone. "Update Onyx.bat /undo" puts back the
+rem version from before the last update. Onyx also does this by itself while it runs (Settings, Updates).
 call :refresh_path
 call :find_pnpm
-if not exist "..\.git" (
-  echo.
-  echo  This copy was downloaded as a ZIP, so it cannot update itself.
-  echo  Download a new ZIP from https://github.com/gkson-lab/onyx and run "Setup Onyx" in it.
-  echo.
-  pause
-  exit /b 1
-)
-echo Getting the latest Onyx...
-git pull || goto :failed
-call "%PNPM%" install || goto :failed
-call "%PNPM%" build || goto :failed
+if not defined PNPM goto :not_set_up
+if not exist "node_modules" goto :not_set_up
+set "HOW="
+if /i "%~1"=="/undo" set "HOW=--undo"
+echo Getting the newest Onyx from GitHub...
+rem One line on purpose: the update replaces this very file, and Windows reads a batch file a line at a time.
+call "%PNPM%" -s onyx update %HOW% && call "%PNPM%" install && call "%PNPM%" build && (echo. & echo  Done. Start Onyx again to use it. & echo. & pause & exit /b 0) & echo. & echo  The update stopped at the step above; its message says why. & echo. & pause & exit /b 1
+
+:not_set_up
 echo.
-echo  Updated. Start Onyx again to use the new version.
-pause
-exit /b 0
-:failed
+echo  Onyx is not set up yet. Run "Setup Onyx" first, in this same folder.
 echo.
-echo  The update stopped at the step above. Its message says why.
 pause
 exit /b 1
 

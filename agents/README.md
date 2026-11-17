@@ -18,9 +18,12 @@ app, WhatsApp, SMS, sign-in and push notifications. iMessage is not planned: it 
    If it installs a program, it asks you to run it once more.
 3. Double-click the **Onyx** shortcut to start. It restarts Ollama with the settings worked out for your PC, starts
    Onyx and opens it in your browser; keep the black window open while you use it.
-4. To get a newer version later, double-click **Update Onyx**.
+4. **It updates itself.** While it runs, Onyx checks GitHub every 10 minutes and, when there is a new version and
+   no agent is working, installs it and restarts (see [Updates](#updates)). **Update Onyx** does the same by hand,
+   with Onyx closed.
 
-Your PC's model choices are saved in `config/tiers.local.yaml`, which updates never overwrite.
+Your PC's own settings live in files updates never touch: `.env` (password and keys), `data/` (chats, memories,
+settings) and `config/*.local.yaml` (your model choices, and any connectors or prices of your own).
 
 ## Run it
 
@@ -41,8 +44,9 @@ cp .env.example .env
 pnpm models:sync     # checks every model in config/tiers.yaml against what Ollama really has
 pnpm build           # builds the web app (once, and again after pulling changes)
 pnpm start           # the server and the app, on http://127.0.0.1:8787
+node scripts/launcher.mjs  # the same, restarting itself after an update
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 80 tests, no model or network needed
+pnpm test            # 99 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -136,8 +140,9 @@ and the 30B model, which uses 3B per token, runs split between the card and syst
   built: point a payment provider's webhook at that route when you need it.
 - **Cost.** Local models cost nothing per call. A model with `price: null` is logged with no cost, not a guess.
 - **What it would cost hosted.** Every local call also records what the same work would have cost on a paid host
-  running the same Qwen model, from the prices in `config/equivalents.yaml` (Alibaba Model Studio for the 8B, 14B
-  and 30B; a third-party host for the 4B and 1.7B, labelled). It shows under each reply, in Runs, on the Models
+  running the same model, from the prices in `config/equivalents.yaml` (Alibaba Model Studio for the 8B, 14B and
+  30B; a third-party host for the others, labelled). Prices of your own go in `config/equivalents.local.yaml`,
+  which is laid over the shipped file and which updates leave alone. It shows under each reply, in Runs, on the Models
   screen with its source, and on Usage. A model missing from the file shows no figure rather than a guess. Calls
   made before this was added have no figure.
 
@@ -193,9 +198,42 @@ child. Edit any agent, or add your own, on the Agents screen.
   and 30 seconds.
 - **Reminders** fire through your preferred channel. If the PC was off when one was due, it is sent when the PC is
   back, marked late; a repeating one then moves to its next time in the future.
-- **Connectors** are MCP servers listed in `config/connectors.yaml`. GitHub is there, switched off: set
-  `enabled: true`, put a fine-grained token in `GITHUB_MCP_TOKEN`, and tick `connector:github` in an agent's tools.
+- **Connectors** are MCP servers listed in `config/connectors.yaml`. GitHub is there, switched off: copy the file to
+  `config/connectors.local.yaml` (which is used instead, and which updates leave alone), set `enabled: true` there,
+  put a fine-grained token in `GITHUB_MCP_TOKEN`, and tick `connector:github` in an agent's tools.
   It uses GitHub's read-only address by default.
+
+## Updates
+
+Onyx keeps itself the same as the newest version on GitHub (`gkson-lab/onyx`, branch `main`): the files GitHub has
+are written, and the files it no longer has are removed. What is yours always stays: `.env`, `data/`,
+`config/*.local.yaml`, `node_modules`, anything the repository's `.gitignore` files ignore, and your backup folder.
+
+- **By itself.** Every 10 minutes Onyx asks GitHub whether `main` has moved on. It asks git's own list of branches,
+  which costs a kilobyte and none of GitHub's hourly limit. When it has, and no agent is working, Onyx updates and
+  restarts: the launcher (`scripts/launcher.mjs`, which the Onyx shortcut runs) installs the new dependencies,
+  rebuilds the app and starts it again. Open apps show "Onyx is updating", then "Onyx was updated. Reload". It takes
+  about a minute. Settings, **Updates** switches this off.
+- **By hand.** Settings, **Updates**: Check now, Update now. Or, with Onyx closed, double-click **Update Onyx**, or
+  run `pnpm onyx update` (`--check` to only list what would change), then `pnpm install` and `pnpm build`.
+- **Undo.** Settings, **Undo the last update**, or `Update Onyx.bat /undo`. Updating by itself is then switched off,
+  so it does not come straight back; switch it on again when the next version is out.
+- **A downloaded ZIP copy** is updated file by file: GitHub's list of files is compared with the files here, and
+  only what differs is downloaded, each file checked against GitHub's hash of it. Nothing is replaced until every
+  file has arrived, and what is replaced or removed is kept until the next update, for Undo. When GitHub's API
+  refuses (60 requests an hour without an account, shared on some networks), the whole version comes as one archive
+  instead, which that limit does not cover.
+- **A git clone** is updated with git: fetch, then check out `main`. Changes you made to tracked files, and files git
+  does not know, leave the folder but go into a git stash rather than nowhere (`git stash list`, `git stash pop`).
+- **Batch files** are written so an update can replace them while they run: Windows reads a batch file a line at a
+  time, so everything after Onyx starts is on one line.
+- **Settings for it:** `ONYX_UPDATE=off` in `.env` turns the automatic part off altogether (for working on Onyx
+  itself); `ONYX_UPDATE_REPO` and `ONYX_UPDATE_BRANCH` follow a fork; `ONYX_UPDATE_EVERY_MIN` changes how often it
+  checks.
+
+Tested: a downloaded GitHub ZIP compared with GitHub found nothing to change, all 199 files and their line endings;
+after editing, deleting and adding files, an update put exactly those back. A clone at an older version, started
+through the launcher, updated from Settings, rebuilt and came back on the new version in 27 seconds.
 
 ## The app on your phone, through Tailscale
 
@@ -259,7 +297,7 @@ read from the database or the live event stream; there is no sample data.
   first message does not wait; Chat says when they are still loading. Ollama keeps them for 30 minutes after use.
 - **Models** has a **Health check** that asks every tier one small question and shows which answered, how fast, and
   any error; and **More models** (above).
-- **Settings** has **Backups** (once a day, into a folder you choose, OneDrive suggested, keeping the newest seven;
+- **Settings** has **Updates** (above), **Backups** (once a day, into a folder you choose, OneDrive suggested, keeping the newest seven;
   or **Back up now**) and, on Windows, **Start with Windows** (Onyx starts minimized when you sign in, without opening
   the browser; `pnpm onyx autostart on|off` does the same). The server listens on this PC only
 (127.0.0.1); a tunnel running on this PC is what makes it reachable from your phone.
@@ -278,7 +316,7 @@ Everything is optional except Node, pnpm and Ollama. Keys go in `agents/.env`, n
 | The app on your phone | [Tailscale](https://tailscale.com), free for personal use | `ONYX_PASSWORD` |
 | Running code | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | nothing |
 | Better web search | [Brave Search API](https://brave.com/search/api/) | `BRAVE_API_KEY` |
-| GitHub connector | github.com, Settings, Developer settings, fine-grained personal access token | `GITHUB_MCP_TOKEN`, then `enabled: true` in `config/connectors.yaml` |
+| GitHub connector | github.com, Settings, Developer settings, fine-grained personal access token | `GITHUB_MCP_TOKEN`, then `enabled: true` in your `config/connectors.local.yaml` |
 | WhatsApp | [Meta for Developers](https://developers.facebook.com), see `SETUP_WHATSAPP.md` | `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_APP_SECRET`, `WHATSAPP_VERIFY_TOKEN`, `PUBLIC_URL` |
 | SMS | [Twilio](https://www.twilio.com), see `SETUP_SMS.md` (US numbers need registration) | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM`, `PUBLIC_URL` |
 | Kimi models in the cloud | [Moonshot AI platform](https://platform.moonshot.ai) | `MOONSHOT_API_KEY` and `ONYX_CLOUD=on` |
@@ -292,7 +330,8 @@ fallback, plan and limit enforcement, streaming, tool-call assembly, the agent l
 switch, reminders, delivery fallback, connectors and the API. The app was driven in a browser against the real
 server with a stand-in model, at desktop and phone sizes.
 
-Onyx Agents was also run end to end against Qwen3 4B in Ollama on a processor. **Not yet run for real:** gpt-oss,
+Onyx Agents was also run end to end against Qwen3 4B in Ollama on a processor, and the updater against the real
+repository on GitHub (above). **Not yet run for real:** the batch files on Windows after this change, gpt-oss,
 Gemma's image reading, a Docker sandbox, a live web search, a real MCP server, Meta, Twilio, a push service,
 Tailscale, and starting with Windows. Each is tested against its documented request and answer shapes.
 
@@ -312,12 +351,16 @@ apps/server/src/channels/     channel adapters (web, WhatsApp, SMS), delivery wi
 apps/server/src/push.ts       push notifications for the installed app
 apps/server/src/hardware.ts   which models this PC can run, and how fast
 apps/server/src/extras.ts     chats, attachments, warm-up, health check, model downloads, backups, start with Windows
+apps/server/src/context.ts    how much history and attached text fits the model's context
+apps/server/src/updater.ts    keeping this copy the same as GitHub (files or git), with undo
+apps/server/src/updates.ts    checking for updates by itself, and the Updates routes
+scripts/launcher.mjs          runs Onyx, and installs, rebuilds and restarts it after an update
 apps/server/src/ollama.ts     what Ollama has loaded, and warnings
 apps/server/src/tailscale.ts  Tailscale's status, for the phone
 apps/server/src/scheduler.ts  fires reminders
 apps/server/src/bus.ts        the event stream
 apps/server/src/index.ts      the server: API, WebSocket, and the built app
-apps/server/src/cli/onyx.ts   terminal: chat, models, tiers, hardware, setup, errors, ollama-env, autostart
+apps/server/src/cli/onyx.ts   terminal: chat, models, tiers, hardware, setup, errors, ollama-env, autostart, update
 apps/server/test/             tests with a scripted stand-in for the models
 apps/web/                     the app (Next.js, exported as static files the server serves)
 apps/web/app/tokens.css       the design tokens

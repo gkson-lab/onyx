@@ -14,7 +14,7 @@ export interface Tables {
 	agents: { id: string; name: string; description: string; system_prompt: string; tier: string; tools: string; enabled: number; max_steps: number; token_budget: number; time_budget_ms: number; builtin: number };
 	runs: { id: string; parent_id: string | null; root_id: string; depth: number; user_id: string; agent_id: string; channel: string; status: string; input: string; output: string | null; error: string | null; tier: string | null; model: string | null; provider: string | null; tokens_in: number; tokens_out: number; cost_usd: number | null; steps: number; routing: string | null; started_at: string; finished_at: string | null; equivalent_usd: Generated<number | null> };
 	steps: { id: Generated<number>; run_id: string; root_id: string; n: number; type: string; data: string; created_at: string };
-	messages: { id: Generated<number>; user_id: string; channel: string; direction: string; text: string; run_id: string | null; status: string; error: string | null; created_at: string; conversation_id: Generated<number | null> };
+	messages: { id: Generated<number>; user_id: string; channel: string; direction: string; text: string; run_id: string | null; status: string; error: string | null; created_at: string; conversation_id: Generated<number | null>; attached: Generated<string | null> };
 	conversations: { id: Generated<number>; user_id: string; title: string; pinned: number; created_at: string; updated_at: string };
 	memories: { id: Generated<number>; user_id: string; text: string; embedding: string | null; created_at: string };
 	schedules: { id: Generated<number>; user_id: string; text: string; next_fire: string; repeat: string; channel: string | null; status: string; last_fired: string | null; created_at: string };
@@ -86,6 +86,10 @@ const MIGRATIONS: ((db: Kysely<any>) => Promise<void>)[] = [
 			const c = await db.insertInto('conversations').values({ user_id: u.user_id, title: 'Earlier chats', pinned: 0, created_at: at, updated_at: at }).returning('id').executeTakeFirstOrThrow();
 			await db.updateTable('messages').set({ conversation_id: c.id }).where('user_id', '=', u.user_id).where('channel', 'in', ['web', 'terminal']).execute();
 		}
+	},
+	async (db) => {
+		// What a message's attached files said, so a follow-up question about a file can still read it.
+		await db.schema.alterTable('messages').addColumn('attached', 'text').execute();
 	},
 ];
 

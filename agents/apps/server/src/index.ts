@@ -18,23 +18,27 @@ import { applyToTiers, detect, plan as planFor, type Hardware } from './hardware
 import { ollamaStatus } from './ollama.ts';
 import { tailscaleStatus, type RunTailscale } from './tailscale.ts';
 import { Attachment, readAttachments, registerExtras, warmUp, type WarmState } from './extras.ts';
+import { fitHistory, inputBudget } from './context.ts';
+import { registerUpdates, type UpdatesOptions } from './updates.ts';
 
 const ChatBody = z.object({ text: z.string().trim().max(20000).default(''), conversation_id: z.number().int().positive().optional(), tier: z.enum(['auto', ...TIERS]).default('auto'), attachments: z.array(Attachment).max(5).default([]) }).refine((b) => b.text || b.attachments.length, 'Write a message or attach a file.');
 const SettingsBody = z.object({ preferred_channels: z.array(Channel).min(1).max(4).optional(), allowlist: z.array(z.string().trim().min(3).max(64)).max(50).optional() });
 const KEYS = ['ONYX_PASSWORD', 'MOONSHOT_API_KEY', 'BRAVE_API_KEY', 'GITHUB_MCP_TOKEN', 'WHATSAPP_TOKEN', 'WHATSAPP_APP_SECRET', 'TWILIO_AUTH_TOKEN'];
 
-/** Takes a message in, runs it, stores both sides, and sends the answer out on the channel it came from. */
 /**
- * A message in, an answer out. `conversationId` keeps a chat's history apart from other chats' (null: phones and
- * reminders). `attached` is what attached files say, given to the agents but not stored in the message itself.
+ * A message in, an answer out: runs it, stores both sides, and sends the answer out on the channel it came from.
+ * `conversationId` keeps a chat's history apart from other chats' (null: phones and reminders). `attached` is what
+ * attached files say: the agent reads it, and it is kept with the message for later questions, but not shown.
  */
 export async function receive(app: App, o: { userId: string; text: string; channel: Channel; runId?: string; conversationId?: number | null; attached?: string }) {
 	const conv = o.conversationId ?? null;
-	const past = await app.db.selectFrom('messages').select(['direction', 'text']).where('user_id', '=', o.userId).where('status', '!=', 'failed').where((eb) => (conv === null ? eb('conversation_id', 'is', null) : eb('conversation_id', '=', conv))).orderBy('id', 'desc').limit(10).execute();
-	const history: ChatMessage[] = past.reverse().map((m) => ({ role: m.direction === 'in' ? 'user' : 'assistant', content: m.text.slice(0, 4000) }));
-	await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'in', text: o.text, run_id: o.runId ?? null, status: 'received', error: null, created_at: now(), conversation_id: conv }).execute();
+	const budget = inputBudget();
+	const attached = o.attached && o.attached.length > budget * 0.75 ? `${o.attached.slice(0, Math.round(budget * 0.75))}\n[The attached files were cut short here, to fit the model's context.]` : o.attached;
+	const past = await app.db.selectFrom('messages').select(['direction', 'text', 'attached']).where('user_id', '=', o.userId).where('status', '!=', 'failed').where((eb) => (conv === null ? eb('conversation_id', 'is', null) : eb('conversation_id', '=', conv))).orderBy('id', 'desc').limit(10).execute();
+	const history = fitHistory(past, Math.max(0, budget - o.text.length - (attached?.length ?? 0)), !attached);
+	await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'in', text: o.text, run_id: o.runId ?? null, status: 'received', error: null, created_at: now(), conversation_id: conv, attached: attached ?? null }).execute();
 	if (conv !== null) await app.db.updateTable('conversations').set({ updated_at: now() }).where('id', '=', conv).execute();
-	const r = await app.runtime.handle({ userId: o.userId, text: o.attached ? `${o.text}\n\n${o.attached}` : o.text, channel: o.channel, history, runId: o.runId });
+	const r = await app.runtime.handle({ userId: o.userId, text: o.text, attached, channel: o.channel, history, runId: o.runId });
 	const reply = r.status === 'done' ? r.output : r.status === 'killed' ? 'Stopped.' : `That failed: ${r.error}`;
 	if (o.channel === 'web' || o.channel === 'terminal') await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'out', text: reply, run_id: r.runId, status: r.status === 'done' ? 'sent' : 'error', error: r.error, created_at: now(), conversation_id: conv }).execute();
 	else await app.outbox.deliver(o.userId, reply, { channel: o.channel, runId: r.runId });
@@ -104,7 +108,7 @@ export async function catchUpSms(app: App): Promise<number> {
 	return missed.length;
 }
 
-export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware>; ollamaFetch?: typeof fetch; tailscale?: RunTailscale; port?: number; warm?: WarmState } = {}): Promise<FastifyInstance> {
+export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware>; ollamaFetch?: typeof fetch; tailscale?: RunTailscale; port?: number; warm?: WarmState; updates?: UpdatesOptions } = {}): Promise<FastifyInstance> {
 	const server = Fastify({ logger: false, bodyLimit: 1_000_000 });
 	await server.register(websocket);
 	// Read: this PC's own tiers file if there is one, else the shipped one. Write: always this PC's own.
@@ -235,15 +239,17 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		if (!body.success) return bad(reply, body.error);
 		const runId = randomUUID();
 		const b = body.data;
-		const names = b.attachments.map((a) => a.name);
+		if (b.conversation_id && !(await db.selectFrom('conversations').select('id').where('id', '=', b.conversation_id).where('user_id', '=', app.owner).executeTakeFirst())) return reply.code(404).send({ error: 'That chat no longer exists. Start a new one.' });
 		// The tier picker is the same as typing /pro at the start.
-		const text = `${b.tier !== 'auto' && !/^\/(lite|standard|pro|max|think)\b/i.test(b.text) ? `/${b.tier} ` : ''}${b.text || 'Look at the attached file.'}${names.length ? `\n\n📎 ${names.join(', ')}` : ''}`;
-		if (b.conversation_id) await extras.nameChat(b.conversation_id, b.text || names.join(', '));
+		const ask = `${b.tier !== 'auto' && !/^\/(lite|standard|pro|max|think)\b/i.test(b.text) ? `/${b.tier} ` : ''}${b.text || 'Look at the attached file.'}`;
+		if (b.conversation_id) await extras.nameChat(b.conversation_id, b.text || b.attachments.map((a) => a.name).join(', '));
 		// The run goes on after this answers; its progress and its result arrive on the WebSocket and at /api/runs/:id.
 		void (async () => {
-			const att = b.attachments.length ? await readAttachments(app, b.attachments, b.text, { runId, userId: app.owner }) : null;
-			if (att) app.bus.emit({ type: 'attachments', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { notes: att.notes } });
-			return receive(app, { userId: app.owner, text, channel: 'web', runId, conversationId: b.conversation_id ?? null, attached: att?.text });
+			// Files first: what came of each one ("2 pages", "could not read: ...") is part of the message you see.
+			const att = b.attachments.length ? await readAttachments(app, b.attachments, b.text, { runId, userId: app.owner, maxChars: Math.round(inputBudget() * 0.75) }) : null;
+			if (att) app.bus.emit({ type: 'attachments', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { files: att.files } });
+			const text = att ? `${ask}\n\n📎 ${att.files.map((f) => `${f.name} (${f.note})`).join(' · ')}` : ask;
+			return receive(app, { userId: app.owner, text, channel: 'web', runId, conversationId: b.conversation_id ?? null, attached: att?.text || undefined });
 		})().catch((e) => app.bus.emit({ type: 'error', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { status: 'error', error: (e as Error).message } }));
 		return reply.code(202).send({ runId });
 	});
@@ -318,6 +324,7 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		return { hardware: hw, plan: planFor(hw) };
 	});
 	const extras = registerExtras(server, app, { plan: async () => planFor(await hardware()), ollamaFetch: o.ollamaFetch, warm: o.warm ?? {}, readTiers, tiersOut });
+	registerUpdates(server, app, o.updates);
 	server.get('/api/tailscale', async () => tailscaleStatus(o.port ?? Number(process.env.PORT ?? 8787), o.tailscale));
 	server.get('/api/ollama', async () => ollamaStatus(app.config, planFor(await hardware()), o.ollamaFetch));
 	server.post('/api/hardware/apply', async (_req, reply) => {

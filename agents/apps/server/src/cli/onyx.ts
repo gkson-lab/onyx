@@ -64,6 +64,8 @@ async function chatLoop(): Promise<number> {
 		else if ((e.type === 'finished' || e.type === 'error') && e.parentId) console.log(dim(`${pad}${who} ${e.data.status}${e.data.error ? `: ${e.data.error}` : ''} (${e.data.ms} ms)`));
 	});
 	console.log('Onyx. Type a message. Start with /lite, /standard, /pro or /max to choose the tier. /quit to leave.\n');
+	// Each terminal session is a chat of its own, listed in the app with the others.
+	let conversation: number | undefined;
 	for (;;) {
 		let line: string;
 		try {
@@ -74,7 +76,8 @@ async function chatLoop(): Promise<number> {
 		if (!line) continue;
 		if (/^\/(quit|exit)$/i.test(line)) break;
 		wrote = false;
-		const r = await receive(app, { userId: app.owner, text: line, channel: 'terminal' });
+		conversation ??= Number((await app.db.insertInto('conversations').values({ user_id: app.owner, title: `Terminal: ${line.replace(/\s+/g, ' ').slice(0, 50)}`, pinned: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString() }).returning('id').executeTakeFirstOrThrow()).id);
+		const r = await receive(app, { userId: app.owner, text: line, channel: 'terminal', conversationId: conversation });
 		if (!wrote || r.status !== 'done') stdout.write(r.reply);
 		console.log(`\n${r.tier ? `${inv(app.config.file.tiers[r.tier].label.toUpperCase())} ${r.model}` : ''}${dim(`  ${r.tokens} tokens · ${money(r.costUsd)}${r.equivalentUsd != null ? ` · about $${r.equivalentUsd.toFixed(5)} if hosted` : ''}`)}\n`);
 	}
@@ -211,10 +214,66 @@ async function autostart(): Promise<number> {
 	}
 }
 
+/**
+ * `pnpm onyx update [--check] [--undo] [--force]`: makes this copy the same as the newest version on GitHub (what
+ * "Update Onyx" runs, before installing and building). --check only says what would change; --undo puts back the
+ * version before the last update. Refuses while Onyx is running (it updates itself then), unless --force.
+ */
+async function update(): Promise<number> {
+	const { Updater } = await import('../updater.ts');
+	const { open } = await import('../db.ts');
+	const flag = (f: string) => process.argv.includes(f);
+	const port = Number(process.env.PORT ?? 8787);
+	if (!flag('--force') && !flag('--check') && (await fetch(`http://127.0.0.1:${port}/health`, { signal: AbortSignal.timeout(1500) }).then((r) => r.ok, () => false))) {
+		console.log('Onyx is running, and updates itself (Settings, Updates). To update from here, close its window first.');
+		return 1;
+	}
+	// The backup folder is kept, when it is inside this one.
+	let backupDir: string | null = null;
+	try {
+		const db = await open(resolve(ROOT, process.env.ONYX_DB ?? './data/onyx.db'));
+		const row = await db.selectFrom('settings').select('value').where('key', '=', 'backup').executeTakeFirst();
+		backupDir = row ? (JSON.parse(row.value) as { dir: string | null }).dir : null;
+		await db.destroy();
+	} catch {
+		// No database yet: nothing to keep.
+	}
+	const env = process.env;
+	const u = new Updater({ root: resolve(ROOT, '..'), stateDir: resolve(ROOT, 'data/update'), repo: env.ONYX_UPDATE_REPO, branch: env.ONYX_UPDATE_BRANCH, web: env.ONYX_UPDATE_WEB, api: env.ONYX_UPDATE_API, gitUrl: env.ONYX_UPDATE_GIT_URL, keep: () => [backupDir] });
+	try {
+		if (flag('--undo')) {
+			const r = await u.undo();
+			console.log(`Put back the version from before the last update${r.to ? ` (${r.to.slice(0, 7)})` : ''}.`);
+			return 0;
+		}
+		const latest = await u.latest();
+		const current = await u.current();
+		console.log(`GitHub (${u.repo}, ${u.branch}): ${latest.sha.slice(0, 7)}${latest.message ? `  ${latest.message}` : ''}`);
+		console.log(`This copy:   ${current ? current.slice(0, 7) : 'not known yet (a downloaded copy)'}, updated ${(await u.mode()) === 'git' ? 'with git' : 'file by file'}`);
+		const d = await u.diff(latest);
+		if (!d.write.length && !d.remove.length) {
+			if (!current) u.markInstalled(latest.sha);
+			console.log(current && current !== latest.sha ? 'The files already match GitHub.' : 'Up to date.');
+			if ((await u.mode()) === 'files' || current === latest.sha) return 0;
+		}
+		console.log(`${d.write.length} file${d.write.length === 1 ? '' : 's'} to write, ${d.remove.length} to remove:`);
+		for (const e of d.write.slice(0, 40)) console.log(`  + ${e.path}`);
+		for (const p of d.remove.slice(0, 40)) console.log(`  - ${p}`);
+		if (d.write.length + d.remove.length > 80) console.log('  ...');
+		if (flag('--check')) return 0;
+		const r = await u.apply(latest, (done, total) => stdout.write(`\r  downloaded ${done} of ${total}`));
+		console.log(`\nUpdated to ${r.to.slice(0, 7)}: ${r.written} written, ${r.removed} removed. "Update Onyx.bat /undo" puts the old version back.`);
+		return 0;
+	} catch (e) {
+		console.log(`The update failed: ${(e as Error).message}`);
+		return 1;
+	}
+}
+
 const cmd = process.argv[2] ?? 'chat';
-const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : cmd === 'setup' ? setup : cmd === 'ollama-env' ? ollamaEnv : cmd === 'errors' ? errors : cmd === 'autostart' ? autostart : null;
+const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : cmd === 'setup' ? setup : cmd === 'ollama-env' ? ollamaEnv : cmd === 'errors' ? errors : cmd === 'autostart' ? autostart : cmd === 'update' ? update : null;
 if (!run) {
-	console.log('Usage: pnpm onyx [chat | models | tiers | hardware | setup | ollama-env | errors | autostart on|off]');
+	console.log('Usage: pnpm onyx [chat | models | tiers | hardware | setup | ollama-env | errors | autostart on|off | update [--check|--undo]]');
 	process.exit(2);
 }
 run().then((code) => process.exit(code), (e) => (console.error(e instanceof Error ? e.message : e), process.exit(1)));

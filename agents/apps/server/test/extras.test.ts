@@ -2,8 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { parseTiers } from '../src/config.ts';
+import { loadEquivalents, localOf, parseTiers } from '../src/config.ts';
 import { buildServer, receive } from '../src/index.ts';
+import { fitHistory, inputBudget } from '../src/context.ts';
 import { backupNow, readAttachments, warmUp, type WarmState } from '../src/extras.ts';
 import { plan, type Hardware } from '../src/hardware.ts';
 import { testApp, TIERS_YAML } from './helpers.ts';
@@ -53,7 +54,7 @@ describe('chats', () => {
 });
 
 describe('attached files', () => {
-	it('reads text, a PDF, and an image through the vision model', async () => {
+	it('reads text, a PDF, and an image through the vision model, and says what came of each', async () => {
 		const { app, seen } = await testApp({ 'gemma3:12b': [{ content: 'A receipt for 3 coffees, total $12.50.' }] }, {}, { tiers: parseTiers(WITH_VISION) });
 		const r = await readAttachments(app, [
 			{ name: 'notes.md', type: 'text/markdown', data: b64('# Plan\nShip on Friday.') },
@@ -64,15 +65,108 @@ describe('attached files', () => {
 		expect(r.text).toContain('Ship on Friday.');
 		expect(r.text).toContain('Quarterly revenue rose 12 percent');
 		expect(r.text).toContain('A receipt for 3 coffees, total $12.50.');
-		expect(r.notes).toEqual(['read notes.md', 'read 1 page of report.pdf', 'gemma3:12b looked at receipt.jpg', 'could not read song.mp3: only text, code, PDFs and images can be read']);
+		expect(r.files).toEqual([
+			{ name: 'notes.md', ok: true, note: 'read' },
+			{ name: 'report.pdf', ok: true, note: '1 page' },
+			{ name: 'receipt.jpg', ok: true, note: 'described by gemma3:12b' },
+			{ name: 'song.mp3', ok: false, note: 'could not read: only text, code, PDFs and images can be read' },
+		]);
 		const asked = seen.find((s) => s.model === 'gemma3:12b')!.body.messages[0].content;
 		expect(asked[1]).toEqual({ type: 'image_url', image_url: { url: `data:image/jpeg;base64,${b64('not really a jpeg')}` } });
 	});
 
-	it('says plainly when no model reads images', async () => {
+	it('says plainly when no model reads images, or when it is not downloaded', async () => {
 		const { app } = await testApp({});
 		const r = await readAttachments(app, [{ name: 'a.png', type: 'image/png', data: b64('x') }], 'what is this', { userId: app.owner });
-		expect(r.notes[0]).toMatch(/^could not read a\.png: no model that reads images/);
+		expect(r.files[0]!.note).toMatch(/^could not read: no model that reads images is set up: on the Models screen/);
+		const v = await testApp({ 'gemma3:12b': [{ status: 404, content: 'model "gemma3:12b" not found, try pulling it first' }] }, {}, { tiers: parseTiers(WITH_VISION) });
+		const r2 = await readAttachments(v.app, [{ name: 'a.png', type: 'image/png', data: b64('x') }], 'what is this', { userId: v.app.owner });
+		expect(r2.files[0]!.note).toBe('could not read: the image model is not downloaded: on the Models screen, under More models, download gemma3:12b');
+	});
+
+	it('reads Notepad\'s "Unicode" (UTF-16) files, and shares the space between files', async () => {
+		const { app } = await testApp({});
+		const utf16 = Buffer.concat([Buffer.from([0xff, 0xfe]), Buffer.from('Héllo from Notepad', 'utf16le')]).toString('base64');
+		const long = 'x'.repeat(10_000);
+		const r = await readAttachments(app, [{ name: 'note.txt', type: 'text/plain', data: utf16 }, { name: 'a.txt', type: 'text/plain', data: b64(long) }, { name: 'b.txt', type: 'text/plain', data: b64(long) }], 'q', { userId: app.owner, maxChars: 9000 });
+		expect(r.text).toContain('Héllo from Notepad');
+		expect(r.files.map((f) => f.note)).toEqual(['read', 'read, the start', 'read, the start']);
+		// Three files share 9,000 characters: 3,000 each, plus the labels.
+		expect(r.text.length).toBeLessThan(9000 + 400);
+	});
+});
+
+describe('fitting the context', () => {
+	it('keeps the newest messages that fit, and the newest earlier file for follow-up questions', () => {
+		const past = [
+			{ direction: 'out', text: 'Revenue rose 12%.', attached: null },
+			{ direction: 'in', text: 'Summarise this 📎 report.pdf (1 page)', attached: '[Attached PDF] Quarterly revenue rose 12 percent' },
+			{ direction: 'out', text: 'old answer '.repeat(300), attached: null },
+		];
+		const h = fitHistory(past, 200, true);
+		expect(h.map((m) => m.role)).toEqual(['user', 'assistant']);
+		expect(h[0]!.content).toContain('Quarterly revenue rose 12 percent');
+		// When this message brings its own file, the old file's text is left out.
+		expect(fitHistory(past, 200, false)[0]!.content).not.toContain('Quarterly revenue');
+		// The budget follows Ollama's context: 1.7 characters per token.
+		const before = process.env.OLLAMA_CONTEXT_LENGTH;
+		process.env.OLLAMA_CONTEXT_LENGTH = '8192';
+		expect(inputBudget()).toBe(13926);
+		if (before === undefined) delete process.env.OLLAMA_CONTEXT_LENGTH;
+		else process.env.OLLAMA_CONTEXT_LENGTH = before;
+	});
+});
+
+describe('the chat route, end to end', () => {
+	const waitFor = async <T,>(f: () => Promise<T | undefined>): Promise<T> => {
+		for (let i = 0; i < 100; i++) {
+			const v = await f();
+			if (v !== undefined) return v;
+			await new Promise((r) => setTimeout(r, 30));
+		}
+		throw new Error('timed out');
+	};
+
+	it('picks the tier, reads the file, names the chat, and remembers the file for the next question', async () => {
+		const { app, seen } = await testApp({ 'qwen3:8b': [{ content: 'They ship on Friday.' }, { content: 'Friday, as planned.' }] });
+		const server = await buildServer(app, { webDir: '/nonexistent', detect: async () => pc });
+		const id = (await server.inject({ method: 'POST', url: '/api/conversations' })).json().id;
+		const out = (n: number) => waitFor(async () => {
+			const m = (await server.inject({ method: 'GET', url: `/api/messages?conversation=${id}` })).json().messages;
+			return m.filter((x: any) => x.direction === 'out').length >= n ? m : undefined;
+		});
+		const first = await server.inject({ method: 'POST', url: '/api/chat', payload: { text: 'When do they ship?', tier: 'standard', conversation_id: id, attachments: [{ name: 'plan.md', type: 'text/markdown', data: b64('# Plan\nShip on Friday.') }] } });
+		expect(first.statusCode).toBe(202);
+		let msgs = await out(1);
+		expect(msgs.map((m: any) => m.text)).toEqual(['/standard When do they ship?\n\n📎 plan.md (read)', 'They ship on Friday.']);
+		// The router was skipped (the tier was chosen), and the model read the file.
+		expect(seen.map((s) => s.model)).toEqual(['qwen3:8b']);
+		expect(JSON.stringify(seen[0]!.body.messages)).toContain('Ship on Friday.');
+		expect((await server.inject({ method: 'GET', url: '/api/conversations' })).json().conversations[0]).toMatchObject({ id, title: 'When do they ship?', messages: 2 });
+		// The app is not sent what the file said.
+		expect(msgs[0]).not.toHaveProperty('attached');
+
+		await server.inject({ method: 'POST', url: '/api/chat', payload: { text: 'Remind me: which day?', tier: 'standard', conversation_id: id } });
+		msgs = await out(2);
+		expect(msgs.at(-1).text).toBe('Friday, as planned.');
+		expect(JSON.stringify(seen[1]!.body.messages)).toContain('Ship on Friday.');
+	});
+
+	it('refuses a chat that does not exist, and a bad chat number', async () => {
+		const { app } = await testApp({});
+		const server = await buildServer(app, { webDir: '/nonexistent', detect: async () => pc });
+		expect((await server.inject({ method: 'POST', url: '/api/chat', payload: { text: 'hi', conversation_id: 999 } })).statusCode).toBe(404);
+		expect((await server.inject({ method: 'GET', url: '/api/messages?conversation=-1' })).statusCode).toBe(400);
+		expect((await server.inject({ method: 'POST', url: '/api/chat', payload: { text: '' } })).statusCode).toBe(400);
+	});
+
+	it('exports a chat under its own name, accents and all', async () => {
+		const { app } = await testApp({});
+		const server = await buildServer(app, { webDir: '/nonexistent', detect: async () => pc });
+		const id = (await server.inject({ method: 'POST', url: '/api/conversations' })).json().id;
+		await server.inject({ method: 'PATCH', url: `/api/conversations/${id}`, payload: { title: 'Café plans: "Lisbon"' } });
+		const r = await server.inject({ method: 'GET', url: `/api/conversations/${id}/export` });
+		expect(r.headers['content-disposition']).toBe(`attachment; filename="Cafe plans Lisbon.md"; filename*=UTF-8''${encodeURIComponent('Café plans Lisbon.md')}`);
 	});
 });
 
@@ -92,10 +186,25 @@ describe('models', () => {
 		const server = await buildServer(app, { webDir: '/nonexistent', detect: async () => pc, tiersPath: file });
 		expect((await server.inject({ method: 'POST', url: '/api/models/assign', payload: { use: 'pro', id: 'phi4:14b' } })).json().error).toContain('cannot call tools');
 		expect((await server.inject({ method: 'POST', url: '/api/models/assign', payload: { use: 'pro', id: 'gpt-oss:20b' } })).statusCode).toBe(200);
-		expect(readFileSync(file, 'utf8')).toMatch(/qwen-pro: +\{ provider: ollama, id: "?gpt-oss:20b"?, price: \{ input: 0, output: 0 \}, extra: \{ reasoning_effort: low \} \}/);
+		expect(parseTiers(readFileSync(file, 'utf8')).models['qwen-pro']).toMatchObject({ id: 'gpt-oss:20b', family: 'gpt-oss', extra: { reasoning_effort: 'low' } });
 		expect(app.config.candidates('pro').map((m) => m.id)).toEqual(['gpt-oss:20b']);
 		expect((await server.inject({ method: 'POST', url: '/api/models/assign', payload: { use: 'vision', id: 'mistral-small3.2:24b' } })).statusCode).toBe(200);
 		expect(app.config.model('gemma-vision').id).toBe('mistral-small3.2:24b');
+	});
+
+	it('works on a tiers file from before image reading existed (yours)', async () => {
+		const dir = mkdtempSync(join(tmpdir(), 'onyx-'));
+		const file = join(dir, 'tiers.local.yaml');
+		writeFileSync(file, TIERS_YAML);
+		const { app } = await testApp({}, {}, { tiers: parseTiers(TIERS_YAML) });
+		const server = await buildServer(app, { webDir: '/nonexistent', detect: async () => pc, tiersPath: file });
+		expect((await server.inject({ method: 'POST', url: '/api/models/assign', payload: { use: 'vision', id: 'gemma3:12b' } })).statusCode).toBe(200);
+		expect(app.config.file.vision).toEqual({ model: 'vision' });
+		expect(app.config.model('vision')).toMatchObject({ id: 'gemma3:12b', family: 'gemma', tools: false });
+		expect((await server.inject({ method: 'POST', url: '/api/models/assign', payload: { use: 'pro', id: 'gpt-oss:20b' } })).statusCode).toBe(200);
+		expect(app.config.model('qwen-pro')).toMatchObject({ id: 'gpt-oss:20b', family: 'gpt-oss', extra: { reasoning_effort: 'low' } });
+		// What was written reads back the same, so it survives a restart.
+		expect(parseTiers(readFileSync(file, 'utf8')).vision).toEqual({ model: 'vision' });
 	});
 
 	it('the health check asks every tier one small question', async () => {
@@ -126,5 +235,16 @@ describe('backups', () => {
 		expect(readdirSync(dir).sort()).toEqual(['onyx-2026-01-02-09-00.db', r.file.split(/[\\/]/).pop()].sort());
 		expect(readFileSync(r.file).subarray(0, 15).toString()).toBe('SQLite format 3');
 		await expect(backupNow(app, { dir: null, keep: 7 })).rejects.toThrow('Choose a backup folder first.');
+	});
+});
+
+describe('your own config files', () => {
+	it('prices in equivalents.local.yaml are laid over the shipped ones, which updates replace', () => {
+		const dir = mkdtempSync(join(tmpdir(), 'onyx-cfg-'));
+		const base = join(dir, 'equivalents.yaml');
+		writeFileSync(base, 'equivalents:\n  "qwen3:8b": { name: shipped, input: 0.18, output: 0.70, source: "x" }\n  "gpt-oss:20b": { name: shipped, input: 0.05, output: 0.20, source: "x" }\n');
+		writeFileSync(localOf(base), 'equivalents:\n  "qwen3:8b": { name: mine, input: 1, output: 2, source: "my own" }\n');
+		expect(localOf(base)).toBe(join(dir, 'equivalents.local.yaml'));
+		expect(loadEquivalents(base)).toEqual({ 'qwen3:8b': { name: 'mine', input: 1, output: 2, source: 'my own' }, 'gpt-oss:20b': { name: 'shipped', input: 0.05, output: 0.2, source: 'x' } });
 	});
 });

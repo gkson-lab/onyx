@@ -61,7 +61,10 @@ overview.
    - asks whether Onyx should start by itself, minimized, when you sign in to Windows.
 3. **Double-click the Onyx shortcut.** It starts Ollama if needed, starts Onyx, and opens it in your browser at
    `http://127.0.0.1:8787`. Keep the black window open while you use Onyx.
-4. **To update later**, double-click `Update Onyx` (in a Git clone).
+4. **It updates itself.** While Onyx runs it checks GitHub every 10 minutes and, when a new version is out and no
+   agent is working, installs it and restarts. Your password, keys, chats, settings and model choices stay.
+   `Update Onyx` does the same by hand; `Update Onyx.bat /undo` goes back one version. Details:
+   [`agents/README.md`](agents/README.md#updates).
 
 On macOS or Linux, the same steps by hand: install Node.js 22.13+, pnpm and Ollama, then in `agents/` run
 `pnpm install`, `pnpm build`, `pnpm onyx setup` and `pnpm start`.
@@ -168,7 +171,7 @@ your PC and saves the choice in `config/tiers.local.yaml`, which updates never o
 - **Web search** uses Brave Search with a key (`BRAVE_API_KEY`), or DuckDuckGo's plain page without one. Pages on
   your PC or your home network are never fetched on a model's request.
 - **Connectors** are MCP servers: GitHub (read-only by default) and anything else that speaks MCP, listed in
-  `agents/config/connectors.yaml` and switched on per agent.
+  `agents/config/connectors.yaml` (your own copy goes in `connectors.local.yaml`) and switched on per agent.
 - **Exact answers** (arithmetic, units, dates) come from Onyx 3's calculator, reused as a tool.
 
 ### The app
@@ -185,7 +188,7 @@ Nine screens, built for phone and desktop, in a near-monochrome look:
 | **Connectors** | each MCP server's state and tools |
 | **Models** | every model with its tries, failures, latency, tokens and costs; a health check of every tier; the latest failed tries and what they said; what Ollama has loaded; more models to download and use; what this PC can run; the tiers file editor |
 | **Usage** | tokens per day, tier, model and agent, and the hosted-equivalent cost |
-| **Settings** | where Onyx texts you first, Tailscale for your phone (with a QR code), notifications, linked phone numbers, keys (shown as set or not, never their values), start with Windows, daily backups, reminders, and what Onyx remembers about you |
+| **Settings** | where Onyx texts you first, Tailscale for your phone (with a QR code), notifications, linked phone numbers, keys (shown as set or not, never their values), updates from GitHub, start with Windows, daily backups, reminders, and what Onyx remembers about you |
 
 Prefer the terminal? `pnpm onyx chat` in `agents/` shows the same events as text.
 
@@ -214,8 +217,8 @@ Your local models cost nothing per message. To show what that saves, every call 
 have cost on a paid host running the same Qwen model, using the prices in
 [`agents/config/equivalents.yaml`](agents/config/equivalents.yaml): Alibaba Model Studio's published rates for the
 8B, 14B and 30B, and a third-party host's for the 4B, labelled as such. It appears under each reply, in Runs, on
-the Models screen and on Usage (today, this period and in all). Nothing is charged; edit the file to compare
-other prices.
+the Models screen and on Usage (today, this period and in all). Nothing is charged; put prices of your own in
+`agents/config/equivalents.local.yaml` to compare (updates leave that file alone).
 
 **Billing**, for the day Onyx is offered to others, exists and is off: set `billing: { enabled: true }` in the tiers
 file and each account's plan then limits its tiers and daily tokens. `GET /api/billing` reports each account's use
@@ -234,15 +237,20 @@ and cost. Taking payment is not built.
 
 ## What has been tested
 
-- **80 automated tests** (`pnpm test` in `agents/`) cover:
+- **99 automated tests** (`pnpm test` in `agents/`) cover:
   - the router, fallbacks, plans and the agent loop;
   - subagents, budgets and the kill switch;
   - tools, reminders and delivery;
   - every channel's webhook and signature check;
   - sign-in (also through Tailscale), push, billing, the hosted-cost figures and the hardware planner;
   - calls to one graphics card going one at a time, time budgets, and the Ollama and Tailscale checks;
-  - chats and their search and export, attachments (text, PDF and images), the health check, putting a model on a
-    tier, loading models at start, and backups.
+  - chats and their search and export, attachments (text, PDF and images) and fitting them in the model's context,
+    the health check, putting a model on a tier, loading models at start, and backups;
+  - updating from GitHub: a downloaded copy file by file and from one archive, a git clone, damaged downloads, undo,
+    waiting for the agents to finish, and keeping what is yours.
+
+  The app was also driven in a browser through every chat feature, and the updater was run against the real
+  repository on GitHub and through a full self-update and restart.
 
   They use a scripted stand-in for the models, so they need no graphics card or network.
 - **Generated code is checked for real.** `node tools/check-code.js` and `node tools/check-synth.js` at the top of
@@ -814,7 +822,8 @@ demo/                  an old address, kept so links to it still work
 agents/                Onyx Agents
   Setup Onyx.bat         Windows: install, build, choose and download models, make a desktop shortcut
   Start Onyx.bat         Windows: restart Ollama with its settings, start Onyx, open it, share it through Tailscale
-  Update Onyx.bat        Windows: get the latest version and rebuild
+  Update Onyx.bat        Windows: make this copy the same as GitHub's newest version, and rebuild (/undo goes back)
+  scripts/launcher.mjs   runs Onyx, and installs, rebuilds and restarts it after it updates itself
   config/                tiers and models, hosted-equivalent prices, MCP connectors
   apps/server/           the server: model gateway, router, agent runtime, tools, channels, scheduler, API
   apps/web/              the app (Next.js), exported as static files the server serves

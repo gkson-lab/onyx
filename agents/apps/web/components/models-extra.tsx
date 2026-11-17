@@ -110,7 +110,7 @@ export function MoreModels({ onChange }: { onChange?: () => void }) {
 								{m.installed && allowed.length > 0 && (
 									<>
 										<label htmlFor={`use-${m.id}`} className="sr-only">Use {m.id} for</label>
-										<select id={`use-${m.id}`} defaultValue="" onChange={(e) => e.target.value && void use(m.id, e.target.value)} className="h-9 text-sm">
+										<select id={`use-${m.id}`} value="" onChange={(e) => e.target.value && void use(m.id, e.target.value)} className="h-9 text-sm">
 											<option value="" disabled>Use for…</option>
 											{allowed.map((u) => <option key={u} value={u}>{u === 'vision' ? 'Reading images' : `${u[0]!.toUpperCase()}${u.slice(1)} tier`}{data.recommended[u] === m.id ? ' (recommended)' : ''}</option>)}
 										</select>

@@ -51,11 +51,21 @@ export const TiersFile = z
 export type TiersFile = z.infer<typeof TiersFile>;
 export type ModelDef = z.infer<typeof Model> & { key: string };
 
-/** What a local model would cost on a paid host (config/equivalents.yaml), by Ollama model id. */
+/**
+ * This PC's own version of a shipped config file: config/x.local.yaml beside config/x.yaml. Updates replace the
+ * shipped files and never touch the local ones, so your changes go in those.
+ */
+export const localOf = (path: string): string => path.replace(/\.ya?ml$/, '.local.yaml');
+
+/**
+ * What a local model would cost on a paid host, by Ollama model id: config/equivalents.yaml, with any prices of your
+ * own from config/equivalents.local.yaml on top (so updates still bring prices for new models).
+ */
 export const Equivalents = z.object({ equivalents: z.record(z.object({ name: z.string(), input: z.number().nonnegative(), output: z.number().nonnegative(), source: z.string() })).default({}) });
 export type Equivalent = z.infer<typeof Equivalents>['equivalents'][string];
 export function loadEquivalents(path = resolve(ROOT, 'config/equivalents.yaml')): Record<string, Equivalent> {
-	return existsSync(path) ? Equivalents.parse(parse(readFileSync(path, 'utf8')) ?? {}).equivalents : {};
+	const read = (p: string) => (existsSync(p) ? Equivalents.parse(parse(readFileSync(p, 'utf8')) ?? {}).equivalents : {});
+	return { ...read(path), ...read(localOf(path)) };
 }
 
 export type Env = Record<string, string | undefined>;

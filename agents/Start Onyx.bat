@@ -19,13 +19,12 @@ if /i not "%~1"=="/background" start "" /min cmd /c "timeout /t 8 /nobreak >nul 
 
 echo.
 echo  Onyx is starting at http://127.0.0.1:8787
-echo  Keep this window open: closing it stops Onyx.
+echo  Keep this window open: closing it stops Onyx. It updates itself when GitHub has a new version.
 echo.
-call "%PNPM%" start
-echo.
-echo  Onyx stopped. If that was not you, the message above says why.
-pause
-exit /b 1
+rem The rest is one line on purpose. An update can replace this file while Onyx runs, and Windows reads a batch file
+rem a line at a time as it goes: nothing below this line may be needed once Onyx has started. The launcher starts
+rem Onyx, and after an update installs and builds the new version and starts it again.
+set "ONYX_PNPM=%PNPM%" & node scripts\launcher.mjs & echo. & echo  Onyx stopped. If that was not you, the message above says why. & pause & exit /b 1
 
 :not_set_up
 echo.
