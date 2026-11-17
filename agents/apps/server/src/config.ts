@@ -14,6 +14,8 @@ const Provider = z.object({
 	base_url_env: z.string().optional(),
 	api_key_env: z.string().optional(),
 	local: z.boolean(),
+	/** Calls sent to this provider at the same time. Default: 1 for a local one (one graphics card), 8 for a cloud one. */
+	max_concurrent: z.number().int().min(1).max(64).optional(),
 });
 const Model = z.object({
 	provider: z.string(),

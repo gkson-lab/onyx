@@ -184,6 +184,7 @@ export class Runtime {
 				const r = await gateway.complete({
 					userId: o.userId, runId, purpose: agent.id, tier, messages, tools: last || !defs.length ? undefined : defs, signal: controller.signal,
 					timeoutMs: Math.max(1000, Math.min(f.deadline - Date.now(), 10 * 60 * 1000)),
+					deadline: f.deadline,
 					onDelta: f.depth === 0 ? (t) => ((streamed += t), this.d.bus.emit({ type: 'delta', at: now(), runId, rootId: f.rootId, parentId: null, agentId: agent.id, data: { text: t } })) : undefined,
 				});
 				const spent = r.usage.input + r.usage.output;

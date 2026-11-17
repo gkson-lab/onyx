@@ -18,6 +18,8 @@ export interface CompleteRequest {
 	maxTokens?: number;
 	temperature?: number;
 	timeoutMs?: number;
+	/** When the caller's time budget runs out (ms since 1970). Waiting for the model counts against it. */
+	deadline?: number;
 	signal?: AbortSignal;
 	onDelta?: (text: string) => void;
 	/** Set to false where a lower tier would be worse than an error (the router itself, for one). */
@@ -57,12 +59,16 @@ export interface GatewayOptions {
 	onFallback?: (f: Fallback, req: CompleteRequest) => void;
 }
 
+// Less time than this left in the budget: another try could not finish, so it is not made.
+const MIN_TRY_MS = 5000;
+
 export class Gateway {
 	private readonly config: Config;
 	private readonly db: DB;
 	private readonly fetch?: FetchLike;
 	private readonly sleep: (ms: number) => Promise<void>;
 	private readonly onFallback?: GatewayOptions['onFallback'];
+	private readonly lanes = new Map<string, { active: number; waiting: (() => void)[] }>();
 
 	constructor(o: GatewayOptions) {
 		this.config = o.config;
@@ -70,6 +76,41 @@ export class Gateway {
 		this.fetch = o.fetch;
 		this.sleep = o.sleep ?? ((ms) => new Promise((r) => setTimeout(r, ms)));
 		this.onFallback = o.onFallback;
+	}
+
+	/**
+	 * Waits for a free slot at a provider. A local provider takes one call at a time by default: calls for different
+	 * models at once make Ollama load several models onto one graphics card together, which is how a model ends up
+	 * split onto the processor or failing to load.
+	 */
+	private async acquire(provider: string, signal?: AbortSignal): Promise<() => void> {
+		const p = this.config.file.providers[provider]!;
+		const limit = p.max_concurrent ?? (p.local ? 1 : 8);
+		const lane = this.lanes.get(provider) ?? { active: 0, waiting: [] };
+		this.lanes.set(provider, lane);
+		const release = () => {
+			lane.active--;
+			lane.waiting.shift()?.();
+		};
+		if (lane.active < limit) {
+			lane.active++;
+			return release;
+		}
+		await new Promise<void>((resolve, reject) => {
+			const go = () => {
+				signal?.removeEventListener('abort', stop);
+				lane.active++;
+				resolve();
+			};
+			const stop = () => {
+				lane.waiting.splice(lane.waiting.indexOf(go), 1);
+				reject(new ProviderError('cancelled', 499, false));
+			};
+			if (signal?.aborted) return stop();
+			lane.waiting.push(go);
+			signal?.addEventListener('abort', stop, { once: true });
+		});
+		return release;
 	}
 
 	/** USD for a call, or null when the model's price isn't in the config. */
@@ -116,6 +157,8 @@ export class Gateway {
 		if (tier !== req.tier) await this.note(req, trail, { kind: 'plan', from: req.tier, to: tier, reason: `the ${plan} plan doesn't include the ${req.tier} tier` });
 		const purpose = req.purpose ?? 'chat';
 		const errors: string[] = [];
+		let outOfTime = false;
+		const left = () => (req.deadline === undefined ? Infinity : req.deadline - Date.now());
 
 		for (;;) {
 			const candidates = this.config.candidates(tier);
@@ -123,10 +166,16 @@ export class Gateway {
 			for (const [i, model] of candidates.entries()) {
 				let last = '';
 				for (let attempt = 0; attempt <= fb.retries; attempt++) {
+					if (left() < MIN_TRY_MS) {
+						outOfTime = true;
+						last = `out of time: the agent's time budget had ${Math.max(0, Math.round(left() / 1000))} s left`;
+						break;
+					}
+					const release = await this.acquire(model.provider, req.signal);
 					const started = Date.now();
 					const messages = model.system_suffix ? withSuffix(req.messages, model.system_suffix) : req.messages;
 					try {
-						const r = await chat({ baseUrl: this.config.baseUrl(model.provider), apiKey: this.config.apiKey(model.provider), model: model.id, messages, tools: req.tools, toolChoice: req.toolChoice, maxTokens: req.maxTokens, temperature: req.temperature, extra: model.extra, timeoutMs: req.timeoutMs ?? fb.timeout_ms, signal: req.signal, onDelta: req.onDelta }, this.fetch);
+						const r = await chat({ baseUrl: this.config.baseUrl(model.provider), apiKey: this.config.apiKey(model.provider), model: model.id, messages, tools: req.tools, toolChoice: req.toolChoice, maxTokens: req.maxTokens, temperature: req.temperature, extra: model.extra, timeoutMs: Math.max(1000, Math.min(req.timeoutMs ?? fb.timeout_ms, left())), signal: req.signal, onDelta: req.onDelta }, this.fetch);
 						const latencyMs = Date.now() - started;
 						const costUsd = this.cost(model, r.usage);
 						const eq = this.config.file.providers[model.provider]!.local ? this.config.equivalents[model.id] : undefined;
@@ -140,17 +189,27 @@ export class Gateway {
 						last = err.message;
 						await this.db.insertInto('model_calls').values({ user_id: req.userId, run_id: req.runId ?? null, purpose, tier, model_key: model.key, provider: model.provider, model_id: model.id, status: 'error', error: err.message, input_tokens: 0, output_tokens: 0, usage_estimated: 0, cost_usd: null, latency_ms: Date.now() - started, attempt, created_at: now() }).execute();
 						if (err.status === 499) throw err;
+						// With too little of the agent's time left, a retry, another provider or a lower tier would only fail
+						// again in a second or two, and count as more failures. Stop here and say why.
+						if (left() < MIN_TRY_MS) {
+							outOfTime = true;
+							last = `${err.message} (not tried again: the agent's time budget had ${Math.max(0, Math.round(left() / 1000))} s left)`;
+							break;
+						}
 						if (!err.retryable || attempt === fb.retries) break;
 						await this.note(req, trail, { kind: 'retry', from: `${model.provider}/${model.id}`, to: `${model.provider}/${model.id}`, reason: `${err.message}; try ${attempt + 2} of ${fb.retries + 1}` });
 						await this.sleep(fb.backoff_ms * 2 ** attempt);
+					} finally {
+						release();
 					}
 				}
 				errors.push(`${model.provider}/${model.id}: ${last}`);
+				if (outOfTime) break;
 				const next = candidates[i + 1];
 				if (next) await this.note(req, trail, { kind: 'provider', from: `${model.provider}/${model.id}`, to: `${next.provider}/${next.id}`, reason: last });
 			}
 			const lower = tierRank(tier) > 0 ? (billing ? this.clamp(plan, TIERS[tierRank(tier) - 1]!) : TIERS[tierRank(tier) - 1]!) : null;
-			if (!fb.drop_tier || req.allowTierDrop === false || !lower || lower === tier) break;
+			if (outOfTime || !fb.drop_tier || req.allowTierDrop === false || !lower || lower === tier) break;
 			await this.note(req, trail, { kind: 'tier', from: tier, to: lower, reason: `every model in the ${tier} tier failed` });
 			tier = lower;
 		}

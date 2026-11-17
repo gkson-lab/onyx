@@ -33,7 +33,12 @@ const GPU_BANDWIDTH: [RegExp, number][] = [
 ];
 export const bandwidthOf = (gpuName: string): number | null => GPU_BANDWIDTH.find(([re]) => re.test(gpuName))?.[1] ?? null;
 
-const GPU_RESERVED_GB = 1.0; // the display and the driver
+// Windows' desktop, the browser showing Onyx and the driver hold 1 to 2 GB of the card. 1 GB was too little: a model
+// that does not quite fit is split onto the processor (slow) or fails to load.
+const GPU_RESERVED_GB = 2.0;
+// Onyx tells Ollama to keep the context cache at 8 bits (OLLAMA_KV_CACHE_TYPE=q8_0), which halves it, with no
+// noticeable loss in answers.
+const KV_FACTOR = 0.5;
 const RAM_RESERVED_GB = 8; // Windows, Onyx, a browser
 const OVERHEAD_GB = 0.6; // working memory beside the weights and the cache
 const GPU_EFF = 0.75; // share of the card's bandwidth reached in practice (fits published Qwen3 14B results)
@@ -51,7 +56,7 @@ export interface Fit {
 }
 
 export function fit(hw: Hardware, model: (typeof CATALOG)[number], context: number): Fit {
-	const needGb = Math.round((model.weightsGb + (model.kvKb * context) / 1024 / 1024 + OVERHEAD_GB) * 10) / 10;
+	const needGb = Math.round((model.weightsGb + (model.kvKb * context * KV_FACTOR) / 1024 / 1024 + OVERHEAD_GB) * 10) / 10;
 	const gpuFree = hw.gpu ? Math.max(0, hw.gpu.vramGb - GPU_RESERVED_GB) : 0;
 	const ramFree = Math.max(0, hw.ramGb - RAM_RESERVED_GB);
 	const share = needGb <= gpuFree ? 1 : gpuFree / needGb;
@@ -83,8 +88,10 @@ export interface Plan {
 function chooseContext(hw: Hardware): number {
 	const on = (i: number, ctx: number) => fit(hw, CATALOG[i]!, ctx);
 	const room = hw.gpu ? hw.gpu.vramGb - GPU_RESERVED_GB : 0;
-	for (const ctx of [32768, 16384, 8192]) if (on(1, ctx).needGb + on(2, ctx).needGb <= room && on(3, ctx).where === 'gpu') return ctx;
-	for (const ctx of [32768, 16384]) if (on(2, ctx).where === 'gpu') return ctx;
+	// 32K only on a card of 24 GB or more: on a smaller one it leaves too little room to spare.
+	const sizes = hw.gpu && hw.gpu.vramGb >= 24 ? [32768, 16384, 8192] : [16384, 8192];
+	for (const ctx of sizes) if (on(1, ctx).needGb + on(2, ctx).needGb <= room && on(3, ctx).where === 'gpu') return ctx;
+	for (const ctx of sizes.slice(0, -1)) if (on(2, ctx).where === 'gpu') return ctx;
 	return 8192;
 }
 
@@ -117,7 +124,15 @@ export function plan(hw: Hardware): Plan {
 		tiers: { lite, standard, pro, max },
 		reasons: { lite: say(lite), standard: say(standard), pro: say(pro), max: say(max) },
 		// Ollama's default context on a card under 24 GB can be as small as 4K, too little for agents reading tool results.
-		env: { OLLAMA_CONTEXT_LENGTH: String(context), OLLAMA_FLASH_ATTENTION: '1', OLLAMA_MAX_LOADED_MODELS: '3' },
+		env: {
+			OLLAMA_CONTEXT_LENGTH: String(context),
+			OLLAMA_FLASH_ATTENTION: '1',
+			OLLAMA_KV_CACHE_TYPE: 'q8_0',
+			OLLAMA_MAX_LOADED_MODELS: '3',
+			// Ollama keeps this much of the card free for Windows and the browser, so a model that would not fit is split
+			// onto the processor instead of failing to load.
+			...(hw.gpu ? { OLLAMA_GPU_OVERHEAD: String(1024 ** 3) } : {}),
+		},
 		warnings,
 	};
 }

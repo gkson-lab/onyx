@@ -42,11 +42,8 @@ echo [3/4] Choosing models for this PC and downloading them...
 call "%PNPM%" onyx setup || goto :failed
 
 echo.
-echo [4/4] Restarting Ollama so its new settings apply...
-taskkill /IM "ollama app.exe" /F >nul 2>nul
-taskkill /IM ollama.exe /F >nul 2>nul
-timeout /t 2 /nobreak >nul
-call :ollama_up
+echo [4/4] Restarting Ollama with its new settings...
+call :ollama_restart
 
 powershell -NoProfile -Command "$s=(New-Object -ComObject WScript.Shell).CreateShortcut([Environment]::GetFolderPath('Desktop')+'\Onyx.lnk'); $s.TargetPath='%~dp0Start Onyx.bat'; $s.WorkingDirectory='%~dp0'; $s.Save()" >nul 2>nul && echo Put an "Onyx" shortcut on your desktop.
 
@@ -80,7 +77,7 @@ exit /b 1
 
 :refresh_path
 rem Windows only gives new program locations to windows opened after you sign in again. Read them fresh instead.
-for /f "usebackq delims=" %%P in (`powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')"`) do set "PATH=%%P;%ProgramFiles%\nodejs;%APPDATA%\npm;%ProgramFiles%\Git\cmd;%LOCALAPPDATA%\Programs\Ollama"
+for /f "usebackq delims=" %%P in (`powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')"`) do set "PATH=%%P;%ProgramFiles%\nodejs;%APPDATA%\npm;%ProgramFiles%\Git\cmd;%LOCALAPPDATA%\Programs\Ollama;%ProgramFiles%\Tailscale"
 exit /b 0
 
 :find_pnpm
@@ -96,4 +93,20 @@ if not errorlevel 1 exit /b 0
 echo Starting Ollama...
 if exist "%LOCALAPPDATA%\Programs\Ollama\ollama app.exe" start "" "%LOCALAPPDATA%\Programs\Ollama\ollama app.exe"
 timeout /t 8 /nobreak >nul
+exit /b 0
+
+:ollama_restart
+rem Ollama reads its settings only when it starts. A copy started some other way (at sign-in, from the Start menu,
+rem or by Ollama's own app) may run without them: a 4,096-token context that silently drops earlier messages. So
+rem Onyx stops any running copy and starts Ollama itself, with the settings worked out for this PC.
+call "%PNPM%" -s onyx ollama-env --save > "%TEMP%\onyx-ollama.env" 2>nul
+for /f "usebackq delims=" %%L in (`findstr /R /C:"^OLLAMA_[A-Z_]*=" "%TEMP%\onyx-ollama.env"`) do set "%%L"
+taskkill /IM "ollama app.exe" /F >nul 2>nul
+taskkill /IM ollama.exe /F >nul 2>nul
+taskkill /IM llama-server.exe /F >nul 2>nul
+taskkill /IM ollama_llama_server.exe /F >nul 2>nul
+timeout /t 2 /nobreak >nul
+echo Starting Ollama with Onyx's settings (context %OLLAMA_CONTEXT_LENGTH% tokens)...
+start "Ollama for Onyx" /min ollama serve
+timeout /t 5 /nobreak >nul
 exit /b 0

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { ArrowDown, ArrowUp, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, Check, X } from 'lucide-react';
 import { api, fmtTime, useData } from '@/lib/api';
 import { Button, Code, ICON, Loading, Page, Problem, Section, channelLabel } from '@/components/ui';
 
@@ -8,6 +8,63 @@ interface S { preferred_channels: string[]; allowlist: string[]; keys: { name: s
 const KEY_USE: Record<string, string> = { MOONSHOT_API_KEY: 'Kimi models (only used when ONYX_CLOUD=on)', BRAVE_API_KEY: 'Web search for the Researcher', GITHUB_MCP_TOKEN: 'The GitHub connector', ONYX_PASSWORD: 'Signing in to this app from outside this PC', WHATSAPP_TOKEN: 'Sending WhatsApp messages', WHATSAPP_APP_SECRET: 'Checking that WhatsApp webhooks come from Meta', TWILIO_AUTH_TOKEN: 'Sending SMS, and checking Twilio webhooks' };
 
 interface Identity { id: number; channel: string; handle: string; verified_at: string | null; code: string | null; code_expires: string | null }
+
+interface TS { installed: boolean; state: string | null; signedIn: boolean; https: boolean; address: string | null; serving: boolean; qrSvg: string | null; next: string | null }
+
+/** Tailscale, the private way to reach Onyx from your phone: what is done, what to do next, and the address to open. */
+function Tailscale() {
+	const { data, error, reload } = useData<TS>('/tailscale');
+	const steps = data
+		? [
+				{ done: data.installed && data.signedIn, text: 'Tailscale installed on this PC, and signed in' },
+				{ done: data.https, text: 'MagicDNS and HTTPS Certificates on for your Tailscale account' },
+				{ done: data.serving, text: "Onyx shared at this PC's Tailscale address" },
+			]
+		: [];
+	return (
+		<Section title="Your phone, through Tailscale" aside={<Button onClick={reload}>Check again</Button>}>
+			<p className="mb-3 max-w-2xl text-sm text-muted">Tailscale connects your phone to this PC privately: only devices signed in to your Tailscale account can reach Onyx, and nothing on this PC is open to the internet. Put the Tailscale app on your phone too, signed in to the same account.</p>
+			{error && <Problem>{error}</Problem>}
+			{!data && !error && <Loading what="Tailscale's status" />}
+			{data && (
+				<>
+					<ol className="border-t">
+						{steps.map((s, i) => (
+							<li key={s.text} className="flex min-h-11 items-center gap-3 border-b py-2 text-sm">
+								<span className="w-5 font-mono text-xs text-muted">{i + 1}</span>
+								<span className={`flex-1 ${s.done ? '' : 'text-muted'}`}>{s.text}</span>
+								{s.done ? (
+									<>
+										<Check {...ICON} aria-hidden="true" />
+										<span className="sr-only">done</span>
+									</>
+								) : (
+									<span className="font-mono text-xs text-muted">not yet</span>
+								)}
+							</li>
+						))}
+					</ol>
+					{data.next && (
+						<p className="mt-3 max-w-2xl text-sm">
+							<span className="text-muted">Next: </span>
+							{data.next.split('`').map((part, i) => (i % 2 ? <Code key={i}>{part}</Code> : part))}
+						</p>
+					)}
+					{data.serving && data.address && (
+						<div className="mt-4 flex flex-wrap items-start gap-5">
+							{data.qrSvg && <img src={`data:image/svg+xml;utf8,${encodeURIComponent(data.qrSvg)}`} alt={`QR code for ${data.address}`} width={148} height={148} className="rounded" />}
+							<div className="max-w-md text-sm">
+								<p className="text-muted">On your phone, with Tailscale connected, point the camera at the code, or open:</p>
+								<a href={data.address} className="mt-1 block break-all font-mono text-sm underline underline-offset-4">{data.address}</a>
+								<p className="mt-3 text-muted">Sign in with your Onyx password. Then add it to the Home Screen: on an iPhone, Safari&rsquo;s Share button, then Add to Home Screen; on Android, Chrome&rsquo;s menu, then Install app.</p>
+							</div>
+						</div>
+					)}
+				</>
+			)}
+		</Section>
+	);
+}
 
 /** Linking a phone number: Onyx shows a code, you text it from that phone, and that proves the phone is yours. */
 function Phones() {
@@ -81,7 +138,7 @@ function Notifications() {
 	};
 	return (
 		<Section title="Notifications on this device">
-			<p className="mb-3 max-w-2xl text-sm text-muted">{supported ? 'When Onyx texts you first, this device shows a notification too. On an iPhone, add Onyx to the Home Screen first: iOS only allows notifications for installed apps.' : 'This browser cannot receive notifications here. They need a secure address (https, through your tunnel) or this PC itself, and on an iPhone, Onyx added to the Home Screen.'}</p>
+			<p className="mb-3 max-w-2xl text-sm text-muted">{supported ? 'When Onyx texts you first, this device shows a notification too. On an iPhone, add Onyx to the Home Screen first: iOS only allows notifications for installed apps.' : 'This browser cannot receive notifications here. They need a secure address (https, through Tailscale or a tunnel) or this PC itself, and on an iPhone, Onyx added to the Home Screen.'}</p>
 			<div className="flex flex-wrap items-center gap-3">
 				<Button onClick={() => void turnOn()} disabled={!supported || !data}>Turn on for this device</Button>
 				<span className="font-mono text-xs text-muted">{data ? `${data.devices} device${data.devices === 1 ? '' : 's'} subscribed` : ''}</span>
@@ -156,8 +213,9 @@ export default function Settings() {
 						</form>
 					</Section>
 
-					<Phones />
+					<Tailscale />
 					<Notifications />
+					<Phones />
 
 					<Section title="Keys">
 						<p className="mb-3 max-w-2xl text-sm text-muted">Keys live in <Code>.env</Code> on this PC and are never sent to this page: it only knows whether each one is set. To change one, edit <Code>.env</Code> and restart Onyx.</p>

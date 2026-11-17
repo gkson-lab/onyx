@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { api, fmtCost, fmtMs, fmtTokens, useData, type Tier } from '@/lib/api';
+import { api, fmtCost, fmtMs, fmtTime, fmtTokens, useData, type Tier } from '@/lib/api';
 import { Button, Code, Loading, Page, Problem, Section, TierBadge } from '@/components/ui';
 
 interface M { key: string; id: string; provider: string; family: string; price: { input: number; output: number } | null; equivalent: { name: string; input: number; output: number; source: string } | null; equivalent_usd: number | null; local: boolean; usable: boolean; tiers: Tier[]; installed: boolean | null; provider_error: string | null; calls: number; errors: number; latency_ms: number | null; tokens: number; cost_usd: number | null }
@@ -61,8 +61,55 @@ function ThisPc({ onApplied }: { onApplied: () => void }) {
 	);
 }
 
+interface OllamaStatus { reachable: boolean; version: string | null; loaded: { name: string; contextLength: number | null; sizeGb: number; onCard: number }[]; warnings: string[] }
+interface Failure { created_at: string; model_id: string; purpose: string; attempt: number; error: string; latency_ms: number }
+
+/** What Ollama is doing right now: loaded models, their context, and how much of each is on the graphics card. */
+function Ollama() {
+	const { data, error, reload } = useData<OllamaStatus>('/ollama');
+	if (error) return <Problem>{error}</Problem>;
+	if (!data) return <Loading what="Ollama's status" />;
+	return (
+		<>
+			<div className="flex flex-wrap items-center gap-3 text-sm">
+				<span className={data.reachable ? '' : 'text-bad'}>{data.reachable ? `Running, version ${data.version ?? 'unknown'}` : 'Not running'}</span>
+				<Button onClick={reload}>Check again</Button>
+			</div>
+			{data.warnings.map((w) => <div key={w} className="mt-3"><Problem>{w}</Problem></div>)}
+			{data.reachable && (data.loaded.length ? (
+				<ul className="rows mt-3 border-t">
+					{data.loaded.map((m) => (
+						<li key={m.name} className="grid grid-cols-[1fr_auto] gap-x-4 border-b py-2 text-sm md:grid-cols-[14rem_1fr_auto]">
+							<span className="font-mono text-xs">{m.name}</span>
+							<span className="hidden text-muted md:block">{m.contextLength ? `${m.contextLength.toLocaleString('en-US')} tokens of context` : ''}</span>
+							<span className={`font-mono text-xs ${m.onCard < 0.97 ? '' : 'text-muted'}`}>{m.sizeGb} GB · {Math.round(m.onCard * 100)}% on the graphics card</span>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p className="mt-2 text-sm text-muted">No model is loaded right now. Ollama loads one when a message needs it and unloads it after 5 idle minutes.</p>
+			))}
+		</>
+	);
+}
+
+/** The latest failed tries, with what the model or Ollama said. */
+function Failures({ rows }: { rows: Failure[] }) {
+	if (!rows.length) return <p className="border-y py-3 text-sm text-muted">No failed tries.</p>;
+	return (
+		<ul className="rows border-t">
+			{rows.map((f, i) => (
+				<li key={i} className="border-b py-2">
+					<p className="font-mono text-xs text-muted">{fmtTime(f.created_at)} · {f.model_id} · {f.purpose} · try {f.attempt + 1} · after {fmtMs(f.latency_ms)}</p>
+					<p className="mt-0.5 break-words font-mono text-xs text-bad">{f.error}</p>
+				</li>
+			))}
+		</ul>
+	);
+}
+
 export default function Models() {
-	const { data, error, reload } = useData<{ models: M[] }>('/models');
+	const { data, error, reload } = useData<{ models: M[]; errors: Failure[] }>('/models');
 	const raw = useData<{ yaml: string }>('/tiers/raw');
 	const [yaml, setYaml] = useState('');
 	const [saved, setSaved] = useState<string | null>(null);
@@ -89,7 +136,7 @@ export default function Models() {
 			{data && (
 				<div className="overflow-x-auto">
 					<table className="w-full min-w-[52rem] border-t text-left text-sm">
-						<thead><tr className="border-b text-xs text-muted">{['Model', 'Backs', 'State', 'Calls', 'Errors', 'Latency', 'Tokens', 'Cost', 'If hosted', 'Price per 1M in / out'].map((h) => <th key={h} className="py-2 pr-4 font-normal">{h}</th>)}</tr></thead>
+						<thead><tr className="border-b text-xs text-muted">{['Model', 'Backs', 'State', 'Tries', 'Failed', 'Latency', 'Tokens', 'Cost', 'If hosted', 'Price per 1M in / out'].map((h) => <th key={h} className="py-2 pr-4 font-normal">{h}</th>)}</tr></thead>
 						<tbody>
 							{data.models.map((m) => {
 								const s = state(m);
@@ -112,6 +159,14 @@ export default function Models() {
 					</table>
 				</div>
 			)}
+			{data && (
+				<Section title="Failed tries" aside={<span className="text-xs text-muted">A failed try is retried, then another model is tried; most still end in an answer</span>}>
+					<Failures rows={data.errors} />
+				</Section>
+			)}
+			<Section title="Ollama">
+				<Ollama />
+			</Section>
 			<Section title="What this PC can run">
 				<ThisPc onApplied={() => (reload(), raw.reload())} />
 			</Section>

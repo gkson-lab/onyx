@@ -15,6 +15,8 @@ import { now, today } from './db.ts';
 import { listModels } from './models/provider.ts';
 import { e164 } from './channels/phone.ts';
 import { applyToTiers, detect, plan as planFor, type Hardware } from './hardware.ts';
+import { ollamaStatus } from './ollama.ts';
+import { tailscaleStatus, type RunTailscale } from './tailscale.ts';
 
 const ChatBody = z.object({ text: z.string().trim().min(1).max(20000) });
 const SettingsBody = z.object({ preferred_channels: z.array(Channel).min(1).max(4).optional(), allowlist: z.array(z.string().trim().min(3).max(64)).max(50).optional() });
@@ -95,7 +97,7 @@ export async function catchUpSms(app: App): Promise<number> {
 	return missed.length;
 }
 
-export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware> } = {}): Promise<FastifyInstance> {
+export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware>; ollamaFetch?: typeof fetch; tailscale?: RunTailscale; port?: number } = {}): Promise<FastifyInstance> {
 	const server = Fastify({ logger: false, bodyLimit: 1_000_000 });
 	await server.register(websocket);
 	// Read: this PC's own tiers file if there is one, else the shipped one. Write: always this PC's own.
@@ -116,11 +118,11 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 	server.addContentTypeParser('application/x-www-form-urlencoded', { parseAs: 'string' }, (_req, body, done) => done(null, Object.fromEntries(new URLSearchParams(body as string))));
 
 	/* ---------- who may use the API ---------- */
-	// From this PC, directly: open. Through a tunnel or from another machine: only with the password's session.
+	// From this PC, directly: open. Through a tunnel, Tailscale or from another machine: only with the password's session.
 	const password = app.env.ONYX_PASSWORD ?? '';
 	const tryLogin = limiter(5, 60 * 1000);
 	const cookie = (req: any): string | null => (String(req.headers.cookie ?? '').match(/(?:^|;\s*)onyx_session=([a-f0-9]{64})/) ?? [])[1] ?? null;
-	const remote = (req: any): boolean => !['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.ip) || ['x-forwarded-for', 'cf-connecting-ip', 'x-real-ip', 'forwarded'].some((h) => req.headers[h] !== undefined);
+	const remote = (req: any): boolean => !['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.ip) || ['x-forwarded-for', 'cf-connecting-ip', 'x-real-ip', 'forwarded', 'tailscale-user-login'].some((h) => req.headers[h] !== undefined);
 	const signedIn = async (req: any): Promise<boolean> => {
 		const token = cookie(req);
 		return !!token && !!(await db.selectFrom('sessions').select('token').where('token', '=', token).executeTakeFirst());
@@ -299,6 +301,8 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		const hw = await hardware();
 		return { hardware: hw, plan: planFor(hw) };
 	});
+	server.get('/api/tailscale', async () => tailscaleStatus(o.port ?? Number(process.env.PORT ?? 8787), o.tailscale));
+	server.get('/api/ollama', async () => ollamaStatus(app.config, planFor(await hardware()), o.ollamaFetch));
 	server.post('/api/hardware/apply', async (_req, reply) => {
 		const p = planFor(await hardware());
 		const r = await applyToTiers(readTiers(), p.tiers);
@@ -321,7 +325,9 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 			const have = available[m.provider];
 			return { key, id: m.id, provider: m.provider, family: m.family, price: m.price, equivalent: app.config.equivalents[m.id] ?? null, local: app.config.file.providers[m.provider]!.local, usable: app.config.usable(m.provider), tiers: TIERS.filter((t) => app.config.file.tiers[t].models.includes(key)), installed: Array.isArray(have) ? have.includes(m.id) || have.includes(`${m.id}:latest`) : null, provider_error: have && !Array.isArray(have) ? have.error : null, ...(stats.find((s) => s.model_key === key) ?? { calls: 0, errors: 0, latency_ms: null, tokens: 0, cost_usd: null, equivalent_usd: null, last_used: null }) };
 		});
-		return { models };
+		// The latest failures, with their messages: what went wrong, not just how often.
+		const errors = await db.selectFrom('model_calls').select(['created_at', 'model_id', 'purpose', 'attempt', 'error', 'latency_ms']).where('status', '=', 'error').orderBy('id', 'desc').limit(20).execute();
+		return { models, errors };
 	});
 	server.get('/api/usage', async (req) => {
 		const { days } = z.object({ days: z.coerce.number().int().min(1).max(90).default(14) }).parse(req.query);

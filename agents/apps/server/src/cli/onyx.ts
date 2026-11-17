@@ -175,10 +175,32 @@ async function setup(): Promise<number> {
 	return 0;
 }
 
+/**
+ * `pnpm onyx ollama-env [--save]`: the settings Ollama should run with on this PC, one KEY=VALUE per line, for the
+ * Windows scripts to start Ollama with. --save also stores them for Ollama's own start at sign-in (setx).
+ */
+async function ollamaEnv(): Promise<number> {
+	const p = plan(await detect());
+	for (const [k, v] of Object.entries(p.env)) {
+		console.log(`${k}=${v}`);
+		if (process.argv.includes('--save') && process.platform === 'win32') spawnSync('setx', [k, v], { stdio: 'ignore' });
+	}
+	return 0;
+}
+
+/** `pnpm onyx errors`: the latest failed model calls, with their messages. */
+async function errors(): Promise<number> {
+	const app = await createApp();
+	const rows = await app.db.selectFrom('model_calls').select(['created_at', 'model_id', 'purpose', 'attempt', 'error']).where('status', '=', 'error').orderBy('id', 'desc').limit(20).execute();
+	if (!rows.length) console.log('No failed model calls.');
+	for (const r of rows) console.log(`${r.created_at.replace('T', ' ').slice(0, 19)}  ${r.model_id.padEnd(18)} ${r.purpose.padEnd(10)} try ${r.attempt + 1}  ${r.error}`);
+	return 0;
+}
+
 const cmd = process.argv[2] ?? 'chat';
-const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : cmd === 'setup' ? setup : null;
+const run = cmd === 'models' ? models : cmd === 'tiers' ? tiers : cmd === 'chat' ? chatLoop : cmd === 'hardware' ? hardware : cmd === 'setup' ? setup : cmd === 'ollama-env' ? ollamaEnv : cmd === 'errors' ? errors : null;
 if (!run) {
-	console.log('Usage: pnpm onyx [chat | models | tiers | hardware | setup]');
+	console.log('Usage: pnpm onyx [chat | models | tiers | hardware | setup | ollama-env | errors]');
 	process.exit(2);
 }
 run().then((code) => process.exit(code), (e) => (console.error(e instanceof Error ? e.message : e), process.exit(1)));

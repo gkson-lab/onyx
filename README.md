@@ -133,8 +133,14 @@ your PC and saves the choice in `config/tiers.local.yaml`, which updates never o
   allowance before it made its tool call. Max is the one tier that thinks.
 - **Fallbacks.** A failed call is retried, then the next model in the tier is tried, then the tier below. Each step
   is logged and shown, and when nothing answers, the error lists everything that was tried.
-- **Ollama's context.** Setup sets `OLLAMA_CONTEXT_LENGTH` (16,384 tokens on a 16 GB card). Without it, Ollama may
-  give each model only 4,096 tokens, which cuts agents off as soon as a tool returns a page.
+- **Ollama's settings.** Ollama reads its settings only when it starts, so the Onyx shortcut restarts it with the
+  ones worked out for your PC: 16,384 tokens of context on a 16 GB card (without it, Ollama may give 4,096 and
+  silently drop the start of a conversation), the context's cache at half size so Lite and Standard fit on the card
+  together, and 1 GB of the card kept free for Windows.
+- **When something fails,** the Models screen lists the latest failed tries with what Ollama said, and shows which
+  models are loaded, with their context and how much of each is on the graphics card. Calls to the card go one at a
+  time, and a call is not tried again when the agent's time is nearly up. See
+  [`agents/README.md`](agents/README.md#when-a-model-call-fails) for what each message means.
 - **Cloud models are optional and off.** Kimi (Moonshot AI) can back Pro and Max if you set `ONYX_CLOUD=on` and a
   key. Nothing leaves your PC for a model unless you do.
 
@@ -171,9 +177,9 @@ Nine screens, built for phone and desktop, in a near-monochrome look:
 | **Agents** | the roster, to edit or create agents |
 | **Channels** | each channel's state, last message, errors and a test send |
 | **Connectors** | each MCP server's state and tools |
-| **Models** | every model with its calls, errors, latency, tokens and costs; what this PC can run; the tiers file editor |
+| **Models** | every model with its tries, failures, latency, tokens and costs; the latest failed tries and what they said; what Ollama has loaded; what this PC can run; the tiers file editor |
 | **Usage** | tokens per day, tier, model and agent, and the hosted-equivalent cost |
-| **Settings** | where Onyx texts you first, linked phone numbers, notifications, keys (shown as set or not, never their values), reminders, and what Onyx remembers about you |
+| **Settings** | where Onyx texts you first, Tailscale for your phone (with a QR code), linked phone numbers, notifications, keys (shown as set or not, never their values), reminders, and what Onyx remembers about you |
 
 Prefer the terminal? `pnpm onyx chat` in `agents/` shows the same events as text.
 
@@ -181,9 +187,10 @@ Prefer the terminal? `pnpm onyx chat` in `agents/` shows the same events as text
 
 - **The Onyx app, through Tailscale (recommended).** [Tailscale](https://tailscale.com) connects your phone to your
   PC privately: only your own devices can reach Onyx, nothing is opened to the internet, and the address never
-  changes. Install Tailscale on both, turn on MagicDNS and HTTPS in its admin console, and run
-  `tailscale serve --bg 8787` once on the PC (the Onyx shortcut does it for you after that). Add the page to your
-  Home Screen, and turn on notifications in Settings to get reminders. Step by step:
+  changes. Install Tailscale on both, turn on MagicDNS and HTTPS in its admin console, and start Onyx with its
+  shortcut, which shares it at your PC's Tailscale address. **Settings, Your phone, through Tailscale** checks each
+  step and shows a QR code to open it on your phone. Add the page to your Home Screen, and turn on notifications in
+  Settings to get reminders. Step by step:
   [`agents/README.md`](agents/README.md#the-app-on-your-phone-through-tailscale).
 - **WhatsApp**, through Meta's official Cloud API: [`agents/SETUP_WHATSAPP.md`](agents/SETUP_WHATSAPP.md).
 - **SMS**, through Twilio: [`agents/SETUP_SMS.md`](agents/SETUP_SMS.md). US numbers need carrier registration
@@ -221,12 +228,13 @@ and cost. Taking payment is not built.
 
 ## What has been tested
 
-- **57 automated tests** (`pnpm test` in `agents/`) cover:
+- **72 automated tests** (`pnpm test` in `agents/`) cover:
   - the router, fallbacks, plans and the agent loop;
   - subagents, budgets and the kill switch;
   - tools, reminders and delivery;
   - every channel's webhook and signature check;
-  - sign-in, push, billing, the hosted-cost figures and the hardware planner.
+  - sign-in (also through Tailscale), push, billing, the hosted-cost figures and the hardware planner;
+  - calls to one graphics card going one at a time, time budgets, and the Ollama and Tailscale checks.
 
   They use a scripted stand-in for the models, so they need no graphics card or network.
 - **Generated code is checked for real.** `node tools/check-code.js` and `node tools/check-synth.js` at the top of
@@ -797,7 +805,7 @@ licenses/              the license of each wordnet Onyx 3's dictionaries come fr
 demo/                  an old address, kept so links to it still work
 agents/                Onyx Agents
   Setup Onyx.bat         Windows: install, build, choose and download models, make a desktop shortcut
-  Start Onyx.bat         Windows: start Ollama and Onyx, open the app, share it through Tailscale
+  Start Onyx.bat         Windows: restart Ollama with its settings, start Onyx, open it, share it through Tailscale
   Update Onyx.bat        Windows: get the latest version and rebuild
   config/                tiers and models, hosted-equivalent prices, MCP connectors
   apps/server/           the server: model gateway, router, agent runtime, tools, channels, scheduler, API

@@ -15,8 +15,8 @@ app, WhatsApp, SMS, sign-in and push notifications. iMessage is not planned: it 
 2. In the `agents` folder, double-click **Setup Onyx**. It installs what is missing (Node.js, Git and Ollama, through
    winget), builds Onyx, asks you for a password, picks the models for your PC, downloads them, and puts an
    **Onyx** shortcut on your desktop. If it installs a program, it asks you to run it once more.
-3. Double-click the **Onyx** shortcut to start. Your browser opens on Onyx; keep the black window open while you
-   use it.
+3. Double-click the **Onyx** shortcut to start. It restarts Ollama with the settings worked out for your PC, starts
+   Onyx and opens it in your browser; keep the black window open while you use it.
 4. To get a newer version later, double-click **Update Onyx**.
 
 Your PC's model choices are saved in `config/tiers.local.yaml`, which updates never overwrite.
@@ -40,7 +40,7 @@ pnpm models:sync     # checks every model in config/tiers.yaml against what Olla
 pnpm build           # builds the web app (once, and again after pulling changes)
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 57 tests, no model or network needed
+pnpm test            # 72 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -53,7 +53,7 @@ Onyx only runs while this PC is on and Ollama is running.
 
 ```bash
 pnpm onyx hardware            # reads your graphics card and memory, and recommends a model for each tier
-pnpm onyx hardware --apply    # and writes them into config/tiers.yaml
+pnpm onyx hardware --apply    # and saves them in config/tiers.local.yaml
 ```
 
 It works out each model's memory (weights, plus the context's cache, plus working memory) against your graphics
@@ -61,15 +61,45 @@ card and then your system memory, and estimates speed from memory bandwidth. The
 a button to use the recommendation. The speeds are estimates, give or take 40%: `ollama run qwen3:14b --verbose`
 measures the real one. Pass `--vram 16 --ram 32 --ram-speed 6000` to override what it detects.
 
-**Set Ollama's context length.** On a card under 24 GB, Ollama may give each model only 4,096 tokens of context,
-which cuts agents off as soon as a tool returns a page. The hardware command prints the settings to use; on Windows,
-run them, then quit Ollama from the tray and start it again:
+**Ollama's settings.** Ollama reads its settings only when it starts, so the Onyx shortcut closes any copy that is
+already running and starts it again with the settings worked out for your PC (`pnpm onyx ollama-env` prints them).
+If you start Ollama some other way, set them first. On a 16 GB card:
 
 ```powershell
 setx OLLAMA_CONTEXT_LENGTH 16384
 setx OLLAMA_FLASH_ATTENTION 1
+setx OLLAMA_KV_CACHE_TYPE q8_0
 setx OLLAMA_MAX_LOADED_MODELS 3
+setx OLLAMA_GPU_OVERHEAD 1073741824
 ```
+
+Then quit Ollama from the tray and start it again. What each one does:
+
+- `OLLAMA_CONTEXT_LENGTH`: how much each model reads at once. Without it, Ollama may give 4,096 tokens and, when a
+  conversation is longer, silently drop its beginning, so an agent loses its instructions and fails.
+- `OLLAMA_FLASH_ATTENTION` and `OLLAMA_KV_CACHE_TYPE`: keep that context's cache at half the memory, so Lite and
+  Standard fit on a 16 GB card together (about 11 GB at 16,384 tokens).
+- `OLLAMA_MAX_LOADED_MODELS`: how many models may stay loaded at once.
+- `OLLAMA_GPU_OVERHEAD`: keeps 1 GB of the card free for Windows and your browser, so a model that does not fit is
+  split with system memory instead of failing to load.
+
+## When a model call fails
+
+The Models screen counts each model's tries and failed tries, and has two sections that say why:
+
+- **Failed tries:** the latest 20, each with what Ollama or the model said. `pnpm onyx errors` prints the same. A
+  failed try is retried, then the next model is tried, then the tier below, so most still end in an answer.
+- **Ollama:** whether it is running, which models are loaded, how much context each was given and how much of each
+  is on the graphics card. It warns when Ollama runs without Onyx's settings, and when a model that should fit on the
+  card is partly in system memory, which makes it several times slower.
+
+| The message | What it means | What to do |
+|---|---|---|
+| `no answer within … ms` | the model was too slow: loading, sharing the card, or partly in system memory | start Onyx with the shortcut, so Ollama has its settings; close games and other programs that use the graphics card |
+| `(not tried again: the agent's time budget had … s left)` or `out of time` | the agent had used its time, so another try could only fail | ask again; for long tasks, raise that agent's time budget on the Agents screen |
+| `HTTP 500: … out of memory` | the graphics card was full | close other programs that use it, and try again |
+| `could not reach http://127.0.0.1:11434/v1` | Ollama is not running | start Onyx with the shortcut |
+| `HTTP 404: … not found` | the model is not downloaded | `ollama pull` it, or run Setup again |
 
 ## Tiers
 
@@ -90,6 +120,11 @@ the card and system memory. For another PC, run `pnpm onyx hardware`.
   are logged and shown. Start a message with `/lite`, `/standard`, `/pro`, `/max` or `/think` to choose yourself.
 - **Fallbacks.** A failed call is retried, then the next model in the tier is tried, then the tier below. Each step
   is logged and printed. If nothing answers, you get an error listing everything that was tried.
+- **One call at a time.** A graphics card answers one call at a time, so Onyx queues its calls to Ollama instead of
+  sending several at once, which would make Ollama swap models on and off the card. `max_concurrent` on a provider
+  in `tiers.yaml` changes that.
+- **Time budgets.** Each agent has a time budget (Agents screen). A failed call is not tried again when less than
+  5 seconds of it are left, since that try could only fail as well.
 - **No limits.** Everything is local, so every tier is open and tokens are only counted (Usage screen).
 - **Billing, if you ever charge.** Set `billing: { enabled: true }` in `tiers.yaml` and each account's plan decides
   its tiers and daily tokens (Free: Lite and Standard; Pro adds Pro; Max: all four). `GET /api/billing` reports what
@@ -141,21 +176,20 @@ child. Edit any agent, or add your own, on the Agents screen.
 
 The simplest way to use Onyx from your phone. [Tailscale](https://tailscale.com) connects your phone to your PC
 privately: only devices signed in to your Tailscale account can reach Onyx, nothing on your PC is open to the
-internet, and the address never changes. It is free for personal use.
+internet, and the address never changes. It is free for personal use. In the app, **Settings, Your phone, through
+Tailscale** checks each step for you, and shows the address and a QR code once it works.
 
-1. **On your PC:** install Tailscale from [tailscale.com/download](https://tailscale.com/download) and sign in.
-2. **On your phone:** install the Tailscale app and sign in with the same account.
-3. **In the admin console** ([login.tailscale.com](https://login.tailscale.com)), on the DNS page: turn on
-   **MagicDNS** and **HTTPS Certificates**. HTTPS is what lets the installed app show notifications.
-4. **On your PC:** set `ONYX_PASSWORD` in `.env`, start Onyx with `pnpm start`, and in another window run, once:
-
-   ```bash
-   tailscale serve --bg 8787
-   ```
-
-   It prints your address, like `https://your-pc.tail1234.ts.net`, and keeps serving it in the background, also
-   after a restart.
-5. **On your phone:** open that address and sign in with your password if asked.
+1. **On your PC:** install Tailscale from [tailscale.com/download](https://tailscale.com/download) (or run
+   `winget install Tailscale.Tailscale`) and sign in.
+2. **On your phone:** install the Tailscale app from the App Store or Google Play, and sign in with the same account.
+3. **In the admin console** ([login.tailscale.com/admin/dns](https://login.tailscale.com/admin/dns)): check that
+   **MagicDNS** is on, then turn on **HTTPS Certificates**. HTTPS is what lets the installed app show notifications.
+4. **On your PC:** close Onyx's black window and start Onyx again with the shortcut. It runs `tailscale serve --bg 8787`,
+   which gives Onyx an address like `https://your-pc.tail1234.ts.net` that only your devices can open, and keeps it
+   after a restart. If a window says serving is not enabled on your tailnet, open the link it shows and allow it.
+   Without the shortcut (`pnpm start`), run `tailscale serve --bg 8787` once yourself.
+5. **On your phone:** with Tailscale connected, point the camera at the QR code in Settings, or open the address.
+   Sign in with the password you chose in Setup (`ONYX_PASSWORD` in `.env`).
 6. **Add it to your Home Screen.** iPhone: in Safari, Share, then Add to Home Screen (iOS 16.4 or newer for
    notifications). Android: in Chrome, the menu, then Install app.
 7. **Turn on notifications:** open Onyx from the Home Screen, go to More, Settings, and tap
@@ -166,9 +200,10 @@ To know:
 - Tailscale must be connected on your phone while you use Onyx. You can leave it on: it only carries traffic to your
   own devices, not your normal browsing.
 - Your PC must be on with Onyx running. Reminders due while it is off are sent when it is back, marked late.
-- To stop serving: `tailscale serve --https=443 off`.
-- This has not been tried end to end. Onyx may not ask for the password through Tailscale, because the requests can
-  look like they come from this PC. That is safe, since only your own devices can reach it.
+- To stop sharing: `tailscale serve --https=443 off`.
+- Onyx asks for the password through Tailscale too, once on each device: Tailscale marks what it passes on as coming
+  from another device. A sign-in lasts 30 days.
+- Onyx's side is tested against Tailscale's documented output; it has not yet been run on a real tailnet.
 
 ## From your phone, by message
 
