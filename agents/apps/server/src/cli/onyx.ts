@@ -8,7 +8,7 @@ import { listModels } from '../models/provider.ts';
 import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
-import { ROOT, parseTiers } from '../config.ts';
+import { LOCAL_TIERS, ROOT, parseTiers, tiersPath } from '../config.ts';
 import { applyToTiers, bandwidthOf, detect, plan } from '../hardware.ts';
 
 const dim = (s: string) => (stdout.isTTY ? `\x1b[2m${s}\x1b[0m` : s);
@@ -108,12 +108,11 @@ async function hardware(): Promise<number> {
 	for (const [k, v] of Object.entries(p.env)) console.log(`  setx ${k} ${v}`);
 	console.log(`\nPull the models:\n${[...new Set(Object.values(p.tiers))].map((m) => `  ollama pull ${m}`).join('\n')}`);
 	if (process.argv.includes('--apply')) {
-		const path = resolve(ROOT, 'config/tiers.yaml');
-		const r = await applyToTiers(readFileSync(path, 'utf8'), p.tiers);
+		const r = await applyToTiers(readFileSync(tiersPath(), 'utf8'), p.tiers);
 		parseTiers(r.yaml);
-		writeFileSync(path, r.yaml);
-		console.log(r.changed.length ? `\nUpdated config/tiers.yaml: ${r.changed.join(', ')}` : '\nconfig/tiers.yaml already uses these models.');
-	} else console.log(dim('\nAdd --apply to write these models into config/tiers.yaml.'));
+		writeFileSync(LOCAL_TIERS, r.yaml);
+		console.log(r.changed.length ? `\nSaved in config/tiers.local.yaml: ${r.changed.join(', ')}` : '\nThe tiers already use these models.');
+	} else console.log(dim('\nAdd --apply to use these models (saved in config/tiers.local.yaml, which updates leave alone).'));
 	return 0;
 }
 
@@ -153,11 +152,10 @@ async function setup(): Promise<number> {
 	const hw = await detect();
 	const p = plan(hw);
 	console.log(`\n${hw.gpu ? `${hw.gpu.name}, ${hw.gpu.vramGb} GB` : 'No NVIDIA graphics card found'} · ${hw.ramGb} GB memory. Models: ${Object.entries(p.tiers).map(([t, m]) => `${t} ${m}`).join(', ')}.`);
-	const path = resolve(ROOT, 'config/tiers.yaml');
-	const r = await applyToTiers(readFileSync(path, 'utf8'), p.tiers);
+	const r = await applyToTiers(readFileSync(tiersPath(), 'utf8'), p.tiers);
 	parseTiers(r.yaml);
-	writeFileSync(path, r.yaml);
-	if (r.changed.length) console.log(`Updated config/tiers.yaml: ${r.changed.join(', ')}`);
+	writeFileSync(LOCAL_TIERS, r.yaml);
+	if (r.changed.length) console.log(`Saved in config/tiers.local.yaml: ${r.changed.join(', ')}`);
 
 	if (process.platform === 'win32') {
 		for (const [k, v] of Object.entries(p.env)) spawnSync('setx', [k, v], { stdio: 'ignore' });

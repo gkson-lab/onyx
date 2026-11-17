@@ -59,7 +59,12 @@ export function loadDotEnv(path = resolve(ROOT, '.env')): void {
 export function parseTiers(text: string): TiersFile {
 	return TiersFile.parse(parse(text));
 }
-export function loadTiers(path = resolve(ROOT, 'config/tiers.yaml')): TiersFile {
+/** The tiers file as shipped, and this PC's own version of it. The local one wins, and updates never touch it. */
+export const BASE_TIERS = resolve(ROOT, 'config/tiers.yaml');
+export const LOCAL_TIERS = resolve(ROOT, 'config/tiers.local.yaml');
+export const tiersPath = (): string => (existsSync(LOCAL_TIERS) ? LOCAL_TIERS : BASE_TIERS);
+
+export function loadTiers(path = tiersPath()): TiersFile {
 	return parseTiers(readFileSync(path, 'utf8'));
 }
 

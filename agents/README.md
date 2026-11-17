@@ -9,6 +9,18 @@ This folder is separate from the Onyx 3 site at the top of the repository, which
 **Status:** built: the model layer, the agent runtime with subagents, tools, reminders, MCP connectors, the web
 app, WhatsApp, SMS, sign-in and push notifications. iMessage is not planned: it needs a Mac.
 
+## Quick start on Windows
+
+1. Download this repository: `git clone https://github.com/gkson-lab/onyx` (or GitHub's "Download ZIP").
+2. In the `agents` folder, double-click **Setup Onyx**. It installs what is missing (Node.js, Git and Ollama, through
+   winget), builds Onyx, asks you for a password, picks the models for your PC, downloads them, and puts an
+   **Onyx** shortcut on your desktop. If it installs a program, it asks you to run it once more.
+3. Double-click the **Onyx** shortcut to start. Your browser opens on Onyx; keep the black window open while you
+   use it.
+4. To get a newer version later, double-click **Update Onyx**.
+
+Your PC's model choices are saved in `config/tiers.local.yaml`, which updates never overwrite.
+
 ## Run it
 
 You need [Node 22.13 or newer](https://nodejs.org), [pnpm](https://pnpm.io) and [Ollama](https://ollama.com).

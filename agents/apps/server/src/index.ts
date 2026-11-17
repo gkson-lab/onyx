@@ -10,7 +10,7 @@ import { sql } from 'kysely';
 import { z } from 'zod';
 import { AgentDef, Channel, TIERS, type ChatMessage } from '@onyx/shared';
 import { createApp, type App } from './app.ts';
-import { parseTiers, ROOT } from './config.ts';
+import { LOCAL_TIERS, parseTiers, ROOT, tiersPath as currentTiers } from './config.ts';
 import { now, today } from './db.ts';
 import { listModels } from './models/provider.ts';
 import { e164 } from './channels/phone.ts';
@@ -98,7 +98,9 @@ export async function catchUpSms(app: App): Promise<number> {
 export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware> } = {}): Promise<FastifyInstance> {
 	const server = Fastify({ logger: false, bodyLimit: 1_000_000 });
 	await server.register(websocket);
-	const tiersPath = o.tiersPath ?? resolve(ROOT, 'config/tiers.yaml');
+	// Read: this PC's own tiers file if there is one, else the shipped one. Write: always this PC's own.
+	const readTiers = () => readFileSync(o.tiersPath ?? currentTiers(), 'utf8');
+	const tiersOut = o.tiersPath ?? LOCAL_TIERS;
 	const db = app.db;
 	const bad = (reply: any, e: z.ZodError) => reply.code(400).send({ error: e.issues.map((i) => `${i.path.join('.') || 'body'}: ${i.message}`).join('; ') });
 
@@ -276,13 +278,13 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 
 	/* ---------- models, tiers, usage ---------- */
 	server.get('/api/tiers', async () => ({ tiers: app.config.publicTiers(), cloud: app.config.cloud, plans: app.config.file.plans }));
-	server.get('/api/tiers/raw', async () => ({ yaml: readFileSync(tiersPath, 'utf8') }));
+	server.get('/api/tiers/raw', async () => ({ yaml: readTiers() }));
 	server.put('/api/tiers/raw', async (req, reply) => {
 		const body = z.object({ yaml: z.string().min(10).max(50000) }).safeParse(req.body);
 		if (!body.success) return bad(reply, body.error);
 		try {
 			const file = parseTiers(body.data.yaml);
-			writeFileSync(tiersPath, body.data.yaml);
+			writeFileSync(tiersOut, body.data.yaml);
 			app.config.replace(file);
 			return { tiers: app.config.publicTiers() };
 		} catch (e) {
@@ -298,10 +300,10 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 	});
 	server.post('/api/hardware/apply', async (_req, reply) => {
 		const p = planFor(await hardware());
-		const r = await applyToTiers(readFileSync(tiersPath, 'utf8'), p.tiers);
+		const r = await applyToTiers(readTiers(), p.tiers);
 		try {
 			const file = parseTiers(r.yaml);
-			writeFileSync(tiersPath, r.yaml);
+			writeFileSync(tiersOut, r.yaml);
 			app.config.replace(file);
 		} catch (e) {
 			return reply.code(500).send({ error: `The new tiers file did not check out: ${(e as Error).message}` });

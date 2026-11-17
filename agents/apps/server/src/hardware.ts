@@ -157,5 +157,6 @@ export async function applyToTiers(yamlText: string, tiers: Plan['tiers']): Prom
 		doc.setIn(['models', key, 'id'], id);
 		changed.push(`${tier}: ${data.models[key]!.id} -> ${id}`);
 	}
-	return { yaml: doc.toString(), changed };
+	// lineWidth 0 keeps each model on its one line, as written.
+	return { yaml: doc.toString({ lineWidth: 0 }), changed };
 }

@@ -115,7 +115,7 @@ export default function Models() {
 				<ThisPc onApplied={() => (reload(), raw.reload())} />
 			</Section>
 			<Section title="tiers.yaml">
-				<p className="mb-3 max-w-2xl text-sm text-muted">Which model backs each tier, in the order they are tried. Saving checks the file first: a tier that names a model that isn't defined is refused. This edits <Code>config/tiers.yaml</Code> on this PC.</p>
+				<p className="mb-3 max-w-2xl text-sm text-muted">Which model backs each tier, in the order they are tried. Saving checks the file first: a tier that names a model that isn't defined is refused. Saving keeps your version in <Code>config/tiers.local.yaml</Code> on this PC, which updates leave alone.</p>
 				{raw.error && <Problem>{raw.error}</Problem>}
 				<label htmlFor="tiers" className="sr-only">tiers.yaml</label>
 				<textarea id="tiers" value={yaml} onChange={(e) => (setYaml(e.target.value), setSaved(null))} rows={22} spellCheck={false} className="w-full font-mono text-xs leading-5" />
