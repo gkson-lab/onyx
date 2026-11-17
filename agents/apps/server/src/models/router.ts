@@ -2,7 +2,7 @@
 // real tool call (`route`), so its decision arrives as structured arguments, not as prose to pick apart. A message
 // that starts with /lite, /standard, /pro or /max skips the model: the person chose.
 import { z } from 'zod';
-import { Tier, TIERS, type RoutingDecision, type ToolDef } from '@onyx/shared';
+import { Tier, TIERS, tierRank, type RoutingDecision, type ToolDef } from '@onyx/shared';
 import type { Config } from '../config.ts';
 import { now, type DB } from '../db.ts';
 import type { Gateway } from './gateway.ts';
@@ -51,12 +51,14 @@ export function heuristic(text: string): Omit<RoutingDecision, 'via' | 'text'> {
 	const t = text.toLowerCase();
 	const words = t.split(/\s+/).filter(Boolean).length;
 	const tools: string[] = [];
-	if (/\b(search|look up|latest|news|today|find out|research)\b/.test(t)) tools.push('web_search');
+	if (/\b(search|look up|latest|news|today|find out|research)\b|https?:\/\//.test(t)) tools.push('web_search');
 	if (/\b(code|function|script|bug|error|compile|python|javascript|typescript|rust|sql|regex)\b|```/.test(t)) tools.push('code');
 	if (/\b(remind|reminder|every (?:day|week|morning|monday)|schedule|at \d{1,2}(?::\d\d)?\s?(?:am|pm)?|tomorrow)\b/.test(t)) tools.push('schedule');
+	if (/\b(remember|don'?t forget|forget that|what do you know about me|my (?:name|birthday|preference)|i prefer)\b/.test(t)) tools.push('memory');
 	const urgency = /\b(urgent|asap|right now|immediately|emergency)\b/.test(t) ? 'high' : 'normal';
 	if (/\b(prove|proof|think hard|step by step|derive|rigorous|in depth|deep dive)\b/.test(t)) return { tier: 'max', complexity: 'high', tools, urgency, reason: 'asks for careful reasoning' };
-	if (tools.length) return { tier: 'pro', complexity: 'medium', tools, urgency, reason: `needs ${tools.join(', ')}` };
+	if (tools.some((x) => x !== 'schedule' && x !== 'memory')) return { tier: 'pro', complexity: 'medium', tools, urgency, reason: `needs ${tools.join(', ')}` };
+	if (tools.length) return { tier: 'standard', complexity: 'low', tools, urgency, reason: `needs ${tools.join(', ')}` };
 	if (words <= 6 && !/\b(why|how|explain|compare)\b/.test(t)) return { tier: 'lite', complexity: 'low', tools, urgency, reason: 'a short message' };
 	return { tier: 'standard', complexity: words > 120 ? 'medium' : 'low', tools, urgency, reason: 'ordinary conversation' };
 }
@@ -77,6 +79,13 @@ export class Router {
 				if (!call) throw new Error('the router model did not call `route`');
 				const a = Args.parse(JSON.parse(call.function.arguments));
 				d = { ...a, via: 'router', text: raw };
+				// Small router models under-rate work that needs tools: writing code went to Lite in a real run.
+				// Code, the web and connectors need Pro; reminders and memory need at least Standard.
+				// The model can also miss a need the words make plain (a link to read, "remember", "remind"): the rules add those.
+				const tools = [...new Set([...a.tools, ...heuristic(raw).tools])];
+				d = { ...d, tools };
+				const floor: Tier | null = tools.some((t) => ['code', 'web_search', 'connector'].includes(t)) ? 'pro' : tools.length ? 'standard' : null;
+				if (floor && tierRank(a.tier) < tierRank(floor)) d = { ...d, tier: floor, reason: `${a.reason} (raised from ${a.tier} to ${floor}: it needs ${tools.join(', ')})` };
 			} catch (e) {
 				const h = heuristic(raw);
 				d = { ...h, via: 'heuristic', reason: `${h.reason} (rule-based guess: the router model failed: ${(e as Error).message.slice(0, 160)})`, text: raw };

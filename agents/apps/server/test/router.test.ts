@@ -26,6 +26,18 @@ describe('the router', () => {
 		expect((await app.db.selectFrom('model_calls').select('purpose').executeTakeFirstOrThrow()).purpose).toBe('route');
 	});
 
+	it('raises a tier the router set too low for the tools it says the task needs', async () => {
+		const { app } = await testApp({ 'qwen3:4b': routed({ tier: 'lite', complexity: 'medium', tools: ['code'], urgency: 'normal', reason: 'a straightforward coding task' }) });
+		const d = await app.router.route('owner', 'write a python script that renames my photos by date');
+		expect(d).toMatchObject({ tier: 'pro', via: 'router' });
+		expect(d.reason).toBe('a straightforward coding task (raised from lite to pro: it needs code)');
+		const r = await testApp({ 'qwen3:4b': routed({ tier: 'lite', complexity: 'low', tools: ['schedule'], urgency: 'normal', reason: 'a reminder' }) });
+		expect((await r.app.router.route('owner', 'remind me at 9')).tier).toBe('standard');
+		// Real run: "read https://... and tell me" was routed to Lite with no tools. The link makes the need plain.
+		const link = await testApp({ 'qwen3:4b': routed({ tier: 'lite', complexity: 'low', tools: [], urgency: 'normal', reason: 'a one-sentence definition' }) });
+		expect(await link.app.router.route('owner', 'read https://en.wikipedia.org/wiki/Onyx and tell me what onyx is')).toMatchObject({ tier: 'pro', tools: ['web_search'] });
+	});
+
 	it('an override skips the model entirely', async () => {
 		const { app, seen } = await testApp({});
 		const d = await app.router.route('owner', '/lite thanks');
@@ -36,7 +48,7 @@ describe('the router', () => {
 	it('falls back to rules when the router model fails or answers badly, and says that it did', async () => {
 		const down = await testApp({ 'qwen3:4b': [{ throw: 'connection refused' }] });
 		const d1 = await down.app.router.route('owner', 'remind me to call mom tomorrow at 9am');
-		expect(d1).toMatchObject({ via: 'heuristic', tier: 'pro', tools: ['schedule'] });
+		expect(d1).toMatchObject({ via: 'heuristic', tier: 'standard', tools: ['schedule'] });
 		expect(d1.reason).toContain('rule-based guess');
 		const prose = await testApp({ 'qwen3:4b': [{ content: 'I think pro.' }] });
 		expect((await prose.app.router.route('owner', 'hello')).via).toBe('heuristic');
@@ -50,6 +62,7 @@ describe('the router', () => {
 		expect(heuristic('there is a bug in my python function').tier).toBe('pro');
 		expect(heuristic('prove that the square root of 2 is irrational').tier).toBe('max');
 		expect(heuristic('search for the latest news on fusion')).toMatchObject({ tier: 'pro', tools: ['web_search'] });
+		expect(heuristic('remember that I prefer metric units')).toMatchObject({ tier: 'standard', tools: ['memory'] });
 	});
 });
 

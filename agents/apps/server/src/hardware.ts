@@ -17,7 +17,7 @@ export interface Hardware {
 /** Qwen3 in Ollama, at its default Q4_K_M quantization. kvKb: KV cache per token at fp16 (2 x layers x KV heads x 128 x 2 bytes). */
 export const CATALOG = [
 	{ id: 'qwen3:1.7b', params: '1.7B', weightsGb: 1.4, activeGb: 1.4, kvKb: 112, moe: false },
-	{ id: 'qwen3:4b', params: '4B', weightsGb: 2.5, activeGb: 2.5, kvKb: 144, moe: false },
+	{ id: 'qwen3:4b-instruct', params: '4B', weightsGb: 2.5, activeGb: 2.5, kvKb: 144, moe: false },
 	{ id: 'qwen3:8b', params: '8B', weightsGb: 5.2, activeGb: 5.2, kvKb: 144, moe: false },
 	{ id: 'qwen3:14b', params: '14B', weightsGb: 9.3, activeGb: 9.3, kvKb: 160, moe: false },
 	{ id: 'qwen3:30b', params: '30B MoE, 3B active', weightsGb: 19, activeGb: 2.1, kvKb: 96, moe: true },
@@ -95,9 +95,9 @@ export function plan(hw: Hardware): Plan {
 	const fast = (id: ModelId, min: number) => (f(id).tokensPerSec ?? 0) >= min;
 	const say = (id: ModelId) => `${f(id).tokensPerSec ?? '?'} tokens/s, ${f(id).where === 'gpu' ? 'all on the graphics card' : f(id).where === 'split' ? `${Math.round(f(id).gpuShare * 100)}% on the graphics card` : 'on the processor'}`;
 
-	// Lite runs on every message (it routes), so it must be quick; 4B calls tools far more reliably than 1.7B.
-	const lite: ModelId = fast('qwen3:4b', 25) ? 'qwen3:4b' : 'qwen3:1.7b';
-	const standard: ModelId = fast('qwen3:8b', 20) ? 'qwen3:8b' : 'qwen3:4b';
+	// Lite runs on every message (it routes), so it must be quick, and must not think: the Instruct 4B answers at once.
+	const lite: ModelId = fast('qwen3:4b-instruct', 25) ? 'qwen3:4b-instruct' : 'qwen3:1.7b';
+	const standard: ModelId = fast('qwen3:8b', 20) ? 'qwen3:8b' : 'qwen3:4b-instruct';
 	// Pro does multi-step tool work: 14B is the strongest dense model that runs well; the 30B MoE when 14B would be slow.
 	const pro: ModelId = fast('qwen3:14b', 15) ? 'qwen3:14b' : fast('qwen3:30b', 15) ? 'qwen3:30b' : standard;
 	// Max thinks before it answers, often for thousands of tokens, so it needs real speed: 32B only if it is quick.

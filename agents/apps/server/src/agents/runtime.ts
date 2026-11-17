@@ -90,9 +90,33 @@ export class Runtime {
 		const routing = await this.d.router.route(o.userId, o.text, runId);
 		this.d.bus.emit({ type: 'routed', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { ...routing } });
 		// A quick message needs no tools: Core answers it directly on the tier the router chose.
-		const direct = routing.tier === 'lite' && routing.tools.length === 0;
-		const r = await this.run({ agentId: 'core', input: routing.text, userId: o.userId, channel: o.channel, runId, tier: routing.tier, history: o.history, routing, noTools: direct });
-		return { ...r, routing };
+		// Only when the router model itself said so: a rule-based guess can miss a task that needs a tool, and Core
+		// without tools would then claim to have done it. (Seen in a real run: "remember that..." answered "Got it".)
+		const direct = routing.via === 'router' && routing.tier === 'lite' && routing.tools.length === 0;
+		// A task that needs exactly one specialist goes straight to it. Core in between adds a model call, and in real
+		// runs a small Core sometimes answered "I remember that" without ever calling Memory.
+		const SPECIALIST: Record<string, string> = { memory: 'memory', schedule: 'scheduler', code: 'coder', web_search: 'researcher' };
+		const only = routing.tools.length === 1 ? SPECIALIST[routing.tools[0]!] : undefined;
+		const specialist = only ? await this.agent(only) : null;
+		const agentId = specialist?.enabled ? specialist.id : 'core';
+		const r = await this.run({ agentId, input: routing.text, userId: o.userId, channel: o.channel, runId, tier: agentId === 'core' ? routing.tier : undefined, history: o.history, routing, noTools: direct && agentId === 'core' });
+		return { ...r, output: r.status === 'done' ? r.output + (await this.notDone(runId)) : r.output, routing };
+	}
+
+	/**
+	 * What failed along the way, as a note under the answer. Written from the step log, not by a model, so a model that
+	 * glosses over a failure (real run: "the script output is..." when the code never ran) cannot hide it.
+	 */
+	async notDone(rootId: string): Promise<string> {
+		const steps = await this.d.db.selectFrom('steps').select(['data']).where('root_id', '=', rootId).where('type', '=', 'tool_result').execute();
+		const failed = new Set<string>();
+		for (const s of steps) {
+			const d = JSON.parse(s.data) as { ok: boolean; tool: string; result: string };
+			if (d.tool === 'delegate') continue;
+			const text = String(d.result);
+			if (!d.ok || text.startsWith('Error')) failed.add(`${d.tool}: ${text.replace(/^Error:\s*/, '').split(/(?<=\.)\s/)[0]!.slice(0, 200)}`);
+		}
+		return failed.size ? `\n\nNot done:\n${[...failed].map((f) => `- ${f}`).join('\n')}` : '';
 	}
 
 	/* ---------- One run of one agent ---------- */

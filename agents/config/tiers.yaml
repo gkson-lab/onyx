@@ -19,10 +19,15 @@ providers:
 # price: USD per million tokens. Local models cost nothing per call. `price: null` means "not known":
 # the call is logged with no cost rather than a made-up one.
 models:
-  qwen-lite:     { provider: ollama, id: "qwen3:4b",  family: qwen, price: { input: 0, output: 0 }, system_suffix: "/no_think" }
-  qwen-standard: { provider: ollama, id: "qwen3:8b",  family: qwen, price: { input: 0, output: 0 }, system_suffix: "/no_think" }
-  qwen-pro:      { provider: ollama, id: "qwen3:14b", family: qwen, price: { input: 0, output: 0 }, system_suffix: "/no_think" }
-  qwen-max:      { provider: ollama, id: "qwen3:30b", family: qwen, price: { input: 0, output: 0 }, system_suffix: "/think" }
+  # Thinking: Qwen3 models think before answering unless told not to. Through Ollama, `reasoning_effort: none`
+  # turns it off on the 8B and 14B (Qwen's own "/no_think" switch is ignored there). The 4B and 30B tags now point to
+  # Qwen's July 2025 versions, which come in two kinds: "-instruct" never thinks, the plain tag always does.
+  # Measured: with thinking on, the router spent its whole allowance thinking and never made its tool call.
+  qwen-lite:     { provider: ollama, id: "qwen3:4b-instruct", family: qwen, price: { input: 0, output: 0 }, extra: { reasoning_effort: "none" } }
+  qwen-standard: { provider: ollama, id: "qwen3:8b",  family: qwen, price: { input: 0, output: 0 }, extra: { reasoning_effort: "none" } }
+  qwen-pro:      { provider: ollama, id: "qwen3:14b", family: qwen, price: { input: 0, output: 0 }, extra: { reasoning_effort: "none" } }
+  # Max is the one tier that should think: the 30B model always does.
+  qwen-max:      { provider: ollama, id: "qwen3:30b", family: qwen, price: { input: 0, output: 0 } }
   # Opt-in. IDs and prices come from third-party pages (checked 2026-11-16), not from Moonshot itself:
   # confirm both with `pnpm models:sync` and Moonshot's pricing page before relying on the cost figures.
   kimi-pro:      { provider: moonshot, id: kimi-k2.7-code, family: kimi, price: { input: 0.95, output: 4.0 } }

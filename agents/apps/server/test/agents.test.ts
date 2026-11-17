@@ -16,10 +16,26 @@ describe('the agent loop', () => {
 		expect(r.routing.via).toBe('router');
 	});
 
+	it('a task that needs one specialist goes straight to it, even when the router model fails', async () => {
+		const { app, seen } = await testApp({ 'qwen3:4b': [{ content: 'I think lite.' }, { toolCall: { name: 'memory_save', args: { fact: 'Prefers metric units' } } }, { content: 'Saved: Prefers metric units.' }] });
+		const r = await app.runtime.handle({ userId: 'owner', text: 'remember that I prefer metric units', channel: 'web' });
+		expect(r.routing).toMatchObject({ via: 'heuristic', tools: ['memory'] });
+		expect(r).toMatchObject({ status: 'done', output: 'Saved: Prefers metric units.' });
+		expect((await app.db.selectFrom('runs').select('agent_id').execute()).map((x) => x.agent_id)).toEqual(['memory']);
+		expect(seen[1]!.body.tools.map((t: any) => t.function.name)).toEqual(['memory_save', 'memory_search']);
+		expect((await app.db.selectFrom('memories').select('text').execute())).toEqual([{ text: 'Prefers metric units' }]);
+	});
+
+	it('what failed is added under the answer from the step log, whatever the model wrote', async () => {
+		const { app } = await testApp({ 'qwen3:4b': [...route('pro', ['code'])], 'qwen3:14b': [{ toolCall: { name: 'run_code', args: { language: 'python', code: 'print(1)' } } }, { content: 'The output is 1.' }] }, {}, { tool: { exec: async () => ({ code: null, out: '', err: 'spawn docker ENOENT', timedOut: false }) } });
+		const r = await app.runtime.handle({ userId: 'owner', text: 'run print(1) in python', channel: 'web' });
+		expect(r.output).toBe('The output is 1.\n\nNot done:\n- run_code: the code sandbox needs Docker, and Docker did not start.');
+	});
+
 	it('Core delegates to two specialists at once, each uses its own tools and tier, and the results come back', async () => {
 		const { app, seen, events } = await testApp(
 			{
-				'qwen3:4b': route('standard', ['web_search', 'code']),
+				'qwen3:4b': route('standard'),
 				'qwen3:8b': [{ toolCall: { name: 'delegate', args: { tasks: [{ agent: 'researcher', task: 'find the boiling point of water at altitude' }, { agent: 'coder', task: 'compute 2**10' }] } } }, { content: 'Water boils lower at altitude, and 2**10 is 1024.' }],
 				// Researcher and Coder both run on Pro: their calls interleave, told apart by what they were asked.
 				'qwen3:14b': [],

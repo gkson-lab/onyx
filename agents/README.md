@@ -15,7 +15,7 @@ You need [Node 22.13 or newer](https://nodejs.org), [pnpm](https://pnpm.io) and 
 
 ```bash
 # 1. The models (about 36 GB of downloads in all; start with the first two if you want to try it sooner)
-ollama pull qwen3:4b
+ollama pull qwen3:4b-instruct
 ollama pull qwen3:8b
 ollama pull qwen3:14b
 ollama pull qwen3:30b
@@ -65,7 +65,7 @@ setx OLLAMA_MAX_LOADED_MODELS 3
 
 | Tier | Used for | Default model |
 |---|---|---|
-| Lite | routing, quick replies, formatting | `qwen3:4b` |
+| Lite | routing, quick replies, formatting | `qwen3:4b-instruct` |
 | Standard | normal chat, summaries | `qwen3:8b` |
 | Pro | coding, tool use, planning | `qwen3:14b` |
 | Max | hardest reasoning, with thinking on | `qwen3:30b` |
