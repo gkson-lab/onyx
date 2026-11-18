@@ -15,6 +15,7 @@ import { applyToTiers, CATALOG, catalogEntry, familyOf, type Plan } from './hard
 import { ROOT, parseTiers } from './config.ts';
 import { writeFileSync } from 'node:fs';
 import { inputBudget } from './context.ts';
+import { pullWith, type Pull } from './setup.ts';
 
 /* ---------- attachments ---------- */
 
@@ -102,41 +103,15 @@ export async function warmUp(app: App, state: WarmState, fetchImpl: typeof fetch
 
 export type Pulls = Record<string, { status: string; done: number; total: number; error: string | null; finished: boolean }>;
 /** Downloads a model through Ollama, keeping its progress for the Models screen. */
-export async function pull(app: App, id: string, pulls: Pulls, fetchImpl: typeof fetch = fetch): Promise<void> {
+export async function pull(app: App, id: string, pulls: Pulls, download: (base: string) => Pull = (base) => pullWith(base)): Promise<void> {
 	const base = app.config.baseUrl('ollama').replace(/\/v1\/?$/, '');
 	const p: Pulls[string] = { status: 'starting', done: 0, total: 0, error: null, finished: false };
 	pulls[id] = p;
 	// Ollama reports each layer of the model in turn; the total is all of them.
-	const layers = new Map<string, { total: number; done: number }>();
-	try {
-		const res = await fetchImpl(`${base}/api/pull`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ model: id, stream: true }) });
-		if (!res.ok || !res.body) throw new Error(`Ollama answered ${res.status}: ${(await res.text().catch(() => '')).slice(0, 200)}`);
-		const reader = res.body.getReader();
-		const dec = new TextDecoder();
-		let buf = '';
-		for (;;) {
-			const { value, done } = await reader.read();
-			if (done) break;
-			buf += dec.decode(value, { stream: true });
-			let nl: number;
-			while ((nl = buf.indexOf('\n')) >= 0) {
-				const line = buf.slice(0, nl).trim();
-				buf = buf.slice(nl + 1);
-				if (!line) continue;
-				const m = JSON.parse(line) as { status?: string; digest?: string; total?: number; completed?: number; error?: string };
-				if (m.error) throw new Error(m.error);
-				p.status = m.status ?? p.status;
-				if (m.total) {
-					layers.set(m.digest ?? 'one', { total: m.total, done: m.completed ?? 0 });
-					p.total = [...layers.values()].reduce((s, l) => s + l.total, 0);
-					p.done = [...layers.values()].reduce((s, l) => s + l.done, 0);
-				}
-			}
-		}
-		if (p.status !== 'success') throw new Error(`the download ended at "${p.status}"`);
-	} catch (e) {
-		p.error = (e as Error).message;
-	}
+	p.error = await download(base)(id, (done, total, status) => {
+		p.status = status;
+		if (total) (p.done = done), (p.total = total);
+	});
 	p.finished = true;
 }
 
@@ -182,7 +157,7 @@ export async function setAutostart(on: boolean): Promise<void> {
 const Conv = z.coerce.number().int().min(0);
 const title = (text: string) => text.replace(/^\/(lite|standard|pro|max|think)\s*/i, '').replace(/\s+/g, ' ').trim().slice(0, 60) || 'New chat';
 
-export function registerExtras(server: FastifyInstance, app: App, o: { plan: () => Promise<Plan>; ollamaFetch?: typeof fetch; warm: WarmState; readTiers: () => string; tiersOut: string }) {
+export function registerExtras(server: FastifyInstance, app: App, o: { plan: () => Promise<Plan>; ollamaFetch?: typeof fetch; download?: (base: string) => Pull; warm: WarmState; readTiers: () => string; tiersOut: string }) {
 	const db = app.db;
 	const pulls: Pulls = {};
 	const setting = async <T>(key: string, fallback: T): Promise<T> => {
@@ -291,7 +266,7 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 		const body = z.object({ id: z.string() }).safeParse(req.body);
 		if (!body.success || !catalogEntry(body.data.id)) return reply.code(400).send({ error: `Onyx only downloads models from its list: ${CATALOG.map((m) => m.id).join(', ')}.` });
 		if (pulls[body.data.id] && !pulls[body.data.id]!.finished) return { started: false };
-		void pull(app, body.data.id, pulls, o.ollamaFetch);
+		void pull(app, body.data.id, pulls, o.download);
 		return reply.code(202).send({ started: true });
 	});
 	server.post('/api/models/assign', async (req, reply) => {

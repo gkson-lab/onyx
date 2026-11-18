@@ -15,12 +15,30 @@ app, WhatsApp, SMS, sign-in and push notifications. iMessage is not planned: it 
 2. In the `agents` folder, double-click **Setup Onyx**. It installs what is missing (Node.js, Git and Ollama, through
    winget), builds Onyx, asks you for a password, picks the models for your PC, downloads them, and puts an
    **Onyx** shortcut on your desktop. Last, it asks whether Onyx should start by itself when you sign in to Windows.
-   If it installs a program, it asks you to run it once more.
+   If it installs a program, it asks you to run it once more. A model that cannot be downloaded does not stop it:
+   that tier uses the next smaller model that is there, and Setup says why (see [If Setup stops](#if-setup-stops)).
 3. Double-click the **Onyx** shortcut to start. It restarts Ollama with the settings worked out for your PC, starts
    Onyx and opens it in your browser; keep the black window open while you use it.
 4. **It updates itself.** While it runs, Onyx checks GitHub every 10 minutes and, when there is a new version and
    no agent is working, installs it and restarts (see [Updates](#updates)). **Update Onyx** does the same by hand,
    with Onyx closed.
+
+### If Setup stops
+
+The reason is in its window, and everything the model step said is in `data\setup-log.txt`. Setup is safe to run
+again: what was downloaded stays, and a download carries on where it stopped. A download the network cuts off is
+tried again by itself, twice, before Setup gives up on it.
+
+| The message | What to do |
+|---|---|
+| `requires a newer version of Ollama` | update Ollama (`winget upgrade Ollama.Ollama`, or download it again from ollama.com), then run Setup again |
+| `needs about N GB, and only M GB is free` | free space on the drive it names (Ollama keeps its models in `.ollama\models` in your user folder), then run Setup again |
+| `The download was cut off` | check the internet connection and run Setup again |
+| `Ollama is not answering` | open Ollama from the Start menu, then run Setup again |
+| `Setup could not download any model` | the lines under it say why for each model; fix the first and run Setup again |
+
+Setup stops only when no model at all could be had. When some could, Onyx works with them, and the Models screen
+(More models, Download, then **Use for...**) gets the rest later.
 
 Your PC's own settings live in files updates never touch: `.env` (password and keys), `data/` (chats, memories,
 settings) and `config/*.local.yaml` (your model choices, and any connectors or prices of your own).
@@ -46,7 +64,7 @@ pnpm build           # builds the web app (once, and again after pulling changes
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 node scripts/launcher.mjs  # the same, restarting itself after an update
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 104 tests, no model or network needed
+pnpm test            # 113 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's

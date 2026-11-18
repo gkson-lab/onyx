@@ -5,7 +5,7 @@ import { stdin, stdout } from 'node:process';
 import { createApp } from '../app.ts';
 import { receive } from '../index.ts';
 import { listModels } from '../models/provider.ts';
-import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { LOCAL_TIERS, ROOT, parseTiers, tiersPath } from '../config.ts';
@@ -152,30 +152,79 @@ async function setup(): Promise<number> {
 		console.log('Saved the password in .env.');
 	} else console.log('A password is already set in .env.');
 
-	const hw = await detect();
-	const p = plan(hw);
-	console.log(`\n${hw.gpu ? `${hw.gpu.name}, ${hw.gpu.vramGb} GB` : 'No NVIDIA graphics card found'} · ${hw.ramGb} GB memory. Models: ${Object.entries(p.tiers).map(([t, m]) => `${t} ${m}`).join(', ')}.`);
-	const r = await applyToTiers(readFileSync(tiersPath(), 'utf8'), p.tiers);
-	parseTiers(r.yaml);
-	writeFileSync(LOCAL_TIERS, r.yaml);
-	if (r.changed.length) console.log(`Saved in config/tiers.local.yaml: ${r.changed.join(', ')}`);
+	// Everything this step says also goes to data/setup-log.txt, so the reason for a failure is there to read (or send)
+	// after it has scrolled out of the window.
+	const started = new Date();
+	const logLines: string[] = [];
+	let midLine = false;
+	const say = (line: string) => {
+		if (midLine) (stdout.write('\n'), (midLine = false));
+		console.log(line);
+		logLines.push(`${new Date().toTimeString().slice(0, 8)}  ${line.replace(/^\n+/, '')}`);
+	};
+	const saveLog = () => {
+		try {
+			mkdirSync(resolve(ROOT, 'data'), { recursive: true });
+			writeFileSync(resolve(ROOT, 'data/setup-log.txt'), `Onyx setup, ${started.toString().slice(0, 24)}\n${logLines.join('\n')}\n`);
+		} catch {
+			// The log is a convenience; setup goes on without it.
+		}
+	};
 
-	if (process.platform === 'win32') {
-		for (const [k, v] of Object.entries(p.env)) spawnSync('setx', [k, v], { stdio: 'ignore' });
-		console.log(`Set Ollama's settings: ${Object.entries(p.env).map(([k, v]) => `${k}=${v}`).join(', ')}.`);
-	} else console.log(`Set these in Ollama's environment: ${Object.entries(p.env).map(([k, v]) => `${k}=${v}`).join(' ')}`);
+	try {
+		const hw = await detect();
+		const p = plan(hw);
+		say(`\n${hw.gpu ? `${hw.gpu.name}, ${hw.gpu.vramGb} GB` : 'No NVIDIA graphics card found'} · ${hw.ramGb} GB memory. Best models for this PC: ${Object.entries(p.tiers).map(([t, m]) => `${t} ${m}`).join(', ')}.`);
 
-	const models = [...new Set(Object.values(p.tiers))].sort((a, b) => p.fits.find((f) => f.id === a)!.needGb - p.fits.find((f) => f.id === b)!.needGb);
-	for (const m of models) {
-		console.log(`\nDownloading ${m} (safe to stop and run again: it picks up where it left off)`);
-		const pull = spawnSync('ollama', ['pull', m], { stdio: 'inherit', shell: process.platform === 'win32' });
-		if (pull.status !== 0) {
-			console.log(`\nCould not download ${m}. Is Ollama running? Start it from the Start menu, then run setup again.`);
+		if (process.platform === 'win32') {
+			for (const [k, v] of Object.entries(p.env)) spawnSync('setx', [k, v], { stdio: 'ignore' });
+			say(`Set Ollama's settings: ${Object.entries(p.env).map(([k, v]) => `${k}=${v}`).join(', ')}.`);
+		} else say(`Set these in Ollama's environment: ${Object.entries(p.env).map(([k, v]) => `${k}=${v}`).join(' ')}`);
+
+		const { ensureOllama, freeBytes, getModels, installedModels, modelsDir, ollamaBase, pullWith, startOllama } = await import('../setup.ts');
+		const base = ollamaBase();
+		const version = await ensureOllama(base, 30_000, fetch, () => startOllama(p.env));
+		if (!version) {
+			say(`\nOllama is not answering at ${base}, and starting it did not help. Open Ollama from the Start menu (or run: ollama serve), then run Setup again.`);
+			saveLog();
 			return 1;
 		}
+		const free = freeBytes();
+		say(`Ollama ${version} is running.${free !== null ? ` ${Math.floor(free / 1024 ** 3)} GB free where it keeps models (${modelsDir()}).` : ''}`);
+		const step = await getModels({
+			plan: p,
+			have: await installedModels(base),
+			pull: pullWith(base),
+			free,
+			log: say,
+			progress: (line) => (stdout.write(`\r${line.slice(0, 78).padEnd(78)}`), (midLine = true)),
+		});
+		if (!step.ok) {
+			say('\nSetup could not download any model, and Onyx needs at least one:');
+			for (const x of step.problems) say(`  - ${x}`);
+			saveLog();
+			return 1;
+		}
+		// The tiers are set from what is really here: a tier whose first choice could not be had uses the next that fits.
+		const c = step.chosen;
+		const tiers = { lite: c.lite!, standard: c.standard!, pro: c.pro ?? c.standard!, max: c.max ?? c.pro ?? c.standard! };
+		const r = await applyToTiers(readFileSync(tiersPath(), 'utf8'), tiers);
+		parseTiers(r.yaml);
+		writeFileSync(LOCAL_TIERS, r.yaml);
+		say(`\nModels: lite ${tiers.lite}, standard ${tiers.standard}, pro ${tiers.pro}, max ${tiers.max}. Saved in config/tiers.local.yaml.`);
+		if (step.problems.length) {
+			say('Not everything could be downloaded, so some tiers use a smaller model for now:');
+			for (const x of step.problems) say(`  - ${x}`);
+			say('Onyx works as it is. To get the bigger models later, run Setup again, or: Models screen, More models, Download, then "Use for...".');
+		}
+		say('\nSetup is done.');
+		saveLog();
+		return 0;
+	} catch (e) {
+		say(`\nSetup failed: ${(e as Error).message}`);
+		saveLog();
+		return 1;
 	}
-	console.log('\nSetup is done.');
-	return 0;
 }
 
 /**

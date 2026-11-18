@@ -49,16 +49,22 @@ overview.
 ## Onyx Agents: quick start on Windows
 
 1. **Download this repository**: on [the repository page](https://github.com/gkson-lab/onyx) click **Code**, then
-   **Download ZIP**, and extract it. (Or, with Git: `git clone https://github.com/gkson-lab/onyx`. A clone can
-   update itself later; a ZIP copy cannot.)
+   **Download ZIP**, and extract it. (Or, with Git: `git clone https://github.com/gkson-lab/onyx`. Either kind of
+   copy updates itself later.)
 2. **Open the `agents` folder and double-click `Setup Onyx`.** It:
    - installs what is missing (Node.js, Git and Ollama, through winget, and pnpm),
    - builds Onyx,
    - asks you for a password (used when you reach Onyx from your phone),
    - reads your graphics card and memory, picks a model for each tier, and sets Ollama's settings to match,
-   - downloads the models (about 40 GB on a 16 GB graphics card; safe to stop and run again),
+   - downloads the models (about 40 GB on a 16 GB graphics card; safe to stop and run again). When one cannot be
+     had (an Ollama too old for it, a drive too full, a cut connection), that tier uses the next smaller model that
+     is there, and Setup says why and what to do, and goes on,
    - puts an **Onyx** shortcut on your desktop,
    - asks whether Onyx should start by itself, minimized, when you sign in to Windows.
+
+   If Setup stops, the reason is in its window, and the model step's whole account is in
+   `agents\data\setup-log.txt`. Fix what it says and run it again: it carries on where it stopped. The messages and
+   what to do about each: [`agents/README.md`](agents/README.md#if-setup-stops).
 3. **Double-click the Onyx shortcut.** It starts Ollama if needed, starts Onyx, and opens it in your browser at
    `http://127.0.0.1:8787`. Keep the black window open while you use Onyx.
 4. **It updates itself.** While Onyx runs it checks GitHub every 10 minutes and, when a new version is out and no
@@ -239,7 +245,7 @@ and cost. Taking payment is not built.
 
 ## What has been tested
 
-- **104 automated tests** (`pnpm test` in `agents/`) cover:
+- **113 automated tests** (`pnpm test` in `agents/`) cover:
   - the router, fallbacks, plans and the agent loop;
   - subagents, budgets and the kill switch;
   - tools, reminders and delivery;
@@ -249,7 +255,9 @@ and cost. Taking payment is not built.
   - chats and their search and export, attachments (text, PDF and images) and fitting them in the model's context,
     the health check, putting a model on a tier, loading models at start, and backups;
   - updating from GitHub: a downloaded copy file by file and from one archive, a git clone, damaged downloads, undo,
-    waiting for the agents to finish, and keeping what is yours.
+    waiting for the agents to finish, and keeping what is yours;
+  - Setup's downloads: progress over every part of a model, a model Ollama is too old for, a full drive, a
+    connection cut off and taken up again, and each tier falling back to a model that is there.
 
   The app was also driven in a browser through every chat feature, and the updater was run against the real
   repository on GitHub and through a full self-update and restart.

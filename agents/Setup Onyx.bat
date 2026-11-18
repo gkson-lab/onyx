@@ -30,6 +30,8 @@ if not defined PNPM (
 echo Found Node.js, Git, Ollama and pnpm.
 
 call :ollama_up
+rem A log left by an earlier run would say nothing about this one.
+if exist "data\setup-log.txt" del "data\setup-log.txt" >nul 2>nul
 
 echo.
 echo [1/4] Installing Onyx's packages...
@@ -73,7 +75,8 @@ exit /b 1
 :failed
 echo.
 echo  Setup stopped: the step above failed, and its message says why.
-echo  Send that message to whoever is helping you, or fix it and run "Setup Onyx" again.
+if exist "data\setup-log.txt" echo  The model step's full account is in data\setup-log.txt in this folder.
+echo  Send that to whoever is helping you, or fix it and run "Setup Onyx" again: it carries on where it stopped.
 :stop
 echo.
 pause
