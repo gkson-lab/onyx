@@ -153,6 +153,20 @@ describe('updating a downloaded copy from GitHub', () => {
 		expect([again.write.length, again.remove.length]).toEqual([0, 0]);
 	});
 
+	it("leaves out what GitHub's ZIP leaves out (export-ignore), and removes it when an older version put it here", async () => {
+		const remote = { ...RULES, '.gitattributes': `${RULES['.gitattributes']}/trailer export-ignore\n`, 'trailer/onyx.mp4': 'a video', 'trailer/index.html': '<video>', 'agents/src/a.ts': 'export const a = 1;\n' };
+		const root = folder({ ...RULES, 'trailer/onyx.mp4': 'an older video' });
+		const gh = fakeGitHub({ [SHA1]: remote }, () => SHA1);
+		const u = updaterFor(root, gh);
+		const d = await u.diff(await u.latest());
+		expect(d.write.map((e) => e.path).sort()).toEqual(['.gitattributes', 'agents/src/a.ts']);
+		expect(d.remove).toEqual(['trailer/onyx.mp4']);
+		await u.apply();
+		expect(existsSync(join(root, 'trailer'))).toBe(false);
+		expect(gh.calls.filter((c) => c.includes('trailer'))).toEqual([]);
+		expect((await u.diff(await u.latest())).write).toEqual([]);
+	});
+
 	it("asks git's list of branches whether anything is new, which costs nothing of the API's hourly limit", async () => {
 		const root = folder(RULES);
 		const gh = fakeGitHub({ [SHA1]: RULES }, () => SHA1);

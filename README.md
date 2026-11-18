@@ -12,11 +12,16 @@ This repository holds two products that share a name, a history and a look:
 | Talk to it from | The website, or any page that loads its scripts | The Onyx app on the PC, your phone (through Tailscale), WhatsApp or SMS |
 | Goes online | Only when its internet switch allows: Wikipedia, Open-Meteo, a dictionary | Only for what you ask: web search, pages, GitHub and other connectors |
 | Where it lives | The top of this repository: [`index.html`](index.html), [`src/`](src), [`host/`](host) | [`agents/`](agents) |
-| Try it | **[gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/)** | [Quick start on Windows](#onyx-agents-quick-start-on-windows) |
+| Try it | **[gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/)** | [Quick start on Windows](#onyx-agents-quick-start-on-windows) · **[Watch the trailer](https://gkson-lab.github.io/onyx/trailer/)** |
 
 Pick **Onyx 3** to try Onyx in seconds, on any device, with nothing to install. Pick **Onyx Agents** for real
 conversations, writing and code from a language model, agents that use tools, reminders that reach your phone, and
 everything kept on your own machine.
+
+<a href="https://gkson-lab.github.io/onyx/trailer/"><img src="trailer/thumb.jpg" width="720" alt="The Onyx Agents trailer. Click to watch it."></a>
+
+**[Watch the Onyx Agents trailer](https://gkson-lab.github.io/onyx/trailer/)** (1:25): filmed from the real app, with the waits for
+the model sped up, and marked as sped up. Or [download it](trailer/onyx-agents-trailer.mp4) (MP4, 8.7 MB).
 
 ## Contents
 
@@ -245,7 +250,7 @@ and cost. Taking payment is not built.
 
 ## What has been tested
 
-- **113 automated tests** (`pnpm test` in `agents/`) cover:
+- **114 automated tests** (`pnpm test` in `agents/`) cover:
   - the router, fallbacks, plans and the agent loop;
   - subagents, budgets and the kill switch;
   - tools, reminders and delivery;
@@ -255,7 +260,7 @@ and cost. Taking payment is not built.
   - chats and their search and export, attachments (text, PDF and images) and fitting them in the model's context,
     the health check, putting a model on a tier, loading models at start, and backups;
   - updating from GitHub: a downloaded copy file by file and from one archive, a git clone, damaged downloads, undo,
-    waiting for the agents to finish, and keeping what is yours;
+    waiting for the agents to finish, keeping what is yours, and leaving out what GitHub's ZIP leaves out;
   - Setup's downloads: progress over every part of a model, a model Ollama is too old for, a full drive, a
     connection cut off and taken up again, and each tier falling back to a model that is there.
 
@@ -829,6 +834,7 @@ host/                  Onyx 3's tiny host (storage, loading a language) and its 
 test/, tools/          Onyx 3's tests, builders, trainers and code checkers
 licenses/              the license of each wordnet Onyx 3's dictionaries come from
 demo/                  an old address, kept so links to it still work
+trailer/               the Onyx Agents trailer and its page on the website (left out of the ZIP, and of updates)
 agents/                Onyx Agents
   Setup Onyx.bat         Windows: install, build, choose and download models, make a desktop shortcut
   Start Onyx.bat         Windows: restart Ollama with its settings, start Onyx, open it, share it through Tailscale

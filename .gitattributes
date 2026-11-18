@@ -5,3 +5,8 @@ src/onyx-weights.js linguist-generated=true -diff
 
 # Windows batch files need Windows line endings.
 *.bat text eol=crlf
+
+# The trailer is for the website and the GitHub page. GitHub's ZIP leaves it out, and so do the copies made from it
+# when they update.
+/trailer export-ignore
+/trailer/** export-ignore

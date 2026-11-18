@@ -273,7 +273,10 @@ export class Updater {
 
 	/* ---------- what is yours ---------- */
 
-	/** The repository's rules, from the new version: what .gitignore ignores, and which files are written with CRLF. */
+	/**
+	 * The repository's rules, from the new version: what .gitignore ignores, which files are written with CRLF, and
+	 * what GitHub leaves out of its downloads (export-ignore in .gitattributes: the trailer, say).
+	 */
 	private async rules(entries: TreeEntry[], read: Read) {
 		const text = async (e: TreeEntry) => {
 			const abs = join(this.root, e.path);
@@ -286,11 +289,13 @@ export class Updater {
 		const ignores: { dir: string; ig: Ignore }[] = [];
 		for (const e of entries.filter((x) => x.path === '.gitignore' || x.path.endsWith('/.gitignore'))) ignores.push({ dir: e.path.slice(0, -'.gitignore'.length), ig: ignore().add(await text(e)) });
 		const attrs = entries.find((x) => x.path === '.gitattributes');
-		const crlf = ignore().add(attrs ? crlfPatterns(await text(attrs)) : []);
+		const attrText = attrs ? await text(attrs) : '';
+		const crlf = ignore().add(crlfPatterns(attrText));
+		const leftOut = ignore().add(attrPatterns(attrText, 'export-ignore'));
 		const extra = this.keepMore().filter((p): p is string => !!p).map((p) => posix(relative(this.root, resolve(this.root, p)))).filter((p) => p && !p.startsWith('..') && !isAbsolute(p));
 		const own = (p: string) => OWN.some((re) => re.test(p)) || extra.some((k) => p === k || p.startsWith(`${k}/`));
 		const ignored = (p: string, isDir = false) => ignores.some(({ dir, ig }) => (dir === '' || p.startsWith(dir)) && ig.ignores(p.slice(dir.length) + (isDir ? '/' : '')));
-		return { own, ignored, crlf: (p: string) => crlf.ignores(p) };
+		return { own, ignored, crlf: (p: string) => crlf.ignores(p), leftOut: (p: string) => leftOut.ignores(p) };
 	}
 
 	/** Every file here, as forward-slash paths, leaving out folders that are yours or ignored (node_modules, data). */
@@ -313,8 +318,12 @@ export class Updater {
 	async diff(release: Release): Promise<Diff> {
 		const src = await this.source(release);
 		const r = await this.rules(src.entries, src.read);
-		const inTree = new Set(src.entries.map((e) => e.path));
-		const write = src.entries.filter((e) => {
+		// A downloaded copy holds what GitHub's ZIP holds, which leaves out what .gitattributes marks export-ignore (the
+		// trailer, a video no PC needs); so those are not downloaded, and go if an older version put them here. A clone
+		// has everything.
+		const entries = (await this.mode()) === 'files' ? src.entries.filter((e) => !r.leftOut(e.path)) : src.entries;
+		const inTree = new Set(entries.map((e) => e.path));
+		const write = entries.filter((e) => {
 			if (r.own(e.path)) return false;
 			const abs = join(this.root, e.path);
 			if (!existsSync(abs) || !lstatSync(abs).isFile()) return true;
@@ -465,10 +474,12 @@ export class Updater {
 	}
 }
 
-/** From a .gitattributes file, the patterns whose files git writes with Windows line endings (eol=crlf). */
-function crlfPatterns(attributes: string): string[] {
+/** From a .gitattributes file, the patterns that set `attr`. */
+function attrPatterns(attributes: string, attr: string): string[] {
 	return attributes.split('\n').flatMap((line) => {
 		const [pattern, ...attrs] = line.trim().split(/\s+/);
-		return pattern && !pattern.startsWith('#') && attrs.includes('eol=crlf') ? [pattern] : [];
+		return pattern && !pattern.startsWith('#') && attrs.includes(attr) ? [pattern] : [];
 	});
 }
+/** The patterns whose files git writes with Windows line endings (eol=crlf). */
+const crlfPatterns = (attributes: string) => attrPatterns(attributes, 'eol=crlf');
