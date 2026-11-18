@@ -7,10 +7,10 @@ This repository holds two products that share a name, a history and a look:
 | | **Onyx 3** | **Onyx Agents** |
 |---|---|---|
 | What it is | A small assistant that runs entirely in a web page | A system of AI agents that runs on your own PC |
-| Intelligence | A planner, two small neural networks (200,380 and 340,320 weights), dictionaries and hand-written skills | Real open-weight **Qwen** language models, run locally by [Ollama](https://ollama.com) |
+| Intelligence | A planner, two small neural networks (200,380 and 340,320 weights), dictionaries and hand-written skills | Real open-weight **Qwen** language models, run locally by [Ollama](https://ollama.com); with your own keys, also **Claude** and **ChatGPT** |
 | Needs | A browser. Nothing to install | A Windows PC with a graphics card (or any PC, more slowly), Node.js and Ollama |
 | Talk to it from | The website, or any page that loads its scripts | The Onyx app on the PC, your phone (through Tailscale), WhatsApp or SMS |
-| Goes online | Only when its internet switch allows: Wikipedia, Open-Meteo, a dictionary | Only for what you ask: web search, pages, GitHub and other connectors |
+| Goes online | Only when its internet switch allows: Wikipedia, Open-Meteo, a dictionary | Only for what you ask: web search, pages, GitHub and other connectors, and Claude or ChatGPT if you turn them on |
 | Where it lives | The top of this repository: [`index.html`](index.html), [`src/`](src), [`host/`](host) | [`agents/`](agents) |
 | Try it | **[gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/)** | [Quick start on Windows](#onyx-agents-quick-start-on-windows) · **[Watch the trailer](https://gkson-lab.github.io/onyx/trailer/)** |
 
@@ -163,8 +163,12 @@ your PC and saves the choice in `config/tiers.local.yaml`, which updates never o
   Mistral Small, Llama 3.1, Gemma 3, DeepSeek R1 and Phi-4), each with how it would run on this PC. **Download** one,
   then **Use for…** a tier. Models that cannot call tools are for plain chat and never back a tier, since every agent
   calls tools.
-- **Cloud models are optional and off.** Kimi (Moonshot AI) can back Pro and Max if you set `ONYX_CLOUD=on` and a
-  key. Nothing leaves your PC for a model unless you do.
+- **Claude and ChatGPT, with your own keys.** Off until you turn them on in Settings, **Cloud models**, and add a key
+  from Anthropic or OpenAI (or Moonshot AI, for Kimi). Then pick Claude Opus 5.5, Sonnet 5.5, Haiku 5.5, GPT-6.2 Astra
+  or GPT-6.2 Sol for a message in Chat, or make one a tier's first choice on the Models screen, with the tier's local
+  models behind it. Each company bills your account; every answer shows its cost, and a daily limit ($5 to start)
+  stops cloud calls for the day once reached, after which the local models answer. Nothing leaves your PC for a model
+  unless you do this. Details: [`agents/README.md`](agents/README.md#claude-chatgpt-and-kimi-if-you-want-them).
 
 ## Agents and tools
 
@@ -247,10 +251,13 @@ and cost. Taking payment is not built.
   in them is read, and one number can send at most 20 messages in five minutes.
 - **Untrusted text is labelled.** Pages and connector results are passed to the models as untrusted text, not as
   instructions.
+- **Cloud models only when you choose them.** Claude and ChatGPT are off until you turn them on. A message sent to one,
+  and what its agents read for it, goes to that company under its terms. Their keys stay in `agents/.env`; the app
+  only ever sees the last four characters.
 
 ## What has been tested
 
-- **114 automated tests** (`pnpm test` in `agents/`) cover:
+- **126 automated tests** (`pnpm test` in `agents/`) cover:
   - the router, fallbacks, plans and the agent loop;
   - subagents, budgets and the kill switch;
   - tools, reminders and delivery;
@@ -262,7 +269,10 @@ and cost. Taking payment is not built.
   - updating from GitHub: a downloaded copy file by file and from one archive, a git clone, damaged downloads, undo,
     waiting for the agents to finish, keeping what is yours, and leaving out what GitHub's ZIP leaves out;
   - Setup's downloads: progress over every part of a model, a model Ollama is too old for, a full drive, a
-    connection cut off and taken up again, and each tier falling back to a model that is there.
+    connection cut off and taken up again, and each tier falling back to a model that is there;
+  - Claude through Anthropic's SDK, against a stand-in that streams what the real API streams (thinking sent back
+    unchanged through a tool loop, refusals, rate limits, bad keys), ChatGPT's request format, choosing a cloud model,
+    the daily cloud limit, and saving keys.
 
   The app was also driven in a browser through every chat feature, and the updater was run against the real
   repository on GitHub and through a full self-update and restart.

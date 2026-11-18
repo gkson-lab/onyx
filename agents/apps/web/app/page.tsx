@@ -11,7 +11,9 @@ interface Conv { id: number; title: string; pinned: boolean; updated_at: string;
 interface File64 { name: string; type: string; data: string; size: number }
 interface Pending { runId: string; text: string; files: number }
 const TIERS = [['auto', 'Auto'], ['lite', 'Lite'], ['standard', 'Standard'], ['pro', 'Pro'], ['max', 'Max']] as const;
-type Pick = (typeof TIERS)[number][0];
+/** A tier, or "model:<key>": a cloud model (Claude, ChatGPT) chosen for the message. */
+type Pick = string;
+interface CloudModel { key: string; label: string; provider: string }
 const MAX_FILE = 10 * 1024 * 1024;
 const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* a private window */ } } };
 const isMac = () => typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
@@ -115,11 +117,15 @@ export default function Chat() {
 		const last = saved === null ? NaN : Number(saved);
 		setConv(meta.data.conversations.some((c) => c.id === last) || last === 0 ? last : meta.data.conversations[0]?.id ?? -1);
 	}, [meta.data, conv]);
-	// The model picked last time. Saved when you change it, not on load, or the default would overwrite it.
+	// The cloud models that can be chosen now (cloud models on, and a key set for them).
+	const offered = useData<{ cloud_models: CloudModel[] }>('/tiers');
+	const cloudModels = offered.data?.cloud_models ?? [];
+	// The model picked last time. Saved when you change it, not on load, or the default would overwrite it. A cloud
+	// model comes back only while it can still be used.
 	useEffect(() => {
-		const t = store.get('onyx.tier') as Pick | null;
-		if (t && TIERS.some(([k]) => k === t)) setTier(t);
-	}, []);
+		const t = store.get('onyx.tier');
+		if (t && (TIERS.some(([k]) => k === t) || cloudModels.some((m) => `model:${m.key}` === t))) setTier(t);
+	}, [cloudModels.length]);
 	useEffect(() => {
 		if (conv !== null && conv >= 0) store.set('onyx.chat', String(conv));
 	}, [conv]);
@@ -213,7 +219,8 @@ export default function Chat() {
 				id = (await api<{ id: number }>('/conversations', { method: 'POST' })).id;
 				setConv(id);
 			}
-			const { runId } = await api<{ runId: string }>('/chat', { method: 'POST', body: { text: t, tier, conversation_id: id, attachments: sent.map(({ name, type, data }) => ({ name, type, data })) } });
+			const pick = tier.startsWith('model:') ? { tier: 'auto', model: tier.slice(6) } : { tier };
+			const { runId } = await api<{ runId: string }>('/chat', { method: 'POST', body: { text: t, ...pick, conversation_id: id, attachments: sent.map(({ name, type, data }) => ({ name, type, data })) } });
 			const chat = id;
 			setPending((p) => ({ ...p, [chat]: { runId, text: t + (sent.length ? `\n\n📎 ${sent.map((f) => f.name).join(' · ')}` : ''), files: sent.length } }));
 			setTimeout(() => setVersion((v) => v + 1), 300);
@@ -334,8 +341,13 @@ export default function Chat() {
 						{/* A pasted screenshot is attached; text copied from Word or Excel (which also carries a picture of itself) is pasted as text. */}
 						<textarea ref={input} id="message" rows={1} value={text} onChange={(e) => setText(e.target.value)} onPaste={(e) => e.clipboardData.files.length > 0 && !e.clipboardData.getData('text/plain') && (e.preventDefault(), void attach(e.clipboardData.files))} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && (e.preventDefault(), void send())} placeholder="Message Onyx" className="max-h-40 min-h-11 min-w-0 flex-1" />
 						<label htmlFor="tier" className="sr-only">Model</label>
-						<select id="tier" value={tier} onChange={(e) => (setTier(e.target.value as Pick), store.set('onyx.tier', e.target.value))} title="Which model answers. Auto lets the router choose." className="h-11 shrink-0 text-sm">
+						<select id="tier" value={tier} onChange={(e) => (setTier(e.target.value), store.set('onyx.tier', e.target.value))} title="Which model answers. Auto lets the router choose; a cloud model uses your key with its company." className="h-11 max-w-[10rem] shrink-0 truncate text-sm">
 							{TIERS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
+							{cloudModels.length > 0 && (
+								<optgroup label="Cloud, with your key">
+									{cloudModels.map((m) => <option key={m.key} value={`model:${m.key}`}>{m.label}</option>)}
+								</optgroup>
+							)}
 						</select>
 						{mine ? (
 							<button type="button" onClick={stop} aria-label="Stop" title="Stop (Esc)" className="flex h-11 w-11 shrink-0 items-center justify-center rounded border text-text hover:border-bad hover:text-bad"><Square {...ICON} size={16} fill="currentColor" aria-hidden /></button>

@@ -47,6 +47,8 @@ export interface AppOptions {
 	tool?: Partial<ToolDeps>;
 	clock?: () => Date;
 	connect?: Connect;
+	/** Used for Claude (Anthropic's SDK); replaced in tests. */
+	anthropicFetch?: typeof fetch;
 	/** Used by the phone channels to reach Meta and Twilio; replaced in tests. */
 	phoneFetch?: typeof fetch;
 	pushSend?: ConstructorParameters<typeof Push>[1];
@@ -61,7 +63,7 @@ export async function createApp(o: AppOptions = {}): Promise<App> {
 	const plan = Plan.catch('max').parse(env.ONYX_PLAN);
 	await ensureUser(db, 'owner', 'Owner', plan);
 	const bus = new Bus();
-	const gateway = new Gateway({ config, db, fetch: o.fetch, sleep: o.sleep, onFallback: o.onFallback });
+	const gateway = new Gateway({ config, db, fetch: o.fetch, anthropicFetch: o.anthropicFetch, sleep: o.sleep, onFallback: o.onFallback });
 	const router = new Router(config, gateway, db);
 	const tools = new ToolRegistry().add(...builtinTools({ db, env, embed: o.fetch ? undefined : embedder(config), clock: o.clock, ...o.tool } as ToolDeps));
 	const runtime = new Runtime({ db, gateway, router, bus, tools, clock: o.clock });

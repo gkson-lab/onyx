@@ -5,9 +5,10 @@ import { api, fmtTime, useData } from '@/lib/api';
 import { Button, Code, ICON, Loading, Page, Problem, Section, channelLabel } from '@/components/ui';
 import { Autostart, Backups } from '@/components/settings-extra';
 import { Updates } from '@/components/updates';
+import { CloudModels } from '@/components/cloud';
 
 interface S { preferred_channels: string[]; allowlist: string[]; keys: { name: string; set: boolean }[]; cloud: boolean }
-const KEY_USE: Record<string, string> = { MOONSHOT_API_KEY: 'Kimi models (only used when ONYX_CLOUD=on)', BRAVE_API_KEY: 'Web search for the Researcher', GITHUB_MCP_TOKEN: 'The GitHub connector', ONYX_PASSWORD: 'Signing in to this app from outside this PC', WHATSAPP_TOKEN: 'Sending WhatsApp messages', WHATSAPP_APP_SECRET: 'Checking that WhatsApp webhooks come from Meta', TWILIO_AUTH_TOKEN: 'Sending SMS, and checking Twilio webhooks' };
+const KEY_USE: Record<string, string> = { OPENAI_API_KEY: 'ChatGPT models (set in Cloud models, above)', ANTHROPIC_API_KEY: 'Claude models (set in Cloud models, above)', MOONSHOT_API_KEY: 'Kimi models (set in Cloud models, above)', BRAVE_API_KEY: 'Web search for the Researcher', GITHUB_MCP_TOKEN: 'The GitHub connector', ONYX_PASSWORD: 'Signing in to this app from outside this PC', WHATSAPP_TOKEN: 'Sending WhatsApp messages', WHATSAPP_APP_SECRET: 'Checking that WhatsApp webhooks come from Meta', TWILIO_AUTH_TOKEN: 'Sending SMS, and checking Twilio webhooks' };
 
 interface Identity { id: number; channel: string; handle: string; verified_at: string | null; code: string | null; code_expires: string | null }
 
@@ -219,8 +220,10 @@ export default function Settings() {
 					<Notifications />
 					<Phones />
 
+					<CloudModels />
+
 					<Section title="Keys">
-						<p className="mb-3 max-w-2xl text-sm text-muted">Keys live in <Code>.env</Code> on this PC and are never sent to this page: it only knows whether each one is set. To change one, edit <Code>.env</Code> and restart Onyx.</p>
+						<p className="mb-3 max-w-2xl text-sm text-muted">Keys live in <Code>.env</Code> on this PC and are never sent to this page: it only knows whether each one is set. The cloud model keys are set in Cloud models, above; to change another, edit <Code>.env</Code> and restart Onyx.</p>
 						<ul className="border-t">
 							{data.keys.map((k) => (
 								<li key={k.name} className="grid min-h-12 grid-cols-[1fr_auto] items-center gap-3 border-b py-2 md:grid-cols-[16rem_1fr_auto]">
@@ -230,7 +233,6 @@ export default function Settings() {
 								</li>
 							))}
 						</ul>
-						<p className="mt-3 text-sm text-muted">Cloud models are {data.cloud ? 'on' : 'off'}: <Code>ONYX_CLOUD={data.cloud ? 'on' : 'off'}</Code>. {data.cloud ? 'Pro and Max try Kimi first.' : 'Every model call stays on this PC.'}</p>
 					</Section>
 
 					<Updates />

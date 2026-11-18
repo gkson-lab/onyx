@@ -5,7 +5,8 @@
 import { TIERS, tierRank, type ChatMessage, type Fallback, type Tier, type ToolCall, type ToolDef, type Usage, type Plan } from '@onyx/shared';
 import type { Config, ModelDef } from '../config.ts';
 import { now, today, type DB } from '../db.ts';
-import { chat, ProviderError, type FetchLike } from './provider.ts';
+import { chat, ProviderError, type ChatRequest, type FetchLike } from './provider.ts';
+import { chatAnthropic } from './anthropic.ts';
 
 export interface CompleteRequest {
 	userId: string;
@@ -26,6 +27,11 @@ export interface CompleteRequest {
 	allowTierDrop?: boolean;
 	/** Call this one model (a key under models), not the tier's: the image reader, for one. */
 	modelKey?: string;
+	/**
+	 * Try this model first (a key under models: a cloud model the person chose for the message), then the tier's own,
+	 * so that a key that stops working, or the day's cloud limit, still ends in an answer.
+	 */
+	preferModel?: string;
 	/**
 	 * Told how long the call waited for its turn on the graphics card. That wait is given back: it does not count
 	 * against the caller's time budget (see deadline), and the caller can give it back to its own budget too.
@@ -49,6 +55,8 @@ export interface CompleteResult {
 	provider: string;
 	local: boolean;
 	fallbacks: Fallback[];
+	/** The turn as the provider wrote it (Claude's), to send back with the next request of a tool loop. */
+	raw?: unknown;
 }
 
 export class LimitError extends Error {}
@@ -62,12 +70,20 @@ export interface GatewayOptions {
 	config: Config;
 	db: DB;
 	fetch?: FetchLike;
+	/** For Claude's SDK (tests pass a stand-in). */
+	anthropicFetch?: typeof fetch;
 	sleep?: (ms: number) => Promise<void>;
 	onFallback?: (f: Fallback, req: CompleteRequest) => void;
 }
 
 // Less time than this left in the budget: another try could not finish, so it is not made.
 const MIN_TRY_MS = 5000;
+
+/** How hard a cloud model thinks, by tier (Claude: output_config.effort). */
+const EFFORT: Record<Tier, NonNullable<ChatRequest['effort']>> = { lite: 'low', standard: 'medium', pro: 'high', max: 'xhigh' };
+/** What cloud models may cost in a day, in USD, until the person sets another limit in Settings. */
+export const DEFAULT_CLOUD_DAILY_USD = 5;
+const usd = (n: number) => `$${n.toFixed(2)}`;
 /** A model's extra settings switch thinking off (Qwen3 through Ollama: reasoning_effort "none"). */
 const thinkingOff = (extra: Record<string, unknown> | undefined) => extra?.reasoning_effort === 'none';
 const thinkingOn = (extra: Record<string, unknown> | undefined) => {
@@ -79,6 +95,7 @@ export class Gateway {
 	private readonly config: Config;
 	private readonly db: DB;
 	private readonly fetch?: FetchLike;
+	private readonly anthropicFetch?: typeof fetch;
 	private readonly sleep: (ms: number) => Promise<void>;
 	private readonly onFallback?: GatewayOptions['onFallback'];
 	private readonly lanes = new Map<string, { active: number; waiting: (() => void)[] }>();
@@ -87,6 +104,7 @@ export class Gateway {
 		this.config = o.config;
 		this.db = o.db;
 		this.fetch = o.fetch;
+		this.anthropicFetch = o.anthropicFetch;
 		this.sleep = o.sleep ?? ((ms) => new Promise((r) => setTimeout(r, ms)));
 		this.onFallback = o.onFallback;
 	}
@@ -132,6 +150,27 @@ export class Gateway {
 		return (usage.input * model.price.input + usage.output * model.price.output) / 1e6;
 	}
 
+	/** The day's limit on cloud spending, in USD (Settings): null for no limit, 0 for none at all. */
+	async cloudLimit(): Promise<number | null> {
+		const row = await this.db.selectFrom('settings').select('value').where('key', '=', 'cloud_daily_usd').executeTakeFirst();
+		const v: unknown = row ? JSON.parse(row.value) : DEFAULT_CLOUD_DAILY_USD;
+		return typeof v === 'number' && v >= 0 ? v : null;
+	}
+	/** What cloud models have cost today (UTC), in USD. */
+	async cloudSpentToday(): Promise<number> {
+		const cloud = Object.entries(this.config.file.providers).filter(([, p]) => !p.local).map(([k]) => k);
+		if (!cloud.length) return 0;
+		const row = await this.db.selectFrom('model_calls').select((eb) => eb.fn.sum<number>('cost_usd').as('spent')).where('provider', 'in', cloud).where('created_at', '>=', `${today()}T00:00:00`).executeTakeFirst();
+		return Number(row?.spent ?? 0);
+	}
+	/** Why a cloud model may not be called now, or null: the day's cloud spending has reached its limit. */
+	private async cloudBlocked(): Promise<string | null> {
+		const limit = await this.cloudLimit();
+		if (limit === null) return null;
+		const spent = await this.cloudSpentToday();
+		return spent >= limit ? `today's cloud spending limit is reached (${usd(spent)} of ${usd(limit)}; Settings, Cloud models; it resets at midnight UTC)` : null;
+	}
+
 	async plan(userId: string): Promise<Plan> {
 		const u = await this.db.selectFrom('users').select('plan').where('id', '=', userId).executeTakeFirst();
 		if (!u) throw new LimitError(`no such user: ${userId}`);
@@ -174,9 +213,14 @@ export class Gateway {
 		let deadline = req.deadline;
 		const left = () => (deadline === undefined ? Infinity : deadline - Date.now());
 
+		// The person's chosen cloud model goes first, the first time round; after it, the tier's own models.
+		let prefer = req.preferModel && this.config.file.models[req.preferModel] && this.config.usable(this.config.model(req.preferModel).provider) ? this.config.model(req.preferModel) : null;
 		for (;;) {
 			// A model that cannot call tools is no use to a call that offers them.
-			const candidates = req.modelKey ? [this.config.model(req.modelKey)] : this.config.candidates(tier).filter((m) => m.tools !== false || !req.tools?.length);
+			const own = this.config.candidates(tier).filter((m) => m.tools !== false || !req.tools?.length || req.toolChoice === 'none');
+			const first = prefer;
+			const candidates = req.modelKey ? [this.config.model(req.modelKey)] : first ? [first, ...own.filter((m) => m.key !== first.key)] : own;
+			prefer = null;
 			if (!candidates.length) errors.push(`${tier}: no usable model is configured`);
 			for (const [i, model] of candidates.entries()) {
 				let last = '';
@@ -185,7 +229,10 @@ export class Gateway {
 				// answer, though the model wrote it; qwen3:8b, seen in real runs). With thinking on it comes through. So such a
 				// call is asked again with thinking on, for that call only: plain answers, most of what Core writes, stay fast.
 				let thinkNow = false;
-				for (let attempt = 0; attempt <= fb.retries; attempt++) {
+				// A cloud model is skipped once the day's cloud spending has reached its limit.
+				const blocked = this.config.file.providers[model.provider]!.local ? null : await this.cloudBlocked();
+				if (blocked) last = blocked;
+				for (let attempt = 0; !blocked && attempt <= fb.retries; attempt++) {
 					if (left() < MIN_TRY_MS) {
 						outOfTime = true;
 						last = `out of time: the agent's time budget had ${Math.max(0, Math.round(left() / 1000))} s left`;
@@ -203,7 +250,9 @@ export class Gateway {
 					const started = Date.now();
 					const messages = model.system_suffix ? withSuffix(req.messages, model.system_suffix) : req.messages;
 					try {
-						const r = await chat({ baseUrl: this.config.baseUrl(model.provider), apiKey: this.config.apiKey(model.provider), model: model.id, messages, tools: req.tools, toolChoice: req.toolChoice, maxTokens: req.maxTokens, temperature: req.temperature, extra: thinkNow ? thinkingOn(model.extra) : model.extra, timeoutMs: Math.max(1000, Math.min(req.timeoutMs ?? fb.timeout_ms, left())), signal: req.signal, onDelta: req.onDelta }, this.fetch);
+						const api = this.config.api(model.provider);
+						const call: ChatRequest = { baseUrl: this.config.baseUrl(model.provider), apiKey: this.config.apiKey(model.provider), api, effort: EFFORT[tier], model: model.id, messages, tools: req.tools, toolChoice: req.toolChoice, maxTokens: req.maxTokens, temperature: req.temperature, extra: thinkNow ? thinkingOn(model.extra) : model.extra, timeoutMs: Math.max(1000, Math.min(req.timeoutMs ?? fb.timeout_ms, left())), signal: req.signal, onDelta: req.onDelta };
+						const r = api === 'anthropic' ? await chatAnthropic(call, this.anthropicFetch) : await chat(call, this.fetch);
 						const latencyMs = Date.now() - started;
 						const costUsd = this.cost(model, r.usage);
 						const eq = this.config.file.providers[model.provider]!.local ? this.config.equivalents[model.id] : undefined;
@@ -215,7 +264,7 @@ export class Gateway {
 					} catch (e) {
 						const err = e instanceof ProviderError ? e : new ProviderError((e as Error).message, 0, false);
 						// A tool call lost to Ollama's thinking switch (above): ask again straight away, with thinking on.
-						const lost = err.kind === 'empty' && !!req.tools?.length && thinkingOff(model.extra) && !thinkNow;
+						const lost = err.kind === 'empty' && !!req.tools?.length && req.toolChoice !== 'none' && thinkingOff(model.extra) && !thinkNow;
 						last = lost ? `its tool call was lost with thinking switched off (an Ollama bug: ${err.generated ?? 0} tokens written, none delivered); asked again with thinking on` : err.message;
 						await this.db.insertInto('model_calls').values({ user_id: req.userId, run_id: req.runId ?? null, purpose, tier, model_key: model.key, provider: model.provider, model_id: model.id, status: 'error', error: last, input_tokens: 0, output_tokens: 0, usage_estimated: 0, cost_usd: null, latency_ms: Date.now() - started, attempt, created_at: now() }).execute();
 						if (err.status === 499) throw err;

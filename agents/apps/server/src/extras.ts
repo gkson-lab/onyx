@@ -269,6 +269,28 @@ export function registerExtras(server: FastifyInstance, app: App, o: { plan: () 
 		void pull(app, body.data.id, pulls, o.download);
 		return reply.code(202).send({ started: true });
 	});
+	// A tier tries a cloud model first (key), or goes back to its local models only (null). The tier's other cloud
+	// models are taken off it, so one cloud model at a time leads each tier. Its local models stay, as the fallback.
+	server.post('/api/models/cloud', async (req, reply) => {
+		const body = z.object({ use: z.enum(TIERS), key: z.string().nullable() }).safeParse(req.body);
+		if (!body.success) return reply.code(400).send({ error: body.error.issues[0]?.message });
+		const { use, key } = body.data;
+		const cloudKey = (k: string) => !!app.config.file.models[k] && !app.config.file.providers[app.config.file.models[k]!.provider]!.local;
+		if (key !== null && !cloudKey(key)) return reply.code(400).send({ error: `There is no cloud model called "${key}".` });
+		const { parseDocument } = await import('yaml');
+		const doc = parseDocument(o.readTiers());
+		const list = app.config.file.tiers[use].models.filter((k) => !cloudKey(k));
+		doc.setIn(['tiers', use, 'models'], doc.createNode(key ? [key, ...list] : list, { flow: true }));
+		const yaml = doc.toString({ lineWidth: 0 });
+		try {
+			const file = parseTiers(yaml);
+			writeFileSync(o.tiersOut, yaml);
+			app.config.replace(file);
+		} catch (e) {
+			return reply.code(500).send({ error: `The new tiers file did not check out: ${(e as Error).message}` });
+		}
+		return { tiers: app.config.publicTiers() };
+	});
 	server.post('/api/models/assign', async (req, reply) => {
 		const body = z.object({ use: z.enum([...TIERS, 'vision'] as [string, ...string[]]), id: z.string() }).safeParse(req.body);
 		if (!body.success) return reply.code(400).send({ error: body.error.issues[0]?.message });

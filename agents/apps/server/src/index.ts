@@ -10,9 +10,10 @@ import { sql } from 'kysely';
 import { z } from 'zod';
 import { AgentDef, Channel, TIERS, type ChatMessage } from '@onyx/shared';
 import { createApp, type App } from './app.ts';
-import { LOCAL_TIERS, parseTiers, ROOT, tiersPath as currentTiers } from './config.ts';
+import { LOCAL_TIERS, parseTiers, ROOT, tiersPath as currentTiers, writeDotEnv } from './config.ts';
 import { now, today } from './db.ts';
 import { listModels } from './models/provider.ts';
+import { listClaudeModels } from './models/anthropic.ts';
 import { e164 } from './channels/phone.ts';
 import { applyToTiers, detect, plan as planFor, type Hardware } from './hardware.ts';
 import { ollamaStatus } from './ollama.ts';
@@ -21,16 +22,23 @@ import { Attachment, readAttachments, registerExtras, warmUp, type WarmState } f
 import { fitHistory, inputBudget } from './context.ts';
 import { registerUpdates, type UpdatesOptions } from './updates.ts';
 
-const ChatBody = z.object({ text: z.string().trim().max(20000).default(''), conversation_id: z.number().int().positive().optional(), tier: z.enum(['auto', ...TIERS]).default('auto'), attachments: z.array(Attachment).max(5).default([]) }).refine((b) => b.text || b.attachments.length, 'Write a message or attach a file.');
+const ChatBody = z.object({ text: z.string().trim().max(20000).default(''), conversation_id: z.number().int().positive().optional(), tier: z.enum(['auto', ...TIERS]).default('auto'), model: z.string().max(60).optional(), attachments: z.array(Attachment).max(5).default([]) }).refine((b) => b.text || b.attachments.length, 'Write a message or attach a file.');
 const SettingsBody = z.object({ preferred_channels: z.array(Channel).min(1).max(4).optional(), allowlist: z.array(z.string().trim().min(3).max(64)).max(50).optional() });
-const KEYS = ['ONYX_PASSWORD', 'MOONSHOT_API_KEY', 'BRAVE_API_KEY', 'GITHUB_MCP_TOKEN', 'WHATSAPP_TOKEN', 'WHATSAPP_APP_SECRET', 'TWILIO_AUTH_TOKEN'];
+const KEYS = ['ONYX_PASSWORD', 'OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'MOONSHOT_API_KEY', 'BRAVE_API_KEY', 'GITHUB_MCP_TOKEN', 'WHATSAPP_TOKEN', 'WHATSAPP_APP_SECRET', 'TWILIO_AUTH_TOKEN'];
+/** The cloud model providers' keys, which Settings can set. */
+const CLOUD_KEYS = ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'MOONSHOT_API_KEY'] as const;
+const CloudBody = z.object({
+	on: z.boolean().optional(),
+	daily_usd: z.number().min(0).max(1000).nullable().optional(),
+	keys: z.record(z.enum(CLOUD_KEYS), z.string().trim().max(400).nullable()).optional(),
+});
 
 /**
  * A message in, an answer out: runs it, stores both sides, and sends the answer out on the channel it came from.
  * `conversationId` keeps a chat's history apart from other chats' (null: phones and reminders). `attached` is what
  * attached files say: the agent reads it, and it is kept with the message for later questions, but not shown.
  */
-export async function receive(app: App, o: { userId: string; text: string; channel: Channel; runId?: string; conversationId?: number | null; attached?: string }) {
+export async function receive(app: App, o: { userId: string; text: string; channel: Channel; runId?: string; conversationId?: number | null; attached?: string; model?: string }) {
 	const conv = o.conversationId ?? null;
 	const budget = inputBudget();
 	const attached = o.attached && o.attached.length > budget * 0.75 ? `${o.attached.slice(0, Math.round(budget * 0.75))}\n[The attached files were cut short here, to fit the model's context.]` : o.attached;
@@ -38,7 +46,7 @@ export async function receive(app: App, o: { userId: string; text: string; chann
 	const history = fitHistory(past, Math.max(0, budget - o.text.length - (attached?.length ?? 0)), !attached);
 	await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'in', text: o.text, run_id: o.runId ?? null, status: 'received', error: null, created_at: now(), conversation_id: conv, attached: attached ?? null }).execute();
 	if (conv !== null) await app.db.updateTable('conversations').set({ updated_at: now() }).where('id', '=', conv).execute();
-	const r = await app.runtime.handle({ userId: o.userId, text: o.text, attached, channel: o.channel, history, runId: o.runId });
+	const r = await app.runtime.handle({ userId: o.userId, text: o.text, attached, channel: o.channel, history, runId: o.runId, model: o.model });
 	const reply = r.status === 'done' ? r.output : r.status === 'killed' ? 'Stopped.' : `That failed: ${r.error}`;
 	if (o.channel === 'web' || o.channel === 'terminal') await app.db.insertInto('messages').values({ user_id: o.userId, channel: o.channel, direction: 'out', text: reply, run_id: r.runId, status: r.status === 'done' ? 'sent' : 'error', error: r.error, created_at: now(), conversation_id: conv }).execute();
 	else await app.outbox.deliver(o.userId, reply, { channel: o.channel, runId: r.runId });
@@ -108,7 +116,7 @@ export async function catchUpSms(app: App): Promise<number> {
 	return missed.length;
 }
 
-export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware>; ollamaFetch?: typeof fetch; tailscale?: RunTailscale; port?: number; warm?: WarmState; updates?: UpdatesOptions } = {}): Promise<FastifyInstance> {
+export async function buildServer(app: App, o: { tiersPath?: string; webDir?: string; detect?: () => Promise<Hardware>; ollamaFetch?: typeof fetch; tailscale?: RunTailscale; port?: number; warm?: WarmState; updates?: UpdatesOptions; envFile?: string; cloudFetch?: typeof fetch } = {}): Promise<FastifyInstance> {
 	const server = Fastify({ logger: false, bodyLimit: 1_000_000 });
 	await server.register(websocket);
 	// Read: this PC's own tiers file if there is one, else the shipped one. Write: always this PC's own.
@@ -240,8 +248,16 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		const runId = randomUUID();
 		const b = body.data;
 		if (b.conversation_id && !(await db.selectFrom('conversations').select('id').where('id', '=', b.conversation_id).where('user_id', '=', app.owner).executeTakeFirst())) return reply.code(404).send({ error: 'That chat no longer exists. Start a new one.' });
-		// The tier picker is the same as typing /pro at the start.
-		const ask = `${b.tier !== 'auto' && !/^\/(lite|standard|pro|max|think)\b/i.test(b.text) ? `/${b.tier} ` : ''}${b.text || 'Look at the attached file.'}`;
+		// A cloud model chosen in the picker (Claude, ChatGPT): every agent in the run tries it first.
+		const chosen = b.model ? app.config.file.models[b.model] : undefined;
+		if (b.model) {
+			if (!chosen || app.config.file.providers[chosen.provider]!.local) return reply.code(400).send({ error: `There is no cloud model called "${b.model}".` });
+			if (!app.config.usable(chosen.provider)) return reply.code(400).send({ error: `${chosen.label ?? chosen.id} is not set up: turn cloud models on and add the key in Settings, Cloud models.` });
+		}
+		// The tier picker is the same as typing /pro at the start. A chosen model runs at Pro unless a tier was chosen too:
+		// no routing call first, and Pro's local models if the cloud cannot answer.
+		const tier = chosen && b.tier === 'auto' ? 'pro' : b.tier;
+		const ask = `${tier !== 'auto' && !/^\/(lite|standard|pro|max|think)\b/i.test(b.text) ? `/${tier} ` : ''}${b.text || 'Look at the attached file.'}`;
 		if (b.conversation_id) await extras.nameChat(b.conversation_id, b.text || b.attachments.map((a) => a.name).join(', '));
 		// The run goes on after this answers; its progress and its result arrive on the WebSocket and at /api/runs/:id.
 		void (async () => {
@@ -249,7 +265,7 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 			const att = b.attachments.length ? await readAttachments(app, b.attachments, b.text, { runId, userId: app.owner, maxChars: Math.round(inputBudget() * 0.75) }) : null;
 			if (att) app.bus.emit({ type: 'attachments', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { files: att.files } });
 			const text = att ? `${ask}\n\n📎 ${att.files.map((f) => `${f.name} (${f.note})`).join(' · ')}` : ask;
-			return receive(app, { userId: app.owner, text, channel: 'web', runId, conversationId: b.conversation_id ?? null, attached: att?.text || undefined });
+			return receive(app, { userId: app.owner, text, channel: 'web', runId, conversationId: b.conversation_id ?? null, attached: att?.text || undefined, model: b.model });
 		})().catch((e) => app.bus.emit({ type: 'error', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { status: 'error', error: (e as Error).message } }));
 		return reply.code(202).send({ runId });
 	});
@@ -302,7 +318,15 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 	});
 
 	/* ---------- models, tiers, usage ---------- */
-	server.get('/api/tiers', async () => ({ tiers: app.config.publicTiers(), cloud: app.config.cloud, plans: app.config.file.plans }));
+	// What the chat's picker offers: the tiers, and the cloud models that can be used right now (cloud on, key set).
+	server.get('/api/tiers', async () => ({
+		tiers: app.config.publicTiers(),
+		cloud: app.config.cloud,
+		plans: app.config.file.plans,
+		cloud_models: Object.entries(app.config.file.models)
+			.filter(([, m]) => !app.config.file.providers[m.provider]!.local && app.config.usable(m.provider) && m.tools !== false)
+			.map(([key, m]) => ({ key, label: m.label ?? m.id, provider: m.provider })),
+	}));
 	server.get('/api/tiers/raw', async () => ({ yaml: readTiers() }));
 	server.put('/api/tiers/raw', async (req, reply) => {
 		const body = z.object({ yaml: z.string().min(10).max(50000) }).safeParse(req.body);
@@ -343,11 +367,13 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		const stats = await db.selectFrom('model_calls').select(['model_key']).select((eb) => [eb.fn.countAll<number>().as('calls'), eb.fn.sum<number>(sql`case when status = 'error' then 1 else 0 end`).as('errors'), eb.fn.avg<number>(sql`case when status = 'ok' then latency_ms end`).as('latency_ms'), eb.fn.sum<number>(sql`input_tokens + output_tokens`).as('tokens'), eb.fn.sum<number>('cost_usd').as('cost_usd'), eb.fn.sum<number>('equivalent_usd').as('equivalent_usd'), eb.fn.max('created_at').as('last_used')]).groupBy('model_key').execute();
 		const available: Record<string, string[] | { error: string }> = {};
 		await Promise.all(Object.keys(app.config.file.providers).filter((p) => app.config.usable(p)).map(async (p) => {
-			available[p] = await listModels(app.config.baseUrl(p), app.config.apiKey(p)).catch((e) => ({ error: (e as Error).message }));
+			// Each provider's own list: Claude's through Anthropic's SDK, the rest through the chat-completions /models.
+			const list = app.config.api(p) === 'anthropic' ? listClaudeModels(app.config.baseUrl(p), app.config.apiKey(p) ?? '', o.cloudFetch) : listModels(app.config.baseUrl(p), app.config.apiKey(p));
+			available[p] = await list.catch((e) => ({ error: (e as Error).message }));
 		}));
 		const models = Object.entries(app.config.file.models).map(([key, m]) => {
 			const have = available[m.provider];
-			return { key, id: m.id, provider: m.provider, family: m.family, price: m.price, equivalent: app.config.equivalents[m.id] ?? null, local: app.config.file.providers[m.provider]!.local, usable: app.config.usable(m.provider), tiers: TIERS.filter((t) => app.config.file.tiers[t].models.includes(key)), vision: app.config.file.vision?.model === key, installed: Array.isArray(have) ? have.includes(m.id) || have.includes(`${m.id}:latest`) : null, provider_error: have && !Array.isArray(have) ? have.error : null, ...(stats.find((s) => s.model_key === key) ?? { calls: 0, errors: 0, latency_ms: null, tokens: 0, cost_usd: null, equivalent_usd: null, last_used: null }) };
+			return { key, id: m.id, label: m.label ?? null, provider: m.provider, family: m.family, price: m.price, equivalent: app.config.equivalents[m.id] ?? null, local: app.config.file.providers[m.provider]!.local, usable: app.config.usable(m.provider), tiers: TIERS.filter((t) => app.config.file.tiers[t].models.includes(key)), vision: app.config.file.vision?.model === key, installed: Array.isArray(have) ? have.includes(m.id) || have.includes(`${m.id}:latest`) : null, provider_error: have && !Array.isArray(have) ? have.error : null, ...(stats.find((s) => s.model_key === key) ?? { calls: 0, errors: 0, latency_ms: null, tokens: 0, cost_usd: null, equivalent_usd: null, last_used: null }) };
 		});
 		// The latest failures, with their messages: what went wrong, not just how often.
 		const errors = await db.selectFrom('model_calls').select(['created_at', 'model_id', 'purpose', 'attempt', 'error', 'latency_ms']).where('status', '=', 'error').orderBy('id', 'desc').limit(20).execute();
@@ -407,7 +433,53 @@ export async function buildServer(app: App, o: { tiersPath?: string; webDir?: st
 		// Whether each key is set. The values stay in .env and are never sent here.
 		keys: KEYS.map((k) => ({ name: k, set: !!app.env[k] })),
 		cloud: app.config.cloud,
+		// For the cloud keys, their last four characters too, so you can tell which key is in use.
+		cloud_keys: CLOUD_KEYS.map((k) => ({ name: k, set: !!app.env[k], hint: app.env[k] ? `…${app.env[k]!.slice(-4)}` : null })),
+		cloud_daily_usd: await app.gateway.cloudLimit(),
+		cloud_spent_today: await app.gateway.cloudSpentToday(),
 	}));
+	const envFile = o.envFile ?? resolve(ROOT, '.env');
+	// Cloud models on or off, the day's spending limit, and the providers' keys: written to .env (keys never leave this
+	// PC, and are never sent back to the app) and used at once, without a restart.
+	server.put('/api/settings/cloud', async (req, reply) => {
+		const body = CloudBody.safeParse(req.body);
+		if (!body.success) return bad(reply, body.error);
+		const b = body.data;
+		const changes: Record<string, string | null> = {};
+		if (b.on !== undefined) changes.ONYX_CLOUD = b.on ? 'on' : 'off';
+		for (const [name, value] of Object.entries(b.keys ?? {})) {
+			if (value && !/^[A-Za-z0-9_\-.:]{16,400}$/.test(value)) return reply.code(400).send({ error: `That does not look like an API key: keys have no spaces and are at least 16 characters long.` });
+			changes[name] = value || null;
+		}
+		if (Object.keys(changes).length) {
+			writeDotEnv(changes, envFile);
+			for (const [k, v] of Object.entries(changes)) {
+				if (v === null) delete app.env[k];
+				else app.env[k] = v;
+			}
+		}
+		if (b.daily_usd !== undefined) {
+			const v = JSON.stringify(b.daily_usd);
+			await db.insertInto('settings').values({ key: 'cloud_daily_usd', value: v }).onConflict((c) => c.column('key').doUpdateSet({ value: v })).execute();
+		}
+		return { cloud: app.config.cloud, cloud_daily_usd: await app.gateway.cloudLimit() };
+	});
+	// Checks a key with a call that costs nothing (the provider's model list), and whether the models Onyx is set to use
+	// are on it.
+	server.post('/api/settings/cloud/test', async (req, reply) => {
+		const body = z.object({ provider: z.enum(['openai', 'anthropic', 'moonshot']) }).safeParse(req.body);
+		if (!body.success) return bad(reply, body.error);
+		const p = body.data.provider;
+		const key = app.config.apiKey(p);
+		if (!key) return { ok: false, error: 'No key is set for it.' };
+		try {
+			const ids = app.config.api(p) === 'anthropic' ? await listClaudeModels(app.config.baseUrl(p), key, o.cloudFetch) : await listModels(app.config.baseUrl(p), key, o.cloudFetch as never);
+			const models = Object.values(app.config.file.models).filter((m) => m.provider === p).map((m) => ({ id: m.id, label: m.label ?? m.id, found: ids.includes(m.id) }));
+			return { ok: true, models };
+		} catch (e) {
+			return { ok: false, error: (e as Error).message };
+		}
+	});
 	server.put('/api/settings', async (req, reply) => {
 		const body = SettingsBody.safeParse(req.body);
 		if (!body.success) return bad(reply, body.error);

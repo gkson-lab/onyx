@@ -22,6 +22,11 @@ export const ChatMessage = z.object({
 	tool_calls: z.array(ToolCall).optional(),
 	tool_call_id: z.string().optional(),
 	name: z.string().optional(),
+	/**
+	 * An assistant turn's content as its provider wrote it, for that provider only: Claude's thinking blocks must be
+	 * sent back unchanged in the next request of a tool loop. Other providers never see it.
+	 */
+	raw: z.unknown().optional(),
 });
 export type ChatMessage = z.infer<typeof ChatMessage>;
 

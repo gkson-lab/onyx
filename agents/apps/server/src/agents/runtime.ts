@@ -35,6 +35,8 @@ interface Frame {
 	parent: Frame | null;
 	/** Tokens this run and its children may still spend. Shared down the tree, so a child can't outspend its parent. */
 	budget: { left: number };
+	/** A cloud model the person chose for the message (a key under models): every agent in the run tries it first. */
+	model?: string;
 }
 
 export class Runtime {
@@ -87,7 +89,7 @@ export class Runtime {
 	/* ---------- A message from a person ---------- */
 
 	/** Routes a message, runs Onyx Core on it, and returns its answer. `onDelta` receives the answer as it is written. */
-	async handle(o: { userId: string; text: string; channel: Channel; history?: ChatMessage[]; runId?: string; attached?: string }): Promise<RunResult & { routing: RoutingDecision }> {
+	async handle(o: { userId: string; text: string; channel: Channel; history?: ChatMessage[]; runId?: string; attached?: string; model?: string }): Promise<RunResult & { routing: RoutingDecision }> {
 		const runId = o.runId ?? randomUUID();
 		const routing = await this.d.router.route(o.userId, o.text, runId);
 		this.d.bus.emit({ type: 'routed', at: now(), runId, rootId: runId, parentId: null, agentId: 'core', data: { ...routing } });
@@ -103,7 +105,7 @@ export class Runtime {
 		const agentId = specialist?.enabled ? specialist.id : 'core';
 		// The router decides from the question and the files' names; the agent also gets what the files say.
 		const input = o.attached ? `${routing.text}\n\n${o.attached}` : routing.text;
-		const r = await this.run({ agentId, input, userId: o.userId, channel: o.channel, runId, tier: agentId === 'core' ? routing.tier : undefined, history: o.history, routing, noTools: direct && agentId === 'core' });
+		const r = await this.run({ agentId, input, userId: o.userId, channel: o.channel, runId, tier: agentId === 'core' ? routing.tier : undefined, history: o.history, routing, noTools: direct && agentId === 'core', model: o.model });
 		return { ...r, output: r.status === 'done' ? r.output + (await this.notDone(runId)) : r.output, routing };
 	}
 
@@ -125,7 +127,7 @@ export class Runtime {
 
 	/* ---------- One run of one agent ---------- */
 
-	async run(o: { agentId: string; input: string; userId: string; channel: Channel; runId?: string; parent?: Frame; tier?: Tier; history?: ChatMessage[]; routing?: RoutingDecision; noTools?: boolean }): Promise<RunResult> {
+	async run(o: { agentId: string; input: string; userId: string; channel: Channel; runId?: string; parent?: Frame; tier?: Tier; history?: ChatMessage[]; routing?: RoutingDecision; noTools?: boolean; model?: string }): Promise<RunResult> {
 		const { db, gateway, tools: registry } = this.d;
 		const runId = o.runId ?? randomUUID();
 		const agent = await this.agent(o.agentId);
@@ -138,6 +140,7 @@ export class Runtime {
 			deadline: Math.min(parent?.deadline ?? Infinity, started + (agent?.time_budget_ms ?? 60000)),
 			parent,
 			budget: parent ? parent.budget : { left: agent?.token_budget ?? 20000 },
+			model: o.model ?? parent?.model,
 		};
 		// A child gets its own cap as well as its parent's: whichever is smaller.
 		let own = agent?.token_budget ?? 20000;
@@ -193,7 +196,9 @@ export class Runtime {
 				await this.emit(f, agent.id, 'thinking', { step: step + 1, of: agent.max_steps }, false);
 				let streamed = '';
 				const r = await gateway.complete({
-					userId: o.userId, runId, purpose: agent.id, tier, messages, tools: last || !defs.length ? undefined : defs, signal: controller.signal,
+					// The last step offers no tool calls (tool_choice "none") rather than no tools: Claude's earlier thinking is tied to
+					// the tool list, and a changed list makes the API refuse it. The chat-completions providers are sent no tools.
+					userId: o.userId, runId, purpose: agent.id, tier, messages, tools: defs.length ? defs : undefined, toolChoice: last ? 'none' : undefined, signal: controller.signal, preferModel: f.model,
 					timeoutMs: Math.max(1000, Math.min(f.deadline - Date.now(), 10 * 60 * 1000)),
 					deadline: f.deadline,
 					// The wait for the graphics card is given back to this agent and to every agent waiting on it.
@@ -216,7 +221,7 @@ export class Runtime {
 				for (const fb of r.fallbacks) await this.emit(f, agent.id, 'fallback', { ...fb });
 
 				if (!r.toolCalls.length) return await finish('done', r.content, null);
-				messages.push({ role: 'assistant', content: r.content || null, tool_calls: r.toolCalls });
+				messages.push({ role: 'assistant', content: r.content || null, tool_calls: r.toolCalls, ...(r.raw ? { raw: r.raw } : {}) });
 				for (const call of r.toolCalls) {
 					const tool = available.find((t) => t.name === call.function.name);
 					const t0 = Date.now();

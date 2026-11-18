@@ -4,7 +4,7 @@ import { api, fmtCost, fmtMs, fmtTime, fmtTokens, useData, type Tier } from '@/l
 import { Button, Code, Loading, Page, Problem, Section, TierBadge } from '@/components/ui';
 import { HealthCheck, MoreModels } from '@/components/models-extra';
 
-interface M { key: string; id: string; provider: string; family: string; price: { input: number; output: number } | null; equivalent: { name: string; input: number; output: number; source: string } | null; equivalent_usd: number | null; local: boolean; usable: boolean; tiers: Tier[]; vision: boolean; installed: boolean | null; provider_error: string | null; calls: number; errors: number; latency_ms: number | null; tokens: number; cost_usd: number | null }
+interface M { key: string; id: string; label: string | null; provider: string; family: string; price: { input: number; output: number } | null; equivalent: { name: string; input: number; output: number; source: string } | null; equivalent_usd: number | null; local: boolean; usable: boolean; tiers: Tier[]; vision: boolean; installed: boolean | null; provider_error: string | null; calls: number; errors: number; latency_ms: number | null; tokens: number; cost_usd: number | null }
 
 interface Fit { id: string; params: string; needGb: number; where: 'gpu' | 'split' | 'cpu' | 'no'; gpuShare: number; tokensPerSec: number | null }
 interface HwData { hardware: { gpu: { name: string; vramGb: number } | null; ramGb: number; ramMts: number | null; cpu: string }; plan: { context: number; fits: Fit[]; tiers: Record<Tier, string>; reasons: Record<Tier, string>; env: Record<string, string>; warnings: string[] } }
@@ -127,13 +127,29 @@ export default function Models() {
 			setBad((e as Error).message);
 		}
 	};
-	const state = (m: M) => (!m.usable ? { text: 'Off (cloud)', bad: false } : m.provider_error ? { text: 'Provider unreachable', bad: true } : m.installed === false ? { text: 'Not installed', bad: true } : { text: 'Ready', bad: false });
+	// A cloud model leads a tier (it is tried first, the tier's local models after it), or stops leading it.
+	const [cloudBusy, setCloudBusy] = useState(false);
+	const [cloudBad, setCloudBad] = useState<string | null>(null);
+	const lead = async (use: string, key: string | null) => {
+		setCloudBusy(true);
+		setCloudBad(null);
+		try {
+			await api('/models/cloud', { method: 'POST', body: { use, key } });
+			reload();
+		} catch (e) {
+			setCloudBad((e as Error).message);
+		} finally {
+			setCloudBusy(false);
+		}
+	};
+	const state = (m: M) => (!m.usable ? { text: 'Off: Settings, Cloud models', bad: false } : m.provider_error ? { text: 'Provider unreachable', bad: true } : m.installed === false ? { text: 'Not installed', bad: true } : { text: 'Ready', bad: false });
 	const unreachable = [...new Set((data?.models ?? []).filter((m) => m.usable && m.provider_error).map((m) => `${m.provider}: ${m.provider_error}`))];
 	return (
 		<Page title="Models" note={<>Every model in the tiers file, with what Onyx has measured calling it. Latency is the average of successful calls. &quot;If hosted&quot; is what the same calls would have cost on a paid host running the same model; the prices are in <Code>config/equivalents.yaml</Code>.</>}>
 			{error && <Problem>{error}</Problem>}
 			{unreachable.map((u) => <div key={u} className="mb-3"><Problem>{u}. If this is Ollama, start it, then reload this page.</Problem></div>)}
 			{!data && !error && <Loading what="models" />}
+			{cloudBad && <div className="mb-3"><Problem>{cloudBad}</Problem></div>}
 			{data && (
 				<div className="overflow-x-auto">
 					<table className="w-full min-w-[52rem] border-t text-left text-sm">
@@ -143,8 +159,20 @@ export default function Models() {
 								const s = state(m);
 								return (
 									<tr key={m.key} className="border-b align-top">
-										<td className="py-3 pr-4"><span className="block font-mono text-xs">{m.id}</span><span className="text-xs text-muted">{m.provider}{m.local ? ', on this PC' : ', cloud'}</span></td>
-										<td className="py-3 pr-4"><span className="flex flex-wrap gap-1">{m.tiers.map((t) => <TierBadge key={t} tier={t} />)}{m.vision && <span className="rounded border px-1.5 py-0.5 font-mono text-[10px] tracking-wide">IMAGES</span>}{!m.tiers.length && !m.vision && <span className="text-xs text-muted">no tier</span>}</span></td>
+										<td className="py-3 pr-4">{m.label && <span className="block text-sm">{m.label}</span>}<span className="block font-mono text-xs">{m.id}</span><span className="text-xs text-muted">{m.provider}{m.local ? ', on this PC' : ', cloud'}</span></td>
+										<td className="py-3 pr-4">
+											<span className="flex flex-wrap gap-1">{m.tiers.map((t) => <TierBadge key={t} tier={t} />)}{m.vision && <span className="rounded border px-1.5 py-0.5 font-mono text-[10px] tracking-wide">IMAGES</span>}{!m.tiers.length && !m.vision && <span className="text-xs text-muted">no tier</span>}</span>
+											{!m.local && (
+												<>
+													<label htmlFor={`lead-${m.key}`} className="sr-only">{`Use ${m.label ?? m.id} for a tier`}</label>
+													<select id={`lead-${m.key}`} value="" disabled={cloudBusy} onChange={(e) => { const [act, t] = e.target.value.split(':'); if (t) void lead(t, act === 'use' ? m.key : null); }} className="mt-2 h-8 text-xs">
+														<option value="">Use for a tier…</option>
+														{(['lite', 'standard', 'pro', 'max'] as const).filter((t) => !m.tiers.includes(t)).map((t) => <option key={t} value={`use:${t}`}>{`Try it first for ${t[0]!.toUpperCase()}${t.slice(1)}`}</option>)}
+														{m.tiers.map((t) => <option key={`stop-${t}`} value={`stop:${t}`}>{`Stop using it for ${t[0]!.toUpperCase()}${t.slice(1)}`}</option>)}
+													</select>
+												</>
+											)}
+										</td>
 										<td className={`py-3 pr-4 ${s.bad ? 'text-bad' : 'text-muted'}`}>{s.text}{m.installed === false && m.provider === 'ollama' && <span className="mt-1 block font-mono text-xs text-text">ollama pull {m.id}</span>}</td>
 										<td className="py-3 pr-4 font-mono text-xs">{m.calls}</td>
 										<td className={`py-3 pr-4 font-mono text-xs ${m.errors ? 'text-bad' : ''}`}>{m.calls ? `${m.errors} (${Math.round((100 * m.errors) / m.calls)}%)` : '0'}</td>

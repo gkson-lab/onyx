@@ -2,7 +2,8 @@
 # Run `pnpm models:sync` afterwards: it checks every model here against what each provider really has.
 #
 # Everything runs locally through Ollama by default. Providers marked `local: false` are only used when
-# ONYX_CLOUD=on is set in .env AND their API key is present. Otherwise they are skipped, not tried.
+# ONYX_CLOUD=on is set in .env AND their API key is present. Otherwise they are skipped, not tried. Both can be set
+# in the app: Settings, Cloud models.
 version: 1
 
 providers:
@@ -15,6 +16,20 @@ providers:
     base_url_env: MOONSHOT_BASE_URL
     api_key_env: MOONSHOT_API_KEY
     local: false
+  # ChatGPT's models, through OpenAI's API (a key from platform.openai.com, billed by OpenAI).
+  openai:
+    base_url: https://api.openai.com/v1
+    base_url_env: OPENAI_BASE_URL
+    api_key_env: OPENAI_API_KEY
+    local: false
+    api: openai
+  # Claude, through Anthropic's API (a key from console.anthropic.com, billed by Anthropic).
+  anthropic:
+    base_url: https://api.anthropic.com
+    base_url_env: ANTHROPIC_BASE_URL
+    api_key_env: ANTHROPIC_API_KEY
+    local: false
+    api: anthropic
 
 # price: USD per million tokens. Local models cost nothing per call. `price: null` means "not known":
 # the call is logged with no cost rather than a made-up one.
@@ -37,6 +52,15 @@ models:
   # confirm both with `pnpm models:sync` and Moonshot's pricing page before relying on the cost figures.
   kimi-pro:      { provider: moonshot, id: kimi-k2.7-code, family: kimi, price: { input: 0.95, output: 4.0 } }
   kimi-max:      { provider: moonshot, id: kimi-k3,        family: kimi, price: { input: 3.0,  output: 15.0 } }
+  # Claude (Anthropic), opt-in. IDs and prices from Anthropic's model list (2026-11-03). Haiku's price is for prompts
+  # up to 100K tokens ($0.50 / $2.50 above that).
+  claude-opus:   { provider: anthropic, id: claude-opus-5-5,   family: claude, label: "Claude Opus 5.5",   price: { input: 4.0, output: 20.0 } }
+  claude-sonnet: { provider: anthropic, id: claude-sonnet-5-5, family: claude, label: "Claude Sonnet 5.5", price: { input: 2.0, output: 10.0 } }
+  claude-haiku:  { provider: anthropic, id: claude-haiku-5-5,  family: claude, label: "Claude Haiku 5.5",  price: { input: 0.1, output: 0.5 } }
+  # ChatGPT's models (OpenAI), opt-in. IDs from OpenAI's release notes; OpenAI's own pages disagreed on the prices
+  # (checked 2026-11-18), so confirm them on OpenAI's pricing page and correct them in tiers.local.yaml if they differ.
+  gpt-astra:     { provider: openai, id: gpt-6.2-astra, family: gpt, label: "ChatGPT: GPT-6.2 Astra", price: { input: 8.0, output: 40.0 } }
+  gpt-sol:       { provider: openai, id: gpt-6.2-sol,   family: gpt, label: "ChatGPT: GPT-6.2 Sol",   price: { input: 2.0, output: 10.0 } }
 
 # Models are tried in the order listed. A cloud model that isn't enabled is skipped.
 tiers:

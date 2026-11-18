@@ -1,5 +1,5 @@
 // Reads tiers.yaml and the environment. Keys are read from the environment at call time and never stored here.
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, renameSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
@@ -14,6 +14,11 @@ const Provider = z.object({
 	base_url_env: z.string().optional(),
 	api_key_env: z.string().optional(),
 	local: z.boolean(),
+	/**
+	 * How to talk to it. `openai-compatible`: the chat-completions API as Ollama and Moonshot serve it. `openai`:
+	 * OpenAI's own (max_completion_tokens, no temperature for its reasoning models). `anthropic`: Claude's Messages API.
+	 */
+	api: z.enum(['openai-compatible', 'openai', 'anthropic']).default('openai-compatible'),
 	/** Calls sent to this provider at the same time. Default: 1 for a local one (one graphics card), 8 for a cloud one. */
 	max_concurrent: z.number().int().min(1).max(64).optional(),
 });
@@ -21,6 +26,8 @@ const Model = z.object({
 	provider: z.string(),
 	id: z.string().min(1),
 	family: z.string().default('qwen'),
+	/** What the app calls it ("Claude Opus 5.5"). The id when not given. */
+	label: z.string().optional(),
 	price: z.object({ input: z.number().nonnegative(), output: z.number().nonnegative() }).nullable().default(null),
 	system_suffix: z.string().optional(),
 	extra: z.record(z.unknown()).optional(),
@@ -79,6 +86,26 @@ export function loadDotEnv(path = resolve(ROOT, '.env')): void {
 	}
 }
 
+/**
+ * Sets (or, with null, removes) KEY=value lines in a .env file, leaving every other line as it was. Written to a
+ * temporary file first and then moved over the old one, so a crash cannot leave half a file.
+ */
+export function writeDotEnv(changes: Record<string, string | null>, path = resolve(ROOT, '.env')): void {
+	const lines = existsSync(path) ? readFileSync(path, 'utf8').split(/\r?\n/) : [];
+	if (lines.length && lines[lines.length - 1] === '') lines.pop();
+	for (const [key, value] of Object.entries(changes)) {
+		if (!/^[A-Z][A-Z0-9_]*$/.test(key) || (value !== null && /[\r\n]/.test(value))) throw new Error(`Not something to write to .env: ${key}`);
+		const at = lines.findIndex((l) => new RegExp(`^\\s*${key}\\s*=`).test(l));
+		if (value === null) {
+			if (at >= 0) lines.splice(at, 1);
+		} else if (at >= 0) lines[at] = `${key}=${value}`;
+		else lines.push(`${key}=${value}`);
+	}
+	const tmp = `${path}.tmp`;
+	writeFileSync(tmp, `${lines.join('\n')}\n`, { mode: 0o600 });
+	renameSync(tmp, path);
+}
+
 export function parseTiers(text: string): TiersFile {
 	return TiersFile.parse(parse(text));
 }
@@ -105,6 +132,9 @@ export class Config {
 	baseUrl(provider: string): string {
 		const p = this.file.providers[provider]!;
 		return ((p.base_url_env && this.env[p.base_url_env]) || p.base_url).replace(/\/+$/, '');
+	}
+	api(provider: string): 'openai-compatible' | 'openai' | 'anthropic' {
+		return this.file.providers[provider]!.api;
 	}
 	apiKey(provider: string): string | null {
 		const p = this.file.providers[provider]!;

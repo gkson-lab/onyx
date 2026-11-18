@@ -1,5 +1,6 @@
-// One client for every provider: they all speak the OpenAI chat-completions API (Ollama, Moonshot, DashScope,
-// OpenRouter). Tool calls are the models' own, passed through as they come; nothing is parsed out of prose.
+// One client for every provider that speaks the OpenAI chat-completions API: Ollama, Moonshot, OpenAI itself
+// (ChatGPT's models), DashScope, OpenRouter. Claude speaks Anthropic's own API: see anthropic.ts. Tool calls are the
+// models' own, passed through as they come; nothing is parsed out of prose.
 import type { ChatMessage, ToolCall, ToolDef, Usage } from '@onyx/shared';
 
 export type FetchLike = (url: string, init: { method: string; headers: Record<string, string>; body?: string; signal?: AbortSignal }) => Promise<{ ok: boolean; status: number; text(): Promise<string>; body?: ReadableStream<Uint8Array> | null }>;
@@ -7,6 +8,10 @@ export type FetchLike = (url: string, init: { method: string; headers: Record<st
 export interface ChatRequest {
 	baseUrl: string;
 	apiKey: string | null;
+	/** Which dialect (config: a provider's `api`). OpenAI's own wants max_completion_tokens and no temperature. */
+	api?: 'openai-compatible' | 'openai' | 'anthropic';
+	/** How hard to think (Claude: output_config.effort), from the tier. */
+	effort?: 'low' | 'medium' | 'high' | 'xhigh';
 	model: string;
 	messages: ChatMessage[];
 	tools?: ToolDef[];
@@ -25,6 +30,8 @@ export interface ChatResult {
 	toolCalls: ToolCall[];
 	finish: string;
 	usage: Usage;
+	/** The assistant turn as the provider wrote it, to send back unchanged (Claude's thinking blocks). */
+	raw?: unknown;
 }
 
 export class ProviderError extends Error {
@@ -46,13 +53,18 @@ function splitThinking(text: string): { content: string; reasoning: string } {
 
 export async function chat(req: ChatRequest, fetchImpl: FetchLike = fetch as unknown as FetchLike): Promise<ChatResult> {
 	const stream = !!req.onDelta;
-	const body: Record<string, unknown> = { model: req.model, messages: req.messages, stream, ...(req.extra ?? {}) };
-	if (req.tools?.length) {
+	// Another provider's own content (Claude's) is never sent here: OpenAI rejects fields it does not know.
+	const messages = req.messages.map(({ raw: _raw, ...m }) => m);
+	const body: Record<string, unknown> = { model: req.model, messages, stream, ...(req.extra ?? {}) };
+	// "No tool calls" is sent as no tools at all: some runtimes (Ollama) call a tool they are offered anyway.
+	if (req.tools?.length && req.toolChoice !== 'none') {
 		body.tools = req.tools;
 		body.tool_choice = req.toolChoice ?? 'auto';
 	}
-	if (req.maxTokens) body.max_tokens = req.maxTokens;
-	if (req.temperature !== undefined) body.temperature = req.temperature;
+	// OpenAI's current models take max_completion_tokens (max_tokens is refused) and only their default temperature.
+	const openai = req.api === 'openai';
+	if (req.maxTokens) body[openai ? 'max_completion_tokens' : 'max_tokens'] = req.maxTokens;
+	if (req.temperature !== undefined && !openai) body.temperature = req.temperature;
 	if (stream) body.stream_options = { include_usage: true };
 	const headers: Record<string, string> = { 'content-type': 'application/json' };
 	if (req.apiKey) headers.authorization = `Bearer ${req.apiKey}`;

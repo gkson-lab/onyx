@@ -104,7 +104,8 @@ export function Activity({ tree, routing, live }: { tree: RunNode[]; routing?: R
 				<TierBadge tier={root.tier} model={root.model} active={root.status === 'running'} inline />
 				<span>{tree.length === 1 ? 'Core alone' : tree.slice(1).map((n) => n.name).filter((v, i, a) => a.indexOf(v) === i).join(', ')}</span>
 				{sum.tools.length > 0 && <span className="inline-flex items-center gap-1 font-mono"><Wrench {...ICON} size={12} aria-hidden />{sum.tools.join(' ')}</span>}
-				<span className="font-mono">{fmtTokens(sum.tokens)} tok{root.ms != null ? ` · ${fmtMs(root.ms)}` : ''}{sum.equivalent != null ? ` · ${fmtHosted(sum.equivalent)}` : ''}</span>
+				{/* A cloud model's answer has a real cost: shown as it is, beside the tokens. */}
+				<span className="font-mono">{fmtTokens(sum.tokens)} tok{root.ms != null ? ` · ${fmtMs(root.ms)}` : ''}{sum.cost ? ` · ${fmtCost(sum.cost)}` : ''}{sum.equivalent != null ? ` · ${fmtHosted(sum.equivalent)}` : ''}</span>
 			</button>
 			<div className="reveal" data-open={open}><div>{open && <div className="mt-3 border-l pl-4"><RunTree tree={tree} routing={routing} live={live} /></div>}</div></div>
 		</div>

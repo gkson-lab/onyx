@@ -69,7 +69,7 @@ pnpm build           # builds the web app (once, and again after pulling changes
 pnpm start           # the server and the app, on http://127.0.0.1:8787
 node scripts/launcher.mjs  # the same, restarting itself after an update
 pnpm onyx chat       # or talk to it in the terminal
-pnpm test            # 114 tests, no model or network needed
+pnpm test            # 126 tests, no model or network needed
 ```
 
 Optional: `ollama pull qwen3-embedding:0.6b` lets Memory recall by meaning, not only by matching words. The Coder's
@@ -174,11 +174,63 @@ and the 30B model, which uses 3B per token, runs split between the card and syst
   screen with its source, and on Usage. A model missing from the file shows no figure rather than a guess. Calls
   made before this was added have no figure.
 
-### Kimi, if you want it
+### Claude, ChatGPT and Kimi, if you want them
 
-Set `ONYX_CLOUD=on` and `MOONSHOT_API_KEY` in `.env`. Pro and Max then try Kimi first and fall back to local Qwen.
-The Kimi model IDs and prices in `tiers.yaml` came from third-party pages, not from Moonshot: run
-`pnpm models:sync` to check the IDs, and check the prices against Moonshot's pricing page.
+Onyx runs on your PC. If you also want Anthropic's Claude or OpenAI's ChatGPT models, bring your own key:
+
+1. **Settings, Cloud models: Turn on**, then paste a key: Claude's from
+   [console.anthropic.com](https://console.anthropic.com/settings/keys), ChatGPT's from
+   [platform.openai.com](https://platform.openai.com/api-keys), Kimi's from [platform.moonshot.ai](https://platform.moonshot.ai).
+   **Check key** asks the provider for its list of models (a call that costs nothing) and says whether the key works
+   and whether each model Onyx is set to use is offered to it. The key goes in `.env` on this PC; the app only ever
+   sees its last four characters.
+2. **In Chat**, the model picker now lists them: pick Claude Opus 5.5 (or Sonnet 5.5, Haiku 5.5, GPT-6.2 Astra or
+   GPT-6.2 Sol) and that message runs on it: Onyx Core and every agent it hands work to. A chosen model runs at Pro,
+   and if it cannot answer (a key that stops working, the day's limit, an outage), Pro's local models answer instead,
+   and the answer says so.
+3. **For a whole tier**, the Models screen's **Use for a tier...** makes a cloud model that tier's first choice. The
+   tier's local models stay behind it, as the fallback. **Stop using it for...** puts the tier back.
+
+| Model | Key | Price per million tokens, in / out | Notes |
+|---|---|---|---|
+| Claude Opus 5.5 | Anthropic | $4 / $20 | Anthropic's default model |
+| Claude Sonnet 5.5 | Anthropic | $2 / $10 | |
+| Claude Haiku 5.5 | Anthropic | $0.10 / $0.50 | prompts up to 100K tokens |
+| ChatGPT: GPT-6.2 Astra | OpenAI | $8 / $40 | OpenAI's flagship |
+| ChatGPT: GPT-6.2 Sol | OpenAI | $2 / $10 | |
+| Kimi K2.7 Code, Kimi K3 | Moonshot | $0.95 / $4, $3 / $15 | from third-party pages |
+
+The Claude prices are Anthropic's (November 2026). OpenAI's own pages disagreed on GPT-6.2's prices when this was
+written, and the Kimi ones come from third-party pages: check them against the providers' pricing pages, and
+correct any that differ in `config/tiers.local.yaml`. **Check key** confirms the model IDs.
+
+**What it costs.** Each company bills your account for what you use. Every answer from a cloud model shows its cost
+under it, and the Usage and Models screens add them up. **A daily limit** (Settings, Cloud models; $5 to start)
+stops cloud calls for the rest of the day once reached, so a busy day cannot run up a bill: the local models
+answer instead, until midnight UTC. Leave it empty for no limit. The figures use the prices above; the provider's bill
+is what counts.
+
+**What leaves your PC.** Nothing, while cloud models are off (the default). With them on, a message you send to a
+cloud model goes to that company, with the chat so far, the agents' instructions, and what the agents read for it
+(pages, files you attach, tool results), under that company's terms. Messages sent to the local models still stay on
+your PC.
+
+**How it is built.** ChatGPT's models use the same chat-completions API as Ollama, in OpenAI's own form
+(`max_completion_tokens`, no temperature). Claude uses Anthropic's Messages API through Anthropic's official SDK
+(`@anthropic-ai/sdk`), in `apps/server/src/models/anthropic.ts`:
+
+- **Thinking** is adaptive (Claude decides when and how much), its depth set by the tier: Lite low, Standard medium,
+  Pro high, Max xhigh. Its summaries are kept as the run's reasoning.
+- **Claude's own turns are sent back exactly as it wrote them** within a run, thinking blocks included, as the API
+  requires in a tool loop. A run only ever adds to its conversation, so they stay valid.
+- **The system prompt and tools are cached** after a run's first step, so later steps cost less.
+- **Answers and tool input stream** as they are written. Every tool's arguments are checked against its schema before
+  it runs.
+- **On Opus and Sonnet, a request Claude declines is passed to another Claude model by the API itself** (server-side
+  fallbacks). A refusal that stands, or a tool call cut off at the length limit, counts as a failed try, and the next
+  model is tried.
+- Claude's errors say what to do: a key Anthropic refuses, an account with no credit left, a rate limit (tried
+  again), an outage (tried again, then the next model).
 
 ## Other models
 
@@ -350,7 +402,9 @@ Everything is optional except Node, pnpm and Ollama. Keys go in `agents/.env`, n
 | GitHub connector | github.com, Settings, Developer settings, fine-grained personal access token | `GITHUB_MCP_TOKEN`, then `enabled: true` in your `config/connectors.local.yaml` |
 | WhatsApp | [Meta for Developers](https://developers.facebook.com), see `SETUP_WHATSAPP.md` | `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_APP_SECRET`, `WHATSAPP_VERIFY_TOKEN`, `PUBLIC_URL` |
 | SMS | [Twilio](https://www.twilio.com), see `SETUP_SMS.md` (US numbers need registration) | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM`, `PUBLIC_URL` |
-| Kimi models in the cloud | [Moonshot AI platform](https://platform.moonshot.ai) | `MOONSHOT_API_KEY` and `ONYX_CLOUD=on` |
+| Claude (cloud, optional) | [console.anthropic.com](https://console.anthropic.com/settings/keys) | `ANTHROPIC_API_KEY` and `ONYX_CLOUD=on`, or Settings, Cloud models |
+| ChatGPT models (cloud, optional) | [platform.openai.com](https://platform.openai.com/api-keys) | `OPENAI_API_KEY` and `ONYX_CLOUD=on`, or Settings, Cloud models |
+| Kimi (cloud, optional) | [Moonshot AI platform](https://platform.moonshot.ai) | `MOONSHOT_API_KEY` and `ONYX_CLOUD=on`, or Settings, Cloud models |
 
 Not supported: iMessage (it needs a Mac) and carrier email-to-text (most US carriers have shut it down).
 
@@ -362,7 +416,11 @@ switch, reminders, delivery fallback, connectors and the API. The app was driven
 server with a stand-in model, at desktop and phone sizes.
 
 Onyx Agents was also run end to end against Qwen3 4B in Ollama on a processor, and the updater against the real
-repository on GitHub (above). **Not yet run for real:** the batch files on Windows after this change, gpt-oss,
+repository on GitHub (above). Claude was tested through Anthropic's own SDK against a stand-in that streams the events the real API streams:
+its thinking replayed unchanged through a tool loop, refusals, rate limits, a bad key, a tool call cut off at the
+length limit. ChatGPT's request format was tested the same way. The app was driven in a browser against a stand-in
+Claude: turning cloud models on, saving and checking a key, choosing Claude in Chat, and making a cloud model a tier's
+first choice. **Not yet run for real:** Claude and ChatGPT with real keys, the batch files on Windows after this change, gpt-oss,
 Gemma's image reading, a Docker sandbox, a live web search, a real MCP server, Meta, Twilio, a push service,
 Tailscale, and starting with Windows. Each is tested against its documented request and answer shapes.
 
