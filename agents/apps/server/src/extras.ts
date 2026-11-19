@@ -148,7 +148,7 @@ export async function setAutostart(on: boolean): Promise<void> {
 	if (!autostartSupported()) throw new Error('Starting with the PC is set up on Windows only.');
 	if (!on) return void (existsSync(STARTUP_LINK) && unlinkSync(STARTUP_LINK));
 	const bat = resolve(ROOT, 'Start Onyx.bat').replace(/'/g, "''");
-	const ps = `$s = (New-Object -ComObject WScript.Shell).CreateShortcut('${STARTUP_LINK.replace(/'/g, "''")}'); $s.TargetPath = '${bat}'; $s.Arguments = '/background'; $s.WorkingDirectory = '${ROOT.replace(/'/g, "''")}'; $s.WindowStyle = 7; $s.Description = 'Starts Onyx when you sign in'; $s.Save()`;
+	const ps = `$s = (New-Object -ComObject WScript.Shell).CreateShortcut('${STARTUP_LINK.replace(/'/g, "''")}'); $s.TargetPath = '${bat}'; $s.Arguments = '/background'; $s.WorkingDirectory = '${ROOT.replace(/'/g, "''")}'; $s.IconLocation = '${resolve(ROOT, 'onyx.ico').replace(/'/g, "''")}'; $s.WindowStyle = 7; $s.Description = 'Starts Onyx when you sign in'; $s.Save()`;
 	await new Promise<void>((done, fail) => execFile('powershell', ['-NoProfile', '-Command', ps], { windowsHide: true, timeout: 20000 }, (err) => (err ? fail(err) : done())));
 }
 

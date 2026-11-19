@@ -19,11 +19,15 @@ const isCurrent = (path: string, href: string) => (href === '/' ? path === '/' :
 export function Mark() {
 	return (
 		<span className="flex items-center gap-2">
-			{/* The mark: a cut stone, one facet lit. Monochrome, like everything else. */}
-			<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden>
-				<path d="M10 1 18 6v8l-8 5-8-5V6z" fill="none" stroke="var(--text)" strokeWidth="1.5" strokeLinejoin="round" />
-				<path d="M10 1v9l8-4M10 10l-8-4M10 10v9" fill="none" stroke="var(--text)" strokeWidth="1" strokeLinejoin="round" opacity="0.45" />
-				<path d="M10 1 18 6l-8 4z" fill="var(--text)" />
+			{/* The mark: a pentagon-cut onyx seen from above, five facets (the specialists) round a lit table (Onyx Core).
+			    One colour, the facets at five strengths, like everything else here. Drawn by tools/brand.py. */}
+			<svg width="20" height="20" viewBox="0 0 100 100" fill="var(--text)" aria-hidden>
+				<path d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fillOpacity={0.92} />
+				<path d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fillOpacity={0.5} />
+				<path d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fillOpacity={0.32} />
+				<path d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fillOpacity={0.26} />
+				<path d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fillOpacity={0.66} />
+				<path d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z" />
 			</svg>
 			<span className="font-semibold tracking-tight">Onyx</span>
 			<span className="text-xs text-muted">by GK Labs</span>

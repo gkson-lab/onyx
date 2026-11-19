@@ -47,7 +47,7 @@ echo.
 echo [4/4] Restarting Ollama with its new settings...
 call :ollama_restart
 
-powershell -NoProfile -Command "$s=(New-Object -ComObject WScript.Shell).CreateShortcut([Environment]::GetFolderPath('Desktop')+'\Onyx.lnk'); $s.TargetPath='%~dp0Start Onyx.bat'; $s.WorkingDirectory='%~dp0'; $s.Save()" >nul 2>nul && echo Put an "Onyx" shortcut on your desktop.
+powershell -NoProfile -Command "$s=(New-Object -ComObject WScript.Shell).CreateShortcut([Environment]::GetFolderPath('Desktop')+'\Onyx.lnk'); $s.TargetPath='%~dp0Start Onyx.bat'; $s.WorkingDirectory='%~dp0'; $s.IconLocation='%~dp0onyx.ico'; $s.Save()" >nul 2>nul && echo Put an "Onyx" shortcut on your desktop.
 
 rem Optional: start Onyx, minimized, whenever you sign in to Windows. Settings in the app turns it on or off later.
 choice /c YN /m "Start Onyx by itself when you sign in to Windows"

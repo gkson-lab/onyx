@@ -43,6 +43,8 @@ the model sped up, and marked as sped up. Or [download it](trailer/onyx-agents-t
 
 # Onyx Agents
 
+<img src="brand/onyx-icon.svg" width="88" alt="The Onyx Agents mark: a pentagon-cut onyx seen from above, five facets round a lit table">
+
 Onyx Agents has its own page on the website, with the six agents and the setup steps around the Onyx cube in 3D:
 **[gkson-lab.github.io/onyx/intro](https://gkson-lab.github.io/onyx/intro/)**.
 
@@ -849,6 +851,7 @@ licenses/              the license of each wordnet Onyx 3's dictionaries come fr
 demo/                  an old address, kept so links to it still work
 trailer/               the Onyx Agents trailer and its page on the website (left out of the ZIP, and of updates)
 intro/                 Onyx Agents' page on the website, with three.js and Geist beside it (left out of the ZIP, and of updates)
+brand/                 the Onyx Agents mark, drawn by tools/brand.py, which also writes the app's icons and onyx.ico
 agents/                Onyx Agents
   Setup Onyx.bat         Windows: install, build, choose and download models, make a desktop shortcut
   Start Onyx.bat         Windows: restart Ollama with its settings, start Onyx, open it, share it through Tailscale

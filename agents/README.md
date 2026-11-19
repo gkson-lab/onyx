@@ -1,5 +1,7 @@
 # Onyx Agents
 
+<img src="../brand/onyx-icon.svg" width="88" alt="The Onyx Agents mark: a pentagon-cut onyx seen from above, five facets round a lit table">
+
 Onyx Agents, by GK Labs, is Onyx rebuilt as a system of AI agents that run on your own PC. The models are real
 open-weight **Qwen** models served locally by [Ollama](https://ollama.com); "Onyx" is the name and the look. Kimi
 (Moonshot AI) is an optional cloud model, off unless you turn it on.
