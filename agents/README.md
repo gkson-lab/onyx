@@ -14,6 +14,8 @@ app, WhatsApp, SMS, sign-in and push notifications. iMessage is not planned: it 
 **[Watch the trailer](https://gkson-lab.github.io/onyx/trailer/)** (1:25): filmed from the real app on a 4-core processor
 with no graphics card, with the waits for the model sped up, and marked as sped up.
 
+Onyx Agents' page on the website: **[gkson-lab.github.io/onyx/intro](https://gkson-lab.github.io/onyx/intro/)**.
+
 ## Quick start on Windows
 
 1. Download this repository: `git clone https://github.com/gkson-lab/onyx` (or GitHub's "Download ZIP").
@@ -305,9 +307,9 @@ are written, and the files it no longer has are removed. What is yours always st
   instead, which that limit does not cover.
 - **A git clone** is updated with git: fetch, then check out `main`. Changes you made to tracked files, and files git
   does not know, leave the folder but go into a git stash rather than nowhere (`git stash list`, `git stash pop`).
-- **What GitHub's ZIP leaves out** (what `.gitattributes` marks `export-ignore`: the trailer's video, which no PC
-  needs) is left out of a downloaded copy's updates too, and removed if an older version put it there. A clone has
-  everything.
+- **What GitHub's ZIP leaves out** (what `.gitattributes` marks `export-ignore`: the trailer's video and the
+  website's intro page, which no PC needs) is left out of a downloaded copy's updates too, and removed if an older
+  version put it there. A clone has everything.
 - **Batch files** are written so an update can replace them while they run: Windows reads a batch file a line at a
   time, so everything after Onyx starts is on one line.
 - **Settings for it:** `ONYX_UPDATE=off` in `.env` turns the automatic part off altogether (for working on Onyx

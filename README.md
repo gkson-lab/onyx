@@ -12,7 +12,7 @@ This repository holds two products that share a name, a history and a look:
 | Talk to it from | The website, or any page that loads its scripts | The Onyx app on the PC, your phone (through Tailscale), WhatsApp or SMS |
 | Goes online | Only when its internet switch allows: Wikipedia, Open-Meteo, a dictionary | Only for what you ask: web search, pages, GitHub and other connectors, and Claude or ChatGPT if you turn them on |
 | Where it lives | The top of this repository: [`index.html`](index.html), [`src/`](src), [`host/`](host) | [`agents/`](agents) |
-| Try it | **[gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/)** | [Quick start on Windows](#onyx-agents-quick-start-on-windows) · **[Watch the trailer](https://gkson-lab.github.io/onyx/trailer/)** |
+| Try it | **[gkson-lab.github.io/onyx](https://gkson-lab.github.io/onyx/)** | **[gkson-lab.github.io/onyx/intro](https://gkson-lab.github.io/onyx/intro/)** · [Quick start on Windows](#onyx-agents-quick-start-on-windows) · [Watch the trailer](https://gkson-lab.github.io/onyx/trailer/) |
 
 Pick **Onyx 3** to try Onyx in seconds, on any device, with nothing to install. Pick **Onyx Agents** for real
 conversations, writing and code from a language model, agents that use tools, reminders that reach your phone, and
@@ -42,6 +42,9 @@ the model sped up, and marked as sped up. Or [download it](trailer/onyx-agents-t
 ---
 
 # Onyx Agents
+
+Onyx Agents has its own page on the website, with the six agents and the setup steps around the Onyx cube in 3D:
+**[gkson-lab.github.io/onyx/intro](https://gkson-lab.github.io/onyx/intro/)**.
 
 Onyx Agents turns Onyx into a team of AI agents on your own PC. A message goes to **Onyx Core**, which answers it
 or hands parts of it to specialists (a Researcher, a Coder, a Scheduler, a Messenger and a Memory agent), several
@@ -845,6 +848,7 @@ test/, tools/          Onyx 3's tests, builders, trainers and code checkers
 licenses/              the license of each wordnet Onyx 3's dictionaries come from
 demo/                  an old address, kept so links to it still work
 trailer/               the Onyx Agents trailer and its page on the website (left out of the ZIP, and of updates)
+intro/                 Onyx Agents' page on the website, with three.js and Geist beside it (left out of the ZIP, and of updates)
 agents/                Onyx Agents
   Setup Onyx.bat         Windows: install, build, choose and download models, make a desktop shortcut
   Start Onyx.bat         Windows: restart Ollama with its settings, start Onyx, open it, share it through Tailscale
