@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<meta name="claude:viewport-fit-sides" content="cover">
 	<title>Onyx Agents</title>
-	<meta name="description" content="Onyx Agents is six AI agents that work together on your own PC. Free and open source, with no subscription, by GK Labs.">
+	<meta name="description" content="Onyx Agents is six AI agents that work together on your own PC: a router, four tiers of open models, real tools, your phone, reminders and memory. Free and open source, by GK Labs.">
 	<meta property="og:title" content="Onyx Agents">
 	<meta property="og:description" content="Your own AI team, on your own PC. Free and open source.">
 	<meta property="og:type" content="website">
@@ -97,7 +97,7 @@
 		.stage .glow { position: absolute; inset: 0; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 40%), var(--glow), transparent 44vmax); }
 		.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 1s var(--ease); }
 		.stage.ready canvas { opacity: 1; }
-		.stage .still { position: absolute; left: 50%; top: 38%; width: min(30vmin, 210px); translate: -50% -50%; transition: opacity 0.6s var(--ease); }
+		.stage .still { position: absolute; left: 50%; top: 34%; width: min(26vmin, 190px); translate: -50% -50%; transition: opacity 0.6s var(--ease); }
 		.stage.ready .still { opacity: 0; }
 		/* Names that follow the stone's pieces while it is open. */
 		.tags { position: absolute; inset: 0; }
@@ -120,9 +120,9 @@
 		}
 		.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
 		.brand svg { width: 28px; height: 28px; }
-		.brand b { font-weight: 500; letter-spacing: -0.01em; }
+		.brand b { font-weight: 500; letter-spacing: -0.01em; white-space: nowrap; }
 		.brand small { color: var(--muted); font-size: 13px; }
-		.top nav { display: flex; gap: 22px; font-size: 14px; }
+		.top nav { display: flex; gap: 22px; font-size: 14px; white-space: nowrap; }
 		.top nav a { color: var(--muted); text-decoration: none; transition: color 0.2s; position: relative; }
 		.top nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform 0.35s var(--ease); }
 		.top nav a:hover { color: var(--ink); }
@@ -190,13 +190,165 @@
 		.marquee .row span em { font-style: normal; display: inline-block; width: 0.42em; height: 0.42em; background: var(--ink); transform: rotate(45deg) translateY(-0.1em); margin: 0 0.32em; }
 		.marquee .row.outline span em { background: transparent; border: 1.2px solid var(--outline); }
 
-		/* ---------- Ordinary chapters: words on the left, the stage on the right ---------- */
+		/* ---------- Chapters with the stage on the right ---------- */
 		.chapter { min-height: 110svh; display: grid; align-items: center; padding-block: 16svh; }
 		.copy { max-width: 34rem; display: grid; gap: 18px; min-width: 0; }
 		h2 { font: 900 clamp(2.3rem, 4.8vw, 4.2rem)/0.97 var(--display); letter-spacing: -0.045em; text-wrap: balance; }
-		h3 { font: 500 1.15rem/1.3 var(--body); letter-spacing: -0.01em; margin-top: 10px; }
+		h3 { font: 500 1.15rem/1.3 var(--body); letter-spacing: -0.01em; }
 		.copy p { color: var(--soft); text-wrap: pretty; }
+		code, kbd { font: 500 0.86em/1 var(--mono); }
+		kbd { display: inline-block; padding: 4px 7px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 6px; background: var(--raise); color: var(--ink); white-space: nowrap; }
 
+		/* ---------- Feature chapters: full width, the stone small in the corner ---------- */
+		.feature { position: relative; padding-block: clamp(80px, 13svh, 150px); }
+		.feature .wrap { display: grid; gap: clamp(28px, 4vw, 48px); }
+		.head { display: grid; gap: 16px; max-width: 46rem; }
+		.head p { color: var(--soft); font-size: 1.06rem; text-wrap: pretty; }
+		.split2 { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+		.points { list-style: none; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+		.points li { display: grid; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+		.points b { font-weight: 500; }
+		.points p { color: var(--muted); font-size: 15px; text-wrap: pretty; }
+		.mono { font-family: var(--mono); font-size: 13px; }
+		.honest { font-size: 13px; color: var(--muted); border-left: 2px solid var(--line-strong); padding-left: 12px; }
+
+		/* A screenshot in a plain window frame. */
+		.window { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-strong); background: var(--raise); box-shadow: 0 40px 100px rgb(0 0 0 / 0.55); }
+		.window .bar { display: flex; gap: 6px; padding: 9px 12px; border-bottom: 1px solid var(--line); background: var(--raise-2); }
+		.window .bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+		.window img { display: block; width: 100%; height: auto; }
+		.shot { display: grid; gap: 10px; }
+		.shot figcaption { color: var(--muted); font-size: 13px; }
+		.stack { display: grid; gap: 16px; }
+
+		/* Everything inside: the index of features. */
+		.tiles { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+		.tiles a { position: relative; height: 100%; display: grid; align-content: start; gap: 8px; padding: 20px 18px 22px; border-radius: 16px; background: var(--raise); border: 1px solid var(--line); text-decoration: none; overflow: hidden; transition: border-color 0.3s, transform 0.4s var(--ease); }
+		.tiles a::before { content: ""; position: absolute; inset: 0; background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.07), transparent 60%); opacity: 0; transition: opacity 0.3s; }
+		.tiles a:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+		.tiles a:hover::before { opacity: 1; }
+		.tiles svg { width: 26px; height: 26px; fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 6px; }
+		.tiles b { font-weight: 500; font-size: 1.02rem; }
+		.tiles span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+		.tiles a::after { content: "→"; position: absolute; right: 16px; top: 18px; color: var(--muted); transition: transform 0.3s var(--ease), color 0.3s; }
+		.tiles a:hover::after { transform: translateX(3px); color: var(--ink); }
+
+		/* How a message travels: five stages, a wire with a pulse, and the real run, step by step. */
+		.flow { display: grid; gap: 22px; }
+		.stages { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; position: relative; z-index: 1; }
+		.stages button { width: 100%; height: 100%; display: grid; align-content: start; gap: 4px; text-align: left; padding: 14px 14px 16px; border-radius: 14px; background: var(--raise); border: 1px solid var(--line); color: var(--ink); font: inherit; cursor: pointer; transition: border-color 0.3s, background 0.3s, transform 0.4s var(--ease); }
+		.stages .n { font: 500 11px/1 var(--mono); color: var(--muted); letter-spacing: 0.1em; }
+		.stages b { font-weight: 500; }
+		.stages small { color: var(--muted); font: 500 11px/1.4 var(--mono); }
+		.stages li.on button { border-color: var(--ink); background: var(--raise-2); transform: translateY(-3px); }
+		.wire { position: relative; height: 2px; background: var(--line); margin: -6px 10% 0; border-radius: 2px; }
+		.wire .pulse { position: absolute; top: 50%; left: var(--at, 0%); width: 12px; height: 12px; border-radius: 50%; background: var(--lit); box-shadow: 0 0 0 6px rgb(255 255 255 / 0.12), 0 0 24px rgb(255 255 255 / 0.6); translate: -50% -50%; transition: left 0.9s var(--ease-out); }
+		.wire .done { position: absolute; inset: 0 auto 0 0; width: var(--at, 0%); background: var(--ink); border-radius: 2px; transition: width 0.9s var(--ease-out); }
+		.explain { position: relative; display: grid; }
+		.explain article { grid-area: 1 / 1; display: grid; gap: 12px; padding: 22px; border-radius: 16px; background: var(--raise); border: 1px solid var(--line); opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.5s var(--ease), transform 0.6s var(--ease-out), visibility 0s 0.5s; }
+		.explain article.on { opacity: 1; visibility: visible; transform: none; transition: opacity 0.5s var(--ease), transform 0.6s var(--ease-out); }
+		.explain .say { font-size: 1.12rem; color: var(--ink); }
+		.explain .say.mono { font-size: 13px; line-height: 1.7; color: var(--soft); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+		.explain p { color: var(--soft); text-wrap: pretty; }
+		.explain .who { font: 500 11px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+		html:not(.js) .explain article { position: static; opacity: 1; visibility: visible; transform: none; grid-area: auto; }
+
+		/* The tiers: one card each, its speed drawn to scale (130 tokens/s is the full width). */
+		.tiercards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+		.tiercards li { display: grid; align-content: start; gap: 8px; padding: 18px; border-radius: 16px; background: var(--raise); border: 1px solid var(--line); }
+		.tiercards .tier { justify-self: start; }
+		.tiercards b { font: 500 1rem/1.3 var(--mono); }
+		.tiercards small { color: var(--muted); font: 500 12px/1.3 var(--mono); }
+		.tiercards p { color: var(--muted); font-size: 14px; }
+		.speed { display: grid; gap: 6px; margin-top: 6px; }
+		.speed .track { height: 6px; background: var(--line); border-radius: 6px; overflow: hidden; }
+		.speed .track i { display: block; height: 100%; width: calc(var(--v) / 130 * 100%); background: var(--ink); border-radius: 6px; transform-origin: left; transition: transform 1.4s var(--ease-out) 0.2s; }
+		html.js .tiercards:not(.in) .speed .track i { transform: scaleX(0); }
+		.speed span { font: 500 12px/1.3 var(--mono); color: var(--soft); }
+		.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 28px; }
+		.notes div { display: grid; gap: 6px; align-content: start; padding-top: 14px; border-top: 1px solid var(--line); }
+		.notes b { font-weight: 500; }
+		.notes p { color: var(--muted); font-size: 15px; text-wrap: pretty; }
+		.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 4px; }
+		.chain span { font: 500 12px/1 var(--mono); padding: 7px 9px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raise); }
+		.chain i { color: var(--muted); font-style: normal; }
+
+		/* Chat: shortcuts. */
+		.keys { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 14px; align-items: center; font-size: 14px; color: var(--soft); }
+
+		/* The app's screens, as tabs. */
+		.tabs { display: grid; gap: 18px; }
+		.tablist { display: flex; flex-wrap: wrap; gap: 8px; }
+		.tablist button { font: 500 14px/1 var(--body); color: var(--muted); padding: 10px 14px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--glass); cursor: pointer; transition: color 0.2s, background 0.2s, border-color 0.2s; }
+		.tablist button:hover { color: var(--ink); }
+		.tablist button[aria-selected="true"] { color: var(--bg); background: var(--ink); border-color: var(--ink); }
+		.panel { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+		.panel[hidden] { display: none; }
+		.panel.enter .window { animation: panel-in 0.7s var(--ease-out); }
+		@keyframes panel-in { from { opacity: 0; transform: translateY(14px) scale(0.985); } }
+		.others { color: var(--muted); font-size: 14px; }
+
+		/* The agents and their tools. */
+		.agentcards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+		.agentcards li { position: relative; display: grid; align-content: start; gap: 10px; padding: 20px; border-radius: 16px; background: var(--raise); border: 1px solid var(--line); overflow: hidden; transition: border-color 0.3s, transform 0.4s var(--ease); }
+		.agentcards li::before { content: ""; position: absolute; inset: 0; background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.07), transparent 60%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+		.agentcards li:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+		.agentcards li:hover::before { opacity: 1; }
+		.agentcards .top-row { display: flex; align-items: center; gap: 12px; }
+		.agentcards svg { width: 42px; height: 42px; flex: none; --f0: #262626; --f1: #262626; --f2: #262626; --f3: #262626; --f4: #262626; --table: #262626; transition: transform 0.5s var(--ease); }
+		.agentcards li:hover svg { transform: rotate(-8deg) scale(1.06); }
+		.agentcards b { font-weight: 500; font-size: 1.05rem; }
+		.agentcards .model { font: 500 12px/1.3 var(--mono); color: var(--muted); }
+		.agentcards p { color: var(--muted); font-size: 15px; text-wrap: pretty; }
+		.toolchips { display: flex; flex-wrap: wrap; gap: 6px; }
+		.toolchips code { padding: 5px 8px; border-radius: 6px; background: var(--bg); border: 1px solid var(--line); color: var(--soft); }
+		.tier { font: 500 11px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 8px; white-space: nowrap; }
+		.agentcards .tier { margin-left: auto; }
+
+		/* Limits: the defaults, as a table. */
+		.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+		.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--raise); }
+		.table th, .table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+		.table th { font: 500 11px/1.2 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+		.table td { font-variant-numeric: tabular-nums; }
+		.table td.num { font-family: var(--mono); font-size: 13px; text-align: right; }
+		.table th.num { text-align: right; }
+		.table tr:last-child td { border-bottom: 0; }
+		.guards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 28px; }
+		.guards div { display: grid; gap: 6px; align-content: start; padding-top: 14px; border-top: 1px solid var(--line); }
+		.guards b { font-weight: 500; }
+		.guards p { color: var(--muted); font-size: 15px; text-wrap: pretty; }
+
+		/* A phone, holding the real app. */
+		.phone { justify-self: center; width: min(300px, 78vw); padding: 10px; border-radius: 42px; background: #050505; border: 1px solid var(--line-strong); box-shadow: 0 50px 120px rgb(0 0 0 / 0.6), inset 0 0 0 2px #151515; position: relative; }
+		.phone img { display: block; width: 100%; height: auto; border-radius: 32px; }
+		.phone::before { content: ""; position: absolute; top: 18px; left: 50%; width: 76px; height: 22px; translate: -50% 0; border-radius: 20px; background: #000; z-index: 1; }
+		.ways { display: grid; gap: 12px; }
+		.ways > div { display: grid; gap: 6px; padding: 18px; border-radius: 16px; background: var(--raise); border: 1px solid var(--line); }
+		.ways b { font-weight: 500; }
+		.ways p { color: var(--muted); font-size: 15px; text-wrap: pretty; }
+		.ways .tier { justify-self: start; }
+
+		/* Counted: three figures from the trailer's chats. */
+		.figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+		.figures div { padding: 18px; border-radius: 16px; background: var(--raise); border: 1px solid var(--line); display: grid; gap: 4px; }
+		.figures b { font: 900 clamp(1.8rem, 3.4vw, 2.6rem)/1 var(--display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+		.figures div > span { color: var(--muted); font-size: 13px; }
+
+		/* Tested, and not yet. */
+		.ledger { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+		.ledger > div { padding: 22px; border-radius: 16px; background: var(--raise); border: 1px solid var(--line); display: grid; gap: 12px; align-content: start; }
+		.ledger ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--soft); font-size: 15px; }
+		.ledger .big { font: 900 3rem/1 var(--display); letter-spacing: -0.04em; }
+
+		/* Questions. */
+		.faq { display: grid; gap: 0; border-top: 1px solid var(--line); max-width: 52rem; }
+		.faq details { border-bottom: 1px solid var(--line); }
+		.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 2px; font-weight: 500; font-size: 1.05rem; }
+		.faq summary::-webkit-details-marker { display: none; }
+		.faq summary::after { content: "+"; font: 400 1.4rem/1 var(--mono); color: var(--muted); transition: transform 0.35s var(--ease); }
+		.faq details[open] summary::after { transform: rotate(45deg); }
+		.faq details p { color: var(--soft); padding: 0 2px 18px; max-width: 46rem; text-wrap: pretty; }
 		/* The spec label, set like the facts panel on a drink. */
 		.label { width: min(100%, 25rem); background: var(--ink); color: var(--bg); padding: 16px 18px 14px; border-radius: 4px; font: 400 15px/1.35 var(--body); box-shadow: 0 30px 80px rgb(0 0 0 / 0.5); }
 		.label h3 { font: 900 2.4rem/1 var(--display); letter-spacing: -0.03em; margin: 0; }
@@ -214,7 +366,8 @@
 
 		/* The real app, on a screen that settles flat as it comes into view. */
 		.pc .wrap { display: grid; grid-template-columns: minmax(0, 30rem) minmax(0, 1fr); gap: 56px; align-items: center; }
-		.screen { position: relative; perspective: 1400px; }
+		.screen { position: relative; }
+		.screen .device { position: relative; perspective: 1400px; }
 		.screen .glass { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line-strong); background: var(--raise); box-shadow: 0 50px 120px rgb(0 0 0 / 0.6); transform-origin: 50% 80%; will-change: transform; }
 		.screen .bar { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--raise-2); }
 		.screen .bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-strong); }
@@ -224,27 +377,13 @@
 		.screen .c1 { left: -18px; top: 18%; }
 		.screen .c2 { right: -14px; top: 46%; }
 		.screen .c3 { left: 10%; bottom: -22px; }
-		.screen figcaption { margin-top: 30px; color: var(--muted); font-size: 13px; }
+		.screen figcaption { margin-top: 40px; color: var(--muted); font-size: 13px; }
 
 		.run { margin-top: 6px; display: grid; gap: 12px; padding: 18px; background: var(--raise); border: 1px solid var(--line); border-radius: 14px; font: 500 13px/1.55 var(--mono); }
 		.run dl { display: grid; grid-template-columns: 9.5ch minmax(0, 1fr); gap: 8px 14px; }
 		.run dt { color: var(--muted); }
 		.run dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 		.run .total { padding-top: 12px; border-top: 1px dashed var(--line-strong); color: var(--muted); font-variant-numeric: tabular-nums; }
-
-		/* The team: one card each, the mark with that agent's piece lit. */
-		.team .wrap { display: grid; gap: 34px; }
-		.cards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-		.card { position: relative; display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 4px 16px; padding: 20px; border-radius: 16px; background: var(--raise); border: 1px solid var(--line); overflow: hidden; transition: border-color 0.3s, transform 0.4s var(--ease); }
-		.card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.07), transparent 60%); opacity: 0; transition: opacity 0.3s; }
-		.card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
-		.card:hover::before { opacity: 1; }
-		.card svg { grid-row: span 2; width: 54px; height: 54px; --f0: #262626; --f1: #262626; --f2: #262626; --f3: #262626; --f4: #262626; --table: #262626; transition: transform 0.5s var(--ease); }
-		.card:hover svg { transform: rotate(-8deg) scale(1.06); }
-		.card .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-		.card b { font-weight: 500; font-size: 1.05rem; }
-		.card p { color: var(--muted); font-size: 15px; grid-column: 2; }
-		.tier { font: 500 11px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 8px; }
 
 		.chips { list-style: none; padding: 0; margin-top: 2px; display: flex; flex-wrap: wrap; gap: 8px; }
 		.chips li { font: 500 12px/1 var(--mono); padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--soft); background: var(--glass); transition: background 0.2s, color 0.2s, border-color 0.2s; }
@@ -272,30 +411,61 @@
 		footer .brand { margin-right: 0; }
 		footer .brand svg { width: 22px; height: 22px; }
 
+		@media (max-width: 1100px) {
+			.tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+			.tiercards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+		}
 		@media (max-width: 980px) {
-			.cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.brand small { display: none; }
+			.top { gap: 20px; }
+			.top nav { gap: 16px; }
 			.pc .wrap, .specs .wrap { grid-template-columns: minmax(0, 1fr); }
 			.specs .label { justify-self: start; }
+			.split2, .panel { grid-template-columns: minmax(0, 1fr); }
+			.agentcards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.notes, .guards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.stages { grid-template-columns: repeat(5, minmax(150px, 1fr)); overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; }
+			.stages li { scroll-snap-align: start; }
+			.wire { display: none; }
 		}
-		/* Phones: the stage keeps the top of the screen; each chapter's words sit on a panel below it. */
-		@media (max-width: 760px) {
-			.top nav, .brand small { display: none; }
-			.top { gap: 12px; }
+		/* Phones, and tall narrow windows such as a tablet held upright: the stage keeps the top of the screen and each
+		   chapter's words sit on a panel below it. intro.js asks the same question. */
+		@media (max-width: 760px), (max-aspect-ratio: 9/10) {
 			.inside .wrap { grid-template-columns: minmax(0, 1fr); }
 			.inside .pin { padding-block: 0 4svh; }
 			.inside .copy { padding: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+			.chapter { min-height: 0; padding-block: 46svh 8svh; }
+			.chapter .copy { padding: 22px 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+			.get .copy { padding-top: 22px; }
+			.stage .still { top: 32%; }
+		}
+		/* Phones. */
+		@media (max-width: 760px) {
+			.top nav, .brand small { display: none; }
+			.top { gap: 12px; }
 			.inside h2 { font-size: 1.7rem; }
 			.inside .beats { margin-top: 10px; }
 			.inside .beats li { padding: 8px 0; font-size: 15px; }
 			.inside .beats p { font-size: 14px; }
-			.chapter { min-height: 0; padding-block: 46svh 8svh; }
-			.chapter .copy, .team .head-copy { padding: 22px 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
-			.cards { grid-template-columns: minmax(0, 1fr); }
-			.get .copy { padding-top: 22px; }
 			.buy { grid-template-columns: minmax(0, 1fr); }
 			.buy .price { text-align: left; }
 			.screen .c1 { left: 6px; } .screen .c2 { right: 6px; }
-			.stage .still { top: 32%; }
+			.tiles, .tiercards, .agentcards, .notes, .guards, .figures, .ledger { grid-template-columns: minmax(0, 1fr); }
+			.tiles a { grid-template-columns: 30px minmax(0, 1fr); column-gap: 12px; }
+			.tiles svg { grid-row: span 2; margin: 2px 0 0; }
+			.stages { grid-template-columns: repeat(5, minmax(140px, 1fr)); }
+			.feature { padding-block: 72px; }
+			/* The limits table: each agent becomes two lines, with the units written in. */
+			.table, .table tbody { display: block; }
+			.table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+			.table tr { display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); gap: 4px 14px; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+			.table tr:last-child { border-bottom: 0; }
+			.table td { padding: 0; border: 0; }
+			.table td:first-child { grid-column: 1 / 4; font-weight: 600; }
+			.table td:nth-child(2) { justify-self: end; color: var(--muted); font-size: 13px; }
+			.table td.num { text-align: left; color: var(--soft); }
+			.table td:nth-child(3)::after { content: ' steps'; }
+			.table td:nth-child(4)::after { content: ' tokens'; }
 		}
 
 		@media (prefers-reduced-motion: reduce) {
@@ -304,6 +474,8 @@
 			html.js .split:not(.in) .c, html.js [data-reveal]:not(.in) { transform: none; opacity: 1; }
 			html.js .split .c, html.js [data-reveal] { transition: none; }
 			.stage canvas, .stage .still, .loader { transition: none; }
+			html.js .tiercards:not(.in) .speed .track i { transform: none; }
+			.speed .track i, .wire .pulse, .wire .done, .explain article, .panel.enter .window { transition: none; animation: none; }
 		}
 	</style>
 	<script>
@@ -361,11 +533,11 @@
 	<header class="top">
 		<a class="brand" href="#top"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><b>Onyx Agents</b><small>by GK Labs</small></a>
 		<nav aria-label="Sections">
-			<a href="#inside">Inside</a>
-			<a href="#specs">Specs</a>
-			<a href="#your-pc">Your PC</a>
-			<a href="#team">Team</a>
-			<a href="#free">Free</a>
+			<a href="#features">Features</a>
+			<a href="#how">How it works</a>
+			<a href="#app">The app</a>
+			<a href="#privacy">Privacy</a>
+			<a href="#faq">Questions</a>
 		</nav>
 		<a class="btn primary small magnetic" href="#get">Download</a>
 	</header>
@@ -376,7 +548,7 @@
 				<div class="hero-copy">
 					<p class="eyebrow" data-reveal>By GK Labs · Free and open source</p>
 					<h1 class="split" data-split>Your own AI team, on your own PC.</h1>
-					<p class="lede" data-reveal style="--d: 0.25s">Onyx Agents is six AI agents that work together on your computer. They run on open Qwen models through Ollama. There is no subscription, and your chats stay on your machine.</p>
+					<p class="lede" data-reveal style="--d: 0.25s">Onyx Agents is six AI agents that work together on your computer. They run on open models, Qwen3 and OpenAI's gpt-oss, through Ollama. There is no subscription, and your chats stay on your machine.</p>
 					<div class="ctas" data-reveal style="--d: 0.35s">
 						<a class="btn primary magnetic" href="https://github.com/gkson-lab/onyx/archive/refs/heads/main.zip">Download for Windows <span class="arrow">→</span></a>
 						<a class="btn ghost magnetic" href="https://gkson-lab.github.io/onyx/trailer/">Watch the trailer <span class="note">1:25</span></a>
@@ -406,10 +578,107 @@
 
 		<div class="marquee" aria-hidden="true">
 			<div class="row" data-speed="1"><span>Six agents<em></em>One answer<em></em>Runs on your PC<em></em>No subscription<em></em>Open source<em></em></span><span>Six agents<em></em>One answer<em></em>Runs on your PC<em></em>No subscription<em></em>Open source<em></em></span></div>
-			<div class="row outline" data-speed="-0.7"><span>Qwen3<em></em>Ollama<em></em>Windows<em></em>Your phone<em></em>WhatsApp<em></em>SMS<em></em>MIT<em></em></span><span>Qwen3<em></em>Ollama<em></em>Windows<em></em>Your phone<em></em>WhatsApp<em></em>SMS<em></em>MIT<em></em></span></div>
+			<div class="row outline" data-speed="-0.7"><span>Qwen3<em></em>gpt-oss<em></em>Ollama<em></em>Windows<em></em>Your phone<em></em>WhatsApp<em></em>SMS<em></em>MIT<em></em></span><span>Qwen3<em></em>gpt-oss<em></em>Ollama<em></em>Windows<em></em>Your phone<em></em>WhatsApp<em></em>SMS<em></em>MIT<em></em></span></div>
 		</div>
 
-		<section class="chapter specs" id="specs">
+		<section class="feature" id="features" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Everything inside</p>
+					<h2 class="split" data-split>A whole system, not a chat box.</h2>
+					<p data-reveal>Here is what Onyx Agents does, in twelve parts. Each one is explained further down, with screens from the real app.</p>
+				</div>
+				<ul class="tiles">
+					<li data-reveal><a href="#inside"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 7l3 3M17 7l-3 3M7 17l3-3M17 17l-3-3"/></svg><b>Six agents, one answer</b><span>Onyx Core plans; five specialists work side by side.</span></a></li>
+					<li data-reveal style="--d: 0.05s"><a href="#how"><svg viewBox="0 0 24 24"><path d="M4 6h6l4 6-4 6H4M14 12h6"/><circle cx="20" cy="12" r="1.5"/></svg><b>A router that picks the model</b><span>The smallest model reads each message and chooses a tier, with a reason.</span></a></li>
+					<li data-reveal style="--d: 0.1s"><a href="#tiers"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5"/></svg><b>Four tiers of models</b><span>From a 4B model for quick replies to a 30B one that thinks.</span></a></li>
+					<li data-reveal style="--d: 0.15s"><a href="#chat"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><b>Chat, with your files</b><span>Search, pin and export chats; attach text, code, PDFs and images.</span></a></li>
+					<li data-reveal><a href="#app"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg><b>Every step on show</b><span>The agent graph, every run, the models and usage, live.</span></a></li>
+					<li data-reveal style="--d: 0.05s"><a href="#tools"><svg viewBox="0 0 24 24"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4M13 5l-2 14"/></svg><b>Tools that do real work</b><span>Web search, a code sandbox, reminders, memory and connectors.</span></a></li>
+					<li data-reveal style="--d: 0.1s"><a href="#limits"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13l3-4M10 2h4"/></svg><b>Limits that hold</b><span>Step caps, token and time budgets, and a stop button for the whole run.</span></a></li>
+					<li data-reveal style="--d: 0.15s"><a href="#phone"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg><b>From your phone</b><span>The app through Tailscale, or WhatsApp and SMS.</span></a></li>
+					<li data-reveal><a href="#reminders"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M5 3L2 6M19 3l3 3"/></svg><b>Reminders and memory</b><span>It texts you when it is time, and remembers what you tell it.</span></a></li>
+					<li data-reveal style="--d: 0.05s"><a href="#usage"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Counted, not charged</b><span>Every token counted, with what it would have cost hosted.</span></a></li>
+					<li data-reveal style="--d: 0.1s"><a href="#updates"><svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M4 3v5h5M20 21v-5h-5"/></svg><b>Keeps itself current</b><span>Updates from GitHub by itself, with daily backups and undo.</span></a></li>
+					<li data-reveal style="--d: 0.15s"><a href="#privacy"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><b>Private by design</b><span>It answers your PC only. Your keys never leave it.</span></a></li>
+				</ul>
+			</div>
+		</section>
+
+		<section class="feature" id="how" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>How it works</p>
+					<h2 class="split" data-split>How a message travels.</h2>
+					<p data-reveal>This is a real message from the trailer, start to finish. Every line below comes from the app's own record of the run.</p>
+				</div>
+				<div class="flow" data-flow data-reveal>
+					<ol class="stages">
+						<li class="on"><button type="button" data-step="0"><span class="n">01</span><b>You</b><small>app · phone · WhatsApp · SMS</small></button></li>
+						<li><button type="button" data-step="1"><span class="n">02</span><b>The router</b><small>Lite · qwen3:4b-instruct</small></button></li>
+						<li><button type="button" data-step="2"><span class="n">03</span><b>Onyx Core</b><small>Standard · qwen3:8b</small></button></li>
+						<li><button type="button" data-step="3"><span class="n">04</span><b>Two specialists</b><small>Scheduler and Memory, side by side</small></button></li>
+						<li><button type="button" data-step="4"><span class="n">05</span><b>One answer</b><small>every step recorded</small></button></li>
+					</ol>
+					<div class="wire" aria-hidden="true"><i class="done"></i><i class="pulse"></i></div>
+					<div class="explain">
+						<article class="on" data-step="0">
+							<p class="who">The message</p>
+							<p class="say">"Remind me to call Sam tomorrow at 9am, and remember that I take my coffee black."</p>
+							<p>It can come from the app on your PC or phone, from WhatsApp or SMS, or from the terminal. Wherever it comes from, it goes to the same place, and the answer goes back the way it came.</p>
+						</article>
+						<article data-step="1">
+							<p class="who">The router</p>
+							<p class="say mono">Routed to standard by the Lite model: Adding a simple reminder with a specific time and a personal habit.</p>
+							<p>The smallest model reads each message and picks a tier through a tool call, and its reason is logged and shown. Rules add what the words make plain, such as a link to read, "remind me" or "remember", and work that needs code, the web or a connector always gets at least Pro. Start a message with <code>/lite</code>, <code>/standard</code>, <code>/pro</code>, <code>/max</code> or <code>/think</code> to choose yourself.</p>
+						</article>
+						<article data-step="2">
+							<p class="who">Onyx Core</p>
+							<p class="say mono">delegate → Scheduler: "Set reminder for 'Call Sam'" · Memory: "Save fact: 'user prefers coffee black'"</p>
+							<p>Onyx Core answers quick things itself. This message has two parts, so it hands one to each specialist, both at once. A task that needs exactly one specialist skips Core and goes straight to it, which is faster.</p>
+						</article>
+						<article data-step="3">
+							<p class="who">The specialists</p>
+							<p class="say mono">Scheduler · Standard · qwen3:8b · schedule_create · done · 1,110 tokens<br>Memory · Lite · qwen3:4b-instruct · memory_save · done · 705 tokens</p>
+							<p>Every agent runs the same loop: ask its model, run the tools it calls, show it the results, and repeat until it can answer. The tool calls are real, not text the app tries to read. Each specialist reports back to Core.</p>
+						</article>
+						<article data-step="4">
+							<p class="who">The answer</p>
+							<p class="say">"Your reminder to call Sam has been set for tomorrow at 9:00 AM. I've also noted that you prefer coffee black."</p>
+							<p class="mono">3 agents · 3,436 tokens · $0 · $0.0008 if hosted</p>
+							<p>Core writes one answer. Anything that failed along the way is listed under it, taken from the step log rather than from what a model says it did. The run, its steps, tool calls, routing, fallbacks, tokens and timings are all saved on your PC.</p>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="feature" id="tiers" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Models</p>
+					<h2 class="split" data-split>Four tiers, one for each kind of job.</h2>
+					<p data-reveal>Each tier is a list of models in a plain file, <code>tiers.yaml</code>, and Setup picks them for your graphics card. These are the defaults for a 16 GB card, with speeds estimated for an RTX 5060 Ti 16 GB.</p>
+				</div>
+				<ul class="tiercards" data-reveal>
+					<li><span class="tier">Lite</span><b>qwen3:4b-instruct</b><p>Routing, quick replies and formatting.</p><div class="speed"><div class="track"><i style="--v: 130"></i></div><span>about 130 tokens/s · on the card</span></div></li>
+					<li><span class="tier">Standard</span><b>qwen3:8b</b><p>Ordinary chat, summaries and most agent steps.</p><div class="speed"><div class="track"><i style="--v: 65"></i></div><span>about 65 tokens/s · on the card</span></div></li>
+					<li><span class="tier">Pro</span><b>gpt-oss:20b</b><small>OpenAI · then qwen3:14b</small><p>Code, tools and multi-step work. Uses 3.6B of its weights per token.</p><div class="speed"><div class="track"><i style="--v: 54"></i></div><span>about 54 tokens/s · 99% on the card</span></div></li>
+					<li><span class="tier">Max</span><b>qwen3:30b</b><p>The hardest reasoning, with thinking on. Uses 3B of its weights per token.</p><div class="speed"><div class="track"><i style="--v: 25"></i></div><span>about 25 tokens/s · shared with system memory</span></div></li>
+					<li><span class="tier">Images</span><b>gemma3:12b</b><small>Google · optional</small><p>Reads attached images and describes them for the others.</p><div class="speed"><div class="track"><i style="--v: 41"></i></div><span>about 41 tokens/s · on the card</span></div></li>
+				</ul>
+				<div class="notes">
+					<div data-reveal><b>Thinking only where it pays</b><p>Thinking is off for Lite, Standard and Pro. In a real run, Qwen's thinking used up the router's whole allowance before it made its tool call. Max is the one tier that thinks.</p></div>
+					<div data-reveal style="--d: 0.05s"><b>Fallbacks, in order</b><p>A call that fails is tried again, then the next model in the tier, then the tier below. Each try is logged and shown.</p><p class="chain"><span>try again ×2</span><i>→</i><span>next model</span><i>→</i><span>tier below</span></p></div>
+					<div data-reveal style="--d: 0.1s"><b>Sized for your PC</b><p>The Models screen, or <code>pnpm onyx hardware</code>, reads your card and memory, works out where each model fits and how fast it should run, and recommends one per tier. Speeds are estimates, give or take 40%.</p></div>
+					<div data-reveal><b>Ollama, set up for you</b><p>The Onyx shortcut starts Ollama with settings for your PC: 16,384 tokens of context on a 16 GB card, its cache at half size so Lite and Standard share the card, and 1 GB left free for Windows.</p></div>
+					<div data-reveal style="--d: 0.05s"><b>Thirteen models to choose from</b><p>The Models screen lists Qwen3, gpt-oss, Qwen3 Coder, Mistral Small, Llama 3.1, Gemma 3, DeepSeek R1 and Phi-4, each with how it would run here. Download one, then use it for a tier.</p></div>
+					<div data-reveal style="--d: 0.1s"><b>Lost tool calls, recovered</b><p>Ollama 0.40 drops a tool call Qwen3 writes with thinking off. Onyx notices and asks again at once with thinking on, and the call comes through.</p></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="chapter specs" id="specs" data-pose="specs">
 			<div class="wrap">
 				<div class="copy">
 					<p class="eyebrow" data-reveal>Specs</p>
@@ -426,10 +695,12 @@
 						<dt><b>Cloud models in use</b></dt><dd>0*</dd>
 					</dl>
 					<div class="rows">
-						<p><span>Models</span><span>Qwen3 4B · 8B · 14B · 30B</span></p>
+						<p><span>Models</span><span>Qwen3 4B, 8B and 30B · gpt-oss 20B</span></p>
+						<p><span>Context</span><span><span data-count="16384" data-format="comma">16,384</span> tokens on a 16 GB card</span></p>
 						<p><span>Runs on</span><span>Windows, best with a graphics card</span></p>
 						<p><span>Reach it from</span><span>the app · your phone · WhatsApp · SMS</span></p>
 						<p><span>Models to download</span><span>about <span data-count="40">40</span> GB on a 16 GB card</span></p>
+						<p><span>Tests</span><span><span data-count="126">126</span>, all passing</span></p>
 						<p><span>License</span><span>MIT</span></p>
 					</div>
 					<small>* Until you add a Claude or ChatGPT key. Setup picks the models for your graphics card.</small>
@@ -437,12 +708,161 @@
 			</div>
 		</section>
 
-		<section class="chapter pc" id="your-pc">
+		<section class="feature" id="chat" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Chat</p>
+					<h2 class="split" data-split>Chat, in detail.</h2>
+					<p data-reveal>Separate chats, each with its own history, and everything you need around them.</p>
+				</div>
+				<div class="split2">
+					<div class="stack">
+						<figure class="shot" data-reveal>
+							<div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/pdf.jpg" width="1440" height="598" loading="lazy" decoding="async" alt="A chat in Onyx Agents: 'Summarise this in two bullets' with Q3-update.pdf attached, and a two-bullet summary of sales and costs. Under it: Standard, qwen3:8b, Core alone, 771 tokens, $0.0002 if hosted."></div>
+							<figcaption>A PDF attached and summarised. Its text is read on your PC.</figcaption>
+						</figure>
+						<figure class="shot" data-reveal style="--d: 0.08s">
+							<div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/search.jpg" width="1140" height="510" loading="lazy" decoding="async" alt="Searching chats for 'cosy': the list narrows to the rainy Sunday plan."></div>
+							<figcaption>Every chat, searched as you type.</figcaption>
+						</figure>
+					</div>
+					<div class="stack">
+						<ul class="points">
+							<li data-reveal><b>Attach files</b><p>The paperclip, a drag or a paste attaches up to five files of 10 MB each. Text and code are read as they are, a PDF's text is read, and an image is described by the image model.</p></li>
+							<li data-reveal><b>Pick the model, or let it pick</b><p>A menu by the send button picks the model for a message. Auto lets the router choose; a cloud model, if you add one, uses your own key.</p></li>
+							<li data-reveal><b>See what each answer took</b><p>Under every reply: the tier, the real model, the agents and tools used, the time, and what it would have cost hosted.</p></li>
+							<li data-reveal><b>Keep, find and share</b><p>Search every chat, pin, rename or delete one, or export it as Markdown. Messages from your phone and reminders get a chat of their own.</p></li>
+							<li data-reveal><b>No waiting on the first message</b><p>When Onyx starts it loads the Lite and Standard models onto the graphics card, and Chat says while they are still loading.</p></li>
+						</ul>
+						<div class="keys" data-reveal>
+							<kbd>Ctrl K</kbd><span>Search all chats</span>
+							<kbd>Ctrl Shift O</kbd><span>Start a new chat</span>
+							<kbd>/</kbd><span>Jump to the message box</span>
+							<kbd>Esc</kbd><span>Stop a run, with every agent in it</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="feature" id="app" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>The app</p>
+					<h2 class="split" data-split>Nine screens. Nothing hidden.</h2>
+					<p data-reveal>Everything the app shows is read from its own database or its live stream of events, so what you see is what happened. These are the real screens, with the trailer's chats.</p>
+				</div>
+				<div class="tabs" data-tabs data-reveal>
+					<div class="tablist" role="tablist" aria-label="Screens of the app">
+						<button type="button" role="tab" id="tab-graph" aria-controls="panel-graph" aria-selected="true">Agent graph</button>
+						<button type="button" role="tab" id="tab-runs" aria-controls="panel-runs" aria-selected="false" tabindex="-1">Runs</button>
+						<button type="button" role="tab" id="tab-agents" aria-controls="panel-agents" aria-selected="false" tabindex="-1">Agents</button>
+						<button type="button" role="tab" id="tab-usage" aria-controls="panel-usage" aria-selected="false" tabindex="-1">Usage</button>
+						<button type="button" role="tab" id="tab-settings" aria-controls="panel-settings" aria-selected="false" tabindex="-1">Settings</button>
+					</div>
+					<div class="panel" role="tabpanel" id="panel-graph" aria-labelledby="tab-graph">
+						<div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/graph.jpg" width="1440" height="649" loading="lazy" decoding="async" alt="The agent graph of the reminder run: Onyx Core with the Scheduler and Memory under it, each done, with model, tokens and cost; the step log; and the result."></div>
+						<ul class="points">
+							<li><b>The live tree of a run</b><p>Each agent with its status, model, tokens and cost, and its full step log down to every tool call. It updates as agents work.</p></li>
+							<li><b>Retries in plain sight</b><p>This is the reminder run, replayed from its log. The two retry lines are real: Ollama lost the model's tool call, and Onyx asked again.</p></li>
+							<li><b>A stop button</b><p>It ends the whole run, every agent in it.</p></li>
+						</ul>
+					</div>
+					<div class="panel" role="tabpanel" id="panel-runs" aria-labelledby="tab-runs">
+						<div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/runs.jpg" width="1440" height="726" loading="lazy" decoding="async" alt="The Runs screen: every message handled, with its tier badge, model, tokens, cost if hosted, time and status."></div>
+						<ul class="points">
+							<li><b>Every message Onyx has handled</b><p>With its channel, tier, model, tokens, time and what it would have cost hosted.</p></li>
+							<li><b>Filter and replay</b><p>Filter by channel, agent, tier and status. Open any run to replay its steps in the agent graph.</p></li>
+						</ul>
+					</div>
+					<div class="panel" role="tabpanel" id="panel-agents" aria-labelledby="tab-agents">
+						<div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/agents.jpg" width="1440" height="726" loading="lazy" decoding="async" alt="The Agents screen: Coder, Onyx Core, Memory, Messenger, Researcher and Scheduler, each with its tools, tier and model."></div>
+						<ul class="points">
+							<li><b>The roster</b><p>Each agent with what it does, its tools, its tier and the model that tier uses now.</p></li>
+							<li><b>Edit any agent, or make your own</b><p>Change its instructions, tier, tools, step limit and budgets. A new agent runs in the same loop, under the limits you give it.</p></li>
+						</ul>
+					</div>
+					<div class="panel" role="tabpanel" id="panel-usage" aria-labelledby="tab-usage">
+						<div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/usage.jpg" width="1440" height="1168" loading="lazy" decoding="async" alt="The Usage screen: tokens used today, what this would cost on a paid host today, over 14 days and in all, tokens per day, and a breakdown by tier."></div>
+						<ul class="points">
+							<li><b>Tokens, counted</b><p>Per day, tier, model and agent, with calls and average time.</p></li>
+							<li><b>What it would have cost</b><p>The same calls priced as on a paid host running the same models. You pay nothing.</p></li>
+						</ul>
+					</div>
+					<div class="panel" role="tabpanel" id="panel-settings" aria-labelledby="tab-settings">
+						<div class="stack">
+							<div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/channels.jpg" width="1400" height="329" loading="lazy" decoding="async" alt="Settings, where Onyx texts you first: WhatsApp, then SMS, then Web, in an order you can change."></div>
+							<div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/reminders.jpg" width="1400" height="253" loading="lazy" decoding="async" alt="Settings, reminders: Call Sam on Nov 21 at 9:00 AM, and Water the plants weekly, each with a Cancel button."></div>
+						</div>
+						<ul class="points">
+							<li><b>One page for everything</b><p>Where Onyx texts you first, Tailscale for your phone with a QR code, notifications, linked numbers, keys, cloud models, updates, backups, starting with Windows, reminders, and what Onyx remembers about you.</p></li>
+						</ul>
+					</div>
+					<p class="others" data-reveal>Also: <b>Channels</b>, each one's state and a test send; <b>Connectors</b>, each MCP server and its tools; and <b>Models</b>, every model's tries, failures, speed and cost, a health check of every tier, and what this PC can run.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="feature" id="tools" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>The team</p>
+					<h2 class="split" data-split>Tools that do real work.</h2>
+					<p data-reveal>Each agent is a piece of the stone, with its own tier and tools. The tools are real: a search that returns pages, code that actually runs, reminders that fire.</p>
+				</div>
+				<ul class="agentcards">
+					<li data-reveal><div class="top-row"><svg viewBox="0 0 100 100" aria-hidden="true" style="--table: #f6f6f6"><use href="#mark"/></svg><div><b>Onyx Core</b><p class="model">set by the router</p></div><span class="tier">Core</span></div><p>Receives every message, answers quick things, plans the rest, hands it out and merges the results into one answer. Exact arithmetic, units and dates come from Onyx 3's calculator, reused as a tool.</p><p class="toolchips"><code>delegate</code><code>memory_search</code><code>calculate</code></p></li>
+					<li data-reveal style="--d: 0.06s"><div class="top-row"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f0: #e2e2e2"><use href="#mark"/></svg><div><b>Researcher</b><p class="model">gpt-oss:20b</p></div><span class="tier">Pro</span></div><p>Searches the web and reads pages, citing its sources: Brave Search with a key, or DuckDuckGo's plain page without one. It never fetches a page on your PC or your home network, and what it reads reaches the models as untrusted text.</p><p class="toolchips"><code>web_search</code><code>web_fetch</code></p></li>
+					<li data-reveal style="--d: 0.12s"><div class="top-row"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f1: #e2e2e2"><use href="#mark"/></svg><div><b>Coder</b><p class="model">gpt-oss:20b</p></div><span class="tier">Pro</span></div><p>Writes Python or JavaScript, runs it and reports what it really printed. The code runs in a Docker container with no network, a read-only disk, none of your files, 256 MB, one CPU and 30 seconds. Without Docker running, it says the code was not run.</p><p class="toolchips"><code>run_code</code></p></li>
+					<li data-reveal><div class="top-row"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f2: #e2e2e2"><use href="#mark"/></svg><div><b>Scheduler</b><p class="model">qwen3:8b</p></div><span class="tier">Standard</span></div><p>Sets reminders, one-off or repeating, in your local time, and lists or cancels them when you ask.</p><p class="toolchips"><code>schedule_create</code><code>schedule_list</code><code>schedule_cancel</code></p></li>
+					<li data-reveal style="--d: 0.06s"><div class="top-row"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f3: #e2e2e2"><use href="#mark"/></svg><div><b>Messenger</b><p class="model">qwen3:4b-instruct</p></div><span class="tier">Lite</span></div><p>Fits a reply to the channel it goes out on, from the app to a text message.</p><p class="toolchips"><code>format_message</code></p></li>
+					<li data-reveal style="--d: 0.12s"><div class="top-row"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f4: #e2e2e2"><use href="#mark"/></svg><div><b>Memory</b><p class="model">qwen3:4b-instruct</p></div><span class="tier">Lite</span></div><p>Keeps lasting facts about you and recalls them by meaning, with a small embedding model, or by their words without it.</p><p class="toolchips"><code>memory_save</code><code>memory_search</code></p></li>
+				</ul>
+				<div class="notes">
+					<div data-reveal><b>Connectors</b><p>Any MCP server can give agents more tools, switched on per agent. GitHub is listed, read-only by default and off until you add a token.</p></div>
+					<div data-reveal style="--d: 0.05s"><b>Your own agents</b><p>The Agents screen edits any agent's instructions, tier, tools, step limit and budgets, or creates a new one.</p></div>
+					<div data-reveal style="--d: 0.1s"><b>Models shown are defaults</b><p>Each agent uses its tier's model, which Setup picks for your card. The Pro tier falls back to qwen3:14b.</p></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="feature" id="limits" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Limits</p>
+					<h2 class="split" data-split>Limits that hold.</h2>
+					<p data-reveal>An agent cannot run away with your PC. The limits are enforced by the runtime, not asked of the model. These are the defaults, and the Agents screen changes them.</p>
+				</div>
+				<div class="tablewrap" data-reveal>
+					<table class="table" role="table">
+						<thead role="rowgroup"><tr role="row"><th role="columnheader">Agent</th><th role="columnheader">Tier</th><th class="num" role="columnheader">Steps</th><th class="num" role="columnheader">Tokens</th><th class="num" role="columnheader">Time</th></tr></thead>
+						<tbody role="rowgroup">
+							<tr role="row"><td role="cell">Onyx Core</td><td role="cell">set by the router</td><td class="num" role="cell">8</td><td class="num" role="cell">60,000</td><td class="num" role="cell">10 min</td></tr>
+							<tr role="row"><td role="cell">Researcher</td><td role="cell">Pro</td><td class="num" role="cell">10</td><td class="num" role="cell">60,000</td><td class="num" role="cell">5 min</td></tr>
+							<tr role="row"><td role="cell">Coder</td><td role="cell">Pro</td><td class="num" role="cell">10</td><td class="num" role="cell">60,000</td><td class="num" role="cell">5 min</td></tr>
+							<tr role="row"><td role="cell">Scheduler</td><td role="cell">Standard</td><td class="num" role="cell">5</td><td class="num" role="cell">20,000</td><td class="num" role="cell">2 min</td></tr>
+							<tr role="row"><td role="cell">Memory</td><td role="cell">Lite</td><td class="num" role="cell">4</td><td class="num" role="cell">12,000</td><td class="num" role="cell">1 min</td></tr>
+							<tr role="row"><td role="cell">Messenger</td><td role="cell">Lite</td><td class="num" role="cell">3</td><td class="num" role="cell">8,000</td><td class="num" role="cell">1 min</td></tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="guards">
+					<div data-reveal><b>A cap on steps</b><p>The last step offers no tools, so the agent has to answer.</p></div>
+					<div data-reveal style="--d: 0.05s"><b>A shared token budget</b><p>Spent down the tree: a specialist uses what its parent has left.</p></div>
+					<div data-reveal style="--d: 0.1s"><b>A time budget</b><p>Time spent waiting for the graphics card while another agent uses it is given back. A call is not retried when the time is nearly gone.</p></div>
+					<div data-reveal><b>Three levels deep</b><p>Agents can hand work to agents, three levels at most.</p></div>
+					<div data-reveal style="--d: 0.05s"><b>One stop button</b><p>Stop, or Esc, reaches every agent in the run.</p></div>
+					<div data-reveal style="--d: 0.1s"><b>Failures, never hidden</b><p>What failed is listed under the answer, from the step log. A helper that fails after doing its job is reported with what it finished.</p></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="chapter pc" id="your-pc" data-pose="pc">
 			<div class="wrap">
 				<div class="copy">
 					<p class="eyebrow" data-reveal>Local</p>
 					<h2 class="split" data-split>It runs on your PC.</h2>
-					<p data-reveal>Every model runs on your own graphics card through Ollama. Setup reads your card and memory, then picks a Qwen3 model for each tier: Lite, Standard, Pro and Max.</p>
+					<p data-reveal>Every model runs on your own graphics card through Ollama. Setup reads your card and memory, then picks a model for each tier: Lite, Standard, Pro and Max.</p>
 					<p data-reveal>Your chats, files and memories stay on your PC. Nothing goes to a cloud model unless you turn one on.</p>
 					<div class="run" data-reveal role="group" aria-label="A real run, from the trailer">
 						<p class="eyebrow">A real run, from the trailer</p>
@@ -457,44 +877,128 @@
 					</div>
 				</div>
 				<figure class="screen" data-reveal style="--d: 0.1s">
-					<div class="glass">
-						<div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
-						<img src="app-chat.jpg" width="760" height="600" alt="Onyx Agents in Chat, answering a request for a cosy rainy Sunday plan with breakfast, a creative activity and dinner. Under the answer: Standard, qwen3:8b, Core alone, 664 tokens, $0.0002 if hosted." loading="lazy" decoding="async">
+					<div class="device">
+						<div class="glass">
+							<div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+							<img src="shots/chat.jpg" width="1440" height="900" alt="The Onyx Agents app in Chat, with the list of chats on the left and a plan for a cosy rainy Sunday as the answer. Under it: Standard, qwen3:8b, Core alone, 664 tokens, $0.0002 if hosted." loading="lazy" decoding="async">
+						</div>
+						<p class="chip c1" aria-hidden="true"><b>qwen3:8b</b>on this PC</p>
+						<p class="chip c2" aria-hidden="true"><b><span data-count="664">664</span></b>tokens</p>
+						<p class="chip c3" aria-hidden="true"><b>$0</b>$0.0002 if hosted</p>
 					</div>
-					<p class="chip c1" aria-hidden="true"><b>qwen3:8b</b>on this PC</p>
-					<p class="chip c2" aria-hidden="true"><b><span data-count="664">664</span></b>tokens</p>
-					<p class="chip c3" aria-hidden="true"><b>$0</b>$0.0002 if hosted</p>
-					<figcaption>A real answer from the trailer's footage, written by qwen3:8b on the PC it was filmed on.</figcaption>
+					<figcaption>The app, with an answer from the trailer, written by qwen3:8b on the PC it was filmed on.</figcaption>
 				</figure>
 			</div>
 		</section>
 
-		<section class="chapter team" id="team">
+		<section class="feature" id="phone" data-pose="aside">
 			<div class="wrap">
-				<div class="copy head-copy">
-					<p class="eyebrow" data-reveal>The team</p>
-					<h2 class="split" data-split>Meet the six.</h2>
-					<p data-reveal>Each one is a piece of the stone. Onyx Core sits in the middle and decides who does what.</p>
+				<div class="head">
+					<p class="eyebrow" data-reveal>Your phone</p>
+					<h2 class="split" data-split>From your phone.</h2>
+					<p data-reveal>Onyx runs on your PC, and your phone can reach it three ways. Reminders find you on whichever you use.</p>
 				</div>
-				<ul class="cards">
-					<li class="card" data-reveal><svg viewBox="0 0 100 100" aria-hidden="true" style="--table:#f6f6f6"><use href="#mark"/></svg><span class="head"><b>Onyx Core</b><span class="tier">Standard</span></span><p>Receives every message. Answers directly or plans and delegates.</p></li>
-					<li class="card" data-reveal style="--d: 0.06s"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f0:#e2e2e2"><use href="#mark"/></svg><span class="head"><b>Researcher</b><span class="tier">Pro</span></span><p>Searches the web, reads pages, cites sources.</p></li>
-					<li class="card" data-reveal style="--d: 0.12s"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f1:#e2e2e2"><use href="#mark"/></svg><span class="head"><b>Coder</b><span class="tier">Pro</span></span><p>Writes code, runs it in a sandbox, returns the output.</p></li>
-					<li class="card" data-reveal><svg viewBox="0 0 100 100" aria-hidden="true" style="--f2:#e2e2e2"><use href="#mark"/></svg><span class="head"><b>Scheduler</b><span class="tier">Standard</span></span><p>Creates reminders and timed or repeating tasks.</p></li>
-					<li class="card" data-reveal style="--d: 0.06s"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f3:#e2e2e2"><use href="#mark"/></svg><span class="head"><b>Messenger</b><span class="tier">Lite</span></span><p>Formats a reply for the channel it goes out on.</p></li>
-					<li class="card" data-reveal style="--d: 0.12s"><svg viewBox="0 0 100 100" aria-hidden="true" style="--f4:#e2e2e2"><use href="#mark"/></svg><span class="head"><b>Memory</b><span class="tier">Lite</span></span><p>Keeps and recalls long-term facts about you.</p></li>
-				</ul>
+				<div class="split2">
+					<figure class="phone" data-reveal><img src="shots/phone-sam.jpg" width="780" height="1688" loading="lazy" decoding="async" alt="The Onyx Agents app on a phone: the reminder chat, with Onyx's answer and its details, and a tab bar for Chat, Graph, Runs, Agents and More."></figure>
+					<div class="ways">
+						<div data-reveal><span class="tier">Recommended</span><b>The app, through Tailscale</b><p>Tailscale links your phone to your PC privately: only your own devices can reach Onyx, nothing is opened to the internet, and the address never changes. Settings checks each step and shows a QR code. Add the app to your Home Screen and turn on notifications for reminders.</p></div>
+						<div data-reveal><b>WhatsApp and SMS</b><p>Through Meta's official Cloud API and through Twilio. Only numbers you link, by texting a six-digit code from them, get an answer; everyone else is ignored. Every webhook is checked against the provider's signature, and one number can send at most 20 messages in five minutes.</p></div>
+						<div data-reveal><b>Onyx texting first</b><p>Reminders and finished tasks go to your channels in the order you choose, and always end with the app, so none is dropped.</p></div>
+						<p class="honest" data-reveal>Tailscale, WhatsApp, SMS and phone notifications are built and tested against each provider's documented requests, but have not yet been run live. iMessage needs an always-on Mac and is not supported.</p>
+					</div>
+				</div>
 			</div>
 		</section>
 
-		<section class="chapter" id="free">
+		<section class="feature" id="reminders" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Reminders and memory</p>
+					<h2 class="split" data-split>It reminds you. It remembers.</h2>
+				</div>
+				<div class="split2">
+					<div class="stack">
+						<figure class="shot" data-reveal><div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/reminders.jpg" width="1400" height="253" loading="lazy" decoding="async" alt="Reminders in Settings: Call Sam on Nov 21 at 9:00 AM, and Water the plants weekly."></div></figure>
+						<ul class="points">
+							<li data-reveal><b>Ask in plain words</b><p>"Remind me to water the plants every Saturday." One-off or repeating, in your local time.</p></li>
+							<li data-reveal><b>It finds you</b><p>Each reminder goes to your preferred channel. If your PC was off when one came due, it is sent when the PC is back, marked late, and a repeating one moves on to its next time.</p></li>
+						</ul>
+					</div>
+					<div class="stack">
+						<figure class="shot" data-reveal style="--d: 0.08s"><div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/memory.jpg" width="1400" height="167" loading="lazy" decoding="async" alt="What Onyx remembers about you, in Settings: Prefers coffee black, with a button to forget it."></div></figure>
+						<ul class="points">
+							<li data-reveal><b>Tell it once</b><p>Memory saves lasting facts, like how you take your coffee, and Onyx Core looks them up when they help.</p></li>
+							<li data-reveal><b>You can see all of it</b><p>Settings lists everything Onyx remembers about you, each with a button to forget it.</p></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="feature" id="usage" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Usage</p>
+					<h2 class="split" data-split>Counted, not charged.</h2>
+					<p data-reveal>Local models cost nothing per message, and every tier is open. Onyx still counts every token, and works out what the same work would have cost on a paid host running the same model: Alibaba Model Studio's published prices for the 8B, 14B and 30B models, and a third-party host's for the 4B, labelled as such.</p>
+				</div>
+				<div class="figures" data-reveal>
+					<div><b><span data-count="9569" data-format="comma">9,569</span></b><span>tokens for the six chats filmed for the trailer</span></div>
+					<div><b>$0</b><span>what they cost on the PC</span></div>
+					<div><b>$0.0015</b><span>what the same calls would have cost hosted</span></div>
+				</div>
+				<p class="note" data-reveal>The figures shown under each reply, in Runs, on the Models screen and on Usage. Put your own prices in <code>equivalents.local.yaml</code> to compare.</p>
+			</div>
+		</section>
+
+		<section class="feature" id="updates" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Updates</p>
+					<h2 class="split" data-split>Keeps itself current.</h2>
+				</div>
+				<div class="split2">
+					<figure class="shot" data-reveal><div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/updates.jpg" width="1984" height="520" loading="lazy" decoding="async" alt="Updates in Settings: this copy and GitHub both at the same version, Up to date, with Check now, Update now and Stop updating by itself."></div><figcaption>The Updates panel in Settings.</figcaption></figure>
+					<ul class="points">
+						<li data-reveal><b>By itself</b><p>Every 10 minutes Onyx asks GitHub whether there is a new version, a check of about a kilobyte. When there is one and no agent is working, it updates, rebuilds and restarts in about a minute. Open apps say "Onyx was updated. Reload".</p></li>
+						<li data-reveal><b>What is yours stays</b><p>Your password and keys, your chats and settings, and your model choices are never touched.</p></li>
+						<li data-reveal><b>Undo</b><p>Settings goes back one version, and updating by itself then waits until you switch it on again.</p></li>
+						<li data-reveal><b>Daily backups</b><p>Once a day Onyx copies your chats, memories, reminders and settings into a folder you choose, OneDrive suggested, and keeps the newest seven.</p></li>
+						<li data-reveal><b>Starts with Windows</b><p>If you like, minimized, without opening the browser.</p></li>
+						<li data-reveal><p class="honest">Tested: a copy at an older version updated from Settings, rebuilt, and was back on the new version in 27 seconds.</p></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="feature" id="privacy" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Privacy</p>
+					<h2 class="split" data-split>Private by design.</h2>
+				</div>
+				<div class="split2">
+					<div class="guards" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);">
+						<div data-reveal><b>On your PC</b><p>Models, chats, memory, runs and settings stay on your PC.</p></div>
+						<div data-reveal style="--d: 0.05s"><b>It answers your PC only</b><p>The server listens on this PC alone. Your phone reaches it through a tunnel and needs your password; a sign-in lasts 30 days.</p></div>
+						<div data-reveal><b>Keys stay in one file</b><p>They live in <code>.env</code>, are never logged, and are never sent to the app, which only learns whether each one is set.</p></div>
+						<div data-reveal style="--d: 0.05s"><b>Untrusted text is labelled</b><p>Web pages and connector results reach the models as untrusted text, not as instructions.</p></div>
+						<div data-reveal><b>Webhooks are checked</b><p>WhatsApp and SMS messages are verified against the provider's signature before anything in them is read.</p></div>
+						<div data-reveal style="--d: 0.05s"><b>Cloud only when you choose</b><p>Nothing goes to Claude or ChatGPT unless you turn cloud models on and add a key.</p></div>
+					</div>
+					<figure class="shot" data-reveal style="--d: 0.1s"><div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/keys.jpg" width="1400" height="764" loading="lazy" decoding="async" alt="Keys in Settings: each key with what it is for and whether it is set. Only the password is set here; none of the values are shown."></div><figcaption>The app knows only whether a key is set, never what it is.</figcaption></figure>
+				</div>
+			</div>
+		</section>
+
+		<section class="chapter" id="free" data-pose="free">
 			<div class="wrap">
 				<div class="copy">
 					<p class="eyebrow" data-reveal>Free</p>
 					<h2 class="split" data-split>Free and open source.</h2>
 					<p data-reveal>Onyx Agents is MIT-licensed, with no subscription and no charge per message. It updates itself from GitHub, and your password, keys, chats and settings stay put.</p>
 					<h3 data-reveal>Claude and ChatGPT, if you want them</h3>
-					<p data-reveal>Add your own Anthropic or OpenAI key in Settings and pick a cloud model for any message. Each company bills your account, every answer shows its cost, and a daily limit stops cloud calls once it is reached ($5 to start).</p>
+					<p data-reveal>Add your own Anthropic or OpenAI key in Settings and pick a cloud model for any message, or make one a tier's first choice with the local models behind it. Each company bills your account, every answer shows its cost, and a daily limit stops cloud calls once it is reached ($5 to start).</p>
 					<ul class="chips" data-reveal aria-label="Cloud models">
 						<li>Claude Opus 5.5</li><li>Claude Sonnet 5.5</li><li>Claude Haiku 5.5</li><li>GPT-6.2 Astra</li><li>GPT-6.2 Sol</li>
 					</ul>
@@ -502,7 +1006,54 @@
 			</div>
 		</section>
 
-		<section class="chapter get" id="get">
+		<section class="feature" id="tested" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Tested</p>
+					<h2 class="split" data-split>What has been tested, and what has not.</h2>
+				</div>
+				<div class="ledger">
+					<div data-reveal>
+						<p class="big"><span data-count="126">126</span></p>
+						<p>automated tests, all passing. They use a scripted stand-in for the models, so they need no graphics card or network.</p>
+						<ul>
+							<li>The router, fallbacks and the agent loop; subagents, budgets and the stop button.</li>
+							<li>Tools, reminders and delivery; every channel's webhook and signature check.</li>
+							<li>Sign-in, phone notifications, the hosted-cost figures and the hardware planner.</li>
+							<li>Chats, search, export and attachments; backups; updates from GitHub, with undo.</li>
+							<li>Setup's downloads, and Claude through Anthropic's own SDK.</li>
+						</ul>
+						<p>Onyx Agents has also run end to end against a real model (Qwen3 4B in Ollama), the updater against the real repository on GitHub, and Setup on a Windows PC.</p>
+					</div>
+					<div data-reveal style="--d: 0.08s">
+						<p class="eyebrow">Not yet run for real</p>
+						<p>Claude and ChatGPT with real keys, gpt-oss, Gemma's image reading, the Docker sandbox, a live web search, a real MCP server, WhatsApp, Twilio, a push service, Tailscale and starting with Windows.</p>
+						<p>Each is tested against its documented requests and answers, not yet against the real service.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="feature" id="faq" data-pose="aside">
+			<div class="wrap">
+				<div class="head">
+					<p class="eyebrow" data-reveal>Questions</p>
+					<h2 class="split" data-split>Questions, answered.</h2>
+				</div>
+				<div class="faq" data-reveal>
+					<details><summary>Do I need a graphics card?</summary><p>No. Onyx runs on any PC, more slowly without one. The defaults suit a card with 16 GB, and the Models screen works out what yours can run and how fast.</p></details>
+					<details><summary>How much do I download?</summary><p>About 40 GB of models on a 16 GB card, fewer on a smaller one. Setup downloads them, says how far it has got, and can be stopped and run again.</p></details>
+					<details><summary>Does it work without the internet?</summary><p>Chatting does: the models run on your PC. Web search, connectors, WhatsApp and SMS, updates and cloud models need a connection, and Setup needs one to download.</p></details>
+					<details><summary>Is it really free?</summary><p>Yes. It is MIT-licensed, with no subscription and no charge per message. If you turn on Claude or ChatGPT, those companies bill your own account, and a daily limit keeps that in check.</p></details>
+					<details><summary>Does it run when my PC is off?</summary><p>No. Onyx runs on your PC, so it has to be on. Reminders that come due while it is off are sent when it is back, marked late.</p></details>
+					<details><summary>Mac or Linux?</summary><p>The same steps by hand: install Node.js 22.13 or newer, pnpm and Ollama, then in the agents folder run <code>pnpm install</code>, <code>pnpm build</code>, <code>pnpm onyx setup</code> and <code>pnpm start</code>.</p></details>
+					<details><summary>Can I use other models?</summary><p>Yes. The Models screen lists thirteen, with how each would run on your PC. Download one and use it for a tier, or edit <code>tiers.yaml</code> yourself. Models that cannot call tools are for plain chat only, since every agent calls tools.</p></details>
+					<details><summary>What is Onyx 3?</summary><p>A separate, much smaller assistant that runs entirely in a web page, with nothing to install. <a href="https://gkson-lab.github.io/onyx/">Try it in your browser.</a></p></details>
+				</div>
+			</div>
+		</section>
+
+		<section class="chapter get" id="get" data-pose="get">
 			<div class="wrap">
 				<div class="copy">
 					<p class="eyebrow" data-reveal>Windows</p>

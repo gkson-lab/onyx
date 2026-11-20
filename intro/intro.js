@@ -109,12 +109,71 @@ if (fine) {
 		});
 		b.addEventListener('pointerleave', () => { b.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'; b.style.transform = ''; });
 	}
-	for (const c of $$('.card')) {
+	for (const c of $$('.tiles a, .agentcards li')) {
 		c.addEventListener('pointermove', (e) => {
 			const r = c.getBoundingClientRect();
 			c.style.setProperty('--mx', `${e.clientX - r.left}px`);
 			c.style.setProperty('--my', `${e.clientY - r.top}px`);
 		});
+	}
+}
+
+// How a message travels: the stages light up in turn while the section is in view; a tap picks one.
+const flow = $('[data-flow]');
+if (flow) {
+	const buttons = $$('.stages button', flow);
+	const items = $$('.stages li', flow);
+	const cards = $$('.explain article', flow);
+	const wire = $('.wire', flow);
+	let at = 0, visible = false, heldUntil = 0;
+	const show = (i) => {
+		at = i;
+		items.forEach((li, k) => li.classList.toggle('on', k === i));
+		cards.forEach((c, k) => c.classList.toggle('on', k === i));
+		buttons.forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
+		wire?.style.setProperty('--at', `${(i / (buttons.length - 1)) * 100}%`);
+		const li = items[i];
+		const list = li?.parentElement;
+		if (list && list.scrollWidth > list.clientWidth) list.scrollTo({ left: li.offsetLeft - 8, behavior: calm ? 'auto' : 'smooth' });
+	};
+	buttons.forEach((b, i) => b.addEventListener('click', () => { show(i); heldUntil = performance.now() + 15000; }));
+	show(0);
+	if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.3 }).observe(flow);
+	setInterval(() => { if (visible && !calm && performance.now() > heldUntil) show((at + 1) % buttons.length); }, 3600);
+}
+
+// The app's screens: tabs, with the arrow keys moving between them. Without the script every screen shows.
+for (const box of $$('[data-tabs]')) {
+	const list = $$('[role="tab"]', box);
+	const select = (tab, focus) => {
+		for (const t of list) {
+			const on = t === tab;
+			t.setAttribute('aria-selected', String(on));
+			t.tabIndex = on ? 0 : -1;
+			const panel = document.getElementById(t.getAttribute('aria-controls'));
+			if (!panel) continue;
+			panel.hidden = !on;
+			if (on && focus !== undefined) { panel.classList.toggle('enter', false); void panel.offsetWidth; panel.classList.toggle('enter', true); }
+		}
+		if (focus) tab.focus();
+	};
+	list.forEach((t, i) => {
+		t.addEventListener('click', () => select(t, false));
+		t.addEventListener('keydown', (e) => {
+			const to = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? list.length - 1 : null;
+			if (to === null) return;
+			e.preventDefault();
+			select(list[(to + list.length) % list.length], true);
+		});
+	});
+	select(list[0]);
+	// The other screens' pictures load once the tabs come near, so a tab shows its screen at once.
+	if ('IntersectionObserver' in window) {
+		new IntersectionObserver((seen, io) => {
+			if (!seen.some((e) => e.isIntersecting)) return;
+			for (const img of $$('img[loading="lazy"]', box)) img.loading = 'eager';
+			io.disconnect();
+		}, { rootMargin: '800px 0px' }).observe(box);
 	}
 }
 
@@ -186,19 +245,20 @@ const POSE = {
 	in3: { x: 0.36, y: 0.14, s: 1.08, rx: -0.12, face: 1, explode: 0, glow: 1, ring: 0.25, ring2: 0, orbit: 0.4, tags: 0 },
 	specs: { x: -0.52, y: -0.64, s: 0.46, rx: -0.32, face: 0, explode: 0, glow: 0.3, ring: 0.9, ring2: 0, orbit: 0.6, tags: 0 },
 	pc: { x: 0.9, y: 0.9, s: 0.001, rx: -0.3, face: 0, explode: 0, glow: 0.3, ring: 0, ring2: 0, orbit: 0, tags: 0 },
-	team: { x: 0.8, y: 0.66, s: 0.32, rx: -0.3, face: 0.6, explode: 0, glow: 0.5, ring: 0, ring2: 0, orbit: 0, tags: 0 },
+	// The feature chapters: the stone waits, small, in the top corner.
+	aside: { x: 0.86, y: 0.74, s: 0.24, rx: -0.3, face: 0.5, explode: 0, glow: 0.5, ring: 0, ring2: 0, orbit: 0, tags: 0 },
 	free: { x: 0.52, y: 0.04, s: 0.84, rx: -0.32, face: 0, explode: 0, glow: 0.3, ring: 1, ring2: 0.6, orbit: 1, tags: 0 },
 	get: { x: 0, y: 0.58, s: 0.58, rx: -0.3, face: 0.35, explode: 0, glow: 0.6, ring: 1, ring2: 1, orbit: 1, tags: 0 },
 };
 // On a phone the stage keeps the middle of the top of the screen.
 const NARROW = {
 	in0: { x: 0, y: 0.5, s: 0.95 }, in1: { x: 0, y: 0.5, s: 0.95 }, in2: { x: 0, y: 0.54, s: 0.66 }, in3: { x: 0, y: 0.5, s: 0.95 },
-	specs: { x: 0, y: 0.5, s: 0.9 }, pc: { x: 0, y: 0.5, s: 0.85 }, team: { x: 0.62, y: 0.78, s: 0.34 },
+	specs: { x: 0, y: 0.5, s: 0.9 }, pc: { x: 0, y: 0.5, s: 0.85 }, aside: { x: 0, y: 0.5, s: 0.001 },
 	free: { x: 0, y: 0.5, s: 0.95 }, get: { x: 0, y: 0.5, s: 0.95 },
 };
 const KEYS = Object.keys(POSE.hero);
-// The rig's height on screen at size 1, in scene units: the stone and both rings.
-const RIG_HEIGHT = 3.3;
+// The rig's height on screen at size 1, in scene units: the stone and both rings. RING_R is the outer ring's radius.
+const RIG_HEIGHT = 3.3, RING_R = 2.55;
 
 function seeded(seed) {
 	return () => {
@@ -373,7 +433,7 @@ async function buildStage() {
 		ringTexture({ words: ['QWEN3', 'OLLAMA', 'WINDOWS', 'YOUR PHONE', 'WHATSAPP', 'SMS', 'MIT LICENSE', 'NO SUBSCRIPTION'], family: 'Geist Mono', weight: 500, size: 64, height: 96, gap: 34, anisotropy: aniso }),
 	]);
 	load.step(0.8);
-	const ring1 = ring(t1.texture, t1.aspect, 2.55);
+	const ring1 = ring(t1.texture, t1.aspect, RING_R);
 	ring1.tilt.rotation.set(0.3, 0, -0.1);
 	const ring2 = ring(t2.texture, t2.aspect, 2.15);
 	ring2.tilt.rotation.set(-0.55, 0, 0.28);
@@ -421,7 +481,8 @@ async function buildStage() {
 		camera.updateProjectionMatrix();
 		half.h = Math.tan((camera.fov / 2) * DEG) * camera.position.z;
 		half.w = half.h * camera.aspect;
-		narrow = w < 761 || camera.aspect < 0.9;
+		// The same test as the page's own layout: phones, and windows taller than they are wide.
+		narrow = matchMedia('(max-width: 760px), (max-aspect-ratio: 9/10)').matches;
 		const unit = Math.min(half.h / 2.9, half.w / 3.1);
 		// The opening pose fills the room between the header and the hero's words.
 		const words = $('.hero-copy');
@@ -433,25 +494,50 @@ async function buildStage() {
 		}
 		const end = Math.max(0, document.documentElement.scrollHeight - innerHeight);
 		const topOf = (el) => el.getBoundingClientRect().top + scrollY;
-		const centreOf = (id) => {
-			const el = document.getElementById(id);
-			const panel = narrow && el.querySelector('.copy');
+		// A chapter's pose is reached when it is centred; on a phone, a chapter with a panel when the panel's top is
+		// 60% down the screen, so the stage shows above it.
+		const centreOf = (el) => {
+			const panel = narrow && el.classList.contains('chapter') && el.querySelector('.copy');
 			return Math.min(end, panel ? topOf(panel) - innerHeight * 0.6 : topOf(el) + el.offsetHeight / 2 - innerHeight / 2);
 		};
 		const inTop = topOf(inside), span = Math.max(1, inside.offsetHeight - innerHeight);
 		const pose = (name) => (narrow && NARROW[name] ? { ...POSE[name], ...NARROW[name] } : POSE[name]);
+		// In the feature sections on a wide screen the stone waits in the empty margin beside the words, as large as
+		// the margin allows; where the margin is too narrow for it, it waits hidden, so it never sits behind them.
+		let aside = pose('aside');
+		const box = !narrow && $('.feature .wrap');
+		if (box) {
+			const room = w - (box.getBoundingClientRect().right - parseFloat(getComputedStyle(box).paddingRight));
+			const perSize = (2 * R_OUT * Math.sin(72 * DEG) * unit * w) / (2 * half.w); // the stone's width in px at size 1
+			const s = Math.min(0.26, (room - 28) / perSize);
+			aside = s < 0.14 ? { ...aside, s: 0.001 } : { ...aside, x: 1 - room / w, s };
+		}
 		keys = [
 			[0, heroPose],
 			[inTop, pose('in0')],
 			[inTop + span * 0.3, pose('in1')],
 			[inTop + span * 0.62, pose('in2')],
 			[inTop + span * 0.94, pose('in3')],
-			[centreOf('specs'), pose('specs')],
-			[centreOf('your-pc'), pose('pc')],
-			[centreOf('team'), pose('team')],
-			[centreOf('free'), pose('free')],
-			[centreOf('get'), pose('get')],
+			// A feature section holds its pose for as long as it fills the view, so the stone moves only between
+			// sections; on a phone, only once the words have gone by and a chapter has left room above its panel.
+			...$$('main > section[data-pose]').flatMap((el) => {
+				const p = el.dataset.pose === 'aside' ? aside : pose(el.dataset.pose);
+				if (!el.classList.contains('feature')) return [[centreOf(el), p]];
+				const top = topOf(el), bottom = top + el.offsetHeight;
+				return [
+					[Math.min(end, top - innerHeight * (narrow ? 0.6 : 0.5)), p],
+					[Math.min(end, bottom - innerHeight * (narrow ? 0.3 : 0.5)), p],
+				];
+			}),
 		].sort((a, b) => a[0] - b[0]);
+		// At the very bottom the download panel rises into the place the stone had above it. On a wide screen the stone
+		// steps aside into the margin beside the panel; where that margin is too narrow, it rises with the page.
+		const last = keys[keys.length - 1], getCopy = !narrow && $('#get .copy');
+		if (getCopy && last[1] === POSE.get && last[0] < end - 1) {
+			const margin = (w - getCopy.getBoundingClientRect().width) / 2;
+			const s = Math.min(last[1].s, (margin - 40) / ((2 * RING_R * unit * w) / (2 * half.w)));
+			keys.push([end, s >= 0.3 ? { ...last[1], x: 1 - margin / w, s } : { ...last[1], y: last[1].y + (2 * (end - last[0])) / innerHeight }]);
+		}
 		return unit;
 	}
 	let unit = measure();
@@ -474,6 +560,12 @@ async function buildStage() {
 		return keys[keys.length - 1][1];
 	}
 
+	// With reduced motion the stone never travels. It stands in the pose of the nearest place on the page; when that
+	// place puts it somewhere else, it fades out, takes the new pose unseen, and fades back in.
+	const nearest = () => keys.reduce((a, b) => (Math.abs(b[0] - scrollY) < Math.abs(a[0] - scrollY) ? b : a))[1];
+	const elsewhere = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.s - b.s) > 0.05;
+	let calmShow = 0;
+
 	const pose = { ...heroPose };
 	const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
 	if (fine) addEventListener('pointermove', (e) => { pointer.tx = (e.clientX / innerWidth) * 2 - 1; pointer.ty = (e.clientY / innerHeight) * 2 - 1; });
@@ -488,7 +580,13 @@ async function buildStage() {
 		// Before the curtain lifts the pieces wait far out; after, the opening plays (or is skipped, with reduced motion).
 		const t = calm ? 99 : openedAt === null ? -1 : time - openedAt;
 
-		const goal = calm ? heroPose : target();
+		let goal = calm ? nearest() : target();
+		if (calm) {
+			if (elsewhere(goal, pose)) {
+				calmShow = Math.max(0, calmShow - dt * 5);
+				if (calmShow > 0) goal = pose;
+			} else calmShow = Math.min(1, calmShow + dt * 5);
+		}
 		const k = calm ? 1 : 1 - Math.exp(-dt * 3.4);
 		for (const key2 of KEYS) pose[key2] += (goal[key2] - pose[key2]) * k;
 		pointer.x += (pointer.tx - pointer.x) * (1 - Math.exp(-dt * 3));
@@ -556,8 +654,7 @@ async function buildStage() {
 		dust.rotation.y = calm ? 0 : time * 0.015;
 		dust.material.opacity = 0.5 * dustIn;
 
-		// With reduced motion the stage keeps its first pose, and steps back once the reader scrolls on.
-		stage.style.opacity = calm ? String(1 - 0.75 * clamp(scrollY / innerHeight)) : '';
+		stage.style.opacity = calm ? String(calmShow) : '';
 		renderer.render(scene, camera);
 
 		// The page's glow follows the stone; the agents' names follow their pieces.
