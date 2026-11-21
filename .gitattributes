@@ -12,3 +12,5 @@ src/onyx-weights.js linguist-generated=true -diff
 /trailer/** export-ignore
 /intro export-ignore
 /intro/** export-ignore
+/tools/intro-scenes export-ignore
+/tools/intro-scenes/** export-ignore

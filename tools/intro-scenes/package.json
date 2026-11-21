@@ -1,0 +1,22 @@
+{
+	"name": "onyx-intro-scenes",
+	"private": true,
+	"type": "module",
+	"description": "Builds the intro page's four scenes into intro/scenes/. Run `npm install`, then `node build.mjs` (and `node prep-chrome.mjs` after changing the mark).",
+	"dependencies": {
+		"@paper-design/shaders": "0.0.82",
+		"@react-three/fiber": "9.4.0",
+		"@takram/three-atmosphere": "0.19.1",
+		"@takram/three-clouds": "0.7.6",
+		"@takram/three-geospatial": "0.9.1",
+		"@vgpu/wgsl": "0.6.0",
+		"postprocessing": "6.39.6",
+		"react": "19.2.0",
+		"react-dom": "19.2.0",
+		"three": "0.185.1",
+		"vgpu": "0.6.0"
+	},
+	"devDependencies": {
+		"esbuild": "0.25.10"
+	}
+}

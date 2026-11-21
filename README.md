@@ -45,7 +45,7 @@ the model sped up, and marked as sped up. Or [download it](trailer/onyx-agents-t
 
 <img src="brand/onyx-icon.svg" width="88" alt="The Onyx Agents mark: a pentagon-cut onyx seen from above, five facets round a lit table">
 
-Onyx Agents has its own page on the website, with the six agents and the setup steps around the Onyx cube in 3D:
+Onyx Agents has its own page on the website: the mark in liquid chrome, a flight down through the clouds over Austin, the agents as the five colours of a prism, real runs replayed, and a glass graphics card that shows what fits on yours:
 **[gkson-lab.github.io/onyx/intro](https://gkson-lab.github.io/onyx/intro/)**.
 
 Onyx Agents turns Onyx into a team of AI agents on your own PC. A message goes to **Onyx Core**, which answers it
@@ -850,7 +850,8 @@ test/, tools/          Onyx 3's tests, builders, trainers and code checkers
 licenses/              the license of each wordnet Onyx 3's dictionaries come from
 demo/                  an old address, kept so links to it still work
 trailer/               the Onyx Agents trailer and its page on the website (left out of the ZIP, and of updates)
-intro/                 Onyx Agents' page on the website, with three.js and Geist beside it (left out of the ZIP, and of updates)
+intro/                 Onyx Agents' page on the website, with three.js, Geist and its 3D scenes beside it (left out of the ZIP, and of updates)
+tools/intro-scenes/    builds the intro page's 3D scenes into intro/scenes/ (left out of the ZIP too)
 brand/                 the Onyx Agents mark, drawn by tools/brand.py, which also writes the app's icons and onyx.ico
 agents/                Onyx Agents
   Setup Onyx.bat         Windows: install, build, choose and download models, make a desktop shortcut

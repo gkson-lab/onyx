@@ -16,4 +16,4 @@ notification badge) and the Windows shortcuts' icon (`agents/onyx.ico`) are draw
 [`tools/brand.py`](../tools/brand.py). Change the mark there and run `python3 tools/brand.py` from the repository's
 top folder.
 
-The website's intro page (`intro/`) shows the mark in liquid chrome: `intro/mark.svg`, the one-colour mark, extruded by Canvas UI's Chrome Object (built into `intro/vendor/canvas-ui/` by [`tools/canvas-ui.mjs`](../tools/canvas-ui.mjs)).
+The website's intro page (`intro/`) shows the mark in liquid chrome: the solid mark (`onyx-mark-solid.svg`) run through Paper Shaders' liquid metal, built with the page's other scenes by [`tools/intro-scenes`](../tools/intro-scenes/README.md). Its edge map, `intro/scenes/mark-chrome.png`, is made from this folder's SVG by `prep-chrome.mjs` there, so remake it whenever the mark changes.

@@ -41,9 +41,9 @@ export const CARDS = [
 	{ name: 'No NVIDIA card', vramGb: 0, bandwidthGbs: null },
 ];
 
-const GPU_RESERVED_GB = 2.0;
+export const GPU_RESERVED_GB = 2.0;
 const KV_FACTOR = 0.5;
-const RAM_RESERVED_GB = 8;
+export const RAM_RESERVED_GB = 8;
 const OVERHEAD_GB = 0.6;
 const GPU_EFF = 0.75;
 const RAM_EFF = 0.6;

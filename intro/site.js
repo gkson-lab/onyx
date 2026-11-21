@@ -1,7 +1,8 @@
-// The page's moving parts: the stone gradients, the chrome mark, the run replay, the agent picker, the PC planner,
-// the app's screens and the section markers. Each part works on its own and leaves the page readable without it.
+// The page's moving parts: the stone gradients and the chrome mark, the sky over Austin, the prism and the agents,
+// the run replay, the PC planner and its graphics card, the app's screens and the section markers. Each part works
+// on its own and leaves the page readable without it. The 3D scenes load only as their sections come near.
 import { RUNS } from './runs.js';
-import { plan, CARDS, CATALOG } from './planner.js';
+import { plan, CARDS, CATALOG, GPU_RESERVED_GB, RAM_RESERVED_GB } from './planner.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -9,14 +10,33 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)');
 const fine = matchMedia('(pointer: fine)').matches;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const num = (n) => n.toLocaleString('en-US');
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+const smoothstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 const store = {
 	get(key) { try { return localStorage.getItem(`onyx-intro:${key}`); } catch { return null; } },
 	set(key, value) { try { localStorage.setItem(`onyx-intro:${key}`, value); } catch {} },
 };
 const TIER = { lite: 'Lite', standard: 'Standard', pro: 'Pro', max: 'Max' };
 const NAME = { core: 'Onyx Core', scheduler: 'Scheduler', memory: 'Memory', researcher: 'Researcher', coder: 'Coder', messenger: 'Messenger', router: 'Router' };
+// The specialists in the prism's order, red to violet, and each agent's colour (see site.css).
+const SPECIALISTS = ['Researcher', 'Coder', 'Scheduler', 'Messenger', 'Memory'];
+const COLOR = { 'Onyx Core': 'var(--c-core)', Researcher: 'var(--c-researcher)', Coder: 'var(--c-coder)', Scheduler: 'var(--c-scheduler)', Messenger: 'var(--c-messenger)', Memory: 'var(--c-memory)' };
+const MODEL_COLOR = '#ffb84d';
 
-/* ---------- Header: a rule once the page moves, and the section you are in ---------- */
+// WebGL 2, which the stone, the chrome, the sky and the graphics card need. Without it the stills stay.
+const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
+
+/** Runs `load` once, when `el` comes within `margin` of the screen. */
+function lazy(el, load, margin = '600px') {
+	const io = new IntersectionObserver((seen) => {
+		if (!seen.some((e) => e.isIntersecting)) return;
+		io.disconnect();
+		load();
+	}, { rootMargin: `${margin} 0px` });
+	io.observe(el);
+}
+
+/* ---------- Header: solid once the page moves, and the section you are in ---------- */
 const top = $('.top');
 const onScroll = () => top.classList.toggle('scrolled', scrollY > 8);
 addEventListener('scroll', onScroll, { passive: true });
@@ -50,6 +70,17 @@ if (menuBtn && nav) {
 	addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
 	document.addEventListener('pointerdown', (e) => { if (nav.classList.contains('open') && !nav.contains(e.target) && !menuBtn.contains(e.target)) setMenu(false); });
 	matchMedia('(min-width: 861px)').addEventListener('change', (m) => { if (m.matches) setMenu(false); });
+}
+
+/* ---------- Things rise into place as they come into view ---------- */
+if (!calm.matches) {
+	const io = new IntersectionObserver((seen) => {
+		for (const e of seen) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+	});
+	for (const el of $$('section .head, .glass, .team-grid, .rules, .console, .replay-notes, .pc-grid, .screens, .topic, .ledger, .faq, .get-grid')) {
+		el.classList.add('rise');
+		io.observe(el);
+	}
 }
 
 /* ---------- What bigger jobs would cost on paid services ---------- */
@@ -91,9 +122,7 @@ if (costBox) {
 	showJob('job');
 }
 
-/* ---------- The stone: gradients and the chrome mark ---------- */
-// Without WebGL 2 the still mark and the CSS stone stay, and no 3D is loaded.
-const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
+/* ---------- The stone: gradients behind the hero and the download ---------- */
 if (gl) import('./gradient.js').then(({ createGradient, PRESETS, STONES }) => {
 	// Background settings someone chose are kept in this browser.
 	let saved = null;
@@ -182,22 +211,183 @@ function tweaks(STONES, panels, saved) {
 	show();
 }
 
-const object = $('#object');
-if (object && gl) {
-	if (fine) object.classList.add('can-turn');
-	import('./vendor/canvas-ui/chrome-object.js').then(({ createChromeObject }) => {
-		const canvas = $('canvas', object);
-		const chrome = createChromeObject({ canvas }, {
-			src: new URL('mark.svg', import.meta.url).href,
-			roughness: 0.1, flow: 0.35, flowSpeed: 0.3, flowScale: 1.4, streaks: 0.2, dispersion: 0.25,
-			tint: '#f1e6d6', highlight: '#c2582f', environmentIntensity: 1.05, cursorInfluence: 1,
-			depth: 0.16, bevel: 0.45, scale: 2.7, floatIntensity: 0.6, rotationIntensity: 0.7, floatSpeed: 1.6,
-			orbit: fine, zoom: false, fov: 42, cameraDistance: 4,
-			onLoad: () => object.classList.add('ready'),
-		});
-		// On a touch screen the mark must not catch the swipe that scrolls the page.
-		if (chrome && !fine) canvas.style.touchAction = 'pan-y';
+/* ---------- The mark in liquid chrome (Paper Shaders), its light following the pointer ---------- */
+const chromeFig = $('[data-chrome]');
+if (chromeFig && gl) {
+	import('./scenes/chrome.js').then(async ({ mountChrome, CHROME }) => {
+		const chrome = await mountChrome($('.metal', chromeFig), new URL('scenes/mark-chrome.png', import.meta.url).href, { scale: 0.98 });
+		if (!chrome) return;
+		chromeFig.classList.add('ready');
+		if (!fine || calm.matches) return;
+		chromeFig.classList.add('steer');
+		let goal = CHROME.angle, angle = CHROME.angle, raf = 0;
+		const ease = () => {
+			raf = 0;
+			angle += (goal - angle) * 0.1;
+			chrome.set({ angle });
+			if (Math.abs(goal - angle) > 0.05) raf = requestAnimationFrame(ease);
+		};
+		addEventListener('pointermove', (e) => {
+			if (scrollY > innerHeight) return;
+			goal = CHROME.angle + (e.clientX / innerWidth - 0.5) * 70 + (e.clientY / innerHeight - 0.5) * 30;
+			if (!raf) raf = requestAnimationFrame(ease);
+		}, { passive: true });
 	}).catch(() => {});
+}
+
+/* ---------- Not in the cloud: the sky over Austin, flown down through as the page scrolls ---------- */
+const sky = $('[data-sky]');
+if (sky && gl) {
+	// 0 as the section starts, 1 as it ends; the descent happens between the first and second beats.
+	const progress = () => {
+		const r = sky.getBoundingClientRect();
+		return clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1);
+	};
+	const descent = () => smoothstep(0.1, 0.62, progress());
+	lazy(sky, () => import('./scenes/sky.js').then(async ({ mountSky, daylightAt, sunHeightAt }) => {
+		const hud = $('[data-sky-hud]', sky);
+		const timeEl = $('[data-sky-time]', sky), sunEl = $('[data-sky-sun]', sky), note = $('[data-sky-note]', sky);
+		const slider = $('[data-sky-slider]', sky), nowBtn = $('[data-sky-now]', sky);
+		const clockFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: '2-digit' });
+		const zone = (d) => new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', timeZoneName: 'short' }).formatToParts(d).find((p) => p.type === 'timeZoneName')?.value ?? '';
+		// Today in Austin, sunrise to sunset. In daylight the sky is live; at night it shows this evening's sunset.
+		let day = daylightAt(new Date());
+		const isDay = (d) => d >= day.rise && d <= day.set;
+		let following = isDay(new Date());
+		let date = following ? new Date() : new Date(day.set.getTime() - 25 * 60e3);
+		const scene = await mountSky($('canvas', sky), { noise: new URL('scenes/noise.bin', import.meta.url).href, date, onReady: () => sky.classList.add('live') });
+		if (!scene) return;
+		scene.setProgress(descent());
+		const show = () => {
+			const h = Math.round(sunHeightAt(date));
+			timeEl.textContent = `${clockFmt.format(date)} ${zone(date)}`;
+			sunEl.textContent = h >= 0 ? `sun ${h}° up` : `sun ${-h}° down`;
+			slider.value = String(Math.round(((date - day.rise) / (day.set - day.rise)) * 1000));
+			slider.setAttribute('aria-valuetext', `${clockFmt.format(date)} in Austin, sun ${Math.abs(h)} degrees ${h >= 0 ? 'up' : 'down'}`);
+			nowBtn.hidden = following || !isDay(new Date());
+			note.textContent = following ? 'The sun is where it really is right now. The clouds are made up.'
+				: isDay(new Date()) ? 'The sun is where it would be at that time today. The clouds are made up.'
+					: "It's dark in Austin right now, so here's today's sunset. The clouds are made up.";
+		};
+		slider.addEventListener('input', () => {
+			following = false;
+			date = new Date(day.rise.getTime() + (day.set - day.rise) * (Number(slider.value) / 1000));
+			scene.setDate(date);
+			show();
+		});
+		nowBtn.addEventListener('click', () => {
+			following = true;
+			date = new Date();
+			scene.setDate(date);
+			show();
+		});
+		// Live: the sun moves on every minute.
+		setInterval(() => {
+			if (!following) return;
+			const now = new Date();
+			if (!isDay(now)) { day = daylightAt(now); following = false; date = new Date(day.set.getTime() - 25 * 60e3); }
+			else date = now;
+			scene.setDate(date);
+			show();
+		}, 60e3);
+		let raf = 0;
+		addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; scene.setProgress(descent()); }); }, { passive: true });
+		hud.hidden = false;
+		show();
+	}).catch(() => {}), '100%');
+}
+
+/* ---------- The team: one message in, five specialists out ---------- */
+const AGENTS = {
+	'Onyx Core': { tier: null, role: 'The lead. It reads every message and writes the reply you get.', desc: "Quick questions it answers itself. Bigger ones it plans out, hands to the specialists, and stitches their work into one answer. If a job only needs one specialist, it goes straight there to save time.", tools: [['delegate', 'Hands jobs to other agents, several at once.'], ['memory_search', 'Checks what Memory knows about you.'], ['calculate', "Exact math, units and dates, borrowed from Onyx 3's calculator."]], limits: [8, 60000, '10 min'] },
+	Researcher: { tier: 'pro', role: 'Searches the web, reads pages, and tells you where it found things.', desc: "It uses Brave Search if you add a key, or DuckDuckGo if you don't. It won't open pages on your PC or your home network, and whatever it reads is treated as untrusted text, never as instructions.", tools: [['web_search', 'Searches the web.'], ['web_fetch', 'Reads a page.']], limits: [10, 60000, '5 min'] },
+	Coder: { tier: 'pro', role: 'Writes Python or JavaScript, runs it, and tells you what actually came out.', desc: "The code runs in a locked-down Docker box: no internet, a read-only disk, none of your files, 256 MB of memory, one CPU and 30 seconds. If Docker isn't running, it tells you the code didn't run instead of guessing.", tools: [['run_code', 'Runs code in that box and returns the output.']], limits: [10, 60000, '5 min'] },
+	Scheduler: { tier: 'standard', role: 'Sets reminders, one-time or repeating, in your time zone.', desc: "Ask it what's coming up, or have it cancel something. When a reminder is due, it goes out on whichever channel you prefer.", tools: [['schedule_create', 'Sets a reminder.'], ['schedule_list', "Lists what's coming up."], ['schedule_cancel', 'Cancels one.']], limits: [5, 20000, '2 min'] },
+	Messenger: { tier: 'lite', role: "Shapes a reply to fit where it's going, whether that's the app or a text message.", desc: '', tools: [['format_message', 'Formats a reply for its channel.']], limits: [3, 8000, '1 min'] },
+	Memory: { tier: 'lite', role: 'Remembers what you tell it, and finds it again when it matters.', desc: "It searches by meaning with a small embedding model, or by keywords if that model isn't around. Everything it remembers is listed in Settings, and you can delete anything with one click.", tools: [['memory_save', 'Saves a fact.'], ['memory_search', 'Finds facts that help with a message.']], limits: [4, 12000, '1 min'] },
+};
+let current = null; // { plan, card, ramGb }, from the planner below
+const listeners = [];
+const team = $('[data-team]');
+if (team) {
+	const stage = $('[data-prism]', team);
+	const card = $('[data-agent-card]', team);
+	const radios = $$('[role="radio"]', team);
+	const beamOf = (name) => SPECIALISTS.indexOf(name); // -1 for Onyx Core: no beam lit above the others
+	let chosen = 'Onyx Core', prism = null;
+	const show = (name, focus) => {
+		chosen = name;
+		const a = AGENTS[name];
+		for (const r of radios) {
+			const on = r.dataset.agent === name;
+			r.setAttribute('aria-checked', String(on));
+			r.tabIndex = on ? 0 : -1;
+			if (on && focus) r.focus();
+		}
+		prism?.setFocus(beamOf(name));
+		card.style.setProperty('--c', COLOR[name]);
+		const tierChip = a.tier ? `<span class="chip">${TIER[a.tier]} tier</span>` : '<span class="chip">tier picked per message</span>';
+		let here = '';
+		if (current) {
+			const where = current.card.vramGb ? `With an ${current.card.name}` : 'Without a graphics card';
+			if (a.tier) {
+				const id = current.plan.tiers[a.tier];
+				const f = current.plan.fits.find((x) => x.id === id);
+				here = `${where}, this agent would run <b>${id}</b> at about ${f.tokensPerSec} tokens a second. <a href="#pc">Try a different PC</a>`;
+			} else here = `${where}, Onyx Core switches between Lite (<b>${current.plan.tiers.lite}</b>), Standard (<b>${current.plan.tiers.standard}</b>), Pro (<b>${current.plan.tiers.pro}</b>) and Max (<b>${current.plan.tiers.max}</b>), depending on the message. <a href="#pc">Try a different PC</a>`;
+		}
+		card.innerHTML = `<div class="row"><h3>${name}</h3>${tierChip}</div>
+			<p class="role">${a.role}</p>${a.desc ? `<p class="desc">${a.desc}</p>` : ''}
+			<h4>Tools</h4><ul class="tools">${a.tools.map(([t, d]) => `<li><code>${t}</code><span>${d}</span></li>`).join('')}</ul>
+			<h4>Limits</h4><div class="limits"><div><b>${a.limits[0]}</b><span>steps</span></div><div><b>${num(a.limits[1])}</b><span>tokens</span></div><div><b>${a.limits[2]}</b><span>max time</span></div></div>
+			${here ? `<p class="here">${here}</p>` : ''}`;
+	};
+	radios.forEach((r, i) => {
+		r.addEventListener('click', () => show(r.dataset.agent));
+		r.addEventListener('keydown', (e) => {
+			const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+			if (!step) return;
+			e.preventDefault();
+			show(radios[(i + step + radios.length) % radios.length].dataset.agent, true);
+		});
+		// Pointing at an agent lights its beam; moving away goes back to the one chosen.
+		r.addEventListener('pointerenter', () => prism?.setFocus(beamOf(r.dataset.agent)));
+		r.addEventListener('pointerleave', () => prism?.setFocus(beamOf(chosen)));
+	});
+	listeners.push(() => show(chosen));
+	show(chosen);
+
+	// Each agent's label sits at the end of its beam, Onyx Core's on the prism, from the scene's own layout.
+	const you = $('.you-label', stage);
+	const place = (g) => {
+		const W = stage.clientWidth, H = stage.clientHeight;
+		SPECIALISTS.forEach((name, i) => {
+			const b = radios.find((r) => r.dataset.agent === name);
+			const [x, y] = g.labels[i];
+			const w = b.offsetWidth, h = b.offsetHeight;
+			const left = g.tall ? clamp(x - w / 2, 8, W - w - 8) : x - w - 12;
+			b.style.transform = `translate(${Math.round(left)}px, ${Math.round(clamp(y - h / 2, 8, H - h - 8))}px)`;
+		});
+		const core = radios.find((r) => r.dataset.agent === 'Onyx Core');
+		const cx = (g.a[0] + g.b[0] + g.c[0]) / 3, cy = (g.a[1] + g.b[1] + g.c[1]) / 3;
+		core.style.transform = `translate(${Math.round(cx - core.offsetWidth / 2)}px, ${Math.round(cy - core.offsetHeight / 2)}px)`;
+		you.style.transform = g.tall ? `translate(${Math.round(g.src[0] + 12)}px, 0)` : `translate(0, ${Math.round(g.src[1] - 2)}px)`;
+	};
+	lazy(stage, () => import('./scenes/prism.js').then(async ({ mountPrism }) => {
+		stage.classList.add('placed');
+		prism = await mountPrism($('canvas', stage), { onLayout: place });
+		if (!prism) { stage.classList.remove('placed'); for (const r of radios) r.style.transform = ''; you.style.transform = ''; return; }
+		stage.classList.add('live');
+		prism.setFocus(beamOf(chosen));
+		// The incoming beam swings a little with the pointer.
+		if (!calm.matches) {
+			stage.addEventListener('pointermove', (e) => {
+				const r = stage.getBoundingClientRect();
+				prism.setTilt(((e.clientY - r.top) / r.height - 0.5) * 1.6);
+			});
+			stage.addEventListener('pointerleave', () => prism.setTilt(0));
+		}
+	}).catch(() => {}));
 }
 
 /* ---------- Replay ---------- */
@@ -371,7 +561,7 @@ if (replay) {
 			const l = lines[shown++];
 			const li = document.createElement('li');
 			li.className = l.cls || '';
-			li.innerHTML = `<span class="t">${clock(l.at)}</span><span class="a">${esc(l.who)}</span><span class="x"></span>`;
+			li.innerHTML = `<span class="t">${clock(l.at)}</span><span class="a" data-who="${esc(l.who)}">${esc(l.who)}</span><span class="x"></span>`;
 			l.li = li;
 			log.append(li);
 		}
@@ -409,7 +599,7 @@ if (replay) {
 			$('.sum', card).innerHTML = f < 1 ? '' : `<span><b>${run.agents.length === 1 ? 'Just Core' : `${run.agents.length} agents`}</b></span><span><b>${num(run.tokens)}</b> tokens</span><span><b>${took(run.seconds)}</b> on a 4-core processor</span><span><b>$0</b> on the PC</span>`;
 		} else card?.remove();
 		if (stick) log.scrollTop = log.scrollHeight;
-		// The pieces of the mark: lit while their agent works, dimmer once it has.
+		// The pieces of the mark: lit in their agent's colour while it works, dimmer once it has.
 		for (const path of facets) {
 			const mine = spans.filter((s) => s.agent === path.dataset.agent);
 			path.classList.toggle('on', mine.some((s) => p >= s.from && p < s.to));
@@ -438,13 +628,23 @@ if (replay) {
 	} else stop();
 }
 
-/* ---------- The PC planner ---------- */
+/* ---------- The PC planner, and the memory it fills ---------- */
 const JOBS = { lite: 'Picks the tier, handles quick replies', standard: 'Everyday chat and most agent work', pro: 'Code, tools and multi-step jobs', max: 'The really hard stuff; thinks first' };
-let current = null; // { plan, card }
-const listeners = [];
+const gb = (v) => `${(Math.round(v * 10) / 10).toLocaleString('en-US')} GB`;
+let chosenTier = Object.hasOwn(TIER, store.get('tier') ?? '') ? store.get('tier') : 'standard';
+/** What the chosen tier's model needs, and where it goes, for the graphics card scene and the memory bars. */
+function specFor(c = current, tier = chosenTier) {
+	const id = c.plan.tiers[tier];
+	const f = c.plan.fits.find((x) => x.id === id);
+	const onCard = c.card.vramGb ? Math.min(f.needGb * f.gpuShare, Math.max(0, c.card.vramGb - GPU_RESERVED_GB)) : 0;
+	const inRam = Math.min(f.needGb - onCard, Math.max(0, c.ramGb - RAM_RESERVED_GB));
+	return { id, tier, vramGb: c.card.vramGb, ramGb: c.ramGb, needGb: f.needGb, gpuShare: f.gpuShare, tokensPerSec: f.tokensPerSec, color: MODEL_COLOR, onCard, inRam };
+}
 const planner = $('[data-planner]');
+const membars = $('[data-membars]');
 if (planner) {
 	const select = $('[data-card]', planner);
+	const tiersEl = $('[data-tiers]', planner);
 	const groups = [['RTX 50', /^RTX 50/], ['RTX 40', /^RTX 40/], ['RTX 30', /^RTX 30/], ['Other', /^No/]];
 	for (const [label, re] of groups) {
 		const g = document.createElement('optgroup');
@@ -461,22 +661,62 @@ if (planner) {
 	const ram = store.get('ram');
 	if (['16', '32', '64'].includes(ram)) $(`input[value="${ram}"]`, planner).checked = true;
 
+	// The two strips of memory, in words and bars: always there, with or without the 3D card.
+	const drawBars = () => {
+		if (!membars || !current) return;
+		const s = specFor();
+		const bar = (title, total, cells, reserved, reservedFor, used) => `<div class="membar">
+			<div class="row"><b>${title}</b><span>${gb(total)}</span></div>
+			<div class="track" style="--cells: ${cells}"><i class="reserve" style="--w: ${(reserved / total).toFixed(4)}"></i><i class="model" style="--w: ${(used / total).toFixed(4)}"></i></div>
+			<p class="key"><span style="--k: var(--reserve)">${gb(reserved)} for ${reservedFor}</span>${used > 0 ? `<span style="--k: var(--model)">${gb(used)} of ${esc(s.id)}</span>` : ''}<span style="--k: var(--bg-4)">${gb(Math.max(0, total - reserved - used))} free</span></p>
+		</div>`;
+		const cardBar = s.vramGb
+			? bar(`Graphics card memory`, s.vramGb, s.vramGb % 2 ? s.vramGb : s.vramGb / 2, GPU_RESERVED_GB, 'Windows and the display', s.onCard)
+			: `<div class="membar"><div class="row"><b>Graphics card memory</b><span>none</span></div><p class="key">No graphics card, so the whole model sits in system memory and the processor runs it.</p></div>`;
+		membars.innerHTML = cardBar + bar('System memory (RAM)', s.ramGb, 16, RAM_RESERVED_GB, 'Windows and your other apps', s.inRam);
+	};
+	const drawTiers = (focus) => {
+		for (const li of $$('li[data-tier]', tiersEl)) {
+			const on = li.dataset.tier === chosenTier;
+			li.setAttribute('aria-checked', String(on));
+			li.tabIndex = on ? 0 : -1;
+			if (on && focus) li.focus();
+		}
+	};
+	const chooseTier = (tier, focus) => {
+		chosenTier = tier;
+		store.set('tier', tier);
+		drawTiers(focus);
+		drawBars();
+		for (const fn of listeners) fn();
+	};
+	tiersEl.addEventListener('click', (e) => { const li = e.target.closest('li[data-tier]'); if (li) chooseTier(li.dataset.tier); });
+	tiersEl.addEventListener('keydown', (e) => {
+		const li = e.target.closest('li[data-tier]');
+		if (!li) return;
+		if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); chooseTier(li.dataset.tier); return; }
+		const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+		if (!step) return;
+		e.preventDefault();
+		const list = $$('li[data-tier]', tiersEl);
+		chooseTier(list[(list.indexOf(li) + step + list.length) % list.length].dataset.tier, true);
+	});
+
 	const update = () => {
 		const card = CARDS.find((c) => c.name === select.value);
 		const ramGb = Number($('input[name="ram"]:checked', planner).value);
 		const p = plan({ gpu: card.vramGb ? { vramGb: card.vramGb, bandwidthGbs: card.bandwidthGbs } : null, ramGb, ramMts: null });
 		store.set('card', card.name);
 		store.set('ram', String(ramGb));
-		const rows = Object.entries(p.tiers).map(([tier, id]) => {
+		tiersEl.innerHTML = Object.entries(p.tiers).map(([tier, id]) => {
 			const f = p.fits.find((x) => x.id === id);
 			const m = CATALOG.find((x) => x.id === id);
 			const where = f.where === 'gpu' ? 'entirely on the graphics card' : f.where === 'split' ? `${Math.round(f.gpuShare * 100)}% on the card, the rest in system memory` : 'on the processor';
 			const v = Math.min(1, Math.sqrt((f.tokensPerSec ?? 0) / 300));
-			return `<li><div class="tn"><b>${TIER[tier]}</b><span>${JOBS[tier]}</span></div>
-				<div class="model"><code>${id}</code><span>${m.maker}, ${m.params}</span></div>
+			return `<li role="radio" aria-checked="false" tabindex="-1" data-tier="${tier}"><div class="tn"><b>${TIER[tier]}</b><span>${JOBS[tier]}</span></div>
+				<div class="model"><code>${id}</code><span>${m.maker}, ${m.params}, ${gb(f.needGb)}</span></div>
 				<div class="speed"><div class="track"><i class="${f.where}" style="--v: ${v.toFixed(3)}"></i></div><p>about <b>${f.tokensPerSec}</b> tokens a second, ${where}</p></div></li>`;
-		});
-		$('[data-tiers]', planner).innerHTML = rows.join('');
+		}).join('');
 		$('[data-download]', planner).textContent = `about ${Math.round(p.downloadGb)} GB`;
 		$('[data-context]', planner).textContent = num(p.context);
 		const std = p.fits.find((x) => x.id === p.tiers.standard).tokensPerSec;
@@ -488,67 +728,39 @@ if (planner) {
 		notes.push(p.vision ? 'Gemma 3 12B fits too, so Onyx can read images you attach.' : "Gemma 3 12B, the model that reads images, won't fit.");
 		notes.push('Memory speed is assumed to be DDR5-5600.');
 		$('[data-plan-note]', planner).textContent = notes.join(' ');
-		current = { plan: p, card };
+		current = { plan: p, card, ramGb };
+		drawTiers(false);
+		drawBars();
 		for (const fn of listeners) fn();
 	};
 	planner.addEventListener('change', update);
 	update();
 }
 
-/* ---------- The agents ---------- */
-const AGENTS = {
-	'Onyx Core': { tier: null, role: 'The lead. It reads every message and writes the reply you get.', desc: "Quick questions it answers itself. Bigger ones it plans out, hands to the specialists, and stitches their work into one answer. If a job only needs one specialist, it goes straight there to save time.", tools: [['delegate', 'Hands jobs to other agents, several at once.'], ['memory_search', 'Checks what Memory knows about you.'], ['calculate', "Exact math, units and dates, borrowed from Onyx 3's calculator."]], limits: [8, 60000, '10 min'] },
-	Researcher: { tier: 'pro', role: 'Searches the web, reads pages, and tells you where it found things.', desc: "It uses Brave Search if you add a key, or DuckDuckGo if you don't. It won't open pages on your PC or your home network, and whatever it reads is treated as untrusted text, never as instructions.", tools: [['web_search', 'Searches the web.'], ['web_fetch', 'Reads a page.']], limits: [10, 60000, '5 min'] },
-	Coder: { tier: 'pro', role: 'Writes Python or JavaScript, runs it, and tells you what actually came out.', desc: "The code runs in a locked-down Docker box: no internet, a read-only disk, none of your files, 256 MB of memory, one CPU and 30 seconds. If Docker isn't running, it tells you the code didn't run instead of guessing.", tools: [['run_code', 'Runs code in that box and returns the output.']], limits: [10, 60000, '5 min'] },
-	Scheduler: { tier: 'standard', role: 'Sets reminders, one-time or repeating, in your time zone.', desc: "Ask it what's coming up, or have it cancel something. When a reminder is due, it goes out on whichever channel you prefer.", tools: [['schedule_create', 'Sets a reminder.'], ['schedule_list', "Lists what's coming up."], ['schedule_cancel', 'Cancels one.']], limits: [5, 20000, '2 min'] },
-	Messenger: { tier: 'lite', role: "Shapes a reply to fit where it's going, whether that's the app or a text message.", desc: '', tools: [['format_message', 'Formats a reply for its channel.']], limits: [3, 8000, '1 min'] },
-	Memory: { tier: 'lite', role: 'Remembers what you tell it, and finds it again when it matters.', desc: "It searches by meaning with a small embedding model, or by keywords if that model isn't around. Everything it remembers is listed in Settings, and you can delete anything with one click.", tools: [['memory_save', 'Saves a fact.'], ['memory_search', 'Finds facts that help with a message.']], limits: [4, 12000, '1 min'] },
-};
-const pick = $('[data-agent-pick]');
-const card = $('[data-agent-card]');
-if (pick && card) {
-	const radios = $$('[role="radio"]', pick);
-	const paths = $$('path', pick);
-	let chosen = 'Onyx Core';
-	const show = (name, focus) => {
-		chosen = name;
-		const a = AGENTS[name];
-		for (const r of radios) {
-			const on = r.dataset.agent === name;
-			r.setAttribute('aria-checked', String(on));
-			r.tabIndex = on ? 0 : -1;
-			if (on && focus) r.focus();
-		}
-		for (const p of paths) p.classList.toggle('sel', p.dataset.agent === name);
-		const tierChip = a.tier ? `<span class="chip">${TIER[a.tier]} tier</span>` : '<span class="chip">tier picked per message</span>';
-		let here = '';
-		if (current) {
-			const where = current.card.vramGb ? `With an ${current.card.name}` : 'Without a graphics card';
-			if (a.tier) {
-				const id = current.plan.tiers[a.tier];
-				const f = current.plan.fits.find((x) => x.id === id);
-				here = `${where}, this agent would run <b>${id}</b> at about ${f.tokensPerSec} tokens a second. <a href="#pc">Try a different PC</a>`;
-			} else here = `${where}, Onyx Core switches between Lite (<b>${current.plan.tiers.lite}</b>), Standard (<b>${current.plan.tiers.standard}</b>), Pro (<b>${current.plan.tiers.pro}</b>) and Max (<b>${current.plan.tiers.max}</b>), depending on the message. <a href="#pc">Try a different PC</a>`;
-		}
-		card.innerHTML = `<div class="row"><h3>${name}</h3>${tierChip}</div>
-			<p class="role">${a.role}</p>${a.desc ? `<p class="desc">${a.desc}</p>` : ''}
-			<h4>Tools</h4><ul class="tools">${a.tools.map(([t, d]) => `<li><code>${t}</code><span>${d}</span></li>`).join('')}</ul>
-			<h4>Limits</h4><div class="limits"><div><b>${a.limits[0]}</b><span>steps</span></div><div><b>${num(a.limits[1])}</b><span>tokens</span></div><div><b>${a.limits[2]}</b><span>max time</span></div></div>
-			${here ? `<p class="here">${here}</p>` : ''}`;
-	};
-	radios.forEach((r, i) => {
-		r.addEventListener('click', () => show(r.dataset.agent));
-		r.addEventListener('keydown', (e) => {
-			const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-			if (!step) return;
-			e.preventDefault();
-			show(radios[(i + step + radios.length) % radios.length].dataset.agent, true);
+// The glass graphics card (React Three Fiber): its chips light up with the chosen tier's model.
+const rig = $('[data-rig]');
+if (rig && gl && current) {
+	lazy(rig, () => import('./scenes/vram.js').then(async ({ mountVram }) => {
+		const labels = { card: $('[data-rig-label="card"]', rig), ram: $('[data-rig-label="ram"]', rig) };
+		const label = () => {
+			labels.card.textContent = current.card.vramGb ? `Graphics card, ${current.card.vramGb} GB` : 'No graphics card';
+			labels.ram.textContent = `System memory, ${current.ramGb} GB`;
+		};
+		const scene = await mountVram($('canvas', rig), {
+			spec: specFor(),
+			onFrame(a) {
+				if (!a) return;
+				labels.card.style.transform = `translate(${Math.round(a.card[0])}px, ${Math.round(a.card[1])}px)`;
+				labels.ram.style.transform = `translate(${Math.round(a.ram[0])}px, ${Math.round(a.ram[1] - 30)}px)`;
+			},
 		});
-	});
-	for (const p of paths) p.addEventListener('click', () => show(p.dataset.agent));
-	listeners.push(() => show(chosen));
-	show(chosen);
-}
+		if (!scene) { rig.classList.add('no-gl'); return; }
+		label();
+		labels.card.classList.add('on');
+		labels.ram.classList.add('on');
+		listeners.push(() => { label(); scene.show(specFor()); });
+	}).catch(() => rig.classList.add('no-gl')));
+} else if (rig) rig.classList.add('no-gl');
 
 /* ---------- The app's screens ---------- */
 const zoom = $('[data-zoom]');

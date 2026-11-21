@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<title>Onyx Agents</title>
-	<meta name="description" content="Onyx Agents is a free Windows app that runs a team of six AI agents on your own PC. Watch real runs, meet the agents, and see what your graphics card can handle.">
+	<meta name="description" content="Onyx Agents is a free Windows app that runs a team of six AI agents on your own PC. Fly down through the clouds, meet the agents, watch real runs, and see what your graphics card can hold.">
 	<meta property="og:title" content="Onyx Agents">
 	<meta property="og:description" content="A team of AI agents that lives on your PC. Free and open source.">
 	<meta property="og:type" content="website">
@@ -13,13 +13,14 @@
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="theme-color" content="#efe9df" media="(prefers-color-scheme: light)">
-	<meta name="theme-color" content="#12100e" media="(prefers-color-scheme: dark)">
+	<meta name="theme-color" content="#0b0a09">
 	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22.5' fill='%230b0b0b'/%3E%3Cg transform='translate%2818 18%29 scale%280.64%29'%3E%3Cpath d='M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z' fill='%23e2e2e2'/%3E%3Cpath d='M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z' fill='%23727272'/%3E%3Cpath d='M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z' fill='%233d3d3d'/%3E%3Cpath d='M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z' fill='%232b2b2b'/%3E%3Cpath d='M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z' fill='%239b9b9b'/%3E%3Cpath d='M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z' fill='%23f6f6f6'/%3E%3C/g%3E%3C/svg%3E">
 	<link rel="preload" href="fonts/Fraunces.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="stylesheet" href="site.css">
+	<noscript><style>.rig { display: none; }</style></noscript>
 	<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
 	<link rel="modulepreload" href="vendor/three.module.min.js">
+	<link rel="modulepreload" href="scenes/chrome.js">
 	<script type="module" src="site.js"></script>
 </head>
 <body>
@@ -31,13 +32,14 @@
 				Onyx Agents
 			</a>
 			<nav id="site-nav" aria-label="Sections">
+				<a href="#sky">Not in the cloud</a>
+				<a href="#agents">The team</a>
 				<a href="#try">Watch it work</a>
-				<a href="#agents">The agents</a>
 				<a href="#pc">Your PC</a>
 				<a href="#app">The app</a>
 				<a href="#faq">FAQ</a>
 			</nav>
-			<a class="btn btn-solid" href="#get">Download</a>
+			<a class="btn btn-chrome" href="#get">Download</a>
 			<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 		</div>
 	</header>
@@ -47,32 +49,143 @@
 			<div class="slab">
 				<canvas class="gradient" data-gradient="onyx" aria-hidden="true"></canvas>
 				<button class="tweak" type="button" aria-label="Change the background" aria-expanded="false" aria-controls="tweaks" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h8M16 6h1M3 14h1M9 14h8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="13.5" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6.5" cy="14" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
-				<div class="hero-grid">
+				<div class="hero-grid wrap">
 					<div class="hero-copy">
+						<p class="kicker">Onyx Agents · free for Windows</p>
 						<h1>An AI team that lives on your PC</h1>
-						<p class="lede">Ask Onyx anything. Its lead agent, <b>Onyx Core</b>, either answers right away or splits the job among five specialists, then gives you one reply. It all runs on open models (Qwen3 and OpenAI's gpt-oss) on your own graphics card. Your chats stay on your machine, and nothing costs a cent: a coding job that burns through 2,000,000 tokens is as free as saying hi.</p>
+						<p class="lede">Ask it anything. <b>Onyx Core</b>, the lead agent, answers on its own or splits the job among five specialists, and you get one reply back. It all runs on open models on your own graphics card, so your chats stay home, and even a 2,000,000-token coding job costs nothing.</p>
 						<div class="ctas">
-							<a class="btn btn-solid" href="https://github.com/gkson-lab/onyx/archive/refs/heads/main.zip">Download for Windows <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v9m0 0L4.5 7.5M8 11l3.5-3.5M3 14h10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-							<a class="btn btn-line" href="#try">See it in action</a>
+							<a class="btn btn-chrome" href="https://github.com/gkson-lab/onyx/archive/refs/heads/main.zip">Download for Windows <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v9m0 0L4.5 7.5M8 11l3.5-3.5M3 14h10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+							<a class="btn btn-line" href="#sky">See how it works</a>
 						</div>
 						<p class="meta">Free and open source · For Windows · Best with a graphics card · Setup takes care of the rest</p>
 					</div>
-					<figure class="object" id="object">
-						<canvas aria-label="The Onyx Agents logo in liquid chrome. Drag to spin it." role="img"></canvas>
-						<img class="still" src="mark.svg" alt="" width="100" height="100">
-						<figcaption>Drag to spin it</figcaption>
+					<figure class="mark-chrome" data-chrome>
+						<div class="metal"></div>
+						<img class="still" src="mark.svg" alt="The Onyx Agents logo: a pentagon at the center of five facets." width="100" height="100">
+						<figcaption>Move your pointer to catch the light</figcaption>
 					</figure>
 				</div>
+				<a class="scroll-cue" href="#sky" aria-label="Scroll down to the clouds"><span></span></a>
 			</div>
 		</div>
+
+		<section class="sky" id="sky" aria-labelledby="sky-title" data-sky>
+			<div class="sky-stage">
+				<img class="sky-poster" src="scenes/sky-poster.jpg" width="1280" height="720" alt="" decoding="async">
+				<canvas class="sky-canvas" aria-hidden="true"></canvas>
+				<div class="sky-shade" aria-hidden="true"></div>
+				<div class="sky-hud" data-sky-hud hidden>
+					<p class="hud-place">Over Austin, Texas, where Onyx is made <span>30.27° N, 97.74° W</span></p>
+					<div class="hud-row">
+						<p class="hud-time"><b data-sky-time>–</b> <span data-sky-sun></span></p>
+						<button class="hud-now" type="button" data-sky-now hidden>Back to now</button>
+					</div>
+					<label class="hud-slider"><span>Move the sun</span><input type="range" min="0" max="1000" step="1" data-sky-slider aria-valuetext=""></label>
+					<p class="hud-note" data-sky-note>The sun is where it really is. The clouds are made up.</p>
+				</div>
+			</div>
+			<div class="sky-beats">
+				<div class="beat">
+					<div class="glass">
+						<p class="kicker">Not in the cloud</p>
+						<h2 id="sky-title">Most AI lives up here.</h2>
+						<p>Ask a typical AI service something, and your words travel to a data center, get read on somebody else's computers, and are billed by the token. That's fine for a quick question. An agent working through a codebase reads millions of tokens, and the meter runs the whole time.</p>
+					</div>
+				</div>
+				<div class="beat">
+					<div class="glass">
+						<p class="kicker">Down here</p>
+						<h2>Onyx lives on your PC.</h2>
+						<p>It runs open models, Qwen3 and OpenAI's gpt-oss, on your own graphics card. Your chats, files and memories stay on the machine. It keeps working when the internet doesn't. And with no meter, the agents can take as many steps as a job really needs.</p>
+					</div>
+				</div>
+				<div class="beat" id="usage">
+					<div class="glass wide">
+						<p class="kicker">The bill</p>
+						<h2>Metered up there. $0 down here.</h2>
+						<div class="cost" data-cost>
+							<div class="cost-pick" role="radiogroup" aria-label="Example jobs">
+								<button type="button" role="radio" aria-checked="true" data-job="job">One big coding job</button>
+								<button type="button" role="radio" aria-checked="false" tabindex="-1" data-job="month">A month of them</button>
+								<button type="button" role="radio" aria-checked="false" tabindex="-1" data-job="year">A year of them</button>
+							</div>
+							<p class="cost-what" data-cost-what>About <b>2,000,000 tokens</b>: roughly 1.8 million read and 200,000 written, over a few dozen agent runs.</p>
+							<ul class="cost-rows" data-cost-rows aria-live="polite">
+								<li class="you"><span>Onyx, on your PC</span><i style="--w: 0"></i><b>$0</b></li>
+								<li><span>Claude Sonnet 5.5</span><i style="--w: 0.25"></i><b>$5.60</b></li>
+								<li><span>Claude Opus 5.5</span><i style="--w: 0.5"></i><b>$11.20</b></li>
+								<li><span>GPT-6.2 Astra</span><i style="--w: 1"></i><b>$22.40</b></li>
+							</ul>
+						</div>
+						<p class="note">These use the per-token prices built into the app: Anthropic's published rates as of November 2026, and OpenAI's as best we could tell (their own pages disagreed, so check them). The cloud models are bigger and better at the hardest problems, so it isn't a like-for-like race. The point is that tokens on your PC are free, so a long job never runs up a bill. The app's Usage screen keeps this tally for you as you go.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="agents" class="team" aria-labelledby="agents-title">
+			<div class="wrap">
+				<div class="head">
+					<div>
+						<p class="kicker">The team</p>
+						<h2 id="agents-title">One message in. Five specialists out.</h2>
+					</div>
+					<p>Every message goes to Onyx Core first. Quick questions it answers itself. Bigger ones it splits up the way a prism splits light, handing each part to the specialist for it, several at once when it can, then pulls their work back into one reply. Pick a colour to meet that agent.</p>
+				</div>
+				<div class="team-grid" data-team>
+					<div class="prism-stage" data-prism>
+						<svg class="prism-still" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+							<line x1="0" y1="365" x2="305" y2="269" stroke="#fffaf2" stroke-width="3" stroke-linecap="round"/>
+							<g stroke-width="3" stroke-linecap="round">
+								<line x1="452" y1="264" x2="1000" y2="241" stroke="#ff5c38"/>
+								<line x1="452" y1="264" x2="1000" y2="307" stroke="#ffbd33"/>
+								<line x1="452" y1="264" x2="1000" y2="375" stroke="#54db85"/>
+								<line x1="452" y1="264" x2="1000" y2="446" stroke="#42adff"/>
+								<line x1="452" y1="264" x2="1000" y2="523" stroke="#a873ff"/>
+							</g>
+							<polygon points="380,139 530,399 230,399" fill="#1e1e24" stroke="#e1e6ff" stroke-width="2"/>
+							<line x1="305" y1="269" x2="452" y2="264" stroke="#ffffff" stroke-opacity="0.6" stroke-width="2"/>
+						</svg>
+						<canvas class="prism-canvas" aria-hidden="true"></canvas>
+						<span class="you-label" aria-hidden="true">Your message</span>
+						<div class="beam-labels" role="radiogroup" aria-label="The agents">
+							<button class="beam core" type="button" role="radio" aria-checked="true" data-agent="Onyx Core" style="--c: var(--c-core)">Onyx Core</button>
+							<button class="beam" type="button" role="radio" aria-checked="false" tabindex="-1" data-agent="Researcher" style="--c: var(--c-researcher)">Researcher</button>
+							<button class="beam" type="button" role="radio" aria-checked="false" tabindex="-1" data-agent="Coder" style="--c: var(--c-coder)">Coder</button>
+							<button class="beam" type="button" role="radio" aria-checked="false" tabindex="-1" data-agent="Scheduler" style="--c: var(--c-scheduler)">Scheduler</button>
+							<button class="beam" type="button" role="radio" aria-checked="false" tabindex="-1" data-agent="Messenger" style="--c: var(--c-messenger)">Messenger</button>
+							<button class="beam" type="button" role="radio" aria-checked="false" tabindex="-1" data-agent="Memory" style="--c: var(--c-memory)">Memory</button>
+						</div>
+					</div>
+					<article class="agent-card" data-agent-card aria-live="polite" style="--c: var(--c-core)">
+						<!-- Filled in by site.js; this is what shows without it. -->
+						<div class="row"><h3>Onyx Core</h3><span class="chip">tier picked per message</span></div>
+						<p class="role">The lead. It reads every message and writes the reply you get.</p>
+						<p class="desc">Quick questions it answers itself. Bigger ones it plans out, hands to the specialists, and stitches their work into one answer. If a job only needs one specialist, it goes straight there to save time.</p>
+					</article>
+				</div>
+				<div class="rules">
+					<p><b>A step limit</b>Every agent gets a set number of steps. On the last one its tools are taken away, so it has to answer.</p>
+					<p><b>A shared budget</b>Specialists spend from whatever tokens their parent has left, so one run can't balloon.</p>
+					<p><b>Fair timing</b>Time spent waiting for the graphics card while another agent uses it doesn't count against anyone.</p>
+					<p><b>One stop button</b>Hit Stop or press Esc, and every agent in the run stops.</p>
+					<p><b>No hidden failures</b>Anything that failed is listed under the answer, taken from the log rather than from what a model says it did.</p>
+					<p><b>Make it yours</b>Edit any agent's instructions, tier, tools and limits, or add a new one. Any MCP server can add more tools.</p>
+				</div>
+			</div>
+		</section>
 
 		<section id="try" aria-labelledby="try-title">
 			<div class="wrap">
 				<div class="head">
-					<h2 id="try-title">Watch it work</h2>
-					<p>We sent these six messages while filming the trailer, on a modest 4-core PC with no graphics card. Nothing here is mocked up. It's the app's own log of each run, hiccups and all. Pick one and press play, or drag the speed all the way down to feel how long it really took.</p>
+					<div>
+						<p class="kicker">Watch it work</p>
+						<h2 id="try-title">Six real runs, hiccups and all</h2>
+					</div>
+					<p>We sent these six messages while filming the trailer, on a modest 4-core PC with no graphics card. Nothing here is mocked up. It's the app's own log of each run. Pick one and press play, or drag the speed all the way down to feel how long it really took.</p>
 				</div>
-				<div class="slab console" data-replay>
+				<div class="panel console" data-replay>
 					<div class="picker" role="group" aria-label="Messages to replay">
 						<h3>Pick a message</h3>
 						<!-- Filled in from runs.js. -->
@@ -100,54 +213,9 @@
 					</div>
 				</div>
 				<div class="replay-notes">
-					<p><b>Keep an eye on the logo.</b> It's the team: Onyx Core in the middle, the five specialists around it. Each piece lights up while its agent is busy. In the reminder run, Core gives one job to the Scheduler and one to Memory, and they work at the same time.</p>
+					<p><b>Keep an eye on the logo.</b> It's the team: Onyx Core in the middle, the five specialists around it, each in its colour from the prism. A piece lights up while its agent is busy. In the reminder run, Core gives one job to the Scheduler and one to Memory, and they work at the same time.</p>
 					<p><b>Hiccups included.</b> Two of these runs hit snags. One model came back empty-handed, and in another Ollama lost a tool call. Onyx tried again, dropped to a smaller model when it had to, and every step is right there in the log.</p>
-					<p><b>Why so slow?</b> There was no graphics card, so everything ran on the processor. A graphics card makes the same models a lot faster, and the calculator further down shows roughly how fast yours would be.</p>
-				</div>
-			</div>
-		</section>
-
-		<section id="agents" aria-labelledby="agents-title">
-			<div class="wrap">
-				<div class="head">
-					<h2 id="agents-title">Meet the team</h2>
-					<p>Every piece of the logo is an agent. Onyx Core reads each message first. It handles the easy stuff itself and hands bigger jobs to the specialists, who can pass work along too, up to three levels deep. Click a piece to see what that agent does.</p>
-				</div>
-				<div class="agents-grid">
-					<div class="mark-pick" data-agent-pick>
-						<div style="position: relative">
-							<svg viewBox="0 0 100 100" aria-hidden="true">
-								<path data-agent="Researcher" d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fill-opacity="0.92"/>
-								<path data-agent="Coder" d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fill-opacity="0.5"/>
-								<path data-agent="Scheduler" d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fill-opacity="0.32"/>
-								<path data-agent="Messenger" d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fill-opacity="0.26"/>
-								<path data-agent="Memory" d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fill-opacity="0.66"/>
-								<path data-agent="Onyx Core" d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z" fill-opacity="0.85"/>
-							</svg>
-							<div role="radiogroup" aria-label="Agents">
-								<button class="label" type="button" role="radio" aria-checked="true" data-agent="Onyx Core" style="left: 50%; top: 56%">Onyx Core</button>
-								<button class="label" type="button" role="radio" aria-checked="false" data-agent="Researcher" style="left: 82%; top: 9%">Researcher</button>
-								<button class="label" type="button" role="radio" aria-checked="false" data-agent="Coder" style="left: 99%; top: 72%">Coder</button>
-								<button class="label" type="button" role="radio" aria-checked="false" data-agent="Scheduler" style="left: 50%; top: 101%">Scheduler</button>
-								<button class="label" type="button" role="radio" aria-checked="false" data-agent="Messenger" style="left: 1%; top: 72%">Messenger</button>
-								<button class="label" type="button" role="radio" aria-checked="false" data-agent="Memory" style="left: 18%; top: 9%">Memory</button>
-							</div>
-						</div>
-					</div>
-					<article class="agent-card" data-agent-card aria-live="polite">
-						<!-- Filled in by site.js; this is what shows without it. -->
-						<div class="row"><h3>Onyx Core</h3><span class="chip solid">tier picked per message</span></div>
-						<p class="role">The lead. It reads every message and writes the reply you get.</p>
-						<p class="desc">Quick questions it answers itself. Bigger ones it plans out, hands to the specialists, and stitches their work into one answer. It can also do exact math, units and dates with Onyx 3's calculator.</p>
-					</article>
-				</div>
-				<div class="rules">
-					<p><b>A step limit</b>Every agent gets a set number of steps. On the last one its tools are taken away, so it has to answer.</p>
-					<p><b>A shared budget</b>Specialists spend from whatever tokens their parent has left, so one run can't balloon.</p>
-					<p><b>Fair timing</b>Time spent waiting for the graphics card while another agent uses it doesn't count against anyone.</p>
-					<p><b>One stop button</b>Hit Stop or press Esc, and every agent in the run stops.</p>
-					<p><b>No hidden failures</b>Anything that failed is listed under the answer, taken from the log rather than from what a model says it did.</p>
-					<p><b>Make it yours</b>Edit any agent's instructions, tier, tools and limits, or add a new one. Any MCP server can add more tools.</p>
+					<p><b>Why so slow?</b> There was no graphics card, so everything ran on the processor. A graphics card makes the same models a lot faster, and the next section shows roughly how fast yours would be.</p>
 				</div>
 			</div>
 		</section>
@@ -155,29 +223,44 @@
 		<section id="pc" aria-labelledby="pc-title">
 			<div class="wrap">
 				<div class="head">
-					<h2 id="pc-title">What would it run on your PC?</h2>
-					<p>Pick your graphics card and how much memory you have. This runs the same math Setup does when you install: which model each tier gets, whether it fits on your card, and roughly how fast it'll write. Treat the speeds as ballpark figures, give or take 40%.</p>
-				</div>
-				<div class="planner" data-planner>
-					<form>
-						<label class="field"><span>Graphics card</span><select name="card" data-card></select></label>
-						<div class="field" role="radiogroup" aria-labelledby="ram-label">
-							<span id="ram-label">Memory (RAM)</span>
-							<div class="seg">
-								<label><input type="radio" name="ram" value="16"><span>16 GB</span></label>
-								<label><input type="radio" name="ram" value="32" checked><span>32 GB</span></label>
-								<label><input type="radio" name="ram" value="64"><span>64 GB</span></label>
-							</div>
-						</div>
-					</form>
-					<ol class="tiers" data-tiers aria-live="polite"></ol>
-					<noscript><p class="plan-note">The calculator needs JavaScript. For an RTX 5060 Ti 16 GB with 32 GB of memory, Setup picks <code>qwen3:4b-instruct</code> for Lite (about 134 tokens a second), <code>qwen3:8b</code> for Standard (about 65), <code>gpt-oss:20b</code> for Pro (about 70) and <code>qwen3:30b</code> for Max (about 24, partly in system memory). That's about 40 GB to download.</p></noscript>
-					<div class="plan-sum">
-						<div><b data-download>about 40 GB</b><span>to download, one time</span></div>
-						<div><b data-context>16,384</b><span>tokens of context, which is how much a model can read at once</span></div>
-						<div><b data-answer-time>about 6 s</b><span>for a 300-word answer from Standard</span></div>
+					<div>
+						<p class="kicker">Your PC</p>
+						<h2 id="pc-title">What fits on your graphics card?</h2>
 					</div>
-					<p class="plan-note" data-plan-note></p>
+					<p>Pick your graphics card and how much memory you have. This does the same math Setup does when you install: which model each tier gets, how much of it fits on the card, and roughly how fast it'll write. Click a tier to load its model. Speeds are ballpark, give or take 40%.</p>
+				</div>
+				<div class="pc-grid">
+					<figure class="rig" data-rig>
+						<div class="rig-view">
+							<canvas aria-hidden="true"></canvas>
+							<span class="rig-label" data-rig-label="card" aria-hidden="true"></span>
+							<span class="rig-label" data-rig-label="ram" aria-hidden="true"></span>
+						</div>
+						<figcaption class="membars" data-membars aria-live="polite">
+							<!-- Filled in by site.js: the graphics card's memory and the system's, and what's in them. -->
+						</figcaption>
+					</figure>
+					<div class="planner panel" data-planner>
+						<form>
+							<label class="field"><span>Graphics card</span><select name="card" data-card></select></label>
+							<div class="field" role="radiogroup" aria-labelledby="ram-label">
+								<span id="ram-label">Memory (RAM)</span>
+								<div class="seg">
+									<label><input type="radio" name="ram" value="16"><span>16 GB</span></label>
+									<label><input type="radio" name="ram" value="32" checked><span>32 GB</span></label>
+									<label><input type="radio" name="ram" value="64"><span>64 GB</span></label>
+								</div>
+							</div>
+						</form>
+						<ol class="tiers" data-tiers role="radiogroup" aria-label="Show a tier's model in the memory"></ol>
+						<noscript><p class="plan-note">The calculator needs JavaScript. For an RTX 5060 Ti 16 GB with 32 GB of memory, Setup picks <code>qwen3:4b-instruct</code> for Lite (about 134 tokens a second), <code>qwen3:8b</code> for Standard (about 65), <code>gpt-oss:20b</code> for Pro (about 70) and <code>qwen3:30b</code> for Max (about 24, partly in system memory). That's about 40 GB to download.</p></noscript>
+						<div class="plan-sum">
+							<div><b data-download>about 40 GB</b><span>to download, one time</span></div>
+							<div><b data-context>16,384</b><span>tokens of context, which is how much a model can read at once</span></div>
+							<div><b data-answer-time>about 6 s</b><span>for a 300-word answer from Standard</span></div>
+						</div>
+						<p class="plan-note" data-plan-note></p>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -242,14 +325,13 @@
 			<div class="wrap">
 				<div class="head">
 					<h2 id="more-title">The details</h2>
-					<p>Chat, your phone, reminders and memory, what it costs, how it updates, and where your data goes.</p>
+					<p>Chat, your phone, reminders and memory, how it updates, and where your data goes.</p>
 				</div>
 				<div class="more">
 					<ol class="index" aria-label="Topics">
 						<li><a href="#chat">Chat and files</a></li>
 						<li><a href="#phone">On your phone</a></li>
 						<li><a href="#reminders">Reminders and memory</a></li>
-						<li><a href="#usage">What it costs</a></li>
 						<li><a href="#updates">Updates and backups</a></li>
 						<li><a href="#privacy">Privacy</a></li>
 						<li><a href="#cloud">Claude and ChatGPT</a></li>
@@ -259,7 +341,7 @@
 							<h3>Chat and files</h3>
 							<p>Keep as many separate chats as you like. Under every reply you'll see which tier and model answered, which agents and tools pitched in, how long it took, and what it would have cost elsewhere.</p>
 							<div class="figs">
-								<figure class="wide"><div class="window"><div class="chrome-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/chat.jpg" width="1440" height="900" alt="Onyx Agents in Chat, with the chat list on the left and a plan for a cozy rainy Sunday as the answer. Under it: Standard, qwen3:8b, Core alone, 664 tokens." loading="lazy" decoding="async"></div><figcaption>The rainy-Sunday plan from above, as it looks in the app.</figcaption></figure>
+								<figure class="wide"><div class="window"><div class="chrome-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/chat.jpg" width="1440" height="900" alt="Onyx Agents in Chat, with the chat list on the left and a plan for a cozy rainy Sunday as the answer. Under it: Standard, qwen3:8b, Core alone, 664 tokens." loading="lazy" decoding="async"></div><figcaption>The rainy-Sunday plan from the replay, as it looks in the app.</figcaption></figure>
 								<figure><div class="window"><div class="chrome-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/pdf.jpg" width="1440" height="598" alt="A chat with Q3-update.pdf attached and a two-bullet summary of sales and costs." loading="lazy" decoding="async"></div><figcaption>A PDF, attached and summarized. Its text is read right on your PC.</figcaption></figure>
 								<figure><div class="window"><div class="chrome-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/search.jpg" width="1140" height="510" alt="Searching chats for 'cosy': the list narrows to the rainy Sunday plan." loading="lazy" decoding="async"></div><figcaption>Search narrows your chats as you type.</figcaption></figure>
 							</div>
@@ -276,7 +358,7 @@
 							<p>Onyx lives on your PC, but your phone can reach it three ways, and reminders find you wherever you are.</p>
 							<div class="figs">
 								<figure><img class="phone-shot" src="shots/phone-sam.jpg" width="780" height="1688" alt="Onyx Agents on a phone: the reminder chat with Onyx's answer and its details, and a tab bar for Chat, Graph, Runs, Agents and More." loading="lazy" decoding="async"></figure>
-								<dl class="points" style="grid-template-columns: minmax(0, 1fr); margin-top: 0">
+								<dl class="points single">
 									<div><dt>The app, through Tailscale</dt><dd>Tailscale connects your phone to your PC privately. Only your own devices can reach Onyx, nothing gets opened up to the internet, and the address never changes. Settings walks you through it and shows a QR code. Add the app to your home screen and turn on notifications for reminders.</dd></div>
 									<div><dt>WhatsApp and SMS</dt><dd>Through Meta's official WhatsApp API and through Twilio. Onyx only answers numbers you've linked by texting it a six-digit code, and ignores everyone else. Each number can send up to 20 messages every five minutes.</dd></div>
 									<div><dt>Onyx texts you first</dt><dd>Reminders and finished tasks go out on your channels in the order you choose, with the app as the last stop, so nothing slips through.</dd></div>
@@ -297,26 +379,6 @@
 								<div><dt>Tell it once</dt><dd>Memory holds on to lasting facts, like how you take your coffee, and Onyx Core looks them up when they're useful.</dd></div>
 								<div><dt>Nothing hidden</dt><dd>Settings shows everything Onyx remembers about you, each with a button to forget it.</dd></div>
 							</dl>
-						</article>
-
-						<article class="topic" id="usage">
-							<h3>What it costs</h3>
-							<p>Nothing, no matter how much you use it. Tokens are the chunks of words a model reads and writes, and paid AI services charge for every one of them. On your PC they're free, so the agents can take as many steps as a job needs. Here's what some bigger jobs would cost on paid services instead.</p>
-							<div class="cost" data-cost>
-								<div class="cost-pick" role="radiogroup" aria-label="Example jobs">
-									<button type="button" role="radio" aria-checked="true" data-job="job">One big coding job</button>
-									<button type="button" role="radio" aria-checked="false" tabindex="-1" data-job="month">A month of them</button>
-									<button type="button" role="radio" aria-checked="false" tabindex="-1" data-job="year">A year of them</button>
-								</div>
-								<p class="cost-what" data-cost-what>About <b>2,000,000 tokens</b>: roughly 1.8 million read and 200,000 written, over a few dozen agent runs.</p>
-								<ul class="cost-rows" data-cost-rows aria-live="polite">
-									<li class="you"><span>Onyx, on your PC</span><i style="--w: 0"></i><b>$0</b></li>
-									<li><span>Claude Sonnet 5.5</span><i style="--w: 0.25"></i><b>$5.60</b></li>
-									<li><span>Claude Opus 5.5</span><i style="--w: 0.5"></i><b>$11.20</b></li>
-									<li><span>GPT-6.2 Astra</span><i style="--w: 1"></i><b>$22.40</b></li>
-								</ul>
-							</div>
-							<p class="note cost-note">These use the per-token prices built into the app: Anthropic's published rates as of November 2026, and OpenAI's as best we could tell (their own pages disagreed, so check them). The cloud models are bigger and better at the hardest problems, so it isn't a like-for-like race. The point is that local tokens are free, so a long job never runs up a bill. Hosted copies of the same open models cost much less than these, and the app's Usage screen tracks that comparison for you as you go.</p>
 						</article>
 
 						<article class="topic" id="updates">
@@ -360,7 +422,7 @@
 					<h2 id="tested-title">What we've tested, and what we haven't</h2>
 					<p>So you know which parts have been through the real thing.</p>
 				</div>
-				<div class="ledger">
+				<div class="ledger panel">
 					<div>
 						<p class="big">126</p>
 						<p>automated tests, all passing. They use a stand-in for the models, so they run without a graphics card or an internet connection.</p>
@@ -393,6 +455,7 @@
 					<details><summary>Does it work when my PC is off?</summary><p>No, your PC needs to be on. Reminders that come due while it's off go out as soon as it's back, marked late.</p></details>
 					<details><summary>What about Mac or Linux?</summary><p>Same steps, by hand: install Node.js 22.13 or newer, pnpm and Ollama, then in the agents folder run <code>pnpm install</code>, <code>pnpm build</code>, <code>pnpm onyx setup</code> and <code>pnpm start</code>.</p></details>
 					<details><summary>Can I use other models?</summary><p>Sure. The Models screen lists thirteen, including Qwen3 Coder, Mistral Small, Llama 3.1, Gemma 3, DeepSeek R1 and Phi-4, and shows how each would run on your PC. Download one and assign it to a tier, or edit <code>tiers.yaml</code> yourself. Models that can't call tools are limited to plain chat, since every agent relies on tools.</p></details>
+					<details><summary>Are the clouds real?</summary><p>The sun is. It sits where it really is over Austin at the time shown, worked out from the date and the city's position, with the atmosphere computed on your graphics card. The clouds are generated, so they won't match today's weather.</p></details>
 					<details><summary>What's Onyx 3?</summary><p>A separate, much smaller assistant that runs entirely in a web page, with nothing to install. <a href="https://gkson-lab.github.io/onyx/">Try it in your browser</a>.</p></details>
 				</div>
 			</div>
@@ -416,7 +479,7 @@
 						<p class="price">$0<small>forever</small></p>
 						<p>Onyx Agents for Windows: six agents, Setup, and automatic updates. MIT-licensed.</p>
 						<div class="ctas">
-							<a class="btn btn-solid" href="https://github.com/gkson-lab/onyx/archive/refs/heads/main.zip">Download the ZIP <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v9m0 0L4.5 7.5M8 11l3.5-3.5M3 14h10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+							<a class="btn btn-chrome" href="https://github.com/gkson-lab/onyx/archive/refs/heads/main.zip">Download the ZIP <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v9m0 0L4.5 7.5M8 11l3.5-3.5M3 14h10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
 							<a class="btn btn-line" href="https://github.com/gkson-lab/onyx">View on GitHub</a>
 						</div>
 					</div>
@@ -450,9 +513,9 @@
 				Onyx Agents
 			</a>
 			<span>Made by GK Labs in Austin, TX · MIT license</span>
-			<p class="credits">Built with <a href="vendor/LICENSE-three.txt">three.js</a> (MIT). The chrome logo and the screen lens are <a href="vendor/canvas-ui/LICENSE.md">Canvas UI</a> by David Haz (MIT + Commons Clause). The backgrounds are adapted from <a href="https://github.com/ruucm/shadergradient">ShaderGradient</a> (MIT). Fonts: <a href="fonts/LICENSE-Fraunces.txt">Fraunces</a> and <a href="fonts/LICENSE-Geist.txt">Geist</a> (SIL OFL 1.1).</p>
+			<p class="credits">Built with <a href="vendor/LICENSE-three.txt">three.js</a> (MIT). The liquid chrome logo is powered by <a href="https://shaders.paper.design">Paper Shaders</a> (Apache-2.0). The sky and clouds over Austin are <a href="https://github.com/takram-design-engineering/three-geospatial">three-geospatial</a> by Takram (MIT) with <a href="https://github.com/pmndrs/postprocessing">postprocessing</a> (Zlib). The prism is drawn with <a href="https://github.com/vercel-labs/vgpu">vgpu</a> by Vercel (MIT) on WebGPU. The graphics card is built with <a href="https://github.com/pmndrs/react-three-fiber">React Three Fiber</a> (MIT) and React (MIT). The screen lens is <a href="vendor/canvas-ui/LICENSE.md">Canvas UI</a> by David Haz (MIT + Commons Clause). The stone backgrounds are adapted from <a href="https://github.com/ruucm/shadergradient">ShaderGradient</a> (MIT). Every licence for the 3D scenes is in <a href="scenes/LICENSES.md">LICENSES.md</a>. Fonts: <a href="fonts/LICENSE-Fraunces.txt">Fraunces</a> and <a href="fonts/LICENSE-Geist.txt">Geist</a> (SIL OFL 1.1).</p>
 		</div>
 	</footer>
-	<dialog class="zoom" data-zoom aria-label="A screen from the app, full size"><button class="btn btn-solid" type="button" data-close>Close</button></dialog>
+	<dialog class="zoom" data-zoom aria-label="A screen from the app, full size"><button class="btn btn-chrome" type="button" data-close>Close</button></dialog>
 </body>
 </html>
