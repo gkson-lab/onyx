@@ -30,7 +30,7 @@
 				<svg viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor"><path d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fill-opacity="0.92"/><path d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fill-opacity="0.5"/><path d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fill-opacity="0.32"/><path d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fill-opacity="0.26"/><path d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fill-opacity="0.66"/><path d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z"/></g></svg>
 				Onyx Agents
 			</a>
-			<nav aria-label="Sections">
+			<nav id="site-nav" aria-label="Sections">
 				<a href="#try">Watch it work</a>
 				<a href="#agents">The agents</a>
 				<a href="#pc">Your PC</a>
@@ -38,6 +38,7 @@
 				<a href="#faq">FAQ</a>
 			</nav>
 			<a class="btn btn-solid" href="#get">Download</a>
+			<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 		</div>
 	</header>
 
@@ -49,7 +50,7 @@
 				<div class="hero-grid">
 					<div class="hero-copy">
 						<h1>An AI team that lives on your PC</h1>
-						<p class="lede">Ask Onyx anything. Its lead agent, <b>Onyx Core</b>, either answers right away or splits the job among five specialists, then gives you one reply. It all runs on open models (Qwen3 and OpenAI's gpt-oss) on your own graphics card, so there's nothing to pay each month and your chats stay on your machine.</p>
+						<p class="lede">Ask Onyx anything. Its lead agent, <b>Onyx Core</b>, either answers right away or splits the job among five specialists, then gives you one reply. It all runs on open models (Qwen3 and OpenAI's gpt-oss) on your own graphics card. Your chats stay on your machine, and nothing costs a cent: a coding job that burns through 2,000,000 tokens is as free as saying hi.</p>
 						<div class="ctas">
 							<a class="btn btn-solid" href="https://github.com/gkson-lab/onyx/archive/refs/heads/main.zip">Download for Windows <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v9m0 0L4.5 7.5M8 11l3.5-3.5M3 14h10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
 							<a class="btn btn-line" href="#try">See it in action</a>
@@ -258,7 +259,7 @@
 							<h3>Chat and files</h3>
 							<p>Keep as many separate chats as you like. Under every reply you'll see which tier and model answered, which agents and tools pitched in, how long it took, and what it would have cost elsewhere.</p>
 							<div class="figs">
-								<figure class="wide"><div class="window"><div class="chrome-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/chat.jpg" width="1440" height="900" alt="Onyx Agents in Chat, with the chat list on the left and a plan for a cozy rainy Sunday as the answer. Under it: Standard, qwen3:8b, Core alone, 664 tokens, $0.0002 if hosted." loading="lazy" decoding="async"></div><figcaption>The rainy-Sunday plan from above, as it looks in the app.</figcaption></figure>
+								<figure class="wide"><div class="window"><div class="chrome-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/chat.jpg" width="1440" height="900" alt="Onyx Agents in Chat, with the chat list on the left and a plan for a cozy rainy Sunday as the answer. Under it: Standard, qwen3:8b, Core alone, 664 tokens." loading="lazy" decoding="async"></div><figcaption>The rainy-Sunday plan from above, as it looks in the app.</figcaption></figure>
 								<figure><div class="window"><div class="chrome-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/pdf.jpg" width="1440" height="598" alt="A chat with Q3-update.pdf attached and a two-bullet summary of sales and costs." loading="lazy" decoding="async"></div><figcaption>A PDF, attached and summarized. Its text is read right on your PC.</figcaption></figure>
 								<figure><div class="window"><div class="chrome-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="shots/search.jpg" width="1140" height="510" alt="Searching chats for 'cosy': the list narrows to the rainy Sunday plan." loading="lazy" decoding="async"></div><figcaption>Search narrows your chats as you type.</figcaption></figure>
 							</div>
@@ -300,13 +301,22 @@
 
 						<article class="topic" id="usage">
 							<h3>What it costs</h3>
-							<p>Nothing, per message. Every tier is yours to use. Onyx still counts every token and works out what the same work would cost on a paid host running the same models, using Alibaba Model Studio's published prices for the 8B, 14B and 30B models and a third-party host's for the 4B (labeled as such).</p>
-							<div class="figures">
-								<div><b>9,569</b><span>tokens for the six runs above, routing included</span></div>
-								<div><b>$0</b><span>what they cost on the PC</span></div>
-								<div><b>$0.0015</b><span>what they'd have cost on a paid host</span></div>
+							<p>Nothing, no matter how much you use it. Tokens are the chunks of words a model reads and writes, and paid AI services charge for every one of them. On your PC they're free, so the agents can take as many steps as a job needs. Here's what some bigger jobs would cost on paid services instead.</p>
+							<div class="cost" data-cost>
+								<div class="cost-pick" role="radiogroup" aria-label="Example jobs">
+									<button type="button" role="radio" aria-checked="true" data-job="job">One big coding job</button>
+									<button type="button" role="radio" aria-checked="false" tabindex="-1" data-job="month">A month of them</button>
+									<button type="button" role="radio" aria-checked="false" tabindex="-1" data-job="year">A year of them</button>
+								</div>
+								<p class="cost-what" data-cost-what>About <b>2,000,000 tokens</b>: roughly 1.8 million read and 200,000 written, over a few dozen agent runs.</p>
+								<ul class="cost-rows" data-cost-rows aria-live="polite">
+									<li class="you"><span>Onyx, on your PC</span><i style="--w: 0"></i><b>$0</b></li>
+									<li><span>Claude Sonnet 5.5</span><i style="--w: 0.25"></i><b>$5.60</b></li>
+									<li><span>Claude Opus 5.5</span><i style="--w: 0.5"></i><b>$11.20</b></li>
+									<li><span>GPT-6.2 Astra</span><i style="--w: 1"></i><b>$22.40</b></li>
+								</ul>
 							</div>
-							<p class="note" style="margin-top: 14px">Want to compare with your own prices? Put them in <code>equivalents.local.yaml</code>.</p>
+							<p class="note cost-note">These use the per-token prices built into the app: Anthropic's published rates as of November 2026, and OpenAI's as best we could tell (their own pages disagreed, so check them). The cloud models are bigger and better at the hardest problems, so it isn't a like-for-like race. The point is that local tokens are free, so a long job never runs up a bill. Hosted copies of the same open models cost much less than these, and the app's Usage screen tracks that comparison for you as you go.</p>
 						</article>
 
 						<article class="topic" id="updates">
@@ -379,7 +389,7 @@
 					<details><summary>Do I need a graphics card?</summary><p>Nope. Onyx runs on any PC, just more slowly without one (the runs above didn't have one). The defaults suit a card with 16 GB, and the calculator above, like the Models screen in the app, shows what yours can handle.</p></details>
 					<details><summary>How much will it download?</summary><p>About 40 GB of models on a 16 GB card, less on a smaller one. The calculator gives you the number for yours. Setup shows how far along it is, and you can stop it and pick up later.</p></details>
 					<details><summary>Does it work offline?</summary><p>Chatting does, since the models run on your PC. Web search, connectors, WhatsApp and SMS, updates and cloud models need a connection, and Setup needs one to download the models.</p></details>
-					<details><summary>Is it really free?</summary><p>Yes. It's MIT-licensed, with no subscription and no per-message fees. If you turn on Claude or ChatGPT, those companies bill your own account, and a daily limit keeps that in check.</p></details>
+					<details><summary>Is it really free?</summary><p>Yes. It's MIT-licensed, with no subscription and no per-message fees. A coding job that runs through 2,000,000 tokens, which would cost somewhere between $5 and $22 on paid AI services, costs nothing here. If you turn on Claude or ChatGPT, those companies bill your own account, and a daily limit keeps that in check.</p></details>
 					<details><summary>Does it work when my PC is off?</summary><p>No, your PC needs to be on. Reminders that come due while it's off go out as soon as it's back, marked late.</p></details>
 					<details><summary>What about Mac or Linux?</summary><p>Same steps, by hand: install Node.js 22.13 or newer, pnpm and Ollama, then in the agents folder run <code>pnpm install</code>, <code>pnpm build</code>, <code>pnpm onyx setup</code> and <code>pnpm start</code>.</p></details>
 					<details><summary>Can I use other models?</summary><p>Sure. The Models screen lists thirteen, including Qwen3 Coder, Mistral Small, Llama 3.1, Gemma 3, DeepSeek R1 and Phi-4, and shows how each would run on your PC. Download one and assign it to a tier, or edit <code>tiers.yaml</code> yourself. Models that can't call tools are limited to plain chat, since every agent relies on tools.</p></details>

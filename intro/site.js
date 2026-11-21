@@ -36,6 +36,61 @@ function spy(links) {
 spy($$('.top nav a'));
 spy($$('.index a'));
 
+/* ---------- The menu on small screens ---------- */
+const menuBtn = $('.menu-btn'), nav = $('#site-nav');
+if (menuBtn && nav) {
+	menuBtn.hidden = false;
+	const setMenu = (open) => {
+		nav.classList.toggle('open', open);
+		menuBtn.setAttribute('aria-expanded', String(open));
+		menuBtn.setAttribute('aria-label', open ? 'Close the menu' : 'Menu');
+	};
+	menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+	nav.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+	addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
+	document.addEventListener('pointerdown', (e) => { if (nav.classList.contains('open') && !nav.contains(e.target) && !menuBtn.contains(e.target)) setMenu(false); });
+	matchMedia('(min-width: 861px)').addEventListener('change', (m) => { if (m.matches) setMenu(false); });
+}
+
+/* ---------- What bigger jobs would cost on paid services ---------- */
+// Per-token prices (USD per million tokens) from agents/config/tiers.yaml. A coding job mostly reads (its files,
+// the conversation so far, tool results) and writes far less, so the examples split 90% read, 10% written.
+const PRICES = [['Claude Sonnet 5.5', 2, 10], ['Claude Opus 5.5', 4, 20], ['GPT-6.2 Astra', 8, 40]];
+const COST_JOBS = {
+	job: { read: 1.8e6, wrote: 0.2e6, what: 'About <b>2,000,000 tokens</b>: roughly 1.8 million read and 200,000 written, over a few dozen agent runs.' },
+	month: { read: 39.6e6, wrote: 4.4e6, what: 'About <b>44,000,000 tokens</b>: one big coding job every workday for a month (22 days).' },
+	year: { read: 475.2e6, wrote: 52.8e6, what: 'About <b>528,000,000 tokens</b>: one big coding job every workday for a year.' },
+};
+const money = (v) => `$${v.toLocaleString('en-US', v >= 1000 ? { maximumFractionDigits: 0 } : { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const costBox = $('[data-cost]');
+if (costBox) {
+	const radios = $$('[role="radio"]', costBox);
+	const showJob = (key, focus) => {
+		const job = COST_JOBS[key];
+		const costs = PRICES.map(([name, inP, outP]) => [name, (job.read * inP + job.wrote * outP) / 1e6]);
+		const max = Math.max(...costs.map(([, v]) => v));
+		$('[data-cost-what]', costBox).innerHTML = job.what;
+		$('[data-cost-rows]', costBox).innerHTML = `<li class="you"><span>Onyx, on your PC</span><i style="--w: 0"></i><b>$0</b></li>`
+			+ costs.map(([name, v]) => `<li><span>${name}</span><i style="--w: ${(v / max).toFixed(3)}"></i><b>${money(v)}</b></li>`).join('');
+		for (const r of radios) {
+			const on = r.dataset.job === key;
+			r.setAttribute('aria-checked', String(on));
+			r.tabIndex = on ? 0 : -1;
+			if (on && focus) r.focus();
+		}
+	};
+	radios.forEach((r, i) => {
+		r.addEventListener('click', () => showJob(r.dataset.job));
+		r.addEventListener('keydown', (e) => {
+			const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+			if (!step) return;
+			e.preventDefault();
+			showJob(radios[(i + step + radios.length) % radios.length].dataset.job, true);
+		});
+	});
+	showJob('job');
+}
+
 /* ---------- The stone: gradients and the chrome mark ---------- */
 // Without WebGL 2 the still mark and the CSS stone stay, and no 3D is loaded.
 const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
@@ -351,7 +406,7 @@ if (replay) {
 				box.dataset.len = text.length;
 				box.classList.toggle('caret', f < 1);
 			}
-			$('.sum', card).innerHTML = f < 1 ? '' : `<span><b>${run.agents.length === 1 ? 'Just Core' : `${run.agents.length} agents`}</b></span><span><b>${num(run.tokens)}</b> tokens</span><span><b>${took(run.seconds)}</b> on a 4-core processor</span><span><b>$0</b> on the PC</span><span>${run.hosted < 0.0001 ? '<b>under $0.0001</b>' : `<b>$${run.hosted.toFixed(4)}</b>`} on a paid host</span>`;
+			$('.sum', card).innerHTML = f < 1 ? '' : `<span><b>${run.agents.length === 1 ? 'Just Core' : `${run.agents.length} agents`}</b></span><span><b>${num(run.tokens)}</b> tokens</span><span><b>${took(run.seconds)}</b> on a 4-core processor</span><span><b>$0</b> on the PC</span>`;
 		} else card?.remove();
 		if (stick) log.scrollTop = log.scrollHeight;
 		// The pieces of the mark: lit while their agent works, dimmer once it has.
