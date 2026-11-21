@@ -35,6 +35,7 @@
 				<a href="#agents">The agents</a>
 				<a href="#pc">Your PC</a>
 				<a href="#app">The app</a>
+				<a href="#stone">The stone</a>
 				<a href="#faq">Questions</a>
 			</nav>
 			<a class="btn btn-solid" href="#get">Download</a>
@@ -232,6 +233,40 @@
 						</div>
 						<p class="panel-hint" data-lens-hint>Select a screen to open it full size.</p>
 					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="stone" aria-labelledby="stone-title">
+			<div class="wrap">
+				<div class="head">
+					<h2 id="stone-title">Make your own stone</h2>
+					<p>The dark panels on this page are drawn live: a sheet rippled by noise and lit, ported to plain three.js from <a href="https://github.com/ruucm/shadergradient">ShaderGradient</a>. Change the colours and the motion here, then put your stone behind the page.</p>
+				</div>
+				<div class="slab play" data-play-stone>
+					<canvas class="gradient" aria-hidden="true"></canvas>
+					<p class="play-fallback">The stone needs JavaScript and WebGL. Without them the page shows this still version.</p>
+					<form class="mixer" aria-label="Stone settings" hidden>
+						<fieldset class="presets">
+							<legend>Start from</legend>
+							<div data-presets></div>
+						</fieldset>
+						<fieldset class="swatches">
+							<legend>Colours</legend>
+							<label><input type="color" name="c0"><span>Base</span></label>
+							<label><input type="color" name="c1"><span>Vein</span></label>
+							<label><input type="color" name="c2"><span>Crest</span></label>
+						</fieldset>
+						<label class="slider"><span>Speed</span><input type="range" name="speed" min="0" max="0.6" step="0.01"><output></output></label>
+						<label class="slider"><span>Fold height</span><input type="range" name="strength" min="0.4" max="5" step="0.1"><output></output></label>
+						<label class="slider"><span>Fold size</span><input type="range" name="density" min="0.4" max="3" step="0.05"><output></output></label>
+						<label class="slider"><span>Grain</span><input type="range" name="grain" min="0" max="0.15" step="0.005"><output></output></label>
+						<div class="mix-actions">
+							<button class="btn btn-solid" type="button" data-apply>Use it for this page</button>
+							<button class="btn btn-line" type="button" data-reset>Reset</button>
+						</div>
+						<p class="mix-note" data-mix-note aria-live="polite"></p>
+					</form>
 				</div>
 			</div>
 		</section>

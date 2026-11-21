@@ -39,11 +39,76 @@ spy($$('.index a'));
 /* ---------- The stone: gradients and the chrome mark ---------- */
 // Without WebGL 2 the still mark and the CSS stone stay, and no 3D is loaded.
 const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
-if (gl) import('./gradient.js').then(({ createGradient, PRESETS }) => {
+if (gl) import('./gradient.js').then(({ createGradient, PRESETS, STONES }) => {
+	// A stone made in the playground and put behind the page is kept in this browser.
+	let saved = null;
+	try { saved = JSON.parse(store.get('stone') || 'null'); } catch {}
+	const panels = [];
 	for (const canvas of $$('canvas[data-gradient]')) {
-		createGradient(canvas, PRESETS[canvas.dataset.gradient], { onFirstFrame: () => canvas.classList.add('on') });
+		const g = createGradient(canvas, PRESETS[canvas.dataset.gradient], { onFirstFrame: () => canvas.classList.add('on') });
+		if (!g) continue;
+		panels.push({ g, preset: PRESETS[canvas.dataset.gradient] });
+		if (saved) g.set(saved);
 	}
+	playground(createGradient, PRESETS, STONES, panels, saved);
 }).catch(() => {});
+
+/* ---------- The stone playground ---------- */
+function playground(createGradient, PRESETS, STONES, panels, saved) {
+	const box = $('[data-play-stone]');
+	if (!box) return;
+	const canvas = $('canvas', box), form = $('form', box), note = $('[data-mix-note]', box);
+	const copy = (s) => ({ colors: [...s.colors], speed: s.speed, strength: s.strength, density: s.density, grain: s.grain });
+	let cur = copy(saved || STONES.Onyx);
+	const g = createGradient(canvas, { ...PRESETS.onyx, ...cur }, { onFirstFrame: () => canvas.classList.add('on') });
+	if (!g) return;
+	form.hidden = false;
+	$('.play-fallback', box).hidden = true;
+
+	const sliders = ['speed', 'strength', 'density', 'grain'].map((name) => form.elements[name]);
+	const swatches = [0, 1, 2].map((i) => form.elements[`c${i}`]);
+	const presets = Object.entries(STONES).map(([name, s]) => {
+		const b = document.createElement('button');
+		b.type = 'button';
+		b.innerHTML = `<i style="--a: ${s.colors[0]}; --b: ${s.colors[1]}; --c: ${s.colors[2]}" aria-hidden="true"></i>${name}`;
+		b.addEventListener('click', () => { cur = copy(s); g.set(cur); show(); note.textContent = ''; });
+		$('[data-presets]', form).append(b);
+		return [b, s];
+	});
+	const same = (a, b) => JSON.stringify(copy(a)) === JSON.stringify(copy(b));
+	const digits = { speed: 2, strength: 1, density: 2, grain: 3 };
+	const show = () => {
+		for (const input of sliders) {
+			input.value = cur[input.name];
+			input.nextElementSibling.textContent = Number(cur[input.name]).toFixed(digits[input.name]);
+		}
+		swatches.forEach((input, i) => { input.value = cur.colors[i]; });
+		for (const [b, s] of presets) b.setAttribute('aria-pressed', String(same(cur, s)));
+	};
+	form.addEventListener('input', (e) => {
+		const t = e.target;
+		if (t.type === 'range') cur[t.name] = Number(t.value);
+		else if (t.type === 'color') cur.colors[Number(t.name.slice(1))] = t.value;
+		else return;
+		g.set(cur);
+		show();
+		note.textContent = '';
+	});
+	$('[data-apply]', form).addEventListener('click', () => {
+		for (const p of panels) p.g.set(cur);
+		store.set('stone', JSON.stringify(cur));
+		note.textContent = 'Now behind the top and bottom panels, and kept in this browser.';
+	});
+	$('[data-reset]', form).addEventListener('click', () => {
+		cur = copy(STONES.Onyx);
+		g.set(cur);
+		for (const p of panels) p.g.set(p.preset);
+		store.set('stone', '');
+		show();
+		note.textContent = "Back to the page's own stone.";
+	});
+	show();
+}
 
 const object = $('#object');
 if (object && gl) {

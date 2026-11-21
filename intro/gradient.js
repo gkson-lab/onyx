@@ -63,6 +63,14 @@ export const PRESETS = {
 	},
 };
 
+/** The playground's starting points: the page's own stone and three more. Each changes only the colours and motion. */
+export const STONES = {
+	Onyx: { colors: PRESETS.onyx.colors, speed: 0.12, strength: 3.2, density: 1.2, grain: 0.05 },
+	Sardonyx: { colors: ['#1a0d08', '#b4532c', '#f0d8b2'], speed: 0.18, strength: 2.6, density: 1.5, grain: 0.04 },
+	Agate: { colors: ['#14171c', '#4d6b7c', '#e6d7c1'], speed: 0.1, strength: 3.6, density: 1.0, grain: 0.05 },
+	Ember: { colors: ['#120a07', '#d0461f', '#ffc483'], speed: 0.3, strength: 2.2, density: 2.0, grain: 0.07 },
+};
+
 const DEG = Math.PI / 180;
 
 /**
@@ -87,7 +95,7 @@ export function createGradient(canvas, preset = PRESETS.onyx, { onFirstFrame } =
 
 	const uniforms = {
 		uTime: { value: 0 },
-		uSpeed: { value: preset.speed },
+		uPhase: { value: 0 },
 		uDensity: { value: preset.density },
 		uStrength: { value: preset.strength },
 		uGrain: { value: preset.grain },
@@ -103,11 +111,12 @@ export function createGradient(canvas, preset = PRESETS.onyx, { onFirstFrame } =
 		Object.assign(shader.uniforms, uniforms);
 		shader.vertexShader = shader.vertexShader
 			.replace('#include <common>', `#include <common>
-uniform float uTime, uSpeed, uDensity, uStrength;
+uniform float uPhase, uDensity, uStrength;
 varying vec3 vPos;
 ${NOISE}
-// ShaderGradient's displacement: noise sampled at 0.43 x position x density, moving with time, pushes the plane along z.
-vec3 ripple(vec3 p) { return p + vec3(0.0, 0.0, 1.0) * 0.75 * cnoise(0.43 * p * uDensity + uTime * uSpeed) * uStrength; }`)
+// ShaderGradient's displacement: noise sampled at 0.43 x position x density, moving with time x speed (kept here as
+// one phase, so a change of speed does not jump), pushes the plane along z.
+vec3 ripple(vec3 p) { return p + vec3(0.0, 0.0, 1.0) * 0.75 * cnoise(0.43 * p * uDensity + uPhase) * uStrength; }`)
 			// The slope of the ripples, from two neighbours, gives the normal, so the light follows the bands.
 			.replace('#include <beginnormal_vertex>', `vec3 sgPos = ripple(position);
 vec3 sgDx = ripple(position + vec3(0.04, 0.0, 0.0)) - sgPos;
@@ -151,7 +160,7 @@ gl_FragColor.rgb += (sgHash(gl_FragCoord.xy + fract(uTime * 7.0) * 61.0) - 0.5) 
 	};
 
 	const calm = matchMedia('(prefers-reduced-motion: reduce)');
-	let visible = false, frame = 0, last = 0, drawn = false;
+	let visible = false, frame = 0, last = 0, drawn = false, speed = preset.speed;
 	const resize = () => {
 		const w = canvas.clientWidth || 1, h = canvas.clientHeight || 1;
 		renderer.setSize(w, h, false);
@@ -160,7 +169,7 @@ gl_FragColor.rgb += (sgHash(gl_FragCoord.xy + fract(uTime * 7.0) * 61.0) - 0.5) 
 		if (!frame) draw(0);
 	};
 	const draw = (dt) => {
-		if (!calm.matches) uniforms.uTime.value += dt;
+		if (!calm.matches) { uniforms.uTime.value += dt; uniforms.uPhase.value += dt * speed; }
 		look.az += (look.taz - look.az) * Math.min(1, dt * 2.5);
 		look.po += (look.tpo - look.po) * Math.min(1, dt * 2.5);
 		place();
@@ -189,10 +198,23 @@ gl_FragColor.rgb += (sgHash(gl_FragCoord.xy + fract(uTime * 7.0) * 61.0) - 0.5) 
 	const onVisibility = () => { if (!document.hidden) start(); };
 	document.addEventListener('visibilitychange', onVisibility);
 	calm.addEventListener('change', () => { if (!calm.matches) start(); else draw(0); });
-	uniforms.uTime.value = 4; // start on a well-formed wave rather than flat noise
+	uniforms.uTime.value = 4;
+	uniforms.uPhase.value = 4 * speed + 0.5; // start on a well-formed wave rather than flat noise
 	resize();
 
 	return {
+		/** Changes any of colors, speed, strength, density and grain, and draws at once. */
+		set(o) {
+			if (o.colors) {
+				o.colors.forEach((c, i) => uniforms[`uC${i + 1}`].value.set(c));
+				renderer.setClearColor(o.colors[0]);
+			}
+			if (o.speed !== undefined) speed = o.speed;
+			if (o.strength !== undefined) uniforms.uStrength.value = o.strength;
+			if (o.density !== undefined) uniforms.uDensity.value = o.density;
+			if (o.grain !== undefined) uniforms.uGrain.value = o.grain;
+			if (!frame) draw(0);
+		},
 		destroy() {
 			cancelAnimationFrame(frame);
 			removeEventListener('pointermove', onPointer);

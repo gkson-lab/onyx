@@ -325,6 +325,39 @@ dialog.zoom::backdrop { background: rgb(12 10 8 / 0.82); }
 dialog.zoom img { max-height: 90vh; width: auto; border-radius: 10px; }
 dialog.zoom button { position: absolute; top: 10px; right: 10px; }
 
+/* ---------- The stone playground ---------- */
+.play { min-height: clamp(560px, 62vw, 680px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 360px); align-items: end; }
+.play-fallback { grid-column: 1 / -1; align-self: end; padding: 24px; color: var(--on-slab-2); font-size: 14px; }
+.play-fallback[hidden] { display: none; }
+.mixer { grid-column: 2; margin: 20px; padding: 22px; border-radius: 20px; display: grid; gap: 16px;
+	background: rgb(18 15 12 / 0.62); border: 1px solid var(--slab-rule); -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2); }
+.mixer[hidden] { display: none; }
+.mixer fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.mixer legend, .slider > span { font-size: 13.5px; color: var(--on-slab-2); padding: 0; margin-bottom: 8px; }
+.presets [data-presets] { display: flex; flex-wrap: wrap; gap: 6px; }
+.presets button { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px 7px 8px; border-radius: 999px; border: 1px solid var(--slab-rule); background: transparent; color: var(--on-slab); font-size: 14px; cursor: pointer; }
+.presets button:hover { border-color: var(--on-slab-2); }
+.presets button[aria-pressed="true"] { background: var(--on-slab); color: var(--slab); border-color: var(--on-slab); }
+.presets button i { width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(135deg, var(--a) 0 33%, var(--b) 33% 66%, var(--c) 66%); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.2); }
+.swatches { display: flex; gap: 12px; }
+.swatches legend { width: 100%; }
+.swatches label { display: grid; justify-items: center; gap: 6px; font-size: 12.5px; color: var(--on-slab-3); cursor: pointer; }
+.swatches input { appearance: none; -webkit-appearance: none; width: 46px; height: 46px; padding: 0; border: 1px solid var(--slab-rule); border-radius: 12px; background: none; cursor: pointer; }
+.swatches input::-webkit-color-swatch-wrapper { padding: 3px; }
+.swatches input::-webkit-color-swatch { border: 0; border-radius: 9px; }
+.swatches input::-moz-color-swatch { border: 0; border-radius: 9px; }
+.slider { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 12px; }
+.slider > span { margin: 0; }
+.slider input { grid-column: 1 / -1; width: 100%; accent-color: var(--glow); }
+.slider output { font: 500 12.5px/1 var(--mono); color: var(--on-slab); font-variant-numeric: tabular-nums; grid-row: 1; grid-column: 2; }
+.mix-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.mix-actions .btn { min-height: 42px; padding: 0 18px; font-size: 14px; }
+.mix-note { font-size: 13px; color: var(--on-slab-2); min-height: 1.3em; }
+@media (max-width: 860px) {
+	.play { grid-template-columns: minmax(0, 1fr); align-items: start; }
+	.mixer { grid-column: 1; margin: 280px 12px 12px; }
+}
+
 /* ---------- Everything else ---------- */
 .more { display: grid; grid-template-columns: minmax(180px, 240px) minmax(0, 1fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
 .index { position: sticky; top: 92px; list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
