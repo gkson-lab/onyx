@@ -40,7 +40,7 @@ spy($$('.index a'));
 // Without WebGL 2 the still mark and the CSS stone stay, and no 3D is loaded.
 const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
 if (gl) import('./gradient.js').then(({ createGradient, PRESETS, STONES }) => {
-	// A stone made in the playground and put behind the page is kept in this browser.
+	// Background settings someone chose are kept in this browser.
 	let saved = null;
 	try { saved = JSON.parse(store.get('stone') || 'null'); } catch {}
 	const panels = [];
@@ -50,32 +50,29 @@ if (gl) import('./gradient.js').then(({ createGradient, PRESETS, STONES }) => {
 		panels.push({ g, preset: PRESETS[canvas.dataset.gradient] });
 		if (saved) g.set(saved);
 	}
-	playground(createGradient, PRESETS, STONES, panels, saved);
+	tweaks(STONES, panels, saved);
 }).catch(() => {});
 
-/* ---------- The stone playground ---------- */
-function playground(createGradient, PRESETS, STONES, panels, saved) {
-	const box = $('[data-play-stone]');
-	if (!box) return;
-	const canvas = $('canvas', box), form = $('form', box), note = $('[data-mix-note]', box);
+/* ---------- Background settings: a small panel that changes every stone on the page ---------- */
+function tweaks(STONES, panels, saved) {
+	const panel = $('#tweaks');
+	const openers = $$('.tweak');
+	if (!panel || !panels.length) return;
 	const copy = (s) => ({ colors: [...s.colors], speed: s.speed, strength: s.strength, density: s.density, grain: s.grain });
 	let cur = copy(saved || STONES.Onyx);
-	const g = createGradient(canvas, { ...PRESETS.onyx, ...cur }, { onFirstFrame: () => canvas.classList.add('on') });
-	if (!g) return;
-	form.hidden = false;
-	$('.play-fallback', box).hidden = true;
-
-	const sliders = ['speed', 'strength', 'density', 'grain'].map((name) => form.elements[name]);
-	const swatches = [0, 1, 2].map((i) => form.elements[`c${i}`]);
+	const sliders = ['speed', 'strength', 'density', 'grain'].map((name) => $(`input[name="${name}"]`, panel));
+	const swatches = [0, 1, 2].map((i) => $(`input[name="c${i}"]`, panel));
 	const presets = Object.entries(STONES).map(([name, s]) => {
 		const b = document.createElement('button');
 		b.type = 'button';
-		b.innerHTML = `<i style="--a: ${s.colors[0]}; --b: ${s.colors[1]}; --c: ${s.colors[2]}" aria-hidden="true"></i>${name}`;
-		b.addEventListener('click', () => { cur = copy(s); g.set(cur); show(); note.textContent = ''; });
-		$('[data-presets]', form).append(b);
+		b.title = name;
+		b.setAttribute('aria-label', name);
+		b.style.cssText = `--a: ${s.colors[0]}; --b: ${s.colors[1]}; --c: ${s.colors[2]}`;
+		b.addEventListener('click', () => { cur = copy(s); apply(); });
+		$('[data-presets]', panel).append(b);
 		return [b, s];
 	});
-	const same = (a, b) => JSON.stringify(copy(a)) === JSON.stringify(copy(b));
+	const same = (x, y) => JSON.stringify(copy(x)) === JSON.stringify(copy(y));
 	const digits = { speed: 2, strength: 1, density: 2, grain: 3 };
 	const show = () => {
 		for (const input of sliders) {
@@ -85,28 +82,48 @@ function playground(createGradient, PRESETS, STONES, panels, saved) {
 		swatches.forEach((input, i) => { input.value = cur.colors[i]; });
 		for (const [b, s] of presets) b.setAttribute('aria-pressed', String(same(cur, s)));
 	};
-	form.addEventListener('input', (e) => {
+	const apply = () => {
+		for (const p of panels) p.g.set(cur);
+		store.set('stone', JSON.stringify(cur));
+		show();
+	};
+	panel.addEventListener('input', (e) => {
 		const t = e.target;
 		if (t.type === 'range') cur[t.name] = Number(t.value);
 		else if (t.type === 'color') cur.colors[Number(t.name.slice(1))] = t.value;
 		else return;
-		g.set(cur);
-		show();
-		note.textContent = '';
+		apply();
 	});
-	$('[data-apply]', form).addEventListener('click', () => {
-		for (const p of panels) p.g.set(cur);
-		store.set('stone', JSON.stringify(cur));
-		note.textContent = 'Now behind the top and bottom panels, and kept in this browser.';
-	});
-	$('[data-reset]', form).addEventListener('click', () => {
+	$('[data-reset]', panel).addEventListener('click', () => {
 		cur = copy(STONES.Onyx);
-		g.set(cur);
 		for (const p of panels) p.g.set(p.preset);
 		store.set('stone', '');
 		show();
-		note.textContent = "Back to the page's own stone.";
 	});
+
+	let opener = null;
+	const close = (refocus) => {
+		if (panel.hidden) return;
+		panel.hidden = true;
+		opener?.setAttribute('aria-expanded', 'false');
+		if (refocus) opener?.focus();
+		opener = null;
+	};
+	const open = (btn) => {
+		opener = btn;
+		btn.after(panel);
+		panel.hidden = false;
+		btn.setAttribute('aria-expanded', 'true');
+		show();
+		($('[aria-pressed="true"]', panel) || $('button, input', panel)).focus();
+	};
+	for (const btn of openers) {
+		btn.hidden = false;
+		btn.addEventListener('click', () => { const again = opener === btn; close(false); if (!again) open(btn); });
+	}
+	$('[data-tw-close]', panel).addEventListener('click', () => close(true));
+	panel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); close(true); } });
+	document.addEventListener('pointerdown', (e) => { if (!panel.hidden && !panel.contains(e.target) && !e.target.closest('.tweak')) close(false); });
 	show();
 }
 
@@ -173,33 +190,33 @@ function linesOf(run) {
 		const who = NAME[e.agent] ?? e.agent;
 		switch (e.kind) {
 			case 'message':
-				lines.push({ at: 0, who: 'You', html: run.attachment ? `Sent, with <code>${esc(run.attachment.name)}</code> attached; its text was read on the PC` : 'Sent from the app' });
+				lines.push({ at: 0, who: 'You', html: run.attachment ? `Sent with <code>${esc(run.attachment.name)}</code> attached. Its text was read right on the PC.` : 'Sent from the app' });
 				break;
 			case 'route':
-				lines.push({ at: e.start, end: e.t, who: 'Router', router: true, wait: `<code>${e.model}</code> reads the message and picks a tier`,
-					html: `<b>${TIER[e.chose]}</b>, picked by <code>${e.model}</code> in ${took(e.t - e.start)}: <q>${esc(e.reason)}</q>` });
+				lines.push({ at: e.start, end: e.t, who: 'Router', router: true, wait: `<code>${e.model}</code> is reading the message to pick a tier`,
+					html: `Picked <b>${TIER[e.chose]}</b> in ${took(e.t - e.start)} <span class="dim">(using <code>${e.model}</code>)</span>: <q>${esc(e.reason)}</q>` });
 				break;
 			case 'call':
 				lines.push({ at: e.start, end: e.t, who, agent: e.agent, cls: e.ok ? '' : 'bad', wait: `<code>${e.model}</code> is writing`,
-					html: e.ok ? `<code>${e.model}</code> answered in ${took(e.t - e.start)} <span class="dim">· ${num(e.tokens)} tokens</span>`
-						: `<code>${e.model}</code> failed after ${took(e.t - e.start)}: ${esc(e.error)}` });
+					html: e.ok ? `<code>${e.model}</code> replied in ${took(e.t - e.start)} <span class="dim">· ${num(e.tokens)} tokens</span>`
+						: `<code>${e.model}</code> gave up after ${took(e.t - e.start)}: ${esc(e.error)}` });
 				break;
 			case 'fallback':
 				lines.push({ at: e.t, who, cls: 'warn', html: e.type === 'tier'
-					? `<b>Fell back to ${TIER[e.to]}</b>: ${esc(e.reason)}`
-					: `<b>Tried again</b>: ${esc(e.reason)}` });
+					? `<b>Dropping down to ${TIER[e.to]}</b>: ${esc(e.reason)}`
+					: `<b>Trying again</b>: ${esc(e.reason)}` });
 				break;
 			case 'delegate':
-				lines.push({ at: e.t, who, html: `<b>Handed out ${e.tasks.length} tasks, to run at once</b>: ${e.tasks.map((t) => `${NAME[t.agent]}, <q>${esc(t.task)}</q>`).join('; ')}` });
+				lines.push({ at: e.t, who, html: `<b>Split it into ${e.tasks.length} jobs that run at the same time</b>: ${e.tasks.map((t) => `${NAME[t.agent]} gets <q>${esc(t.task)}</q>`).join('; ')}` });
 				break;
 			case 'tool':
-				lines.push({ at: e.t, who, html: `called <code>${esc(e.tool)}</code> <span class="dim">${esc(args(e.args))}</span>` });
+				lines.push({ at: e.t, who, html: `used <code>${esc(e.tool)}</code> <span class="dim">${esc(args(e.args))}</span>` });
 				break;
 			case 'result':
-				lines.push({ at: e.t, who, cls: e.ok ? 'ok' : 'bad', html: `<span class="tick">${e.ok ? 'done' : 'failed'}</span> in ${e.ms} ms: ${esc(e.result)}` });
+				lines.push({ at: e.t, who, cls: e.ok ? 'ok' : 'bad', html: `<span class="tick">${e.ok ? 'worked' : 'failed'}</span> in ${e.ms} ms: ${esc(e.result)}` });
 				break;
 			case 'done':
-				lines.push({ at: e.t, who, html: `<b>Reported back</b> <span class="dim">· ${num(e.tokens)} tokens</span>: <q>${esc(e.output)}</q>` });
+				lines.push({ at: e.t, who, html: `<b>Done, and reported back to Core</b> <span class="dim">· ${num(e.tokens)} tokens</span>: <q>${esc(e.output)}</q>` });
 				break;
 		}
 	}
@@ -244,7 +261,7 @@ if (replay) {
 		const b = document.createElement('button');
 		b.type = 'button';
 		b.setAttribute('aria-pressed', 'false');
-		const agents = r.agents.length === 1 ? 'Core alone' : `${r.agents.length} agents`;
+		const agents = r.agents.length === 1 ? 'just Core' : `${r.agents.length} agents`;
 		b.innerHTML = `<span class="msg">${esc(r.message)}</span><span class="facts">${TIER[r.tier]} · ${took(r.seconds)} · ${agents}</span>`;
 		b.addEventListener('click', () => load(i, true));
 		picker.append(b);
@@ -334,7 +351,7 @@ if (replay) {
 				box.dataset.len = text.length;
 				box.classList.toggle('caret', f < 1);
 			}
-			$('.sum', card).innerHTML = f < 1 ? '' : `<span><b>${run.agents.length === 1 ? 'Core alone' : `${run.agents.length} agents`}</b></span><span><b>${num(run.tokens)}</b> tokens</span><span><b>${took(run.seconds)}</b> on a 4-core processor</span><span><b>$0</b> on the PC</span><span>${run.hosted < 0.0001 ? '<b>under $0.0001</b>' : `<b>$${run.hosted.toFixed(4)}</b>`} if hosted</span>`;
+			$('.sum', card).innerHTML = f < 1 ? '' : `<span><b>${run.agents.length === 1 ? 'Just Core' : `${run.agents.length} agents`}</b></span><span><b>${num(run.tokens)}</b> tokens</span><span><b>${took(run.seconds)}</b> on a 4-core processor</span><span><b>$0</b> on the PC</span><span>${run.hosted < 0.0001 ? '<b>under $0.0001</b>' : `<b>$${run.hosted.toFixed(4)}</b>`} on a paid host</span>`;
 		} else card?.remove();
 		if (stick) log.scrollTop = log.scrollHeight;
 		// The pieces of the mark: lit while their agent works, dimmer once it has.
@@ -367,7 +384,7 @@ if (replay) {
 }
 
 /* ---------- The PC planner ---------- */
-const JOBS = { lite: 'Routing and quick replies', standard: 'Chat, summaries, most agent steps', pro: 'Code, tools, multi-step work', max: 'The hardest reasoning, thinking first' };
+const JOBS = { lite: 'Picks the tier, handles quick replies', standard: 'Everyday chat and most agent work', pro: 'Code, tools and multi-step jobs', max: 'The really hard stuff; thinks first' };
 let current = null; // { plan, card }
 const listeners = [];
 const planner = $('[data-planner]');
@@ -398,7 +415,7 @@ if (planner) {
 		const rows = Object.entries(p.tiers).map(([tier, id]) => {
 			const f = p.fits.find((x) => x.id === id);
 			const m = CATALOG.find((x) => x.id === id);
-			const where = f.where === 'gpu' ? 'all on the graphics card' : f.where === 'split' ? `${Math.round(f.gpuShare * 100)}% on the card, the rest in system memory` : 'on the processor';
+			const where = f.where === 'gpu' ? 'entirely on the graphics card' : f.where === 'split' ? `${Math.round(f.gpuShare * 100)}% on the card, the rest in system memory` : 'on the processor';
 			const v = Math.min(1, Math.sqrt((f.tokensPerSec ?? 0) / 300));
 			return `<li><div class="tn"><b>${TIER[tier]}</b><span>${JOBS[tier]}</span></div>
 				<div class="model"><code>${id}</code><span>${m.maker}, ${m.params}</span></div>
@@ -410,11 +427,11 @@ if (planner) {
 		const std = p.fits.find((x) => x.id === p.tiers.standard).tokensPerSec;
 		$('[data-answer-time]', planner).textContent = `about ${Math.max(1, Math.round(400 / std))} s`;
 		const notes = [];
-		if (!card.vramGb) notes.push('Without a graphics card everything runs on the processor, slowly, as in the replay above.');
-		else if (p.together) notes.push(`Lite and Standard fit on the card together (${p.pair.toFixed(1)} GB), so ordinary messages never wait for a model to load.`);
-		else notes.push('Lite and Standard do not both fit on the card, so Ollama swaps them: expect a pause of a few seconds when it does.');
-		notes.push(p.vision ? 'Gemma 3 12B can read attached images here.' : 'Gemma 3 12B, which reads images, does not fit here.');
-		notes.push('System memory is taken as DDR5-5600.');
+		if (!card.vramGb) notes.push("No graphics card? It still works, just slowly, like the runs above.");
+		else if (p.together) notes.push(`Lite and Standard both fit on your card at once (${p.pair.toFixed(1)} GB), so everyday messages never wait for a model to load.`);
+		else notes.push("Lite and Standard can't both fit on your card, so Ollama swaps them now and then, which means a pause of a few seconds.");
+		notes.push(p.vision ? 'Gemma 3 12B fits too, so Onyx can read images you attach.' : "Gemma 3 12B, the model that reads images, won't fit.");
+		notes.push('Memory speed is assumed to be DDR5-5600.');
 		$('[data-plan-note]', planner).textContent = notes.join(' ');
 		current = { plan: p, card };
 		for (const fn of listeners) fn();
@@ -425,12 +442,12 @@ if (planner) {
 
 /* ---------- The agents ---------- */
 const AGENTS = {
-	'Onyx Core': { tier: null, role: 'Gets every message, and writes the one answer.', desc: "It answers quick things itself, plans the rest, hands it out and merges the results. A task that needs exactly one specialist skips Core and goes straight to it, which is faster.", tools: [['delegate', 'Hands tasks to other agents, several at once.'], ['memory_search', 'Looks up what Memory has kept about you.'], ['calculate', "Exact arithmetic, units and dates, from Onyx 3's calculator."]], limits: [8, 60000, '10 min'] },
-	Researcher: { tier: 'pro', role: 'Searches the web and reads pages, citing its sources.', desc: "It never fetches a page on your PC or your home network, and what it reads reaches the models as untrusted text, not as instructions.", tools: [['web_search', "Brave Search with a key, or DuckDuckGo's plain page without one."], ['web_fetch', 'Reads one page.']], limits: [10, 60000, '5 min'] },
-	Coder: { tier: 'pro', role: 'Writes Python or JavaScript, runs it, and reports what it really printed.', desc: 'The code runs in a Docker container with no network, a read-only disk, none of your files, 256 MB, one CPU and 30 seconds. Without Docker running, it says the code was not run.', tools: [['run_code', 'Runs the code in that container and returns its output.']], limits: [10, 60000, '5 min'] },
-	Scheduler: { tier: 'standard', role: 'Sets reminders, one-off or repeating, in your local time.', desc: 'It lists or cancels them when you ask. Each one goes out on your preferred channel when it comes due.', tools: [['schedule_create', 'Sets a reminder.'], ['schedule_list', 'Lists them.'], ['schedule_cancel', 'Cancels one.']], limits: [5, 20000, '2 min'] },
-	Messenger: { tier: 'lite', role: 'Fits a reply to the channel it goes out on, from the app to a text message.', desc: '', tools: [['format_message', 'Shapes a reply for its channel.']], limits: [3, 8000, '1 min'] },
-	Memory: { tier: 'lite', role: 'Keeps lasting facts about you, and finds them again.', desc: 'By meaning, with a small embedding model, or by their words without it. Settings lists everything it keeps, each with a button to forget it.', tools: [['memory_save', 'Keeps a fact.'], ['memory_search', 'Finds the facts that help with a message.']], limits: [4, 12000, '1 min'] },
+	'Onyx Core': { tier: null, role: 'The lead. It reads every message and writes the reply you get.', desc: "Quick questions it answers itself. Bigger ones it plans out, hands to the specialists, and stitches their work into one answer. If a job only needs one specialist, it goes straight there to save time.", tools: [['delegate', 'Hands jobs to other agents, several at once.'], ['memory_search', 'Checks what Memory knows about you.'], ['calculate', "Exact math, units and dates, borrowed from Onyx 3's calculator."]], limits: [8, 60000, '10 min'] },
+	Researcher: { tier: 'pro', role: 'Searches the web, reads pages, and tells you where it found things.', desc: "It uses Brave Search if you add a key, or DuckDuckGo if you don't. It won't open pages on your PC or your home network, and whatever it reads is treated as untrusted text, never as instructions.", tools: [['web_search', 'Searches the web.'], ['web_fetch', 'Reads a page.']], limits: [10, 60000, '5 min'] },
+	Coder: { tier: 'pro', role: 'Writes Python or JavaScript, runs it, and tells you what actually came out.', desc: "The code runs in a locked-down Docker box: no internet, a read-only disk, none of your files, 256 MB of memory, one CPU and 30 seconds. If Docker isn't running, it tells you the code didn't run instead of guessing.", tools: [['run_code', 'Runs code in that box and returns the output.']], limits: [10, 60000, '5 min'] },
+	Scheduler: { tier: 'standard', role: 'Sets reminders, one-time or repeating, in your time zone.', desc: "Ask it what's coming up, or have it cancel something. When a reminder is due, it goes out on whichever channel you prefer.", tools: [['schedule_create', 'Sets a reminder.'], ['schedule_list', "Lists what's coming up."], ['schedule_cancel', 'Cancels one.']], limits: [5, 20000, '2 min'] },
+	Messenger: { tier: 'lite', role: "Shapes a reply to fit where it's going, whether that's the app or a text message.", desc: '', tools: [['format_message', 'Formats a reply for its channel.']], limits: [3, 8000, '1 min'] },
+	Memory: { tier: 'lite', role: 'Remembers what you tell it, and finds it again when it matters.', desc: "It searches by meaning with a small embedding model, or by keywords if that model isn't around. Everything it remembers is listed in Settings, and you can delete anything with one click.", tools: [['memory_save', 'Saves a fact.'], ['memory_search', 'Finds facts that help with a message.']], limits: [4, 12000, '1 min'] },
 };
 const pick = $('[data-agent-pick]');
 const card = $('[data-agent-card]');
@@ -448,20 +465,20 @@ if (pick && card) {
 			if (on && focus) r.focus();
 		}
 		for (const p of paths) p.classList.toggle('sel', p.dataset.agent === name);
-		const tierChip = a.tier ? `<span class="chip">${TIER[a.tier]} tier</span>` : '<span class="chip">tier picked by the router</span>';
+		const tierChip = a.tier ? `<span class="chip">${TIER[a.tier]} tier</span>` : '<span class="chip">tier picked per message</span>';
 		let here = '';
 		if (current) {
-			const where = current.card.vramGb ? `On an ${current.card.name}` : 'Without a graphics card';
+			const where = current.card.vramGb ? `With an ${current.card.name}` : 'Without a graphics card';
 			if (a.tier) {
 				const id = current.plan.tiers[a.tier];
 				const f = current.plan.fits.find((x) => x.id === id);
-				here = `${where}, ${TIER[a.tier]} runs <b>${id}</b> at about ${f.tokensPerSec} tokens a second. <a href="#pc">Change the PC</a>`;
-			} else here = `${where}, the router sends each message to Lite (<b>${current.plan.tiers.lite}</b>), Standard (<b>${current.plan.tiers.standard}</b>), Pro (<b>${current.plan.tiers.pro}</b>) or Max (<b>${current.plan.tiers.max}</b>). <a href="#pc">Change the PC</a>`;
+				here = `${where}, this agent would run <b>${id}</b> at about ${f.tokensPerSec} tokens a second. <a href="#pc">Try a different PC</a>`;
+			} else here = `${where}, Onyx Core switches between Lite (<b>${current.plan.tiers.lite}</b>), Standard (<b>${current.plan.tiers.standard}</b>), Pro (<b>${current.plan.tiers.pro}</b>) and Max (<b>${current.plan.tiers.max}</b>), depending on the message. <a href="#pc">Try a different PC</a>`;
 		}
 		card.innerHTML = `<div class="row"><h3>${name}</h3>${tierChip}</div>
 			<p class="role">${a.role}</p>${a.desc ? `<p class="desc">${a.desc}</p>` : ''}
 			<h4>Tools</h4><ul class="tools">${a.tools.map(([t, d]) => `<li><code>${t}</code><span>${d}</span></li>`).join('')}</ul>
-			<h4>Limits</h4><div class="limits"><div><b>${a.limits[0]}</b><span>steps</span></div><div><b>${num(a.limits[1])}</b><span>tokens</span></div><div><b>${a.limits[2]}</b><span>at most</span></div></div>
+			<h4>Limits</h4><div class="limits"><div><b>${a.limits[0]}</b><span>steps</span></div><div><b>${num(a.limits[1])}</b><span>tokens</span></div><div><b>${a.limits[2]}</b><span>max time</span></div></div>
 			${here ? `<p class="here">${here}</p>` : ''}`;
 	};
 	radios.forEach((r, i) => {
@@ -496,7 +513,7 @@ for (const img of $$('.window img, .phone-shot')) {
 	const target = img.closest('.lens') || img;
 	target.tabIndex = 0;
 	target.setAttribute('role', 'button');
-	target.setAttribute('aria-label', `Open full size: ${img.alt}`);
+	target.setAttribute('aria-label', `See full size: ${img.alt}`);
 	target.style.cursor = 'zoom-in';
 	target.addEventListener('click', () => openZoom(img));
 	target.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openZoom(img); } });
@@ -569,7 +586,7 @@ if (tabs) {
 			if (!kit.supportsHtmlInCanvas()) return;
 			lensKit = kit;
 			const hint = $('[data-lens-hint]');
-			if (hint) hint.textContent = 'Move over a screen to look closer through the lens; click to open it full size.';
+			if (hint) hint.textContent = 'Hover over a screen for a closer look, or click to see it full size.';
 			select(list.find((t) => t.getAttribute('aria-selected') === 'true'));
 		}).catch(() => {});
 	}

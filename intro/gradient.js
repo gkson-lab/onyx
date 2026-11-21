@@ -63,7 +63,7 @@ export const PRESETS = {
 	},
 };
 
-/** The playground's starting points: the page's own stone and three more. Each changes only the colours and motion. */
+/** Presets for the background settings: the page's own stone and three more. Each changes only the colours and motion. */
 export const STONES = {
 	Onyx: { colors: PRESETS.onyx.colors, speed: 0.12, strength: 3.2, density: 1.2, grain: 0.05 },
 	Sardonyx: { colors: ['#1a0d08', '#b4532c', '#f0d8b2'], speed: 0.18, strength: 2.6, density: 1.5, grain: 0.04 },
