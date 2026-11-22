@@ -61,4 +61,42 @@
 	--chrome: linear-gradient(135deg, #ffffff 0%, #dfe5f2 18%, #9da6ba 34%, #ffd9ef 46%, #d3f3ff 58%, #a3abbf 72%, #f2efff 86%, #ffffff 100%);
 	--chroma: linear-gradient(90deg, #9fb4ff, #d6b3ff 30%, #ffbfdc 55%, #ffe3b0 75%, #b8f5e4);
 	--chroma-ring: conic-gradient(from 200deg, #9fb4ff, #e0b8ff, #ffc2de, #ffe6b5, #b9f6e6, #9fd8ff, #9fb4ff);
+	/* What a filled button or badge is made of, and the colour on it. */
+	--chrome-fill: var(--chrome);
+	--chrome-on: #0a0a0a;
+	/* The backdrop's three fields of light, the main pane's tint, text still being worked out, and the light inside the
+	   main pane's rim while Onyx answers. */
+	--field-1: rgb(92 64 196 / 0.5);
+	--field-2: rgb(34 132 186 / 0.36);
+	--field-3: rgb(206 120 62 / 0.24);
+	--slab: rgb(18 18 22 / 0.3);
+	--shimmer: linear-gradient(90deg, var(--muted) 34%, #b9c8ff 43%, #ffffff 50%, #ffc6e6 57%, var(--muted) 66%);
+	--glow-edge: rgb(190 205 255 / 0.18);
+	--glow-1: rgb(150 170 255 / 0.3);
+	--glow-2: rgb(255 205 240 / 0.12);
+}
+
+/*
+ * Black chrome (beta 2, November 2026, asked for by the owner, after a "gk" cast in liquid black chrome). The chrome is
+ * black liquid metal that catches white light, and where its light and dark meet it splits into hot colour: orange and
+ * gold on the way into the light, blue on the way out. The backdrop's light turns neutral, so the only colour left is
+ * in those fringes, and the glass is smoky. html[data-chrome="black"] turns it on; the liquid glass's shader reads the
+ * same switch (components/liquid-border.tsx).
+ */
+:root[data-chrome='black'] {
+	--chrome: linear-gradient(155deg, #ffffff 0%, #e2e4ea 15%, #a4a9b6 29%, #3b3f4b 40%, #121319 47%, #ff7a2e 49.5%, #ffd36b 51.2%, #f6f7fa 53%, #9db2ff 55.6%, #262a36 58.5%, #6c7181 70%, #d8dbe3 84%, #ffffff 100%);
+	--chrome-fill: linear-gradient(172deg, #555a69 0%, #1c1e26 26%, #0a0b0f 52%, #1d202b 74%, #ff8a3d 84.5%, #ffe08a 87.5%, #ffffff 90%, #93b2ff 93%, #262a38 100%);
+	--chrome-on: #ffffff;
+	--chroma: linear-gradient(90deg, #262a35 0%, #9ea3b2 34%, #ffffff 54%, #ffc46b 64%, #ff6b3d 74%, #5b7cff 88%, #20232f 100%);
+	--chroma-ring: conic-gradient(from 210deg, #ffffff, #8d93a2, #22252f, #ff8a3d, #ffe08a, #ffffff, #8fb0ff, #22252f, #ffffff);
+	--field-1: rgb(150 150 165 / 0.2);
+	--field-2: rgb(105 118 142 / 0.17);
+	--field-3: rgb(170 138 112 / 0.11);
+	--slab: rgb(6 6 8 / 0.44);
+	--lg-glass: rgb(12 12 14 / 0.52);
+	--lg-glass-active: rgb(62 62 68 / 0.52);
+	--shimmer: linear-gradient(90deg, var(--muted) 34%, #ffb45e 43%, #ffffff 50%, #8fb0ff 57%, var(--muted) 66%);
+	--glow-edge: rgb(255 225 190 / 0.2);
+	--glow-1: rgb(255 170 90 / 0.2);
+	--glow-2: rgb(120 150 255 / 0.14);
 }

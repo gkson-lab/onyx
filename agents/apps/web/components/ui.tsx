@@ -9,8 +9,8 @@ export const ICON = { size: 18, strokeWidth: 1.5 } as const;
 const TIER_STYLE: Record<Tier, string> = {
 	lite: 'border border-muted text-muted',
 	standard: 'border border-text text-text',
-	pro: 'chrome-fill text-bg',
-	max: 'chrome-fill text-bg',
+	pro: 'chrome-fill',
+	max: 'chrome-fill',
 };
 const TIER_LABEL: Record<Tier, string> = { lite: 'LITE', standard: 'STANDARD', pro: 'PRO', max: 'MAX' };
 

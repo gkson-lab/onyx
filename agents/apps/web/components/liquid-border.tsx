@@ -14,7 +14,9 @@ import { useLive } from '@/lib/api';
  * The glass follows Apple's "Clear" Liquid Glass, as the macOS 27 and iOS 27 kits in Figma build it: what's behind it
  * shows through, lifted a little (a 6% dodge and a touch of shade); light gathers along its rim (two soft inner
  * highlights); it splits a faint rainbow there (dispersion 0.2); and it casts a soft shadow. The chrome line is the
- * Onyx mark's liquid chrome, two pixels wide round the slabs and a pixel and a half round the panels.
+ * Onyx mark's liquid chrome, two pixels wide round the slabs and a pixel and a half round the panels. Black chrome
+ * (beta 2, html[data-chrome="black"]) makes that line black liquid metal whose light splits into hot colour at its
+ * edges, and the glass smoky.
  *
  * It's one transparent WebGL canvas over the app that takes no clicks, drawn by a shader that works only on the pixels
  * near an edge. A panel that scrolls out of view (data-glass-scroll marks the scroller, with the insets its bars
@@ -51,6 +53,7 @@ uniform int uRims;
 uniform vec4 uRim[${RIMS}];
 uniform vec4 uRimR[${RIMS}];
 uniform vec4 uRimK[${RIMS}];     // how much glass the panel has (less as it scrolls away), whether it glows
+uniform float uBlack;     // 1: black chrome (beta 2, html[data-chrome="black"]); 0: chromatic
 out vec4 outColor;
 
 const float PI = 3.14159265;
@@ -113,6 +116,20 @@ vec3 width(vec2 p, vec2 away, vec3 wv, float rest, float height, float reach, fl
 	return h > 1.5 ? vec3(h, g) : vec3(1.5, 0.0, 0.0);
 }
 
+// Black chrome: a dark mirror with two bands of light in it, a bright one above and a dim one below. Each colour reads
+// the light a little apart, so the bands' edges split into hot colour, orange and gold on the way into the light and
+// blue on the way out, as liquid black metal does.
+vec3 blackChrome(float k) {
+	vec3 c = k + vec3(0.075, 0.02, -0.065);
+	vec3 high = smoothstep(0.55, 0.64, c) * (1.0 - smoothstep(0.84, 0.95, c));
+	vec3 low = smoothstep(0.05, 0.11, c) * (1.0 - smoothstep(0.2, 0.27, c));
+	return vec3(0.05, 0.055, 0.07) + high * 1.15 + low * 0.42;
+}
+// The hot colours black chrome splits into: orange, gold, then blue, as x goes from 0 to 1.
+vec3 hot(float x) {
+	return mix(mix(vec3(1.0, 0.5, 0.16), vec3(1.0, 0.86, 0.45), smoothstep(0.0, 0.35, x)), vec3(0.4, 0.58, 1.0), smoothstep(0.45, 0.9, x));
+}
+
 // The glass at p, premultiplied. f: how far p is past the glass's rim (negative inside it), gf: which way that grows;
 // edge: how far p is from the slab or panel the glass flows out of. line: the chrome line's half-width; shadow: how
 // dark the shadow it casts; light: how bright the glass; amount: how much glass there is; glow: whether it glows while
@@ -122,8 +139,10 @@ vec4 glass(vec2 p, float f, vec2 gf, float edge, float wave, float line, float s
 	float t = uTime * uMotion;
 	float lit = glow * clamp(0.6 * uAgent.x + 0.5 * uAgent.y, 0.0, 1.0);
 	float along = (p.x + p.y) * 0.0045;
-	// While Onyx answers: colour flowing along the glass, and a light running round the app's edge.
-	vec3 aura = 0.5 + 0.5 * cos(2.0 * PI * (along * 1.6 - t * 0.35 + vec3(0.0, 0.33, 0.67)));
+	bool black = uBlack > 0.5;
+	// While Onyx answers: colour flowing along the glass (a rainbow; in black chrome, its hot colours), and a light
+	// running round the app's edge.
+	vec3 aura = black ? hot(0.5 + 0.5 * sin(2.0 * PI * (along * 1.6 - t * 0.35))) : 0.5 + 0.5 * cos(2.0 * PI * (along * 1.6 - t * 0.35 + vec3(0.0, 0.33, 0.67)));
 	vec2 c = p - uView * 0.5;
 	float turn = atan(c.y, c.x) / (2.0 * PI);
 	float comet = outer * uAgent.x * uMotion * pow(0.5 + 0.5 * cos(2.0 * PI * (turn - t * 0.4)), 28.0);
@@ -142,31 +161,52 @@ vec4 glass(vec2 p, float f, vec2 gf, float edge, float wave, float line, float s
 
 	// The glass: what's behind shows through, lifted a little and shaded a touch. Light gathers along its rim (a little
 	// more where it faces up or down) and along the edge it flows from; a faint rainbow lies inside the rim, where the
-	// glass bends light the most; the pointer's light falls on it.
+	// glass bends light the most; the pointer's light falls on it. Black chrome's glass is smoky: it darkens what's
+	// behind, its rim light is sharper, and inside the rim the light splits gold, then blue.
 	float g = max(0.0, -f);
-	vec3 col = vec3(0.045);
-	float shade = 0.07;
 	float facing = 0.65 + 0.35 * abs(n2.y);
-	col += vec3(0.95, 0.97, 1.0) * (exp(-g / 2.6) * 0.34 + exp(-g / 11.0) * 0.07) * facing;
-	col += vec3(0.6, 0.65, 0.75) * exp(-edge / 2.5) * 0.10;
-	vec3 spectrum = 0.5 + 0.5 * cos(2.0 * PI * (g / 6.0 - t * 0.05 + vec3(0.0, 0.33, 0.67)));
-	col += spectrum * exp(-g / 4.5) * 0.15;
+	vec3 col;
+	float shade;
+	if (black) {
+		col = vec3(0.02);
+		shade = 0.22;
+		col += vec3(0.95, 0.97, 1.0) * (exp(-g / 2.0) * 0.3 + exp(-g / 9.0) * 0.05) * facing;
+		col += vec3(0.6, 0.65, 0.75) * exp(-edge / 2.0) * 0.08;
+		col += vec3(1.0, 0.56, 0.2) * exp(-pow((g - 1.8) / 1.1, 2.0)) * 0.2 + vec3(0.32, 0.5, 1.0) * exp(-pow((g - 4.2) / 1.6, 2.0)) * 0.16;
+	} else {
+		col = vec3(0.045);
+		shade = 0.07;
+		col += vec3(0.95, 0.97, 1.0) * (exp(-g / 2.6) * 0.34 + exp(-g / 11.0) * 0.07) * facing;
+		col += vec3(0.6, 0.65, 0.75) * exp(-edge / 2.5) * 0.10;
+		vec3 spectrum = 0.5 + 0.5 * cos(2.0 * PI * (g / 6.0 - t * 0.05 + vec3(0.0, 0.33, 0.67)));
+		col += spectrum * exp(-g / 4.5) * 0.15;
+	}
 	col += vec3(0.11) * uPointer.z * exp(-dot(dp, dp) / 9000.0);
 	col += aura * (exp(-g / 5.0) * 0.3 + 0.05) * lit + vec3(comet * 0.35);
 	col *= light;
 
 	// The chrome line along the rim: a thin tube of liquid chrome, shaded across its width as chrome is, its colours
-	// flowing along it as bands of a rainbow (faster, and stronger, while Onyx answers).
+	// flowing along it as bands of a rainbow (faster, and stronger, while Onyx answers). In black chrome it's dark
+	// where the rim faces away from the light (up and to the left) and catches the bright band where it faces it; the
+	// waves tilt it in and out of the light, so the band's hot edges run along it, and while Onyx answers glints race
+	// along it too.
 	float u = clamp(f / line, -1.0, 1.0);
 	vec3 n = normalize(vec3(n2 * u, sqrt(max(0.0, 1.0 - u * u))));
 	vec3 r = reflect(vec3(0.0, 0.0, -1.0), n);
-	float flow = along - t * (0.12 + 0.5 * lit) + 0.08 * wave;
-	vec3 hue = 0.5 + 0.5 * cos(2.0 * PI * (flow + vec3(0.0, 0.33, 0.67)));
-	float shine = 0.5 + 0.5 * clamp(-r.y * 1.6 + 0.4, 0.0, 1.0);
-	vec3 chrome = mix(vec3(shine), hue * (0.35 + 0.85 * shine), 0.6 + 0.3 * lit);
+	vec3 chrome;
+	if (black) {
+		float toward = dot(n2, normalize(vec2(-0.45, -0.9)));
+		chrome = blackChrome(0.5 + 0.42 * toward + 0.2 * wave + 0.05 * u + lit * 0.22 * sin(2.0 * PI * (along * 1.4 - t * 0.5)));
+		chrome += vec3(0.32) * smoothstep(0.35, 1.0, u);
+	} else {
+		float flow = along - t * (0.12 + 0.5 * lit) + 0.08 * wave;
+		vec3 hue = 0.5 + 0.5 * cos(2.0 * PI * (flow + vec3(0.0, 0.33, 0.67)));
+		float shine = 0.5 + 0.5 * clamp(-r.y * 1.6 + 0.4, 0.0, 1.0);
+		chrome = mix(vec3(shine), hue * (0.35 + 0.85 * shine), 0.6 + 0.3 * lit) + hue * 0.35 * lit;
+	}
 	chrome += pow(max(dot(r, normalize(vec3(-0.5, -0.7, 0.5))), 0.0), 20.0) * 0.7;
 	chrome += pow(max(dot(r, toPointer), 0.0), 30.0) * 1.4 * uPointer.z;
-	chrome += vec3(comet * 1.5) + hue * 0.35 * lit;
+	chrome += vec3(comet * 1.5);
 	float cover = (1.0 - smoothstep(line - px, line + px, abs(f))) * amount;
 	return vec4(mix(col * amount, chrome, cover), mix(shade * amount, 1.0, cover));
 }
@@ -327,7 +367,7 @@ export function LiquidBorder() {
 		const at = (n: string) => gl.getUniformLocation(prog, n);
 		const u = {
 			res: at('uRes'), view: at('uView'), dpr: at('uDpr'), time: at('uTime'), phase: at('uPhase'), motion: at('uMotion'), band: at('uBand'), reach: at('uReach'),
-			pointer: at('uPointer'), ripples: at('uRipples'), agent: at('uAgent'), slabs: at('uSlabs'), slab: at('uSlab'), slabR: at('uSlabR'), rims: at('uRims'), rim: at('uRim'), rimR: at('uRimR'), rimK: at('uRimK'),
+			pointer: at('uPointer'), ripples: at('uRipples'), agent: at('uAgent'), slabs: at('uSlabs'), slab: at('uSlab'), slabR: at('uSlabR'), rims: at('uRims'), rim: at('uRim'), rimR: at('uRimR'), rimK: at('uRimK'), black: at('uBlack'),
 		};
 
 		const calm = matchMedia('(prefers-reduced-motion: reduce)');
@@ -403,6 +443,7 @@ export function LiquidBorder() {
 			gl.uniform4fv(u.rim, rimData);
 			gl.uniform4fv(u.rimR, rimCorners);
 			gl.uniform4fv(u.rimK, rimKind);
+			gl.uniform1f(u.black, document.documentElement.dataset.chrome === 'black' ? 1 : 0);
 			gl.drawArrays(gl.TRIANGLES, 0, 3);
 		};
 		// Every frame while something moves it (the pointer, a ripple, Onyx answering, a scroll); 30 a second when only

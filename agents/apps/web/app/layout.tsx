@@ -11,7 +11,7 @@ export const viewport: Viewport = { themeColor: '#0a0a0a', width: 'device-width'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" data-theme="dark" style={{ ['--font-sans' as string]: GeistSans.style.fontFamily, ['--font-mono' as string]: GeistMono.style.fontFamily }} className={`${GeistSans.variable} ${GeistMono.variable} h-full`}>
+		<html lang="en" data-theme="dark" data-chrome="black" style={{ ['--font-sans' as string]: GeistSans.style.fontFamily, ['--font-mono' as string]: GeistMono.style.fontFamily }} className={`${GeistSans.variable} ${GeistMono.variable} h-full`}>
 			<body>
 				<LiveProvider>
 					<Shell>{children}</Shell>

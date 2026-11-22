@@ -399,7 +399,9 @@ pointer and ripples where the pointer moves, and while Onyx answers the waves qu
 a light runs round the app (`apps/web/components/liquid-border.tsx`, one WebGL canvas; without WebGL 2 there is none).
 Fields, chips and code are glass too. The chat scrolls under its glass bar and composer; the sidebar's selection
 springs from item to item. Its accent is chromatic chrome, with a single colour for failures, and empty states that
-say what to do next, and all motion stops when the system asks for less.
+say what to do next, and all motion stops when the system asks for less. A second look, black chrome (beta 2, on the
+`black-chrome` branch), makes the chrome black liquid metal whose light splits into hot colour at its edges, over smoky
+glass and a neutral black backdrop; `data-chrome="black"` on the page's `<html>` switches it on.
 
 ## Accounts and keys
 
