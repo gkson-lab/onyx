@@ -34,11 +34,41 @@ Two files are made once and kept in `intro/scenes/`:
 - `noise.bin`, the blue noise the clouds dither with: `python3 tools/intro-scenes/blue-noise.py` from the repository's
   top folder (needs numpy). It stands in for NVIDIA's spatiotemporal blue noise, which three-geospatial loads by default.
 
-`sky-poster.jpg` is a still of the sky scene, shown before it loads and where WebGL 2 is missing.
+Four pictures rendered from the scenes themselves (in Playwright's Chromium, from the built bundles) stand in for them
+where they don't run:
+
+- `mark-still.webp` (and `mark-still.png` for browsers without WebP): the chrome mark at 960 px on transparency. It's
+  the hero's picture until the live chrome is ready, and stays at the lowest quality level.
+- `sky-poster.jpg` and `sky-below.jpg`: the sky over Austin at 4:30 to 4:50 PM on 21 November 2026, from above the
+  clouds (scroll progress 0) and from under them (0.8), at 1280 by 720. They show before the live sky is ready, and
+  in its place below the top quality level, crossing over as you scroll.
+- `rig-still.jpg`: the graphics card and memory with no model loaded (16 GB card, 32 GB of memory), at 960 by 660.
+  Wide screens show it where the 3D card doesn't run.
+
+## Quality levels
+
+The page picks a level for the device when it loads (`intro/quality.js`): `high`, `mid` or `low`, from the graphics
+processor's name where the browser gives it, the memory, the processor count, whether it's a phone, and whether it asked
+to save data. Software rendering, low-cost phone graphics and old laptop graphics start at `low`; phones and ordinary
+laptop graphics at `mid`. While the page runs, two stretches of two seconds each under 25 frames a second step it down
+one level (scenes starting up are given a few seconds' grace). It never steps back up. Add `?quality=high`, `mid` or
+`low` to the address to try one.
+
+| | high | mid | low |
+| --- | --- | --- | --- |
+| Stone (`intro/gradient.js`) | full resolution, 40 fps | 60%, 30 fps | CSS gradient; three.js isn't downloaded |
+| Chrome | 2 px per CSS px, 60 fps | 1 px per px, 30 fps | `mark-still` |
+| Sky | live | the two stills | the two stills |
+| Prism | full, 60 fps | 75%, 30 fps | 55%, drawn only when something changes |
+| Graphics card | up to 2 px per px | up to 1.25, fewer small parts, 30 fps | `rig-still` on wide screens, the memory bars |
+| Blur behind glass | yes | the header and small buttons only | none |
+
+Each scene's `setQuality(level)` takes it down a level in place. The live sky stops at the first step down, and at
+`low` the stone and the chrome give way to their stills.
 
 ## Fallbacks
 
-Every scene is optional. Without WebGL 2 the hero keeps the flat mark, the sky keeps its poster, and the graphics card
-gives way to the memory bars under it. Without WebGPU, or if the GPU drops out, the prism moves to WebGL 2 on a fresh
+Every scene is optional. Without WebGL 2 the hero keeps the chrome mark's picture, the sky keeps its stills, and the
+graphics card gives way to its picture (on wide screens) and the memory bars. Without WebGPU, or if the GPU drops out, the prism moves to WebGL 2 on a fresh
 canvas, and to a flat Canvas 2D drawing if that fails too. With reduced motion, scenes draw only when something changes. Without JavaScript the page is all
 there, with a still drawing of the prism.

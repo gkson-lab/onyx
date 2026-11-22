@@ -75,25 +75,33 @@ export const STONES = {
 
 const DEG = Math.PI / 180;
 
+// The stone is soft and slow, so it needs neither full resolution nor every frame: what it draws at each quality level
+// (see quality.js). Its only fine detail is the grain, which survives a lower resolution.
+const LEVELS = {
+	high: { ratio: 1, fps: 40, segments: 192 },
+	mid: { ratio: 0.6, fps: 30, segments: 96 },
+	low: { ratio: 0.45, fps: 20, segments: 64 },
+};
+
 /**
  * Draws a preset into a canvas, and keeps it moving while the canvas is on screen. The pointer tilts the camera a
- * few degrees. With reduced motion it draws one still frame. Returns null where WebGL is missing.
+ * few degrees. With reduced motion it draws one still frame. Returns null where WebGL is missing. `quality` is
+ * 'high', 'mid' or 'low'; setQuality() lowers it later.
  */
-export function createGradient(canvas, preset = PRESETS.onyx, { onFirstFrame } = {}) {
+export function createGradient(canvas, preset = PRESETS.onyx, { onFirstFrame, quality = 'high' } = {}) {
 	let renderer;
 	try {
 		renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
 	} catch {
 		return null;
 	}
-	const small = matchMedia('(max-width: 760px)').matches;
-	renderer.setPixelRatio(Math.min(devicePixelRatio || 1, small ? 1.25 : 1.5));
+	let q = LEVELS[quality] ?? LEVELS.high;
+	renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5) * q.ratio);
 	renderer.setClearColor(preset.colors[0]);
 
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(preset.camera.fov, 1, 0.1, 100);
-	const segments = small ? 96 : 192;
-	const geometry = new THREE.PlaneGeometry(10, 10, segments, segments);
+	const geometry = new THREE.PlaneGeometry(10, 10, q.segments, q.segments);
 
 	const uniforms = {
 		uTime: { value: 0 },
@@ -178,9 +186,14 @@ gl_FragColor.rgb += (sgHash(gl_FragCoord.xy + fract(uTime * 7.0) * 61.0) - 0.5) 
 		renderer.render(scene, camera);
 		if (!drawn) { drawn = true; onFirstFrame?.(); }
 	};
+	// Frames come at most q.fps a second; between them the loop only waits.
 	const loop = (now) => {
 		frame = 0;
-		const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
+		if (last && now - last < 1000 / q.fps - 2) {
+			if (visible && !calm.matches && !document.hidden) frame = requestAnimationFrame(loop);
+			return;
+		}
+		const dt = last ? Math.min(0.08, (now - last) / 1000) : 0;
 		last = now;
 		draw(dt);
 		if (visible && !calm.matches && !document.hidden) frame = requestAnimationFrame(loop);
@@ -216,6 +229,12 @@ gl_FragColor.rgb += (sgHash(gl_FragCoord.xy + fract(uTime * 7.0) * 61.0) - 0.5) 
 			if (o.density !== undefined) uniforms.uDensity.value = o.density;
 			if (o.grain !== undefined) uniforms.uGrain.value = o.grain;
 			if (!frame) draw(0);
+		},
+		/** Drops to a lighter quality level: lower resolution and fewer frames. */
+		setQuality(level) {
+			q = LEVELS[level] ?? q;
+			renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5) * q.ratio);
+			resize();
 		},
 		destroy() {
 			cancelAnimationFrame(frame);

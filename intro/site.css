@@ -112,7 +112,7 @@ section { padding-block: clamp(72px, 10vw, 136px); }
 
 /* Each chapter opens with a hairline of split light, and a faint wash of the spectrum sits behind the busier ones. */
 main > section:not(.sky) { position: relative; isolation: isolate; }
-main > section:not(.sky)::before { content: ""; position: absolute; top: 0; left: 50%; translate: -50% 0; width: min(100% - 2 * var(--gutter), var(--max)); height: 1px; background: var(--spectrum-line); opacity: 0.7; }
+main > section:not(.sky)::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100% - 2 * var(--gutter), var(--max)); height: 1px; background: var(--spectrum-line); opacity: 0.7; }
 #try::after, #pc::after, #app::after, #faq::after {
 	content: ""; position: absolute; inset: 8% 0 auto; height: 76%; z-index: -1; pointer-events: none;
 	background: radial-gradient(38% 46% at 12% 38%, rgb(255 92 56 / 0.09), transparent 70%), radial-gradient(34% 44% at 88% 62%, rgb(66 173 255 / 0.1), transparent 70%), radial-gradient(28% 36% at 56% 18%, rgb(168 115 255 / 0.08), transparent 70%);
@@ -178,7 +178,7 @@ main > section:not(.sky)::before { content: ""; position: absolute; top: 0; left
 }
 
 /* ---------- Hero ---------- */
-.hero .slab { min-height: max(100svh, 640px); display: grid; align-items: center; }
+.hero .slab { min-height: max(100vh, 640px); min-height: max(100svh, 640px); display: grid; align-items: center; }
 /* Keeps the words on the darker side of the stone, and fades the stone into the page below. */
 .hero .slab::after {
 	content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
@@ -200,24 +200,25 @@ main > section:not(.sky)::before { content: ""; position: absolute; top: 0; left
 .mark-chrome { position: relative; aspect-ratio: 1; width: 100%; max-width: 640px; justify-self: end; margin: 0; }
 .mark-chrome .metal { position: absolute; inset: 0; }
 .mark-chrome .metal canvas { display: block; width: 100% !important; height: 100% !important; }
-.mark-chrome .still { position: absolute; inset: 15%; width: 70%; height: 70%; opacity: 0.85; transition: opacity 1s var(--ease); filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.5)); }
+.mark-chrome .still { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 1s var(--ease); }
 .mark-chrome.ready .still { opacity: 0; }
-.mark-chrome figcaption { position: absolute; left: 50%; bottom: 0; translate: -50% 0; font-size: 13px; color: var(--text-3); opacity: 0; transition: opacity 0.6s; white-space: nowrap; }
+.mark-chrome figcaption { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); font-size: 13px; color: var(--text-3); opacity: 0; transition: opacity 0.6s; white-space: nowrap; }
 .mark-chrome.ready.steer figcaption { opacity: 1; }
-.scroll-cue { position: absolute; left: 50%; bottom: 22px; translate: -50% 0; width: 26px; height: 42px; border-radius: 14px; border: 1px solid var(--line-2); }
+.scroll-cue { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); width: 26px; height: 42px; border-radius: 14px; border: 1px solid var(--line-2); }
 .scroll-cue span { position: absolute; left: 50%; top: 9px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: var(--text); animation: cue 2.2s var(--ease) infinite; }
 @keyframes cue { 0% { opacity: 0; transform: translateY(-2px); } 30% { opacity: 1; } 80% { opacity: 0; transform: translateY(12px); } 100% { opacity: 0; } }
 
 /* ---------- Not in the cloud: a sticky sky with the words scrolling over it ---------- */
 .sky { position: relative; padding: 0; }
-.sky-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #8aa4c1; }
+.sky-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #8aa4c1; }
 .sky-poster, .sky-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.sky-poster { object-fit: cover; }
+.sky-poster { object-fit: cover; transform: scale(1.06); transform-origin: 50% 62%; }
+.sky-poster.below { opacity: 0; transform: scale(1.14); }
 .sky-canvas { opacity: 0; transition: opacity 1.4s var(--ease); }
 .sky.live .sky-canvas { opacity: 1; }
 .sky-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(11 10 9 / 0.55) 0%, rgb(11 10 9 / 0) 18%, rgb(11 10 9 / 0) 72%, rgb(11 10 9 / 0.5) 100%); }
-.sky-beats { position: relative; z-index: 2; margin-top: -100svh; }
-.beat { min-height: 100svh; display: flex; align-items: center; padding: 96px var(--gutter); }
+.sky-beats { position: relative; z-index: 2; margin-top: -100vh; margin-top: -100svh; }
+.beat { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: 96px var(--gutter); }
 .beat .glass { margin-left: max(0px, calc((100vw - var(--max)) / 2 - var(--gutter))); }
 .glass {
 	width: min(100%, 36rem); padding: clamp(22px, 3vw, 36px); border-radius: 24px;
@@ -270,7 +271,7 @@ main > section:not(.sky)::before { content: ""; position: absolute; top: 0; left
 .team-grid { display: grid; gap: clamp(20px, 3vw, 32px); }
 .team-below { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
 .team-below .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; margin-top: 0; padding-top: 6px; border-top: 0; }
-.prism-stage { width: 100%; aspect-ratio: 16 / 8.5; min-height: 420px; max-height: 78svh; border-radius: var(--r-lg); overflow: hidden; background: #080709; }
+.prism-stage { width: 100%; aspect-ratio: 16 / 8.5; min-height: 420px; max-height: 78vh; max-height: 78svh; border-radius: var(--r-lg); overflow: hidden; background: #080709; }
 .prism-still, .prism-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .prism-canvas { opacity: 0; transition: opacity 0.8s var(--ease); }
 .prism-stage.live .prism-canvas { opacity: 1; }
@@ -281,9 +282,8 @@ main > section:not(.sky)::before { content: ""; position: absolute; top: 0; left
 .prism-stage.placed .beam-labels { position: static; }
 .beam {
 	display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px 7px 10px; border-radius: 999px; cursor: pointer; white-space: nowrap;
-	border: 1px solid color-mix(in srgb, var(--c) 50%, transparent); background: rgb(11 10 9 / 0.78); color: var(--text);
+	border: 1px solid var(--line-2); border-color: color-mix(in srgb, var(--c) 50%, transparent); background: rgb(11 10 9 / 0.84); color: var(--text);
 	font: 500 13px/1 var(--sans); transition: background 0.25s, color 0.25s, box-shadow 0.25s, border-color 0.25s;
-	-webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
 }
 .beam::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); flex: none; }
 .beam:hover { border-color: var(--c); }
@@ -400,6 +400,13 @@ noscript .log p { color: var(--text-2); font-size: 15px; padding: 6px 0; }
 	background: radial-gradient(70% 70% at 50% 45%, #1d1b19 0%, #0d0c0b 70%); }
 .rig-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .rig.no-gl .rig-view { display: none; }
+/* Where the 3D card can't run (no WebGL 2, or the lowest quality level), wide screens show a picture of it instead,
+   so its column isn't left empty; narrow ones just have the memory bars. The picture only loads where it shows. */
+@media (min-width: 1061px) {
+	.rig.no-gl .rig-view { display: block; background: #0d0c0b center / cover no-repeat url("scenes/rig-still.jpg"); }
+	.rig.no-gl .rig-view canvas, .rig.no-gl .rig-label { display: none; }
+	.rig.no-gl.no-card .rig-view { opacity: 0.3; filter: grayscale(1); }
+}
 .rig-label { position: absolute; left: 0; top: 0; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line-2); background: rgb(11 10 9 / 0.72);
 	font: 500 12px/1.2 var(--sans); color: var(--text); white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.4s; }
 .rig-label.on { opacity: 1; }
@@ -580,7 +587,7 @@ dialog.zoom button { position: absolute; top: 10px; right: 10px; }
 .get .small a { color: var(--text-2); }
 
 footer { position: relative; padding: 28px 0 calc(32px + env(safe-area-inset-bottom, 0px)); color: var(--text-3); font-size: 14px; }
-footer::before { content: ""; position: absolute; top: 0; left: 50%; translate: -50% 0; width: min(100% - 2 * var(--gutter), var(--max)); height: 1px; background: var(--spectrum-line); opacity: 0.6; }
+footer::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100% - 2 * var(--gutter), var(--max)); height: 1px; background: var(--spectrum-line); opacity: 0.6; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center; }
 footer .brand { margin-right: 0; color: var(--text); }
 footer .credits { flex-basis: 100%; font-size: 13px; line-height: 1.55; }
@@ -595,7 +602,7 @@ footer .credits a { color: var(--text-2); }
 @media (max-width: 1060px) {
 	.top nav { gap: 14px; font-size: 14px; }
 	.console { grid-template-columns: minmax(0, 1fr); }
-	.log { height: min(440px, 62svh); }
+	.log { height: min(440px, 62vh); height: min(440px, 62svh); }
 	/* Room for the longest message, so picking a shorter one doesn't move the page. */
 	.sent > div:last-child { min-height: 4.6em; }
 	.picker { border-right: 0; border-bottom: 1px solid var(--line); flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory; padding: 14px; }
@@ -633,7 +640,7 @@ footer .credits a { color: var(--text-2); }
 	.limits b { font-size: 1.4rem; }
 	select { min-width: 0; width: 100%; }
 	.planner form .field:first-child { flex: 1 1 100%; }
-	.prism-stage { aspect-ratio: 2 / 3; min-height: 0; max-height: 86svh; width: 100%; }
+	.prism-stage { aspect-ratio: 2 / 3; min-height: 0; max-height: 86vh; max-height: 86svh; width: 100%; }
 	.sky-hud { left: var(--gutter); right: var(--gutter); width: auto; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 12px; padding: 10px 14px; }
 	.sky-hud .hud-place, .sky-hud .hud-note { grid-column: 1 / -1; }
 	.sky-hud .hud-place span { display: inline; margin-left: 6px; }
@@ -679,7 +686,7 @@ footer .credits a { color: var(--text-2); }
 	.beat { padding-block: 80px 110px; }
 	.sky-hud .hud-place { display: none; }
 	.prism-stage { aspect-ratio: 16 / 9; max-height: none; }
-	.top nav.open { max-height: calc(100svh - 64px); overflow: auto; flex-direction: row; flex-wrap: wrap; gap: 0 22px; padding-block: 6px 10px; }
+	.top nav.open { max-height: calc(100vh - 64px); max-height: calc(100svh - 64px); overflow: auto; flex-direction: row; flex-wrap: wrap; gap: 0 22px; padding-block: 6px 10px; }
 	.top nav.open a { border-bottom: 0; padding: 10px 2px; font-size: 16px; }
 }
 /* Fingers need bigger targets than pointers. */
@@ -693,6 +700,14 @@ footer .credits a { color: var(--text-2); }
 	.cost-pick button { padding: 11px 16px; }
 	.hud-now { padding: 8px 12px; }
 }
+
+/* ---------- Lighter on slower devices (quality.js puts the level on <html>) ---------- */
+/* Blur behind glass is redone whenever anything moves beneath it, which modest graphics feel; the glass gets a little
+   more solid instead. The lowest level drops it everywhere. */
+[data-quality="mid"] .glass, [data-quality="low"] .glass { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(11 10 9 / 0.86); }
+[data-quality="mid"] .buy, [data-quality="low"] .buy { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(14 12 11 / 0.88); }
+[data-quality="low"] .top.scrolled { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(11 10 9 / 0.94); }
+[data-quality="low"] .sky-hud, [data-quality="low"] .tweak, [data-quality="low"] .tweaks { -webkit-backdrop-filter: none; backdrop-filter: none; }
 
 @media (prefers-reduced-motion: reduce) {
 	*, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }

@@ -1,6 +1,9 @@
 // The page's moving parts: the stone gradients and the chrome mark, the sky over Austin, the prism and the agents,
 // the run replay, the PC planner and its graphics card, the app's screens and the section markers. Each part works
-// on its own and leaves the page readable without it. The 3D scenes load only as their sections come near.
+// on its own and leaves the page readable without it. The 3D scenes load only as their sections come near, and each
+// follows the device's quality level (quality.js): lighter on modest hardware, pictures in place of the heaviest
+// scenes on the weakest, and a step lighter whenever the page starts to drag.
+import { quality, atLeast, onQuality, hold } from './quality.js';
 import { RUNS } from './runs.js';
 import { plan, CARDS, CATALOG, GPU_RESERVED_GB, RAM_RESERVED_GB } from './planner.js';
 
@@ -25,6 +28,15 @@ const MODEL_COLOR = '#ffb84d';
 
 // WebGL 2, which the stone, the chrome, the sky and the graphics card need. Without it the stills stay.
 const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
+// three.js and the chrome come early where they'll be used: the stone and the chrome need them first.
+if (gl && atLeast('mid')) {
+	for (const href of ['vendor/three.module.min.js', 'vendor/three.core.min.js', 'scenes/chrome.js']) {
+		const link = document.createElement('link');
+		link.rel = 'modulepreload';
+		link.href = href;
+		document.head.append(link);
+	}
+}
 
 /** Runs `load` once, when `el` comes within `margin` of the screen. */
 function lazy(el, load, margin = '600px') {
@@ -123,18 +135,28 @@ if (costBox) {
 }
 
 /* ---------- The stone: gradients behind the hero and the download ---------- */
-if (gl) import('./gradient.js').then(({ createGradient, PRESETS, STONES }) => {
+// At the lowest quality level the stone stays a CSS gradient, and three.js isn't even downloaded for it.
+if (gl && atLeast('mid')) import('./gradient.js').then(({ createGradient, PRESETS, STONES }) => {
 	// Background settings someone chose are kept in this browser.
 	let saved = null;
 	try { saved = JSON.parse(store.get('stone') || 'null'); } catch {}
 	const panels = [];
+	hold();
 	for (const canvas of $$('canvas[data-gradient]')) {
-		const g = createGradient(canvas, PRESETS[canvas.dataset.gradient], { onFirstFrame: () => canvas.classList.add('on') });
+		const g = createGradient(canvas, PRESETS[canvas.dataset.gradient], { onFirstFrame: () => canvas.classList.add('on'), quality: quality() });
 		if (!g) continue;
-		panels.push({ g, preset: PRESETS[canvas.dataset.gradient] });
+		panels.push({ g, canvas, preset: PRESETS[canvas.dataset.gradient] });
 		if (saved) g.set(saved);
 	}
 	tweaks(STONES, panels, saved);
+	onQuality((level) => {
+		if (level !== 'low') { for (const p of panels) p.g.setQuality(level); return; }
+		// Too much for this device after all: back to the CSS stone, and no settings for a background that's gone.
+		for (const p of panels) { p.g.destroy(); p.canvas.classList.remove('on'); }
+		panels.length = 0;
+		$('[data-tw-close]')?.click();
+		for (const btn of $$('.tweak')) btn.hidden = true;
+	});
 }).catch(() => {});
 
 /* ---------- Background settings: a small panel that changes every stone on the page ---------- */
@@ -212,23 +234,34 @@ function tweaks(STONES, panels, saved) {
 }
 
 /* ---------- The mark in liquid chrome (Paper Shaders), its light following the pointer ---------- */
+// At the lowest quality level the picture of it (in the page from the start) stays instead.
 const chromeFig = $('[data-chrome]');
-if (chromeFig && gl) {
+if (chromeFig && gl && atLeast('mid')) {
 	import('./scenes/chrome.js').then(async ({ mountChrome, CHROME }) => {
-		const chrome = await mountChrome($('.metal', chromeFig), new URL('scenes/mark-chrome.png', import.meta.url).href, { scale: 0.98 });
+		hold();
+		const chrome = await mountChrome($('.metal', chromeFig), new URL('scenes/mark-chrome.png', import.meta.url).href, { scale: 0.98, quality: quality() });
 		if (!chrome) return;
 		chromeFig.classList.add('ready');
+		let gone = false;
+		onQuality((level) => {
+			if (level !== 'low') return chrome.setQuality(level);
+			gone = true;
+			chromeFig.classList.remove('ready', 'steer');
+			chrome.destroy();
+			$('.metal', chromeFig).textContent = '';
+		});
 		if (!fine || calm.matches) return;
 		chromeFig.classList.add('steer');
 		let goal = CHROME.angle, angle = CHROME.angle, raf = 0;
 		const ease = () => {
 			raf = 0;
+			if (gone) return;
 			angle += (goal - angle) * 0.1;
 			chrome.set({ angle });
 			if (Math.abs(goal - angle) > 0.05) raf = requestAnimationFrame(ease);
 		};
 		addEventListener('pointermove', (e) => {
-			if (scrollY > innerHeight) return;
+			if (gone || scrollY > innerHeight) return;
 			goal = CHROME.angle + (e.clientX / innerWidth - 0.5) * 70 + (e.clientY / innerHeight - 0.5) * 30;
 			if (!raf) raf = requestAnimationFrame(ease);
 		}, { passive: true });
@@ -237,14 +270,35 @@ if (chromeFig && gl) {
 
 /* ---------- Not in the cloud: the sky over Austin, flown down through as the page scrolls ---------- */
 const sky = $('[data-sky]');
-if (sky && gl) {
+if (sky) {
 	// 0 as the section starts, 1 as it ends; the descent happens between the first and second beats.
 	const progress = () => {
 		const r = sky.getBoundingClientRect();
 		return clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1);
 	};
 	const descent = () => smoothstep(0.1, 0.62, progress());
-	lazy(sky, () => import('./scenes/sky.js').then(async ({ mountSky, daylightAt, sunHeightAt }) => {
+	// The stills: the view above the clouds gives way to the view from under them, drifting closer as you go down.
+	// Two pictures moved by the compositor cost next to nothing, so this is the sky on most phones.
+	const [above, below] = $$('.sky-poster', sky);
+	let stillsOn = false, stillsRaf = 0;
+	const drawStills = () => {
+		stillsRaf = 0;
+		if (sky.classList.contains('live')) return;
+		const d = descent(), zoom = calm.matches ? 0 : 1;
+		above.style.transform = `scale(${(1.06 + 0.1 * d * zoom).toFixed(4)})`;
+		below.style.opacity = d.toFixed(3);
+		below.style.transform = `scale(${(1.14 - 0.1 * d * zoom).toFixed(4)})`;
+	};
+	if (above && below) lazy(sky, () => {
+		below.src = below.dataset.src;
+		below.addEventListener('load', () => {
+			stillsOn = true;
+			sky.classList.add('stills');
+			drawStills();
+		}, { once: true });
+		addEventListener('scroll', () => { if (stillsOn && !stillsRaf) stillsRaf = requestAnimationFrame(drawStills); }, { passive: true });
+	}, '100%');
+	if (gl && atLeast('high')) lazy(sky, () => import('./scenes/sky.js').then(async ({ mountSky, daylightAt, sunHeightAt }) => {
 		const hud = $('[data-sky-hud]', sky);
 		const timeEl = $('[data-sky-time]', sky), sunEl = $('[data-sky-sun]', sky), note = $('[data-sky-note]', sky);
 		const slider = $('[data-sky-slider]', sky), nowBtn = $('[data-sky-now]', sky);
@@ -255,8 +309,21 @@ if (sky && gl) {
 		const isDay = (d) => d >= day.rise && d <= day.set;
 		let following = isDay(new Date());
 		let date = following ? new Date() : new Date(day.set.getTime() - 25 * 60e3);
-		const scene = await mountSky($('canvas', sky), { noise: new URL('scenes/noise.bin', import.meta.url).href, date, onReady: () => sky.classList.add('live') });
+		if (!atLeast('high')) return;
+		hold(8000);
+		const scene = await mountSky($('canvas', sky), { noise: new URL('scenes/noise.bin', import.meta.url).href, date, onReady: () => { hold(4000); sky.classList.add('live'); } });
 		if (!scene) return;
+		// Too heavy for this device after all: the stills take over, and the sun's controls go.
+		let timer = 0, onScrollSky = null;
+		const stopSky = onQuality(() => {
+			stopSky();
+			clearInterval(timer);
+			removeEventListener('scroll', onScrollSky);
+			sky.classList.remove('live');
+			hud.hidden = true;
+			drawStills();
+			setTimeout(() => scene.destroy(), 1500);
+		});
 		scene.setProgress(descent());
 		const show = () => {
 			const h = Math.round(sunHeightAt(date));
@@ -282,7 +349,7 @@ if (sky && gl) {
 			show();
 		});
 		// Live: the sun moves on every minute.
-		setInterval(() => {
+		timer = setInterval(() => {
 			if (!following) return;
 			const now = new Date();
 			if (!isDay(now)) { day = daylightAt(now); following = false; date = new Date(day.set.getTime() - 25 * 60e3); }
@@ -291,7 +358,8 @@ if (sky && gl) {
 			show();
 		}, 60e3);
 		let raf = 0;
-		addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; scene.setProgress(descent()); }); }, { passive: true });
+		onScrollSky = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; scene.setProgress(descent()); }); };
+		addEventListener('scroll', onScrollSky, { passive: true });
 		hud.hidden = false;
 		show();
 	}).catch(() => {}), '100%');
@@ -411,14 +479,18 @@ if (team) {
 	};
 	lazy(stage, () => import('./scenes/prism.js').then(async ({ mountPrism }) => {
 		stage.classList.add('placed');
-		prism = await mountPrism($('canvas', stage), { onLayout: place });
+		hold();
+		prism = await mountPrism($('canvas', stage), { onLayout: place, quality: quality() });
 		if (!prism) { stage.classList.remove('placed'); for (const r of radios) r.style.transform = ''; you.style.transform = ''; return; }
 		stage.classList.add('live');
 		stage.dataset.renderer = prism.kind;
 		prism.setFocus(beamOf(chosen));
-		// The camera leans towards the pointer, and the incoming beam swings with it.
-		if (!calm.matches) {
+		onQuality((level) => prism.setQuality(level));
+		// The camera leans towards the pointer, and the incoming beam swings with it (not at the lowest quality
+		// level, where the prism is a still picture that redraws only when you pick a beam).
+		if (!calm.matches && atLeast('mid')) {
 			stage.addEventListener('pointermove', (e) => {
+				if (!atLeast('mid')) return;
 				const r = stage.getBoundingClientRect();
 				prism.setPointer(((e.clientX - r.left) / r.width - 0.5) * 2, ((e.clientY - r.top) / r.height - 0.5) * 2);
 			});
@@ -557,7 +629,7 @@ if (replay) {
 		spans = spansOf(run);
 		answer = run.events.find((e) => e.kind === 'answer');
 		// The answer streams in during the last call that succeeded for Onyx Core.
-		writer = run.events.filter((e) => e.kind === 'call' && e.agent === 'core' && e.ok).at(-1);
+		writer = run.events.filter((e) => e.kind === 'call' && e.agent === 'core' && e.ok).slice(-1)[0];
 		$('[data-message]', replay).textContent = run.message;
 		const attach = $('[data-attach]', replay);
 		attach.hidden = !run.attachment;
@@ -668,7 +740,7 @@ if (replay) {
 /* ---------- The PC planner, and the memory it fills ---------- */
 const JOBS = { lite: 'Picks the tier, handles quick replies', standard: 'Everyday chat and most agent work', pro: 'Code, tools and multi-step jobs', max: 'The really hard stuff; thinks first' };
 const gb = (v) => `${(Math.round(v * 10) / 10).toLocaleString('en-US')} GB`;
-let chosenTier = Object.hasOwn(TIER, store.get('tier') ?? '') ? store.get('tier') : 'standard';
+let chosenTier = Object.prototype.hasOwnProperty.call(TIER, store.get('tier') ?? '') ? store.get('tier') : 'standard';
 /** What the chosen tier's model needs, and where it goes, for the graphics card scene and the memory bars. */
 function specFor(c = current, tier = chosenTier) {
 	const id = c.plan.tiers[tier];
@@ -766,6 +838,8 @@ if (planner) {
 		notes.push('Memory speed is assumed to be DDR5-5600.');
 		$('[data-plan-note]', planner).textContent = notes.join(' ');
 		current = { plan: p, card, ramGb };
+		// The picture of the card (shown where the 3D one can't run) fades back when there's no card to show.
+		planner.closest('section')?.querySelector('[data-rig]')?.classList.toggle('no-card', !card.vramGb);
 		drawTiers(false);
 		drawBars();
 		for (const fn of listeners) fn();
@@ -776,8 +850,9 @@ if (planner) {
 
 // The glass graphics card (React Three Fiber): its chips light up with the chosen tier's model.
 const rig = $('[data-rig]');
-if (rig && gl && current) {
+if (rig && gl && current && atLeast('mid')) {
 	lazy(rig, () => import('./scenes/vram.js').then(async ({ mountVram }) => {
+		hold();
 		const labels = { card: $('[data-rig-label="card"]', rig), ram: $('[data-rig-label="ram"]', rig) };
 		const label = () => {
 			labels.card.textContent = current.card.vramGb ? `Graphics card, ${current.card.vramGb} GB` : 'No graphics card';
@@ -785,6 +860,7 @@ if (rig && gl && current) {
 		};
 		const scene = await mountVram($('canvas', rig), {
 			spec: specFor(),
+			quality: quality(),
 			onFrame(a) {
 				if (!a) return;
 				labels.card.style.transform = `translate(${Math.round(a.card[0])}px, ${Math.round(a.card[1])}px)`;
@@ -796,6 +872,7 @@ if (rig && gl && current) {
 		labels.card.classList.add('on');
 		labels.ram.classList.add('on');
 		listeners.push(() => { label(); scene.show(specFor()); });
+		onQuality((level) => scene.setQuality(level));
 	}).catch(() => rig.classList.add('no-gl')));
 } else if (rig) rig.classList.add('no-gl');
 
@@ -885,7 +962,7 @@ if (tabs) {
 		for (const img of $$('img[loading="lazy"]', tabs)) img.loading = 'eager';
 		io.disconnect();
 	}, { rootMargin: '800px 0px' }).observe(tabs);
-	if (fine) {
+	if (fine && atLeast('mid')) {
 		import('./vendor/canvas-ui/magnify.js').then((kit) => {
 			if (!kit.supportsHtmlInCanvas()) return;
 			lensKit = kit;

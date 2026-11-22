@@ -134,6 +134,14 @@ export function shaderParams(g, res, { time = 2, focus = -1, glow = 1, grain = 0
 	};
 }
 
+// What the prism draws at each quality level (see the page's quality.js): render scale, frames a second, and whether
+// it moves at all ('still' draws only when something changes, like reduced motion).
+const LEVELS = {
+	high: { scale: 1, fps: 60, still: false },
+	mid: { scale: 0.75, fps: 30, still: false },
+	low: { scale: 0.55, fps: 30, still: true },
+};
+
 const VERTEX = `#version 300 es
 void main() {
 	vec2 p = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2));
@@ -146,13 +154,17 @@ void main() {
  * camera drifts. If a renderer fails, now or later, the canvas is swapped for a fresh one (a canvas keeps the first
  * kind of context it's given) and the next renderer takes over; `canvas` always names the one in the page.
  */
-export async function mountPrism(canvas, { onLayout, webgpu = true, webgl = true } = {}) {
-	const calm = matchMedia('(prefers-reduced-motion: reduce)');
+export async function mountPrism(canvas, { onLayout, webgpu = true, webgl = true, quality = 'high' } = {}) {
+	const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 	const small = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
 	const s = {
 		el: canvas, kind: null, renderer: null, focus: -1, glow: 0, geometry: null, visible: true,
-		yaw: 0, pitch: 0, tilt: 0, goal: { yaw: 0, pitch: 0, tilt: 0 },
+		yaw: 0, pitch: 0, tilt: 0, goal: { yaw: 0, pitch: 0, tilt: 0 }, q: LEVELS[quality] ?? LEVELS.high, drawn: 0,
 	};
+	// Still (reduced motion, or the lowest quality level): no drift, no pulses, a frame only when something changes.
+	const calm = { get matches() { return reduced.matches || s.q.still; } };
+	// True when it's too soon for another frame at this level's frame rate.
+	const early = (now) => now - s.drawn < 1000 / s.q.fps - 2;
 	const relayout = () => {
 		s.geometry = layout(s.el.clientWidth || 1, s.el.clientHeight || 1, { yaw: s.yaw, pitch: s.pitch, tilt: s.tilt });
 		onLayout?.(s.geometry);
@@ -189,17 +201,19 @@ export async function mountPrism(canvas, { onLayout, webgpu = true, webgl = true
 	const gpuRenderer = async () => {
 		const gpu = await init();
 		try {
-			const view = surface(gpu, s.el, { dpr: small ? [1, 1] : [1, 1.5], clearColor: [0.03, 0.028, 0.034, 1] });
+			const view = surface(gpu, s.el, { dpr: s.q.scale < 1 ? s.q.scale : small ? [1, 1] : [1, 1.5], clearColor: [0.03, 0.028, 0.034, 1] });
 			const fx = effect(gpu, prismShader);
 			await fx.compile(view);
 			const time = clock(gpu);
 			let needs = 2;
 			relayout();
 			const loop = frameLoop(gpu, (frame) => {
-				if (!s.visible || document.hidden) return;
-				const moving = drift(performance.now());
+				const now = performance.now();
+				if (!s.visible || document.hidden || early(now)) return;
+				const moving = drift(now);
 				if (calm.matches && !moving && needs <= 0) return;
 				needs--;
+				s.drawn = now;
 				s.glow = calm.matches ? 1 : Math.min(1, s.glow + 0.02);
 				fx.set({ params: shaderParams(s.geometry, [view.size[0], view.size[1]], { time: calm.matches ? 2 : time.time, focus: s.focus, glow: s.glow }) });
 				frame.pass(view, fx);
@@ -240,7 +254,9 @@ export async function mountPrism(canvas, { onLayout, webgpu = true, webgl = true
 		const draw = (now) => {
 			raf = 0;
 			if (stopped || gl.isContextLost()) return;
-			const dpr = Math.min(small ? 1 : 1.5, devicePixelRatio || 1);
+			if (early(now)) { raf = requestAnimationFrame(draw); return; }
+			s.drawn = now;
+			const dpr = Math.min(small ? 1 : 1.5, devicePixelRatio || 1) * s.q.scale;
 			const W = Math.max(1, Math.round(el.clientWidth * dpr)), H = Math.max(1, Math.round(el.clientHeight * dpr));
 			if (el.width !== W || el.height !== H) { el.width = W; el.height = H; relayout(); }
 			const moving = drift(now);
@@ -404,6 +420,8 @@ export async function mountPrism(canvas, { onLayout, webgpu = true, webgl = true
 		get canvas() { return s.el; },
 		get geometry() { return s.geometry; },
 		setFocus(i) { s.focus = i; s.renderer?.kick(); },
+		/** Drops to a lighter quality level ('mid' or 'low'): fewer frames, then a still picture; WebGL also draws smaller. */
+		setQuality(level) { s.q = LEVELS[level] ?? s.q; s.renderer?.kick(); },
 		/** x and y from -1 to 1 across the stage: the camera leans that way and the incoming beam swings. */
 		setPointer(x, y) {
 			if (calm.matches) return;

@@ -43,7 +43,8 @@ for (const name of scenes) {
 		bundle: true,
 		format: 'esm',
 		platform: 'browser',
-		target: 'es2022',
+		// Every browser with import maps, which the page needs for three.js anyway.
+		target: ['chrome89', 'edge89', 'firefox108', 'safari16.4'],
 		minify: true,
 		legalComments: 'eof',
 		plugins: [threeOnly, wgsl],

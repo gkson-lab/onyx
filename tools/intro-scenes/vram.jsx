@@ -17,6 +17,14 @@ const RESERVE = '#59606b';
 const SPECTRUM = ['#ff5c38', '#ffbd33', '#54db85', '#42adff', '#a873ff'];
 const smooth = (t) => t * t * (3 - 2 * t);
 const clamp01 = (t) => Math.min(1, Math.max(0, t));
+// What the scene does at each quality level (see intro/quality.js): its pixel ratio (phones get less at the top level),
+// whether the tiny parts are all there, how many frames a second it draws while moving, and whether it moves on its own
+// at all ('still' draws a frame only when something changes, as with reduced motion).
+const LEVELS = {
+	high: { dpr: [1, 2], phoneDpr: [1, 1.5], detail: true, fps: 60, still: false },
+	mid: { dpr: [1, 1.25], phoneDpr: [1, 1.25], detail: false, fps: 30, still: false },
+	low: { dpr: [1, 1], phoneDpr: [1, 1], detail: false, fps: 30, still: true },
+};
 // The same scattering every time, so the board looks the same on every visit.
 const seeded = (seed) => { let s = seed; return () => ((s = (s * 16807) % 2147483647) / 2147483647); };
 
@@ -618,7 +626,7 @@ function Motherboard() {
 	);
 }
 
-function Scene({ spec, active, calm, detail, pointer, anchors, onFrame }) {
+function Scene({ spec, active, calm, detail, fps = 60, pointer, anchors, onFrame }) {
 	const map = useMemo(() => memoryMap(spec), [spec]);
 	const { gl, scene, invalidate } = useThree();
 	// The room's light, made on the GPU once: no image is downloaded.
@@ -636,6 +644,8 @@ function Scene({ spec, active, calm, detail, pointer, anchors, onFrame }) {
 	const started = useRef(0);
 	const intro = useRef(calm ? 1 : 0);
 	const spin = useRef(1);
+	const wake = useRef(0);
+	useLayoutEffect(() => () => clearTimeout(wake.current), []);
 	useLayoutEffect(() => { started.current = performance.now(); invalidate(); }, [spec, invalidate]);
 	useLayoutEffect(() => { if (active) invalidate(); }, [active, invalidate]);
 	useFrame((state, dt) => {
@@ -648,7 +658,11 @@ function Scene({ spec, active, calm, detail, pointer, anchors, onFrame }) {
 		spin.current = calm ? 0 : spin.current + (goal - spin.current) * Math.min(1, dt * 2);
 		onFrame?.(anchors.current);
 		const settling = since < 0.6 + (map.card.length + 16) * 0.07 || intro.current < 1;
-		if (active && (!calm || settling)) state.invalidate();
+		// The next frame: straight away, or after a pause that holds it to the level's frame rate.
+		if (active && (!calm || settling) && !wake.current) {
+			if (fps >= 60) state.invalidate();
+			else wake.current = setTimeout(() => { wake.current = 0; state.invalidate(); }, Math.max(0, 1000 / fps - 16));
+		}
 	});
 	return (
 		<>
@@ -668,11 +682,12 @@ function Scene({ spec, active, calm, detail, pointer, anchors, onFrame }) {
 }
 
 /**
- * Mounts the scene into a canvas (its parent sets the size). Returns { show(spec), memoryMap, destroy }, or null
- * without WebGL. spec: { vramGb, ramGb, needGb, gpuShare, tokensPerSec, color }. `onFrame(anchors)` gets the
- * labels' positions in CSS pixels whenever a frame is drawn. Phones get fewer of the tiny parts.
+ * Mounts the scene into a canvas (its parent sets the size). Returns { show(spec), setQuality(level), memoryMap,
+ * destroy }, or null without WebGL. spec: { vramGb, ramGb, needGb, gpuShare, tokensPerSec, color }. `onFrame(anchors)`
+ * gets the labels' positions in CSS pixels whenever a frame is drawn. `quality` is a level above. Phones get fewer of
+ * the tiny parts.
  */
-export async function mountVram(canvas, { spec, onFrame } = {}) {
+export async function mountVram(canvas, { spec, onFrame, quality = 'high' } = {}) {
 	const probe = document.createElement('canvas');
 	if (!probe.getContext('webgl2')) return null;
 	const calmQuery = matchMedia('(prefers-reduced-motion: reduce)');
@@ -680,12 +695,12 @@ export async function mountVram(canvas, { spec, onFrame } = {}) {
 	const root = createRoot(canvas);
 	const pointer = { current: { x: 0, y: 0 } };
 	const anchors = { current: null };
-	let current = spec, inView = false;
+	let current = spec, inView = false, q = LEVELS[quality] ?? LEVELS.high;
 	const box = () => { const r = canvas.parentElement.getBoundingClientRect(); return { width: r.width, height: r.height, top: r.top, left: r.left }; };
 	// configure() puts back the default for anything it isn't given, so it always gets the whole set.
 	const settings = () => ({
 		gl: { antialias: true, alpha: true, powerPreference: 'high-performance' },
-		dpr: small ? [1, 1.5] : [1, 2],
+		dpr: small ? q.phoneDpr : q.dpr,
 		camera: { fov: 30, near: 0.5, far: 80, position: [0, 8, 14] },
 		frameloop: 'demand',
 		size: box(),
@@ -693,7 +708,7 @@ export async function mountVram(canvas, { spec, onFrame } = {}) {
 	await root.configure(settings());
 	const draw = () => {
 		if (!current) return;
-		root.render(<Scene spec={current} active={inView && !document.hidden} calm={calmQuery.matches} detail={!small} pointer={pointer} anchors={anchors} onFrame={onFrame} />);
+		root.render(<Scene spec={current} active={inView && !document.hidden} calm={calmQuery.matches || q.still} detail={q.detail && !small} fps={q.fps} pointer={pointer} anchors={anchors} onFrame={onFrame} />);
 	};
 	const ro = new ResizeObserver(async () => { await root.configure(settings()); draw(); });
 	ro.observe(canvas.parentElement);
@@ -709,6 +724,8 @@ export async function mountVram(canvas, { spec, onFrame } = {}) {
 	draw();
 	return {
 		show(next) { current = next; draw(); },
+		/** A lighter level: fewer pixels, fewer parts, fewer frames, then no motion of its own. */
+		async setQuality(level) { q = LEVELS[level] ?? q; await root.configure(settings()); draw(); },
 		memoryMap,
 		destroy() { ro.disconnect(); io.disconnect(); document.removeEventListener('visibilitychange', onVis); canvas.parentElement.removeEventListener('pointermove', onMove); root.unmount(); },
 	};
