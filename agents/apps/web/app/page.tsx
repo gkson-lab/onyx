@@ -259,7 +259,7 @@ export default function Chat() {
 
 	return (
 		<div className="flex h-full">
-			<aside className="hidden w-72 shrink-0 p-3 lg:block">
+			<aside className="chat-list hidden w-72 shrink-0 p-3 lg:block">
 				<Glass data-glass="rim" className="glass-panel h-full p-3">
 					<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={searchSide} version={version} />
 				</Glass>

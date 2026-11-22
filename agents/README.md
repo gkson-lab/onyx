@@ -401,6 +401,12 @@ Fields, chips and code are glass too. The chat scrolls under its glass bar and c
 springs from item to item. Its accent is chromatic chrome, with a single colour for failures, and empty states that
 say what to do next, and all motion stops when the system asks for less.
 
+**Appearance** (Settings, kept on each device) picks one of three looks: **Standard**, the default, flat and quiet as
+the app was before the glass (solid dark panels, hairlines, a white accent, and no liquid glass at all, so the lightest
+on a battery and a graphics card); **Liquid glass**, all of the above; and **Black chrome**, the same liquid glass in
+black liquid metal whose light splits into gold and blue at its edges, over smoky glass and a neutral black backdrop.
+The look is set before the page is drawn, so it never flashes (`apps/web/lib/looks.ts`).
+
 ## Accounts and keys
 
 Everything is optional except Node, pnpm and Ollama. Keys go in `agents/.env`, never anywhere else.
