@@ -48,6 +48,7 @@ for (const name of scenes) {
 		legalComments: 'eof',
 		plugins: [threeOnly, wgsl],
 		jsx: 'automatic',
+		loader: { '.frag': 'text' }, // the prism's GLSL, for browsers without WebGPU
 		define: { 'process.env.NODE_ENV': '"production"' },
 		outfile: join(out, `${name}.js`),
 		metafile: true,
