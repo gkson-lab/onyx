@@ -260,13 +260,13 @@ export default function Chat() {
 	return (
 		<div className="flex h-full">
 			<aside className="hidden w-72 shrink-0 p-3 lg:block">
-				<Glass className="glass-panel h-full p-3">
+				<Glass data-glass="rim" className="glass-panel h-full p-3">
 					<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={searchSide} version={version} />
 				</Glass>
 			</aside>
 			{panel && (
 				<div role="dialog" aria-modal="true" aria-label="Chats" className="fade fixed inset-0 z-30 flex scrim p-3 lg:hidden" onClick={() => setPanel(false)} onKeyDown={(e) => e.key === 'Escape' && setPanel(false)}>
-					<Glass className="glass-panel slide-in h-full w-80 max-w-[85vw] p-3" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }} onClick={(e) => e.stopPropagation()}>
+					<Glass data-glass="rim" className="glass-panel slide-in h-full w-80 max-w-[85vw] p-3" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }} onClick={(e) => e.stopPropagation()}>
 						<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={searchPanel} version={version} />
 					</Glass>
 				</div>
@@ -275,7 +275,7 @@ export default function Chat() {
 			{/* The chat scrolls under its bar and its composer, both glass, which bend and frost it as it passes. */}
 			<div className="relative mx-auto h-full w-full min-w-0 max-w-3xl">
 				<div className="absolute inset-x-0 top-0 z-10 px-4 md:px-8">
-				<Glass className="mt-3 flex min-h-12 items-center gap-1 rounded-full pl-4 pr-1.5">
+				<Glass data-glass="rim" className="mt-3 flex min-h-12 items-center gap-1 rounded-full pl-4 pr-1.5">
 					<button type="button" onClick={() => setPanel(true)} aria-label="Chats" className={`${iconBtn} lg:hidden`}><PanelLeft {...ICON} aria-hidden /></button>
 					{renaming !== null && current ? (
 						<form className="flex-1" onSubmit={(e) => (e.preventDefault(), void rename(renaming))}>
@@ -296,7 +296,7 @@ export default function Chat() {
 				</Glass>
 				</div>
 
-				<div className="chat-scroll absolute inset-0 overflow-y-auto px-4 pt-[84px] md:px-8" aria-live="polite">
+				<div data-glass-scroll={`84 ${dockHeight}`} className="chat-scroll absolute inset-0 overflow-y-auto px-4 pt-[84px] md:px-8" style={{ ['--dock' as string]: `${dockHeight}px` }} aria-live="polite">
 					{error && <Problem>{error}</Problem>}
 					{!error && (data || conv === -1) && !messages.length && !mine && (
 						<Empty title={conv === 0 ? 'Nothing from your phone yet.' : 'A new chat.'}>
@@ -314,7 +314,7 @@ export default function Chat() {
 									{m.direction === 'out' && <span className="transition-opacity md:opacity-0 md:focus-within:opacity-100 md:group-hover:opacity-100"><CopyButton text={m.text} label="Copy the answer" /></span>}
 								</div>
 								{m.direction === 'in' ? (
-									<Glass className="bubble"><MessageText text={m.text.replace(PREFIX, '')} className={m.status === 'error' ? 'text-bad' : ''} /></Glass>
+									<Glass data-glass="rim" className="bubble"><MessageText text={m.text.replace(PREFIX, '')} className={m.status === 'error' ? 'text-bad' : ''} /></Glass>
 								) : (
 									<MessageText text={m.text} className={m.status === 'error' ? 'text-bad' : ''} />
 								)}
@@ -323,8 +323,8 @@ export default function Chat() {
 						))}
 						{mine && (
 							<>
-								{!messages.some((m) => m.run_id === mine.runId && m.direction === 'in') && <li className="mine arrive"><p className="mb-1 text-xs text-muted">You</p><Glass className="bubble"><p className="whitespace-pre-wrap">{mine.text}</p></Glass></li>}
-								<li className="arrive">
+								{!messages.some((m) => m.run_id === mine.runId && m.direction === 'in') && <li className="mine arrive"><p className="mb-1 text-xs text-muted">You</p><Glass data-glass="rim" className="bubble"><p className="whitespace-pre-wrap">{mine.text}</p></Glass></li>}
+								<li className="arrive answering">
 									<p className="mb-1 text-xs text-muted">Onyx</p>
 									{streamed ? <MessageText text={streamed} /> : <p className="thinking">{label}</p>}
 									<Activity tree={tree} routing={live.routing[mine.runId]} live />
@@ -350,7 +350,7 @@ export default function Chat() {
 							))}
 						</ul>
 					)}
-					<Glass className="composer flex items-end gap-1.5">
+					<Glass data-glass="rim" data-glass-glow className="composer flex items-end gap-1.5">
 						<input ref={picker} type="file" multiple hidden accept="image/*,application/pdf,text/*,.md,.csv,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.go,.rs,.java,.c,.cpp,.cs,.sh,.ps1,.sql,.html,.css" onChange={(e) => void attach(e.target.files)} />
 						<Button onClick={() => picker.current?.click()} disabled={files.length >= 5} aria-label="Attach files" title="Attach text, code, PDFs or images" className="tool" icon={<Paperclip {...ICON} aria-hidden />} />
 						<label htmlFor="message" className="sr-only">Message to Onyx</label>

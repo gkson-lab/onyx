@@ -6,6 +6,7 @@ import { Activity, Bot, Cable, Cpu, Gauge, History, Menu, MessagesSquare, Networ
 import { Glass, TabBar } from 'glisse';
 import { useLive } from '@/lib/api';
 import { Backdrop } from './backdrop';
+import { LiquidBorder } from './liquid-border';
 import { ICON } from './ui';
 
 // The destinations, grouped by what you do there. Every one of them exists.
@@ -18,19 +19,18 @@ const ALL = GROUPS.flatMap((g) => g.items);
 const BOTTOM = ['/', '/graph', '/runs', '/agents'];
 const isCurrent = (path: string, href: string) => (href === '/' ? path === '/' : path.replace(/\/$/, '').startsWith(href));
 
+// The mark's shape, as a mask over the chrome.
+const MARK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fill-opacity=".92"/><path d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fill-opacity=".5"/><path d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fill-opacity=".32"/><path d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fill-opacity=".26"/><path d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fill-opacity=".66"/><path d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z"/></svg>`;
+const MARK_URL = `url("data:image/svg+xml,${encodeURIComponent(MARK_SVG)}")`;
+const MARK = { WebkitMaskImage: MARK_URL, maskImage: MARK_URL } as const;
+
 export function Mark() {
 	return (
 		<span className="flex items-center gap-2">
-			{/* The mark: a pentagon-cut onyx seen from above, five facets (the specialists) round a lit table (Onyx Core).
-			    One colour, the facets at five strengths, like everything else here. Drawn by tools/brand.py. */}
-			<svg width="20" height="20" viewBox="0 0 100 100" fill="var(--text)" aria-hidden>
-				<path d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fillOpacity={0.92} />
-				<path d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fillOpacity={0.5} />
-				<path d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fillOpacity={0.32} />
-				<path d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fillOpacity={0.26} />
-				<path d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fillOpacity={0.66} />
-				<path d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z" />
-			</svg>
+			{/* The mark: a pentagon-cut onyx seen from above, five facets (the specialists) round a lit table (Onyx Core),
+			    the facets at five strengths. Drawn by tools/brand.py; here it's cut out of chromatic chrome, which turns
+			    while Onyx is answering (see globals.css). */}
+			<span className="mark" style={MARK} aria-hidden />
 			<span className="font-semibold tracking-tight">Onyx</span>
 			<span className="text-xs text-muted">by GK Labs</span>
 		</span>
@@ -76,7 +76,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 	useEffect(() => {
 		if ('serviceWorker' in navigator) void navigator.serviceWorker.register('/sw.js').catch(() => {});
 	}, []);
-	if (path.startsWith('/login')) return <main className="h-full"><Backdrop />{children}</main>;
+	if (path.startsWith('/login')) return <main className="h-full"><Backdrop />{children}<LiquidBorder /></main>;
 
 	const row = (i: (typeof ALL)[number], big = false) => {
 		const on = isCurrent(path, i.href);
@@ -93,10 +93,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
 	const tab = more ? 'more' : BOTTOM.find((h) => isCurrent(path, h)) ?? '/';
 
 	return (
-		<div className="flex h-full">
+		<div className="app-frame flex h-full">
 			<Backdrop />
-			<nav aria-label="Main" className="hidden w-60 shrink-0 p-3 pr-0 md:flex">
-				<Glass className="glass-panel flex w-full flex-col px-3 py-5">
+			<LiquidBorder />
+			<nav aria-label="Main" className="hidden w-60 shrink-0 pr-3 md:flex">
+				<Glass data-glass="slab" className="glass-panel flex w-full flex-col px-3 py-5">
 					<Link href="/" className="mb-6 px-3"><Mark /></Link>
 					<div ref={box} className="relative">
 						{lens && <span aria-hidden className="nav-lens" style={{ transform: `translateY(${lens.top}px)`, height: lens.height }} />}
@@ -114,8 +115,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
 				</Glass>
 			</nav>
 
-			<div className="flex min-w-0 flex-1 flex-col">
-				<header className="px-3 md:hidden" style={{ paddingTop: 'max(10px, env(safe-area-inset-top))' }}>
+			{/* The main pane: a slab of glass, as the sidebar is; the two melt together across the gap between them. */}
+			<div data-glass="slab" className="glass-slab flex min-w-0 flex-1 flex-col">
+				<header className="px-3 pt-2.5 md:hidden">
 					<Glass className="flex min-h-12 items-center justify-between rounded-full px-4">
 						<Mark />
 						{!live.connected && <span className="text-xs text-bad">Server not connected</span>}
@@ -123,7 +125,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 				</header>
 				{(live.updating || live.updated) && (
 					<div className="px-3 pt-3 md:px-6">
-						<Glass role="status" className="enter flex min-h-11 flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-[18px] px-4 py-2 text-sm">
+						<Glass data-glass="rim" role="status" className="enter flex min-h-11 flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-[18px] px-4 py-2 text-sm">
 							{live.updated ? (
 								<>
 									<span>Onyx was updated to <span className="font-mono text-xs">{live.updated.slice(0, 7)}</span>. Reload to use the new version.</span>
@@ -135,9 +137,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
 						</Glass>
 					</div>
 				)}
-				<main className="min-h-0 flex-1 overflow-y-auto"><div key={path} className="enter h-full">{children}</div></main>
+				<main data-glass-scroll className="min-h-0 flex-1 overflow-y-auto"><div key={path} className="enter h-full">{children}</div></main>
 				{/* On a phone: a tab bar of liquid glass, as on iOS 26. Its selection springs between tabs and follows a drag. */}
-				<nav ref={trigger} aria-label="Main" className="flex justify-center px-3 pt-1 md:hidden" style={{ paddingBottom: 'max(10px, env(safe-area-inset-bottom))' }}>
+				<nav ref={trigger} aria-label="Main" className="flex justify-center px-3 pb-2.5 pt-1 md:hidden">
 					<TabBar
 						className="tabs"
 						aria-label="Main"
@@ -157,7 +159,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
 			{sheet && (
 				<div id="more-sheet" role="dialog" aria-modal="true" aria-label="More" className="fade fixed inset-0 z-20 flex flex-col justify-end scrim px-3 md:hidden" onClick={() => setSheet(false)} style={{ paddingBottom: 'max(10px, env(safe-area-inset-bottom))' }}>
-					<Glass className="sheet glass-panel px-3 pb-3 pt-3" onClick={(e) => e.stopPropagation()}>
+					<Glass data-glass="rim" className="sheet glass-panel px-3 pb-3 pt-3" onClick={(e) => e.stopPropagation()}>
 						<div className="mb-1 flex items-center justify-between px-3">
 							<p className="text-xs text-muted">System</p>
 							<button type="button" aria-label="Close" onClick={() => setSheet(false)} className="flex h-11 w-11 items-center justify-center text-muted"><X {...ICON} /></button>

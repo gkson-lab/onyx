@@ -392,9 +392,14 @@ read from the database or the live event stream; there is no sample data.
 The look is defined in one file, `apps/web/app/tokens.css`, with the reason for each decision. Since November 2026 it is
 liquid glass, from [glisse](https://github.com/0kzh/glisse) (MIT): the sidebar, the chat's bar and composer, cards,
 sheets, buttons, the search field and, on a phone, the tab bar are glass that floats over a dark, slowly moving
-backdrop and bends it at the edges, in Chromium browsers (frosted glass with a lit rim elsewhere). The chat scrolls
-under its glass bar and composer; the sidebar's selection springs from item to item. It keeps one accent, a single
-colour for failures, and empty states that say what to do next, and all motion stops when the system asks for less.
+backdrop and bends it at the edges, in Chromium browsers (frosted glass with a lit rim elsewhere). The app itself is
+built of slabs of glass, the sidebar and the main pane, and the edge of every slab and panel flows outwards as a lip of
+liquid glass with a thin rim of chromatic chrome: waves roll along it, neighbours melt together, it swells towards the
+pointer and ripples where the pointer moves, and while Onyx answers the waves quicken, colour glows out of the rims and
+a light runs round the app (`apps/web/components/liquid-border.tsx`, one WebGL canvas; without WebGL 2 there is none).
+Fields, chips and code are glass too. The chat scrolls under its glass bar and composer; the sidebar's selection
+springs from item to item. Its accent is chromatic chrome, with a single colour for failures, and empty states that
+say what to do next, and all motion stops when the system asks for less.
 
 ## Accounts and keys
 

@@ -9,8 +9,8 @@ export const ICON = { size: 18, strokeWidth: 1.5 } as const;
 const TIER_STYLE: Record<Tier, string> = {
 	lite: 'border border-muted text-muted',
 	standard: 'border border-text text-text',
-	pro: 'border border-accent bg-accent text-bg',
-	max: 'border border-accent bg-accent text-bg',
+	pro: 'chrome-fill text-bg',
+	max: 'chrome-fill text-bg',
 };
 const TIER_LABEL: Record<Tier, string> = { lite: 'LITE', standard: 'STANDARD', pro: 'PRO', max: 'MAX' };
 
@@ -50,7 +50,7 @@ const STATUS_TEXT: Record<string, string> = { running: 'Running', done: 'Done', 
 export function Status({ status }: { status: string }) {
 	return (
 		<span className={`inline-flex items-center gap-1.5 text-sm ${status === 'error' ? 'text-bad' : status === 'running' ? 'text-text' : 'text-muted'}`}>
-			<span aria-hidden className={`h-1.5 w-1.5 rounded-full ${status === 'error' ? 'bg-bad' : status === 'running' ? 'running bg-accent' : status === 'done' ? 'bg-muted' : 'border border-muted'}`} />
+			<span aria-hidden className={`h-1.5 w-1.5 rounded-full ${status === 'error' ? 'bg-bad' : status === 'running' ? 'running chroma-dot' : status === 'done' ? 'bg-muted' : 'border border-muted'}`} />
 			{STATUS_TEXT[status] ?? status}
 		</span>
 	);
@@ -83,7 +83,7 @@ export function Page({ title, note, actions, children }: { title: string; note?:
 /** Nothing to show yet: why, and the one thing to do about it. */
 export function Empty({ title, children }: { title: string; children: ReactNode }) {
 	return (
-		<Glass className="glass-card enter py-8">
+		<Glass data-glass="rim" className="glass-card enter py-8">
 			<p className="font-medium">{title}</p>
 			<p className="mt-1 max-w-xl text-sm text-muted">{children}</p>
 		</Glass>
@@ -97,7 +97,7 @@ export function Loading({ what }: { what: string }) {
 }
 /** A card of liquid glass, for a list or a form that stands on a page of its own. */
 export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-	return <Glass className={`glass-card ${className}`}>{children}</Glass>;
+	return <Glass data-glass="rim" className={`glass-card ${className}`}>{children}</Glass>;
 }
 
 /** A titled part of a page, its content on a card of liquid glass. */
@@ -108,10 +108,10 @@ export function Section({ title, children, aside }: { title: string; children: R
 				<h2 className="text-sm font-medium text-muted">{title}</h2>
 				{aside}
 			</div>
-			<Glass className="glass-card">{children}</Glass>
+			<Glass data-glass="rim" className="glass-card">{children}</Glass>
 		</section>
 	);
 }
 export function Code({ children }: { children: ReactNode }) {
-	return <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-xs">{children}</code>;
+	return <code className="glass-chip px-1.5 py-0.5 font-mono text-xs">{children}</code>;
 }

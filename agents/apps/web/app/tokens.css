@@ -5,9 +5,9 @@
  * (https://github.com/0kzh/glisse, MIT): panels, bars, buttons and controls that float over a dark, slowly moving
  * backdrop and bend it at their edges, as Apple's Liquid Glass does. The decisions, with their reasons:
  * - Near-monochrome on near-black, still. Onyx Agents is an operator's console used for long stretches, and the owner
- *   chose this palette. The colour lives only in the backdrop, faint and slow, because glass needs something behind
- *   it to bend; the glass itself is neutral.
- * - One accent, cold white, for what is selected or needs acting on: the filled button, the selection lens.
+ *   chose this palette. The colour lives in the backdrop, faint and slow, because glass needs something behind it to
+ *   bend, and in the chromatic chrome (below); the glass itself is neutral.
+ * - One accent for what is selected or needs acting on: cold white at first, chromatic chrome now (see below).
  * - One semantic colour outside the palette: --bad, for failures, because a failed run must not look like a
  *   finished one.
  * - Glass corners: 22px for panels, round for bars and buttons, 12px for rows inside them. Lines are hairlines of
@@ -17,6 +17,15 @@
  * - Motion: the backdrop drifts over minutes and follows the pointer's light; the selection springs between items;
  *   things that arrive (a screen, a message, a row) settle in over 200 to 320 ms, out of a slight blur. A running
  *   agent's marker pulses while it runs. All of it stops for reduced motion.
+ *
+ * Liquid glass everywhere, and chromatic (November 2026, asked for by the owner):
+ * - The app is built of slabs of glass, the sidebar and the main pane, with panels of glass on them. The edge of each
+ *   flows outwards as a lip of liquid glass with a thin rim of chromatic chrome, waving, melting into its neighbours,
+ *   reaching for the pointer (components/liquid-border.tsx). Fields, chips, code and the frost behind sheets are glass.
+ * - While Onyx answers, the glass comes alive: its waves run faster, colour flows round the rims and glows out of them,
+ *   a light runs round the app's edge, words arriving ripple it, and the mark turns (html[data-answering]).
+ * - Chromatic chrome (--chrome, --chroma) replaces the cold white where something is filled or marked: the mark, filled
+ *   buttons, the bigger models' badges, the selection's hairline, a running marker, charts, text being worked out.
  */
 :root {
 	--bg: #070708;
@@ -46,4 +55,10 @@
 	--lg-track: rgb(235 235 245 / 0.22);
 	--lg-segment-thumb: rgb(235 235 245 / 0.24);
 	--lg-ring: rgb(255 255 255 / 0.55);
+
+	/* Chromatic chrome: silver that splits into faint colour where it turns (fills); the colours alone (marks, charts);
+	   and a ring of them (the selection's hairline). */
+	--chrome: linear-gradient(135deg, #ffffff 0%, #dfe5f2 18%, #9da6ba 34%, #ffd9ef 46%, #d3f3ff 58%, #a3abbf 72%, #f2efff 86%, #ffffff 100%);
+	--chroma: linear-gradient(90deg, #9fb4ff, #d6b3ff 30%, #ffbfdc 55%, #ffe3b0 75%, #b8f5e4);
+	--chroma-ring: conic-gradient(from 200deg, #9fb4ff, #e0b8ff, #ffc2de, #ffe6b5, #b9f6e6, #9fd8ff, #9fb4ff);
 }

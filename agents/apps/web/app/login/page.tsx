@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 import { Mark } from '@/components/shell';
+import { Glass } from 'glisse';
 import { Button, Code, Problem } from '@/components/ui';
 
 export default function Login() {
@@ -22,6 +23,7 @@ export default function Login() {
 	};
 	return (
 		<div className="enter mx-auto flex h-full w-full max-w-sm flex-col justify-center px-6">
+			<Glass data-glass="slab" className="glass-panel px-7 py-8">
 			<Mark />
 			<h1 className="mt-8 text-xl font-semibold tracking-tight">Sign in</h1>
 			{session && !session.has_password ? (
@@ -33,6 +35,7 @@ export default function Login() {
 					<Button type="submit" kind="primary" disabled={!password}>Sign in</Button>
 				</form>
 			)}
+			</Glass>
 		</div>
 	);
 }

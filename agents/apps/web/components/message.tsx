@@ -32,7 +32,7 @@ function inline(text: string, key = 0): ReactNode[] {
 	for (let m = re.exec(text); m; m = re.exec(text)) {
 		if (m.index > last) out.push(text.slice(last, m.index));
 		if (m[2] !== undefined) out.push(<strong key={k++} className="font-semibold">{inline(m[2], k * 100)}</strong>);
-		else if (m[3] !== undefined) out.push(<code key={k++} className="rounded bg-surface px-1 py-0.5 font-mono text-[0.85em]">{m[3]}</code>);
+		else if (m[3] !== undefined) out.push(<code key={k++} className="glass-chip px-1 py-0.5 font-mono text-[0.85em]">{m[3]}</code>);
 		else if (m[4] !== undefined) out.push(<a key={k++} href={m[5]} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-text">{m[4]}</a>);
 		else if (m[6] !== undefined) out.push(<em key={k++}>{inline(m[6], k * 100)}</em>);
 		last = m.index + m[0].length;
@@ -103,8 +103,8 @@ export function MessageText({ text, className = '' }: { text: string; className?
 			const lang = parts[i + 1] || 'code';
 			const code = parts[i + 2]!.replace(/\n$/, '');
 			out.push(
-				<figure key={`c${i}`} className="my-2 overflow-hidden rounded border">
-					<figcaption className="flex items-center justify-between border-b bg-surface pl-3 font-mono text-xs text-muted">
+				<figure key={`c${i}`} className="glass-block my-2 overflow-hidden">
+					<figcaption className="flex items-center justify-between border-b pl-3 font-mono text-xs text-muted">
 						{lang}
 						<CopyButton text={code} label={`Copy the ${lang}`} />
 					</figcaption>

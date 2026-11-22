@@ -17,7 +17,7 @@ function Table({ rows, first }: { rows: (G & { name: string })[]; first: string 
 					<tr key={r.name} className="border-b">
 						<td className="py-2 pr-4 font-mono text-xs">{r.name}</td>
 						<td className="py-2 pr-4 font-mono text-xs">{fmtTokens(r.tokens)}</td>
-						<td className="w-1/3 py-2 pr-4"><span className="bar block h-1.5 bg-text" style={{ width: `${Math.max(1, (100 * r.tokens) / max)}%` }} aria-hidden /></td>
+						<td className="w-1/3 py-2 pr-4"><span className="bar chroma-bar block h-1.5 rounded-full" style={{ width: `${Math.max(1, (100 * r.tokens) / max)}%` }} aria-hidden /></td>
 						<td className="py-2 pr-4 font-mono text-xs">{r.calls}</td>
 						<td className="py-2 pr-4 font-mono text-xs">{fmtCost(r.cost_usd)}</td>
 						<td className="py-2 pr-4 font-mono text-xs">{r.equivalent_usd != null ? fmtCost(r.equivalent_usd) : ''}</td>
@@ -50,7 +50,7 @@ export default function Usage() {
 						<p className="mt-1 font-mono text-xl">{fmtTokens(data.used_today)}</p>
 						{data.billing && data.limit != null ? (
 							<>
-								<div className="mt-3 h-1.5 w-full bg-line" role="progressbar" aria-valuenow={Math.round(pct)} aria-valuemin={0} aria-valuemax={100} aria-label="Share of today's token limit used"><div className={`bar h-full ${pct >= 100 ? 'bg-bad' : 'bg-accent'}`} style={{ width: `${pct}%` }} /></div>
+								<div className="glass-chip mt-3 h-1.5 w-full rounded-full" role="progressbar" aria-valuenow={Math.round(pct)} aria-valuemin={0} aria-valuemax={100} aria-label="Share of today's token limit used"><div className={`bar h-full ${pct >= 100 ? 'bg-bad' : 'chroma-bar'}`} style={{ width: `${pct}%` }} /></div>
 								<p className="mt-2 text-sm text-muted">Billing is on: the {data.plan} plan allows {fmtTokens(data.limit)} tokens a day, and resets at midnight UTC.</p>
 							</>
 						) : (
@@ -77,7 +77,7 @@ export default function Usage() {
 						<>
 							<Section title={`Tokens per day, last ${days} days`}>
 								<ol className="flex h-36 items-end gap-1 border-b" aria-label="Tokens per day">
-									{series.map((d) => <li key={d.day} className="group relative flex h-full flex-1 items-end" title={`${d.day}: ${fmtTokens(d.tokens)} tokens in ${d.calls} calls`}><span className="barY block w-full bg-text group-hover:bg-accent" style={{ height: d.tokens ? `${Math.max(2, (100 * d.tokens) / max)}%` : '1px', opacity: d.tokens ? 1 : 0.25 }} /><span className="sr-only">{d.day}: {fmtTokens(d.tokens)} tokens</span></li>)}
+									{series.map((d) => <li key={d.day} className="group relative flex h-full flex-1 items-end" title={`${d.day}: ${fmtTokens(d.tokens)} tokens in ${d.calls} calls`}><span className="barY chroma-bar block w-full rounded-t-[3px] group-hover:brightness-125" style={{ height: d.tokens ? `${Math.max(2, (100 * d.tokens) / max)}%` : '1px', opacity: d.tokens ? 1 : 0.25 }} /><span className="sr-only">{d.day}: {fmtTokens(d.tokens)} tokens</span></li>)}
 								</ol>
 								<p className="mt-2 flex justify-between font-mono text-xs text-muted"><span>{series[0]!.day}</span><span>peak {fmtTokens(max)} in a day</span><span>{series.at(-1)!.day}</span></p>
 							</Section>
