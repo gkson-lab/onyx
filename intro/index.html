@@ -28,7 +28,7 @@
 	<header class="top">
 		<div class="wrap">
 			<a class="brand" href="#top" aria-label="Onyx Agents, back to the top">
-				<svg viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor"><path d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fill-opacity="0.92"/><path d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fill-opacity="0.5"/><path d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fill-opacity="0.32"/><path d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fill-opacity="0.26"/><path d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fill-opacity="0.66"/><path d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z"/></g></svg>
+				<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="holo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.28" stop-color="#ffd3ea"/><stop offset="0.48" stop-color="#cfeaff"/><stop offset="0.68" stop-color="#fff0bd"/><stop offset="0.86" stop-color="#ddd0ff"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs><g fill="url(#holo)"><path d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fill-opacity="0.92"/><path d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fill-opacity="0.5"/><path d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fill-opacity="0.32"/><path d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fill-opacity="0.26"/><path d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fill-opacity="0.66"/><path d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z"/></g></svg>
 				Onyx Agents
 			</a>
 			<nav id="site-nav" aria-label="Sections">
@@ -158,21 +158,24 @@
 							<button class="beam" type="button" role="radio" aria-checked="false" tabindex="-1" data-agent="Memory" style="--c: var(--c-memory)">Memory</button>
 						</div>
 					</div>
-					<article class="agent-card" data-agent-card aria-live="polite" style="--c: var(--c-core)">
+					<div class="team-below">
+						<article class="agent-card" data-agent-card aria-live="polite" style="--c: var(--c-core)">
 						<!-- Filled in by site.js; this is what shows without it. -->
 						<div class="row"><h3>Onyx Core</h3><span class="chip">tier picked per message</span></div>
 						<p class="role">The lead. It reads every message and writes the reply you get.</p>
 						<p class="desc">Quick questions it answers itself. Bigger ones it plans out, hands to the specialists, and stitches their work into one answer. If a job only needs one specialist, it goes straight there to save time.</p>
 					</article>
+						<div class="rules">
+							<p><b>A step limit</b>Every agent gets a set number of steps. On the last one its tools are taken away, so it has to answer.</p>
+							<p><b>A shared budget</b>Specialists spend from whatever tokens their parent has left, so one run can't balloon.</p>
+							<p><b>Fair timing</b>Time spent waiting for the graphics card while another agent uses it doesn't count against anyone.</p>
+							<p><b>One stop button</b>Hit Stop or press Esc, and every agent in the run stops.</p>
+							<p><b>No hidden failures</b>Anything that failed is listed under the answer, taken from the log rather than from what a model says it did.</p>
+							<p><b>Make it yours</b>Edit any agent's instructions, tier, tools and limits, or add a new one. Any MCP server can add more tools.</p>
+						</div>
+					</div>
 				</div>
-				<div class="rules">
-					<p><b>A step limit</b>Every agent gets a set number of steps. On the last one its tools are taken away, so it has to answer.</p>
-					<p><b>A shared budget</b>Specialists spend from whatever tokens their parent has left, so one run can't balloon.</p>
-					<p><b>Fair timing</b>Time spent waiting for the graphics card while another agent uses it doesn't count against anyone.</p>
-					<p><b>One stop button</b>Hit Stop or press Esc, and every agent in the run stops.</p>
-					<p><b>No hidden failures</b>Anything that failed is listed under the answer, taken from the log rather than from what a model says it did.</p>
-					<p><b>Make it yours</b>Edit any agent's instructions, tier, tools and limits, or add a new one. Any MCP server can add more tools.</p>
-				</div>
+
 			</div>
 		</section>
 
@@ -509,11 +512,11 @@
 	<footer>
 		<div class="wrap">
 			<a class="brand" href="#top">
-				<svg viewBox="0 0 100 100" aria-hidden="true" width="22" height="22"><g fill="currentColor"><path d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fill-opacity="0.92"/><path d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fill-opacity="0.5"/><path d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fill-opacity="0.32"/><path d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fill-opacity="0.26"/><path d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fill-opacity="0.66"/><path d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z"/></g></svg>
+				<svg viewBox="0 0 100 100" aria-hidden="true" width="22" height="22"><g fill="url(#holo)"><path d="M52.02,8.97 92.68,38.51 78.15,43.95 51.33,24.47Z" fill-opacity="0.92"/><path d="M93.93,42.35 78.40,90.15 68.73,78.01 78.97,46.49Z" fill-opacity="0.5"/><path d="M75.13,92.52 24.87,92.52 33.43,79.58 66.57,79.58Z" fill-opacity="0.32"/><path d="M21.60,90.15 6.07,42.35 21.03,46.49 31.27,78.01Z" fill-opacity="0.26"/><path d="M7.32,38.51 47.98,8.97 48.67,24.47 21.85,43.95Z" fill-opacity="0.66"/><path d="M50.00,36.50 67.12,48.94 60.58,69.06 39.42,69.06 32.88,48.94Z"/></g></svg>
 				Onyx Agents
 			</a>
 			<span>Made by GK Labs in Austin, TX · MIT license</span>
-			<p class="credits">Built with <a href="vendor/LICENSE-three.txt">three.js</a> (MIT). The liquid chrome logo is powered by <a href="https://shaders.paper.design">Paper Shaders</a> (Apache-2.0). The sky and clouds over Austin are <a href="https://github.com/takram-design-engineering/three-geospatial">three-geospatial</a> by Takram (MIT) with <a href="https://github.com/pmndrs/postprocessing">postprocessing</a> (Zlib). The prism is drawn with <a href="https://github.com/vercel-labs/vgpu">vgpu</a> by Vercel (MIT) on WebGPU. The graphics card is built with <a href="https://github.com/pmndrs/react-three-fiber">React Three Fiber</a> (MIT) and React (MIT). The screen lens is <a href="vendor/canvas-ui/LICENSE.md">Canvas UI</a> by David Haz (MIT + Commons Clause). The stone backgrounds are adapted from <a href="https://github.com/ruucm/shadergradient">ShaderGradient</a> (MIT). Every licence for the 3D scenes is in <a href="scenes/LICENSES.md">LICENSES.md</a>. Fonts: <a href="fonts/LICENSE-Fraunces.txt">Fraunces</a> and <a href="fonts/LICENSE-Geist.txt">Geist</a> (SIL OFL 1.1).</p>
+			<p class="credits">Built with <a href="vendor/LICENSE-three.txt">three.js</a> (MIT). The liquid chrome logo is powered by <a href="https://shaders.paper.design">Paper Shaders</a> (Apache-2.0). The sky and clouds over Austin are <a href="https://github.com/takram-design-engineering/three-geospatial">three-geospatial</a> by Takram (MIT) with <a href="https://github.com/pmndrs/postprocessing">postprocessing</a> (Zlib). The 3D prism is drawn with <a href="https://github.com/vercel-labs/vgpu">vgpu</a> by Vercel (MIT) on WebGPU, or the same shader on WebGL 2. The graphics card and memory are built with <a href="https://github.com/pmndrs/react-three-fiber">React Three Fiber</a> (MIT) and React (MIT). The screen lens is <a href="vendor/canvas-ui/LICENSE.md">Canvas UI</a> by David Haz (MIT + Commons Clause). The stone backgrounds are adapted from <a href="https://github.com/ruucm/shadergradient">ShaderGradient</a> (MIT). Every licence for the 3D scenes is in <a href="scenes/LICENSES.md">LICENSES.md</a>. Fonts: <a href="fonts/LICENSE-Fraunces.txt">Fraunces</a> and <a href="fonts/LICENSE-Geist.txt">Geist</a> (SIL OFL 1.1).</p>
 		</div>
 	</footer>
 	<dialog class="zoom" data-zoom aria-label="A screen from the app, full size"><button class="btn btn-chrome" type="button" data-close>Close</button></dialog>

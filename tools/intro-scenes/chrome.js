@@ -3,14 +3,15 @@
 // edge map is worked out once at build time (see build.mjs), so a phone doesn't have to solve it on load.
 import { ShaderMount, liquidMetalFragmentShader, getShaderColorFromString, ShaderFitOptions, LiquidMetalShapes } from '@paper-design/shaders';
 
+// Strong red and blue shifts split the chrome's reflections into rainbow fringes: chromatic chrome.
 export const CHROME = {
 	speed: 0.55,
 	colorBack: 'rgba(0, 0, 0, 0)',
-	colorTint: '#f4ece2',
+	colorTint: '#ffffff',
 	repetition: 3.2,
-	softness: 0.42,
-	shiftRed: 0.32,
-	shiftBlue: 0.32,
+	softness: 0.3,
+	shiftRed: 2.8,
+	shiftBlue: 2.8,
 	distortion: 0.08,
 	contour: 0.48,
 	angle: 72,

@@ -7,8 +7,8 @@ The four 3D scenes on the Onyx Agents intro page (`intro/`) are built here into 
 | --- | --- | --- | --- |
 | `chrome.js` | `chrome.js` | [Paper Shaders](https://shaders.paper.design) (Apache-2.0) | The Onyx mark in liquid chrome, in the hero. |
 | `sky.js` | `sky.js` | [three-geospatial](https://github.com/takram-design-engineering/three-geospatial) by Takram (MIT), with postprocessing (Zlib) | Volumetric clouds over Austin with the real sun, flown down through as you scroll. |
-| `prism.js` | `prism.js`, `prism.wgsl` | [vgpu](https://github.com/vercel-labs/vgpu) by Vercel (MIT), on WebGPU | One white beam into a prism, five coloured beams out: one message, five specialists. Falls back to Canvas 2D. |
-| `vram.js` | `vram.jsx` | [React Three Fiber](https://github.com/pmndrs/react-three-fiber) (MIT) and React (MIT) | A glass graphics card whose memory chips fill with the model the planner picks. |
+| `prism.js` | `prism.js`, `prism.wgsl`, `prism.frag` | [vgpu](https://github.com/vercel-labs/vgpu) by Vercel (MIT), on WebGPU | A 3D glass prism, ray traced once per colour channel so it splits light: one white beam (a message) in, five coloured beams (the specialists) out, their paths from Snell's law. The same shader runs on WebGL 2 where WebGPU is missing, and a flat drawing on Canvas 2D after that. |
+| `vram.js` | `vram.jsx` | [React Three Fiber](https://github.com/pmndrs/react-three-fiber) (MIT) and React (MIT) | A graphics card (circuit board, power stage, marked memory chips, fin stacks, heat pipes, fans, bracket) and two DDR5 sticks on a motherboard. The card's chips fill with the model the planner picks; the sticks' light bars show what spills into system memory. |
 
 three.js itself stays outside the bundles: the page serves one copy, `intro/vendor/three.module.min.js` (r185), and
 the scenes import it as `three`.
@@ -39,6 +39,6 @@ Two files are made once and kept in `intro/scenes/`:
 ## Fallbacks
 
 Every scene is optional. Without WebGL 2 the hero keeps the flat mark, the sky keeps its poster, and the graphics card
-gives way to the memory bars under it. Without WebGPU, or if the GPU drops out, the prism is drawn with Canvas 2D on
-a fresh canvas. With reduced motion, scenes draw only when something changes. Without JavaScript the page is all
+gives way to the memory bars under it. Without WebGPU, or if the GPU drops out, the prism moves to WebGL 2 on a fresh
+canvas, and to a flat Canvas 2D drawing if that fails too. With reduced motion, scenes draw only when something changes. Without JavaScript the page is all
 there, with a still drawing of the prism.
