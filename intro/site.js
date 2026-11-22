@@ -367,17 +367,46 @@ if (team) {
 	const place = (g) => {
 		if (!sizes) measure();
 		const W = stage.clientWidth, H = stage.clientHeight;
-		SPECIALISTS.forEach((name, i) => {
-			const b = radios.find((r) => r.dataset.agent === name);
-			const [x, y] = g.labels[i];
-			const [w, h] = sizes.get(b);
-			const left = g.tall ? clamp(x - w / 2, 8, W - w - 8) : clamp(x - w - 12, 8, W - w - 8);
-			b.style.transform = `translate(${Math.round(left)}px, ${Math.round(clamp(y - h / 2, 8, H - h - 8))}px)`;
-		});
 		const core = radios.find((r) => r.dataset.agent === 'Onyx Core');
 		const [cw, ch] = sizes.get(core);
-		core.style.transform = `translate(${Math.round(clamp(g.core[0] - cw / 2, 8, W - cw - 8))}px, ${Math.round(clamp(g.core[1] - ch / 2, 8, H - ch - 8))}px)`;
-		you.style.transform = g.tall ? `translate(${Math.round(clamp(g.src[0] + 12, 0, W - sizes.get(you)[0] - 24))}px, 0)` : `translate(0, ${Math.round(clamp(g.src[1] + 6, 0, H - 40))}px)`;
+		const fixed = { x: clamp(g.core[0] - cw / 2, 8, W - cw - 8), y: clamp(g.core[1] - ch / 2, 8, H - ch - 8), w: cw, h: ch };
+		const boxes = SPECIALISTS.map((name, i) => {
+			const el = radios.find((r) => r.dataset.agent === name);
+			const [x, y] = g.labels[i];
+			const [w, h] = sizes.get(el);
+			return { el, w, h, x: g.tall ? x - w / 2 : x - w - 12, y: y - h / 2 };
+		});
+		// Wherever two labels would overlap, push them apart along whichever way needs the smaller move, a few times
+		// over; Onyx Core's label stays put on the prism. Then keep them all inside the stage.
+		const fit = (b) => { b.x = clamp(b.x, 8, W - b.w - 8); b.y = clamp(b.y, 8, H - b.h - 8); };
+		boxes.forEach(fit);
+		for (let pass = 0; pass < 6; pass++) {
+			for (let i = 0; i < boxes.length; i++) {
+				for (const other of [...boxes.slice(i + 1), fixed]) {
+					const a = boxes[i];
+					const ox = Math.min(a.x + a.w, other.x + other.w) - Math.max(a.x, other.x) + 6;
+					const oy = Math.min(a.y + a.h, other.y + other.h) - Math.max(a.y, other.y) + 4;
+					if (ox <= 0 || oy <= 0) continue;
+					const movable = other !== fixed;
+					if (ox < oy) {
+						const dir = a.x + a.w / 2 < other.x + other.w / 2 ? -1 : 1;
+						a.x += dir * (movable ? ox / 2 : ox);
+						if (movable) other.x -= dir * ox / 2;
+					} else {
+						const dir = a.y + a.h / 2 < other.y + other.h / 2 ? -1 : 1;
+						a.y += dir * (movable ? oy / 2 : oy);
+						if (movable) other.y -= dir * oy / 2;
+					}
+					fit(a);
+					if (movable) fit(other);
+				}
+			}
+		}
+		for (const b of boxes) b.el.style.transform = `translate(${Math.round(b.x)}px, ${Math.round(b.y)}px)`;
+		core.style.transform = `translate(${Math.round(fixed.x)}px, ${Math.round(fixed.y)}px)`;
+		// On tall stages the beam comes in across the top, where there's no clear room for its label.
+		you.hidden = g.tall;
+		if (!g.tall) you.style.transform = `translate(0, ${Math.round(clamp(g.src[1] + 6, 0, H - 40))}px)`;
 		if (prism) stage.dataset.renderer = prism.kind;
 	};
 	lazy(stage, () => import('./scenes/prism.js').then(async ({ mountPrism }) => {

@@ -634,7 +634,7 @@ footer .credits a { color: var(--text-2); }
 	.limits b { font-size: 1.4rem; }
 	select { min-width: 0; width: 100%; }
 	.planner form .field:first-child { flex: 1 1 100%; }
-	.prism-stage { aspect-ratio: 4 / 5; min-height: 0; max-height: 82svh; width: 100%; }
+	.prism-stage { aspect-ratio: 2 / 3; min-height: 0; max-height: 86svh; width: 100%; }
 	.sky-hud { left: var(--gutter); right: var(--gutter); width: auto; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 12px; padding: 10px 14px; }
 	.sky-hud .hud-place, .sky-hud .hud-note { grid-column: 1 / -1; }
 	.sky-hud .hud-place span { display: inline; margin-left: 6px; }

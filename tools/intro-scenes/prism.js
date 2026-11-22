@@ -48,30 +48,35 @@ export function layout(w, h, { yaw = 0, pitch = 0, tilt = 0 } = {}) {
 	const aspect = w / h;
 	const th = Math.tan(FOV / 2);
 	// The camera looks at a point right of the prism, where the colours fan out, from in front, a little above and
-	// to the right, far enough back that the prism and the fan both fit.
-	// Tall: close enough that the prism takes about half the width, the fan running straight down below it.
-	const target = tall ? [1.9, 0.1, 0] : [1.25, -0.45, 0];
+	// to the right, far enough back that the prism and the fan both fit. Tall: close enough that the prism takes
+	// about half the width, level with the beams (looking down on them would skew the fan sideways), and moved
+	// across, below, until the fan's ends are centred.
 	const dist = tall ? Math.max(1.92 / (th * aspect), 3.0 / th) : Math.max(3.75 / (th * aspect), 1.95 / th);
 	const ya = ((tall ? 12 : 16) * Math.PI) / 180 + yaw;
-	const pa = (10 * Math.PI) / 180 + pitch;
-	const pos = [target[0] + dist * Math.sin(ya) * Math.cos(pa), target[1] + dist * Math.sin(pa), target[2] + dist * Math.cos(ya) * Math.cos(pa)];
-	const fwd = unit(sub(target, pos));
-	let right = unit(cross(fwd, [0, 1, 0]));
-	let up = cross(right, fwd);
-	if (tall) [right, up] = [up, [-right[0], -right[1], -right[2]]];
-	const project = (p) => {
-		const r = sub(p, pos);
-		const z = dot(r, fwd);
-		return [((dot(r, right) / (z * th * aspect)) * 0.5 + 0.5) * w, (0.5 - (dot(r, up) / (z * th)) * 0.5) * h];
+	const pa = ((tall ? 0 : 10) * Math.PI) / 180 + pitch;
+	const camera = (target) => {
+		const pos = [target[0] + dist * Math.sin(ya) * Math.cos(pa), target[1] + dist * Math.sin(pa), target[2] + dist * Math.cos(ya) * Math.cos(pa)];
+		const fwd = unit(sub(target, pos));
+		let right = unit(cross(fwd, [0, 1, 0]));
+		let up = cross(right, fwd);
+		if (tall) [right, up] = [up, [-right[0], -right[1], -right[2]]];
+		const project = (p) => {
+			const r = sub(p, pos);
+			const z = dot(r, fwd);
+			return [((dot(r, right) / (z * th * aspect)) * 0.5 + 0.5) * w, (0.5 - (dot(r, up) / (z * th)) * 0.5) * h];
+		};
+		return { pos, fwd, right, up, project, flat: (p) => project([p[0], p[1], 0]) };
 	};
-	const flat = (p) => project([p[0], p[1], 0]);
+	let cam = camera(tall ? [1.9, 0.15, 0] : [1.25, -0.45, 0]);
 
 	// The beams, in the plane through the middle of the prism: in through the left face, bent at both faces by
 	// Snell's law, each colour with its own index of refraction (exaggerated, so the fan is wide).
 	const entry = lerp2(LEFT, APEX, 0.45 + tilt * 0.05);
-	const angle = (((tall ? 46 : 27) + tilt * 6) * Math.PI) / 180;
+	const angle = (((tall ? 54 : 27) + tilt * 6) * Math.PI) / 180;
 	const dIn = [Math.cos(angle), Math.sin(angle)];
-	const iors = tall ? [1.38, 1.47, 1.56, 1.65, 1.74] : [1.44, 1.5, 1.56, 1.62, 1.68];
+	// Narrow screens get a wider fan (about 41 degrees against 30) pointed straight down, so every beam reaches the
+	// bottom edge and five labels fit across it in two rows.
+	const iors = tall ? [1.25, 1.38, 1.51, 1.64, 1.77] : [1.44, 1.5, 1.56, 1.62, 1.68];
 	const exits = [], dirs = [];
 	for (const n of iors) {
 		const d1 = refract(dIn, N_LEFT, 1 / n);
@@ -82,17 +87,26 @@ export function layout(w, h, { yaw = 0, pitch = 0, tilt = 0 } = {}) {
 	}
 	// How far a ray in that plane can go and stay inside a box on screen (fractions of the canvas), by bisection.
 	const reach = (p, d, [x0, y0, x1, y1]) => {
-		const on = (L) => { const [x, y] = flat([p[0] + d[0] * L, p[1] + d[1] * L]); return x >= x0 * w && x <= x1 * w && y >= y0 * h && y <= y1 * h; };
+		const on = (L) => { const [x, y] = cam.flat([p[0] + d[0] * L, p[1] + d[1] * L]); return x >= x0 * w && x <= x1 * w && y >= y0 * h && y <= y1 * h; };
 		let lo = 0, hi = 60;
 		if (on(hi)) return hi;
 		for (let k = 0; k < 26; k++) { const mid = (lo + hi) / 2; if (on(mid)) lo = mid; else hi = mid; }
 		return lo;
 	};
+	const box = tall ? [0.04, 0.03, 0.96, 0.97] : [0.03, 0.06, 0.97, 0.94];
+	const endsNow = () => exits.map((x, i) => { const L = reach(x, dirs[i], box); return [x[0] + dirs[i][0] * L, x[1] + dirs[i][1] * L]; });
+	let ends = endsNow();
+	if (tall) {
+		// Where the beams would cross the bottom edge if nothing stopped them, then the camera moved across to centre that.
+		const far = exits.map((x, i) => { const L = reach(x, dirs[i], [-9, 0.03, 10, 0.97]); return cam.flat([x[0] + dirs[i][0] * L, x[1] + dirs[i][1] * L])[0]; });
+		const off = ((far[0] + far[4]) / 2 - w / 2) / w;
+		cam = camera([1.9, 0.15 + off * 2 * th * aspect * dist, 0]);
+		ends = endsNow();
+	}
 	const back = reach(entry, [-dIn[0], -dIn[1]], [-0.02, -0.02, 1.02, 1.02]);
 	const src = [entry[0] - dIn[0] * back, entry[1] - dIn[1] * back];
-	const box = tall ? [0.05, 0.03, 0.95, 0.97] : [0.03, 0.06, 0.97, 0.94];
-	const ends = exits.map((x, i) => { const L = reach(x, dirs[i], box); return [x[0] + dirs[i][0] * L, x[1] + dirs[i][1] * L]; });
 	const mid = [exits.reduce((s, p) => s + p[0], 0) / 5, exits.reduce((s, p) => s + p[1], 0) / 5];
+	const { pos, right, up, fwd, project, flat } = cam;
 	return {
 		tall,
 		unit: Math.max(1, Math.min(w, h) / 520),
@@ -102,7 +116,7 @@ export function layout(w, h, { yaw = 0, pitch = 0, tilt = 0 } = {}) {
 		// On screen, in CSS pixels: for the labels and the flat drawing.
 		a: flat(APEX), b: flat(RIGHT), c: flat(LEFT),
 		src: flat(src), entry: flat(entry), exit: flat(mid), ends: ends.map(flat),
-		labels: ends.map((e, i) => flat(tall ? lerp2(exits[i], e, i % 2 ? 0.7 : 0.92) : e)),
+		labels: ends.map((e, i) => flat(tall ? lerp2(exits[i], e, i % 2 ? 0.78 : 0.97) : e)),
 		core: project([0, 0, DEPTH]),
 	};
 }
