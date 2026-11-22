@@ -1,16 +1,11 @@
 // Talking to the Onyx server: plain fetches for data, and one WebSocket for everything agents do as they do it.
+// On this branch (the demo) there is no server: demo/backend.ts answers in the page, from recordings, and no AI runs.
 'use client';
-import { createContext, useContext, useEffect, useReducer, useRef, useState, type Dispatch } from 'react';
-
-const BASE = process.env.NEXT_PUBLIC_API ?? '';
+import { createContext, useContext, useEffect, useReducer, useState, type Dispatch } from 'react';
+import { request, subscribe } from '@/demo/backend';
 
 export async function api<T = any>(path: string, init?: { method?: string; body?: unknown }): Promise<T> {
-	const res = await fetch(`${BASE}/api${path}`, { method: init?.method ?? 'GET', headers: init?.body !== undefined ? { 'content-type': 'application/json' } : undefined, body: init?.body !== undefined ? JSON.stringify(init.body) : undefined });
-	const data = await res.json().catch(() => ({ error: `The server answered ${res.status} with something that is not JSON.` }));
-	// Reached through a tunnel without a session: go and sign in.
-	if (res.status === 401 && !path.startsWith('/login') && !path.startsWith('/session') && typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) window.location.replace('/login');
-	if (!res.ok) throw new Error(data.error ?? `The server answered ${res.status}.`);
-	return data as T;
+	return (await request(path, init)) as T;
 }
 
 /** Loads data, and again whenever `deps` change or `reload` is called. Errors are kept, not swallowed. */
@@ -76,39 +71,10 @@ export const useLive = () => useContext(Ctx);
 
 export function LiveProvider({ children }: { children: React.ReactNode }) {
 	const [live, dispatch] = useReducer(reduce, empty);
-	const retry = useRef(0);
-	const version = useRef<string | null>(null);
+	// The demo's stand-in server sends its events here, as the real one does over its WebSocket.
 	useEffect(() => {
-		let ws: WebSocket | null = null;
-		let timer: ReturnType<typeof setTimeout>;
-		let closed = false;
-		const connect = () => {
-			const origin = BASE || window.location.origin;
-			ws = new WebSocket(`${origin.replace(/^http/, 'ws')}/ws`);
-			ws.onopen = () => {
-				retry.current = 0;
-				dispatch({ type: '_conn', connected: true });
-				// The version the server runs: noted the first time, compared on every reconnect after.
-				api<{ sha: string | null }>('/version').then(({ sha }) => {
-					if (!sha) return;
-					if (version.current === null) version.current = sha;
-					else if (sha !== version.current) dispatch({ type: '_updated', sha });
-				}, () => {});
-			};
-			ws.onmessage = (m) => {
-				try {
-					dispatch(JSON.parse(m.data));
-				} catch {
-					// Not an event: ignored.
-				}
-			};
-			ws.onclose = () => {
-				dispatch({ type: '_conn', connected: false });
-				if (!closed) timer = setTimeout(connect, Math.min(10000, 500 * 2 ** retry.current++));
-			};
-		};
-		connect();
-		return () => ((closed = true), clearTimeout(timer), ws?.close());
+		dispatch({ type: '_conn', connected: true });
+		return subscribe((e) => dispatch(e));
 	}, []);
 	return <Ctx.Provider value={{ live, dispatch }}>{children}</Ctx.Provider>;
 }

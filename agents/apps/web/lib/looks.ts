@@ -6,7 +6,8 @@
  * - black: the same liquid glass in black chrome, its light splitting into gold and blue (the second).
  */
 export type Look = 'standard' | 'glass' | 'black';
-export const DEFAULT_LOOK: Look = 'standard';
+// The demo opens in Liquid glass, as it's there to show the glass off.
+export const DEFAULT_LOOK: Look = 'glass';
 export const LOOK_KEY = 'onyx.look';
 export const LOOKS: { value: Look; label: string; note: string }[] = [
 	{ value: 'standard', label: 'Standard', note: 'Flat and quiet: solid dark panels and white accents, no glass. The lightest on the battery and the graphics card.' },
