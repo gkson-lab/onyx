@@ -6,6 +6,7 @@ import { Button, Code, ICON, Loading, Page, Problem, Section, channelLabel } fro
 import { Autostart, Backups } from '@/components/settings-extra';
 import { Updates } from '@/components/updates';
 import { CloudModels } from '@/components/cloud';
+import { Appearance } from '@/components/appearance';
 
 interface S { preferred_channels: string[]; allowlist: string[]; keys: { name: string; set: boolean }[]; cloud: boolean }
 const KEY_USE: Record<string, string> = { OPENAI_API_KEY: 'ChatGPT models (set in Cloud models, above)', ANTHROPIC_API_KEY: 'Claude models (set in Cloud models, above)', MOONSHOT_API_KEY: 'Kimi models (set in Cloud models, above)', BRAVE_API_KEY: 'Web search for the Researcher', GITHUB_MCP_TOKEN: 'The GitHub connector', ONYX_PASSWORD: 'Signing in to this app from outside this PC', WHATSAPP_TOKEN: 'Sending WhatsApp messages', WHATSAPP_APP_SECRET: 'Checking that WhatsApp webhooks come from Meta', TWILIO_AUTH_TOKEN: 'Sending SMS, and checking Twilio webhooks' };
@@ -180,6 +181,7 @@ export default function Settings() {
 	const active = (schedules.data?.schedules ?? []).filter((s) => s.status === 'active');
 	return (
 		<Page title="Settings">
+			<Appearance />
 			{(error || bad) && <Problem>{error ?? bad}</Problem>}
 			{!data && !error && <Loading what="settings" />}
 			{data && (

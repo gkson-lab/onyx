@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { useLive } from '@/lib/api';
+import { useLook } from '@/lib/look';
 
 /**
  * Liquid glass round everything. The app is built of slabs of glass (the sidebar and the main pane: data-glass="slab")
@@ -14,9 +15,9 @@ import { useLive } from '@/lib/api';
  * The glass follows Apple's "Clear" Liquid Glass, as the macOS 27 and iOS 27 kits in Figma build it: what's behind it
  * shows through, lifted a little (a 6% dodge and a touch of shade); light gathers along its rim (two soft inner
  * highlights); it splits a faint rainbow there (dispersion 0.2); and it casts a soft shadow. The chrome line is the
- * Onyx mark's liquid chrome, two pixels wide round the slabs and a pixel and a half round the panels. Black chrome
- * (beta 2, html[data-chrome="black"]) makes that line black liquid metal whose light splits into hot colour at its
- * edges, and the glass smoky.
+ * Onyx mark's liquid chrome, two pixels wide round the slabs and a pixel and a half round the panels. The Black chrome
+ * look (html[data-look="black"], see lib/look.ts) makes that line black liquid metal whose light splits into hot colour
+ * at its edges, and the glass smoky. The Standard look has none of it: the canvas isn't made.
  *
  * It's one transparent WebGL canvas over the app that takes no clicks, drawn by a shader that works only on the pixels
  * near an edge. A panel that scrolls out of view (data-glass-scroll marks the scroller, with the insets its bars
@@ -53,7 +54,7 @@ uniform int uRims;
 uniform vec4 uRim[${RIMS}];
 uniform vec4 uRimR[${RIMS}];
 uniform vec4 uRimK[${RIMS}];     // how much glass the panel has (less as it scrolls away), whether it glows
-uniform float uBlack;     // 1: black chrome (beta 2, html[data-chrome="black"]); 0: chromatic
+uniform float uBlack;     // 1: the Black chrome look; 0: Liquid glass, chromatic
 out vec4 outColor;
 
 const float PI = 3.14159265;
@@ -317,6 +318,8 @@ const onEdge = (s: Shape): [number, number] => {
 export function LiquidBorder() {
 	const ref = useRef<HTMLCanvasElement>(null);
 	const { live } = useLive();
+	// Only the two glass looks have liquid glass; Standard has no canvas at all.
+	const on = useLook() !== 'standard';
 	// Onyx answering: any run in progress, and the words its answers have streamed so far.
 	const busy = Object.values(live.nodes).some((n) => n.status === 'running');
 	const words = Object.values(live.text).reduce((n, t) => n + t.length, 0);
@@ -339,7 +342,7 @@ export function LiquidBorder() {
 
 	useEffect(() => {
 		const canvas = ref.current;
-		if (!canvas) return;
+		if (!on || !canvas) return;
 		const gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: false });
 		if (!gl) return;
 		const shader = (type: number, src: string) => {
@@ -443,7 +446,7 @@ export function LiquidBorder() {
 			gl.uniform4fv(u.rim, rimData);
 			gl.uniform4fv(u.rimR, rimCorners);
 			gl.uniform4fv(u.rimK, rimKind);
-			gl.uniform1f(u.black, document.documentElement.dataset.chrome === 'black' ? 1 : 0);
+			gl.uniform1f(u.black, document.documentElement.dataset.look === 'black' ? 1 : 0);
 			gl.drawArrays(gl.TRIANGLES, 0, 3);
 		};
 		// Every frame while something moves it (the pointer, a ripple, Onyx answering, a scroll); 30 a second when only
@@ -492,6 +495,6 @@ export function LiquidBorder() {
 			document.removeEventListener('visibilitychange', kick);
 			gl.getExtension('WEBGL_lose_context')?.loseContext();
 		};
-	}, []);
-	return <canvas ref={ref} aria-hidden className="liquid-border" />;
+	}, [on]);
+	return on ? <canvas ref={ref} aria-hidden className="liquid-border" /> : null;
 }

@@ -168,3 +168,41 @@ html[data-answering] .mark { animation: turn 2.4s linear infinite; }
 	.backdrop .field, .arrive, .slide-in, .sheet, html[data-answering] .mark { animation: none; }
 	.nav-lens { transition: none; }
 }
+
+/* Settings > Appearance: the three looks, each with a swatch of itself (drawn the same whichever look is on). */
+.look-option { display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 16px; text-align: left; background: rgb(255 255 255 / 0.025); box-shadow: inset 0 0 0 1px var(--line); }
+.look-option:hover { background: rgb(255 255 255 / 0.05); }
+.look-option[aria-checked='true'] { box-shadow: inset 0 0 0 1.5px var(--text); }
+.look-swatch { position: relative; display: block; height: 64px; border-radius: 10px; overflow: hidden; }
+.look-swatch::after { content: ''; position: absolute; inset: 9px 12px; border-radius: 8px; }
+.look-swatch[data-swatch='standard'] { background: linear-gradient(90deg, #0a0a0a 0 26%, #1f1f1f 26% calc(26% + 1px), #0a0a0a calc(26% + 1px)); }
+.look-swatch[data-swatch='standard']::after { left: calc(26% + 12px); background: #121212; box-shadow: inset 0 0 0 1px #1f1f1f; }
+.look-swatch[data-swatch='glass'] { background: radial-gradient(circle at 18% 20%, rgb(92 64 196 / 0.75), transparent 60%), radial-gradient(circle at 85% 90%, rgb(34 132 186 / 0.6), transparent 55%), #0b0b0f; }
+.look-swatch[data-swatch='glass']::after { background: rgb(255 255 255 / 0.05); border: 1.5px solid transparent; background-clip: padding-box; box-shadow: 0 0 0 1.5px #c9d4ff, 0 0 10px rgb(214 179 255 / 0.35); outline: 1px solid rgb(255 191 220 / 0.6); outline-offset: 1px; }
+.look-swatch[data-swatch='black'] { background: radial-gradient(circle at 25% 15%, rgb(150 150 165 / 0.3), transparent 60%), #060608; }
+.look-swatch[data-swatch='black']::after { background: rgb(0 0 0 / 0.35); box-shadow: 0 0 0 1.5px #f4f5f8, 0 1.5px 0 1.5px #ff8a3d, 0 -1.5px 0 1.5px #8fb0ff, 0 0 12px rgb(255 170 90 / 0.3); }
+
+/*
+ * Standard: glisse's glass made flat. Nothing frosts, bends or shines; glass is a solid panel with a hairline, and the
+ * app fills the window with its sidebar and chat list flush against hairlines, as before the glass. (The fields are
+ * matched with :where so the composer's own clear field still wins.)
+ */
+html[data-look='standard'] .lg-glass { -webkit-backdrop-filter: none; backdrop-filter: none; background-image: none; box-shadow: inset 0 0 0 1px var(--line); }
+html[data-look='standard'] .lg-drawn, html[data-look='standard'] .backdrop .field, html[data-look='standard'] .backdrop .pointer-light { display: none; }
+html[data-look='standard'] .app-frame { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+html[data-look='standard'] .glass-slab { border-radius: 0; background: none; box-shadow: none; }
+html[data-look='standard'] .sidebar { padding-right: 0; }
+html[data-look='standard'] .chat-list { padding: 0; }
+html[data-look='standard'] :is(.sidebar, .chat-list) > .lg-glass { border-radius: 0; background-color: var(--bg); box-shadow: inset -1px 0 0 var(--line); }
+html[data-look='standard'] .nav-lens { border-radius: var(--radius); background: var(--surface); box-shadow: none; }
+html[data-look='standard'] :is(.nav-lens, .chat-item[aria-current='true'])::after { display: none; }
+html[data-look='standard'] .chat-item[aria-current='true'] { background: var(--surface); box-shadow: none; }
+:where(html[data-look='standard']) :is(input, select, textarea) { background: rgb(255 255 255 / 0.04); border: 1px solid var(--line); box-shadow: none; }
+:where(html[data-look='standard']) :is(input, select, textarea):focus { background: rgb(255 255 255 / 0.06); border-color: var(--muted); }
+html[data-look='standard'] :is(.glass-chip, .bg-surface, kbd) { background: var(--surface); box-shadow: none; }
+html[data-look='standard'] .glass-block { background: none; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: none; }
+html[data-look='standard'] .scrim { background: rgb(0 0 0 / 0.5); }
+html[data-look='standard'] .scrim::before { display: none; }
+html[data-look='standard'] .chrome-fill { box-shadow: none; }
+html[data-look='standard'] .look-option[aria-checked='true'] { box-shadow: inset 0 0 0 1.5px var(--accent); }
+

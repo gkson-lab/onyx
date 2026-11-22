@@ -96,7 +96,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 		<div className="app-frame flex h-full">
 			<Backdrop />
 			<LiquidBorder />
-			<nav aria-label="Main" className="hidden w-60 shrink-0 pr-3 md:flex">
+			<nav aria-label="Main" className="sidebar hidden w-60 shrink-0 pr-3 md:flex">
 				<Glass data-glass="slab" className="glass-panel flex w-full flex-col px-3 py-5">
 					<Link href="/" className="mb-6 px-3"><Mark /></Link>
 					<div ref={box} className="relative">
