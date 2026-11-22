@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { fmtCost, fmtHosted, fmtMs, fmtTime, fmtTokens, useData } from '@/lib/api';
-import { ChannelIcon, Empty, Loading, Page, Problem, Status, TierBadge, channelLabel } from '@/components/ui';
+import { Card, ChannelIcon, channelLabel, Empty, Loading, Page, Problem, Status, TierBadge } from '@/components/ui';
 
 interface Row { id: string; channel: string; status: string; input: string; tier: any; model: string | null; started_at: string; finished_at: string | null; tokens: number | null; cost_usd: number | null; equivalent_usd: number | null; agents: number; error: string | null }
 const FILTERS = { channel: ['web', 'whatsapp', 'sms', 'terminal'], tier: ['lite', 'standard', 'pro', 'max'], status: ['running', 'done', 'error', 'killed'] } as const;
@@ -34,7 +34,8 @@ export default function Runs() {
 			{!data && !error && <Loading what="runs" />}
 			{data && !data.runs.length && (filtered ? <Empty title="No runs match these filters.">Set a filter back to Any to widen the list.</Empty> : <Empty title="No runs yet.">A run is recorded each time Onyx handles a message. Send one in <Link href="/" className="text-text underline">Chat</Link>.</Empty>)}
 			{data && data.runs.length > 0 && (
-				<ul className="rows border-t">
+				<Card>
+				<ul className="rows">
 					{data.runs.map((r) => (
 						<li key={r.id}>
 							<Link href={`/graph?run=${r.id}`} className="grid min-h-14 grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 border-b py-3 hover:bg-surface md:grid-cols-[minmax(0,1fr)_9rem_11rem_6rem]">
@@ -49,6 +50,7 @@ export default function Runs() {
 						</li>
 					))}
 				</ul>
+				</Card>
 			)}
 		</Page>
 	);

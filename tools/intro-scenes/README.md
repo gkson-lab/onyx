@@ -1,24 +1,27 @@
 # The intro page's scenes
 
-The four 3D scenes on the Onyx Agents intro page (`intro/`) are built here into plain browser modules in
-`intro/scenes/`. The page loads each one only as its section comes near, and nothing from other hosts.
+The four 3D scenes on the Onyx Agents intro page (`intro/`), and its liquid glass, are built here into plain browser
+modules in `intro/scenes/`. The page loads each one only as its section comes near, and nothing from other hosts.
 
 | Scene | Source | Library | What it shows |
 | --- | --- | --- | --- |
 | `chrome.js` | `chrome.js` | [Paper Shaders](https://shaders.paper.design) (Apache-2.0) | The Onyx mark in liquid chrome, in the hero. |
 | `sky.js` | `sky.js` | [three-geospatial](https://github.com/takram-design-engineering/three-geospatial) by Takram (MIT), with postprocessing (Zlib) | Volumetric clouds over Austin with the real sun, flown down through as you scroll. |
 | `prism.js` | `prism.js`, `prism.wgsl`, `prism.frag` | [vgpu](https://github.com/vercel-labs/vgpu) by Vercel (MIT), on WebGPU | A 3D glass prism, ray traced once per colour channel so it splits light: one white beam (a message) in, five coloured beams (the specialists) out, their paths from Snell's law. The same shader runs on WebGL 2 where WebGPU is missing, and a flat drawing on Canvas 2D after that. |
+| `glass.js` | `glass.jsx` | [glisse](https://github.com/0kzh/glisse) by Kelvin Zhang (MIT), on [Preact](https://preactjs.com)'s React compatibility layer (MIT) | Liquid glass: the floating header, the sky's cards, the agent card, the download box and the small buttons, which bend what's behind them at their rim in Chromium (frost and a lit rim elsewhere); glisse's segmented controls for the memory and cost pickers, and its sliders for the sun, the replay speed and the background settings. The page's own controls stay underneath, hidden, and the two mirror each other both ways. |
 | `vram.js` | `vram.jsx` | [React Three Fiber](https://github.com/pmndrs/react-three-fiber) (MIT) and React (MIT) | A graphics card (circuit board, power stage, marked memory chips, fin stacks, heat pipes, fans, bracket) and two DDR5 sticks on a motherboard. The card's chips fill with the model the planner picks; the sticks' light bars show what spills into system memory. |
 
 three.js itself stays outside the bundles: the page serves one copy, `intro/vendor/three.module.min.js` (r185), and
-the scenes import it as `three`.
+the scenes import it as `three`. glisse is written for React; `build.mjs` points `react` at `preact/compat` for
+`glass.js` alone, which makes it 87 KB instead of 263 KB. The graphics card keeps real React, which React Three Fiber
+needs.
 
 ## Building
 
 ```sh
 cd tools/intro-scenes
 npm install
-node build.mjs            # all four scenes, and intro/scenes/LICENSES.md
+node build.mjs            # all four scenes and the glass, and intro/scenes/LICENSES.md
 node build.mjs prism      # just one (LICENSES.md is left alone)
 ```
 
@@ -61,7 +64,7 @@ one level (scenes starting up are given a few seconds' grace). It never steps ba
 | Sky | live | the two stills | the two stills |
 | Prism | full, 60 fps | 75%, 30 fps | 55%, drawn only when something changes |
 | Graphics card | up to 2 px per px | up to 1.25, fewer small parts, 30 fps | `rig-still` on wide screens, the memory bars |
-| Blur behind glass | yes | the header and small buttons only | none |
+| Liquid glass (glisse) | bends what's behind it | tinted glass with a drawn rim, no filter | not loaded: CSS glass on the header only |
 
 Each scene's `setQuality(level)` takes it down a level in place. The live sky stops at the first step down, and at
 `low` the stone and the chrome give way to their stills.

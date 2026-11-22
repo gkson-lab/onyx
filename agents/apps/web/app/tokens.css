@@ -1,31 +1,49 @@
 /*
  * Onyx by GK Labs: design tokens. This file is the whole visual system; the Tailwind theme only points at it.
  *
- * Decisions, with their reasons (the antislop rule each answers is in brackets):
- * - Near-monochrome on near-black. Onyx Agents is an operator's console for watching agents work, used for long
- *   stretches, and the owner specified this palette: dark is a decision here, not a default. [R-21]
- * - One accent, cold white, used only for what is selected or needs acting on. [R-29, one deliberate accent]
+ * Liquid glass (November 2026, asked for by the owner). The app's surfaces are glisse's liquid glass
+ * (https://github.com/0kzh/glisse, MIT): panels, bars, buttons and controls that float over a dark, slowly moving
+ * backdrop and bend it at their edges, as Apple's Liquid Glass does. The decisions, with their reasons:
+ * - Near-monochrome on near-black, still. Onyx Agents is an operator's console used for long stretches, and the owner
+ *   chose this palette. The colour lives only in the backdrop, faint and slow, because glass needs something behind
+ *   it to bend; the glass itself is neutral.
+ * - One accent, cold white, for what is selected or needs acting on: the filled button, the selection lens.
  * - One semantic colour outside the palette: --bad, for failures, because a failed run must not look like a
- *   finished one. Nothing else is coloured.
- * - Two radii: 0 for layout, 6px for controls. No pills except tier badges, which are a label shape. [R-11]
- * - No shadows, no glow, no blur, no gradients, no background texture: hierarchy comes from alignment, weight
- *   and 1px lines. [R-10, R-12, R-13, R-07]
- * - Geist and Geist Mono, chosen by the owner. Mono is for what is literally machine text: model IDs, token
- *   counts, tool calls, logs. It is never used for headings. [R-06]
- * - Motion is 120 to 200 ms and marks real state only: text streaming in, a node pulsing while its agent is
- *   actually running. Nothing loops on an idle screen. [R-19]
+ *   finished one.
+ * - Glass corners: 22px for panels, round for bars and buttons, 12px for rows inside them. Lines are hairlines of
+ *   white at low strength, so they read on any glass.
+ * - Geist and Geist Mono, chosen by the owner. Mono is for what is literally machine text: model IDs, token counts,
+ *   tool calls, logs. It is never used for headings.
+ * - Motion: the backdrop drifts over minutes and follows the pointer's light; the selection springs between items;
+ *   things that arrive (a screen, a message, a row) settle in over 200 to 320 ms, out of a slight blur. A running
+ *   agent's marker pulses while it runs. All of it stops for reduced motion.
  */
 :root {
-	--bg: #0a0a0a;
-	--surface: #121212;
-	--line: #1f1f1f;
+	--bg: #070708;
+	--surface: rgb(255 255 255 / 0.07);
+	--line: rgb(255 255 255 / 0.09);
 	--text: #ededed;
-	--muted: #8a8a8a;
+	--muted: #9a9aa2;
 	--accent: #ffffff;
-	--bad: #e5484d;
-	--radius: 6px;
+	--bad: #ff5a5f;
+	--radius: 10px;
+	--panel: 22px;
 	--fast: 120ms;
 	--slow: 200ms;
+	--spring: cubic-bezier(0.34, 1.36, 0.5, 1);
+	--settle: cubic-bezier(0.2, 0.75, 0.2, 1);
 	--tap: 44px;
 	color-scheme: dark;
+
+	/* glisse's dark glass, a little clearer and frostier than its default, and split further into colour at the rim. */
+	--lg-glass: rgb(26 26 30 / 0.42);
+	--lg-glass-active: rgb(78 78 86 / 0.5);
+	--lg-blur: 16px;
+	--lg-glass-dispersion: 1.2;
+	--lg-rim-shine: 0.18;
+	--lg-fill: #ffffff;
+	--lg-on: #ffffff;
+	--lg-track: rgb(235 235 245 / 0.22);
+	--lg-segment-thumb: rgb(235 235 245 / 0.24);
+	--lg-ring: rgb(255 255 255 / 0.55);
 }

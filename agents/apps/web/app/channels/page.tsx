@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { api, fmtTime, useData } from '@/lib/api';
-import { Button, ChannelIcon, Code, Loading, Page, Problem, Section } from '@/components/ui';
+import { Button, Card, ChannelIcon, Code, Loading, Page, Problem, Section } from '@/components/ui';
 
 interface Ch { id: string; ok: boolean; detail: string; last: { direction: string; text: string; at: string } | null; errors: { error: string; created_at: string }[] }
 
@@ -24,7 +24,8 @@ export default function Channels() {
 			{!data && !error && <Loading what="channels" />}
 			{data && (
 				<>
-					<ul className="rows border-t">
+					<Card>
+					<ul className="rows">
 						{data.channels.map((c) => (
 							<li key={c.id} className="grid gap-3 border-b py-4 md:grid-cols-[10rem_1fr_auto] md:items-start">
 								<div><ChannelIcon channel={c.id} label /><p className={`mt-1 text-sm ${c.ok ? 'text-muted' : 'text-bad'}`}>{c.ok ? 'Ready' : 'Not ready'}</p></div>
@@ -40,6 +41,7 @@ export default function Channels() {
 							</li>
 						))}
 					</ul>
+					</Card>
 					<Section title="Order Onyx tries when it texts you first">
 						<p className="font-mono text-sm">{data.preferred.join(' → ')}</p>
 						<p className="mt-1 text-sm text-muted">Only channels that are set up appear here. Change the order in Settings.</p>

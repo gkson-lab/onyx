@@ -1,6 +1,7 @@
 'use client';
 import { Globe, MessageCircle, MessageSquareText, Terminal, type LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { Button as GlassButton, Glass } from 'glisse';
 import type { Tier } from '@/lib/api';
 
 export const ICON = { size: 18, strokeWidth: 1.5 } as const;
@@ -55,12 +56,12 @@ export function Status({ status }: { status: string }) {
 	);
 }
 
+/** A button of liquid glass (glisse): clear glass, or filled white for the main action, or red-labelled for one that deletes. */
 export function Button({ children, onClick, kind = 'plain', disabled, type = 'button', label }: { children: ReactNode; onClick?: () => void; kind?: 'primary' | 'plain' | 'danger'; disabled?: boolean; type?: 'button' | 'submit'; label?: string }) {
-	const style = kind === 'primary' ? 'bg-accent text-bg hover:opacity-85' : kind === 'danger' ? 'border text-bad hover:border-bad' : 'border text-text hover:border-muted';
 	return (
-		<button type={type} onClick={onClick} disabled={disabled} aria-label={label} className={`inline-flex min-h-9 items-center justify-center gap-2 rounded px-3 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40 ${style}`}>
+		<GlassButton type={type} onClick={onClick} disabled={disabled} aria-label={label} variant={kind === 'primary' ? 'filled' : 'glass'} destructive={kind === 'danger'} className="onyx-button">
 			{children}
-		</button>
+		</GlassButton>
 	);
 }
 
@@ -82,10 +83,10 @@ export function Page({ title, note, actions, children }: { title: string; note?:
 /** Nothing to show yet: why, and the one thing to do about it. */
 export function Empty({ title, children }: { title: string; children: ReactNode }) {
 	return (
-		<div className="border-y py-10">
+		<Glass className="glass-card enter py-8">
 			<p className="font-medium">{title}</p>
 			<p className="mt-1 max-w-xl text-sm text-muted">{children}</p>
-		</div>
+		</Glass>
 	);
 }
 export function Problem({ children }: { children: ReactNode }) {
@@ -94,14 +95,20 @@ export function Problem({ children }: { children: ReactNode }) {
 export function Loading({ what }: { what: string }) {
 	return <p className="thinking py-6 text-sm">Loading {what}</p>;
 }
+/** A card of liquid glass, for a list or a form that stands on a page of its own. */
+export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
+	return <Glass className={`glass-card ${className}`}>{children}</Glass>;
+}
+
+/** A titled part of a page, its content on a card of liquid glass. */
 export function Section({ title, children, aside }: { title: string; children: ReactNode; aside?: ReactNode }) {
 	return (
-		<section className="mt-10 first:mt-0">
-			<div className="mb-3 flex items-baseline justify-between gap-3">
+		<section className="mt-8 first:mt-0">
+			<div className="mb-2.5 flex items-baseline justify-between gap-3 px-1">
 				<h2 className="text-sm font-medium text-muted">{title}</h2>
 				{aside}
 			</div>
-			{children}
+			<Glass className="glass-card">{children}</Glass>
 		</section>
 	);
 }

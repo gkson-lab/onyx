@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { RefreshCw } from 'lucide-react';
 import { api, useData } from '@/lib/api';
-import { Button, Code, Empty, ICON, Loading, Page, Problem } from '@/components/ui';
+import { Button, Card, Code, Empty, ICON, Loading, Page, Problem } from '@/components/ui';
 
 interface C { id: string; transport: string; enabled: boolean; state: 'off' | 'connected' | 'error' | 'needs_token'; tools: string[]; error: string | null; target: string }
 const STATE = { off: 'Off', connected: 'Connected', error: 'Failed to connect', needs_token: 'Needs its token' } as const;
@@ -24,7 +24,8 @@ export default function Connectors() {
 			{!data && !error && <Loading what="connectors" />}
 			{data && !data.connectors.length && <Empty title="No connectors are listed.">Add one to <Code>config/connectors.yaml</Code>, then press Reconnect all. The file ships with GitHub, switched off, and a commented example of a local file server.</Empty>}
 			{data && data.connectors.length > 0 && (
-				<ul className="rows border-t">
+				<Card>
+				<ul className="rows">
 					{data.connectors.map((c) => (
 						<li key={c.id} className="grid gap-2 border-b py-4 md:grid-cols-[12rem_1fr]">
 							<div><p className="text-sm font-medium">{c.id}</p><p className={`text-sm ${c.state === 'error' || c.state === 'needs_token' ? 'text-bad' : 'text-muted'}`}>{STATE[c.state]}</p></div>
@@ -37,6 +38,7 @@ export default function Connectors() {
 						</li>
 					))}
 				</ul>
+				</Card>
 			)}
 		</Page>
 	);

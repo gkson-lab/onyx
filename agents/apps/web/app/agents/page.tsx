@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { api, useData, type Tier } from '@/lib/api';
-import { Button, Empty, ICON, Loading, Page, Problem, TierBadge } from '@/components/ui';
+import { Button, Card, Empty, ICON, Loading, Page, Problem, TierBadge } from '@/components/ui';
 
 interface Agent { id: string; name: string; description: string; system_prompt: string; tier: Tier; tools: string[]; enabled: boolean; max_steps: number; token_budget: number; time_budget_ms: number; builtin: boolean }
 interface Data { agents: Agent[]; tools: { name: string; description: string }[]; connectors: string[] }
@@ -84,10 +84,11 @@ export default function Agents() {
 		<Page title="Agents" note="Onyx Core receives every message and hands work to the others. Edit what each one is told, which model tier it runs on, which tools it may use and how much it may spend." actions={<Button onClick={() => setOpen('+')}><Plus {...ICON} size={16} aria-hidden />New agent</Button>}>
 			{error && <Problem>{error}</Problem>}
 			{!data && !error && <Loading what="agents" />}
-			{data && open === '+' && <div className="mb-8 border-y py-6"><h2 className="mb-4 text-sm font-medium">New agent</h2><Editor agent={BLANK} data={data} tiers={models} isNew onSaved={done} onCancel={() => setOpen(null)} /></div>}
+			{data && open === '+' && <Card className="enter mb-8 py-5"><h2 className="mb-4 text-sm font-medium">New agent</h2><Editor agent={BLANK} data={data} tiers={models} isNew onSaved={done} onCancel={() => setOpen(null)} /></Card>}
 			{data && !data.agents.length && <Empty title="No agents.">The built-in agents are created when the server starts. Restart it with pnpm start.</Empty>}
 			{data && (
-				<ul className="rows border-t">
+				<Card>
+				<ul className="rows">
 					{data.agents.map((a) => (
 						<li key={a.id} className="border-b">
 							<button type="button" aria-expanded={open === a.id} onClick={() => setOpen(open === a.id ? null : a.id)} className="grid min-h-14 w-full grid-cols-[1fr_auto] items-center gap-4 py-3 text-left hover:bg-surface md:grid-cols-[14rem_1fr_auto]">
@@ -99,6 +100,7 @@ export default function Agents() {
 						</li>
 					))}
 				</ul>
+				</Card>
 			)}
 		</Page>
 	);

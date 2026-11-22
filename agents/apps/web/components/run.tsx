@@ -43,7 +43,7 @@ export function RunTree({ tree, routing, live = false }: { tree: RunNode[]; rout
 	if (!node) return null;
 	const root = tree[0]!;
 	return (
-		<div className="grid gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+		<div className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
 			<div>
 				{routing && (
 					<p className="mb-3 text-sm text-muted">

@@ -28,9 +28,9 @@ const MODEL_COLOR = '#ffb84d';
 
 // WebGL 2, which the stone, the chrome, the sky and the graphics card need. Without it the stills stay.
 const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
-// three.js and the chrome come early where they'll be used: the stone and the chrome need them first.
+// three.js, the chrome and the glass come early where they'll be used: the hero needs them first.
 if (gl && atLeast('mid')) {
-	for (const href of ['vendor/three.module.min.js', 'vendor/three.core.min.js', 'scenes/chrome.js']) {
+	for (const href of ['vendor/three.module.min.js', 'vendor/three.core.min.js', 'scenes/chrome.js', 'scenes/glass.js']) {
 		const link = document.createElement('link');
 		link.rel = 'modulepreload';
 		link.href = href;
@@ -67,6 +67,27 @@ function spy(links) {
 }
 spy($$('.top nav a'));
 spy($$('.index a'));
+
+/* ---------- Liquid glass (glisse): the header, the cards, the controls ---------- */
+// glass.js puts glisse's liquid glass behind the page's own surfaces, and glisse's controls in front of the page's own
+// inputs, which stay in the page for their values (see tools/intro-scenes/glass.jsx). At the top quality level the
+// glass bends what's behind it; at the middle one it's tinted glass that filters nothing; at the lowest glisse isn't
+// downloaded, and site.css draws the header's glass on its own.
+if (atLeast('mid')) import('./scenes/glass.js').then((glass) => {
+	glass.setLevel(quality());
+	onQuality((level) => glass.setLevel(level));
+	for (const el of $$('.top .wrap, #site-nav, .menu-btn, .btn-line, .glass, .sky-hud, .agent-card, .rig-label, .buy, .tweak, .tweaks, .icon-btn')) glass.layer(el);
+	// The agents' labels sit on the prism, which moves every frame: glass there only at the top level.
+	if (atLeast('high')) for (const el of $$('.beam')) glass.layer(el);
+	const ram = $('[data-planner] .seg');
+	if (ram) {
+		ram.closest('[role="radiogroup"]')?.removeAttribute('role');
+		glass.radios(ram, { label: 'Memory (RAM)', className: 'seg-ram' });
+	}
+	const cost = $('.cost-pick');
+	if (cost) glass.buttonRadios(cost, { label: 'Example jobs', className: 'seg-cost', value: (b) => b.dataset.job, labels: { job: ['One big coding job', 'One job'], month: ['A month of them', 'A month'], year: ['A year of them', 'A year'] } });
+	for (const input of $$('[data-sky-slider], [data-speed], .tweaks input[type="range"]')) glass.range(input);
+}).catch(() => {});
 
 /* ---------- The menu on small screens ---------- */
 const menuBtn = $('.menu-btn'), nav = $('#site-nav');

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import 'glisse/styles.css';
 import './globals.css';
 import { LiveProvider } from '@/lib/api';
 import { Shell } from '@/components/shell';
@@ -10,7 +11,7 @@ export const viewport: Viewport = { themeColor: '#0a0a0a', width: 'device-width'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" style={{ ['--font-sans' as string]: GeistSans.style.fontFamily, ['--font-mono' as string]: GeistMono.style.fontFamily }} className={`${GeistSans.variable} ${GeistMono.variable} h-full`}>
+		<html lang="en" data-theme="dark" style={{ ['--font-sans' as string]: GeistSans.style.fontFamily, ['--font-mono' as string]: GeistMono.style.fontFamily }} className={`${GeistSans.variable} ${GeistMono.variable} h-full`}>
 			<body>
 				<LiveProvider>
 					<Shell>{children}</Shell>

@@ -1,9 +1,11 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Activity, Bot, Cable, Cpu, Gauge, History, Menu, MessagesSquare, Network, Radio, Settings, X, type LucideIcon } from 'lucide-react';
+import { Glass, TabBar } from 'glisse';
 import { useLive } from '@/lib/api';
+import { Backdrop } from './backdrop';
 import { ICON } from './ui';
 
 // The destinations, grouped by what you do there. Every one of them exists.
@@ -35,18 +37,38 @@ export function Mark() {
 	);
 }
 
+/**
+ * The sidebar's selection: a lens of lighter glass behind the current item, which springs from one item to the next
+ * as you move between screens rather than jumping. It measures the item it sits behind, so it fits any label.
+ */
+function useLens(path: string) {
+	const box = useRef<HTMLDivElement>(null);
+	const [lens, setLens] = useState<{ top: number; height: number } | null>(null);
+	useLayoutEffect(() => {
+		const place = () => {
+			const on = box.current?.querySelector<HTMLElement>('a[aria-current="page"]');
+			setLens(on ? { top: on.offsetTop, height: on.offsetHeight } : null);
+		};
+		place();
+		window.addEventListener('resize', place);
+		return () => window.removeEventListener('resize', place);
+	}, [path]);
+	return { box, lens };
+}
+
 export function Shell({ children }: { children: React.ReactNode }) {
 	const path = usePathname() ?? '/';
 	const { live } = useLive();
 	const [sheet, setSheet] = useState(false);
-	const trigger = useRef<HTMLButtonElement>(null);
+	const trigger = useRef<HTMLDivElement>(null);
 	const running = Object.values(live.nodes).filter((n) => n.status === 'running').length;
+	const { box, lens } = useLens(path);
 	useEffect(() => {
 		setSheet(false);
 	}, [path]);
 	useEffect(() => {
 		if (!sheet) return;
-		const key = (e: KeyboardEvent) => e.key === 'Escape' && (setSheet(false), trigger.current?.focus());
+		const key = (e: KeyboardEvent) => e.key === 'Escape' && (setSheet(false), trigger.current?.querySelector<HTMLElement>('[data-value="more"], button:last-child')?.focus());
 		window.addEventListener('keydown', key);
 		return () => window.removeEventListener('keydown', key);
 	}, [sheet]);
@@ -54,81 +76,94 @@ export function Shell({ children }: { children: React.ReactNode }) {
 	useEffect(() => {
 		if ('serviceWorker' in navigator) void navigator.serviceWorker.register('/sw.js').catch(() => {});
 	}, []);
-	if (path.startsWith('/login')) return <main className="h-full">{children}</main>;
+	if (path.startsWith('/login')) return <main className="h-full"><Backdrop />{children}</main>;
 
 	const row = (i: (typeof ALL)[number], big = false) => {
 		const on = isCurrent(path, i.href);
 		const Icon = i.icon;
 		return (
-			<Link key={i.href} href={i.href} aria-current={on ? 'page' : undefined} className={`flex items-center gap-3 rounded px-3 ${big ? 'min-h-12' : 'min-h-9'} text-sm ${on ? 'bg-surface font-medium text-text' : 'text-muted hover:bg-surface hover:text-text'}`}>
+			<Link key={i.href} href={i.href} aria-current={on ? 'page' : undefined} className={`nav-item relative z-10 flex items-center gap-3 rounded-[12px] px-3 ${big ? 'min-h-12' : 'min-h-9'} text-sm ${on ? 'font-medium text-text' : 'text-muted hover:text-text'}`}>
 				<Icon {...ICON} aria-hidden />
 				{i.label}
 				{i.href === '/graph' && running > 0 && <span className="ml-auto font-mono text-xs text-text">{running}</span>}
 			</Link>
 		);
 	};
+	const more = !BOTTOM.some((h) => isCurrent(path, h));
+	const tab = more ? 'more' : BOTTOM.find((h) => isCurrent(path, h)) ?? '/';
 
 	return (
 		<div className="flex h-full">
-			<nav aria-label="Main" className="hidden w-56 shrink-0 flex-col border-r px-3 py-5 md:flex">
-				<Link href="/" className="mb-6 px-3"><Mark /></Link>
-				{GROUPS.map((g) => (
-					<div key={g.label} className="mb-5">
-						<p className="mb-1 px-3 text-xs text-muted">{g.label}</p>
-						{g.items.map((i) => row(i))}
+			<Backdrop />
+			<nav aria-label="Main" className="hidden w-60 shrink-0 p-3 pr-0 md:flex">
+				<Glass className="glass-panel flex w-full flex-col px-3 py-5">
+					<Link href="/" className="mb-6 px-3"><Mark /></Link>
+					<div ref={box} className="relative">
+						{lens && <span aria-hidden className="nav-lens" style={{ transform: `translateY(${lens.top}px)`, height: lens.height }} />}
+						{GROUPS.map((g) => (
+							<div key={g.label} className="mb-5">
+								<p className="mb-1 px-3 text-xs text-muted">{g.label}</p>
+								{g.items.map((i) => row(i))}
+							</div>
+						))}
 					</div>
-				))}
-				<p className="mt-auto flex items-center gap-2 px-3 text-xs text-muted" role="status">
-					<Activity {...ICON} size={14} aria-hidden />
-					{live.connected ? (running ? `${running} agent${running === 1 ? '' : 's'} running` : 'Connected') : 'Server not connected'}
-				</p>
+					<p className="mt-auto flex items-center gap-2 px-3 text-xs text-muted" role="status">
+						<Activity {...ICON} size={14} aria-hidden className={running ? 'running' : undefined} />
+						{live.connected ? (running ? `${running} agent${running === 1 ? '' : 's'} running` : 'Connected') : 'Server not connected'}
+					</p>
+				</Glass>
 			</nav>
 
 			<div className="flex min-w-0 flex-1 flex-col">
-				<header className="flex items-center justify-between border-b px-4 py-3 md:hidden" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }}>
-					<Mark />
-					{!live.connected && <span className="text-xs text-bad">Server not connected</span>}
+				<header className="px-3 md:hidden" style={{ paddingTop: 'max(10px, env(safe-area-inset-top))' }}>
+					<Glass className="flex min-h-12 items-center justify-between rounded-full px-4">
+						<Mark />
+						{!live.connected && <span className="text-xs text-bad">Server not connected</span>}
+					</Glass>
 				</header>
 				{(live.updating || live.updated) && (
-					<div role="status" className="flex min-h-11 flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b bg-surface px-4 py-2 text-sm">
-						{live.updated ? (
-							<>
-								<span>Onyx was updated to <span className="font-mono text-xs">{live.updated.slice(0, 7)}</span>. Reload to use the new version.</span>
-								<button type="button" onClick={() => window.location.reload()} className="min-h-9 rounded bg-accent px-3 text-sm font-medium text-bg hover:opacity-85">Reload</button>
-							</>
-						) : (
-							<span className="thinking">Onyx is updating to <span className="font-mono text-xs">{live.updating!.to.slice(0, 7)}</span>{live.updating!.message ? `: ${live.updating!.message}` : ''}. It is back in a minute or two.</span>
-						)}
+					<div className="px-3 pt-3 md:px-6">
+						<Glass role="status" className="enter flex min-h-11 flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-[18px] px-4 py-2 text-sm">
+							{live.updated ? (
+								<>
+									<span>Onyx was updated to <span className="font-mono text-xs">{live.updated.slice(0, 7)}</span>. Reload to use the new version.</span>
+									<button type="button" onClick={() => window.location.reload()} className="min-h-9 rounded-full bg-accent px-4 text-sm font-medium text-bg hover:opacity-85">Reload</button>
+								</>
+							) : (
+								<span className="thinking">Onyx is updating to <span className="font-mono text-xs">{live.updating!.to.slice(0, 7)}</span>{live.updating!.message ? `: ${live.updating!.message}` : ''}. It is back in a minute or two.</span>
+							)}
+						</Glass>
 					</div>
 				)}
 				<main className="min-h-0 flex-1 overflow-y-auto"><div key={path} className="enter h-full">{children}</div></main>
-				<nav aria-label="Main" className="grid grid-cols-5 border-t md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-					{ALL.filter((i) => BOTTOM.includes(i.href)).map((i) => {
-						const on = isCurrent(path, i.href);
-						const Icon = i.icon;
-						return (
-							<Link key={i.href} href={i.href} aria-current={on ? 'page' : undefined} className={`flex min-h-14 flex-col items-center justify-center gap-1 text-xs ${on ? 'font-medium text-text' : 'text-muted'}`}>
-								<Icon {...ICON} size={20} aria-hidden />
-								<span className={on ? 'border-b border-accent' : 'border-b border-transparent'}>{i.label.replace('Agent graph', 'Graph')}</span>
-							</Link>
-						);
-					})}
-					<button ref={trigger} type="button" aria-expanded={sheet} aria-controls="more-sheet" onClick={() => setSheet((s) => !s)} className={`flex min-h-14 flex-col items-center justify-center gap-1 text-xs ${!BOTTOM.some((h) => isCurrent(path, h)) ? 'font-medium text-text' : 'text-muted'}`}>
-						<Menu {...ICON} size={20} aria-hidden />
-						<span className={!BOTTOM.some((h) => isCurrent(path, h)) ? 'border-b border-accent' : 'border-b border-transparent'}>More</span>
-					</button>
+				{/* On a phone: a tab bar of liquid glass, as on iOS 26. Its selection springs between tabs and follows a drag. */}
+				<nav ref={trigger} aria-label="Main" className="flex justify-center px-3 pt-1 md:hidden" style={{ paddingBottom: 'max(10px, env(safe-area-inset-bottom))' }}>
+					<TabBar
+						className="tabs"
+						aria-label="Main"
+						link={Link}
+						value={tab}
+						onValueChange={(v) => v === 'more' && setSheet(true)}
+						items={[
+							...ALL.filter((i) => BOTTOM.includes(i.href)).map((i) => {
+								const Icon = i.icon;
+								return { value: i.href, href: i.href, label: i.label.replace('Agent graph', 'Graph'), icon: <Icon {...ICON} size={22} aria-hidden /> };
+							}),
+							{ value: 'more', label: 'More', icon: <Menu {...ICON} size={22} aria-hidden /> },
+						]}
+					/>
 				</nav>
 			</div>
 
 			{sheet && (
-				<div id="more-sheet" role="dialog" aria-modal="true" aria-label="More" className="fade fixed inset-0 z-20 flex flex-col justify-end bg-bg/80 md:hidden" onClick={() => setSheet(false)}>
-					<div className="sheet border-t bg-bg px-3 pt-3" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }} onClick={(e) => e.stopPropagation()}>
+				<div id="more-sheet" role="dialog" aria-modal="true" aria-label="More" className="fade fixed inset-0 z-20 flex flex-col justify-end scrim px-3 md:hidden" onClick={() => setSheet(false)} style={{ paddingBottom: 'max(10px, env(safe-area-inset-bottom))' }}>
+					<Glass className="sheet glass-panel px-3 pb-3 pt-3" onClick={(e) => e.stopPropagation()}>
 						<div className="mb-1 flex items-center justify-between px-3">
 							<p className="text-xs text-muted">System</p>
-							<button type="button" aria-label="Close" onClick={() => (setSheet(false), trigger.current?.focus())} className="flex h-11 w-11 items-center justify-center text-muted"><X {...ICON} /></button>
+							<button type="button" aria-label="Close" onClick={() => setSheet(false)} className="flex h-11 w-11 items-center justify-center text-muted"><X {...ICON} /></button>
 						</div>
 						{GROUPS[2]!.items.map((i) => row(i, true))}
-					</div>
+					</Glass>
 				</div>
 			)}
 		</div>

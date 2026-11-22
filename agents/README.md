@@ -389,9 +389,12 @@ read from the database or the live event stream; there is no sample data.
   the browser; `pnpm onyx autostart on|off` does the same). The server listens on this PC only
 (127.0.0.1); a tunnel running on this PC is what makes it reachable from your phone.
 
-The look is defined in one file, `apps/web/app/tokens.css`, with the reason for each decision. It follows the
-[antislop UI rules](https://github.com/miqdadbadjuber/anti-slop): one accent, no gradients, glow, blur or shadows,
-flat rows instead of nested cards, motion only for real state, and empty states that say what to do next.
+The look is defined in one file, `apps/web/app/tokens.css`, with the reason for each decision. Since November 2026 it is
+liquid glass, from [glisse](https://github.com/0kzh/glisse) (MIT): the sidebar, the chat's bar and composer, cards,
+sheets, buttons, the search field and, on a phone, the tab bar are glass that floats over a dark, slowly moving
+backdrop and bends it at the edges, in Chromium browsers (frosted glass with a lit rim elsewhere). The chat scrolls
+under its glass bar and composer; the sidebar's selection springs from item to item. It keeps one accent, a single
+colour for failures, and empty states that say what to do next, and all motion stops when the system asks for less.
 
 ## Accounts and keys
 

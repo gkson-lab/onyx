@@ -9,8 +9,9 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
 :focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
 ::selection { background: var(--accent); color: var(--bg); }
 button, a, input, select, textarea { transition: background-color var(--fast), color var(--fast), border-color var(--fast), opacity var(--fast); }
-input, select, textarea { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); color: var(--text); padding: 8px 10px; min-height: 36px; font: inherit; }
-input:focus, select:focus, textarea:focus { border-color: var(--muted); outline: none; }
+input, select, textarea { background: rgb(255 255 255 / 0.04); border: 1px solid var(--line); border-radius: var(--radius); color: var(--text); padding: 8px 10px; min-height: 36px; font: inherit; }
+input:focus, select:focus, textarea:focus { border-color: rgb(255 255 255 / 0.28); background: rgb(255 255 255 / 0.07); outline: none; }
+select option, select optgroup { background: #17171a; }
 textarea { resize: vertical; }
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-thumb { background: var(--line); }
@@ -19,21 +20,23 @@ textarea { resize: vertical; }
  * Entrances. Each one marks something arriving: a screen you opened, a row that loaded, a message that came in, a
  * panel you expanded. They run once, for 160 to 200 ms, on opacity and a few pixels of movement, and never loop.
  */
-@keyframes enter { from { opacity: 0; transform: translateY(6px); } }
+@keyframes enter { from { opacity: 0; transform: translateY(8px) scale(0.995); filter: blur(4px); } }
 @keyframes fade { from { opacity: 0; } }
 @keyframes rise { from { transform: translateY(100%); } }
 @keyframes grow { from { transform: scaleX(0); } }
 @keyframes growY { from { transform: scaleY(0); } }
-.enter { animation: enter var(--slow) cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.fade { animation: fade var(--fast) ease-out both; }
-.sheet { animation: rise var(--slow) cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+/* Fill backwards only: once settled, nothing is left behind. A held filter (even blur(0)) would stop the glass inside
+   from seeing past it, and a held transform would pin fixed panels to the screen it's on. */
+.enter { animation: enter 320ms var(--settle) backwards; }
+.fade { animation: fade var(--fast) ease-out backwards; }
+.sheet { animation: rise var(--slow) cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
 /* Rows of a list arrive one after another, the first few only, so a long list is not a long wait. */
-.rows > * { animation: enter var(--slow) cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.rows > * { animation: enter var(--slow) cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
 .rows > :nth-child(2) { animation-delay: 25ms; } .rows > :nth-child(3) { animation-delay: 50ms; } .rows > :nth-child(4) { animation-delay: 75ms; }
 .rows > :nth-child(5) { animation-delay: 100ms; } .rows > :nth-child(6) { animation-delay: 125ms; } .rows > :nth-child(n + 7) { animation-delay: 150ms; }
 /* Bars grow from their origin to their value. */
-.bar { transform-origin: left; animation: grow 400ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.barY { transform-origin: bottom; animation: growY 400ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.bar { transform-origin: left; animation: grow 400ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+.barY { transform-origin: bottom; animation: growY 400ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
 /* A panel that opens: its height eases instead of jumping. */
 .reveal { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--slow) cubic-bezier(0.2, 0.7, 0.2, 1); }
 .reveal[data-open='true'] { grid-template-rows: 1fr; }
@@ -50,3 +53,72 @@ button, a { transition: background-color var(--fast), color var(--fast), border-
 /* The Max badge's border moves only while a Max run is in progress. */
 @keyframes dash { to { stroke-dashoffset: -24; } }
 @media (prefers-reduced-motion: reduce) { .running, .thinking, .enter, .fade, .sheet, .rows > *, .bar, .barY { animation: none; } .reveal { transition: none; } .thinking { color: var(--muted); background: none; } *, *::before, *::after { transition: none !important; } }
+
+/*
+ * Liquid glass (glisse). The backdrop is what the glass bends; the classes below shape glisse's glass for the app's
+ * panels, cards, bars and bubbles. See tokens.css for why.
+ */
+.backdrop { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg); pointer-events: none; }
+.backdrop .field { position: absolute; width: 72vmax; height: 72vmax; border-radius: 50%; will-change: transform; }
+.backdrop .f1 { left: -24vmax; top: -30vmax; background: radial-gradient(closest-side, rgb(92 64 196 / 0.5), transparent); animation: drift-a 74s ease-in-out infinite alternate; }
+.backdrop .f2 { right: -30vmax; top: 4vmax; background: radial-gradient(closest-side, rgb(34 132 186 / 0.36), transparent); animation: drift-b 96s ease-in-out infinite alternate; }
+.backdrop .f3 { left: 18vmax; bottom: -42vmax; background: radial-gradient(closest-side, rgb(206 120 62 / 0.24), transparent); animation: drift-c 84s ease-in-out infinite alternate; }
+.backdrop .pointer-light { position: absolute; left: 0; top: 0; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.075), transparent); will-change: transform; transform: translate3d(70vw, 28vh, 0); }
+@keyframes drift-a { to { transform: translate3d(20vmax, 14vmax, 0) scale(1.18); } }
+@keyframes drift-b { to { transform: translate3d(-18vmax, 22vmax, 0) scale(0.9); } }
+@keyframes drift-c { to { transform: translate3d(-14vmax, -16vmax, 0) scale(1.12); } }
+
+/* What's behind a sheet or a dialog, dimmed. */
+.scrim { background: rgb(0 0 0 / 0.5); }
+
+/* Panels (the sidebar, the chat list, sheets) and cards (a page's sections). */
+.glass-panel { border-radius: var(--panel); }
+.glass-card { border-radius: 20px; padding: 6px 18px; }
+.glass-card.py-8 { padding: 28px 22px; }
+/* Lists inside a card lose their outer lines: the card's edge is the line. */
+.glass-card > :is(ul, ol, table, div):first-child { border-top-color: transparent; }
+.glass-card > :is(ul, ol, table, div):last-child { border-bottom-color: transparent; }
+
+.glass-card > ul > li:last-child, .glass-card > ul > li:last-child > :is(a, button) { border-bottom-color: transparent; }
+/* The chat runs under its glass bar and composer; it fades out at the very top, above the bar. */
+.chat-scroll { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px); mask-image: linear-gradient(to bottom, transparent 0, #000 14px); }
+
+/* The sidebar's selection: a lens of lighter glass that springs between items (see shell.tsx). */
+.nav-lens { position: absolute; left: 0; right: 0; top: 0; border-radius: 12px; background: rgb(255 255 255 / 0.1);
+	box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), inset 0 0 0 0.5px rgb(255 255 255 / 0.1), 0 6px 18px -10px rgb(0 0 0 / 0.6);
+	transition: transform 420ms var(--spring), height 300ms var(--settle); }
+.nav-item:hover:not([aria-current]) { background: rgb(255 255 255 / 0.04); }
+.sheet .nav-item[aria-current="page"], .chat-item[aria-current="true"] { background: rgb(255 255 255 / 0.1); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), inset 0 0 0 0.5px rgb(255 255 255 / 0.08); }
+.chat-item:hover:not([aria-current]) { background: rgb(255 255 255 / 0.05); }
+
+/* The tab bar on a phone: five tabs across the screen. */
+.tabs.lg-tab-bar { --lg-tab-width: min(76px, calc((100vw - 32px) / 5)); }
+
+/* Buttons: glisse's, sized for the app. A filled button is white, so its label is dark. */
+.onyx-button.lg-button { height: 38px; padding: 0 16px; font-weight: 500; font-size: 13px; }
+.lg-button[data-variant="filled"] { color: #0a0a0a; }
+.lg-button.new-chat { width: 100%; justify-content: flex-start; height: 40px; }
+.lg-button.tool { width: 40px; height: 40px; flex: none; }
+
+/* The composer: a capsule of glass at the bottom of the chat, its text area clear. */
+.composer { border-radius: 26px; padding: 6px; }
+.composer textarea { background: none; border: 0; padding: 9px 6px; resize: none; }
+.composer textarea:focus { background: none; }
+.composer select.pill { border-radius: 999px; background: rgb(255 255 255 / 0.06); border-color: transparent; padding: 0 12px; }
+
+/* Your messages: bubbles of glass on the right. */
+.mine { display: flex; flex-direction: column; align-items: flex-end; }
+.bubble { max-width: min(85%, 34rem); border-radius: 20px 20px 6px 20px; padding: 10px 15px; }
+
+/* Things that arrive settle in: a message, a file, a sheet. */
+@keyframes arrive { from { opacity: 0; transform: translateY(10px) scale(0.98); filter: blur(5px); } }
+.arrive { animation: arrive 340ms var(--settle) backwards; }
+.mine.arrive { transform-origin: right bottom; }
+@keyframes slide-in { from { transform: translateX(-24px); opacity: 0; } }
+.slide-in { animation: slide-in 260ms var(--settle) backwards; }
+.sheet { animation: rise 320ms var(--spring) backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+	.backdrop .field, .arrive, .slide-in, .sheet { animation: none; }
+	.nav-lens { transition: none; }
+}

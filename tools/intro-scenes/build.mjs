@@ -33,10 +33,13 @@ const threeOnly = {
 	},
 };
 
-const scenes = (process.argv[2] ? process.argv.slice(2) : ['chrome', 'sky', 'prism', 'vram']);
+const scenes = (process.argv[2] ? process.argv.slice(2) : ['chrome', 'sky', 'prism', 'vram', 'glass']);
 // Package name -> folder, and which scenes use it, for the licences file.
 const bundled = new Map(), usedIn = new Map();
-const entries = { chrome: 'chrome.js', sky: 'sky.js', prism: 'prism.js', vram: 'vram.jsx' };
+const entries = { chrome: 'chrome.js', sky: 'sky.js', prism: 'prism.js', vram: 'vram.jsx', glass: 'glass.jsx' };
+// The liquid glass (glisse) is written for React but runs on Preact's compatibility layer, a tenth of the size. The
+// graphics card keeps real React: React Three Fiber needs React's own reconciler.
+const PREACT = { react: 'preact/compat', 'react-dom/client': 'preact/compat/client', 'react-dom': 'preact/compat', 'react/jsx-runtime': 'preact/jsx-runtime' };
 for (const name of scenes) {
 	const result = await build({
 		entryPoints: [join(here, entries[name])],
@@ -49,6 +52,7 @@ for (const name of scenes) {
 		legalComments: 'eof',
 		plugins: [threeOnly, wgsl],
 		jsx: 'automatic',
+		alias: name === 'glass' ? PREACT : {},
 		loader: { '.frag': 'text' }, // the prism's GLSL, for browsers without WebGPU
 		define: { 'process.env.NODE_ENV': '"production"' },
 		outfile: join(out, `${name}.js`),

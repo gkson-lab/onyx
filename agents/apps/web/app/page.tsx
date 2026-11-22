@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowUp, Download, MessageSquarePlus, PanelLeft, Paperclip, Pencil, Pin, PinOff, Search, Smartphone, Square, Trash2, X } from 'lucide-react';
+import { ArrowUp, Download, MessageSquarePlus, PanelLeft, Paperclip, Pencil, Pin, PinOff, Smartphone, Square, Trash2, X } from 'lucide-react';
+import { Button, Glass, SearchField } from 'glisse';
 import { api, nodesFrom, useData, useLive, fmtTime, type RunNode } from '@/lib/api';
 import { Activity, treeOf } from '@/components/run';
 import { ChannelIcon, Empty, ICON, Problem } from '@/components/ui';
@@ -50,7 +51,7 @@ function Chats({ current, choose, fresh, searchRef, version }: { current: number
 	const { data, error } = useData<{ conversations: Conv[]; other: { updated_at: string } | null }>(`/conversations?q=${encodeURIComponent(query)}`, [version]);
 	const item = (id: number, title: string, sub: string | null, pinned = false, icon?: React.ReactNode) => (
 		<li key={id}>
-			<button type="button" onClick={() => choose(id)} aria-current={current === id ? 'true' : undefined} className={`flex w-full min-h-11 items-start gap-2 rounded px-3 py-2 text-left text-sm ${current === id ? 'bg-surface font-medium' : 'text-muted hover:bg-surface hover:text-text'}`}>
+			<button type="button" onClick={() => choose(id)} aria-current={current === id ? 'true' : undefined} className={`chat-item flex w-full min-h-11 items-start gap-2 rounded-[12px] px-3 py-2 text-left text-sm ${current === id ? 'font-medium' : 'text-muted hover:text-text'}`}>
 				{icon}
 				<span className="min-w-0 flex-1">
 					<span className="block truncate">{title}</span>
@@ -62,15 +63,11 @@ function Chats({ current, choose, fresh, searchRef, version }: { current: number
 	);
 	return (
 		<div className="flex h-full flex-col">
-			<button type="button" onClick={fresh} className="mb-3 flex min-h-10 items-center gap-2 rounded border px-3 text-sm hover:border-muted">
-				<MessageSquarePlus {...ICON} size={16} aria-hidden /> New chat
+			<Button onClick={fresh} className="new-chat mb-3" icon={<MessageSquarePlus {...ICON} size={16} aria-hidden />}>
+				New chat
 				<kbd className="ml-auto hidden font-mono text-[10px] text-muted md:inline">{isMac() ? '⌘⇧O' : 'Ctrl+Shift+O'}</kbd>
-			</button>
-			<label className="relative mb-2 block">
-				<span className="sr-only">Search chats</span>
-				<Search {...ICON} size={15} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" aria-hidden />
-				<input ref={searchRef} type="search" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === 'Escape' && (e.stopPropagation(), setQ(''))} placeholder={wide() ? `Search  ${isMac() ? '⌘K' : 'Ctrl+K'}` : 'Search chats'} className="w-full pl-8 text-sm" />
-			</label>
+			</Button>
+			<SearchField ref={searchRef} aria-label="Search chats" value={q} onValueChange={setQ} onKeyDown={(e) => e.key === 'Escape' && (e.stopPropagation(), setQ(''))} placeholder={wide() ? `Search  ${isMac() ? '⌘K' : 'Ctrl+K'}` : 'Search chats'} className="mb-3 max-w-none" />
 			{error && <Problem>{error}</Problem>}
 			<ul className="min-h-0 flex-1 space-y-0.5 overflow-y-auto">
 				{data?.conversations.map((c) => item(c.id, c.title, c.match ?? fmtTime(c.updated_at), c.pinned))}
@@ -103,6 +100,16 @@ export default function Chat() {
 	const searchSide = useRef<HTMLInputElement>(null);
 	const searchPanel = useRef<HTMLInputElement>(null);
 	const picker = useRef<HTMLInputElement>(null);
+	// The composer floats over the end of the chat; the space under the last message follows its height.
+	const dock = useRef<HTMLFormElement>(null);
+	const [dockHeight, setDockHeight] = useState(96);
+	useEffect(() => {
+		const el = dock.current;
+		if (!el) return;
+		const ro = new ResizeObserver(() => setDockHeight(el.offsetHeight));
+		ro.observe(el);
+		return () => ro.disconnect();
+	}, []);
 	const messages = conv === null || conv < 0 ? [] : data?.messages ?? [];
 	const current = meta.data?.conversations.find((c) => c.id === conv) ?? null;
 	const mine = conv !== null ? pending[conv] ?? null : null;
@@ -248,23 +255,27 @@ export default function Chat() {
 
 	const waiting = !!warm.data && !warm.data.ready && Object.keys(warm.data.models).length > 0;
 	const label = !mine ? '' : tree.length > 1 ? `${tree.filter((n) => n.status === 'running' && n.parentId).map((n) => n.name).join(', ') || 'Core'} working` : live.routing[mine.runId] ? 'Thinking' : mine.files ? 'Reading the attached files' : waiting ? 'Loading models into the graphics card (the first message after starting)' : 'Choosing a model';
-	const iconBtn = 'flex h-9 w-9 items-center justify-center rounded text-muted hover:text-text';
+	const iconBtn = 'flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-surface hover:text-text';
 
 	return (
 		<div className="flex h-full">
-			<aside className="hidden w-64 shrink-0 border-r p-3 lg:block">
-				<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={searchSide} version={version} />
+			<aside className="hidden w-72 shrink-0 p-3 lg:block">
+				<Glass className="glass-panel h-full p-3">
+					<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={searchSide} version={version} />
+				</Glass>
 			</aside>
 			{panel && (
-				<div role="dialog" aria-modal="true" aria-label="Chats" className="fade fixed inset-0 z-30 flex bg-bg/80 lg:hidden" onClick={() => setPanel(false)} onKeyDown={(e) => e.key === 'Escape' && setPanel(false)}>
-					<div className="h-full w-80 max-w-[85vw] border-r bg-bg p-3" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }} onClick={(e) => e.stopPropagation()}>
+				<div role="dialog" aria-modal="true" aria-label="Chats" className="fade fixed inset-0 z-30 flex scrim p-3 lg:hidden" onClick={() => setPanel(false)} onKeyDown={(e) => e.key === 'Escape' && setPanel(false)}>
+					<Glass className="glass-panel slide-in h-full w-80 max-w-[85vw] p-3" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }} onClick={(e) => e.stopPropagation()}>
 						<Chats current={conv} choose={choose} fresh={() => void fresh()} searchRef={searchPanel} version={version} />
-					</div>
+					</Glass>
 				</div>
 			)}
 
-			<div className="mx-auto flex h-full w-full min-w-0 max-w-3xl flex-col px-4 md:px-8">
-				<div className="flex min-h-12 items-center gap-1 border-b">
+			{/* The chat scrolls under its bar and its composer, both glass, which bend and frost it as it passes. */}
+			<div className="relative mx-auto h-full w-full min-w-0 max-w-3xl">
+				<div className="absolute inset-x-0 top-0 z-10 px-4 md:px-8">
+				<Glass className="mt-3 flex min-h-12 items-center gap-1 rounded-full pl-4 pr-1.5">
 					<button type="button" onClick={() => setPanel(true)} aria-label="Chats" className={`${iconBtn} lg:hidden`}><PanelLeft {...ICON} aria-hidden /></button>
 					{renaming !== null && current ? (
 						<form className="flex-1" onSubmit={(e) => (e.preventDefault(), void rename(renaming))}>
@@ -282,9 +293,10 @@ export default function Chat() {
 					)}
 					{conv !== null && conv >= 0 && messages.length > 0 && <a href={`/api/conversations/${conv}/export`} download aria-label="Export as Markdown" title="Export as Markdown" className={iconBtn}><Download {...ICON} size={16} aria-hidden /></a>}
 					{current && <button type="button" onClick={() => void remove()} disabled={!!mine} aria-label="Delete chat" title="Delete chat" className={`${iconBtn} hover:text-bad disabled:opacity-30`}><Trash2 {...ICON} size={16} aria-hidden /></button>}
+				</Glass>
 				</div>
 
-				<div className="min-h-0 flex-1 overflow-y-auto py-6" aria-live="polite">
+				<div className="chat-scroll absolute inset-0 overflow-y-auto px-4 pt-[84px] md:px-8" aria-live="polite">
 					{error && <Problem>{error}</Problem>}
 					{!error && (data || conv === -1) && !messages.length && !mine && (
 						<Empty title={conv === 0 ? 'Nothing from your phone yet.' : 'A new chat.'}>
@@ -293,7 +305,7 @@ export default function Chat() {
 					)}
 					<ol className="space-y-6">
 						{messages.map((m) => (
-							<li key={m.id} className={`group ${Date.now() - Date.parse(m.created_at) < 4000 ? 'enter' : ''}`}>
+							<li key={m.id} className={`group ${m.direction === 'in' ? 'mine' : ''} ${Date.now() - Date.parse(m.created_at) < 4000 ? 'arrive' : ''}`}>
 								<div className="mb-1 flex min-h-8 items-center gap-2 text-xs text-muted">
 									{m.direction === 'in' ? 'You' : 'Onyx'}
 									{m.channel !== 'web' && <ChannelIcon channel={m.channel} />}
@@ -301,14 +313,18 @@ export default function Chat() {
 									{/* On a phone there is no hover, so the button is always there. */}
 									{m.direction === 'out' && <span className="transition-opacity md:opacity-0 md:focus-within:opacity-100 md:group-hover:opacity-100"><CopyButton text={m.text} label="Copy the answer" /></span>}
 								</div>
-								<MessageText text={m.direction === 'in' ? m.text.replace(PREFIX, '') : m.text} className={`${m.direction === 'in' ? 'text-muted' : ''} ${m.status === 'error' ? 'text-bad' : ''}`} />
+								{m.direction === 'in' ? (
+									<Glass className="bubble"><MessageText text={m.text.replace(PREFIX, '')} className={m.status === 'error' ? 'text-bad' : ''} /></Glass>
+								) : (
+									<MessageText text={m.text} className={m.status === 'error' ? 'text-bad' : ''} />
+								)}
 								{m.direction === 'out' && m.run_id && <Stored runId={m.run_id} />}
 							</li>
 						))}
 						{mine && (
 							<>
-								{!messages.some((m) => m.run_id === mine.runId && m.direction === 'in') && <li><p className="mb-1 text-xs text-muted">You</p><p className="whitespace-pre-wrap text-muted">{mine.text}</p></li>}
-								<li className="enter">
+								{!messages.some((m) => m.run_id === mine.runId && m.direction === 'in') && <li className="mine arrive"><p className="mb-1 text-xs text-muted">You</p><Glass className="bubble"><p className="whitespace-pre-wrap">{mine.text}</p></Glass></li>}
+								<li className="arrive">
 									<p className="mb-1 text-xs text-muted">Onyx</p>
 									{streamed ? <MessageText text={streamed} /> : <p className="thinking">{label}</p>}
 									<Activity tree={tree} routing={live.routing[mine.runId]} live />
@@ -316,17 +332,17 @@ export default function Chat() {
 							</>
 						)}
 					</ol>
-					<div ref={end} />
+					<div ref={end} style={{ height: dockHeight + 12 }} />
 				</div>
 
-				<form onSubmit={(e) => (e.preventDefault(), void send())} className="border-t py-3" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
+				<form ref={dock} onSubmit={(e) => (e.preventDefault(), void send())} className="absolute inset-x-0 bottom-0 z-10 px-4 pt-2 md:px-8" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
 					onDragOver={(e) => e.preventDefault()} onDrop={(e) => (e.preventDefault(), void attach(e.dataTransfer.files))}>
 					{sendError && <div className="mb-2"><Problem>{sendError}</Problem></div>}
 					{waiting && !mine && <p role="status" className="thinking mb-2 text-xs">Loading {Object.keys(warm.data!.models).join(' and ')} into the graphics card</p>}
 					{files.length > 0 && (
 						<ul className="mb-2 flex flex-wrap gap-2">
 							{files.map((f, i) => (
-								<li key={i} className="flex items-center gap-1 rounded border py-0.5 pl-2 text-xs">
+								<li key={i} className="arrive flex items-center gap-1 rounded-full border py-0.5 pl-3 text-xs">
 									<span className="max-w-48 truncate">{f.name}</span>
 									<span className="font-mono text-muted">{f.size < 1e6 ? `${Math.ceil(f.size / 1024)} KB` : `${(f.size / 1e6).toFixed(1)} MB`}</span>
 									<button type="button" onClick={() => setFiles((x) => x.filter((_, k) => k !== i))} aria-label={`Remove ${f.name}`} className="flex h-6 w-6 items-center justify-center text-muted hover:text-bad"><X {...ICON} size={13} aria-hidden /></button>
@@ -334,14 +350,14 @@ export default function Chat() {
 							))}
 						</ul>
 					)}
-					<div className="flex items-end gap-2">
+					<Glass className="composer flex items-end gap-1.5">
 						<input ref={picker} type="file" multiple hidden accept="image/*,application/pdf,text/*,.md,.csv,.json,.yaml,.yml,.py,.js,.ts,.tsx,.jsx,.go,.rs,.java,.c,.cpp,.cs,.sh,.ps1,.sql,.html,.css" onChange={(e) => void attach(e.target.files)} />
-						<button type="button" onClick={() => picker.current?.click()} disabled={files.length >= 5} aria-label="Attach files" title="Attach text, code, PDFs or images" className="flex h-11 w-9 shrink-0 items-center justify-center text-muted hover:text-text disabled:opacity-30"><Paperclip {...ICON} aria-hidden /></button>
+						<Button onClick={() => picker.current?.click()} disabled={files.length >= 5} aria-label="Attach files" title="Attach text, code, PDFs or images" className="tool" icon={<Paperclip {...ICON} aria-hidden />} />
 						<label htmlFor="message" className="sr-only">Message to Onyx</label>
 						{/* A pasted screenshot is attached; text copied from Word or Excel (which also carries a picture of itself) is pasted as text. */}
-						<textarea ref={input} id="message" rows={1} value={text} onChange={(e) => setText(e.target.value)} onPaste={(e) => e.clipboardData.files.length > 0 && !e.clipboardData.getData('text/plain') && (e.preventDefault(), void attach(e.clipboardData.files))} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && (e.preventDefault(), void send())} placeholder="Message Onyx" className="max-h-40 min-h-11 min-w-0 flex-1" />
+						<textarea ref={input} id="message" rows={1} value={text} onChange={(e) => setText(e.target.value)} onPaste={(e) => e.clipboardData.files.length > 0 && !e.clipboardData.getData('text/plain') && (e.preventDefault(), void attach(e.clipboardData.files))} onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && (e.preventDefault(), void send())} placeholder="Message Onyx" className="max-h-40 min-h-11 min-w-0 flex-1 self-center" />
 						<label htmlFor="tier" className="sr-only">Model</label>
-						<select id="tier" value={tier} onChange={(e) => (setTier(e.target.value), store.set('onyx.tier', e.target.value))} title="Which model answers. Auto lets the router choose; a cloud model uses your key with its company." className="h-11 max-w-[10rem] shrink-0 truncate text-sm">
+						<select id="tier" value={tier} onChange={(e) => (setTier(e.target.value), store.set('onyx.tier', e.target.value))} title="Which model answers. Auto lets the router choose; a cloud model uses your key with its company." className="pill h-10 max-w-[10rem] shrink-0 truncate text-sm">
 							{TIERS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
 							{cloudModels.length > 0 && (
 								<optgroup label="Cloud, with your key">
@@ -350,11 +366,11 @@ export default function Chat() {
 							)}
 						</select>
 						{mine ? (
-							<button type="button" onClick={stop} aria-label="Stop" title="Stop (Esc)" className="flex h-11 w-11 shrink-0 items-center justify-center rounded border text-text hover:border-bad hover:text-bad"><Square {...ICON} size={16} fill="currentColor" aria-hidden /></button>
+							<Button onClick={stop} aria-label="Stop" title="Stop (Esc)" destructive className="tool" icon={<Square {...ICON} size={16} fill="currentColor" aria-hidden />} />
 						) : (
-							<button type="submit" disabled={!text.trim() && !files.length} aria-label="Send" className="flex h-11 w-11 shrink-0 items-center justify-center rounded bg-accent text-bg disabled:opacity-30"><ArrowUp {...ICON} aria-hidden /></button>
+							<Button type="submit" variant="filled" disabled={!text.trim() && !files.length} aria-label="Send" className="tool" icon={<ArrowUp {...ICON} aria-hidden />} />
 						)}
-					</div>
+					</Glass>
 				</form>
 			</div>
 		</div>
