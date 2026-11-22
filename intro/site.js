@@ -143,7 +143,7 @@ function tweaks(STONES, panels, saved) {
 	const openers = $$('.tweak');
 	if (!panel || !panels.length) return;
 	const copy = (s) => ({ colors: [...s.colors], speed: s.speed, strength: s.strength, density: s.density, grain: s.grain });
-	let cur = copy(saved || STONES.Onyx);
+	let cur = copy(saved || STONES.Prism);
 	const sliders = ['speed', 'strength', 'density', 'grain'].map((name) => $(`input[name="${name}"]`, panel));
 	const swatches = [0, 1, 2].map((i) => $(`input[name="c${i}"]`, panel));
 	const presets = Object.entries(STONES).map(([name, s]) => {
@@ -179,7 +179,7 @@ function tweaks(STONES, panels, saved) {
 		apply();
 	});
 	$('[data-reset]', panel).addEventListener('click', () => {
-		cur = copy(STONES.Onyx);
+		cur = copy(STONES.Prism);
 		for (const p of panels) p.g.set(p.preset);
 		store.set('stone', '');
 		show();
@@ -357,35 +357,43 @@ if (team) {
 	listeners.push(() => show(chosen));
 	show(chosen);
 
-	// Each agent's label sits at the end of its beam, Onyx Core's on the prism, from the scene's own layout.
+	// Each agent's label sits where its beam ends, Onyx Core's on the prism. The camera drifts, so this runs every
+	// frame: the labels' sizes are measured once (and again on resize) rather than read each time.
 	const you = $('.you-label', stage);
+	let sizes = null;
+	const measure = () => { sizes = new Map([...radios, you].map((el) => [el, [el.offsetWidth, el.offsetHeight]])); };
+	addEventListener('resize', () => { sizes = null; });
+	document.fonts?.ready.then(() => { sizes = null; });
 	const place = (g) => {
+		if (!sizes) measure();
 		const W = stage.clientWidth, H = stage.clientHeight;
 		SPECIALISTS.forEach((name, i) => {
 			const b = radios.find((r) => r.dataset.agent === name);
 			const [x, y] = g.labels[i];
-			const w = b.offsetWidth, h = b.offsetHeight;
-			const left = g.tall ? clamp(x - w / 2, 8, W - w - 8) : x - w - 12;
+			const [w, h] = sizes.get(b);
+			const left = g.tall ? clamp(x - w / 2, 8, W - w - 8) : clamp(x - w - 12, 8, W - w - 8);
 			b.style.transform = `translate(${Math.round(left)}px, ${Math.round(clamp(y - h / 2, 8, H - h - 8))}px)`;
 		});
 		const core = radios.find((r) => r.dataset.agent === 'Onyx Core');
-		const cx = (g.a[0] + g.b[0] + g.c[0]) / 3, cy = (g.a[1] + g.b[1] + g.c[1]) / 3;
-		core.style.transform = `translate(${Math.round(cx - core.offsetWidth / 2)}px, ${Math.round(cy - core.offsetHeight / 2)}px)`;
-		you.style.transform = g.tall ? `translate(${Math.round(g.src[0] + 12)}px, 0)` : `translate(0, ${Math.round(g.src[1] - 2)}px)`;
+		const [cw, ch] = sizes.get(core);
+		core.style.transform = `translate(${Math.round(clamp(g.core[0] - cw / 2, 8, W - cw - 8))}px, ${Math.round(clamp(g.core[1] - ch / 2, 8, H - ch - 8))}px)`;
+		you.style.transform = g.tall ? `translate(${Math.round(clamp(g.src[0] + 12, 0, W - sizes.get(you)[0] - 24))}px, 0)` : `translate(0, ${Math.round(clamp(g.src[1] + 6, 0, H - 40))}px)`;
+		if (prism) stage.dataset.renderer = prism.kind;
 	};
 	lazy(stage, () => import('./scenes/prism.js').then(async ({ mountPrism }) => {
 		stage.classList.add('placed');
 		prism = await mountPrism($('canvas', stage), { onLayout: place });
 		if (!prism) { stage.classList.remove('placed'); for (const r of radios) r.style.transform = ''; you.style.transform = ''; return; }
 		stage.classList.add('live');
+		stage.dataset.renderer = prism.kind;
 		prism.setFocus(beamOf(chosen));
-		// The incoming beam swings a little with the pointer.
+		// The camera leans towards the pointer, and the incoming beam swings with it.
 		if (!calm.matches) {
 			stage.addEventListener('pointermove', (e) => {
 				const r = stage.getBoundingClientRect();
-				prism.setTilt(((e.clientY - r.top) / r.height - 0.5) * 1.6);
+				prism.setPointer(((e.clientX - r.left) / r.width - 0.5) * 2, ((e.clientY - r.top) / r.height - 0.5) * 2);
 			});
-			stage.addEventListener('pointerleave', () => prism.setTilt(0));
+			stage.addEventListener('pointerleave', () => prism.setPointer(0, 0));
 		}
 	}).catch(() => {}));
 }

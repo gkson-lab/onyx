@@ -158,21 +158,24 @@
 							<button class="beam" type="button" role="radio" aria-checked="false" tabindex="-1" data-agent="Memory" style="--c: var(--c-memory)">Memory</button>
 						</div>
 					</div>
-					<article class="agent-card" data-agent-card aria-live="polite" style="--c: var(--c-core)">
+					<div class="team-below">
+						<article class="agent-card" data-agent-card aria-live="polite" style="--c: var(--c-core)">
 						<!-- Filled in by site.js; this is what shows without it. -->
 						<div class="row"><h3>Onyx Core</h3><span class="chip">tier picked per message</span></div>
 						<p class="role">The lead. It reads every message and writes the reply you get.</p>
 						<p class="desc">Quick questions it answers itself. Bigger ones it plans out, hands to the specialists, and stitches their work into one answer. If a job only needs one specialist, it goes straight there to save time.</p>
 					</article>
+						<div class="rules">
+							<p><b>A step limit</b>Every agent gets a set number of steps. On the last one its tools are taken away, so it has to answer.</p>
+							<p><b>A shared budget</b>Specialists spend from whatever tokens their parent has left, so one run can't balloon.</p>
+							<p><b>Fair timing</b>Time spent waiting for the graphics card while another agent uses it doesn't count against anyone.</p>
+							<p><b>One stop button</b>Hit Stop or press Esc, and every agent in the run stops.</p>
+							<p><b>No hidden failures</b>Anything that failed is listed under the answer, taken from the log rather than from what a model says it did.</p>
+							<p><b>Make it yours</b>Edit any agent's instructions, tier, tools and limits, or add a new one. Any MCP server can add more tools.</p>
+						</div>
+					</div>
 				</div>
-				<div class="rules">
-					<p><b>A step limit</b>Every agent gets a set number of steps. On the last one its tools are taken away, so it has to answer.</p>
-					<p><b>A shared budget</b>Specialists spend from whatever tokens their parent has left, so one run can't balloon.</p>
-					<p><b>Fair timing</b>Time spent waiting for the graphics card while another agent uses it doesn't count against anyone.</p>
-					<p><b>One stop button</b>Hit Stop or press Esc, and every agent in the run stops.</p>
-					<p><b>No hidden failures</b>Anything that failed is listed under the answer, taken from the log rather than from what a model says it did.</p>
-					<p><b>Make it yours</b>Edit any agent's instructions, tier, tools and limits, or add a new one. Any MCP server can add more tools.</p>
-				</div>
+
 			</div>
 		</section>
 

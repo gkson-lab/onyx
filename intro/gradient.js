@@ -46,8 +46,9 @@ export const PRESETS = {
 	// Banded onyx: near-black, a vein of sard (the red-brown of sardonyx) and a pale band where the folds rise. The
 	// plane, camera and light follow ShaderGradient's water-plane presets: tilted 45 degrees, seen from above and
 	// behind, lit mostly by even ambient light, so the colour bands do the work.
+	// Prism: the same banded stone, cooled to sit under the chromatic mark: blue-black, a violet vein, pale cyan light.
 	onyx: {
-		colors: ['#0f0c0a', '#6a2a17', '#cbb99c'],
+		colors: ['#09090f', '#3b2a7e', '#8fd0e8'],
 		density: 1.2, strength: 3.2, speed: 0.12, grain: 0.05,
 		position: [0, 0.9, -0.3], rotation: [45, 0, 0],
 		camera: { azimuth: 200, polar: 62, distance: 4.4, fov: 45 },
@@ -55,7 +56,7 @@ export const PRESETS = {
 	},
 	// The same stone, darker and calmer, behind the download panel.
 	night: {
-		colors: ['#0d0b09', '#4a2012', '#9c8a70'],
+		colors: ['#08080d', '#2a1f5e', '#5f9fc0'],
 		density: 1.4, strength: 2.6, speed: 0.08, grain: 0.05,
 		position: [0, 0.6, -0.3], rotation: [50, 0, -40],
 		camera: { azimuth: 180, polar: 72, distance: 4.2, fov: 45 },
@@ -63,9 +64,10 @@ export const PRESETS = {
 	},
 };
 
-/** Presets for the background settings: the page's own stone and three more. Each changes only the colours and motion. */
+/** Presets for the background settings: the page's own prismatic stone and four more. Each changes only the colours and motion. */
 export const STONES = {
-	Onyx: { colors: PRESETS.onyx.colors, speed: 0.12, strength: 3.2, density: 1.2, grain: 0.05 },
+	Prism: { colors: PRESETS.onyx.colors, speed: 0.12, strength: 3.2, density: 1.2, grain: 0.05 },
+	Onyx: { colors: ['#0f0c0a', '#6a2a17', '#cbb99c'], speed: 0.12, strength: 3.2, density: 1.2, grain: 0.05 },
 	Sardonyx: { colors: ['#1a0d08', '#b4532c', '#f0d8b2'], speed: 0.18, strength: 2.6, density: 1.5, grain: 0.04 },
 	Agate: { colors: ['#14171c', '#4d6b7c', '#e6d7c1'], speed: 0.1, strength: 3.6, density: 1.0, grain: 0.05 },
 	Ember: { colors: ['#120a07', '#d0461f', '#ffc483'], speed: 0.3, strength: 2.2, density: 2.0, grain: 0.07 },
